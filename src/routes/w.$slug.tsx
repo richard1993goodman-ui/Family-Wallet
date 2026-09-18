@@ -1,0 +1,338 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import {
+  ArrowUpRight,
+  FileText,
+  IdCard,
+  Lock,
+  Shield,
+  ScrollText,
+  ExternalLink,
+} from "lucide-react";
+
+import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
+import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
+import { GuaranteeContent } from "@/components/GuaranteeContent";
+import { TermsContent } from "@/components/TermsContent";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+export const Route = createFileRoute("/w/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Your Family Wallet — Athlete Mannies & Nannies" },
+      {
+        name: "description",
+        content:
+          "Your private family wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
+      },
+      { property: "og:title", content: "Your Family Wallet — Athlete Mannies & Nannies" },
+      {
+        property: "og:description",
+        content: "Your private family wallet from Athlete Mannies & Nannies.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: WalletPage,
+});
+
+function WalletPage() {
+  const { slug } = Route.useParams();
+  const queryClient = useQueryClient();
+  const summaryFn = useServerFn(getWalletSummary);
+  const unlockFn = useServerFn(unlockWallet);
+  const lockFn = useServerFn(lockWalletFn);
+  const docFn = useServerFn(getDocumentUrl);
+
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [sheet, setSheet] = useState<null | "terms" | "guarantee">(null);
+
+  const query = useQuery({
+    queryKey: ["wallet", slug],
+    queryFn: () => summaryFn({ data: { slug } }),
+  });
+
+  async function onUnlock(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const result = await unlockFn({ data: { slug, code } });
+      if (result.ok) {
+        setCode("");
+        await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
+      } else {
+        toast.error(
+          result.reason === "rate_limited"
+            ? "Too many tries. Please wait 15 minutes and try again."
+            : "That code doesn't match. Please check and try again.",
+        );
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function openDoc(docType: string) {
+    const { url } = await docFn({ data: { slug, docType } });
+    if (url) window.open(url, "_blank", "noopener");
+    else toast.error("That document isn't available yet.");
+  }
+
+  if (query.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading your wallet…
+      </div>
+    );
+  }
+
+  const data = query.data;
+
+  if (data && !data.unlocked) {
+    if (!data.exists) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-sand px-5">
+          <div className="max-w-sm text-center">
+            <h1 className="heading-display text-2xl text-primary">Wallet not found</h1>
+            <p className="mt-3 text-sm text-muted-foreground">
+              This link isn't active. Please check the link we sent you, or get in touch and we'll
+              send a fresh one.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
+        <div className="w-full max-w-sm rounded-xl border border-border bg-card p-7 text-center">
+          <Lock className="mx-auto h-7 w-7 text-primary" />
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Athlete Mannies &amp; Nannies
+          </p>
+          <h1 className="heading-display mt-2 text-2xl text-primary">{data.familyName}</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Enter the 6-character access code we sent you. You'll only need to do this once on this
+            device.
+          </p>
+          <form onSubmit={onUnlock} className="mt-5 space-y-3">
+            <Input
+              value={code}
+              onChange={(e) => setCode(e.target.value.toUpperCase())}
+              placeholder="ABC123"
+              maxLength={10}
+              autoCapitalize="characters"
+              className="text-center text-lg tracking-[0.3em]"
+              required
+            />
+            <Button type="submit" className="w-full" disabled={busy}>
+              {busy ? "Checking…" : "Open my wallet"}
+            </Button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data?.unlocked) return null;
+
+  const wallet = data.wallet;
+  const tier = tierFor(wallet.tierBand);
+  const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
+
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-2xl px-5 py-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          Athlete Mannies &amp; Nannies
+        </p>
+        <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
+          {wallet.familyName}
+        </h1>
+
+        <div className="mt-6 rounded-xl border border-border bg-card p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Membership
+              </p>
+              <p className="heading-display mt-1 text-xl text-foreground">{tier.name}</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {tier.days} · {tier.price}
+              </p>
+            </div>
+            <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
+              Active
+            </span>
+          </div>
+          <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+            {wallet.nannyName && (
+              <div>
+                <dt className="text-muted-foreground">Your nanny</dt>
+                <dd className="font-medium text-foreground">{wallet.nannyName}</dd>
+              </div>
+            )}
+            {wallet.startDate && (
+              <div>
+                <dt className="text-muted-foreground">Started with us</dt>
+                <dd className="font-medium text-foreground">
+                  {new Date(wallet.startDate).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </dd>
+              </div>
+            )}
+            {wallet.termsAcceptedOn && (
+              <div>
+                <dt className="text-muted-foreground">Terms accepted</dt>
+                <dd className="font-medium text-foreground">
+                  {new Date(wallet.termsAcceptedOn).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </dd>
+              </div>
+            )}
+          </dl>
+        </div>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Your documents</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <DocTile
+            icon={FileText}
+            title="Nanny agreement"
+            subtitle={hasDoc("agreement") ? "Open your signed agreement" : "Coming soon"}
+            disabled={!hasDoc("agreement")}
+            onClick={() => openDoc("agreement")}
+          />
+          <DocTile
+            icon={IdCard}
+            title="Your nanny's CV"
+            subtitle={hasDoc("cv") ? "Experience, training and references" : "Coming soon"}
+            disabled={!hasDoc("cv")}
+            onClick={() => openDoc("cv")}
+          />
+          <DocTile
+            icon={ScrollText}
+            title="Membership terms"
+            subtitle="The terms of your membership"
+            onClick={() => setSheet("terms")}
+          />
+          <DocTile
+            icon={Shield}
+            title="Our family guarantee"
+            subtitle="What we promise you, always"
+            onClick={() => setSheet("guarantee")}
+          />
+        </div>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Your everyday tools</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          These open in a new tab so you always get the latest version.
+        </p>
+        <div className="mt-3 space-y-3">
+          {TOOL_LINKS.map((tool) => (
+            <a
+              key={tool.href}
+              href={tool.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+            >
+              <span>
+                <span className="block font-medium text-foreground">{tool.title}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">{tool.description}</span>
+              </span>
+              <ArrowUpRight className="mt-1 h-4 w-4 flex-shrink-0 text-primary" />
+            </a>
+          ))}
+        </div>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Other fees</h2>
+        <div className="mt-3 rounded-xl border border-border bg-card p-5">
+          <dl className="space-y-3 text-sm">
+            {EXTRA_FEES.map((fee) => (
+              <div key={fee.label} className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{fee.label}</dt>
+                <dd className="flex-shrink-0 font-medium text-foreground">{fee.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
+          <a
+            href={TERMS_HUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+          >
+            Full terms hub <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+          <button
+            className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            onClick={async () => {
+              await lockFn({ data: { slug } });
+              await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
+            }}
+          >
+            Lock this wallet
+          </button>
+        </div>
+      </div>
+
+      <Dialog open={sheet !== null} onOpenChange={(open) => !open && setSheet(null)}>
+        <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="heading-display text-xl">
+              {sheet === "terms" ? "Membership terms & conditions" : "Our family guarantee"}
+            </DialogTitle>
+          </DialogHeader>
+          {sheet === "terms" ? <TermsContent /> : <GuaranteeContent />}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+function DocTile({
+  icon: Icon,
+  title,
+  subtitle,
+  onClick,
+  disabled,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+  onClick: () => void;
+  disabled?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex w-full items-start gap-3 rounded-xl border border-border bg-card p-5 text-left transition-colors hover:border-primary/40 disabled:cursor-not-allowed disabled:opacity-55"
+    >
+      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span>
+        <span className="block font-medium text-foreground">{title}</span>
+        <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
+      </span>
+    </button>
+  );
+}
