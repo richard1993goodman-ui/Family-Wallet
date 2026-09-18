@@ -234,11 +234,18 @@ function AdminHome() {
                     {family.nanny_name ? ` · Nanny: ${family.nanny_name}` : ""}
                   </p>
                 </div>
-                {family.status !== "active" && (
-                  <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-                    Archived
-                  </span>
-                )}
+                <div className="flex flex-col items-end gap-1">
+                  {family.status !== "active" && (
+                    <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
+                      Archived
+                    </span>
+                  )}
+                  {family.dbsExpired && (
+                    <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
+                      DBS over 3 years old
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                 <code className="rounded bg-muted px-2 py-1">/w/{family.slug}</code>
