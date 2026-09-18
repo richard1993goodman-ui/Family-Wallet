@@ -15,8 +15,8 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
-import GuaranteeContent from "@/components/GuaranteeContent";
-import TermsContent from "@/components/TermsContent";
+import { GuaranteeContent } from "@/components/GuaranteeContent";
+import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
