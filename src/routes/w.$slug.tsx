@@ -356,6 +356,40 @@ function WalletPage() {
           ))}
         </div>
 
+        {wallet.nannytaxCode && (
+          <>
+            <h2 className="heading-display mt-9 text-lg text-foreground">Your Nannytax code</h2>
+            <div className="mt-3 rounded-xl border border-border bg-card p-5">
+              <p className="text-sm text-muted-foreground">
+                Use this referral code when you set up payroll with Nannytax.
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <span className="rounded-lg bg-accent px-3 py-2 font-mono text-base font-semibold tracking-wider text-foreground">
+                  {wallet.nannytaxCode}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(wallet.nannytaxCode!);
+                    toast.success("Code copied");
+                  }}
+                >
+                  Copy code
+                </Button>
+                <a
+                  href="https://www.nannytax.co.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                >
+                  Visit Nannytax <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </>
+        )}
+
         <h2 className="heading-display mt-9 text-lg text-foreground">Other fees</h2>
         <div className="mt-3 rounded-xl border border-border bg-card p-5">
           <dl className="space-y-3 text-sm">
