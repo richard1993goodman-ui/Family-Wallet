@@ -244,8 +244,16 @@ export const getAdminDocumentUrl = createServerFn({ method: "POST" })
 export const uploadDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(
-    (data: { familyId: string; docType: string; fileName: string; contentType: string; base64: string }) =>
-      data,
+    (data: {
+      familyId: string;
+      docType: string;
+      fileName: string;
+      contentType: string;
+      base64: string;
+      visibility?: string;
+      issuedOn?: string;
+      referenceLabel?: string;
+    }) => data,
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context as unknown as Ctx);
@@ -257,6 +265,14 @@ export const uploadDocument = createServerFn({ method: "POST" })
       .from("family-docs")
       .upload(path, bytes, { contentType: data.contentType, upsert: true });
     if (uploadError) throw new Error(uploadError.message);
+
+    const { data: existing } = await supabaseAdmin
+      .from("family_documents")
+      .select("visibility, issued_on, reference_label")
+      .eq("family_id", data.familyId)
+      .eq("doc_type", data.docType)
+      .maybeSingle();
+
     const { error } = await supabaseAdmin.from("family_documents").upsert(
       {
         family_id: data.familyId,
@@ -264,9 +280,90 @@ export const uploadDocument = createServerFn({ method: "POST" })
         storage_path: path,
         file_name: data.fileName,
         uploaded_at: new Date().toISOString(),
+        visibility: data.visibility ?? existing?.visibility ?? "document",
+        issued_on: data.issuedOn || (existing?.issued_on as string | null) || null,
+        reference_label: data.referenceLabel ?? existing?.reference_label ?? null,
       },
       { onConflict: "family_id,doc_type" },
     );
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const updateDocumentMeta = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { id: string; visibility: string; issuedOn: string; referenceLabel: string }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("family_documents")
+      .update({
+        visibility: data.visibility,
+        issued_on: data.issuedOn || null,
+        reference_label: data.referenceLabel.trim() || null,
+      })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const uploadNannyPhoto = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; fileName: string; contentType: string; base64: string }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const bytes = Buffer.from(data.base64, "base64");
+    const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${data.familyId}/nanny-photo-${Date.now()}-${safeName}`;
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("family-docs")
+      .upload(path, bytes, { contentType: data.contentType, upsert: true });
+    if (uploadError) throw new Error(uploadError.message);
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({ nanny_photo_path: path, updated_at: new Date().toISOString() })
+      .eq("id", data.familyId);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const addContact = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; name: string; relationship: string; phone: string }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { count } = await supabaseAdmin
+      .from("family_contacts")
+      .select("id", { count: "exact", head: true })
+      .eq("family_id", data.familyId);
+    if ((count ?? 0) >= 3) throw new Error("Up to 3 emergency contacts per family");
+    const { error } = await supabaseAdmin.from("family_contacts").insert({
+      family_id: data.familyId,
+      name: data.name.trim(),
+      relationship: data.relationship.trim() || null,
+      phone: data.phone.trim(),
+      sort_order: count ?? 0,
+    });
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const deleteContact = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("family_contacts").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true as const };
   });
