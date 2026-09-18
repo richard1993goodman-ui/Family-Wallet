@@ -1,5 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, IdCard, Calculator, Shield, Sparkles, Apple } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { FileText, IdCard, Calculator, Shield, Sparkles, Apple, KeyRound } from "lucide-react";
+
+import { unlockWallet } from "@/lib/wallet.functions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/")({
   head: () => ({
