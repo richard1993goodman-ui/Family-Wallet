@@ -52,7 +52,22 @@ export const listFamilies = createServerFn({ method: "GET" })
       .select("id, slug, family_name, tier_band, nanny_name, status, access_code, created_at")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const families = data ?? [];
+    const { data: dbsDocs } = await supabaseAdmin
+      .from("family_documents")
+      .select("family_id, issued_on")
+      .eq("doc_type", "dbs")
+      .not("issued_on", "is", null);
+    const expiryByFamily = new Map<string, string>();
+    for (const doc of dbsDocs ?? []) {
+      if (doc.issued_on) expiryByFamily.set(doc.family_id, doc.issued_on);
+    }
+    const threeYearsAgo = new Date();
+    threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
+    return families.map((f) => {
+      const issued = expiryByFamily.get(f.id);
+      return { ...f, dbsIssuedOn: issued ?? null, dbsExpired: !!issued && new Date(issued) < threeYearsAgo };
+    });
   });
 
 export const getFamily = createServerFn({ method: "POST" })
