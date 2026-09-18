@@ -226,11 +226,11 @@ export async function documentUrl(slug: string, docType: string) {
 
   const { data: doc } = await supabaseAdmin
     .from("family_documents")
-    .select("storage_path")
+    .select("storage_path, visibility")
     .eq("family_id", family.id)
     .eq("doc_type", docType)
     .maybeSingle();
-  if (!doc) return null;
+  if (!doc || doc.visibility !== "document") return null;
 
   const { data: signed } = await supabaseAdmin.storage
     .from("family-docs")
