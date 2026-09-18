@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       families: {
         Row: {
+          access_code: string
           access_code_hash: string
           contact_email: string | null
           contact_phone: string | null
@@ -32,6 +33,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          access_code?: string
           access_code_hash: string
           contact_email?: string | null
           contact_phone?: string | null
@@ -48,6 +50,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          access_code?: string
           access_code_hash?: string
           contact_email?: string | null
           contact_phone?: string | null

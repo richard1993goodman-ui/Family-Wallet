@@ -1,0 +1,1 @@
+ALTER TABLE public.families ADD COLUMN access_code text NOT NULL DEFAULT '';
