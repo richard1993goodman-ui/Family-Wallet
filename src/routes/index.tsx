@@ -1,5 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, IdCard, Calculator, Shield, Sparkles, Apple } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { FileText, IdCard, Calculator, Shield, Sparkles, Apple, KeyRound } from "lucide-react";
+
+import { unlockWallet } from "@/lib/wallet.functions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,6 +38,89 @@ const items = [
   { icon: Shield, label: "Membership terms & our family guarantee" },
 ];
 
+function slugFromInput(input: string) {
+  const trimmed = input.trim();
+  // Accept a full wallet link or just the short name at the end.
+  const withoutProtocol = trimmed.replace(/^https?:\/\//i, "");
+  const parts = withoutProtocol.split(/[/?#]/).filter(Boolean);
+  const last = parts[parts.length - 1] ?? "";
+  return last.toLowerCase().replace(/[^a-z0-9-]/g, "");
+}
+
+function FamilyLogin() {
+  const navigate = useNavigate();
+  const unlockFn = useServerFn(unlockWallet);
+  const [link, setLink] = useState("");
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const slug = slugFromInput(link);
+    if (!slug) {
+      toast.error("Please enter your wallet link.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const result = await unlockFn({ data: { slug, code } });
+      if (result.ok) {
+        navigate({ to: "/w/$slug", params: { slug } });
+      } else {
+        toast.error(
+          result.reason === "rate_limited"
+            ? "Too many tries. Please wait 15 minutes and try again."
+            : "That code doesn't match that link. Please check both and try again.",
+        );
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="mt-8 rounded-xl border border-border bg-card p-6">
+      <div className="flex items-center gap-3">
+        <KeyRound className="h-5 w-5 text-primary" />
+        <h2 className="heading-display text-lg text-foreground">Family login</h2>
+      </div>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Already have your link and code? Open your wallet here.
+      </p>
+      <form onSubmit={onSubmit} className="mt-4 space-y-4">
+        <div>
+          <Label htmlFor="wallet-link">Your wallet link</Label>
+          <Input
+            id="wallet-link"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            placeholder="e.g. smith-4f2a"
+            autoComplete="off"
+            required
+            className="mt-1"
+          />
+        </div>
+        <div>
+          <Label htmlFor="wallet-code">Access code</Label>
+          <Input
+            id="wallet-code"
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            placeholder="6-character code"
+            autoComplete="off"
+            maxLength={8}
+            required
+            className="mt-1 uppercase tracking-widest"
+          />
+        </div>
+        <Button type="submit" className="w-full" disabled={busy}>
+          {busy ? "Opening…" : "Open my wallet"}
+        </Button>
+      </form>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-sand">
@@ -44,6 +135,8 @@ function Index() {
           Every family that joins us gets their own private wallet. It holds everything you need in
           one place, so you are never hunting through emails for a document again.
         </p>
+
+        <FamilyLogin />
 
         <div className="mt-8 rounded-xl border border-border bg-card p-6">
           <h2 className="heading-display text-lg text-foreground">Inside your wallet</h2>
