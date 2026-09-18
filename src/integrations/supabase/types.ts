@@ -23,7 +23,12 @@ export type Database = {
           created_at: string
           family_name: string
           id: string
+          nanny_bio: string | null
+          nanny_emergency_name: string | null
+          nanny_emergency_phone: string | null
+          nanny_emergency_relationship: string | null
           nanny_name: string | null
+          nanny_photo_path: string | null
           notes: string | null
           slug: string
           start_date: string | null
@@ -40,7 +45,12 @@ export type Database = {
           created_at?: string
           family_name: string
           id?: string
+          nanny_bio?: string | null
+          nanny_emergency_name?: string | null
+          nanny_emergency_phone?: string | null
+          nanny_emergency_relationship?: string | null
           nanny_name?: string | null
+          nanny_photo_path?: string | null
           notes?: string | null
           slug: string
           start_date?: string | null
@@ -57,7 +67,12 @@ export type Database = {
           created_at?: string
           family_name?: string
           id?: string
+          nanny_bio?: string | null
+          nanny_emergency_name?: string | null
+          nanny_emergency_phone?: string | null
+          nanny_emergency_relationship?: string | null
           nanny_name?: string | null
+          nanny_photo_path?: string | null
           notes?: string | null
           slug?: string
           start_date?: string | null
@@ -68,30 +83,77 @@ export type Database = {
         }
         Relationships: []
       }
+      family_contacts: {
+        Row: {
+          created_at: string
+          family_id: string
+          id: string
+          name: string
+          phone: string
+          relationship: string | null
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          family_id: string
+          id?: string
+          name: string
+          phone: string
+          relationship?: string | null
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          family_id?: string
+          id?: string
+          name?: string
+          phone?: string
+          relationship?: string | null
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_contacts_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       family_documents: {
         Row: {
           doc_type: string
           family_id: string
           file_name: string
           id: string
+          issued_on: string | null
+          reference_label: string | null
           storage_path: string
           uploaded_at: string
+          visibility: string
         }
         Insert: {
           doc_type: string
           family_id: string
           file_name: string
           id?: string
+          issued_on?: string | null
+          reference_label?: string | null
           storage_path: string
           uploaded_at?: string
+          visibility?: string
         }
         Update: {
           doc_type?: string
           family_id?: string
           file_name?: string
           id?: string
+          issued_on?: string | null
+          reference_label?: string | null
           storage_path?: string
           uploaded_at?: string
+          visibility?: string
         }
         Relationships: [
           {
