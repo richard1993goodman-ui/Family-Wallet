@@ -91,6 +91,7 @@ function FamilyDetail() {
     tierBand: "3",
     nannyName: "",
     nannyBio: "",
+    nannytaxCode: "",
     nannyEmergencyName: "",
     nannyEmergencyRelationship: "",
     nannyEmergencyPhone: "",
@@ -112,6 +113,7 @@ function FamilyDetail() {
       tierBand: f.tier_band ?? "3",
       nannyName: f.nanny_name ?? "",
       nannyBio: f.nanny_bio ?? "",
+      nannytaxCode: f.nannytax_code ?? "",
       nannyEmergencyName: f.nanny_emergency_name ?? "",
       nannyEmergencyRelationship: f.nanny_emergency_relationship ?? "",
       nannyEmergencyPhone: f.nanny_emergency_phone ?? "",
@@ -563,6 +565,19 @@ function FamilyDetail() {
                   value={form.nannyBio}
                   onChange={(e) => setForm({ ...form, nannyBio: e.target.value })}
                 />
+              </div>
+              <div>
+                <Label htmlFor="nannytax">Nannytax referral code</Label>
+                <Input
+                  id="nannytax"
+                  className="mt-1"
+                  placeholder="e.g. AM12345"
+                  value={form.nannytaxCode}
+                  onChange={(e) => setForm({ ...form, nannytaxCode: e.target.value })}
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Shown in this family's wallet with a link to nannytax.co.uk.
+                </p>
               </div>
               <div>
                 <Label className="text-sm font-medium">Nanny's emergency contact</Label>

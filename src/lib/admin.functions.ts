@@ -104,6 +104,7 @@ export type FamilyInput = {
   tierBand: string;
   nannyName: string;
   nannyBio?: string;
+  nannytaxCode?: string;
   nannyEmergencyName?: string;
   nannyEmergencyRelationship?: string;
   nannyEmergencyPhone?: string;
@@ -128,6 +129,7 @@ export const saveFamily = createServerFn({ method: "POST" })
       tier_band: data.tierBand,
       nanny_name: data.nannyName.trim() || null,
       nanny_bio: (data.nannyBio ?? "").trim() || null,
+      nannytax_code: (data.nannytaxCode ?? "").trim() || null,
       nanny_emergency_name: (data.nannyEmergencyName ?? "").trim() || null,
       nanny_emergency_relationship: (data.nannyEmergencyRelationship ?? "").trim() || null,
       nanny_emergency_phone: (data.nannyEmergencyPhone ?? "").trim() || null,
