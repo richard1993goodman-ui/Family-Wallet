@@ -29,6 +29,7 @@ export type Database = {
           nanny_emergency_relationship: string | null
           nanny_name: string | null
           nanny_photo_path: string | null
+          nannytax_code: string | null
           notes: string | null
           slug: string
           start_date: string | null
@@ -51,6 +52,7 @@ export type Database = {
           nanny_emergency_relationship?: string | null
           nanny_name?: string | null
           nanny_photo_path?: string | null
+          nannytax_code?: string | null
           notes?: string | null
           slug: string
           start_date?: string | null
@@ -73,6 +75,7 @@ export type Database = {
           nanny_emergency_relationship?: string | null
           nanny_name?: string | null
           nanny_photo_path?: string | null
+          nannytax_code?: string | null
           notes?: string | null
           slug?: string
           start_date?: string | null
