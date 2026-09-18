@@ -412,6 +412,34 @@ function WalletPage() {
   );
 }
 
+function ContactCard({
+  label,
+  contact,
+}: {
+  label: string;
+  contact: { name: string; relationship: string | null; phone: string };
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="mt-2 font-medium text-foreground">{contact.name}</p>
+      {contact.relationship && (
+        <p className="text-sm text-muted-foreground">{contact.relationship}</p>
+      )}
+      {contact.phone && (
+        <a
+          href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          <Phone className="h-3.5 w-3.5" /> {contact.phone}
+        </a>
+      )}
+    </div>
+  );
+}
+
 function DocTile({
   icon: Icon,
   title,
