@@ -5,9 +5,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 import {
   ArrowUpRight,
+  BadgeCheck,
   FileText,
   IdCard,
   Lock,
+  Phone,
   Shield,
   ScrollText,
   ExternalLink,
@@ -45,6 +47,13 @@ export const Route = createFileRoute("/w/$slug")({
   }),
   component: WalletPage,
 });
+
+const CHECK_LABELS: Record<string, { title: string }> = {
+  dbs: { title: "DBS certificate" },
+  id_check: { title: "ID & right to work" },
+  reference_1: { title: "Reference" },
+  reference_2: { title: "Reference" },
+};
 
 function WalletPage() {
   const { slug } = Route.useParams();
@@ -359,7 +368,16 @@ function WalletPage() {
           </dl>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
+        <p className="mt-10 text-xs text-muted-foreground">
+          Wallet last updated{" "}
+          {new Date(wallet.updatedAt).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
           <a
             href={TERMS_HUB_URL}
             target="_blank"
