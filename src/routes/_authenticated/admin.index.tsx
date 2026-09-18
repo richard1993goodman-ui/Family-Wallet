@@ -241,7 +241,7 @@ function AdminHome() {
                     </span>
                   )}
                   {family.dbsExpired && (
-                    <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
+                    <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
                       DBS over 3 years old
                     </span>
                   )}
