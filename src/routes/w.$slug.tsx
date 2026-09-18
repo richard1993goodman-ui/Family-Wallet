@@ -177,12 +177,6 @@ function WalletPage() {
             </span>
           </div>
           <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
-            {wallet.nannyName && (
-              <div>
-                <dt className="text-muted-foreground">Your nanny</dt>
-                <dd className="font-medium text-foreground">{wallet.nannyName}</dd>
-              </div>
-            )}
             {wallet.startDate && (
               <div>
                 <dt className="text-muted-foreground">Started with us</dt>
@@ -209,6 +203,48 @@ function WalletPage() {
             )}
           </dl>
         </div>
+
+        {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
+          <div className="mt-4 rounded-xl border border-border bg-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Your nanny
+            </p>
+            <div className="mt-3 flex items-start gap-4">
+              {wallet.nannyPhotoUrl && (
+                <img
+                  src={wallet.nannyPhotoUrl}
+                  alt={wallet.nannyName ?? "Your nanny"}
+                  className="h-20 w-20 flex-shrink-0 rounded-full border border-border object-cover"
+                />
+              )}
+              <div>
+                {wallet.nannyName && (
+                  <p className="heading-display text-xl text-foreground">{wallet.nannyName}</p>
+                )}
+                {wallet.nannyBio && (
+                  <p className="mt-1 text-sm text-muted-foreground">{wallet.nannyBio}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
+          <>
+            <h2 className="heading-display mt-9 text-lg text-foreground">Emergency contacts</h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {wallet.nannyEmergency && (
+                <ContactCard
+                  label="Nanny's emergency contact"
+                  contact={wallet.nannyEmergency}
+                />
+              )}
+              {wallet.contacts.map((contact, i) => (
+                <ContactCard key={i} label="Family emergency contact" contact={contact} />
+              ))}
+            </div>
+          </>
+        )}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Your documents</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -239,6 +275,55 @@ function WalletPage() {
             onClick={() => setSheet("guarantee")}
           />
         </div>
+
+        {wallet.checks.length > 0 && (
+          <>
+            <h2 className="heading-display mt-9 text-lg text-foreground">
+              Checks &amp; credentials
+            </h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {wallet.checks.map((check) => {
+                const meta = CHECK_LABELS[check.docType] ?? { title: check.docType };
+                const detail = [
+                  check.issuedOn
+                    ? `Issued ${new Date(check.issuedOn).toLocaleDateString("en-GB", {
+                        month: "long",
+                        year: "numeric",
+                      })}`
+                    : null,
+                  check.referenceLabel,
+                ]
+                  .filter(Boolean)
+                  .join(" · ");
+                if (check.visibility === "badge") {
+                  return (
+                    <div
+                      key={check.docType}
+                      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5"
+                    >
+                      <BadgeCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span>
+                        <span className="block font-medium text-foreground">{meta.title}</span>
+                        <span className="mt-1 block text-sm text-muted-foreground">
+                          Verified by Athlete Mannies{detail ? ` · ${detail}` : ""}
+                        </span>
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <DocTile
+                    key={check.docType}
+                    icon={BadgeCheck}
+                    title={meta.title}
+                    subtitle={detail || "Open document"}
+                    onClick={() => openDoc(check.docType)}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Your everyday tools</h2>
         <p className="mt-1 text-sm text-muted-foreground">
