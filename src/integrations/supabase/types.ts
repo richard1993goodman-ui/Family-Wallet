@@ -14,16 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      families: {
+        Row: {
+          access_code_hash: string
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string
+          family_name: string
+          id: string
+          nanny_name: string | null
+          notes: string | null
+          slug: string
+          start_date: string | null
+          status: string
+          terms_accepted_on: string | null
+          tier_band: string
+          updated_at: string
+        }
+        Insert: {
+          access_code_hash: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          family_name: string
+          id?: string
+          nanny_name?: string | null
+          notes?: string | null
+          slug: string
+          start_date?: string | null
+          status?: string
+          terms_accepted_on?: string | null
+          tier_band?: string
+          updated_at?: string
+        }
+        Update: {
+          access_code_hash?: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          family_name?: string
+          id?: string
+          nanny_name?: string | null
+          notes?: string | null
+          slug?: string
+          start_date?: string | null
+          status?: string
+          terms_accepted_on?: string | null
+          tier_band?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      family_documents: {
+        Row: {
+          doc_type: string
+          family_id: string
+          file_name: string
+          id: string
+          storage_path: string
+          uploaded_at: string
+        }
+        Insert: {
+          doc_type: string
+          family_id: string
+          file_name: string
+          id?: string
+          storage_path: string
+          uploaded_at?: string
+        }
+        Update: {
+          doc_type?: string
+          family_id?: string
+          file_name?: string
+          id?: string
+          storage_path?: string
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_access_attempts: {
+        Row: {
+          attempted_at: string
+          client_key: string
+          id: string
+          slug: string
+          succeeded: boolean
+        }
+        Insert: {
+          attempted_at?: string
+          client_key: string
+          id?: string
+          slug: string
+          succeeded?: boolean
+        }
+        Update: {
+          attempted_at?: string
+          client_key?: string
+          id?: string
+          slug?: string
+          succeeded?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +286,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
