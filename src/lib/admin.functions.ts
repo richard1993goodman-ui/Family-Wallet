@@ -85,9 +85,15 @@ export const getFamily = createServerFn({ method: "POST" })
     if (!family) throw new Error("Family not found");
     const { data: docs } = await supabaseAdmin
       .from("family_documents")
-      .select("id, doc_type, file_name, storage_path, uploaded_at")
+      .select("id, doc_type, file_name, storage_path, uploaded_at, visibility, issued_on, reference_label")
       .eq("family_id", data.id);
-    return { family, documents: docs ?? [] };
+    const { data: contacts } = await supabaseAdmin
+      .from("family_contacts")
+      .select("id, name, relationship, phone, sort_order")
+      .eq("family_id", data.id)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
+    return { family, documents: docs ?? [], contacts: contacts ?? [] };
   });
 
 export type FamilyInput = {
@@ -97,6 +103,10 @@ export type FamilyInput = {
   contactPhone: string;
   tierBand: string;
   nannyName: string;
+  nannyBio?: string;
+  nannyEmergencyName?: string;
+  nannyEmergencyRelationship?: string;
+  nannyEmergencyPhone?: string;
   startDate: string;
   termsAcceptedOn: string;
   notes: string;
@@ -117,6 +127,10 @@ export const saveFamily = createServerFn({ method: "POST" })
       contact_phone: data.contactPhone.trim() || null,
       tier_band: data.tierBand,
       nanny_name: data.nannyName.trim() || null,
+      nanny_bio: (data.nannyBio ?? "").trim() || null,
+      nanny_emergency_name: (data.nannyEmergencyName ?? "").trim() || null,
+      nanny_emergency_relationship: (data.nannyEmergencyRelationship ?? "").trim() || null,
+      nanny_emergency_phone: (data.nannyEmergencyPhone ?? "").trim() || null,
       start_date: data.startDate || null,
       terms_accepted_on: data.termsAcceptedOn || null,
       notes: data.notes.trim() || null,
