@@ -136,6 +136,8 @@ function Index() {
           one place, so you are never hunting through emails for a document again.
         </p>
 
+        <FamilyLogin />
+
         <div className="mt-8 rounded-xl border border-border bg-card p-6">
           <h2 className="heading-display text-lg text-foreground">Inside your wallet</h2>
           <ul className="mt-4 space-y-3">
