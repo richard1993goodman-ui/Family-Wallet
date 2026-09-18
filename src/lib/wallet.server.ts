@@ -106,13 +106,29 @@ export async function attemptUnlock(slug: string, code: string) {
   return { ok: true as const };
 }
 
+export type WalletCheck = {
+  docType: string;
+  fileName: string;
+  visibility: "document" | "badge";
+  issuedOn: string | null;
+  referenceLabel: string | null;
+};
+
+export type WalletContact = { name: string; relationship: string | null; phone: string };
+
 export type WalletData = {
   familyName: string;
   tierBand: string;
   nannyName: string | null;
+  nannyBio: string | null;
+  nannyPhotoUrl: string | null;
   startDate: string | null;
   termsAcceptedOn: string | null;
+  updatedAt: string;
+  nannyEmergency: WalletContact | null;
+  contacts: WalletContact[];
   documents: { docType: string; fileName: string }[];
+  checks: WalletCheck[];
 };
 
 export async function loadWallet(slug: string): Promise<WalletData | null> {
@@ -120,24 +136,70 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nanny_name, start_date, terms_accepted_on, status")
+    .select(
+      "id, family_name, tier_band, nanny_name, nanny_bio, nanny_photo_path, start_date, terms_accepted_on, status, updated_at, nanny_emergency_name, nanny_emergency_relationship, nanny_emergency_phone",
+    )
     .eq("slug", slug)
     .maybeSingle();
 
   if (!family || family.status !== "active") return null;
 
-  const { data: docs } = await supabaseAdmin
-    .from("family_documents")
-    .select("doc_type, file_name")
-    .eq("family_id", family.id);
+  const [{ data: docs }, { data: contactRows }] = await Promise.all([
+    supabaseAdmin
+      .from("family_documents")
+      .select("doc_type, file_name, visibility, issued_on, reference_label")
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("name, relationship, phone")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+  ]);
+
+  let nannyPhotoUrl: string | null = null;
+  if (family.nanny_photo_path) {
+    const { data: signed } = await supabaseAdmin.storage
+      .from("family-docs")
+      .createSignedUrl(family.nanny_photo_path, 300);
+    nannyPhotoUrl = signed?.signedUrl ?? null;
+  }
+
+  const visible = (docs ?? []).filter((d) => d.visibility !== "hidden");
 
   return {
     familyName: family.family_name,
     tierBand: family.tier_band,
     nannyName: family.nanny_name,
+    nannyBio: family.nanny_bio,
+    nannyPhotoUrl,
     startDate: family.start_date,
     termsAcceptedOn: family.terms_accepted_on,
-    documents: (docs ?? []).map((d) => ({ docType: d.doc_type, fileName: d.file_name })),
+    updatedAt: family.updated_at,
+    nannyEmergency: family.nanny_emergency_name
+      ? {
+          name: family.nanny_emergency_name,
+          relationship: family.nanny_emergency_relationship,
+          phone: family.nanny_emergency_phone ?? "",
+        }
+      : null,
+    contacts: (contactRows ?? []).map((c) => ({
+      name: c.name,
+      relationship: c.relationship,
+      phone: c.phone,
+    })),
+    documents: visible
+      .filter((d) => d.visibility === "document")
+      .map((d) => ({ docType: d.doc_type, fileName: d.file_name })),
+    checks: visible
+      .filter((d) => ["dbs", "id_check", "reference_1", "reference_2"].includes(d.doc_type))
+      .map((d) => ({
+        docType: d.doc_type,
+        fileName: d.file_name,
+        visibility: d.visibility as "document" | "badge",
+        issuedOn: d.issued_on,
+        referenceLabel: d.reference_label,
+      })),
   };
 }
 
@@ -164,11 +226,11 @@ export async function documentUrl(slug: string, docType: string) {
 
   const { data: doc } = await supabaseAdmin
     .from("family_documents")
-    .select("storage_path")
+    .select("storage_path, visibility")
     .eq("family_id", family.id)
     .eq("doc_type", docType)
     .maybeSingle();
-  if (!doc) return null;
+  if (!doc || doc.visibility !== "document") return null;
 
   const { data: signed } = await supabaseAdmin.storage
     .from("family-docs")

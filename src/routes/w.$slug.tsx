@@ -5,9 +5,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 import {
   ArrowUpRight,
+  BadgeCheck,
   FileText,
   IdCard,
   Lock,
+  Phone,
   Shield,
   ScrollText,
   ExternalLink,
@@ -45,6 +47,13 @@ export const Route = createFileRoute("/w/$slug")({
   }),
   component: WalletPage,
 });
+
+const CHECK_LABELS: Record<string, { title: string }> = {
+  dbs: { title: "DBS certificate" },
+  id_check: { title: "ID & right to work" },
+  reference_1: { title: "Reference" },
+  reference_2: { title: "Reference" },
+};
 
 function WalletPage() {
   const { slug } = Route.useParams();
@@ -177,12 +186,6 @@ function WalletPage() {
             </span>
           </div>
           <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
-            {wallet.nannyName && (
-              <div>
-                <dt className="text-muted-foreground">Your nanny</dt>
-                <dd className="font-medium text-foreground">{wallet.nannyName}</dd>
-              </div>
-            )}
             {wallet.startDate && (
               <div>
                 <dt className="text-muted-foreground">Started with us</dt>
@@ -209,6 +212,48 @@ function WalletPage() {
             )}
           </dl>
         </div>
+
+        {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
+          <div className="mt-4 rounded-xl border border-border bg-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Your nanny
+            </p>
+            <div className="mt-3 flex items-start gap-4">
+              {wallet.nannyPhotoUrl && (
+                <img
+                  src={wallet.nannyPhotoUrl}
+                  alt={wallet.nannyName ?? "Your nanny"}
+                  className="h-20 w-20 flex-shrink-0 rounded-full border border-border object-cover"
+                />
+              )}
+              <div>
+                {wallet.nannyName && (
+                  <p className="heading-display text-xl text-foreground">{wallet.nannyName}</p>
+                )}
+                {wallet.nannyBio && (
+                  <p className="mt-1 text-sm text-muted-foreground">{wallet.nannyBio}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
+          <>
+            <h2 className="heading-display mt-9 text-lg text-foreground">Emergency contacts</h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {wallet.nannyEmergency && (
+                <ContactCard
+                  label="Nanny's emergency contact"
+                  contact={wallet.nannyEmergency}
+                />
+              )}
+              {wallet.contacts.map((contact, i) => (
+                <ContactCard key={i} label="Family emergency contact" contact={contact} />
+              ))}
+            </div>
+          </>
+        )}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Your documents</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -239,6 +284,55 @@ function WalletPage() {
             onClick={() => setSheet("guarantee")}
           />
         </div>
+
+        {wallet.checks.length > 0 && (
+          <>
+            <h2 className="heading-display mt-9 text-lg text-foreground">
+              Checks &amp; credentials
+            </h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {wallet.checks.map((check) => {
+                const meta = CHECK_LABELS[check.docType] ?? { title: check.docType };
+                const detail = [
+                  check.issuedOn
+                    ? `Issued ${new Date(check.issuedOn).toLocaleDateString("en-GB", {
+                        month: "long",
+                        year: "numeric",
+                      })}`
+                    : null,
+                  check.referenceLabel,
+                ]
+                  .filter(Boolean)
+                  .join(" · ");
+                if (check.visibility === "badge") {
+                  return (
+                    <div
+                      key={check.docType}
+                      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5"
+                    >
+                      <BadgeCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span>
+                        <span className="block font-medium text-foreground">{meta.title}</span>
+                        <span className="mt-1 block text-sm text-muted-foreground">
+                          Verified by Athlete Mannies{detail ? ` · ${detail}` : ""}
+                        </span>
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <DocTile
+                    key={check.docType}
+                    icon={BadgeCheck}
+                    title={meta.title}
+                    subtitle={detail || "Open document"}
+                    onClick={() => openDoc(check.docType)}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Your everyday tools</h2>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -274,7 +368,16 @@ function WalletPage() {
           </dl>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
+        <p className="mt-10 text-xs text-muted-foreground">
+          Wallet last updated{" "}
+          {new Date(wallet.updatedAt).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
           <a
             href={TERMS_HUB_URL}
             target="_blank"
@@ -305,6 +408,34 @@ function WalletPage() {
           {sheet === "terms" ? <TermsContent /> : <GuaranteeContent />}
         </DialogContent>
       </Dialog>
+    </div>
+  );
+}
+
+function ContactCard({
+  label,
+  contact,
+}: {
+  label: string;
+  contact: { name: string; relationship: string | null; phone: string };
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="mt-2 font-medium text-foreground">{contact.name}</p>
+      {contact.relationship && (
+        <p className="text-sm text-muted-foreground">{contact.relationship}</p>
+      )}
+      {contact.phone && (
+        <a
+          href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          <Phone className="h-3.5 w-3.5" /> {contact.phone}
+        </a>
+      )}
     </div>
   );
 }
