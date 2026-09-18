@@ -6,12 +6,16 @@ import { toast } from "sonner";
 import { ArrowLeft, Copy, Trash2 } from "lucide-react";
 
 import {
+  addContact,
+  deleteContact,
   deleteDocument,
   getAdminDocumentUrl,
   getFamily,
   regenerateCode,
   saveFamily,
+  updateDocumentMeta,
   uploadDocument,
+  uploadNannyPhoto,
 } from "@/lib/admin.functions";
 import { TIER_BANDS } from "@/lib/tiers";
 import { Button } from "@/components/ui/button";
@@ -42,8 +46,24 @@ export const Route = createFileRoute("/_authenticated/admin/family/$id")({
 const DOC_TYPES = [
   { key: "agreement", label: "Nanny agreement (PDF)", accept: "application/pdf" },
   { key: "cv", label: "Nanny CV (PDF)", accept: "application/pdf" },
-  { key: "nanny_photo", label: "Nanny photo (optional)", accept: "image/*" },
 ];
+
+const CHECK_DOCS = [
+  { key: "dbs", label: "DBS certificate" },
+  { key: "id_check", label: "ID / right to work" },
+  { key: "reference_1", label: "Reference 1" },
+  { key: "reference_2", label: "Reference 2" },
+];
+
+type DocRow = {
+  id: string;
+  doc_type: string;
+  file_name: string;
+  storage_path: string;
+  visibility: string;
+  issued_on: string | null;
+  reference_label: string | null;
+};
 
 function FamilyDetail() {
   const { id } = Route.useParams();
@@ -52,8 +72,12 @@ function FamilyDetail() {
   const saveFn = useServerFn(saveFamily);
   const regenFn = useServerFn(regenerateCode);
   const uploadFn = useServerFn(uploadDocument);
+  const photoFn = useServerFn(uploadNannyPhoto);
+  const metaFn = useServerFn(updateDocumentMeta);
   const deleteFn = useServerFn(deleteDocument);
   const docUrlFn = useServerFn(getAdminDocumentUrl);
+  const addContactFn = useServerFn(addContact);
+  const deleteContactFn = useServerFn(deleteContact);
 
   const query = useQuery({
     queryKey: ["family", id],
@@ -66,12 +90,17 @@ function FamilyDetail() {
     contactPhone: "",
     tierBand: "3",
     nannyName: "",
+    nannyBio: "",
+    nannyEmergencyName: "",
+    nannyEmergencyRelationship: "",
+    nannyEmergencyPhone: "",
     startDate: "",
     termsAcceptedOn: "",
     notes: "",
     status: "active",
   });
   const [uploading, setUploading] = useState<string | null>(null);
+  const [contact, setContact] = useState({ name: "", relationship: "", phone: "" });
 
   useEffect(() => {
     const f = query.data?.family;
@@ -82,6 +111,10 @@ function FamilyDetail() {
       contactPhone: f.contact_phone ?? "",
       tierBand: f.tier_band ?? "3",
       nannyName: f.nanny_name ?? "",
+      nannyBio: f.nanny_bio ?? "",
+      nannyEmergencyName: f.nanny_emergency_name ?? "",
+      nannyEmergencyRelationship: f.nanny_emergency_relationship ?? "",
+      nannyEmergencyPhone: f.nanny_emergency_phone ?? "",
       startDate: f.start_date ?? "",
       termsAcceptedOn: f.terms_accepted_on ?? "",
       notes: f.notes ?? "",
@@ -89,39 +122,67 @@ function FamilyDetail() {
     });
   }, [query.data?.family]);
 
+  async function refresh() {
+    await queryClient.invalidateQueries({ queryKey: ["family", id] });
+    await queryClient.invalidateQueries({ queryKey: ["families"] });
+  }
+
   async function onSave(e: React.FormEvent) {
     e.preventDefault();
     try {
       await saveFn({ data: { id, ...form } });
       toast.success("Saved");
-      await queryClient.invalidateQueries({ queryKey: ["family", id] });
-      await queryClient.invalidateQueries({ queryKey: ["families"] });
+      await refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not save");
     }
   }
 
+  async function fileToBase64(file: File) {
+    const buffer = await file.arrayBuffer();
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    const chunk = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunk) {
+      binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+    }
+    return btoa(binary);
+  }
+
   async function onUpload(docType: string, file: File) {
     setUploading(docType);
     try {
-      const buffer = await file.arrayBuffer();
-      let binary = "";
-      const bytes = new Uint8Array(buffer);
-      const chunk = 0x8000;
-      for (let i = 0; i < bytes.length; i += chunk) {
-        binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-      }
       await uploadFn({
         data: {
           familyId: id,
           docType,
           fileName: file.name,
           contentType: file.type || "application/octet-stream",
-          base64: btoa(binary),
+          base64: await fileToBase64(file),
         },
       });
       toast.success("Uploaded");
-      await queryClient.invalidateQueries({ queryKey: ["family", id] });
+      await refresh();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Upload failed");
+    } finally {
+      setUploading(null);
+    }
+  }
+
+  async function onPhotoUpload(file: File) {
+    setUploading("nanny_photo");
+    try {
+      await photoFn({
+        data: {
+          familyId: id,
+          fileName: file.name,
+          contentType: file.type || "image/jpeg",
+          base64: await fileToBase64(file),
+        },
+      });
+      toast.success("Photo uploaded");
+      await refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Upload failed");
     } finally {
@@ -130,7 +191,8 @@ function FamilyDetail() {
   }
 
   const family = query.data?.family;
-  const documents = query.data?.documents ?? [];
+  const documents = (query.data?.documents ?? []) as DocRow[];
+  const contacts = query.data?.contacts ?? [];
 
   return (
     <div className="min-h-screen bg-sand">
@@ -168,8 +230,7 @@ function FamilyDetail() {
                   className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
                   onClick={async () => {
                     await regenFn({ data: { id } });
-                    await queryClient.invalidateQueries({ queryKey: ["family", id] });
-                    await queryClient.invalidateQueries({ queryKey: ["families"] });
+                    await refresh();
                     toast.success("New code created");
                   }}
                 >
@@ -203,7 +264,7 @@ function FamilyDetail() {
                             className="inline-flex items-center gap-1 text-muted-foreground hover:text-destructive"
                             onClick={async () => {
                               await deleteFn({ data: { id: existing.id } });
-                              await queryClient.invalidateQueries({ queryKey: ["family", id] });
+                              await refresh();
                             }}
                           >
                             <Trash2 className="h-3.5 w-3.5" /> Remove
@@ -226,7 +287,200 @@ function FamilyDetail() {
                     </div>
                   );
                 })}
+                <div>
+                  <Label className="text-sm">Nanny photo (shown in the wallet)</Label>
+                  {family.nanny_photo_path ? (
+                    <p className="mt-1 text-sm text-muted-foreground">Photo set — upload again to replace</p>
+                  ) : (
+                    <p className="mt-1 text-sm text-muted-foreground">Not uploaded yet</p>
+                  )}
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploading === "nanny_photo"}
+                    className="mt-2"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) void onPhotoUpload(file);
+                      e.target.value = "";
+                    }}
+                  />
+                </div>
               </div>
+            </div>
+
+            <div className="mt-4 rounded-xl border border-border bg-card p-5">
+              <p className="text-sm font-medium text-foreground">Checks &amp; credentials</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Choose what families see: the document itself, a "verified" badge only, or nothing.
+              </p>
+              <div className="mt-4 space-y-5">
+                {CHECK_DOCS.map((doc) => {
+                  const existing = documents.find((d) => d.doc_type === doc.key);
+                  return (
+                    <div key={doc.key} className="border-t border-border pt-4 first:border-0 first:pt-0">
+                      <Label className="text-sm">{doc.label}</Label>
+                      {existing ? (
+                        <div className="mt-2 space-y-2">
+                          <div className="flex flex-wrap items-center gap-3 text-sm">
+                            <button
+                              className="text-primary underline underline-offset-4"
+                              onClick={async () => {
+                                const { url } = await docUrlFn({
+                                  data: { storagePath: existing.storage_path },
+                                });
+                                if (url) window.open(url, "_blank", "noopener");
+                              }}
+                            >
+                              {existing.file_name}
+                            </button>
+                            <button
+                              className="inline-flex items-center gap-1 text-muted-foreground hover:text-destructive"
+                              onClick={async () => {
+                                await deleteFn({ data: { id: existing.id } });
+                                await refresh();
+                              }}
+                            >
+                              <Trash2 className="h-3.5 w-3.5" /> Remove
+                            </button>
+                          </div>
+                          <div className="grid gap-2 sm:grid-cols-3">
+                            <Select
+                              value={existing.visibility}
+                              onValueChange={async (value) => {
+                                await metaFn({
+                                  data: {
+                                    id: existing.id,
+                                    visibility: value,
+                                    issuedOn: existing.issued_on ?? "",
+                                    referenceLabel: existing.reference_label ?? "",
+                                  },
+                                });
+                                await refresh();
+                              }}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="document">Show document</SelectItem>
+                                <SelectItem value="badge">Verified badge only</SelectItem>
+                                <SelectItem value="hidden">Hidden</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <Input
+                              type="date"
+                              defaultValue={existing.issued_on ?? ""}
+                              onBlur={async (e) => {
+                                await metaFn({
+                                  data: {
+                                    id: existing.id,
+                                    visibility: existing.visibility,
+                                    issuedOn: e.target.value,
+                                    referenceLabel: existing.reference_label ?? "",
+                                  },
+                                });
+                                await refresh();
+                              }}
+                            />
+                            <Input
+                              placeholder="Ref / cert number"
+                              defaultValue={existing.reference_label ?? ""}
+                              onBlur={async (e) => {
+                                await metaFn({
+                                  data: {
+                                    id: existing.id,
+                                    visibility: existing.visibility,
+                                    issuedOn: existing.issued_on ?? "",
+                                    referenceLabel: e.target.value,
+                                  },
+                                });
+                                await refresh();
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="mt-1 text-sm text-muted-foreground">Not uploaded yet</p>
+                      )}
+                      <Input
+                        type="file"
+                        accept="application/pdf,image/*"
+                        disabled={uploading === doc.key}
+                        className="mt-2"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) void onUpload(doc.key, file);
+                          e.target.value = "";
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-xl border border-border bg-card p-5">
+              <p className="text-sm font-medium text-foreground">Family emergency contacts</p>
+              <div className="mt-3 space-y-2">
+                {contacts.length === 0 && (
+                  <p className="text-sm text-muted-foreground">None added yet (up to 3).</p>
+                )}
+                {contacts.map((c) => (
+                  <div key={c.id} className="flex items-center justify-between gap-3 text-sm">
+                    <span className="text-foreground">
+                      {c.name}
+                      {c.relationship ? ` (${c.relationship})` : ""} — {c.phone}
+                    </span>
+                    <button
+                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-destructive"
+                      onClick={async () => {
+                        await deleteContactFn({ data: { id: c.id } });
+                        await refresh();
+                      }}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" /> Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {contacts.length < 3 && (
+                <form
+                  className="mt-4 grid gap-2 sm:grid-cols-[1fr_1fr_1fr_auto]"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    try {
+                      await addContactFn({ data: { familyId: id, ...contact } });
+                      setContact({ name: "", relationship: "", phone: "" });
+                      await refresh();
+                      toast.success("Contact added");
+                    } catch (error) {
+                      toast.error(error instanceof Error ? error.message : "Could not add contact");
+                    }
+                  }}
+                >
+                  <Input
+                    placeholder="Name"
+                    value={contact.name}
+                    onChange={(e) => setContact({ ...contact, name: e.target.value })}
+                    required
+                  />
+                  <Input
+                    placeholder="Relationship"
+                    value={contact.relationship}
+                    onChange={(e) => setContact({ ...contact, relationship: e.target.value })}
+                  />
+                  <Input
+                    placeholder="Phone"
+                    value={contact.phone}
+                    onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    required
+                  />
+                  <Button type="submit" variant="outline">
+                    Add
+                  </Button>
+                </form>
+              )}
             </div>
 
             <form onSubmit={onSave} className="mt-4 space-y-4 rounded-xl border border-border bg-card p-5">
@@ -297,6 +551,38 @@ function FamilyDetail() {
                     className="mt-1"
                     value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="nbio">Nanny bio (shown in the wallet)</Label>
+                <Textarea
+                  id="nbio"
+                  className="mt-1"
+                  placeholder="A sentence or two about the nanny…"
+                  value={form.nannyBio}
+                  onChange={(e) => setForm({ ...form, nannyBio: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label className="text-sm font-medium">Nanny's emergency contact</Label>
+                <div className="mt-1 grid gap-2 sm:grid-cols-3">
+                  <Input
+                    placeholder="Name"
+                    value={form.nannyEmergencyName}
+                    onChange={(e) => setForm({ ...form, nannyEmergencyName: e.target.value })}
+                  />
+                  <Input
+                    placeholder="Relationship"
+                    value={form.nannyEmergencyRelationship}
+                    onChange={(e) =>
+                      setForm({ ...form, nannyEmergencyRelationship: e.target.value })
+                    }
+                  />
+                  <Input
+                    placeholder="Phone"
+                    value={form.nannyEmergencyPhone}
+                    onChange={(e) => setForm({ ...form, nannyEmergencyPhone: e.target.value })}
                   />
                 </div>
               </div>
