@@ -172,7 +172,7 @@ function WalletPage() {
                 {tier.days} · {tier.price}
               </p>
             </div>
-            <span className="rounded-full bg-gold/20 px-3 py-1 text-xs font-medium text-foreground">
+            <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
               Active
             </span>
           </div>
