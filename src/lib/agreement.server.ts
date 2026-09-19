@@ -84,22 +84,73 @@ function withLegacyNotes(raw: unknown): AgreementData {
 
 /* ---------------- Family-facing (wallet unlocked) ---------------- */
 
+/** Everything the parent has put on the emergency card, reused elsewhere. */
+export async function loadEmergencyContext(familyId: string): Promise<EmergencyContext> {
+  const [{ data: profile }, { data: children }, { data: contacts }] = await Promise.all([
+    supabaseAdmin
+      .from("family_profile")
+      .select("home_address, gp_details, medical_notes, emergency_instructions")
+      .eq("family_id", familyId)
+      .maybeSingle(),
+    supabaseAdmin
+      .from("family_children")
+      .select("name, school, allergies, medication")
+      .eq("family_id", familyId)
+      .order("sort_order", { ascending: true }),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("name, relationship, phone")
+      .eq("family_id", familyId)
+      .order("sort_order", { ascending: true }),
+  ]);
+
+  return {
+    homeAddress: profile?.home_address ?? null,
+    gpDetails: profile?.gp_details ?? null,
+    medicalNotes: profile?.medical_notes ?? null,
+    emergencyInstructions: profile?.emergency_instructions ?? null,
+    children: (children ?? []).map((c) => ({
+      name: c.name,
+      school: c.school,
+      allergies: c.allergies,
+      medication: c.medication,
+    })),
+    contacts: (contacts ?? []).map((c) => ({
+      name: c.name,
+      relationship: c.relationship,
+      phone: c.phone,
+    })),
+  };
+}
+
+/** Anything the parent typed on the emergency card fills the matching blanks here. */
+function applyEmergencyDetails(data: AgreementData, emergency: EmergencyContext): AgreementData {
+  const filled = { ...data };
+  if (!filled.workAddress && emergency.homeAddress) filled.workAddress = emergency.homeAddress;
+  if (!filled.employerAddress && emergency.homeAddress) {
+    filled.employerAddress = emergency.homeAddress;
+  }
+  return filled;
+}
+
 export async function loadAgreement(slug: string): Promise<AgreementView | null> {
-  if (!(await isUnlocked(slug))) return null;
+  const access = await accessLevel(slug);
+  if (!access) return null;
   const family = await familyBySlug(slug);
   if (!family) return null;
 
-  const [{ data: agreement }, { data: sigs }] = await Promise.all([
+  const [{ data: agreement }, { data: sigs }, emergency] = await Promise.all([
     supabaseAdmin.from("nanny_agreements").select("*").eq("family_id", family.id).maybeSingle(),
     supabaseAdmin
       .from("document_signatures")
       .select("doc_kind, signer_role, signer_name, doc_version, signed_at")
       .eq("family_id", family.id)
       .order("signed_at", { ascending: false }),
+    loadEmergencyContext(family.id),
   ]);
 
   const status = (agreement?.status as "draft" | "issued") ?? "draft";
-  const data = agreement
+  const base = agreement
     ? withLegacyNotes(agreement.agreement_data)
     : {
         ...defaultAgreementData,
@@ -107,6 +158,7 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
         nannyName: family.nanny_name ?? "",
         startDate: family.start_date ?? "",
       };
+  const data = applyEmergencyDetails(base, emergency);
 
   return {
     familyName: family.family_name,
@@ -117,6 +169,8 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
     data,
     hasContent: agreementHasContent(data),
     signatures: mapSignatures(sigs),
+    access,
+    emergency,
   };
 }
 
