@@ -28,7 +28,22 @@ export function HubPage({
         <h1 className="heading-display mt-4 text-3xl leading-tight text-primary">{title}</h1>
         {intro && <p className="mt-2 text-sm text-muted-foreground">{intro}</p>}
         <div className="mt-6">{children}</div>
+        <BackToWallet slug={slug} />
       </div>
+    </div>
+  );
+}
+
+export function BackToWallet({ slug }: { slug: string }) {
+  return (
+    <div className="mt-10 border-t border-border pt-5 print:hidden">
+      <Link
+        to="/w/$slug"
+        params={{ slug }}
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" /> Back to wallet
+      </Link>
     </div>
   );
 }

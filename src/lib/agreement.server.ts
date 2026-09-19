@@ -347,7 +347,9 @@ export async function adminSaveAgreement(
       agreement_data: data as unknown as Json,
       status: publish ? "issued" : existing.status,
       version: bumpVersion ? existing.version + 1 : existing.version,
-      ...(publish ? { issued_at: new Date().toISOString() } : {}),
+      ...(publish && (existing.status !== "issued" || bumpVersion)
+        ? { issued_at: new Date().toISOString() }
+        : {}),
       updated_at: new Date().toISOString(),
     })
     .eq("id", existing.id);
