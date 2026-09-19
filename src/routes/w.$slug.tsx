@@ -250,6 +250,62 @@ function WalletPage() {
           <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
         </Link>
 
+        {!isNanny && (
+          <SetupStatus
+            slug={slug}
+            items={[
+              {
+                label: "Nanny agreement signed",
+                done: Boolean(agreementDone),
+                hint: "Build it, then both of you sign it",
+                to: "/agreement/$slug",
+              },
+              {
+                label: "Membership terms signed",
+                done: Boolean(wallet.termsAcceptedOn),
+                hint: "Read and sign your membership terms",
+                to: "/terms/$slug",
+              },
+              {
+                label: "Children added",
+                done: Boolean(hub?.readiness?.children),
+                hint: "Add each child so your nanny knows who's who",
+                to: "/family/$slug",
+              },
+              {
+                label: "Allergies & medication",
+                done: Boolean(hub?.readiness?.allergies),
+                hint: "Add allergies and medication for every child",
+                to: "/family/$slug",
+              },
+              {
+                label: "Emergency contacts",
+                done: Boolean(hub?.readiness?.contacts),
+                hint: "At least one contact we can call",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "Home address",
+                done: Boolean(hub?.readiness?.homeAddress),
+                hint: "Needed on the emergency card and the agreement",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "GP details",
+                done: Boolean(hub?.readiness?.gp),
+                hint: "Your family doctor's name and number",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "House rules",
+                done: Boolean(hub?.readiness?.houseRules),
+                hint: "Screen time, homework and the basics",
+                to: "/family/$slug",
+              },
+            ]}
+          />
+        )}
+
         {agreement && agreement.hasContent && (
           <div className="mt-3">
             <SigningProgress
