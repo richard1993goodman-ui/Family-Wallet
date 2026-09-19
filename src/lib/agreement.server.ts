@@ -209,7 +209,12 @@ export async function signDocument(
   signerRole: "parent" | "nanny",
   signerName: string,
 ) {
-  if (!(await isUnlocked(slug))) return { ok: false as const, reason: "locked" as const };
+  const access = await accessLevel(slug);
+  if (!access) return { ok: false as const, reason: "locked" as const };
+  // An invited nanny may sign as the nanny only.
+  if (signerRole === "parent" && access !== "family") {
+    return { ok: false as const, reason: "locked" as const };
+  }
   const name = clean(signerName, 120);
   if (!name || name.length < 3) return { ok: false as const, reason: "name" as const };
 
