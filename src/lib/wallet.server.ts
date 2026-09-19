@@ -202,6 +202,7 @@ export type WalletCheck = {
 export type WalletContact = { name: string; relationship: string | null; phone: string };
 
 export type WalletData = {
+  access: "family" | "nanny";
   familyName: string;
   tierBand: string;
   nannyName: string | null;
@@ -218,7 +219,8 @@ export type WalletData = {
 };
 
 export async function loadWallet(slug: string): Promise<WalletData | null> {
-  if (!(await isUnlocked(slug))) return null;
+  const access = await accessLevel(slug);
+  if (!access) return null;
 
   const { data: family } = await supabaseAdmin
     .from("families")
@@ -254,6 +256,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
   const visible = (docs ?? []).filter((d) => d.visibility !== "hidden");
 
   return {
+    access,
     familyName: family.family_name,
     tierBand: family.tier_band,
     nannyName: family.nanny_name,
