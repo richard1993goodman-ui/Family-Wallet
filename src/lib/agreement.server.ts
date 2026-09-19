@@ -318,7 +318,7 @@ export async function adminSaveAgreement(
 
   const { data: existing } = await supabaseAdmin
     .from("nanny_agreements")
-    .select("id, version, status")
+    .select("id, version, status, agreement_data")
     .eq("family_id", familyId)
     .maybeSingle();
 
@@ -335,7 +335,11 @@ export async function adminSaveAgreement(
     return { ok: true as const };
   }
 
-  const bumpVersion = publish && existing.status === "issued";
+  // Only start a new version when the wording actually changed, otherwise
+  // re-saving an already-issued agreement would wipe out existing signatures.
+  const contentChanged =
+    JSON.stringify(normalizeAgreement(existing.agreement_data)) !== JSON.stringify(data);
+  const bumpVersion = publish && existing.status === "issued" && contentChanged;
   const { error } = await supabaseAdmin
     .from("nanny_agreements")
     .update({
