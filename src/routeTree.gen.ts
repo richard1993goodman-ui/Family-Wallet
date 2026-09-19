@@ -25,6 +25,7 @@ import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
+import { Route as AuthenticatedAdminAgreementIdRouteImport } from './routes/_authenticated/admin.agreement.$id'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
 import { Route as AuthenticatedAdminHubIdRouteImport } from './routes/_authenticated/admin.hub.$id'
 
@@ -108,6 +109,12 @@ const CertificateSlugIdRoute = CertificateSlugIdRouteImport.update({
   path: '/certificate/$slug/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminAgreementIdRoute =
+  AuthenticatedAdminAgreementIdRouteImport.update({
+    id: '/admin/agreement/$id',
+    path: '/admin/agreement/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFamilyIdRoute =
   AuthenticatedAdminFamilyIdRouteImport.update({
     id: '/admin/family/$id',
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
@@ -155,6 +163,7 @@ export interface FileRoutesByTo {
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
@@ -176,6 +185,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/_authenticated/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin/'
+    | '/admin/agreement/$id'
     | '/admin/family/$id'
     | '/admin/hub/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin'
+    | '/admin/agreement/$id'
     | '/admin/family/$id'
     | '/admin/hub/$id'
   id:
@@ -236,6 +248,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/support'
     | '/certificate/$slug/$id'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/agreement/$id'
     | '/_authenticated/admin/family/$id'
     | '/_authenticated/admin/hub/$id'
   fileRoutesById: FileRoutesById
@@ -371,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CertificateSlugIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/agreement/$id': {
+      id: '/_authenticated/admin/agreement/$id'
+      path: '/admin/agreement/$id'
+      fullPath: '/admin/agreement/$id'
+      preLoaderRoute: typeof AuthenticatedAdminAgreementIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/family/$id': {
       id: '/_authenticated/admin/family/$id'
       path: '/admin/family/$id'
@@ -391,6 +411,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminSupportRoute: typeof AuthenticatedAdminSupportRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminAgreementIdRoute: typeof AuthenticatedAdminAgreementIdRoute
   AuthenticatedAdminFamilyIdRoute: typeof AuthenticatedAdminFamilyIdRoute
   AuthenticatedAdminHubIdRoute: typeof AuthenticatedAdminHubIdRoute
 }
@@ -398,6 +419,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminSupportRoute: AuthenticatedAdminSupportRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAdminAgreementIdRoute: AuthenticatedAdminAgreementIdRoute,
   AuthenticatedAdminFamilyIdRoute: AuthenticatedAdminFamilyIdRoute,
   AuthenticatedAdminHubIdRoute: AuthenticatedAdminHubIdRoute,
 }
