@@ -24,6 +24,7 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { getHubSummary } from "@/lib/family.functions";
+import { getAgreement } from "@/lib/agreement.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { TermsContent } from "@/components/TermsContent";
@@ -71,6 +72,7 @@ function WalletPage() {
   const lockFn = useServerFn(lockWalletFn);
   const docFn = useServerFn(getDocumentUrl);
   const hubFn = useServerFn(getHubSummary);
+  const agreementFn = useServerFn(getAgreement);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -86,6 +88,26 @@ function WalletPage() {
     queryFn: () => hubFn({ data: { slug } }),
   });
   const hub = hubQuery.data ?? null;
+
+  const agreementQuery = useQuery({
+    queryKey: ["agreement", slug],
+    queryFn: () => agreementFn({ data: { slug } }),
+  });
+  const agreement = agreementQuery.data ?? null;
+  const agreementSigs = (agreement?.signatures ?? []).filter((s) => s.docKind === "agreement");
+  const agreementDone =
+    agreement?.status === "issued" &&
+    agreementSigs.some((s) => s.signerRole === "parent") &&
+    agreementSigs.some((s) => s.signerRole === "nanny");
+  const agreementSubtitle = !agreement
+    ? "Build it, then sign it here"
+    : !agreement.hasContent
+      ? "Not started — build it here"
+      : agreement.status !== "issued"
+        ? "Draft saved — finish and open for signing"
+        : agreementDone
+          ? "Signed by you and your nanny"
+          : "Ready to sign — parent and nanny";
 
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
