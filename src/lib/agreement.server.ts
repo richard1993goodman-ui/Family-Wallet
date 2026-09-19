@@ -88,7 +88,14 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
   ]);
 
   const status = (agreement?.status as "draft" | "issued") ?? "draft";
-  const data = withLegacyNotes(agreement?.agreement_data);
+  const data = agreement
+    ? withLegacyNotes(agreement.agreement_data)
+    : {
+        ...defaultAgreementData,
+        employerName: family.family_name,
+        nannyName: family.nanny_name ?? "",
+        startDate: family.start_date ?? "",
+      };
 
   return {
     familyName: family.family_name,
@@ -96,10 +103,23 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
     version: agreement?.version ?? 1,
     issuedAt: agreement?.issued_at ?? null,
     updatedAt: agreement?.updated_at ?? null,
-    data: status === "issued" ? data : defaultAgreementData,
-    hasContent: status === "issued" && agreementHasContent(data),
+    data,
+    hasContent: agreementHasContent(data),
     signatures: mapSignatures(sigs),
   };
+}
+
+/** Families build their own agreement from inside the wallet. */
+export async function saveAgreementFromWallet(
+  slug: string,
+  input: AgreementData,
+  publish: boolean,
+) {
+  if (!(await isUnlocked(slug))) return { ok: false as const, reason: "locked" as const };
+  const family = await familyBySlug(slug);
+  if (!family) return { ok: false as const, reason: "locked" as const };
+  await adminSaveAgreement(family.id, input, publish);
+  return { ok: true as const };
 }
 
 export async function loadSignatures(slug: string) {

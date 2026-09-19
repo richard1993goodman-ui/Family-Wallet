@@ -24,6 +24,7 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { getHubSummary } from "@/lib/family.functions";
+import { getAgreement } from "@/lib/agreement.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { TermsContent } from "@/components/TermsContent";
@@ -71,6 +72,7 @@ function WalletPage() {
   const lockFn = useServerFn(lockWalletFn);
   const docFn = useServerFn(getDocumentUrl);
   const hubFn = useServerFn(getHubSummary);
+  const agreementFn = useServerFn(getAgreement);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -86,6 +88,26 @@ function WalletPage() {
     queryFn: () => hubFn({ data: { slug } }),
   });
   const hub = hubQuery.data ?? null;
+
+  const agreementQuery = useQuery({
+    queryKey: ["agreement", slug],
+    queryFn: () => agreementFn({ data: { slug } }),
+  });
+  const agreement = agreementQuery.data ?? null;
+  const agreementSigs = (agreement?.signatures ?? []).filter((s) => s.docKind === "agreement");
+  const agreementDone =
+    agreement?.status === "issued" &&
+    agreementSigs.some((s) => s.signerRole === "parent") &&
+    agreementSigs.some((s) => s.signerRole === "nanny");
+  const agreementSubtitle = !agreement
+    ? "Build it, then sign it here"
+    : !agreement.hasContent
+      ? "Not started — build it here"
+      : agreement.status !== "issued"
+        ? "Draft saved — finish and open for signing"
+        : agreementDone
+          ? "Signed by you and your nanny"
+          : "Ready to sign — parent and nanny";
 
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
@@ -267,6 +289,30 @@ function WalletPage() {
           <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
         </Link>
 
+        {agreement && !agreementDone && (
+          <Link
+            to="/agreement/$slug"
+            params={{ slug }}
+            className="mt-3 flex items-center justify-between gap-4 rounded-xl border border-primary/50 bg-card p-5 hover:border-primary"
+          >
+            <span>
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Start here
+              </span>
+              <span className="mt-1 block font-medium text-foreground">
+                {agreement.hasContent ? "Finish your nanny agreement" : "Build your nanny agreement"}
+              </span>
+              <span className="mt-1 block text-sm text-muted-foreground">
+                {agreement.status === "issued"
+                  ? "Parent and nanny both need to sign it"
+                  : "Fill it in together with your nanny, then sign it here"}
+              </span>
+            </span>
+            <FileText className="h-5 w-5 flex-shrink-0 text-primary" />
+          </Link>
+        )}
+
+
         <h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile
@@ -365,7 +411,7 @@ function WalletPage() {
             to="/agreement/$slug"
             icon={FileText}
             title="Nanny agreement"
-            subtitle="Read and sign it here"
+            subtitle={agreementSubtitle}
           />
           <DocTile
             icon={IdCard}

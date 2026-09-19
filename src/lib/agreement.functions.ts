@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import type { AgreementData } from "./agreement.model";
+
 export const getAgreement = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
@@ -12,6 +14,13 @@ export const getSignatures = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     const { loadSignatures } = await import("./agreement.server");
     return loadSignatures(data.slug);
+  });
+
+export const saveAgreementFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; data: AgreementData; publish: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { saveAgreementFromWallet } = await import("./agreement.server");
+    return saveAgreementFromWallet(data.slug, data.data, data.publish);
   });
 
 export const signDocumentFn = createServerFn({ method: "POST" })
