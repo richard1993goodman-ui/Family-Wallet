@@ -87,6 +87,7 @@ function PlannerPage() {
   if (!query.data) return <LockedNotice slug={slug} />;
 
   const entries = query.data.entries;
+  const workingDays = query.data.workingDays;
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
   async function refresh() {
@@ -133,7 +134,7 @@ function PlannerPage() {
         {days.map((day) => {
           const dayEntries = entries.filter((e) => e.entry_date === day);
           const weekday = new Date(`${day}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-          const regular = query.data.workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
+          const regular = workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
           return (
             <div
               key={day}
@@ -158,7 +159,7 @@ function PlannerPage() {
 
               {regular && !dayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled") && (
                 <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
-                  <CalendarDays className="h-4 w-4 text-primary" /> Regular nanny day · {regular.startTime}–{regular.endTime}{regular.splitShift && regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}
+                  <CalendarDays className="h-4 w-4 text-primary" /> Regular nanny day · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}
                 </div>
               )}
               {dayEntries.length === 0 && !regular && (

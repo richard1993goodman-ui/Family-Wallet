@@ -44,11 +44,15 @@ export function ResourceHub({ slug, kind }: { slug: string; kind: ResourceKind }
   async function generate() {
     setBusy(true);
     try {
-      const result = kind === "activity"
-        ? await activityFn({ data: { slug, setting, minutes: Number(minutes), energy: "medium", notes } })
-        : await mealFn({ data: { slug, category, minutes: Number(minutes), ingredients, notes } });
-      if (!result.ok) toast.error(result.error);
-      else setIdeas(kind === "activity" ? result.activities : result.ideas);
+      if (kind === "activity") {
+        const result = await activityFn({ data: { slug, setting, minutes: Number(minutes), energy: "medium", notes } });
+        if (!result.ok) toast.error(result.error);
+        else setIdeas(result.activities);
+      } else {
+        const result = await mealFn({ data: { slug, category, minutes: Number(minutes), ingredients, notes } });
+        if (!result.ok) toast.error(result.error);
+        else setIdeas(result.ideas);
+      }
     } finally {
       setBusy(false);
     }

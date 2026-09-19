@@ -594,7 +594,7 @@ function TodayPanel({ slug, entries, workingDays }: {
         </div>
         <Link to="/planner/$slug" params={{ slug }} className="text-sm font-medium text-primary hover:underline">Open calendar</Link>
       </div>
-      {regular && !cancelled && <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">Nanny working today · {regular.startTime}–{regular.endTime}{regular.splitShift && regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}</p>}
+      {regular && !cancelled && <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">Nanny working today · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}</p>}
       {cancelled && <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">Today’s regular nanny shift is cancelled.</p>}
       <div className="mt-4 space-y-2">
         {todayEntries.length === 0 && <p className="text-sm text-muted-foreground">No activities or notes added for today yet.</p>}
