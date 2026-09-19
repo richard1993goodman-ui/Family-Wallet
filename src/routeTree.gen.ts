@@ -15,6 +15,9 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as LogSlugRouteImport } from './routes/log.$slug'
+import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
+import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
@@ -48,6 +51,21 @@ const GuideSlugRoute = GuideSlugRouteImport.update({
   path: '/guide/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LogSlugRoute = LogSlugRouteImport.update({
+  id: '/log/$slug',
+  path: '/log/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlannerSlugRoute = PlannerSlugRouteImport.update({
+  id: '/planner/$slug',
+  path: '/planner/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportSlugRoute = SupportSlugRouteImport.update({
+  id: '/support/$slug',
+  path: '/support/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WSlugRoute = WSlugRouteImport.update({
   id: '/w/$slug',
   path: '/w/$slug',
@@ -71,6 +89,9 @@ export interface FileRoutesByFullPath {
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
@@ -81,6 +102,9 @@ export interface FileRoutesByTo {
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
@@ -93,6 +117,9 @@ export interface FileRoutesById {
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
@@ -105,6 +132,9 @@ export interface FileRouteTypes {
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
     | '/w/$slug'
     | '/admin/'
     | '/admin/family/$id'
@@ -115,6 +145,9 @@ export interface FileRouteTypes {
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
     | '/w/$slug'
     | '/admin'
     | '/admin/family/$id'
@@ -126,6 +159,9 @@ export interface FileRouteTypes {
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
     | '/w/$slug'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/family/$id'
@@ -138,6 +174,9 @@ export interface RootRouteChildren {
   EmergencySlugRoute: typeof EmergencySlugRoute
   FamilySlugRoute: typeof FamilySlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
+  LogSlugRoute: typeof LogSlugRoute
+  PlannerSlugRoute: typeof PlannerSlugRoute
+  SupportSlugRoute: typeof SupportSlugRoute
   WSlugRoute: typeof WSlugRoute
 }
 
@@ -185,6 +224,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuideSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/log/$slug': {
+      id: '/log/$slug'
+      path: '/log/$slug'
+      fullPath: '/log/$slug'
+      preLoaderRoute: typeof LogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planner/$slug': {
+      id: '/planner/$slug'
+      path: '/planner/$slug'
+      fullPath: '/planner/$slug'
+      preLoaderRoute: typeof PlannerSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support/$slug': {
+      id: '/support/$slug'
+      path: '/support/$slug'
+      fullPath: '/support/$slug'
+      preLoaderRoute: typeof SupportSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/w/$slug': {
       id: '/w/$slug'
       path: '/w/$slug'
@@ -229,6 +289,9 @@ const rootRouteChildren: RootRouteChildren = {
   EmergencySlugRoute: EmergencySlugRoute,
   FamilySlugRoute: FamilySlugRoute,
   GuideSlugRoute: GuideSlugRoute,
+  LogSlugRoute: LogSlugRoute,
+  PlannerSlugRoute: PlannerSlugRoute,
+  SupportSlugRoute: SupportSlugRoute,
   WSlugRoute: WSlugRoute,
 }
 export const routeTree = rootRouteImport

@@ -369,3 +369,111 @@ export const deleteContact = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true as const };
   });
+
+/* ---------------- Support inbox ---------------- */
+
+export const listSupportThreads = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: threads, error } = await supabaseAdmin
+      .from("support_threads")
+      .select("id, family_id, subject, status, last_sender, created_at, updated_at")
+      .order("updated_at", { ascending: false })
+      .limit(100);
+    if (error) throw new Error(error.message);
+    const ids = (threads ?? []).map((t) => t.id);
+    const familyIds = [...new Set((threads ?? []).map((t) => t.family_id))];
+    const [{ data: messages }, { data: families }] = await Promise.all([
+      ids.length
+        ? supabaseAdmin
+            .from("support_messages")
+            .select("id, thread_id, sender, body, created_at")
+            .in("thread_id", ids)
+            .order("created_at", { ascending: true })
+        : Promise.resolve({ data: [] as { id: string; thread_id: string; sender: string; body: string; created_at: string }[] }),
+      familyIds.length
+        ? supabaseAdmin.from("families").select("id, family_name").in("id", familyIds)
+        : Promise.resolve({ data: [] as { id: string; family_name: string }[] }),
+    ]);
+    const nameById = new Map((families ?? []).map((f) => [f.id, f.family_name]));
+    return (threads ?? []).map((thread) => ({
+      ...thread,
+      familyName: nameById.get(thread.family_id) ?? "Family",
+      messages: (messages ?? []).filter((m) => m.thread_id === thread.id),
+      needsReply: thread.last_sender === "family" && thread.status === "open",
+    }));
+  });
+
+export const replyToThread = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { threadId: string; body: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const body = data.body.trim().slice(0, 4000);
+    if (!body) throw new Error("Please write a reply");
+    const { error } = await supabaseAdmin
+      .from("support_messages")
+      .insert({ thread_id: data.threadId, sender: "admin", body });
+    if (error) throw new Error(error.message);
+    await supabaseAdmin
+      .from("support_threads")
+      .update({ last_sender: "admin", family_unread: true, updated_at: new Date().toISOString() })
+      .eq("id", data.threadId);
+    return { ok: true as const };
+  });
+
+export const setThreadStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { threadId: string; status: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("support_threads")
+      .update({ status: data.status })
+      .eq("id", data.threadId);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+/* ---------------- Read-only family hub view ---------------- */
+
+export const getFamilyHub = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const [{ data: family }, { data: profile }, { data: children }, { data: logs }, { data: entries }] =
+      await Promise.all([
+        supabaseAdmin.from("families").select("family_name").eq("id", data.id).maybeSingle(),
+        supabaseAdmin.from("family_profile").select("*").eq("family_id", data.id).maybeSingle(),
+        supabaseAdmin
+          .from("family_children")
+          .select("*")
+          .eq("family_id", data.id)
+          .order("sort_order", { ascending: true }),
+        supabaseAdmin
+          .from("daily_logs")
+          .select("*")
+          .eq("family_id", data.id)
+          .order("log_date", { ascending: false })
+          .limit(10),
+        supabaseAdmin
+          .from("planner_entries")
+          .select("id, entry_date, time_label, title, child_name")
+          .eq("family_id", data.id)
+          .gte("entry_date", new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10))
+          .order("entry_date", { ascending: true }),
+      ]);
+    return {
+      familyName: family?.family_name ?? "Family",
+      profile: profile ?? null,
+      children: children ?? [],
+      logs: logs ?? [],
+      entries: entries ?? [],
+    };
+  });
