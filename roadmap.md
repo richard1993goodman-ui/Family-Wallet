@@ -8,3 +8,7 @@
 - [x] Move the private membership status lower and show only Active.
 - [x] Remove Other fees.
 - [ ] Verify family and nanny access, desktop/mobile views, and preview health.
+
+## Wallet status & signing (Sep 19)
+- [ ] Remove agency row from agreement signing progress
+- [ ] Wallet "Actions to complete" status bar: terms signed, emergency contacts, allergies, children info, home address
