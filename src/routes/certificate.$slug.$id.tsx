@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { ArrowLeft, Award } from "lucide-react";
 
 import { getCertificate } from "@/lib/training.functions";
+import { BackToWallet } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/certificate/$slug/$id")({
@@ -110,6 +111,7 @@ function CertificatePage() {
             <p className="mt-1">Certificate reference {cert.certificate_ref}</p>
           </div>
         </div>
+        <BackToWallet slug={slug} />
       </div>
     </div>
   );
