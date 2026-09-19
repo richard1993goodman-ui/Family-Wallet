@@ -28,6 +28,7 @@ import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/
 import { getHubSummary } from "@/lib/family.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
+import type { WorkingDay } from "@/lib/agreement.model";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
@@ -573,6 +574,40 @@ function ContactCard({
   );
 }
 
+function TodayPanel({ slug, entries, workingDays }: {
+  slug: string;
+  entries: Array<{ id: string; entry_date: string; time_label: string | null; end_time_label: string | null; title: string; entry_type: string; status: string }>;
+  workingDays: WorkingDay[];
+}) {
+  const today = new Date();
+  const todayIso = today.toISOString().slice(0, 10);
+  const weekday = today.toLocaleDateString("en-GB", { weekday: "long" });
+  const regular = workingDays.find((day) => day.day === weekday && day.enabled);
+  const todayEntries = entries.filter((entry) => entry.entry_date === todayIso);
+  const cancelled = todayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled");
+  return (
+    <div className="mt-6 rounded-xl border border-border bg-card p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
+          <p className="heading-display mt-1 text-2xl text-foreground">{today.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</p>
+        </div>
+        <Link to="/planner/$slug" params={{ slug }} className="text-sm font-medium text-primary hover:underline">Open calendar</Link>
+      </div>
+      {regular && !cancelled && <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">Nanny working today · {regular.startTime}–{regular.endTime}{regular.splitShift && regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}</p>}
+      {cancelled && <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">Today’s regular nanny shift is cancelled.</p>}
+      <div className="mt-4 space-y-2">
+        {todayEntries.length === 0 && <p className="text-sm text-muted-foreground">No activities or notes added for today yet.</p>}
+        {todayEntries.map((entry) => <div key={entry.id} className="flex gap-3 text-sm"><span className="w-24 flex-shrink-0 font-medium text-primary">{entry.time_label ?? "Any time"}{entry.end_time_label ? `–${entry.end_time_label}` : ""}</span><span className="text-foreground">{entry.title}</span></div>)}
+      </div>
+      <div className="mt-5 flex flex-wrap gap-2">
+        <Button asChild size="sm"><Link to="/planner/$slug" params={{ slug }}>Add to today</Link></Button>
+        <Button asChild size="sm" variant="outline"><Link to="/log/$slug" params={{ slug }}>Add daily notes</Link></Button>
+      </div>
+    </div>
+  );
+}
+
 function DocTile({
   icon: Icon,
   title,
@@ -617,7 +652,10 @@ function HubTile({
     | "/support/$slug"
     | "/training/$slug"
     | "/agreement/$slug"
-    | "/terms/$slug";
+    | "/terms/$slug"
+    | "/activities/$slug"
+    | "/fuel/$slug"
+    | "/timesheets/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
