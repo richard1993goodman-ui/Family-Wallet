@@ -638,6 +638,11 @@ function TodayPanel({ slug, entries, workingDays }: {
                 {date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }).slice(0, 2)}
               </span>
               <span className="text-base">{date.getUTCDate()}</span>
+              <span className="text-[9px] leading-tight opacity-80">
+                {dayShift && !dayCancelled
+                  ? `${shortTime(dayShift.startTime)}-${shortTime(dayShift.endTime)}`
+                  : "\u00A0"}
+              </span>
               <span className={`h-1 w-1 rounded-full ${hasEntries ? "bg-current" : "bg-transparent"}`} />
               {isToday && (
                 <span className="absolute -bottom-5 text-[10px] font-semibold text-primary">Today</span>
