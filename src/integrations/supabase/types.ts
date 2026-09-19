@@ -471,35 +471,91 @@ export type Database = {
       }
       planner_entries: {
         Row: {
+          added_by: string
           child_name: string | null
           created_at: string
+          end_time_label: string | null
           entry_date: string
+          entry_type: string
           family_id: string
           id: string
+          notes: string | null
+          status: string
           time_label: string | null
           title: string
         }
         Insert: {
+          added_by?: string
           child_name?: string | null
           created_at?: string
+          end_time_label?: string | null
           entry_date: string
+          entry_type?: string
           family_id: string
           id?: string
+          notes?: string | null
+          status?: string
           time_label?: string | null
           title: string
         }
         Update: {
+          added_by?: string
           child_name?: string | null
           created_at?: string
+          end_time_label?: string | null
           entry_date?: string
+          entry_type?: string
           family_id?: string
           id?: string
+          notes?: string | null
+          status?: string
           time_label?: string | null
           title?: string
         }
         Relationships: [
           {
             foreignKeyName: "planner_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_resources: {
+        Row: {
+          created_at: string
+          details: Json
+          family_id: string
+          id: string
+          resource_type: string
+          saved_by: string
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          details?: Json
+          family_id: string
+          id?: string
+          resource_type: string
+          saved_by?: string
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          details?: Json
+          family_id?: string
+          id?: string
+          resource_type?: string
+          saved_by?: string
+          summary?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_resources_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
@@ -573,6 +629,65 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "support_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      timesheet_shifts: {
+        Row: {
+          break_minutes: number
+          created_at: string
+          end_time: string
+          family_id: string
+          hourly_rate: number
+          id: string
+          is_overnight: boolean
+          notes: string | null
+          reviewed_at: string | null
+          shift_date: string
+          start_time: string
+          status: string
+          submitted_by: string
+          updated_at: string
+        }
+        Insert: {
+          break_minutes?: number
+          created_at?: string
+          end_time: string
+          family_id: string
+          hourly_rate?: number
+          id?: string
+          is_overnight?: boolean
+          notes?: string | null
+          reviewed_at?: string | null
+          shift_date: string
+          start_time: string
+          status?: string
+          submitted_by?: string
+          updated_at?: string
+        }
+        Update: {
+          break_minutes?: number
+          created_at?: string
+          end_time?: string
+          family_id?: string
+          hourly_rate?: number
+          id?: string
+          is_overnight?: boolean
+          notes?: string | null
+          reviewed_at?: string | null
+          shift_date?: string
+          start_time?: string
+          status?: string
+          submitted_by?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "timesheet_shifts_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
