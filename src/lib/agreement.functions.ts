@@ -1,7 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import type { AgreementFields } from "./agreement.types";
-
 export const getAgreement = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
@@ -29,5 +27,3 @@ export const signDocumentFn = createServerFn({ method: "POST" })
     const { signDocument } = await import("./agreement.server");
     return signDocument(data.slug, data.docKind, data.signerRole, data.signerName);
   });
-
-export type { AgreementFields };
