@@ -20,7 +20,9 @@ import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
+import { Route as AuthenticatedAdminHubIdRouteImport } from './routes/_authenticated/admin.hub.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,12 +78,23 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminSupportRoute =
+  AuthenticatedAdminSupportRouteImport.update({
+    id: '/admin/support',
+    path: '/admin/support',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFamilyIdRoute =
   AuthenticatedAdminFamilyIdRouteImport.update({
     id: '/admin/family/$id',
     path: '/admin/family/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminHubIdRoute = AuthenticatedAdminHubIdRouteImport.update({
+  id: '/admin/hub/$id',
+  path: '/admin/hub/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -93,8 +106,10 @@ export interface FileRoutesByFullPath {
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -106,8 +121,10 @@ export interface FileRoutesByTo {
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,8 +138,10 @@ export interface FileRoutesById {
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/_authenticated/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,8 +155,10 @@ export interface FileRouteTypes {
     | '/planner/$slug'
     | '/support/$slug'
     | '/w/$slug'
+    | '/admin/support'
     | '/admin/'
     | '/admin/family/$id'
+    | '/admin/hub/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -149,8 +170,10 @@ export interface FileRouteTypes {
     | '/planner/$slug'
     | '/support/$slug'
     | '/w/$slug'
+    | '/admin/support'
     | '/admin'
     | '/admin/family/$id'
+    | '/admin/hub/$id'
   id:
     | '__root__'
     | '/'
@@ -163,8 +186,10 @@ export interface FileRouteTypes {
     | '/planner/$slug'
     | '/support/$slug'
     | '/w/$slug'
+    | '/_authenticated/admin/support'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/family/$id'
+    | '/_authenticated/admin/hub/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/support': {
+      id: '/_authenticated/admin/support'
+      path: '/admin/support'
+      fullPath: '/admin/support'
+      preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/family/$id': {
       id: '/_authenticated/admin/family/$id'
       path: '/admin/family/$id'
@@ -266,17 +298,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFamilyIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/hub/$id': {
+      id: '/_authenticated/admin/hub/$id'
+      path: '/admin/hub/$id'
+      fullPath: '/admin/hub/$id'
+      preLoaderRoute: typeof AuthenticatedAdminHubIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminSupportRoute: typeof AuthenticatedAdminSupportRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminFamilyIdRoute: typeof AuthenticatedAdminFamilyIdRoute
+  AuthenticatedAdminHubIdRoute: typeof AuthenticatedAdminHubIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminSupportRoute: AuthenticatedAdminSupportRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminFamilyIdRoute: AuthenticatedAdminFamilyIdRoute,
+  AuthenticatedAdminHubIdRoute: AuthenticatedAdminHubIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
