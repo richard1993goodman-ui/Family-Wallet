@@ -16,7 +16,7 @@ import {
   MessagesSquare,
   GraduationCap,
   Award,
-  Car,
+  UtensilsCrossed,
   BadgePercent,
 } from "lucide-react";
 
