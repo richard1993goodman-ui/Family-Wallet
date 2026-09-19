@@ -572,6 +572,10 @@ function ContactCard({
   );
 }
 
+function shortTime(value: string) {
+  return value.replace(/:00$/, "").replace(/^0/, "");
+}
+
 function TodayPanel({ slug, entries, workingDays }: {
   slug: string;
   entries: Array<{ id: string; entry_date: string; time_label: string | null; end_time_label: string | null; title: string; entry_type: string; status: string }>;
