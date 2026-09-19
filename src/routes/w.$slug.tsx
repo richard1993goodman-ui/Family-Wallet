@@ -592,3 +592,31 @@ function DocTile({
     </button>
   );
 }
+
+function HubTile({
+  slug,
+  to,
+  icon: Icon,
+  title,
+  subtitle,
+}: {
+  slug: string;
+  to: "/family/$slug" | "/guide/$slug" | "/planner/$slug" | "/log/$slug" | "/support/$slug";
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <Link
+      to={to}
+      params={{ slug }}
+      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+    >
+      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span>
+        <span className="block font-medium text-foreground">{title}</span>
+        <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
+      </span>
+    </Link>
+  );
+}
