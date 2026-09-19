@@ -44,7 +44,7 @@ function NannySignInPage() {
   });
 
   if (info.data?.unlocked) {
-    void navigate({ to: "/agreement/$slug", params: { slug } });
+    void navigate({ to: "/w/$slug", params: { slug } });
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -53,7 +53,7 @@ function NannySignInPage() {
     try {
       const result = await signInFn({ data: { slug, code } });
       if (result.ok) {
-        await navigate({ to: "/agreement/$slug", params: { slug } });
+        await navigate({ to: "/w/$slug", params: { slug } });
       } else {
         toast.error(
           result.reason === "rate_limited"
@@ -73,8 +73,8 @@ function NannySignInPage() {
         <h1 className="heading-display mt-3 text-2xl leading-tight text-primary">Nanny sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {info.data?.familyName
-            ? `You've been invited by the ${info.data.familyName} family to read and sign your nanny agreement.`
-            : "Enter the 6-character code the family sent you to read and sign your nanny agreement."}
+            ? `You've been invited by the ${info.data.familyName} family to open your shared nanny workspace.`
+            : "Enter the 6-character code the family sent you to open your shared nanny workspace."}
         </p>
 
         <form className="mt-5 space-y-3" onSubmit={onSubmit}>
@@ -89,12 +89,12 @@ function NannySignInPage() {
             />
           </label>
           <Button type="submit" className="w-full" disabled={busy || code.trim().length < 4}>
-            {busy ? "Checking…" : "Open the agreement"}
+            {busy ? "Checking…" : "Open my workspace"}
           </Button>
         </form>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          This code only opens the nanny agreement. The rest of the family wallet stays private.
+          You can see daily care information and work tools. Private family membership details stay hidden.
         </p>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { isUnlocked } from "./wallet.server";
+import { accessLevel, isUnlocked } from "./wallet.server";
+import { normalizeAgreement, type WorkingDay } from "./agreement.model";
 
 const MAX_CHILDREN = 8;
 const MAX_TEXT = 4000;
@@ -19,6 +20,18 @@ export async function requireFamily(slug: string) {
     .eq("status", "active")
     .maybeSingle();
   return data ?? null;
+}
+
+export async function requireSharedFamily(slug: string) {
+  const access = await accessLevel(slug);
+  if (!access) return null;
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, nanny_name, start_date")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  return data ? { ...data, access } : null;
 }
 
 /* ---------------- Family profile & children ---------------- */
@@ -203,30 +216,43 @@ export async function uploadChildPhoto(
 /* ---------------- Weekly planner ---------------- */
 
 export async function loadPlanner(slug: string, weekStart: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) return null;
   const start = new Date(`${weekStart}T00:00:00Z`);
   const end = new Date(start);
   end.setUTCDate(end.getUTCDate() + 6);
   const endStr = end.toISOString().slice(0, 10);
 
-  const { data } = await supabaseAdmin
-    .from("planner_entries")
-    .select("id, entry_date, time_label, title, child_name")
-    .eq("family_id", family.id)
-    .gte("entry_date", weekStart)
-    .lte("entry_date", endStr)
-    .order("entry_date", { ascending: true })
-    .order("time_label", { ascending: true });
+  const [{ data }, { data: agreement }] = await Promise.all([
+    supabaseAdmin
+      .from("planner_entries")
+      .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
+      .eq("family_id", family.id)
+      .gte("entry_date", weekStart)
+      .lte("entry_date", endStr)
+      .order("entry_date", { ascending: true })
+      .order("time_label", { ascending: true }),
+    supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+  ]);
 
-  return { familyName: family.family_name, weekStart, entries: data ?? [] };
+  const workingDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
+  return { familyName: family.family_name, weekStart, entries: data ?? [], workingDays, access: family.access };
 }
 
 export async function addPlannerEntry(
   slug: string,
-  input: { entryDate: string; timeLabel?: string; title: string; childName?: string },
+  input: {
+    entryDate: string;
+    timeLabel?: string;
+    endTimeLabel?: string;
+    title: string;
+    childName?: string;
+    entryType?: string;
+    status?: string;
+    notes?: string;
+  },
 ) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const title = clean(input.title, 160);
   if (!title) throw new Error("Please add what's happening");
@@ -240,14 +266,19 @@ export async function addPlannerEntry(
     family_id: family.id,
     entry_date: input.entryDate,
     time_label: clean(input.timeLabel, 20),
+    end_time_label: clean(input.endTimeLabel, 20),
     title,
     child_name: clean(input.childName, 80),
+    entry_type: clean(input.entryType, 30) ?? "note",
+    status: clean(input.status, 20) ?? "active",
+    added_by: family.access,
+    notes: clean(input.notes, 1000),
   });
   if (error) throw new Error(error.message);
 }
 
 export async function deletePlannerEntry(slug: string, id: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const { error } = await supabaseAdmin
     .from("planner_entries")
@@ -258,7 +289,7 @@ export async function deletePlannerEntry(slug: string, id: string) {
 }
 
 export async function copyPreviousWeek(slug: string, weekStart: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const start = new Date(`${weekStart}T00:00:00Z`);
   const prevStart = new Date(start);
@@ -268,7 +299,7 @@ export async function copyPreviousWeek(slug: string, weekStart: string) {
 
   const { data } = await supabaseAdmin
     .from("planner_entries")
-    .select("entry_date, time_label, title, child_name")
+    .select("entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
     .eq("family_id", family.id)
     .gte("entry_date", prevStart.toISOString().slice(0, 10))
     .lte("entry_date", prevEnd.toISOString().slice(0, 10));
@@ -280,8 +311,13 @@ export async function copyPreviousWeek(slug: string, weekStart: string) {
       family_id: family.id,
       entry_date: date.toISOString().slice(0, 10),
       time_label: entry.time_label,
+      end_time_label: entry.end_time_label,
       title: entry.title,
       child_name: entry.child_name,
+      entry_type: entry.entry_type,
+      status: entry.status,
+      added_by: family.access,
+      notes: entry.notes,
     };
   });
   if (rows.length === 0) return { copied: 0 };
@@ -293,7 +329,7 @@ export async function copyPreviousWeek(slug: string, weekStart: string) {
 /* ---------------- Daily log ---------------- */
 
 export async function loadLogs(slug: string, limit = 30) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) return null;
   const { data } = await supabaseAdmin
     .from("daily_logs")
@@ -317,7 +353,7 @@ export async function addLog(
     tomorrow?: string;
   },
 ) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const { error } = await supabaseAdmin.from("daily_logs").insert({
     family_id: family.id,
@@ -333,7 +369,7 @@ export async function addLog(
 }
 
 export async function deleteLog(slug: string, id: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const { error } = await supabaseAdmin
     .from("daily_logs")
@@ -441,7 +477,7 @@ export async function markThreadRead(slug: string, threadId: string) {
 /* ---------------- Wallet home extras ---------------- */
 
 export async function loadHubSummary(slug: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) return null;
   const today = new Date();
   const day = (today.getUTCDay() + 6) % 7;
@@ -451,11 +487,11 @@ export async function loadHubSummary(slug: string) {
   const weekEnd = new Date(weekStart);
   weekEnd.setUTCDate(weekEnd.getUTCDate() + 6);
 
-  const [{ data: entries }, { data: logs }, { count: childCount }, { count: unread }] =
+  const [{ data: entries }, { data: logs }, { count: childCount }, { count: unread }, { data: agreement }] =
     await Promise.all([
       supabaseAdmin
         .from("planner_entries")
-        .select("id, entry_date, time_label, title, child_name")
+        .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
         .eq("family_id", family.id)
         .gte("entry_date", weekStartStr)
         .lte("entry_date", weekEnd.toISOString().slice(0, 10))
@@ -476,7 +512,12 @@ export async function loadHubSummary(slug: string) {
         .select("id", { count: "exact", head: true })
         .eq("family_id", family.id)
         .eq("family_unread", true),
+      supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
     ]);
+
+  const workingDays: WorkingDay[] = agreement
+    ? normalizeAgreement(agreement.agreement_data).workingDays
+    : [];
 
   return {
     weekStart: weekStartStr,
@@ -484,11 +525,13 @@ export async function loadHubSummary(slug: string) {
     latestLog: logs?.[0] ?? null,
     childCount: childCount ?? 0,
     unreadReplies: unread ?? 0,
+    workingDays,
+    access: family.access,
   };
 }
 
 export async function loadEmergencyCard(slug: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) return null;
   const [{ data: profile }, { data: children }, { data: contacts }, { data: familyRow }] =
     await Promise.all([

@@ -61,8 +61,12 @@ export const addPlannerEntryFn = createServerFn({ method: "POST" })
       slug: string;
       entryDate: string;
       timeLabel?: string;
+      endTimeLabel?: string;
       title: string;
       childName?: string;
+      entryType?: string;
+      status?: string;
+      notes?: string;
     }) => data,
   )
   .handler(async ({ data }) => {
