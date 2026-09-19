@@ -61,6 +61,47 @@ export type Database = {
           },
         ]
       }
+      document_signatures: {
+        Row: {
+          client_key: string | null
+          doc_kind: string
+          doc_version: string
+          family_id: string
+          id: string
+          signed_at: string
+          signer_name: string
+          signer_role: string
+        }
+        Insert: {
+          client_key?: string | null
+          doc_kind: string
+          doc_version?: string
+          family_id: string
+          id?: string
+          signed_at?: string
+          signer_name: string
+          signer_role: string
+        }
+        Update: {
+          client_key?: string | null
+          doc_kind?: string
+          doc_version?: string
+          family_id?: string
+          id?: string
+          signed_at?: string
+          signer_name?: string
+          signer_role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_signatures_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       families: {
         Row: {
           access_code: string
@@ -332,6 +373,83 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "family_profile_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nanny_agreements: {
+        Row: {
+          additional_terms: string | null
+          created_at: string
+          duties: string | null
+          employer_names: string | null
+          family_id: string
+          holiday: string | null
+          hourly_rate: string | null
+          hours: string | null
+          id: string
+          issued_at: string | null
+          nanny_name: string | null
+          notice_period: string | null
+          pay_basis: string | null
+          pension: string | null
+          probation: string | null
+          start_date: string | null
+          status: string
+          updated_at: string
+          version: number
+          work_pattern: string | null
+        }
+        Insert: {
+          additional_terms?: string | null
+          created_at?: string
+          duties?: string | null
+          employer_names?: string | null
+          family_id: string
+          holiday?: string | null
+          hourly_rate?: string | null
+          hours?: string | null
+          id?: string
+          issued_at?: string | null
+          nanny_name?: string | null
+          notice_period?: string | null
+          pay_basis?: string | null
+          pension?: string | null
+          probation?: string | null
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+          version?: number
+          work_pattern?: string | null
+        }
+        Update: {
+          additional_terms?: string | null
+          created_at?: string
+          duties?: string | null
+          employer_names?: string | null
+          family_id?: string
+          holiday?: string | null
+          hourly_rate?: string | null
+          hours?: string | null
+          id?: string
+          issued_at?: string | null
+          nanny_name?: string | null
+          notice_period?: string | null
+          pay_basis?: string | null
+          pension?: string | null
+          probation?: string | null
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+          version?: number
+          work_pattern?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_agreements_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: true
             referencedRelation: "families"

@@ -43,6 +43,13 @@
       "when": 1789844657748,
       "tag": "0005_create_training_attempts",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789845615811,
+      "tag": "0006_agreement_and_signatures",
+      "breakpoints": true
     }
   ]
 }
