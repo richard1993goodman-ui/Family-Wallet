@@ -477,3 +477,36 @@ export const getFamilyHub = createServerFn({ method: "POST" })
       entries: entries ?? [],
     };
   });
+
+/* ---------------- Nanny agreement & signatures ---------------- */
+
+export const getAgreementAdmin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { familyId: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminLoadAgreement } = await import("./agreement.server");
+    return adminLoadAgreement(data.familyId);
+  });
+
+export const saveAgreementAdmin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; fields: AgreementFields; publish: boolean }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminSaveAgreement } = await import("./agreement.server");
+    return adminSaveAgreement(data.familyId, data.fields, data.publish);
+  });
+
+export const signAsAgency = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; docKind: "agreement" | "terms"; name: string }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminSign } = await import("./agreement.server");
+    return adminSign(data.familyId, data.docKind, data.name);
+  });
