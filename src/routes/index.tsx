@@ -2,7 +2,24 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { FileText, IdCard, Calculator, Shield, Sparkles, Apple, KeyRound } from "lucide-react";
+import {
+  FileText,
+  IdCard,
+  Calculator,
+  Shield,
+  Sparkles,
+  Apple,
+  KeyRound,
+  Siren,
+  Users,
+  CalendarDays,
+  NotebookPen,
+  MessagesSquare,
+  GraduationCap,
+  Award,
+  Car,
+  BadgePercent,
+} from "lucide-react";
 
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
