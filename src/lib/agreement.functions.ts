@@ -14,6 +14,13 @@ export const getSignatures = createServerFn({ method: "GET" })
     return loadSignatures(data.slug);
   });
 
+export const saveAgreementFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; data: AgreementData; publish: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { saveAgreementFromWallet } = await import("./agreement.server");
+    return saveAgreementFromWallet(data.slug, data.data, data.publish);
+  });
+
 export const signDocumentFn = createServerFn({ method: "POST" })
   .inputValidator(
     (data: {
