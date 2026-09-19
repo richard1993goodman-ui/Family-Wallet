@@ -27,6 +27,7 @@ import { getHubSummary } from "@/lib/family.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
+import { SigningProgress } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
