@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ChevronLeft, ChevronRight, Plus, Trash2 } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2 } from "lucide-react";
 
 import {
   addPlannerEntryFn,
@@ -66,7 +66,7 @@ function PlannerPage() {
   const copyFn = useServerFn(copyPreviousWeekFn);
 
   const [weekStart, setWeekStart] = useState(() => mondayOf(new Date()));
-  const [draft, setDraft] = useState<{ date: string; time: string; title: string; child: string } | null>(
+  const [draft, setDraft] = useState<{ date: string; time: string; endTime: string; title: string; child: string; entryType: string; status: string; notes: string } | null>(
     null,
   );
 
@@ -97,7 +97,7 @@ function PlannerPage() {
     if (!draft) return;
     try {
       await addFn({
-        data: { slug, entryDate: draft.date, timeLabel: draft.time, title: draft.title, childName: draft.child },
+        data: { slug, entryDate: draft.date, timeLabel: draft.time, endTimeLabel: draft.endTime, title: draft.title, childName: draft.child, entryType: draft.entryType, status: draft.status, notes: draft.notes },
       });
       setDraft(null);
       await refresh();
@@ -109,8 +109,8 @@ function PlannerPage() {
   return (
     <HubPage
       slug={slug}
-      title="This week"
-      intro="Parents and your nanny can both add and change anything here."
+      title="Family calendar"
+      intro="Your agreement sets normal working hours. Add school dates, plans or one-off shift changes here."
     >
       <div className="flex items-center justify-between gap-3">
         <Button variant="outline" size="sm" onClick={() => setWeekStart(addDays(weekStart, -7))}>
@@ -132,6 +132,8 @@ function PlannerPage() {
       <div className="mt-5 space-y-3">
         {days.map((day) => {
           const dayEntries = entries.filter((e) => e.entry_date === day);
+          const weekday = new Date(`${day}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+          const regular = query.data.workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
           return (
             <div
               key={day}
@@ -148,23 +150,29 @@ function PlannerPage() {
                 </p>
                 <button
                   className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                  onClick={() => setDraft({ date: day, time: "", title: "", child: "" })}
+                   onClick={() => setDraft({ date: day, time: "", endTime: "", title: "", child: "", entryType: "note", status: "active", notes: "" })}
                 >
                   <Plus className="h-3.5 w-3.5" /> Add
                 </button>
               </div>
 
-              {dayEntries.length === 0 && (
+              {regular && !dayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled") && (
+                <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
+                  <CalendarDays className="h-4 w-4 text-primary" /> Regular nanny day · {regular.startTime}–{regular.endTime}{regular.splitShift && regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}
+                </div>
+              )}
+              {dayEntries.length === 0 && !regular && (
                 <p className="mt-2 text-sm text-muted-foreground">Nothing planned yet.</p>
               )}
               <ul className="mt-2 space-y-2">
                 {dayEntries.map((entry) => (
                   <li key={entry.id} className="flex items-start justify-between gap-3 text-sm">
                     <span>
-                      {entry.time_label && (
-                        <span className="font-medium text-foreground">{entry.time_label} </span>
+                       {entry.time_label && (
+                         <span className="font-medium text-foreground">{entry.time_label}{entry.end_time_label ? `–${entry.end_time_label}` : ""} </span>
                       )}
                       <span className="text-foreground">{entry.title}</span>
+                       <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs capitalize text-muted-foreground">{entry.entry_type.replace("_", " ")}</span>
                       {entry.child_name && (
                         <span className="text-muted-foreground"> · {entry.child_name}</span>
                       )}
@@ -192,6 +200,12 @@ function PlannerPage() {
                       onChange={(e) => setDraft({ ...draft, time: e.target.value })}
                     />
                     <Input
+                      className="w-24"
+                      type="time"
+                      value={draft.endTime}
+                      onChange={(e) => setDraft({ ...draft, endTime: e.target.value })}
+                    />
+                    <Input
                       placeholder="School pickup"
                       value={draft.title}
                       onChange={(e) => setDraft({ ...draft, title: e.target.value })}
@@ -202,6 +216,13 @@ function PlannerPage() {
                     value={draft.child}
                     onChange={(e) => setDraft({ ...draft, child: e.target.value })}
                   />
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.entryType} onChange={(e) => setDraft({ ...draft, entryType: e.target.value, title: e.target.value === "school_holiday" ? "School holiday" : e.target.value === "inset_day" ? "Inset day" : draft.title })}>
+                      <option value="note">Note</option><option value="activity">Activity</option><option value="meal">Meal</option><option value="school_holiday">School holiday</option><option value="inset_day">Inset day</option><option value="shift_change">Shift change</option>
+                    </select>
+                    {draft.entryType === "shift_change" && <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.status} onChange={(e) => setDraft({ ...draft, status: e.target.value, title: e.target.value === "cancelled" ? "Nanny shift cancelled" : "Changed nanny shift" })}><option value="active">Changed shift</option><option value="cancelled">Cancel regular shift</option></select>}
+                  </div>
+                  <Input placeholder="Extra notes (optional)" value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} />
                   <div className="flex gap-2">
                     <Button size="sm" onClick={onAdd}>
                       Add to {formatDay(day).split(" ")[0]}

@@ -4,7 +4,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import {
-  ArrowUpRight,
   BadgeCheck,
   BookOpen,
   CalendarDays,
@@ -14,18 +13,21 @@ import {
   Lock,
   MessageCircle,
   NotebookPen,
+  Clock3,
   Phone,
   Shield,
   Siren,
   ScrollText,
   Users,
+  UtensilsCrossed,
+  WandSparkles,
   ExternalLink,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { getHubSummary } from "@/lib/family.functions";
 import { getAgreement } from "@/lib/agreement.functions";
-import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
+import { TERMS_HUB_URL } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
@@ -195,7 +197,7 @@ function WalletPage() {
   if (!data?.unlocked) return null;
 
   const wallet = data.wallet;
-  const tier = tierFor(wallet.tierBand);
+  const isNanny = wallet.access === "nanny";
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
 
   return (
@@ -208,48 +210,7 @@ function WalletPage() {
           {wallet.familyName}
         </h1>
 
-        <div className="mt-6 rounded-xl border border-border bg-card p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Membership
-              </p>
-              <p className="heading-display mt-1 text-xl text-foreground">{tier.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {tier.days} · {tier.price}
-              </p>
-            </div>
-            <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
-              Active
-            </span>
-          </div>
-          <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
-            {wallet.startDate && (
-              <div>
-                <dt className="text-muted-foreground">Started with us</dt>
-                <dd className="font-medium text-foreground">
-                  {new Date(wallet.startDate).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </dd>
-              </div>
-            )}
-            {wallet.termsAcceptedOn && (
-              <div>
-                <dt className="text-muted-foreground">Terms accepted</dt>
-                <dd className="font-medium text-foreground">
-                  {new Date(wallet.termsAcceptedOn).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </dd>
-              </div>
-            )}
-          </dl>
-        </div>
+        <TodayPanel slug={slug} entries={hub?.entries ?? []} workingDays={hub?.workingDays ?? []} />
 
         {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">
@@ -324,7 +285,7 @@ function WalletPage() {
         )}
 
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
+        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile
             slug={slug}
@@ -344,7 +305,7 @@ function WalletPage() {
             title="Nanny quick guide"
             subtitle="A one-page summary for your nanny"
           />
-        </div>
+        </div></>}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -372,6 +333,13 @@ function WalletPage() {
           />
         </div>
 
+        <h2 className="heading-display mt-9 text-lg text-foreground">Activities, meals &amp; pay</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/activities/$slug" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Create, save and plan personalised activities" />
+          <HubTile slug={slug} to="/fuel/$slug" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Cooking and meal ideas saved to your calendar" />
+          <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
+        </div>
+
         <h2 className="heading-display mt-9 text-lg text-foreground">Training</h2>
         <div className="mt-3">
           <HubTile
@@ -383,7 +351,7 @@ function WalletPage() {
           />
         </div>
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Support</h2>
+        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Support</h2>
         <div className="mt-3">
           <HubTile
             slug={slug}
@@ -396,7 +364,7 @@ function WalletPage() {
                 : "Pay, holidays, behaviour — ask us anything"
             }
           />
-        </div>
+        </div></>}
 
         {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
           <>
@@ -415,7 +383,7 @@ function WalletPage() {
           </>
         )}
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Your documents</h2>
+        <h2 className="heading-display mt-9 text-lg text-foreground">{isNanny ? "Your agreement" : "Your documents"}</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile
             slug={slug}
@@ -424,14 +392,14 @@ function WalletPage() {
             title="Nanny agreement"
             subtitle={agreementSubtitle}
           />
-          <DocTile
+          {!isNanny && <DocTile
             icon={IdCard}
             title="Your nanny's CV"
             subtitle={hasDoc("cv") ? "Experience, training and references" : "Coming soon"}
             disabled={!hasDoc("cv")}
             onClick={() => openDoc("cv")}
-          />
-          <HubTile
+          />}
+          {!isNanny && <HubTile
             slug={slug}
             to="/terms/$slug"
             icon={ScrollText}
@@ -439,16 +407,16 @@ function WalletPage() {
             subtitle={
               wallet.termsAcceptedOn ? "Signed — view your copy" : "Read and sign your terms"
             }
-          />
-          <DocTile
+          />}
+          {!isNanny && <DocTile
             icon={Shield}
             title="Our family guarantee"
             subtitle="What we promise you, always"
             onClick={() => setSheet("guarantee")}
-          />
+          />}
         </div>
 
-        {wallet.checks.length > 0 && (
+        {!isNanny && wallet.checks.length > 0 && (
           <>
             <h2 className="heading-display mt-9 text-lg text-foreground">
               Checks &amp; credentials
@@ -497,29 +465,7 @@ function WalletPage() {
           </>
         )}
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Your everyday tools</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          These open in a new tab so you always get the latest version.
-        </p>
-        <div className="mt-3 space-y-3">
-          {TOOL_LINKS.map((tool) => (
-            <a
-              key={tool.href}
-              href={tool.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
-            >
-              <span>
-                <span className="block font-medium text-foreground">{tool.title}</span>
-                <span className="mt-1 block text-sm text-muted-foreground">{tool.description}</span>
-              </span>
-              <ArrowUpRight className="mt-1 h-4 w-4 flex-shrink-0 text-primary" />
-            </a>
-          ))}
-        </div>
-
-        {wallet.nannytaxCode && (
+        {!isNanny && wallet.nannytaxCode && (
           <>
             <h2 className="heading-display mt-9 text-lg text-foreground">Your Nannytax code</h2>
             <div className="mt-3 rounded-xl border border-border bg-card p-5">
@@ -546,24 +492,14 @@ function WalletPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                 >
-                  Visit Nannytax <ArrowUpRight className="h-4 w-4" />
+                   Visit Nannytax <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
             </div>
           </>
         )}
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Other fees</h2>
-        <div className="mt-3 rounded-xl border border-border bg-card p-5">
-          <dl className="space-y-3 text-sm">
-            {EXTRA_FEES.map((fee) => (
-              <div key={fee.label} className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{fee.label}</dt>
-                <dd className="flex-shrink-0 font-medium text-foreground">{fee.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+        {!isNanny && <div className="mt-9 flex items-center justify-between rounded-xl border border-border bg-card p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
 
         <p className="mt-10 text-xs text-muted-foreground">
           Wallet last updated{" "}
