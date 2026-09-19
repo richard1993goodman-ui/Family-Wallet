@@ -157,8 +157,7 @@ function Index() {
           The Family Wallet
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-foreground/90">
-          Every family that joins us gets their own private wallet. It holds everything you need in
-          one place, so you are never hunting through emails for a document again.
+
         </p>
 
         <FamilyLogin />
