@@ -487,8 +487,15 @@ export async function loadHubSummary(slug: string) {
   const weekEnd = new Date(weekStart);
   weekEnd.setUTCDate(weekEnd.getUTCDate() + 6);
 
-  const [{ data: entries }, { data: logs }, { count: childCount }, { count: unread }, { data: agreement }] =
-    await Promise.all([
+  const [
+    { data: entries },
+    { data: logs },
+    { data: children },
+    { count: unread },
+    { data: agreement },
+    { count: contactCount },
+    { data: profile },
+  ] = await Promise.all([
       supabaseAdmin
         .from("planner_entries")
         .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
