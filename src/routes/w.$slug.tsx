@@ -656,7 +656,32 @@ function TodayPanel({ slug, entries, workingDays }: {
         })}
       </div>
 
-      <div className="mt-8 border-t border-border pt-4">
+      <div className="mt-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Agreed nanny hours
+        </p>
+        {workingDays.some((day) => day.enabled) ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {workingDays
+              .filter((day) => day.enabled)
+              .map((day) => (
+                <span
+                  key={day.day}
+                  className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
+                >
+                  {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                  {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
+                </span>
+              ))}
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-muted-foreground">
+            No days set yet — add them in your nanny agreement and they'll appear here.
+          </p>
+        )}
+      </div>
+
+      <div className="mt-6 border-t border-border pt-4">
         <p className="font-medium text-foreground">
           {selectedIsToday ? "Today" : selected.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
         </p>
