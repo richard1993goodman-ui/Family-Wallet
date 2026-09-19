@@ -72,6 +72,12 @@ function WalletPage() {
     queryFn: () => summaryFn({ data: { slug } }),
   });
 
+  const hubQuery = useQuery({
+    queryKey: ["hub-summary", slug],
+    queryFn: () => hubFn({ data: { slug } }),
+  });
+  const hub = hubQuery.data ?? null;
+
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
