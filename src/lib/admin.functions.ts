@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { AgreementFields } from "./agreement.types";
 
 type Ctx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> }; userId: string };
 
@@ -476,4 +477,37 @@ export const getFamilyHub = createServerFn({ method: "POST" })
       logs: logs ?? [],
       entries: entries ?? [],
     };
+  });
+
+/* ---------------- Nanny agreement & signatures ---------------- */
+
+export const getAgreementAdmin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { familyId: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminLoadAgreement } = await import("./agreement.server");
+    return adminLoadAgreement(data.familyId);
+  });
+
+export const saveAgreementAdmin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; fields: AgreementFields; publish: boolean }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminSaveAgreement } = await import("./agreement.server");
+    return adminSaveAgreement(data.familyId, data.fields, data.publish);
+  });
+
+export const signAsAgency = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { familyId: string; docKind: "agreement" | "terms"; name: string }) => data,
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { adminSign } = await import("./agreement.server");
+    return adminSign(data.familyId, data.docKind, data.name);
   });

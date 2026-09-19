@@ -52,3 +52,5 @@ export const TOOL_LINKS = [
 ];
 
 export const TERMS_HUB_URL = "https://athletemanniestermsandconditions.lovable.app";
+
+export const TERMS_VERSION = "2026.1";

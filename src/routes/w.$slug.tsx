@@ -360,12 +360,12 @@ function WalletPage() {
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Your documents</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <DocTile
+          <HubTile
+            slug={slug}
+            to="/agreement/$slug"
             icon={FileText}
             title="Nanny agreement"
-            subtitle={hasDoc("agreement") ? "Open your signed agreement" : "Coming soon"}
-            disabled={!hasDoc("agreement")}
-            onClick={() => openDoc("agreement")}
+            subtitle="Read and sign it here"
           />
           <DocTile
             icon={IdCard}
@@ -374,11 +374,14 @@ function WalletPage() {
             disabled={!hasDoc("cv")}
             onClick={() => openDoc("cv")}
           />
-          <DocTile
+          <HubTile
+            slug={slug}
+            to="/terms/$slug"
             icon={ScrollText}
             title="Membership terms"
-            subtitle="The terms of your membership"
-            onClick={() => setSheet("terms")}
+            subtitle={
+              wallet.termsAcceptedOn ? "Signed — view your copy" : "Read and sign your terms"
+            }
           />
           <DocTile
             icon={Shield}
@@ -619,7 +622,9 @@ function HubTile({
     | "/planner/$slug"
     | "/log/$slug"
     | "/support/$slug"
-    | "/training/$slug";
+    | "/training/$slug"
+    | "/agreement/$slug"
+    | "/terms/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
