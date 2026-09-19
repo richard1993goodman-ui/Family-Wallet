@@ -25,7 +25,6 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -40,20 +39,9 @@ function AuthPage() {
     e.preventDefault();
     setBusy(true);
     try {
-      if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        navigate({ to: "/admin", replace: true });
-      } else {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        if (data.session) navigate({ to: "/admin", replace: true });
-        else toast.success("Check your email to confirm your account, then sign in.");
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      navigate({ to: "/admin", replace: true });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Something went wrong");
     } finally {
@@ -67,9 +55,10 @@ function AuthPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Athlete Mannies &amp; Nannies
         </p>
-        <h1 className="heading-display mt-2 text-2xl text-primary">
-          {mode === "signin" ? "Agency sign in" : "Create your account"}
-        </h1>
+        <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Private area for the agency owner only. New accounts cannot be created here.
+        </p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
@@ -90,7 +79,7 @@ function AuthPage() {
               id="password"
               type="password"
               value={password}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
@@ -98,17 +87,9 @@ function AuthPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+            {busy ? "Please wait…" : "Sign in"}
           </Button>
         </form>
-
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-5 w-full text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-        >
-          {mode === "signin" ? "Need an account? Create one" : "Already have an account? Sign in"}
-        </button>
       </div>
     </div>
   );
