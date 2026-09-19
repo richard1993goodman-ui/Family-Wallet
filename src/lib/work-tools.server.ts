@@ -75,7 +75,16 @@ async function generateStructured<T>(prompt: string, schema: z.ZodType<T>) {
       return { ok: false as const, error: "No suitable ideas came back. Please try again." };
     }
     const message = error instanceof Error ? error.message : "Ideas could not be created.";
-    return { ok: false as const, error: message };
+    const safeMessage = /402|credit/i.test(message)
+      ? "The site's AI credits need topping up."
+      : /429|rate/i.test(message)
+        ? "Lots of ideas are being made right now. Please try again shortly."
+        : /401|key|config/i.test(message)
+          ? "The idea generator is not configured correctly."
+          : /403|denied|disabled/i.test(message)
+            ? message
+            : "Ideas could not be created just now. Please try again.";
+    return { ok: false as const, error: safeMessage };
   }
 }
 
