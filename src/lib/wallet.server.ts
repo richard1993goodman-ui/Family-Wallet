@@ -10,7 +10,9 @@ function sessionConfig() {
     password: process.env["WALLET_SESSION_SECRET"]!,
     name: "family-wallet",
     maxAge: 60 * 60 * 24 * 30,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+    // "none" so the wallet stays unlocked when the app is viewed inside an
+    // embedded preview frame; the cookie is still httpOnly and https-only.
+    cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
 }
 
