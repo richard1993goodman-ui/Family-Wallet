@@ -9,6 +9,7 @@ import {
   BookOpen,
   CalendarDays,
   FileText,
+  GraduationCap,
   IdCard,
   Lock,
   MessageCircle,
@@ -314,6 +315,17 @@ function WalletPage() {
           />
         </div>
 
+        <h2 className="heading-display mt-9 text-lg text-foreground">Training</h2>
+        <div className="mt-3">
+          <HubTile
+            slug={slug}
+            to="/training/$slug"
+            icon={GraduationCap}
+            title="Nanny training hub"
+            subtitle="20 questions on routine, safeguarding and emergencies — with a certificate"
+          />
+        </div>
+
         <h2 className="heading-display mt-9 text-lg text-foreground">Support</h2>
         <div className="mt-3">
           <HubTile
@@ -601,7 +613,13 @@ function HubTile({
   subtitle,
 }: {
   slug: string;
-  to: "/family/$slug" | "/guide/$slug" | "/planner/$slug" | "/log/$slug" | "/support/$slug";
+  to:
+    | "/family/$slug"
+    | "/guide/$slug"
+    | "/planner/$slug"
+    | "/log/$slug"
+    | "/support/$slug"
+    | "/training/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
