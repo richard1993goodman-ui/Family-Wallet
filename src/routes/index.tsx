@@ -8,7 +8,6 @@ import {
   Calculator,
   Shield,
   Sparkles,
-  Apple,
   KeyRound,
   Siren,
   Users,
