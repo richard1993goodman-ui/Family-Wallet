@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -6,16 +6,23 @@ import { toast } from "sonner";
 import {
   ArrowUpRight,
   BadgeCheck,
+  BookOpen,
+  CalendarDays,
   FileText,
   IdCard,
   Lock,
+  MessageCircle,
+  NotebookPen,
   Phone,
   Shield,
+  Siren,
   ScrollText,
+  Users,
   ExternalLink,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
+import { getHubSummary } from "@/lib/family.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { TermsContent } from "@/components/TermsContent";
