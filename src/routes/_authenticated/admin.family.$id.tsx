@@ -211,6 +211,13 @@ function FamilyDetail() {
         {family && (
           <>
             <h1 className="heading-display mt-4 text-3xl text-primary">{family.family_name}</h1>
+            <Link
+              to="/admin/hub/$id"
+              params={{ id }}
+              className="mt-2 inline-block text-sm text-primary underline underline-offset-4"
+            >
+              View what this family has filled in
+            </Link>
 
             <div className="mt-4 rounded-xl border border-border bg-card p-5">
               <p className="text-sm font-medium text-foreground">Wallet link &amp; access code</p>
