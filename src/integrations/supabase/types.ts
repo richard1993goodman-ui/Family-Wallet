@@ -450,6 +450,50 @@ export type Database = {
           },
         ]
       }
+      training_attempts: {
+        Row: {
+          answers: Json
+          certificate_ref: string
+          completed_at: string
+          family_id: string
+          id: string
+          learner_name: string
+          passed: boolean
+          score: number
+          total: number
+        }
+        Insert: {
+          answers?: Json
+          certificate_ref: string
+          completed_at?: string
+          family_id: string
+          id?: string
+          learner_name: string
+          passed?: boolean
+          score: number
+          total: number
+        }
+        Update: {
+          answers?: Json
+          certificate_ref?: string
+          completed_at?: string
+          family_id?: string
+          id?: string
+          learner_name?: string
+          passed?: boolean
+          score?: number
+          total?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_attempts_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string

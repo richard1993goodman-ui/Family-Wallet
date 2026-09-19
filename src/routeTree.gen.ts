@@ -18,9 +18,11 @@ import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
+import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
+import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
 import { Route as AuthenticatedAdminHubIdRouteImport } from './routes/_authenticated/admin.hub.$id'
 
@@ -68,6 +70,11 @@ const SupportSlugRoute = SupportSlugRouteImport.update({
   path: '/support/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainingSlugRoute = TrainingSlugRouteImport.update({
+  id: '/training/$slug',
+  path: '/training/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WSlugRoute = WSlugRouteImport.update({
   id: '/w/$slug',
   path: '/w/$slug',
@@ -84,6 +91,11 @@ const AuthenticatedAdminSupportRoute =
     path: '/admin/support',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const CertificateSlugIdRoute = CertificateSlugIdRouteImport.update({
+  id: '/certificate/$slug/$id',
+  path: '/certificate/$slug/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminFamilyIdRoute =
   AuthenticatedAdminFamilyIdRouteImport.update({
     id: '/admin/family/$id',
@@ -105,8 +117,10 @@ export interface FileRoutesByFullPath {
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -120,8 +134,10 @@ export interface FileRoutesByTo {
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -137,8 +153,10 @@ export interface FileRoutesById {
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/_authenticated/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -154,8 +172,10 @@ export interface FileRouteTypes {
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/training/$slug'
     | '/w/$slug'
     | '/admin/support'
+    | '/certificate/$slug/$id'
     | '/admin/'
     | '/admin/family/$id'
     | '/admin/hub/$id'
@@ -169,8 +189,10 @@ export interface FileRouteTypes {
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/training/$slug'
     | '/w/$slug'
     | '/admin/support'
+    | '/certificate/$slug/$id'
     | '/admin'
     | '/admin/family/$id'
     | '/admin/hub/$id'
@@ -185,8 +207,10 @@ export interface FileRouteTypes {
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/training/$slug'
     | '/w/$slug'
     | '/_authenticated/admin/support'
+    | '/certificate/$slug/$id'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/family/$id'
     | '/_authenticated/admin/hub/$id'
@@ -202,7 +226,9 @@ export interface RootRouteChildren {
   LogSlugRoute: typeof LogSlugRoute
   PlannerSlugRoute: typeof PlannerSlugRoute
   SupportSlugRoute: typeof SupportSlugRoute
+  TrainingSlugRoute: typeof TrainingSlugRoute
   WSlugRoute: typeof WSlugRoute
+  CertificateSlugIdRoute: typeof CertificateSlugIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -270,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/training/$slug': {
+      id: '/training/$slug'
+      path: '/training/$slug'
+      fullPath: '/training/$slug'
+      preLoaderRoute: typeof TrainingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/w/$slug': {
       id: '/w/$slug'
       path: '/w/$slug'
@@ -290,6 +323,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/support'
       preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/certificate/$slug/$id': {
+      id: '/certificate/$slug/$id'
+      path: '/certificate/$slug/$id'
+      fullPath: '/certificate/$slug/$id'
+      preLoaderRoute: typeof CertificateSlugIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/family/$id': {
       id: '/_authenticated/admin/family/$id'
@@ -335,7 +375,9 @@ const rootRouteChildren: RootRouteChildren = {
   LogSlugRoute: LogSlugRoute,
   PlannerSlugRoute: PlannerSlugRoute,
   SupportSlugRoute: SupportSlugRoute,
+  TrainingSlugRoute: TrainingSlugRoute,
   WSlugRoute: WSlugRoute,
+  CertificateSlugIdRoute: CertificateSlugIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
