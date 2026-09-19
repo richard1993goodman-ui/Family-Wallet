@@ -63,12 +63,7 @@ export function SigningProgress({ status, version, signatures, compact }: Signin
               <Circle className="mt-0.5 h-5 w-5 flex-shrink-0 text-muted-foreground/50" />
             )}
             <span className="text-sm">
-              <span className="block font-medium text-foreground">
-                {row.label}
-                {row.role === "agency" && !row.signature && (
-                  <span className="font-normal text-muted-foreground"> — optional</span>
-                )}
-              </span>
+              <span className="block font-medium text-foreground">{row.label}</span>
               <span className="block text-muted-foreground">
                 {row.signature
                   ? `${row.signature.signerName} · signed ${formatSignedAt(row.signature.signedAt)}`
