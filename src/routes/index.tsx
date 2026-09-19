@@ -2,7 +2,23 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { FileText, IdCard, Calculator, Shield, Sparkles, Apple, KeyRound } from "lucide-react";
+import {
+  FileText,
+  IdCard,
+  Calculator,
+  Shield,
+  Sparkles,
+  KeyRound,
+  Siren,
+  Users,
+  CalendarDays,
+  NotebookPen,
+  MessagesSquare,
+  GraduationCap,
+  Award,
+  Car,
+  BadgePercent,
+} from "lucide-react";
 
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
@@ -30,12 +46,21 @@ export const Route = createFileRoute("/")({
 });
 
 const items = [
+  { icon: Siren, label: "Emergency card — key contacts and instructions at a glance" },
   { icon: FileText, label: "Your nanny agreement" },
-  { icon: IdCard, label: "Your nanny's CV" },
+  { icon: IdCard, label: "Your nanny's CV, profile and references" },
+  { icon: Shield, label: "Checks & credentials — DBS, ID and right to work" },
+  { icon: Users, label: "Know my family — children's profiles and the nanny quick guide" },
+  { icon: CalendarDays, label: "Weekly planner — what's on each day, Monday to Sunday" },
+  { icon: NotebookPen, label: "Daily log — how each day went" },
+  { icon: MessagesSquare, label: "Ask Athlete Mannies — message us straight from the wallet" },
+  { icon: GraduationCap, label: "Nanny training hub — safeguarding, routines and emergencies" },
+  { icon: Award, label: "Nanny training certificate — kept in the wallet once passed" },
   { icon: Calculator, label: "Timesheet calculator" },
-  { icon: Apple, label: "Nanny Fuel meal ideas" },
+  { icon: Car, label: "Nanny Fuel — mileage and meal ideas" },
   { icon: Sparkles, label: "Nanny activity guide" },
-  { icon: Shield, label: "Membership terms & our family guarantee" },
+  { icon: BadgePercent, label: "Your Nannytax referral code and membership perks" },
+  { icon: Shield, label: "Your membership tier, fees, terms and our family guarantee" },
 ];
 
 function slugFromInput(input: string) {
