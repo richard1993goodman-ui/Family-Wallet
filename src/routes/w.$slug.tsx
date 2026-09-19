@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -6,16 +6,23 @@ import { toast } from "sonner";
 import {
   ArrowUpRight,
   BadgeCheck,
+  BookOpen,
+  CalendarDays,
   FileText,
   IdCard,
   Lock,
+  MessageCircle,
+  NotebookPen,
   Phone,
   Shield,
+  Siren,
   ScrollText,
+  Users,
   ExternalLink,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
+import { getHubSummary } from "@/lib/family.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { TermsContent } from "@/components/TermsContent";
@@ -62,6 +69,7 @@ function WalletPage() {
   const unlockFn = useServerFn(unlockWallet);
   const lockFn = useServerFn(lockWalletFn);
   const docFn = useServerFn(getDocumentUrl);
+  const hubFn = useServerFn(getHubSummary);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -71,6 +79,12 @@ function WalletPage() {
     queryKey: ["wallet", slug],
     queryFn: () => summaryFn({ data: { slug } }),
   });
+
+  const hubQuery = useQuery({
+    queryKey: ["hub-summary", slug],
+    queryFn: () => hubFn({ data: { slug } }),
+  });
+  const hub = hubQuery.data ?? null;
 
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
@@ -237,6 +251,83 @@ function WalletPage() {
             </div>
           </div>
         )}
+
+        <Link
+          to="/emergency/$slug"
+          params={{ slug }}
+          className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-destructive/40 bg-card p-5 hover:border-destructive"
+        >
+          <span>
+            <span className="block font-medium text-foreground">Emergency card</span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              Contacts, allergies, medication, GP and home address — in one tap
+            </span>
+          </span>
+          <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
+        </Link>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile
+            slug={slug}
+            to="/family/$slug"
+            icon={Users}
+            title="Know my family"
+            subtitle={
+              hub?.childCount
+                ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added`
+                : "Children, routines, allergies and house rules"
+            }
+          />
+          <HubTile
+            slug={slug}
+            to="/guide/$slug"
+            icon={BookOpen}
+            title="Nanny quick guide"
+            subtitle="A one-page summary for your nanny"
+          />
+        </div>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile
+            slug={slug}
+            to="/planner/$slug"
+            icon={CalendarDays}
+            title="Weekly planner"
+            subtitle={
+              hub?.entries.length
+                ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week`
+                : "Plan pickups, clubs and activities"
+            }
+          />
+          <HubTile
+            slug={slug}
+            to="/log/$slug"
+            icon={NotebookPen}
+            title="Daily log"
+            subtitle={
+              hub?.latestLog
+                ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}`
+                : "End-of-shift updates from your nanny"
+            }
+          />
+        </div>
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Support</h2>
+        <div className="mt-3">
+          <HubTile
+            slug={slug}
+            to="/support/$slug"
+            icon={MessageCircle}
+            title="Ask Athlete Mannies"
+            subtitle={
+              hub?.unreadReplies
+                ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us`
+                : "Pay, holidays, behaviour — ask us anything"
+            }
+          />
+        </div>
 
         {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
           <>
@@ -499,5 +590,33 @@ function DocTile({
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
       </span>
     </button>
+  );
+}
+
+function HubTile({
+  slug,
+  to,
+  icon: Icon,
+  title,
+  subtitle,
+}: {
+  slug: string;
+  to: "/family/$slug" | "/guide/$slug" | "/planner/$slug" | "/log/$slug" | "/support/$slug";
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <Link
+      to={to}
+      params={{ slug }}
+      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+    >
+      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span>
+        <span className="block font-medium text-foreground">{title}</span>
+        <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
+      </span>
+    </Link>
   );
 }

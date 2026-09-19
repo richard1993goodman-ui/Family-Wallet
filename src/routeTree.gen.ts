@@ -12,9 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
+import { Route as FamilySlugRouteImport } from './routes/family.$slug'
+import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as LogSlugRouteImport } from './routes/log.$slug'
+import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
+import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
+import { Route as AuthenticatedAdminHubIdRouteImport } from './routes/_authenticated/admin.hub.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +38,36 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergencySlugRoute = EmergencySlugRouteImport.update({
+  id: '/emergency/$slug',
+  path: '/emergency/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FamilySlugRoute = FamilySlugRouteImport.update({
+  id: '/family/$slug',
+  path: '/family/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideSlugRoute = GuideSlugRouteImport.update({
+  id: '/guide/$slug',
+  path: '/guide/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogSlugRoute = LogSlugRouteImport.update({
+  id: '/log/$slug',
+  path: '/log/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlannerSlugRoute = PlannerSlugRouteImport.update({
+  id: '/planner/$slug',
+  path: '/planner/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportSlugRoute = SupportSlugRouteImport.update({
+  id: '/support/$slug',
+  path: '/support/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WSlugRoute = WSlugRouteImport.update({
   id: '/w/$slug',
   path: '/w/$slug',
@@ -40,55 +78,130 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminSupportRoute =
+  AuthenticatedAdminSupportRouteImport.update({
+    id: '/admin/support',
+    path: '/admin/support',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFamilyIdRoute =
   AuthenticatedAdminFamilyIdRouteImport.update({
     id: '/admin/family/$id',
     path: '/admin/family/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminHubIdRoute = AuthenticatedAdminHubIdRouteImport.update({
+  id: '/admin/hub/$id',
+  path: '/admin/hub/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/emergency/$slug': typeof EmergencySlugRoute
+  '/family/$slug': typeof FamilySlugRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/emergency/$slug': typeof EmergencySlugRoute
+  '/family/$slug': typeof FamilySlugRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/emergency/$slug': typeof EmergencySlugRoute
+  '/family/$slug': typeof FamilySlugRoute
+  '/guide/$slug': typeof GuideSlugRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/planner/$slug': typeof PlannerSlugRoute
+  '/support/$slug': typeof SupportSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
+  '/_authenticated/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/w/$slug' | '/admin/' | '/admin/family/$id'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/emergency/$slug'
+    | '/family/$slug'
+    | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
+    | '/w/$slug'
+    | '/admin/support'
+    | '/admin/'
+    | '/admin/family/$id'
+    | '/admin/hub/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/w/$slug' | '/admin' | '/admin/family/$id'
+  to:
+    | '/'
+    | '/auth'
+    | '/emergency/$slug'
+    | '/family/$slug'
+    | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
+    | '/w/$slug'
+    | '/admin/support'
+    | '/admin'
+    | '/admin/family/$id'
+    | '/admin/hub/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/emergency/$slug'
+    | '/family/$slug'
+    | '/guide/$slug'
+    | '/log/$slug'
+    | '/planner/$slug'
+    | '/support/$slug'
     | '/w/$slug'
+    | '/_authenticated/admin/support'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/family/$id'
+    | '/_authenticated/admin/hub/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  EmergencySlugRoute: typeof EmergencySlugRoute
+  FamilySlugRoute: typeof FamilySlugRoute
+  GuideSlugRoute: typeof GuideSlugRoute
+  LogSlugRoute: typeof LogSlugRoute
+  PlannerSlugRoute: typeof PlannerSlugRoute
+  SupportSlugRoute: typeof SupportSlugRoute
   WSlugRoute: typeof WSlugRoute
 }
 
@@ -115,6 +228,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergency/$slug': {
+      id: '/emergency/$slug'
+      path: '/emergency/$slug'
+      fullPath: '/emergency/$slug'
+      preLoaderRoute: typeof EmergencySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/family/$slug': {
+      id: '/family/$slug'
+      path: '/family/$slug'
+      fullPath: '/family/$slug'
+      preLoaderRoute: typeof FamilySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide/$slug': {
+      id: '/guide/$slug'
+      path: '/guide/$slug'
+      fullPath: '/guide/$slug'
+      preLoaderRoute: typeof GuideSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/log/$slug': {
+      id: '/log/$slug'
+      path: '/log/$slug'
+      fullPath: '/log/$slug'
+      preLoaderRoute: typeof LogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planner/$slug': {
+      id: '/planner/$slug'
+      path: '/planner/$slug'
+      fullPath: '/planner/$slug'
+      preLoaderRoute: typeof PlannerSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support/$slug': {
+      id: '/support/$slug'
+      path: '/support/$slug'
+      fullPath: '/support/$slug'
+      preLoaderRoute: typeof SupportSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/w/$slug': {
       id: '/w/$slug'
       path: '/w/$slug'
@@ -129,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/support': {
+      id: '/_authenticated/admin/support'
+      path: '/admin/support'
+      fullPath: '/admin/support'
+      preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/family/$id': {
       id: '/_authenticated/admin/family/$id'
       path: '/admin/family/$id'
@@ -136,17 +298,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFamilyIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/hub/$id': {
+      id: '/_authenticated/admin/hub/$id'
+      path: '/admin/hub/$id'
+      fullPath: '/admin/hub/$id'
+      preLoaderRoute: typeof AuthenticatedAdminHubIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminSupportRoute: typeof AuthenticatedAdminSupportRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminFamilyIdRoute: typeof AuthenticatedAdminFamilyIdRoute
+  AuthenticatedAdminHubIdRoute: typeof AuthenticatedAdminHubIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminSupportRoute: AuthenticatedAdminSupportRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminFamilyIdRoute: AuthenticatedAdminFamilyIdRoute,
+  AuthenticatedAdminHubIdRoute: AuthenticatedAdminHubIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -156,6 +329,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  EmergencySlugRoute: EmergencySlugRoute,
+  FamilySlugRoute: FamilySlugRoute,
+  GuideSlugRoute: GuideSlugRoute,
+  LogSlugRoute: LogSlugRoute,
+  PlannerSlugRoute: PlannerSlugRoute,
+  SupportSlugRoute: SupportSlugRoute,
   WSlugRoute: WSlugRoute,
 }
 export const routeTree = rootRouteImport

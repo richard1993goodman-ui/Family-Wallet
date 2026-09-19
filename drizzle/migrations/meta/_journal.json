@@ -29,6 +29,13 @@
       "when": 1789737765581,
       "tag": "0003_add_nannytax_code",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789840759971,
+      "tag": "0004_family_hub",
+      "breakpoints": true
     }
   ]
 }

@@ -214,6 +214,19 @@ function AdminHome() {
           </DialogContent>
         </Dialog>
 
+        <Link
+          to="/admin/support"
+          className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
+        >
+          <span>
+            <span className="block font-medium text-foreground">Support inbox</span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              Questions families have sent you
+            </span>
+          </span>
+          <span className="text-primary">→</span>
+        </Link>
+
         <div className="mt-8 space-y-3">
           {families.data?.length === 0 && (
             <p className="text-sm text-muted-foreground">No families yet.</p>

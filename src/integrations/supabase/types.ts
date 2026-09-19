@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      daily_logs: {
+        Row: {
+          activities: string | null
+          created_at: string
+          family_id: string
+          food: string | null
+          homework: string | null
+          id: string
+          log_date: string
+          mood: string | null
+          notes: string | null
+          tomorrow: string | null
+        }
+        Insert: {
+          activities?: string | null
+          created_at?: string
+          family_id: string
+          food?: string | null
+          homework?: string | null
+          id?: string
+          log_date: string
+          mood?: string | null
+          notes?: string | null
+          tomorrow?: string | null
+        }
+        Update: {
+          activities?: string | null
+          created_at?: string
+          family_id?: string
+          food?: string | null
+          homework?: string | null
+          id?: string
+          log_date?: string
+          mood?: string | null
+          notes?: string | null
+          tomorrow?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_logs_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       families: {
         Row: {
           access_code: string
@@ -85,6 +132,80 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      family_children: {
+        Row: {
+          allergies: string | null
+          bedtime_routine: string | null
+          created_at: string
+          date_of_birth: string | null
+          dietary: string | null
+          dislikes: string | null
+          family_id: string
+          id: string
+          interests: string | null
+          medication: string | null
+          morning_routine: string | null
+          name: string
+          personality: string | null
+          photo_path: string | null
+          school: string | null
+          school_hours: string | null
+          sort_order: number
+          what_makes_them_tick: string | null
+          year_group: string | null
+        }
+        Insert: {
+          allergies?: string | null
+          bedtime_routine?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          dietary?: string | null
+          dislikes?: string | null
+          family_id: string
+          id?: string
+          interests?: string | null
+          medication?: string | null
+          morning_routine?: string | null
+          name: string
+          personality?: string | null
+          photo_path?: string | null
+          school?: string | null
+          school_hours?: string | null
+          sort_order?: number
+          what_makes_them_tick?: string | null
+          year_group?: string | null
+        }
+        Update: {
+          allergies?: string | null
+          bedtime_routine?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          dietary?: string | null
+          dislikes?: string | null
+          family_id?: string
+          id?: string
+          interests?: string | null
+          medication?: string | null
+          morning_routine?: string | null
+          name?: string
+          personality?: string | null
+          photo_path?: string | null
+          school?: string | null
+          school_hours?: string | null
+          sort_order?: number
+          what_makes_them_tick?: string | null
+          year_group?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_children_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       family_contacts: {
         Row: {
@@ -161,6 +282,167 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "family_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_profile: {
+        Row: {
+          emergency_instructions: string | null
+          family_id: string
+          gp_details: string | null
+          home_address: string | null
+          homework_expectations: string | null
+          house_rules: string | null
+          id: string
+          important_addresses: string | null
+          medical_notes: string | null
+          screen_time_rules: string | null
+          updated_at: string
+        }
+        Insert: {
+          emergency_instructions?: string | null
+          family_id: string
+          gp_details?: string | null
+          home_address?: string | null
+          homework_expectations?: string | null
+          house_rules?: string | null
+          id?: string
+          important_addresses?: string | null
+          medical_notes?: string | null
+          screen_time_rules?: string | null
+          updated_at?: string
+        }
+        Update: {
+          emergency_instructions?: string | null
+          family_id?: string
+          gp_details?: string | null
+          home_address?: string | null
+          homework_expectations?: string | null
+          house_rules?: string | null
+          id?: string
+          important_addresses?: string | null
+          medical_notes?: string | null
+          screen_time_rules?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_profile_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      planner_entries: {
+        Row: {
+          child_name: string | null
+          created_at: string
+          entry_date: string
+          family_id: string
+          id: string
+          time_label: string | null
+          title: string
+        }
+        Insert: {
+          child_name?: string | null
+          created_at?: string
+          entry_date: string
+          family_id: string
+          id?: string
+          time_label?: string | null
+          title: string
+        }
+        Update: {
+          child_name?: string | null
+          created_at?: string
+          entry_date?: string
+          family_id?: string
+          id?: string
+          time_label?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "planner_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          sender: string
+          thread_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          sender: string
+          thread_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          sender?: string
+          thread_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "support_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_threads: {
+        Row: {
+          created_at: string
+          family_id: string
+          family_unread: boolean
+          id: string
+          last_sender: string
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          family_id: string
+          family_unread?: boolean
+          id?: string
+          last_sender?: string
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          family_id?: string
+          family_unread?: boolean
+          id?: string
+          last_sender?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_threads_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
