@@ -1,6 +1,7 @@
 import { getRequest } from "@tanstack/react-start/server";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Json } from "@/integrations/supabase/types";
 import { isUnlocked } from "./wallet.server";
 import { TERMS_VERSION } from "./tiers";
 import {
@@ -235,7 +236,7 @@ export async function adminSaveAgreement(
     const { error } = await supabaseAdmin.from("nanny_agreements").insert({
       family_id: familyId,
       ...legacyColumns(data),
-      agreement_data: data as unknown as Record<string, unknown>,
+      agreement_data: data as unknown as Json,
       status: publish ? "issued" : "draft",
       version: 1,
       issued_at: publish ? new Date().toISOString() : null,
@@ -249,7 +250,7 @@ export async function adminSaveAgreement(
     .from("nanny_agreements")
     .update({
       ...legacyColumns(data),
-      agreement_data: data as unknown as Record<string, unknown>,
+      agreement_data: data as unknown as Json,
       status: publish ? "issued" : existing.status,
       version: bumpVersion ? existing.version + 1 : existing.version,
       issued_at: publish ? new Date().toISOString() : existing.status === "issued" ? undefined : null,
