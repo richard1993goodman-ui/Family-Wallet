@@ -289,6 +289,16 @@ function WalletPage() {
           <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
         </Link>
 
+        {agreement && agreement.hasContent && (
+          <div className="mt-3">
+            <SigningProgress
+              status={agreement.status}
+              version={agreement.version}
+              signatures={agreement.signatures}
+            />
+          </div>
+        )}
+
         {agreement && !agreementDone && (
           <Link
             to="/agreement/$slug"
