@@ -512,7 +512,7 @@ export async function loadHubSummary(slug: string) {
         .limit(1),
       supabaseAdmin
         .from("family_children")
-        .select("id", { count: "exact", head: true })
+        .select("id, name, date_of_birth, school, allergies, medication")
         .eq("family_id", family.id),
       supabaseAdmin
         .from("support_threads")
@@ -520,20 +520,40 @@ export async function loadHubSummary(slug: string) {
         .eq("family_id", family.id)
         .eq("family_unread", true),
       supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+      supabaseAdmin
+        .from("family_contacts")
+        .select("id", { count: "exact", head: true })
+        .eq("family_id", family.id),
+      supabaseAdmin
+        .from("family_profile")
+        .select("home_address, gp_details, emergency_instructions, house_rules")
+        .eq("family_id", family.id)
+        .maybeSingle(),
     ]);
 
   const workingDays: WorkingDay[] = agreement
     ? normalizeAgreement(agreement.agreement_data).workingDays
     : [];
 
+  const kids = children ?? [];
+
   return {
     weekStart: weekStartStr,
     entries: entries ?? [],
     latestLog: logs?.[0] ?? null,
-    childCount: childCount ?? 0,
+    childCount: kids.length,
     unreadReplies: unread ?? 0,
     workingDays,
     access: family.access,
+    readiness: {
+      children: kids.length > 0,
+      childDetails: kids.length > 0 && kids.every((c) => Boolean(c.school || c.date_of_birth)),
+      allergies: kids.length > 0 && kids.every((c) => Boolean(c.allergies || c.medication)),
+      contacts: (contactCount ?? 0) > 0,
+      homeAddress: Boolean(profile?.home_address),
+      gp: Boolean(profile?.gp_details),
+      houseRules: Boolean(profile?.house_rules),
+    },
   };
 }
 
