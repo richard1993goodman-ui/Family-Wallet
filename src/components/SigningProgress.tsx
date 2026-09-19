@@ -10,7 +10,11 @@ export type SigningProgressProps = {
   compact?: boolean;
 };
 
-type Row = { role: "parent" | "nanny" | "agency"; label: string; signature?: Signature };
+type Row = {
+  role: "parent" | "nanny" | "agency";
+  label: string;
+  signature: Signature | undefined;
+};
 
 export function signingRows(
   signatures: Signature[],
