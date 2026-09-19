@@ -143,6 +143,15 @@ function AgreementPage() {
       intro="Read it here, sign it here. Your signed copy stays in your wallet."
     >
       <div className="space-y-6">
+        <div className="flex flex-wrap gap-3 print:hidden">
+          <Button onClick={() => setEditing(true)}>
+            <Pencil className="mr-2 h-4 w-4" /> Edit agreement
+          </Button>
+          <Button variant="outline" onClick={() => window.print()}>
+            <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
+          </Button>
+        </div>
+
         {!issued && (
           <Card>
             <p className="text-sm text-muted-foreground">
@@ -192,12 +201,9 @@ function AgreementPage() {
           </div>
         </Card>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 print:hidden">
           <Button variant="outline" onClick={() => setEditing(true)}>
             <Pencil className="mr-2 h-4 w-4" /> Edit agreement
-          </Button>
-          <Button variant="outline" onClick={() => window.print()}>
-            <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
           </Button>
         </div>
       </div>
