@@ -15,7 +15,7 @@ import {
 import type { AgreementData } from "@/lib/agreement.model";
 import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
-import { HubPage, LockedNotice, Card } from "@/components/hub-ui";
+import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
 import { Button } from "@/components/ui/button";
@@ -408,6 +408,7 @@ function AgreementPage() {
             wallet.
           </p>
           <div className="mt-6">{body}</div>
+          <BackToWallet slug={slug} />
         </div>
       </div>
     );

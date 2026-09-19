@@ -11,7 +11,7 @@ export type SigningProgressProps = {
 };
 
 type Row = {
-  role: "parent" | "nanny" | "agency";
+  role: "parent" | "nanny";
   label: string;
   signature: Signature | undefined;
 };
@@ -27,14 +27,13 @@ export function signingRows(
   const rows: Row[] = [
     { role: "parent", label: "Parent / employer", signature: find("parent") },
     { role: "nanny", label: "Nanny / manny", signature: find("nanny") },
-    { role: "agency", label: "Athlete Mannies", signature: find("agency") },
   ];
   return { rows, complete: Boolean(find("parent") && find("nanny")) };
 }
 
 export function SigningProgress({ status, version, signatures, compact }: SigningProgressProps) {
   const { rows, complete } = signingRows(signatures, version);
-  const required = rows.filter((r) => r.role !== "agency");
+  const required = rows;
   const done = required.filter((r) => r.signature).length;
 
   const action =
@@ -64,12 +63,7 @@ export function SigningProgress({ status, version, signatures, compact }: Signin
               <Circle className="mt-0.5 h-5 w-5 flex-shrink-0 text-muted-foreground/50" />
             )}
             <span className="text-sm">
-              <span className="block font-medium text-foreground">
-                {row.label}
-                {row.role === "agency" && !row.signature && (
-                  <span className="font-normal text-muted-foreground"> — optional</span>
-                )}
-              </span>
+              <span className="block font-medium text-foreground">{row.label}</span>
               <span className="block text-muted-foreground">
                 {row.signature
                   ? `${row.signature.signerName} · signed ${formatSignedAt(row.signature.signedAt)}`

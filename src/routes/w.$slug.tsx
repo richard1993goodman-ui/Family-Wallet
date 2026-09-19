@@ -30,7 +30,7 @@ import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
 import type { WorkingDay } from "@/lib/agreement.model";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
-import { SigningProgress } from "@/components/SigningProgress";
+import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,11 +98,9 @@ function WalletPage() {
     queryFn: () => agreementFn({ data: { slug } }),
   });
   const agreement = agreementQuery.data ?? null;
-  const agreementSigs = (agreement?.signatures ?? []).filter((s) => s.docKind === "agreement");
   const agreementDone =
     agreement?.status === "issued" &&
-    agreementSigs.some((s) => s.signerRole === "parent") &&
-    agreementSigs.some((s) => s.signerRole === "nanny");
+    signingRows(agreement.signatures, agreement.version).complete;
   const agreementSubtitle = !agreement
     ? "Build it, then sign it here"
     : !agreement.hasContent
@@ -251,6 +249,62 @@ function WalletPage() {
           </span>
           <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
         </Link>
+
+        {!isNanny && (
+          <SetupStatus
+            slug={slug}
+            items={[
+              {
+                label: "Nanny agreement signed",
+                done: Boolean(agreementDone),
+                hint: "Build it, then both of you sign it",
+                to: "/agreement/$slug",
+              },
+              {
+                label: "Membership terms signed",
+                done: Boolean(wallet.termsAcceptedOn),
+                hint: "Read and sign your membership terms",
+                to: "/terms/$slug",
+              },
+              {
+                label: "Children added",
+                done: Boolean(hub?.readiness?.children),
+                hint: "Add each child so your nanny knows who's who",
+                to: "/family/$slug",
+              },
+              {
+                label: "Allergies & medication",
+                done: Boolean(hub?.readiness?.allergies),
+                hint: "Add allergies and medication for every child",
+                to: "/family/$slug",
+              },
+              {
+                label: "Emergency contacts",
+                done: Boolean(hub?.readiness?.contacts),
+                hint: "At least one contact we can call",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "Home address",
+                done: Boolean(hub?.readiness?.homeAddress),
+                hint: "Needed on the emergency card and the agreement",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "GP details",
+                done: Boolean(hub?.readiness?.gp),
+                hint: "Your family doctor's name and number",
+                to: "/emergency/$slug",
+              },
+              {
+                label: "House rules",
+                done: Boolean(hub?.readiness?.houseRules),
+                hint: "Screen time, homework and the basics",
+                to: "/family/$slug",
+              },
+            ]}
+          />
+        )}
 
         {agreement && agreement.hasContent && (
           <div className="mt-3">
@@ -574,6 +628,86 @@ function ContactCard({
   );
 }
 
+type SetupItem = {
+  label: string;
+  done: boolean;
+  hint: string;
+  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug";
+};
+
+function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
+  const [open, setOpen] = useState(false);
+  const done = items.filter((item) => item.done).length;
+  const total = items.length;
+  const allDone = done === total;
+  const outstanding = items.filter((item) => !item.done);
+  const barColour = allDone ? "bg-emerald-600" : done >= total / 2 ? "bg-amber-500" : "bg-destructive";
+
+  return (
+    <div className="mt-4 rounded-xl border border-border bg-card p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Actions to complete
+          </p>
+          <p className="mt-1 font-medium text-foreground">
+            {allDone ? "Everything is complete" : `${total - done} still to do`}
+          </p>
+        </div>
+        <span className="text-sm text-muted-foreground">
+          {done} of {total}
+        </span>
+      </div>
+
+      <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
+        <div
+          className={`h-full rounded-full ${barColour}`}
+          style={{ width: `${Math.round((done / total) * 100)}%` }}
+        />
+      </div>
+
+      <ul className="mt-4 space-y-2.5">
+        {(open ? items : outstanding.slice(0, 3)).map((item) => (
+          <li key={item.label}>
+            <Link
+              to={item.to}
+              params={{ slug }}
+              className="flex items-start gap-3 rounded-lg px-1 py-1 hover:bg-muted/60"
+            >
+              <span
+                className={`mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+                  item.done ? "bg-emerald-600" : "bg-destructive"
+                }`}
+              />
+              <span className="text-sm">
+                <span
+                  className={`block font-medium ${item.done ? "text-muted-foreground line-through" : "text-foreground"}`}
+                >
+                  {item.label}
+                </span>
+                {!item.done && <span className="block text-muted-foreground">{item.hint}</span>}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      {(outstanding.length > 3 || open) && (
+        <button
+          className="mt-3 text-sm font-medium text-primary hover:underline"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? "Show less" : `Show all ${total}`}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function shortTime(value: string) {
+  return value.replace(/:00$/, "").replace(/^0/, "");
+}
+
 function TodayPanel({ slug, entries, workingDays }: {
   slug: string;
   entries: Array<{ id: string; entry_date: string; time_label: string | null; end_time_label: string | null; title: string; entry_type: string; status: string }>;
@@ -618,6 +752,14 @@ function TodayPanel({ slug, entries, workingDays }: {
           const isToday = iso === todayIso;
           const isSelected = iso === selectedDate;
           const hasEntries = entries.some((entry) => entry.entry_date === iso);
+          const dayName = date.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+          const dayShift = workingDays.find((day) => day.day === dayName && day.enabled);
+          const dayCancelled = entries.some(
+            (entry) =>
+              entry.entry_date === iso &&
+              entry.entry_type === "shift_change" &&
+              entry.status === "cancelled",
+          );
           return (
             <Button
               key={iso}
@@ -632,6 +774,11 @@ function TodayPanel({ slug, entries, workingDays }: {
                 {date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }).slice(0, 2)}
               </span>
               <span className="text-base">{date.getUTCDate()}</span>
+              <span className="text-[9px] leading-tight opacity-80">
+                {dayShift && !dayCancelled
+                  ? `${shortTime(dayShift.startTime)}-${shortTime(dayShift.endTime)}`
+                  : "\u00A0"}
+              </span>
               <span className={`h-1 w-1 rounded-full ${hasEntries ? "bg-current" : "bg-transparent"}`} />
               {isToday && (
                 <span className="absolute -bottom-5 text-[10px] font-semibold text-primary">Today</span>
@@ -641,7 +788,32 @@ function TodayPanel({ slug, entries, workingDays }: {
         })}
       </div>
 
-      <div className="mt-8 border-t border-border pt-4">
+      <div className="mt-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Agreed nanny hours
+        </p>
+        {workingDays.some((day) => day.enabled) ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {workingDays
+              .filter((day) => day.enabled)
+              .map((day) => (
+                <span
+                  key={day.day}
+                  className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
+                >
+                  {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                  {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
+                </span>
+              ))}
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-muted-foreground">
+            No days set yet — add them in your nanny agreement and they'll appear here.
+          </p>
+        )}
+      </div>
+
+      <div className="mt-6 border-t border-border pt-4">
         <p className="font-medium text-foreground">
           {selectedIsToday ? "Today" : selected.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
         </p>
