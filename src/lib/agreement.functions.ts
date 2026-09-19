@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import type { AgreementData } from "./agreement.model";
+
 export const getAgreement = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
