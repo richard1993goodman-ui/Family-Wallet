@@ -1,0 +1,165 @@
+import { createServerFn } from "@tanstack/react-start";
+
+import type { ChildInput, ProfileInput } from "./family.types";
+
+export const getFamilyProfile = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadFamilyProfile } = await import("./family.server");
+    return loadFamilyProfile(data.slug);
+  });
+
+export const saveProfileFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; profile: ProfileInput }) => data)
+  .handler(async ({ data }) => {
+    const { saveFamilyProfile } = await import("./family.server");
+    await saveFamilyProfile(data.slug, data.profile);
+    return { ok: true as const };
+  });
+
+export const saveChildFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; child: ChildInput }) => data)
+  .handler(async ({ data }) => {
+    const { saveChild } = await import("./family.server");
+    return saveChild(data.slug, data.child);
+  });
+
+export const deleteChildFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deleteChild } = await import("./family.server");
+    await deleteChild(data.slug, data.id);
+    return { ok: true as const };
+  });
+
+export const uploadChildPhotoFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: {
+      slug: string;
+      childId: string;
+      fileName: string;
+      contentType: string;
+      base64: string;
+    }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { uploadChildPhoto } = await import("./family.server");
+    await uploadChildPhoto(data.slug, data.childId, data.fileName, data.contentType, data.base64);
+    return { ok: true as const };
+  });
+
+export const getPlanner = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string; weekStart: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadPlanner } = await import("./family.server");
+    return loadPlanner(data.slug, data.weekStart);
+  });
+
+export const addPlannerEntryFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: {
+      slug: string;
+      entryDate: string;
+      timeLabel?: string;
+      title: string;
+      childName?: string;
+    }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { addPlannerEntry } = await import("./family.server");
+    await addPlannerEntry(data.slug, data);
+    return { ok: true as const };
+  });
+
+export const deletePlannerEntryFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deletePlannerEntry } = await import("./family.server");
+    await deletePlannerEntry(data.slug, data.id);
+    return { ok: true as const };
+  });
+
+export const copyPreviousWeekFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; weekStart: string }) => data)
+  .handler(async ({ data }) => {
+    const { copyPreviousWeek } = await import("./family.server");
+    return copyPreviousWeek(data.slug, data.weekStart);
+  });
+
+export const getLogs = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadLogs } = await import("./family.server");
+    return loadLogs(data.slug);
+  });
+
+export const addLogFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: {
+      slug: string;
+      logDate: string;
+      activities?: string;
+      food?: string;
+      homework?: string;
+      mood?: string;
+      notes?: string;
+      tomorrow?: string;
+    }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { addLog } = await import("./family.server");
+    await addLog(data.slug, data);
+    return { ok: true as const };
+  });
+
+export const deleteLogFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deleteLog } = await import("./family.server");
+    await deleteLog(data.slug, data.id);
+    return { ok: true as const };
+  });
+
+export const getSupport = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadSupport } = await import("./family.server");
+    return loadSupport(data.slug);
+  });
+
+export const askSupportFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; subject: string; body: string }) => data)
+  .handler(async ({ data }) => {
+    const { askSupport } = await import("./family.server");
+    return askSupport(data.slug, data.subject, data.body);
+  });
+
+export const replyAsFamilyFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; threadId: string; body: string }) => data)
+  .handler(async ({ data }) => {
+    const { replyAsFamily } = await import("./family.server");
+    await replyAsFamily(data.slug, data.threadId, data.body);
+    return { ok: true as const };
+  });
+
+export const markThreadReadFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; threadId: string }) => data)
+  .handler(async ({ data }) => {
+    const { markThreadRead } = await import("./family.server");
+    await markThreadRead(data.slug, data.threadId);
+    return { ok: true as const };
+  });
+
+export const getHubSummary = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadHubSummary } = await import("./family.server");
+    return loadHubSummary(data.slug);
+  });
+
+export const getEmergencyCard = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadEmergencyCard } = await import("./family.server");
+    return loadEmergencyCard(data.slug);
+  });
