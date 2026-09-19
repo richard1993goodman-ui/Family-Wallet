@@ -69,6 +69,7 @@ function WalletPage() {
   const unlockFn = useServerFn(unlockWallet);
   const lockFn = useServerFn(lockWalletFn);
   const docFn = useServerFn(getDocumentUrl);
+  const hubFn = useServerFn(getHubSummary);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
