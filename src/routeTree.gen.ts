@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
+import { Route as TermsSlugRouteImport } from './routes/terms.$slug'
 import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -38,6 +40,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgreementSlugRoute = AgreementSlugRouteImport.update({
+  id: '/agreement/$slug',
+  path: '/agreement/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmergencySlugRoute = EmergencySlugRouteImport.update({
@@ -68,6 +75,11 @@ const PlannerSlugRoute = PlannerSlugRouteImport.update({
 const SupportSlugRoute = SupportSlugRouteImport.update({
   id: '/support/$slug',
   path: '/support/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsSlugRoute = TermsSlugRouteImport.update({
+  id: '/terms/$slug',
+  path: '/terms/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrainingSlugRoute = TrainingSlugRouteImport.update({
@@ -111,12 +123,14 @@ const AuthenticatedAdminHubIdRoute = AuthenticatedAdminHubIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/agreement/$slug': typeof AgreementSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/terms/$slug': typeof TermsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
@@ -128,12 +142,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/agreement/$slug': typeof AgreementSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/terms/$slug': typeof TermsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
@@ -147,12 +163,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/agreement/$slug': typeof AgreementSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/guide/$slug': typeof GuideSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
+  '/terms/$slug': typeof TermsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
@@ -166,12 +184,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/agreement/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/terms/$slug'
     | '/training/$slug'
     | '/w/$slug'
     | '/admin/support'
@@ -183,12 +203,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/agreement/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/terms/$slug'
     | '/training/$slug'
     | '/w/$slug'
     | '/admin/support'
@@ -201,12 +223,14 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/agreement/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
     | '/guide/$slug'
     | '/log/$slug'
     | '/planner/$slug'
     | '/support/$slug'
+    | '/terms/$slug'
     | '/training/$slug'
     | '/w/$slug'
     | '/_authenticated/admin/support'
@@ -220,12 +244,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  AgreementSlugRoute: typeof AgreementSlugRoute
   EmergencySlugRoute: typeof EmergencySlugRoute
   FamilySlugRoute: typeof FamilySlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   PlannerSlugRoute: typeof PlannerSlugRoute
   SupportSlugRoute: typeof SupportSlugRoute
+  TermsSlugRoute: typeof TermsSlugRoute
   TrainingSlugRoute: typeof TrainingSlugRoute
   WSlugRoute: typeof WSlugRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
@@ -252,6 +278,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agreement/$slug': {
+      id: '/agreement/$slug'
+      path: '/agreement/$slug'
+      fullPath: '/agreement/$slug'
+      preLoaderRoute: typeof AgreementSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emergency/$slug': {
@@ -294,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/support/$slug'
       fullPath: '/support/$slug'
       preLoaderRoute: typeof SupportSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms/$slug': {
+      id: '/terms/$slug'
+      path: '/terms/$slug'
+      fullPath: '/terms/$slug'
+      preLoaderRoute: typeof TermsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/training/$slug': {
@@ -369,12 +409,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  AgreementSlugRoute: AgreementSlugRoute,
   EmergencySlugRoute: EmergencySlugRoute,
   FamilySlugRoute: FamilySlugRoute,
   GuideSlugRoute: GuideSlugRoute,
   LogSlugRoute: LogSlugRoute,
   PlannerSlugRoute: PlannerSlugRoute,
   SupportSlugRoute: SupportSlugRoute,
+  TermsSlugRoute: TermsSlugRoute,
   TrainingSlugRoute: TrainingSlugRoute,
   WSlugRoute: WSlugRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
