@@ -616,6 +616,14 @@ function TodayPanel({ slug, entries, workingDays }: {
           const isToday = iso === todayIso;
           const isSelected = iso === selectedDate;
           const hasEntries = entries.some((entry) => entry.entry_date === iso);
+          const dayName = date.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+          const dayShift = workingDays.find((day) => day.day === dayName && day.enabled);
+          const dayCancelled = entries.some(
+            (entry) =>
+              entry.entry_date === iso &&
+              entry.entry_type === "shift_change" &&
+              entry.status === "cancelled",
+          );
           return (
             <Button
               key={iso}
