@@ -57,7 +57,7 @@ const items = [
   { icon: GraduationCap, label: "Nanny training hub — safeguarding, routines and emergencies" },
   { icon: Award, label: "Nanny training certificate — kept in the wallet once passed" },
   { icon: Calculator, label: "Timesheet calculator" },
-  { icon: Car, label: "Nanny Fuel — mileage and meal ideas" },
+  { icon: UtensilsCrossed, label: "Nanny Fuel — cooking and meal ideas" },
   { icon: Sparkles, label: "Nanny activity guide" },
   { icon: BadgePercent, label: "Your Nannytax referral code and membership perks" },
   { icon: Shield, label: "Your membership tier, fees, terms and our family guarantee" },
