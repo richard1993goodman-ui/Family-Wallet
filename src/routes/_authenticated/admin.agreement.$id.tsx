@@ -100,8 +100,8 @@ function AdminAgreementPage() {
                   key={section.key}
                   label={section.label}
                   value={fields[section.key] ?? ""}
-                  placeholder={section.placeholder}
-                  textarea={section.textarea}
+                  placeholder={section.placeholder ?? ""}
+                  textarea={section.textarea ?? false}
                   onChange={(value) => setFields((f) => ({ ...f, [section.key]: value }))}
                 />
               ))}
