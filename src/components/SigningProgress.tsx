@@ -11,7 +11,7 @@ export type SigningProgressProps = {
 };
 
 type Row = {
-  role: "parent" | "nanny" | "agency";
+  role: "parent" | "nanny";
   label: string;
   signature: Signature | undefined;
 };
