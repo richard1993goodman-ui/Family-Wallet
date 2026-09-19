@@ -57,6 +57,13 @@
       "when": 1789846903479,
       "tag": "0007_agreement_full_builder",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789848902554,
+      "tag": "0008_nanny_invite_codes",
+      "breakpoints": true
     }
   ]
 }

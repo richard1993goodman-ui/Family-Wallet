@@ -112,9 +112,12 @@ export type Database = {
           family_name: string
           id: string
           nanny_bio: string | null
+          nanny_code: string | null
+          nanny_code_hash: string | null
           nanny_emergency_name: string | null
           nanny_emergency_phone: string | null
           nanny_emergency_relationship: string | null
+          nanny_invited_at: string | null
           nanny_name: string | null
           nanny_photo_path: string | null
           nannytax_code: string | null
@@ -135,9 +138,12 @@ export type Database = {
           family_name: string
           id?: string
           nanny_bio?: string | null
+          nanny_code?: string | null
+          nanny_code_hash?: string | null
           nanny_emergency_name?: string | null
           nanny_emergency_phone?: string | null
           nanny_emergency_relationship?: string | null
+          nanny_invited_at?: string | null
           nanny_name?: string | null
           nanny_photo_path?: string | null
           nannytax_code?: string | null
@@ -158,9 +164,12 @@ export type Database = {
           family_name?: string
           id?: string
           nanny_bio?: string | null
+          nanny_code?: string | null
+          nanny_code_hash?: string | null
           nanny_emergency_name?: string | null
           nanny_emergency_phone?: string | null
           nanny_emergency_relationship?: string | null
+          nanny_invited_at?: string | null
           nanny_name?: string | null
           nanny_photo_path?: string | null
           nannytax_code?: string | null
