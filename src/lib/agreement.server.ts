@@ -2,7 +2,7 @@ import { getRequest } from "@tanstack/react-start/server";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
-import { isUnlocked } from "./wallet.server";
+import { accessLevel, isUnlocked } from "./wallet.server";
 import { TERMS_VERSION } from "./tiers";
 import {
   agreementHasContent,
@@ -11,6 +11,15 @@ import {
   type AgreementData,
 } from "./agreement.model";
 import type { Signature } from "./agreement.types";
+
+export type EmergencyContext = {
+  homeAddress: string | null;
+  gpDetails: string | null;
+  medicalNotes: string | null;
+  emergencyInstructions: string | null;
+  children: { name: string; school: string | null; allergies: string | null; medication: string | null }[];
+  contacts: { name: string; relationship: string | null; phone: string }[];
+};
 
 export type AgreementView = {
   familyName: string;
@@ -21,6 +30,8 @@ export type AgreementView = {
   data: AgreementData;
   hasContent: boolean;
   signatures: Signature[];
+  access: "family" | "nanny";
+  emergency: EmergencyContext;
 };
 
 function clientKey() {
