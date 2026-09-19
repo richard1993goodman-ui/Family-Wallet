@@ -27,14 +27,13 @@ export function signingRows(
   const rows: Row[] = [
     { role: "parent", label: "Parent / employer", signature: find("parent") },
     { role: "nanny", label: "Nanny / manny", signature: find("nanny") },
-    { role: "agency", label: "Athlete Mannies", signature: find("agency") },
   ];
   return { rows, complete: Boolean(find("parent") && find("nanny")) };
 }
 
 export function SigningProgress({ status, version, signatures, compact }: SigningProgressProps) {
   const { rows, complete } = signingRows(signatures, version);
-  const required = rows.filter((r) => r.role !== "agency");
+  const required = rows;
   const done = required.filter((r) => r.signature).length;
 
   const action =
