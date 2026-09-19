@@ -30,7 +30,7 @@ import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
 import type { WorkingDay } from "@/lib/agreement.model";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
-import { SigningProgress } from "@/components/SigningProgress";
+import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,11 +98,9 @@ function WalletPage() {
     queryFn: () => agreementFn({ data: { slug } }),
   });
   const agreement = agreementQuery.data ?? null;
-  const agreementSigs = (agreement?.signatures ?? []).filter((s) => s.docKind === "agreement");
   const agreementDone =
     agreement?.status === "issued" &&
-    agreementSigs.some((s) => s.signerRole === "parent") &&
-    agreementSigs.some((s) => s.signerRole === "nanny");
+    signingRows(agreement.signatures, agreement.version).complete;
   const agreementSubtitle = !agreement
     ? "Build it, then sign it here"
     : !agreement.hasContent
