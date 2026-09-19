@@ -108,6 +108,89 @@ export async function attemptUnlock(slug: string, code: string) {
   return { ok: true as const };
 }
 
+/* ---------------- Nanny invitation & sign-in ---------------- */
+
+const nannyKey = (slug: string) => `nanny:${slug}`;
+
+export async function isNannyUnlocked(slug: string) {
+  const session = await walletSession();
+  return (session.data.unlocked ?? []).includes(nannyKey(slug));
+}
+
+/** "family" = parent/wallet holder, "nanny" = invited nanny, null = no access. */
+export async function accessLevel(slug: string): Promise<"family" | "nanny" | null> {
+  if (await isUnlocked(slug)) return "family";
+  if (await isNannyUnlocked(slug)) return "nanny";
+  return null;
+}
+
+/** Parents generate (or fetch) the invite the nanny uses to sign in. */
+export async function ensureNannyInvite(slug: string, regenerate = false) {
+  if (!(await isUnlocked(slug))) return null;
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("id, nanny_code, nanny_name")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  if (!family) return null;
+
+  let code = family.nanny_code;
+  if (!code || regenerate) {
+    code = generateAccessCode();
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({
+        nanny_code: code,
+        nanny_code_hash: hashCode(nannyKey(slug), code),
+        nanny_invited_at: new Date().toISOString(),
+      })
+      .eq("id", family.id);
+    if (error) return null;
+  }
+
+  return { code, slug, nannyName: family.nanny_name ?? null };
+}
+
+export async function attemptNannyUnlock(slug: string, code: string) {
+  const key = `${clientKey()}|nanny|${slug}`;
+  const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+
+  const { count } = await supabaseAdmin
+    .from("wallet_access_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("client_key", key)
+    .eq("succeeded", false)
+    .gte("attempted_at", since);
+  if ((count ?? 0) >= 8) return { ok: false as const, reason: "rate_limited" as const };
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("nanny_code_hash, status")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  const success =
+    !!family &&
+    family.status === "active" &&
+    !!family.nanny_code_hash &&
+    equals(family.nanny_code_hash, hashCode(nannyKey(slug), code));
+
+  await supabaseAdmin
+    .from("wallet_access_attempts")
+    .insert({ slug: nannyKey(slug), client_key: key, succeeded: success });
+
+  if (!success) return { ok: false as const, reason: "invalid" as const };
+
+  const session = await walletSession();
+  const current = session.data.unlocked ?? [];
+  if (!current.includes(nannyKey(slug))) {
+    await session.update({ unlocked: [...current, nannyKey(slug)] });
+  }
+  return { ok: true as const };
+}
+
 export type WalletCheck = {
   docType: string;
   fileName: string;
