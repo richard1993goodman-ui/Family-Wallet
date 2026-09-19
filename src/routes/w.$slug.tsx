@@ -27,6 +27,7 @@ import { getHubSummary } from "@/lib/family.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { EXTRA_FEES, TERMS_HUB_URL, TOOL_LINKS, tierFor } from "@/lib/tiers";
 import { GuaranteeContent } from "@/components/GuaranteeContent";
+import { SigningProgress } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -288,6 +289,16 @@ function WalletPage() {
           </span>
           <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
         </Link>
+
+        {agreement && agreement.hasContent && (
+          <div className="mt-3">
+            <SigningProgress
+              status={agreement.status}
+              version={agreement.version}
+              signatures={agreement.signatures}
+            />
+          </div>
+        )}
 
         {agreement && !agreementDone && (
           <Link

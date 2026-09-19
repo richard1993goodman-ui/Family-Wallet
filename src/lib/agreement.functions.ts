@@ -36,3 +36,31 @@ export const signDocumentFn = createServerFn({ method: "POST" })
     const { signDocument } = await import("./agreement.server");
     return signDocument(data.slug, data.docKind, data.signerRole, data.signerName);
   });
+
+export const generateAgreementDraftFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; data: AgreementData; notes: string }) => data)
+  .handler(async ({ data }) => {
+    const { generateAgreementDraft } = await import("./agreement.ai.server");
+    return generateAgreementDraft(data.slug, data.data, data.notes);
+  });
+
+export const getNannyInvite = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; regenerate?: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { ensureNannyInvite } = await import("./wallet.server");
+    return ensureNannyInvite(data.slug, data.regenerate === true);
+  });
+
+export const nannySignIn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; code: string }) => data)
+  .handler(async ({ data }) => {
+    const { attemptNannyUnlock } = await import("./wallet.server");
+    return attemptNannyUnlock(data.slug, data.code);
+  });
+
+export const nannyWalletName = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { walletExists, isNannyUnlocked } = await import("./wallet.server");
+    return { familyName: await walletExists(data.slug), unlocked: await isNannyUnlocked(data.slug) };
+  });
