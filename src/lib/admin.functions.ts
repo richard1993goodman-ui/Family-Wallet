@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { AgreementFields } from "./agreement.types";
+import type { AgreementData } from "./agreement.model";
 
 type Ctx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> }; userId: string };
 
@@ -492,9 +492,7 @@ export const getAgreementAdmin = createServerFn({ method: "POST" })
 
 export const saveAgreementAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(
-    (data: { familyId: string; fields: AgreementFields; publish: boolean }) => data,
-  )
+  .inputValidator((data: { familyId: string; fields: AgreementData; publish: boolean }) => data)
   .handler(async ({ data, context }) => {
     await assertAdmin(context as unknown as Ctx);
     const { adminSaveAgreement } = await import("./agreement.server");

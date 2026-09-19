@@ -3,12 +3,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, Pencil, Printer } from "lucide-react";
 
 import { getAgreementAdmin, saveAgreementAdmin, signAsAgency } from "@/lib/admin.functions";
-import { AGREEMENT_SECTIONS, EMPTY_AGREEMENT } from "@/lib/agreement.types";
-import type { AgreementFields } from "@/lib/agreement.types";
-import { Card, Field } from "@/components/hub-ui";
+import { defaultAgreementData, type AgreementData } from "@/lib/agreement.model";
+import { AgreementBuilder } from "@/components/AgreementBuilder";
+import { AgreementDocument } from "@/components/AgreementDocument";
+import { Card } from "@/components/hub-ui";
 import { SignatureList } from "@/components/SignBlock";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,10 +17,13 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/_authenticated/admin/agreement/$id")({
   head: () => ({
     meta: [
-      { title: "Edit nanny agreement — Athlete Mannies admin" },
-      { name: "description", content: "Write, issue and countersign a family's nanny agreement." },
-      { property: "og:title", content: "Edit nanny agreement — Athlete Mannies admin" },
-      { property: "og:description", content: "Write, issue and countersign a nanny agreement." },
+      { title: "Nanny agreement builder — Athlete Mannies admin" },
+      {
+        name: "description",
+        content: "Build, issue and countersign a family's full nanny employment contract.",
+      },
+      { property: "og:title", content: "Nanny agreement builder — Athlete Mannies admin" },
+      { property: "og:description", content: "Build, issue and countersign a nanny contract." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -38,24 +42,25 @@ function AdminAgreementPage() {
     queryFn: () => loadFn({ data: { familyId: id } }),
   });
 
-  const [fields, setFields] = useState<AgreementFields>(EMPTY_AGREEMENT);
+  const [data, setData] = useState<AgreementData>(defaultAgreementData);
   const [agencyName, setAgencyName] = useState("");
   const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
-    if (query.data) setFields(query.data.fields);
+    if (query.data) setData(query.data.data);
   }, [query.data]);
 
   if (query.isLoading || !query.data) {
     return <div className="p-8 text-sm text-muted-foreground">Loading…</div>;
   }
 
-  const data = query.data;
+  const record = query.data;
 
   async function save(publish: boolean) {
     setBusy(true);
     try {
-      await saveFn({ data: { familyId: id, fields, publish } });
+      await saveFn({ data: { familyId: id, fields: data, publish } });
       toast.success(publish ? "Agreement issued to the wallet" : "Draft saved");
       await queryClient.invalidateQueries({ queryKey: ["admin-agreement", id] });
     } catch {
@@ -78,52 +83,63 @@ function AdminAgreementPage() {
 
   return (
     <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-2xl px-5 py-8">
+      <div className="mx-auto max-w-3xl px-5 py-8">
         <Link
           to="/admin/family/$id"
           params={{ id }}
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground no-print"
         >
           <ArrowLeft className="h-4 w-4" /> Back to family
         </Link>
-        <h1 className="heading-display mt-4 text-3xl text-primary">Nanny agreement</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {data.family.familyName} · {data.status === "issued" ? "Issued" : "Draft"} · version{" "}
-          {data.version}
+        <h1 className="heading-display mt-4 text-3xl text-primary no-print">Nanny agreement</h1>
+        <p className="mt-2 text-sm text-muted-foreground no-print">
+          {record.family.familyName} · {record.status === "issued" ? "Issued" : "Draft"} · version{" "}
+          {record.version}
         </p>
 
+        <div className="mt-5 flex flex-wrap gap-3 no-print">
+          <Button variant="outline" onClick={() => setPreview((p) => !p)}>
+            {preview ? (
+              <>
+                <Pencil className="mr-2 h-4 w-4" /> Back to builder
+              </>
+            ) : (
+              <>
+                <Eye className="mr-2 h-4 w-4" /> Preview contract
+              </>
+            )}
+          </Button>
+          <Button variant="outline" disabled={busy} onClick={() => save(false)}>
+            Save draft
+          </Button>
+          <Button disabled={busy} onClick={() => save(true)}>
+            {record.status === "issued" ? "Publish update" : "Issue to wallet"}
+          </Button>
+          {preview && (
+            <Button variant="outline" onClick={() => window.print()}>
+              <Printer className="mr-2 h-4 w-4" /> Print / save as PDF
+            </Button>
+          )}
+        </div>
+
         <div className="mt-6 space-y-6">
-          <Card>
-            <div className="space-y-4">
-              {AGREEMENT_SECTIONS.map((section) => (
-                <Field
-                  key={section.key}
-                  label={section.label}
-                  value={fields[section.key] ?? ""}
-                  placeholder={section.placeholder ?? ""}
-                  textarea={section.textarea ?? false}
-                  onChange={(value) => setFields((f) => ({ ...f, [section.key]: value }))}
-                />
-              ))}
+          {preview ? (
+            <div className="print-area">
+              <AgreementDocument data={data} familyName={record.family.familyName} />
             </div>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Button variant="outline" disabled={busy} onClick={() => save(false)}>
-                Save draft
-              </Button>
-              <Button disabled={busy} onClick={() => save(true)}>
-                {data.status === "issued" ? "Publish update" : "Issue to wallet"}
-              </Button>
-            </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Families only see the agreement once it's issued. Publishing an update to an issued
-              agreement creates a new version for signing.
-            </p>
-          </Card>
+          ) : (
+            <AgreementBuilder data={data} onChange={setData} />
+          )}
+
+          <p className="text-xs text-muted-foreground no-print">
+            Families only see the agreement once it's issued. Publishing an update to an issued
+            agreement creates a new version for signing.
+          </p>
 
           <Card>
             <h2 className="heading-display text-lg text-foreground">Signatures</h2>
             <div className="mt-3">
-              <SignatureList signatures={data.signatures} />
+              <SignatureList signatures={record.signatures} />
             </div>
             <div className="mt-5 space-y-3 border-t border-border pt-5">
               <label className="block">

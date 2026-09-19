@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Printer } from "lucide-react";
 
 import { getAgreement, signDocumentFn } from "@/lib/agreement.functions";
-import { AGREEMENT_SECTIONS } from "@/lib/agreement.types";
+import { AgreementDocument } from "@/components/AgreementDocument";
 import { HubPage, LockedNotice, Card } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { Button } from "@/components/ui/button";
@@ -17,12 +17,12 @@ export const Route = createFileRoute("/agreement/$slug")({
       {
         name: "description",
         content:
-          "Read and sign your nanny agreement inside your family wallet — no printing, no email attachments.",
+          "Read and sign your full nanny employment contract inside your family wallet — no printing, no email attachments.",
       },
       { property: "og:title", content: "Your nanny agreement — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Read and sign your nanny agreement inside your family wallet.",
+        content: "Read and sign your nanny employment contract inside your family wallet.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -68,7 +68,6 @@ function AgreementPage() {
     }
   }
 
-  const sections = AGREEMENT_SECTIONS.filter((s) => data.fields[s.key]);
   const signatures = data.signatures.filter((s) => s.docKind === "agreement");
 
   return (
@@ -77,7 +76,7 @@ function AgreementPage() {
       title="Your nanny agreement"
       intro="Read it here, sign it here. Your signed copy stays in your wallet."
     >
-      {data.status !== "issued" || sections.length === 0 ? (
+      {!data.hasContent ? (
         <Card>
           <p className="text-sm text-muted-foreground">
             Your agreement is being prepared. It will appear here as soon as we've issued it.
@@ -86,31 +85,12 @@ function AgreementPage() {
       ) : (
         <div className="space-y-6">
           <div className="print-area space-y-6">
-            <Card>
-              <h2 className="heading-display text-xl text-primary">
-                Nanny employment agreement
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {data.familyName} · version {data.version}
-                {data.issuedAt
-                  ? ` · issued ${new Date(data.issuedAt).toLocaleDateString("en-GB", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}`
-                  : ""}
-              </p>
-              <dl className="mt-5 space-y-4">
-                {sections.map((section) => (
-                  <div key={section.key}>
-                    <dt className="text-sm font-medium text-foreground">{section.label}</dt>
-                    <dd className="mt-0.5 whitespace-pre-wrap text-sm text-muted-foreground">
-                      {data.fields[section.key]}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Card>
+            <AgreementDocument
+              data={data.data}
+              version={data.version}
+              issuedAt={data.issuedAt}
+              familyName={data.familyName}
+            />
 
             <Card>
               <h2 className="heading-display text-lg text-foreground">Signatures</h2>

@@ -1,32 +1,16 @@
 import { getRequest } from "@tanstack/react-start/server";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Json } from "@/integrations/supabase/types";
 import { isUnlocked } from "./wallet.server";
 import { TERMS_VERSION } from "./tiers";
-
-export type AgreementFields = {
-  employerNames: string | null;
-  nannyName: string | null;
-  startDate: string | null;
-  workPattern: string | null;
-  hours: string | null;
-  hourlyRate: string | null;
-  payBasis: string | null;
-  holiday: string | null;
-  noticePeriod: string | null;
-  probation: string | null;
-  duties: string | null;
-  pension: string | null;
-  additionalTerms: string | null;
-};
-
-export type Signature = {
-  docKind: "agreement" | "terms";
-  signerRole: "parent" | "nanny" | "agency";
-  signerName: string;
-  docVersion: string;
-  signedAt: string;
-};
+import {
+  agreementHasContent,
+  defaultAgreementData,
+  normalizeAgreement,
+  type AgreementData,
+} from "./agreement.model";
+import type { Signature } from "./agreement.types";
 
 export type AgreementView = {
   familyName: string;
@@ -34,16 +18,10 @@ export type AgreementView = {
   version: number;
   issuedAt: string | null;
   updatedAt: string | null;
-  fields: AgreementFields;
+  data: AgreementData;
+  hasContent: boolean;
   signatures: Signature[];
 };
-
-const MAX = 6000;
-
-function clean(value: string | undefined | null, max = MAX) {
-  const trimmed = (value ?? "").trim();
-  return trimmed ? trimmed.slice(0, max) : null;
-}
 
 function clientKey() {
   try {
@@ -55,41 +33,9 @@ function clientKey() {
   }
 }
 
-function mapFields(row: Record<string, unknown> | null): AgreementFields {
-  const get = (key: string) => ((row?.[key] as string | null) ?? null);
-  return {
-    employerNames: get("employer_names"),
-    nannyName: get("nanny_name"),
-    startDate: get("start_date"),
-    workPattern: get("work_pattern"),
-    hours: get("hours"),
-    hourlyRate: get("hourly_rate"),
-    payBasis: get("pay_basis"),
-    holiday: get("holiday"),
-    noticePeriod: get("notice_period"),
-    probation: get("probation"),
-    duties: get("duties"),
-    pension: get("pension"),
-    additionalTerms: get("additional_terms"),
-  };
-}
-
-function toRow(fields: AgreementFields) {
-  return {
-    employer_names: clean(fields.employerNames),
-    nanny_name: clean(fields.nannyName, 200),
-    start_date: clean(fields.startDate, 20),
-    work_pattern: clean(fields.workPattern),
-    hours: clean(fields.hours),
-    hourly_rate: clean(fields.hourlyRate, 200),
-    pay_basis: clean(fields.payBasis, 200),
-    holiday: clean(fields.holiday),
-    notice_period: clean(fields.noticePeriod),
-    probation: clean(fields.probation),
-    duties: clean(fields.duties),
-    pension: clean(fields.pension),
-    additional_terms: clean(fields.additionalTerms),
-  };
+function clean(value: string | undefined | null, max = 6000) {
+  const trimmed = (value ?? "").trim();
+  return trimmed ? trimmed.slice(0, max) : null;
 }
 
 function mapSignatures(rows: Record<string, unknown>[] | null): Signature[] {
@@ -112,6 +58,19 @@ async function familyBySlug(slug: string) {
   return data ?? null;
 }
 
+/** Legacy rows stored a spare "legacyNotes" string — fold it into the duties clause. */
+function withLegacyNotes(raw: unknown): AgreementData {
+  const data = normalizeAgreement(raw);
+  const notes =
+    raw && typeof raw === "object"
+      ? ((raw as Record<string, unknown>)["legacyNotes"] as string | undefined)
+      : undefined;
+  if (notes && !data.otherDutiesClause.includes(notes)) {
+    data.otherDutiesClause = [data.otherDutiesClause, notes].filter(Boolean).join("\n\n");
+  }
+  return data;
+}
+
 /* ---------------- Family-facing (wallet unlocked) ---------------- */
 
 export async function loadAgreement(slug: string): Promise<AgreementView | null> {
@@ -129,6 +88,7 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
   ]);
 
   const status = (agreement?.status as "draft" | "issued") ?? "draft";
+  const data = withLegacyNotes(agreement?.agreement_data);
 
   return {
     familyName: family.family_name,
@@ -136,7 +96,8 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
     version: agreement?.version ?? 1,
     issuedAt: agreement?.issued_at ?? null,
     updatedAt: agreement?.updated_at ?? null,
-    fields: status === "issued" ? mapFields(agreement) : mapFields(null),
+    data: status === "issued" ? data : defaultAgreementData,
+    hasContent: status === "issued" && agreementHasContent(data),
     signatures: mapSignatures(sigs),
   };
 }
@@ -150,7 +111,11 @@ export async function loadSignatures(slug: string) {
     .select("doc_kind, signer_role, signer_name, doc_version, signed_at")
     .eq("family_id", family.id)
     .order("signed_at", { ascending: false });
-  return { familyName: family.family_name, signatures: mapSignatures(data), termsVersion: TERMS_VERSION };
+  return {
+    familyName: family.family_name,
+    signatures: mapSignatures(data),
+    termsVersion: TERMS_VERSION,
+  };
 }
 
 export async function signDocument(
@@ -218,36 +183,60 @@ export async function adminLoadAgreement(familyId: string) {
 
   if (!family) throw new Error("Family not found");
 
-  const fields = mapFields(agreement);
+  const data = agreement
+    ? withLegacyNotes(agreement.agreement_data)
+    : {
+        ...defaultAgreementData,
+        employerName: family.family_name,
+        nannyName: family.nanny_name ?? "",
+        startDate: family.start_date ?? "",
+      };
+
   return {
     family: { id: family.id, slug: family.slug, familyName: family.family_name },
     status: (agreement?.status as "draft" | "issued") ?? "draft",
     version: agreement?.version ?? 1,
     issuedAt: agreement?.issued_at ?? null,
-    fields: agreement
-      ? fields
-      : { ...fields, nannyName: family.nanny_name, startDate: family.start_date },
+    data,
     signatures: mapSignatures(sigs),
+  };
+}
+
+/** Keep the legacy flat columns roughly in step so nothing downstream goes blank. */
+function legacyColumns(data: AgreementData) {
+  return {
+    employer_names: clean(data.employerName, 500),
+    nanny_name: clean(data.nannyName, 200),
+    start_date: clean(data.startDate, 20),
+    hourly_rate: clean(data.hourlyRate, 200),
+    pay_basis: clean(data.paymentFrequency, 200),
+    probation: clean(data.probationPeriod),
+    notice_period: clean(data.standardNotice),
+    holiday: clean(data.holidayAllowance),
+    pension: clean(data.pension),
+    duties: clean(data.otherDutiesClause),
+    work_pattern: clean(data.overtimePolicy),
   };
 }
 
 export async function adminSaveAgreement(
   familyId: string,
-  fields: AgreementFields,
+  input: AgreementData,
   publish: boolean,
 ) {
+  const data = normalizeAgreement(input);
+
   const { data: existing } = await supabaseAdmin
     .from("nanny_agreements")
     .select("id, version, status")
     .eq("family_id", familyId)
     .maybeSingle();
 
-  const row = toRow(fields);
-
   if (!existing) {
     const { error } = await supabaseAdmin.from("nanny_agreements").insert({
       family_id: familyId,
-      ...row,
+      ...legacyColumns(data),
+      agreement_data: data as unknown as Json,
       status: publish ? "issued" : "draft",
       version: 1,
       issued_at: publish ? new Date().toISOString() : null,
@@ -260,10 +249,11 @@ export async function adminSaveAgreement(
   const { error } = await supabaseAdmin
     .from("nanny_agreements")
     .update({
-      ...row,
+      ...legacyColumns(data),
+      agreement_data: data as unknown as Json,
       status: publish ? "issued" : existing.status,
       version: bumpVersion ? existing.version + 1 : existing.version,
-      issued_at: publish ? new Date().toISOString() : null,
+      ...(publish ? { issued_at: new Date().toISOString() } : {}),
       updated_at: new Date().toISOString(),
     })
     .eq("id", existing.id);
