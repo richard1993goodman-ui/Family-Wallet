@@ -130,6 +130,31 @@ function PlannerPage() {
         </Button>
       </div>
 
+      <div className="mt-5 rounded-xl border border-border bg-card p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Agreed nanny hours
+        </p>
+        {workingDays.some((day) => day.enabled) ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {workingDays
+              .filter((day) => day.enabled)
+              .map((day) => (
+                <span
+                  key={day.day}
+                  className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
+                >
+                  {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                  {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
+                </span>
+              ))}
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-muted-foreground">
+            No days set yet — add them in your nanny agreement and they'll appear here.
+          </p>
+        )}
+      </div>
+
       <div className="mt-5 space-y-3">
         {days.map((day) => {
           const dayEntries = entries.filter((e) => e.entry_date === day);
