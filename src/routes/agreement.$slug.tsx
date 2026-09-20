@@ -165,9 +165,13 @@ function AgreementPage() {
   }
 
   async function makeInvite(regenerate: boolean) {
+    if (!data?.nannyId) {
+      toast.error("Add a nanny first.");
+      return;
+    }
     setInviteBusy(true);
     try {
-      const result = await inviteFn({ data: { slug, regenerate } });
+      const result = await inviteFn({ data: { slug, nannyId: data.nannyId, regenerate } });
       if (!result) {
         toast.error("Please unlock your wallet again.");
         return;
@@ -181,11 +185,18 @@ function AgreementPage() {
 
   async function onSign(name: string, role: "parent" | "nanny") {
     const result = await signFn({
-      data: { slug, docKind: "agreement" as const, signerRole: role, signerName: name },
+      data: {
+        slug,
+        docKind: "agreement" as const,
+        signerRole: role,
+        signerName: name,
+        nannyId: nannyId || undefined,
+      },
     });
     if (result.ok) {
       toast.success("Signed and saved to the wallet.");
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
+      await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
     } else if (result.reason === "name") {
       toast.error("Please type your full name.");
     } else if (result.reason === "not_ready") {
