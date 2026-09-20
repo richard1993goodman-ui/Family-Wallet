@@ -128,6 +128,31 @@ export async function saveFamilyProfile(slug: string, input: ProfileInput) {
   if (error) throw new Error(error.message);
 }
 
+export async function saveEmergencyProfile(
+  slug: string,
+  input: {
+    homeAddress?: string;
+    gpDetails?: string;
+    medicalNotes?: string;
+    emergencyInstructions?: string;
+  },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency details");
+  const { error } = await supabaseAdmin.from("family_profile").upsert(
+    {
+      family_id: family.id,
+      home_address: clean(input.homeAddress, 500),
+      gp_details: clean(input.gpDetails, 500),
+      medical_notes: clean(input.medicalNotes),
+      emergency_instructions: clean(input.emergencyInstructions),
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "family_id" },
+  );
+  if (error) throw new Error(error.message);
+}
+
 export async function addFamilyContact(
   slug: string,
   input: { name: string; relationship?: string; phone: string },
@@ -159,6 +184,23 @@ export async function deleteFamilyContact(slug: string, id: string) {
     .from("family_contacts")
     .delete()
     .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function updateFamilyContact(
+  slug: string,
+  input: { id: string; name: string; relationship?: string; phone: string },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency contacts");
+  const name = clean(input.name, 80);
+  const phone = clean(input.phone, 60);
+  if (!name || !phone) throw new Error("Please add a name and phone number");
+  const { error } = await supabaseAdmin
+    .from("family_contacts")
+    .update({ name, relationship: clean(input.relationship, 80), phone })
+    .eq("id", input.id)
     .eq("family_id", family.id);
   if (error) throw new Error(error.message);
 }
