@@ -305,39 +305,61 @@ export async function signDocument(
 
 /* ---------------- Admin-facing ---------------- */
 
-export async function adminLoadAgreement(familyId: string) {
-  const [{ data: family }, { data: agreement }, { data: sigs }] = await Promise.all([
+export async function adminLoadAgreement(familyId: string, requestedNannyId?: string | null) {
+  const [{ data: family }, nannyRows] = await Promise.all([
     supabaseAdmin
       .from("families")
       .select("id, slug, family_name, nanny_name, start_date")
       .eq("id", familyId)
       .maybeSingle(),
-    supabaseAdmin.from("nanny_agreements").select("*").eq("family_id", familyId).maybeSingle(),
-    supabaseAdmin
-      .from("document_signatures")
-      .select("doc_kind, signer_role, signer_name, doc_version, signed_at")
-      .eq("family_id", familyId)
-      .order("signed_at", { ascending: false }),
+    listNannyRows(familyId),
   ]);
 
   if (!family) throw new Error("Family not found");
+
+  const nannies = nannyRows.map((r) => ({ id: r.id, name: r.name }));
+  const nannyId =
+    requestedNannyId && nannies.some((n) => n.id === requestedNannyId)
+      ? requestedNannyId
+      : (nannies[0]?.id ?? null);
+
+  const [{ data: agreement }, { data: sigs }] = await Promise.all([
+    nannyId
+      ? supabaseAdmin
+          .from("nanny_agreements")
+          .select("*")
+          .eq("family_id", familyId)
+          .eq("nanny_id", nannyId)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabaseAdmin
+      .from("document_signatures")
+      .select("doc_kind, signer_role, signer_name, doc_version, signed_at, nanny_id")
+      .eq("family_id", familyId)
+      .order("signed_at", { ascending: false }),
+  ]);
 
   const data = agreement
     ? withLegacyNotes(agreement.agreement_data)
     : {
         ...defaultAgreementData,
         employerName: family.family_name,
-        nannyName: family.nanny_name ?? "",
+        nannyName: nannies.find((n) => n.id === nannyId)?.name ?? family.nanny_name ?? "",
         startDate: family.start_date ?? "",
       };
 
   return {
     family: { id: family.id, slug: family.slug, familyName: family.family_name },
+    nannies,
+    nannyId,
+    nannyName: nannies.find((n) => n.id === nannyId)?.name ?? null,
     status: (agreement?.status as "draft" | "issued") ?? "draft",
     version: agreement?.version ?? 1,
     issuedAt: agreement?.issued_at ?? null,
     data,
-    signatures: mapSignatures(sigs),
+    signatures: mapSignatures(
+      (sigs ?? []).filter((row) => row.doc_kind !== "agreement" || row.nanny_id === nannyId),
+    ),
   };
 }
 
@@ -362,18 +384,28 @@ export async function adminSaveAgreement(
   familyId: string,
   input: AgreementData,
   publish: boolean,
+  requestedNannyId?: string | null,
 ) {
   const data = normalizeAgreement(input);
+
+  const rows = await listNannyRows(familyId);
+  const nannyId =
+    requestedNannyId && rows.some((r) => r.id === requestedNannyId)
+      ? requestedNannyId
+      : (rows[0]?.id ?? null);
+  if (!nannyId) throw new Error("Add a nanny before building an agreement");
 
   const { data: existing } = await supabaseAdmin
     .from("nanny_agreements")
     .select("id, version, status, agreement_data")
     .eq("family_id", familyId)
+    .eq("nanny_id", nannyId)
     .maybeSingle();
 
   if (!existing) {
     const { error } = await supabaseAdmin.from("nanny_agreements").insert({
       family_id: familyId,
+      nanny_id: nannyId,
       ...legacyColumns(data),
       agreement_data: data as unknown as Json,
       status: publish ? "issued" : "draft",
@@ -406,22 +438,37 @@ export async function adminSaveAgreement(
   return { ok: true as const };
 }
 
-export async function adminSign(familyId: string, docKind: "agreement" | "terms", name: string) {
+export async function adminSign(
+  familyId: string,
+  docKind: "agreement" | "terms",
+  name: string,
+  requestedNannyId?: string | null,
+) {
   const signerName = clean(name, 120);
   if (!signerName) throw new Error("Name required");
 
   let docVersion = TERMS_VERSION;
+  let nannyId: string | null = null;
   if (docKind === "agreement") {
-    const { data: agreement } = await supabaseAdmin
-      .from("nanny_agreements")
-      .select("version")
-      .eq("family_id", familyId)
-      .maybeSingle();
+    const rows = await listNannyRows(familyId);
+    nannyId =
+      requestedNannyId && rows.some((r) => r.id === requestedNannyId)
+        ? requestedNannyId
+        : (rows[0]?.id ?? null);
+    const { data: agreement } = nannyId
+      ? await supabaseAdmin
+          .from("nanny_agreements")
+          .select("version")
+          .eq("family_id", familyId)
+          .eq("nanny_id", nannyId)
+          .maybeSingle()
+      : { data: null };
     docVersion = String(agreement?.version ?? 1);
   }
 
   const { error } = await supabaseAdmin.from("document_signatures").insert({
     family_id: familyId,
+    nanny_id: nannyId,
     doc_kind: docKind,
     signer_role: "agency",
     signer_name: signerName,
