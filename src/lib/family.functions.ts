@@ -17,6 +17,32 @@ export const saveProfileFn = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
+export const addFamilyContactFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; name: string; relationship?: string; phone: string }) => data)
+  .handler(async ({ data }) => {
+    const { addFamilyContact } = await import("./family.server");
+    await addFamilyContact(data.slug, data);
+    return { ok: true as const };
+  });
+
+export const deleteFamilyContactFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deleteFamilyContact } = await import("./family.server");
+    await deleteFamilyContact(data.slug, data.id);
+    return { ok: true as const };
+  });
+
+export const saveNannyEmergencyFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: { slug: string; name?: string; relationship?: string; phone?: string }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { saveNannyEmergencyContact } = await import("./family.server");
+    await saveNannyEmergencyContact(data.slug, data);
+    return { ok: true as const };
+  });
+
 export const saveChildFn = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; child: ChildInput }) => data)
   .handler(async ({ data }) => {

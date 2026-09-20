@@ -403,7 +403,7 @@ export const listSupportThreads = createServerFn({ method: "GET" })
       ...thread,
       familyName: nameById.get(thread.family_id) ?? "Family",
       messages: (messages ?? []).filter((m) => m.thread_id === thread.id),
-      needsReply: thread.last_sender === "family" && thread.status === "open",
+      needsReply: thread.last_sender !== "admin" && thread.status === "open",
     }));
   });
 

@@ -90,7 +90,11 @@ function SupportInbox() {
                     }`}
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      {message.sender === "admin" ? "You" : thread.familyName}
+                      {message.sender === "admin"
+                        ? "You"
+                        : message.sender === "nanny"
+                          ? `${thread.familyName} nanny`
+                          : thread.familyName}
                     </p>
                     <p className="mt-1 whitespace-pre-line text-foreground">{message.body}</p>
                   </div>
