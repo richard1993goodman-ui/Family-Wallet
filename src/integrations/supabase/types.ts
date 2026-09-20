@@ -461,6 +461,69 @@ export type Database = {
           },
         ]
       }
+      leave_requests: {
+        Row: {
+          created_at: string
+          days: number
+          end_date: string
+          family_id: string
+          id: string
+          leave_type: string
+          nanny_id: string | null
+          notes: string | null
+          requested_by: string
+          reviewed_at: string | null
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          days?: number
+          end_date: string
+          family_id: string
+          id?: string
+          leave_type?: string
+          nanny_id?: string | null
+          notes?: string | null
+          requested_by?: string
+          reviewed_at?: string | null
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          days?: number
+          end_date?: string
+          family_id?: string
+          id?: string
+          leave_type?: string
+          nanny_id?: string | null
+          notes?: string | null
+          requested_by?: string
+          reviewed_at?: string | null
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leave_requests_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leave_requests_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nanny_agreements: {
         Row: {
           additional_terms: string | null
