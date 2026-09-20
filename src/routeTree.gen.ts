@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
+import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
 import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
 import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
@@ -59,6 +60,11 @@ const ActivitiesSlugRoute = ActivitiesSlugRouteImport.update({
 const AgreementSlugRoute = AgreementSlugRouteImport.update({
   id: '/agreement/$slug',
   path: '/agreement/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckinSlugRoute = CheckinSlugRouteImport.update({
+  id: '/checkin/$slug',
+  path: '/checkin/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoverSlugRoute = CoverSlugRouteImport.update({
@@ -180,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/checkin/$slug': typeof CheckinSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
@@ -208,6 +215,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/checkin/$slug': typeof CheckinSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/checkin/$slug': typeof CheckinSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
   '/family/$slug': typeof FamilySlugRoute
@@ -268,6 +277,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/checkin/$slug'
     | '/cover/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
@@ -296,6 +306,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/checkin/$slug'
     | '/cover/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
@@ -325,6 +336,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/checkin/$slug'
     | '/cover/$slug'
     | '/emergency/$slug'
     | '/family/$slug'
@@ -355,6 +367,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
+  CheckinSlugRoute: typeof CheckinSlugRoute
   CoverSlugRoute: typeof CoverSlugRoute
   EmergencySlugRoute: typeof EmergencySlugRoute
   FamilySlugRoute: typeof FamilySlugRoute
@@ -409,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/agreement/$slug'
       fullPath: '/agreement/$slug'
       preLoaderRoute: typeof AgreementSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkin/$slug': {
+      id: '/checkin/$slug'
+      path: '/checkin/$slug'
+      fullPath: '/checkin/$slug'
+      preLoaderRoute: typeof CheckinSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cover/$slug': {
@@ -593,6 +613,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
+  CheckinSlugRoute: CheckinSlugRoute,
   CoverSlugRoute: CoverSlugRoute,
   EmergencySlugRoute: EmergencySlugRoute,
   FamilySlugRoute: FamilySlugRoute,

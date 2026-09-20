@@ -204,10 +204,6 @@ function CheckinPage() {
         </div>
       </Card>
 
-      <Card>
-        <div className="mt-8" />
-      </Card>
-
       <h2 className="heading-display mt-8 text-xl text-foreground">
         Ask Athlete Mannies for a call
       </h2>
