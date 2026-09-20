@@ -32,6 +32,9 @@ export type AgreementView = {
   signatures: Signature[];
   access: "family" | "nanny";
   emergency: EmergencyContext;
+  nannyId: string | null;
+  nannyName: string | null;
+  nannies: { id: string; name: string }[];
 };
 
 function clientKey() {
@@ -133,19 +136,57 @@ function applyEmergencyDetails(data: AgreementData, emergency: EmergencyContext)
   return filled;
 }
 
-export async function loadAgreement(slug: string): Promise<AgreementView | null> {
-  const access = await accessLevel(slug);
-  if (!access) return null;
+/** Work out which nanny's agreement we're looking at: the signed-in nanny's own, or the one the parent picked. */
+async function resolveNanny(slug: string, requestedId?: string | null) {
+  const session = await sessionAccess(slug);
+  if (!session) return null;
   const family = await familyBySlug(slug);
   if (!family) return null;
+  const rows = await listNannyRows(family.id);
+  const nannyId =
+    session.level === "nanny"
+      ? session.nannyId
+      : requestedId && rows.some((r) => r.id === requestedId)
+        ? requestedId
+        : (rows[0]?.id ?? null);
+  return {
+    access: session.level,
+    family,
+    nannies: rows.map((r) => ({ id: r.id, name: r.name })),
+    nannyId,
+    nannyName: rows.find((r) => r.id === nannyId)?.name ?? null,
+  };
+}
 
-  const [{ data: agreement }, { data: sigs }, emergency] = await Promise.all([
-    supabaseAdmin.from("nanny_agreements").select("*").eq("family_id", family.id).maybeSingle(),
-    supabaseAdmin
-      .from("document_signatures")
-      .select("doc_kind, signer_role, signer_name, doc_version, signed_at")
-      .eq("family_id", family.id)
-      .order("signed_at", { ascending: false }),
+async function agreementSignatures(familyId: string, nannyId: string | null) {
+  const { data } = await supabaseAdmin
+    .from("document_signatures")
+    .select("doc_kind, signer_role, signer_name, doc_version, signed_at, nanny_id")
+    .eq("family_id", familyId)
+    .order("signed_at", { ascending: false });
+  return mapSignatures(
+    (data ?? []).filter((row) => row.doc_kind !== "agreement" || row.nanny_id === nannyId),
+  );
+}
+
+export async function loadAgreement(
+  slug: string,
+  requestedNannyId?: string | null,
+): Promise<AgreementView | null> {
+  const resolved = await resolveNanny(slug, requestedNannyId);
+  if (!resolved) return null;
+  const { family, access, nannyId, nannyName, nannies } = resolved;
+
+  const [{ data: agreement }, signatures, emergency] = await Promise.all([
+    nannyId
+      ? supabaseAdmin
+          .from("nanny_agreements")
+          .select("*")
+          .eq("family_id", family.id)
+          .eq("nanny_id", nannyId)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    agreementSignatures(family.id, nannyId),
     loadEmergencyContext(family.id),
   ]);
 
@@ -155,7 +196,7 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
     : {
         ...defaultAgreementData,
         employerName: family.family_name,
-        nannyName: family.nanny_name ?? "",
+        nannyName: nannyName ?? "",
         startDate: family.start_date ?? "",
       };
   const data = applyEmergencyDetails(base, emergency);
@@ -168,9 +209,12 @@ export async function loadAgreement(slug: string): Promise<AgreementView | null>
     updatedAt: agreement?.updated_at ?? null,
     data,
     hasContent: agreementHasContent(data),
-    signatures: mapSignatures(sigs),
+    signatures,
     access,
     emergency,
+    nannyId,
+    nannyName,
+    nannies,
   };
 }
 
@@ -179,11 +223,12 @@ export async function saveAgreementFromWallet(
   slug: string,
   input: AgreementData,
   publish: boolean,
+  nannyId?: string | null,
 ) {
   if (!(await isUnlocked(slug))) return { ok: false as const, reason: "locked" as const };
-  const family = await familyBySlug(slug);
-  if (!family) return { ok: false as const, reason: "locked" as const };
-  await adminSaveAgreement(family.id, input, publish);
+  const resolved = await resolveNanny(slug, nannyId);
+  if (!resolved || !resolved.nannyId) return { ok: false as const, reason: "locked" as const };
+  await adminSaveAgreement(resolved.family.id, input, publish, resolved.nannyId);
   return { ok: true as const };
 }
 
@@ -208,9 +253,11 @@ export async function signDocument(
   docKind: "agreement" | "terms",
   signerRole: "parent" | "nanny",
   signerName: string,
+  nannyId?: string | null,
 ) {
-  const access = await accessLevel(slug);
-  if (!access) return { ok: false as const, reason: "locked" as const };
+  const resolved = await resolveNanny(slug, nannyId);
+  if (!resolved) return { ok: false as const, reason: "locked" as const };
+  const { access, family } = resolved;
   // An invited nanny may sign as the nanny only.
   if (signerRole === "parent" && access !== "family") {
     return { ok: false as const, reason: "locked" as const };
@@ -218,15 +265,16 @@ export async function signDocument(
   const name = clean(signerName, 120);
   if (!name || name.length < 3) return { ok: false as const, reason: "name" as const };
 
-  const family = await familyBySlug(slug);
-  if (!family) return { ok: false as const, reason: "locked" as const };
-
   let docVersion = TERMS_VERSION;
+  let signedNannyId: string | null = null;
   if (docKind === "agreement") {
+    if (!resolved.nannyId) return { ok: false as const, reason: "not_ready" as const };
+    signedNannyId = resolved.nannyId;
     const { data: agreement } = await supabaseAdmin
       .from("nanny_agreements")
       .select("version, status")
       .eq("family_id", family.id)
+      .eq("nanny_id", resolved.nannyId)
       .maybeSingle();
     if (!agreement || agreement.status !== "issued") {
       return { ok: false as const, reason: "not_ready" as const };
@@ -236,6 +284,7 @@ export async function signDocument(
 
   const { error } = await supabaseAdmin.from("document_signatures").insert({
     family_id: family.id,
+    nanny_id: signedNannyId,
     doc_kind: docKind,
     signer_role: signerRole,
     signer_name: name,
