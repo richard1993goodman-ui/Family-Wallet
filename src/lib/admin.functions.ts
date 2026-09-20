@@ -365,6 +365,21 @@ export const uploadNannyPhoto = createServerFn({ method: "POST" })
       .update({ nanny_photo_path: path, updated_at: new Date().toISOString() })
       .eq("id", data.familyId);
     if (error) throw new Error(error.message);
+
+    const { data: primary } = await supabaseAdmin
+      .from("family_nannies")
+      .select("id")
+      .eq("family_id", data.familyId)
+      .eq("status", "active")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true })
+      .limit(1);
+    if (primary && primary.length > 0) {
+      await supabaseAdmin
+        .from("family_nannies")
+        .update({ photo_path: path, updated_at: new Date().toISOString() })
+        .eq("id", primary[0]!.id);
+    }
     return { ok: true as const };
   });
 
