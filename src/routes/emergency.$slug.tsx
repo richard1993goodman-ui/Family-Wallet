@@ -90,10 +90,12 @@ function EmergencyPage() {
   }
   if (!query.data) return <LockedNotice slug={slug} />;
 
-  const { profile, children, contacts, nannyEmergency, access } = query.data;
+  const { profile, children, contacts, nannies, access } = query.data;
   const allContacts = [
     ...contacts.map((c) => ({ ...c, label: "Family contact" })),
-    ...(nannyEmergency ? [{ ...nannyEmergency, label: "Nanny's emergency contact" }] : []),
+    ...nannies
+      .filter((n) => n.emergency)
+      .map((n) => ({ ...n.emergency!, label: `${n.name}'s emergency contact` })),
   ];
 
   async function refresh() {
