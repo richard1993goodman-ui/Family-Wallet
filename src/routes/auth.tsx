@@ -1,5 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -52,7 +53,14 @@ function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
       <div className="w-full max-w-sm rounded-xl border border-border bg-card p-7">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="size-4" aria-hidden />
+          Back to home page
+        </Link>
+        <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Athlete Mannies &amp; Nannies
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
