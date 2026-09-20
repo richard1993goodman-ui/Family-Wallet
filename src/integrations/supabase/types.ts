@@ -593,6 +593,59 @@ export type Database = {
           },
         ]
       }
+      medication_doses: {
+        Row: {
+          child_name: string
+          created_at: string
+          dose: string | null
+          family_id: string
+          given_at: string
+          given_by: string
+          given_by_name: string | null
+          id: string
+          medicine: string
+          next_dose_from: string | null
+          notes: string | null
+          reason: string | null
+        }
+        Insert: {
+          child_name: string
+          created_at?: string
+          dose?: string | null
+          family_id: string
+          given_at?: string
+          given_by?: string
+          given_by_name?: string | null
+          id?: string
+          medicine: string
+          next_dose_from?: string | null
+          notes?: string | null
+          reason?: string | null
+        }
+        Update: {
+          child_name?: string
+          created_at?: string
+          dose?: string | null
+          family_id?: string
+          given_at?: string
+          given_by?: string
+          given_by_name?: string | null
+          id?: string
+          medicine?: string
+          next_dose_from?: string | null
+          notes?: string | null
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "medication_doses_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nanny_agreements: {
         Row: {
           additional_terms: string | null
@@ -732,6 +785,73 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      review_checkins: {
+        Row: {
+          answers: Json
+          author: string
+          call_requested: boolean
+          completed_at: string | null
+          created_at: string
+          family_id: string
+          id: string
+          kind: string
+          nanny_id: string | null
+          status: string
+          thread_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          answers?: Json
+          author?: string
+          call_requested?: boolean
+          completed_at?: string | null
+          created_at?: string
+          family_id: string
+          id?: string
+          kind?: string
+          nanny_id?: string | null
+          status?: string
+          thread_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          answers?: Json
+          author?: string
+          call_requested?: boolean
+          completed_at?: string | null
+          created_at?: string
+          family_id?: string
+          id?: string
+          kind?: string
+          nanny_id?: string | null
+          status?: string
+          thread_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_checkins_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_checkins_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "support_threads"
             referencedColumns: ["id"]
           },
         ]
