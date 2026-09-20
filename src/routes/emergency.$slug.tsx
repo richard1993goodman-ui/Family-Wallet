@@ -56,6 +56,7 @@ function EmergencyPage() {
     emergencyInstructions: "",
   });
   const [contact, setContact] = useState({ id: "", name: "", relationship: "", phone: "" });
+  const [nannyId, setNannyId] = useState("");
   const [nannyContact, setNannyContact] = useState({ name: "", relationship: "", phone: "" });
   const [busy, setBusy] = useState(false);
 
@@ -68,12 +69,17 @@ function EmergencyPage() {
       medicalNotes: data.profile?.medical_notes ?? "",
       emergencyInstructions: data.profile?.emergency_instructions ?? "",
     });
-    setNannyContact({
-      name: data.nannyEmergency?.name ?? "",
-      relationship: data.nannyEmergency?.relationship ?? "",
-      phone: data.nannyEmergency?.phone ?? "",
-    });
-  }, [query.data]);
+    const current = data.nannies.find((n) => n.id === nannyId) ?? data.nannies[0];
+    if (current) {
+      setNannyId(current.id);
+      setNannyContact({
+        name: current.emergency?.name ?? "",
+        relationship: current.emergency?.relationship ?? "",
+        phone: current.emergency?.phone ?? "",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.data, nannyId]);
 
   if (query.isLoading) {
     return (
