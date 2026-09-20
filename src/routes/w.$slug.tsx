@@ -19,6 +19,7 @@ import {
   Siren,
   ScrollText,
   Users,
+  UserPlus,
   UtensilsCrossed,
   WandSparkles,
   ExternalLink,
@@ -26,9 +27,12 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { getHubSummary } from "@/lib/family.functions";
+import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
 import type { WorkingDay } from "@/lib/agreement.model";
+
+type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
@@ -77,6 +81,7 @@ function WalletPage() {
   const docFn = useServerFn(getDocumentUrl);
   const hubFn = useServerFn(getHubSummary);
   const agreementFn = useServerFn(getAgreement);
+  const nanniesFn = useServerFn(getNannies);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -98,18 +103,32 @@ function WalletPage() {
     queryFn: () => agreementFn({ data: { slug } }),
   });
   const agreement = agreementQuery.data ?? null;
-  const agreementDone =
+
+  const nanniesQuery = useQuery({
+    queryKey: ["nannies", slug],
+    queryFn: () => nanniesFn({ data: { slug } }),
+  });
+  const nannies = nanniesQuery.data?.nannies ?? [];
+  const outstandingAgreements = nannies.filter((n) => !n.agreementSigned);
+  const singleAgreementDone =
     agreement?.status === "issued" &&
     signingRows(agreement.signatures, agreement.version).complete;
-  const agreementSubtitle = !agreement
-    ? "Build it, then sign it here"
-    : !agreement.hasContent
-      ? "Not started — build it here"
-      : agreement.status !== "issued"
-        ? "Draft saved — finish and open for signing"
-        : agreementDone
-          ? "Signed by you and your nanny"
-          : "Ready to sign — parent and nanny";
+  const agreementDone =
+    nannies.length > 0 ? outstandingAgreements.length === 0 : Boolean(singleAgreementDone);
+  const agreementSubtitle =
+    nannies.length > 1
+      ? outstandingAgreements.length === 0
+        ? `All ${nannies.length} agreements signed`
+        : `${outstandingAgreements.length} of ${nannies.length} still to sign`
+      : !agreement
+        ? "Build it, then sign it here"
+        : !agreement.hasContent
+          ? "Not started — build it here"
+          : agreement.status !== "issued"
+            ? "Draft saved — finish and open for signing"
+            : agreementDone
+              ? "Signed by you and your nanny"
+              : "Ready to sign — parent and nanny";
 
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
@@ -209,27 +228,34 @@ function WalletPage() {
           {wallet.familyName}
         </h1>
 
-        {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
+        {wallet.nannies.length > 0 && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Your nanny
+              {wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}
             </p>
-            <div className="mt-3 flex items-start gap-4">
-              {wallet.nannyPhotoUrl && (
-                <img
-                  src={wallet.nannyPhotoUrl}
-                  alt={wallet.nannyName ?? "Your nanny"}
-                  className="h-20 w-20 flex-shrink-0 rounded-full border border-border object-cover"
-                />
-              )}
-              <div>
-                {wallet.nannyName && (
-                  <p className="heading-display text-xl text-foreground">{wallet.nannyName}</p>
-                )}
-                {wallet.nannyBio && (
-                  <p className="mt-1 text-sm text-muted-foreground">{wallet.nannyBio}</p>
-                )}
-              </div>
+            <div className="mt-3 space-y-4">
+              {wallet.nannies.map((nanny) => (
+                <div key={nanny.id} className="flex items-start gap-4">
+                  {nanny.photoUrl && (
+                    <img
+                      src={nanny.photoUrl}
+                      alt={nanny.name}
+                      className="h-16 w-16 flex-shrink-0 rounded-full border border-border object-cover"
+                    />
+                  )}
+                  <div>
+                    <p className="heading-display text-xl text-foreground">
+                      {nanny.name}
+                      {nanny.isYou && (
+                        <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs font-medium">
+                          You
+                        </span>
+                      )}
+                    </p>
+                    {nanny.bio && <p className="mt-1 text-sm text-muted-foreground">{nanny.bio}</p>}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -237,11 +263,12 @@ function WalletPage() {
         {!isNanny && <><h2 className="heading-display mt-7 text-lg text-foreground">Your family</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
+          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
           <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
         </div></>}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
-        <TodayPanel slug={slug} entries={hub?.entries ?? []} workingDays={hub?.workingDays ?? []} />
+        <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
@@ -266,7 +293,14 @@ function WalletPage() {
             slug={slug}
             items={[
               {
-                label: "Nanny agreement signed",
+                label: "Nanny added",
+                done: nannies.length > 0,
+                hint: "Add everyone you employ with us",
+                to: "/nannies/$slug",
+              },
+              {
+                label:
+                  nannies.length > 1 ? "Every nanny agreement signed" : "Nanny agreement signed",
                 done: Boolean(agreementDone),
                 hint: "Build it, then both of you sign it",
                 to: "/agreement/$slug",
@@ -317,7 +351,7 @@ function WalletPage() {
           />
         )}
 
-        {agreement && agreement.hasContent && !agreementDone && (
+        {nannies.length <= 1 && agreement && agreement.hasContent && !agreementDone && (
           <div className="mt-3">
             <SigningProgress
               status={agreement.status}
@@ -327,7 +361,36 @@ function WalletPage() {
           </div>
         )}
 
-        {agreement && !agreementDone && (
+        {nannies.length > 1 && outstandingAgreements.length > 0 && (
+          <div className="mt-3 rounded-xl border border-border bg-card p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Agreements still to sign
+            </p>
+            <ul className="mt-3 space-y-2">
+              {outstandingAgreements.map((nanny) => (
+                <li key={nanny.id}>
+                  <Link
+                    to="/agreement/$slug"
+                    params={{ slug }}
+                    search={{ nanny: nanny.id }}
+                    className="flex items-center justify-between gap-3 rounded-lg px-1 py-1 text-sm hover:bg-muted/60"
+                  >
+                    <span className="font-medium text-foreground">{nanny.name}</span>
+                    <span className="text-muted-foreground">
+                      {nanny.agreementStatus === "none"
+                        ? "Not started"
+                        : nanny.agreementStatus === "draft"
+                          ? "Draft saved"
+                          : "Awaiting signatures"}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {nannies.length <= 1 && agreement && !agreementDone && (
           <Link
             to="/agreement/$slug"
             params={{ slug }}
@@ -358,16 +421,19 @@ function WalletPage() {
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
         </div>
 
-        {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
+        {(wallet.nannies.some((n) => n.emergency) || wallet.contacts.length > 0) && (
           <>
             <h2 className="heading-display mt-9 text-lg text-foreground">Emergency contacts</h2>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {wallet.nannyEmergency && (
-                <ContactCard
-                  label="Nanny's emergency contact"
-                  contact={wallet.nannyEmergency}
-                />
-              )}
+              {wallet.nannies
+                .filter((n) => n.emergency)
+                .map((nanny) => (
+                  <ContactCard
+                    key={nanny.id}
+                    label={`${nanny.name}'s emergency contact`}
+                    contact={nanny.emergency!}
+                  />
+                ))}
               {wallet.contacts.map((contact, i) => (
                 <ContactCard key={i} label="Family emergency contact" contact={contact} />
               ))}
@@ -575,7 +641,7 @@ type SetupItem = {
   label: string;
   done: boolean;
   hint: string;
-  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug";
+  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug" | "/nannies/$slug";
 };
 
 function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
@@ -651,10 +717,10 @@ function shortTime(value: string) {
   return value.replace(/:00$/, "").replace(/^0/, "");
 }
 
-function TodayPanel({ slug, entries, workingDays }: {
+function TodayPanel({ slug, entries, schedules }: {
   slug: string;
   entries: Array<{ id: string; entry_date: string; time_label: string | null; end_time_label: string | null; title: string; entry_type: string; status: string }>;
-  workingDays: WorkingDay[];
+  schedules: NannySchedule[];
 }) {
   const today = new Date();
   const todayIso = today.toISOString().slice(0, 10);
@@ -666,12 +732,24 @@ function TodayPanel({ slug, entries, workingDays }: {
     date.setUTCDate(weekStart.getUTCDate() + index);
     return date.toISOString().slice(0, 10);
   });
+  const onDay = (iso: string) => {
+    const dayName = new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+      weekday: "long",
+      timeZone: "UTC",
+    });
+    return schedules
+      .map((schedule) => ({
+        nannyName: schedule.nannyName,
+        shift: schedule.workingDays.find((day) => day.day === dayName && day.enabled),
+      }))
+      .filter((row): row is { nannyName: string; shift: WorkingDay } => Boolean(row.shift));
+  };
   const selected = new Date(`${selectedDate}T00:00:00Z`);
-  const weekday = selected.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-  const regular = workingDays.find((day) => day.day === weekday && day.enabled);
+  const selectedWorking = onDay(selectedDate);
   const selectedEntries = entries.filter((entry) => entry.entry_date === selectedDate);
   const cancelled = selectedEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled");
   const selectedIsToday = selectedDate === todayIso;
+  const anyHours = schedules.some((schedule) => schedule.workingDays.some((day) => day.enabled));
 
   return (
     <div className="mt-6 rounded-xl border border-border bg-card p-6">
@@ -686,7 +764,7 @@ function TodayPanel({ slug, entries, workingDays }: {
       </div>
 
       <p className="mt-3 text-sm text-muted-foreground">
-        Your nanny’s agreed days and hours sync from the nanny agreement. Add activities, school dates, notes and one-off shift changes manually.
+        Each nanny’s agreed days and hours sync from their nanny agreement. Add activities, school dates, notes and one-off shift changes manually.
       </p>
 
       <div className="mt-5 grid grid-cols-7 gap-1" aria-label="This week">
@@ -695,14 +773,19 @@ function TodayPanel({ slug, entries, workingDays }: {
           const isToday = iso === todayIso;
           const isSelected = iso === selectedDate;
           const hasEntries = entries.some((entry) => entry.entry_date === iso);
-          const dayName = date.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-          const dayShift = workingDays.find((day) => day.day === dayName && day.enabled);
+          const working = onDay(iso);
           const dayCancelled = entries.some(
             (entry) =>
               entry.entry_date === iso &&
               entry.entry_type === "shift_change" &&
               entry.status === "cancelled",
           );
+          const label =
+            working.length === 0 || dayCancelled
+              ? "\u00A0"
+              : working.length === 1
+                ? `${shortTime(working[0]!.shift.startTime)}-${shortTime(working[0]!.shift.endTime)}`
+                : `${working.length} on`;
           return (
             <Button
               key={iso}
@@ -717,11 +800,7 @@ function TodayPanel({ slug, entries, workingDays }: {
                 {date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }).slice(0, 2)}
               </span>
               <span className="text-base">{date.getUTCDate()}</span>
-              <span className="text-[9px] leading-tight opacity-80">
-                {dayShift && !dayCancelled
-                  ? `${shortTime(dayShift.startTime)}-${shortTime(dayShift.endTime)}`
-                  : "\u00A0"}
-              </span>
+              <span className="text-[9px] leading-tight opacity-80">{label}</span>
               <span className={`h-1 w-1 rounded-full ${hasEntries ? "bg-current" : "bg-transparent"}`} />
               {isToday && (
                 <span className="absolute -bottom-5 text-[10px] font-semibold text-primary">Today</span>
@@ -735,23 +814,32 @@ function TodayPanel({ slug, entries, workingDays }: {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Agreed nanny hours
         </p>
-        {workingDays.some((day) => day.enabled) ? (
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {workingDays
-              .filter((day) => day.enabled)
-              .map((day) => (
-                <span
-                  key={day.day}
-                  className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
-                >
-                  {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
-                  {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
-                </span>
+        {anyHours ? (
+          <div className="mt-3 space-y-3">
+            {schedules
+              .filter((schedule) => schedule.workingDays.some((day) => day.enabled))
+              .map((schedule) => (
+                <div key={schedule.nannyId}>
+                  <p className="text-sm font-medium text-foreground">{schedule.nannyName}</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {schedule.workingDays
+                      .filter((day) => day.enabled)
+                      .map((day) => (
+                        <span
+                          key={day.day}
+                          className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
+                        >
+                          {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                          {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
+                        </span>
+                      ))}
+                  </div>
+                </div>
               ))}
           </div>
         ) : (
           <p className="mt-2 text-sm text-muted-foreground">
-            No days set yet — add them in your nanny agreement and they'll appear here.
+            No days set yet — add them in each nanny agreement and they'll appear here.
           </p>
         )}
       </div>
@@ -761,10 +849,18 @@ function TodayPanel({ slug, entries, workingDays }: {
           {selectedIsToday ? "Today" : selected.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
         </p>
       </div>
-      {regular && !cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">Nanny working · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""} · synced from agreement</p>}
-      {cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">This regular nanny shift has been cancelled.</p>}
+      {!cancelled &&
+        selectedWorking.map((row) => (
+          <p key={row.nannyName} className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
+            {row.nannyName} working · {row.shift.startTime}–{row.shift.endTime}
+            {row.shift.startTime2 && row.shift.endTime2
+              ? ` and ${row.shift.startTime2}–${row.shift.endTime2}`
+              : ""} · synced from agreement
+          </p>
+        ))}
+      {cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">A regular nanny shift has been cancelled on this day.</p>}
       <div className="mt-4 space-y-2">
-        {selectedEntries.length === 0 && !regular && <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>}
+        {selectedEntries.length === 0 && selectedWorking.length === 0 && <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>}
         {selectedEntries.map((entry) => <div key={entry.id} className="flex gap-3 text-sm"><span className="w-24 flex-shrink-0 font-medium text-primary">{entry.time_label ?? "Any time"}{entry.end_time_label ? `–${entry.end_time_label}` : ""}</span><span className="text-foreground">{entry.title}</span></div>)}
       </div>
       <div className="mt-5 flex flex-wrap gap-2">
@@ -813,6 +909,7 @@ function HubTile({
   slug: string;
   to:
     | "/family/$slug"
+    | "/nannies/$slug"
     | "/guide/$slug"
     | "/planner/$slug"
     | "/log/$slug"

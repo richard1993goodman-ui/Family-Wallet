@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { accessLevel, isUnlocked } from "./wallet.server";
+import { accessLevel, isUnlocked, listNannyRows } from "./wallet.server";
 import { normalizeAgreement, type WorkingDay } from "./agreement.model";
 
 const MAX_CHILDREN = 8;
@@ -207,19 +207,20 @@ export async function updateFamilyContact(
 
 export async function saveNannyEmergencyContact(
   slug: string,
-  input: { name?: string; relationship?: string; phone?: string },
+  input: { nannyId: string; name?: string; relationship?: string; phone?: string },
 ) {
   const family = await requireFamily(slug);
   if (!family) throw new Error("Only the family can change emergency contacts");
   const { error } = await supabaseAdmin
-    .from("families")
+    .from("family_nannies")
     .update({
-      nanny_emergency_name: clean(input.name, 80),
-      nanny_emergency_relationship: clean(input.relationship, 80),
-      nanny_emergency_phone: clean(input.phone, 60),
+      emergency_name: clean(input.name, 80),
+      emergency_relationship: clean(input.relationship, 80),
+      emergency_phone: clean(input.phone, 60),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", family.id);
+    .eq("id", input.nannyId)
+    .eq("family_id", family.id);
   if (error) throw new Error(error.message);
 }
 
@@ -310,6 +311,24 @@ export async function uploadChildPhoto(
 
 /* ---------------- Weekly planner ---------------- */
 
+export type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
+
+/** Each nanny's agreed days come from their own agreement. */
+export async function loadNannySchedules(familyId: string): Promise<NannySchedule[]> {
+  const [rows, { data: agreements }] = await Promise.all([
+    listNannyRows(familyId),
+    supabaseAdmin.from("nanny_agreements").select("nanny_id, agreement_data").eq("family_id", familyId),
+  ]);
+  return rows.map((row) => {
+    const agreement = (agreements ?? []).find((a) => a.nanny_id === row.id);
+    return {
+      nannyId: row.id,
+      nannyName: row.name,
+      workingDays: agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [],
+    };
+  });
+}
+
 export async function loadPlanner(slug: string, weekStart: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
@@ -318,7 +337,7 @@ export async function loadPlanner(slug: string, weekStart: string) {
   end.setUTCDate(end.getUTCDate() + 6);
   const endStr = end.toISOString().slice(0, 10);
 
-  const [{ data }, { data: agreement }] = await Promise.all([
+  const [{ data }, schedules] = await Promise.all([
     supabaseAdmin
       .from("planner_entries")
       .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
@@ -327,11 +346,17 @@ export async function loadPlanner(slug: string, weekStart: string) {
       .lte("entry_date", endStr)
       .order("entry_date", { ascending: true })
       .order("time_label", { ascending: true }),
-    supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+    loadNannySchedules(family.id),
   ]);
 
-  const workingDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
-  return { familyName: family.family_name, weekStart, entries: data ?? [], workingDays, access: family.access };
+  return {
+    familyName: family.family_name,
+    weekStart,
+    entries: data ?? [],
+    schedules,
+    workingDays: schedules[0]?.workingDays ?? [],
+    access: family.access,
+  };
 }
 
 export async function addPlannerEntry(
@@ -594,7 +619,7 @@ export async function loadHubSummary(slug: string) {
     { data: logs },
     { data: children },
     { count: unread },
-    { data: agreement },
+    schedules,
     { count: contactCount },
     { data: profile },
   ] = await Promise.all([
@@ -621,7 +646,7 @@ export async function loadHubSummary(slug: string) {
         .select("id", { count: "exact", head: true })
         .eq("family_id", family.id)
         .eq(family.access === "nanny" ? "nanny_unread" : "family_unread", true),
-      supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+      loadNannySchedules(family.id),
       supabaseAdmin
         .from("family_contacts")
         .select("id", { count: "exact", head: true })
@@ -633,9 +658,7 @@ export async function loadHubSummary(slug: string) {
         .maybeSingle(),
     ]);
 
-  const workingDays: WorkingDay[] = agreement
-    ? normalizeAgreement(agreement.agreement_data).workingDays
-    : [];
+  const workingDays: WorkingDay[] = schedules[0]?.workingDays ?? [];
 
   const kids = children ?? [];
 
@@ -646,6 +669,7 @@ export async function loadHubSummary(slug: string) {
     childCount: kids.length,
     unreadReplies: unread ?? 0,
     workingDays,
+    schedules,
     access: family.access,
     readiness: {
       children: kids.length > 0,
@@ -655,6 +679,7 @@ export async function loadHubSummary(slug: string) {
       homeAddress: Boolean(profile?.home_address),
       gp: Boolean(profile?.gp_details),
       houseRules: Boolean(profile?.house_rules),
+      nannies: schedules.length > 0,
     },
   };
 }
@@ -662,29 +687,24 @@ export async function loadHubSummary(slug: string) {
 export async function loadEmergencyCard(slug: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
-  const [{ data: profile }, { data: children }, { data: contacts }, { data: familyRow }] =
-    await Promise.all([
-      supabaseAdmin
-        .from("family_profile")
-        .select("home_address, gp_details, medical_notes, emergency_instructions")
-        .eq("family_id", family.id)
-        .maybeSingle(),
-      supabaseAdmin
-        .from("family_children")
-        .select("name, allergies, medication, school")
-        .eq("family_id", family.id)
-        .order("sort_order", { ascending: true }),
-      supabaseAdmin
-        .from("family_contacts")
-        .select("id, name, relationship, phone")
-        .eq("family_id", family.id)
-        .order("sort_order", { ascending: true }),
-      supabaseAdmin
-        .from("families")
-        .select("nanny_emergency_name, nanny_emergency_relationship, nanny_emergency_phone")
-        .eq("id", family.id)
-        .maybeSingle(),
-    ]);
+  const [{ data: profile }, { data: children }, { data: contacts }, nannyRows] = await Promise.all([
+    supabaseAdmin
+      .from("family_profile")
+      .select("home_address, gp_details, medical_notes, emergency_instructions")
+      .eq("family_id", family.id)
+      .maybeSingle(),
+    supabaseAdmin
+      .from("family_children")
+      .select("name, allergies, medication, school")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true }),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("id, name, relationship, phone")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true }),
+    listNannyRows(family.id),
+  ]);
 
   return {
     familyName: family.family_name,
@@ -692,12 +712,16 @@ export async function loadEmergencyCard(slug: string) {
     profile: profile ?? null,
     children: children ?? [],
     contacts: contacts ?? [],
-    nannyEmergency: familyRow?.nanny_emergency_name
-      ? {
-          name: familyRow.nanny_emergency_name,
-          relationship: familyRow.nanny_emergency_relationship,
-          phone: familyRow.nanny_emergency_phone ?? "",
-        }
-      : null,
+    nannies: nannyRows.map((row) => ({
+      id: row.id,
+      name: row.name,
+      emergency: row.emergency_name
+        ? {
+            name: row.emergency_name,
+            relationship: row.emergency_relationship,
+            phone: row.emergency_phone ?? "",
+          }
+        : null,
+    })),
   };
 }

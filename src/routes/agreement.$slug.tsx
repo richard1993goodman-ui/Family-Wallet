@@ -22,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/agreement/$slug")({
+  validateSearch: (search: Record<string, unknown>): { nanny?: string } =>
+    typeof search["nanny"] === "string" ? { nanny: search["nanny"] as string } : {},
   head: () => ({
     meta: [
       { title: "Your nanny agreement — Athlete Mannies & Nannies" },
@@ -43,6 +45,7 @@ export const Route = createFileRoute("/agreement/$slug")({
 
 function AgreementPage() {
   const { slug } = Route.useParams();
+  const search = Route.useSearch();
   const queryClient = useQueryClient();
   const loadFn = useServerFn(getAgreement);
   const signFn = useServerFn(signDocumentFn);
@@ -50,9 +53,11 @@ function AgreementPage() {
   const generateFn = useServerFn(generateAgreementDraftFn);
   const inviteFn = useServerFn(getNannyInvite);
 
+  const [nannyId, setNannyId] = useState(search.nanny ?? "");
+
   const query = useQuery({
-    queryKey: ["agreement", slug],
-    queryFn: () => loadFn({ data: { slug } }),
+    queryKey: ["agreement", slug, nannyId],
+    queryFn: () => loadFn({ data: { slug, nannyId: nannyId || null } }),
   });
 
   const [draft, setDraft] = useState<AgreementData | null>(null);
@@ -70,7 +75,9 @@ function AgreementPage() {
   useEffect(() => {
     if (!data) return;
     setDraft(data.data);
+    if (data.nannyId && !nannyId) setNannyId(data.nannyId);
     if (!data.hasContent && data.access === "family") setEditing(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (query.isLoading) {
@@ -87,12 +94,15 @@ function AgreementPage() {
     if (!draft) return;
     setBusy(true);
     try {
-      const result = await saveFn({ data: { slug, data: draft, publish } });
+      const result = await saveFn({
+        data: { slug, data: draft, publish, nannyId: nannyId || null },
+      });
       if (!result.ok) {
         toast.error("Please unlock your wallet again.");
         return;
       }
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
+      await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
       toast.success(publish ? "Agreement ready to sign." : "Saved.");
       if (publish) setEditing(false);
     } finally {
@@ -154,9 +164,13 @@ function AgreementPage() {
   }
 
   async function makeInvite(regenerate: boolean) {
+    if (!data?.nannyId) {
+      toast.error("Add a nanny first.");
+      return;
+    }
     setInviteBusy(true);
     try {
-      const result = await inviteFn({ data: { slug, regenerate } });
+      const result = await inviteFn({ data: { slug, nannyId: data.nannyId, regenerate } });
       if (!result) {
         toast.error("Please unlock your wallet again.");
         return;
@@ -170,11 +184,18 @@ function AgreementPage() {
 
   async function onSign(name: string, role: "parent" | "nanny") {
     const result = await signFn({
-      data: { slug, docKind: "agreement" as const, signerRole: role, signerName: name },
+      data: {
+        slug,
+        docKind: "agreement" as const,
+        signerRole: role,
+        signerName: name,
+        nannyId: nannyId || null,
+      },
     });
     if (result.ok) {
       toast.success("Signed and saved to the wallet.");
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
+      await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
     } else if (result.reason === "name") {
       toast.error("Please type your full name.");
     } else if (result.reason === "not_ready") {
@@ -271,6 +292,32 @@ function AgreementPage() {
 
   const body = (
     <div className="space-y-6">
+      {!isNanny && data.nannies.length > 1 && (
+        <Card>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Whose agreement
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {data.nannies.map((nanny) => (
+              <Button
+                key={nanny.id}
+                size="sm"
+                variant={nanny.id === data.nannyId ? "default" : "outline"}
+                onClick={() => setNannyId(nanny.id)}
+              >
+                {nanny.name}
+              </Button>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {!isNanny && data.nannies.length > 1 && (
+        <p className="text-sm text-muted-foreground print:hidden">
+          You are viewing {data.nannyName ?? "your nanny"}'s agreement.
+        </p>
+      )}
+
       {!isNanny && (
         <div className="flex flex-wrap gap-3 print:hidden">
           <Button onClick={() => setEditing(true)}>

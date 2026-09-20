@@ -61,7 +61,13 @@ export const updateFamilyContactFn = createServerFn({ method: "POST" })
 
 export const saveNannyEmergencyFn = createServerFn({ method: "POST" })
   .inputValidator(
-    (data: { slug: string; name?: string; relationship?: string; phone?: string }) => data,
+    (data: {
+      slug: string;
+      nannyId: string;
+      name?: string;
+      relationship?: string;
+      phone?: string;
+    }) => data,
   )
   .handler(async ({ data }) => {
     const { saveNannyEmergencyContact } = await import("./family.server");

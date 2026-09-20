@@ -56,6 +56,7 @@ function EmergencyPage() {
     emergencyInstructions: "",
   });
   const [contact, setContact] = useState({ id: "", name: "", relationship: "", phone: "" });
+  const [nannyId, setNannyId] = useState("");
   const [nannyContact, setNannyContact] = useState({ name: "", relationship: "", phone: "" });
   const [busy, setBusy] = useState(false);
 
@@ -68,12 +69,17 @@ function EmergencyPage() {
       medicalNotes: data.profile?.medical_notes ?? "",
       emergencyInstructions: data.profile?.emergency_instructions ?? "",
     });
-    setNannyContact({
-      name: data.nannyEmergency?.name ?? "",
-      relationship: data.nannyEmergency?.relationship ?? "",
-      phone: data.nannyEmergency?.phone ?? "",
-    });
-  }, [query.data]);
+    const current = data.nannies.find((n) => n.id === nannyId) ?? data.nannies[0];
+    if (current) {
+      setNannyId(current.id);
+      setNannyContact({
+        name: current.emergency?.name ?? "",
+        relationship: current.emergency?.relationship ?? "",
+        phone: current.emergency?.phone ?? "",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.data, nannyId]);
 
   if (query.isLoading) {
     return (
@@ -84,10 +90,12 @@ function EmergencyPage() {
   }
   if (!query.data) return <LockedNotice slug={slug} />;
 
-  const { profile, children, contacts, nannyEmergency, access } = query.data;
+  const { profile, children, contacts, nannies, access } = query.data;
   const allContacts = [
     ...contacts.map((c) => ({ ...c, label: "Family contact" })),
-    ...(nannyEmergency ? [{ ...nannyEmergency, label: "Nanny's emergency contact" }] : []),
+    ...nannies
+      .filter((n) => n.emergency)
+      .map((n) => ({ ...n.emergency!, label: `${n.name}'s emergency contact` })),
   ];
 
   async function refresh() {
@@ -249,12 +257,41 @@ function EmergencyPage() {
 
             <Card>
               <p className="heading-display text-lg text-foreground">Nanny's emergency contact</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <Field label="Name" value={nannyContact.name} onChange={(value) => setNannyContact({ ...nannyContact, name: value })} />
-                <Field label="Relationship" value={nannyContact.relationship} onChange={(value) => setNannyContact({ ...nannyContact, relationship: value })} />
-                <Field label="Phone" type="tel" value={nannyContact.phone} onChange={(value) => setNannyContact({ ...nannyContact, phone: value })} />
-              </div>
-              <Button className="mt-4" disabled={busy} onClick={() => save(() => saveNannyContact({ data: { slug, ...nannyContact } }), "Nanny emergency contact saved")}>Save nanny contact</Button>
+              {nannies.length === 0 ? (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Add a nanny first and their emergency contact can go here.
+                </p>
+              ) : (
+                <>
+                  {nannies.length > 1 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {nannies.map((nanny) => (
+                        <Button
+                          key={nanny.id}
+                          size="sm"
+                          variant={nanny.id === nannyId ? "default" : "outline"}
+                          onClick={() => {
+                            setNannyId(nanny.id);
+                            setNannyContact({
+                              name: nanny.emergency?.name ?? "",
+                              relationship: nanny.emergency?.relationship ?? "",
+                              phone: nanny.emergency?.phone ?? "",
+                            });
+                          }}
+                        >
+                          {nanny.name}
+                        </Button>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    <Field label="Name" value={nannyContact.name} onChange={(value) => setNannyContact({ ...nannyContact, name: value })} />
+                    <Field label="Relationship" value={nannyContact.relationship} onChange={(value) => setNannyContact({ ...nannyContact, relationship: value })} />
+                    <Field label="Phone" type="tel" value={nannyContact.phone} onChange={(value) => setNannyContact({ ...nannyContact, phone: value })} />
+                  </div>
+                  <Button className="mt-4" disabled={busy || !nannyId} onClick={() => save(() => saveNannyContact({ data: { slug, nannyId, ...nannyContact } }), "Nanny emergency contact saved")}>Save nanny contact</Button>
+                </>
+              )}
             </Card>
           </div>
         )}
