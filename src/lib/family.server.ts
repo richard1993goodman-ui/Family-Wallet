@@ -128,6 +128,31 @@ export async function saveFamilyProfile(slug: string, input: ProfileInput) {
   if (error) throw new Error(error.message);
 }
 
+export async function saveEmergencyProfile(
+  slug: string,
+  input: {
+    homeAddress?: string;
+    gpDetails?: string;
+    medicalNotes?: string;
+    emergencyInstructions?: string;
+  },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency details");
+  const { error } = await supabaseAdmin.from("family_profile").upsert(
+    {
+      family_id: family.id,
+      home_address: clean(input.homeAddress, 500),
+      gp_details: clean(input.gpDetails, 500),
+      medical_notes: clean(input.medicalNotes),
+      emergency_instructions: clean(input.emergencyInstructions),
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "family_id" },
+  );
+  if (error) throw new Error(error.message);
+}
+
 export async function addFamilyContact(
   slug: string,
   input: { name: string; relationship?: string; phone: string },
@@ -159,6 +184,23 @@ export async function deleteFamilyContact(slug: string, id: string) {
     .from("family_contacts")
     .delete()
     .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function updateFamilyContact(
+  slug: string,
+  input: { id: string; name: string; relationship?: string; phone: string },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency contacts");
+  const name = clean(input.name, 80);
+  const phone = clean(input.phone, 60);
+  if (!name || !phone) throw new Error("Please add a name and phone number");
+  const { error } = await supabaseAdmin
+    .from("family_contacts")
+    .update({ name, relationship: clean(input.relationship, 80), phone })
+    .eq("id", input.id)
     .eq("family_id", family.id);
   if (error) throw new Error(error.message);
 }
@@ -439,7 +481,7 @@ export async function loadSupport(slug: string) {
   if (!family) return null;
   const { data: threads } = await supabaseAdmin
     .from("support_threads")
-    .select("id, subject, status, last_sender, family_unread, created_at, updated_at")
+    .select("id, subject, status, last_sender, family_unread, nanny_unread, created_at, updated_at")
     .eq("family_id", family.id)
     .order("updated_at", { ascending: false });
 
@@ -483,6 +525,7 @@ export async function askSupport(slug: string, subject: string, body: string) {
       subject: clean(subject, 140) ?? question.slice(0, 60),
       last_sender: family.access,
       family_unread: false,
+      nanny_unread: false,
     })
     .select("id")
     .single();
@@ -514,7 +557,12 @@ export async function replyAsFamily(slug: string, threadId: string, body: string
   });
   await supabaseAdmin
     .from("support_threads")
-    .update({ last_sender: family.access, family_unread: false, updated_at: new Date().toISOString() })
+    .update({
+      last_sender: family.access,
+      family_unread: family.access === "family" ? false : true,
+      nanny_unread: family.access === "nanny" ? false : true,
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", threadId);
 }
 
@@ -523,7 +571,7 @@ export async function markThreadRead(slug: string, threadId: string) {
   if (!family) throw new Error("Locked");
   await supabaseAdmin
     .from("support_threads")
-    .update({ family_unread: false })
+    .update(family.access === "nanny" ? { nanny_unread: false } : { family_unread: false })
     .eq("id", threadId)
     .eq("family_id", family.id);
 }
@@ -572,7 +620,7 @@ export async function loadHubSummary(slug: string) {
         .from("support_threads")
         .select("id", { count: "exact", head: true })
         .eq("family_id", family.id)
-        .eq("family_unread", true),
+        .eq(family.access === "nanny" ? "nanny_unread" : "family_unread", true),
       supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
       supabaseAdmin
         .from("family_contacts")

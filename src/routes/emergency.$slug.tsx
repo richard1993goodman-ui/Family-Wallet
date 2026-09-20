@@ -1,10 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Phone, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
-import { getEmergencyCard } from "@/lib/family.functions";
-import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import {
+  addFamilyContactFn,
+  deleteFamilyContactFn,
+  getEmergencyCard,
+  saveEmergencyProfileFn,
+  saveNannyEmergencyFn,
+  updateFamilyContactFn,
+} from "@/lib/family.functions";
+import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/emergency/$slug")({
   head: () => ({
@@ -28,11 +38,42 @@ export const Route = createFileRoute("/emergency/$slug")({
 
 function EmergencyPage() {
   const { slug } = Route.useParams();
+  const queryClient = useQueryClient();
   const loadFn = useServerFn(getEmergencyCard);
+  const saveProfile = useServerFn(saveEmergencyProfileFn);
+  const addContact = useServerFn(addFamilyContactFn);
+  const updateContact = useServerFn(updateFamilyContactFn);
+  const deleteContact = useServerFn(deleteFamilyContactFn);
+  const saveNannyContact = useServerFn(saveNannyEmergencyFn);
   const query = useQuery({
     queryKey: ["emergency", slug],
     queryFn: () => loadFn({ data: { slug } }),
   });
+  const [profileForm, setProfileForm] = useState({
+    homeAddress: "",
+    gpDetails: "",
+    medicalNotes: "",
+    emergencyInstructions: "",
+  });
+  const [contact, setContact] = useState({ id: "", name: "", relationship: "", phone: "" });
+  const [nannyContact, setNannyContact] = useState({ name: "", relationship: "", phone: "" });
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const data = query.data;
+    if (!data) return;
+    setProfileForm({
+      homeAddress: data.profile?.home_address ?? "",
+      gpDetails: data.profile?.gp_details ?? "",
+      medicalNotes: data.profile?.medical_notes ?? "",
+      emergencyInstructions: data.profile?.emergency_instructions ?? "",
+    });
+    setNannyContact({
+      name: data.nannyEmergency?.name ?? "",
+      relationship: data.nannyEmergency?.relationship ?? "",
+      phone: data.nannyEmergency?.phone ?? "",
+    });
+  }, [query.data]);
 
   if (query.isLoading) {
     return (
@@ -43,11 +84,32 @@ function EmergencyPage() {
   }
   if (!query.data) return <LockedNotice slug={slug} />;
 
-  const { profile, children, contacts, nannyEmergency } = query.data;
+  const { profile, children, contacts, nannyEmergency, access } = query.data;
   const allContacts = [
     ...contacts.map((c) => ({ ...c, label: "Family contact" })),
     ...(nannyEmergency ? [{ ...nannyEmergency, label: "Nanny's emergency contact" }] : []),
   ];
+
+  async function refresh() {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["emergency", slug] }),
+      queryClient.invalidateQueries({ queryKey: ["wallet", slug] }),
+      queryClient.invalidateQueries({ queryKey: ["hub-summary", slug] }),
+    ]);
+  }
+
+  async function save(action: () => Promise<unknown>, message: string) {
+    setBusy(true);
+    try {
+      await action();
+      toast.success(message);
+      await refresh();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Couldn't save that");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <HubPage slug={slug} title="Emergency card" intro="Tap any number to call it straight away.">
@@ -128,6 +190,74 @@ function EmergencyPage() {
         <p className="pt-2 text-sm text-muted-foreground">
           In a life-threatening emergency always call 999 first.
         </p>
+
+        {access === "family" && (
+          <div className="space-y-4 border-t border-border pt-7">
+            <div>
+              <h2 className="heading-display text-xl text-foreground">Edit emergency card</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Keep the family information your nanny may need in an emergency up to date.
+              </p>
+            </div>
+
+            <Card>
+              <p className="heading-display text-lg text-foreground">Family details</p>
+              <div className="mt-4 space-y-4">
+                <Field label="Home address" textarea value={profileForm.homeAddress} onChange={(value) => setProfileForm({ ...profileForm, homeAddress: value })} />
+                <Field label="Doctor / GP details" textarea value={profileForm.gpDetails} onChange={(value) => setProfileForm({ ...profileForm, gpDetails: value })} />
+                <Field label="Medical notes" textarea value={profileForm.medicalNotes} onChange={(value) => setProfileForm({ ...profileForm, medicalNotes: value })} />
+                <Field label="Emergency instructions" textarea value={profileForm.emergencyInstructions} onChange={(value) => setProfileForm({ ...profileForm, emergencyInstructions: value })} />
+                <Button disabled={busy} onClick={() => save(() => saveProfile({ data: { slug, ...profileForm } }), "Family emergency details saved")}>Save family details</Button>
+              </div>
+            </Card>
+
+            <Card>
+              <p className="heading-display text-lg text-foreground">Family emergency contacts</p>
+              <div className="mt-4 space-y-4">
+                {contacts.map((item) => (
+                  <div key={item.id} className="border-b border-border pb-4 last:border-0 last:pb-0">
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      <Field label="Name" value={contact.id === item.id ? contact.name : item.name} onChange={(value) => setContact({ id: item.id, name: value, relationship: contact.id === item.id ? contact.relationship : item.relationship ?? "", phone: contact.id === item.id ? contact.phone : item.phone })} />
+                      <Field label="Relationship" value={contact.id === item.id ? contact.relationship : item.relationship ?? ""} onChange={(value) => setContact({ id: item.id, name: contact.id === item.id ? contact.name : item.name, relationship: value, phone: contact.id === item.id ? contact.phone : item.phone })} />
+                      <Field label="Phone" type="tel" value={contact.id === item.id ? contact.phone : item.phone} onChange={(value) => setContact({ id: item.id, name: contact.id === item.id ? contact.name : item.name, relationship: contact.id === item.id ? contact.relationship : item.relationship ?? "", phone: value })} />
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <Button size="sm" variant="outline" disabled={busy} onClick={() => {
+                        const values = contact.id === item.id ? contact : { id: item.id, name: item.name, relationship: item.relationship ?? "", phone: item.phone };
+                        void save(() => updateContact({ data: { slug, ...values } }), "Contact updated");
+                      }}>Save contact</Button>
+                      <Button size="icon" variant="ghost" aria-label={`Remove ${item.name}`} disabled={busy} onClick={() => save(() => deleteContact({ data: { slug, id: item.id } }), "Contact removed")}><Trash2 className="h-4 w-4" /></Button>
+                    </div>
+                  </div>
+                ))}
+                {contacts.length < 3 && (
+                  <div className="border-t border-border pt-4 first:border-0 first:pt-0">
+                    <p className="text-sm font-medium text-foreground">Add a family contact</p>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                      <Field label="Name" value={contact.id ? "" : contact.name} onChange={(value) => setContact({ id: "", name: value, relationship: contact.id ? "" : contact.relationship, phone: contact.id ? "" : contact.phone })} />
+                      <Field label="Relationship" value={contact.id ? "" : contact.relationship} onChange={(value) => setContact({ id: "", name: contact.id ? "" : contact.name, relationship: value, phone: contact.id ? "" : contact.phone })} />
+                      <Field label="Phone" type="tel" value={contact.id ? "" : contact.phone} onChange={(value) => setContact({ id: "", name: contact.id ? "" : contact.name, relationship: contact.id ? "" : contact.relationship, phone: value })} />
+                    </div>
+                    <Button className="mt-3" size="sm" variant="outline" disabled={busy || contact.id !== "" || !contact.name.trim() || !contact.phone.trim()} onClick={() => save(async () => {
+                      await addContact({ data: { slug, name: contact.name, relationship: contact.relationship, phone: contact.phone } });
+                      setContact({ id: "", name: "", relationship: "", phone: "" });
+                    }, "Family contact added")}><Plus className="mr-1.5 h-4 w-4" /> Add contact</Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+
+            <Card>
+              <p className="heading-display text-lg text-foreground">Nanny's emergency contact</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <Field label="Name" value={nannyContact.name} onChange={(value) => setNannyContact({ ...nannyContact, name: value })} />
+                <Field label="Relationship" value={nannyContact.relationship} onChange={(value) => setNannyContact({ ...nannyContact, relationship: value })} />
+                <Field label="Phone" type="tel" value={nannyContact.phone} onChange={(value) => setNannyContact({ ...nannyContact, phone: value })} />
+              </div>
+              <Button className="mt-4" disabled={busy} onClick={() => save(() => saveNannyContact({ data: { slug, ...nannyContact } }), "Nanny emergency contact saved")}>Save nanny contact</Button>
+            </Card>
+          </div>
+        )}
       </div>
     </HubPage>
   );

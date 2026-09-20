@@ -602,6 +602,7 @@ export type Database = {
           family_unread: boolean
           id: string
           last_sender: string
+          nanny_unread: boolean
           status: string
           subject: string
           updated_at: string
@@ -612,6 +613,7 @@ export type Database = {
           family_unread?: boolean
           id?: string
           last_sender?: string
+          nanny_unread?: boolean
           status?: string
           subject: string
           updated_at?: string
@@ -622,6 +624,7 @@ export type Database = {
           family_unread?: boolean
           id?: string
           last_sender?: string
+          nanny_unread?: boolean
           status?: string
           subject?: string
           updated_at?: string

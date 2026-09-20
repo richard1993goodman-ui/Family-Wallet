@@ -14,10 +14,10 @@
 - [x] Wallet "Actions to complete" status bar: terms signed, emergency contacts, allergies, children info, home address
 
 ## Family-first wallet refinements (Sep 20)
-- [ ] Let parents edit family emergency details, family contacts, and the nanny's emergency contact from the emergency card.
-- [ ] Move "Your family" and "This week" higher in the wallet.
-- [ ] Hide signing progress after both agreement signatures are complete.
-- [ ] Move support and nanny training to the bottom of the wallet.
-- [ ] Replace embedded Activity Guide and Nanny Fuel with links to the original apps.
-- [ ] Restyle Ask Athlete Mannies as a message conversation and label family/nanny replies correctly.
-- [ ] Verify family and nanny access plus desktop/mobile views.
+- [x] Let parents edit family emergency details, family contacts, and the nanny's emergency contact from the emergency card.
+- [x] Move "Your family" and "This week" higher in the wallet.
+- [x] Hide signing progress after both agreement signatures are complete.
+- [x] Move support and nanny training to the bottom of the wallet.
+- [x] Replace embedded Activity Guide and Nanny Fuel with links to the original apps.
+- [x] Restyle Ask Athlete Mannies as a message conversation and label family/nanny replies correctly.
+- [x] Verify family and nanny access plus desktop/mobile views.

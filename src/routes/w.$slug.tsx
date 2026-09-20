@@ -209,8 +209,6 @@ function WalletPage() {
           {wallet.familyName}
         </h1>
 
-        <TodayPanel slug={slug} entries={hub?.entries ?? []} workingDays={hub?.workingDays ?? []} />
-
         {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -235,6 +233,19 @@ function WalletPage() {
             </div>
           </div>
         )}
+
+        {!isNanny && <><h2 className="heading-display mt-7 text-lg text-foreground">Your family</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
+          <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
+        </div></>}
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
+        <TodayPanel slug={slug} entries={hub?.entries ?? []} workingDays={hub?.workingDays ?? []} />
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
+          <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
+        </div>
 
         <Link
           to="/emergency/$slug"
@@ -306,7 +317,7 @@ function WalletPage() {
           />
         )}
 
-        {agreement && agreement.hasContent && (
+        {agreement && agreement.hasContent && !agreementDone && (
           <div className="mt-3">
             <SigningProgress
               status={agreement.status}
@@ -340,86 +351,12 @@ function WalletPage() {
         )}
 
 
-        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <HubTile
-            slug={slug}
-            to="/family/$slug"
-            icon={Users}
-            title="Know my family"
-            subtitle={
-              hub?.childCount
-                ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added`
-                : "Children, routines, allergies and house rules"
-            }
-          />
-          <HubTile
-            slug={slug}
-            to="/guide/$slug"
-            icon={BookOpen}
-            title="Nanny quick guide"
-            subtitle="A one-page summary for your nanny"
-          />
-        </div></>}
-
-        <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <HubTile
-            slug={slug}
-            to="/planner/$slug"
-            icon={CalendarDays}
-            title="Weekly planner"
-            subtitle={
-              hub?.entries.length
-                ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week`
-                : "Plan pickups, clubs and activities"
-            }
-          />
-          <HubTile
-            slug={slug}
-            to="/log/$slug"
-            icon={NotebookPen}
-            title="Daily log"
-            subtitle={
-              hub?.latestLog
-                ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}`
-                : "End-of-shift updates from your nanny"
-            }
-          />
-        </div>
-
         <h2 className="heading-display mt-9 text-lg text-foreground">Activities, meals &amp; pay</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <HubTile slug={slug} to="/activities/$slug" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Create, save and plan personalised activities" />
-          <HubTile slug={slug} to="/fuel/$slug" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Cooking and meal ideas saved to your calendar" />
+          <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
+          <ExternalToolTile href="https://nanny-nourish-guide.lovable.app" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Open the original cooking and meal ideas app" />
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
         </div>
-
-        <h2 className="heading-display mt-9 text-lg text-foreground">Training</h2>
-        <div className="mt-3">
-          <HubTile
-            slug={slug}
-            to="/training/$slug"
-            icon={GraduationCap}
-            title="Nanny training hub"
-            subtitle="20 questions on routine, safeguarding and emergencies — with a certificate"
-          />
-        </div>
-
-        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Support</h2>
-        <div className="mt-3">
-          <HubTile
-            slug={slug}
-            to="/support/$slug"
-            icon={MessageCircle}
-            title="Ask Athlete Mannies"
-            subtitle={
-              hub?.unreadReplies
-                ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us`
-                : "Pay, holidays, behaviour — ask us anything"
-            }
-          />
-        </div></>}
 
         {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
           <>
@@ -555,6 +492,12 @@ function WalletPage() {
         )}
 
         {!isNanny && <div className="mt-9 flex items-center justify-between rounded-xl border border-border bg-card p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
+
+        <h2 className="heading-display mt-9 text-lg text-foreground">Help &amp; training</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
+          <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
+        </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
           Wallet last updated{" "}
@@ -896,5 +839,27 @@ function HubTile({
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
       </span>
     </Link>
+  );
+}
+
+function ExternalToolTile({
+  href,
+  icon: Icon,
+  title,
+  subtitle,
+}: {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40">
+      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span className="min-w-0 flex-1">
+        <span className="flex items-center gap-1.5 font-medium text-foreground">{title}<ExternalLink className="h-3.5 w-3.5" /></span>
+        <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
+      </span>
+    </a>
   );
 }

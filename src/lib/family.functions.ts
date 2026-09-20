@@ -17,6 +17,22 @@ export const saveProfileFn = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
+export const saveEmergencyProfileFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: {
+      slug: string;
+      homeAddress?: string;
+      gpDetails?: string;
+      medicalNotes?: string;
+      emergencyInstructions?: string;
+    }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { saveEmergencyProfile } = await import("./family.server");
+    await saveEmergencyProfile(data.slug, data);
+    return { ok: true as const };
+  });
+
 export const addFamilyContactFn = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; name: string; relationship?: string; phone: string }) => data)
   .handler(async ({ data }) => {
@@ -30,6 +46,16 @@ export const deleteFamilyContactFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { deleteFamilyContact } = await import("./family.server");
     await deleteFamilyContact(data.slug, data.id);
+    return { ok: true as const };
+  });
+
+export const updateFamilyContactFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: { slug: string; id: string; name: string; relationship?: string; phone: string }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { updateFamilyContact } = await import("./family.server");
+    await updateFamilyContact(data.slug, data);
     return { ok: true as const };
   });
 
