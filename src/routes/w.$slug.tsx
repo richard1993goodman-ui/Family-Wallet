@@ -19,6 +19,7 @@ import {
   Siren,
   ScrollText,
   Users,
+  UserPlus,
   UtensilsCrossed,
   WandSparkles,
   ExternalLink,
