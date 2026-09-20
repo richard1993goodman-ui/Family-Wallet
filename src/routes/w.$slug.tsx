@@ -290,6 +290,22 @@ function WalletPage() {
         </Link>
 
         {!isNanny && (
+          <Link
+            to="/cover/$slug"
+            params={{ slug }}
+            className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-primary/50 bg-accent p-5 hover:border-primary"
+          >
+            <span>
+              <span className="block font-medium text-foreground">Request cover</span>
+              <span className="mt-1 block text-sm text-muted-foreground">
+                Nanny off sick, a night out or an extra day — ask us for cover or a babysitter
+              </span>
+            </span>
+            <LifeBuoy className="h-5 w-5 flex-shrink-0 text-primary" />
+          </Link>
+        )}
+
+        {!isNanny && (
           <SetupStatus
             slug={slug}
             items={[
