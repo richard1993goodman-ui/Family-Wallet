@@ -678,6 +678,7 @@ export async function loadHubSummary(slug: string) {
       homeAddress: Boolean(profile?.home_address),
       gp: Boolean(profile?.gp_details),
       houseRules: Boolean(profile?.house_rules),
+      nannies: schedules.length > 0,
     },
   };
 }
@@ -685,29 +686,24 @@ export async function loadHubSummary(slug: string) {
 export async function loadEmergencyCard(slug: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
-  const [{ data: profile }, { data: children }, { data: contacts }, { data: familyRow }] =
-    await Promise.all([
-      supabaseAdmin
-        .from("family_profile")
-        .select("home_address, gp_details, medical_notes, emergency_instructions")
-        .eq("family_id", family.id)
-        .maybeSingle(),
-      supabaseAdmin
-        .from("family_children")
-        .select("name, allergies, medication, school")
-        .eq("family_id", family.id)
-        .order("sort_order", { ascending: true }),
-      supabaseAdmin
-        .from("family_contacts")
-        .select("id, name, relationship, phone")
-        .eq("family_id", family.id)
-        .order("sort_order", { ascending: true }),
-      supabaseAdmin
-        .from("families")
-        .select("nanny_emergency_name, nanny_emergency_relationship, nanny_emergency_phone")
-        .eq("id", family.id)
-        .maybeSingle(),
-    ]);
+  const [{ data: profile }, { data: children }, { data: contacts }, nannyRows] = await Promise.all([
+    supabaseAdmin
+      .from("family_profile")
+      .select("home_address, gp_details, medical_notes, emergency_instructions")
+      .eq("family_id", family.id)
+      .maybeSingle(),
+    supabaseAdmin
+      .from("family_children")
+      .select("name, allergies, medication, school")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true }),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("id, name, relationship, phone")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true }),
+    listNannyRows(family.id),
+  ]);
 
   return {
     familyName: family.family_name,
@@ -715,12 +711,16 @@ export async function loadEmergencyCard(slug: string) {
     profile: profile ?? null,
     children: children ?? [],
     contacts: contacts ?? [],
-    nannyEmergency: familyRow?.nanny_emergency_name
-      ? {
-          name: familyRow.nanny_emergency_name,
-          relationship: familyRow.nanny_emergency_relationship,
-          phone: familyRow.nanny_emergency_phone ?? "",
-        }
-      : null,
+    nannies: nannyRows.map((row) => ({
+      id: row.id,
+      name: row.name,
+      emergency: row.emergency_name
+        ? {
+            name: row.emergency_name,
+            relationship: row.emergency_relationship,
+            phone: row.emergency_phone ?? "",
+          }
+        : null,
+    })),
   };
 }
