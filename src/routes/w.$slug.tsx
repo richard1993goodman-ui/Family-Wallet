@@ -227,27 +227,34 @@ function WalletPage() {
           {wallet.familyName}
         </h1>
 
-        {(wallet.nannyName || wallet.nannyBio || wallet.nannyPhotoUrl) && (
+        {wallet.nannies.length > 0 && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Your nanny
+              {wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}
             </p>
-            <div className="mt-3 flex items-start gap-4">
-              {wallet.nannyPhotoUrl && (
-                <img
-                  src={wallet.nannyPhotoUrl}
-                  alt={wallet.nannyName ?? "Your nanny"}
-                  className="h-20 w-20 flex-shrink-0 rounded-full border border-border object-cover"
-                />
-              )}
-              <div>
-                {wallet.nannyName && (
-                  <p className="heading-display text-xl text-foreground">{wallet.nannyName}</p>
-                )}
-                {wallet.nannyBio && (
-                  <p className="mt-1 text-sm text-muted-foreground">{wallet.nannyBio}</p>
-                )}
-              </div>
+            <div className="mt-3 space-y-4">
+              {wallet.nannies.map((nanny) => (
+                <div key={nanny.id} className="flex items-start gap-4">
+                  {nanny.photoUrl && (
+                    <img
+                      src={nanny.photoUrl}
+                      alt={nanny.name}
+                      className="h-16 w-16 flex-shrink-0 rounded-full border border-border object-cover"
+                    />
+                  )}
+                  <div>
+                    <p className="heading-display text-xl text-foreground">
+                      {nanny.name}
+                      {nanny.isYou && (
+                        <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs font-medium">
+                          You
+                        </span>
+                      )}
+                    </p>
+                    {nanny.bio && <p className="mt-1 text-sm text-muted-foreground">{nanny.bio}</p>}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -255,11 +262,12 @@ function WalletPage() {
         {!isNanny && <><h2 className="heading-display mt-7 text-lg text-foreground">Your family</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
+          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
           <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
         </div></>}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
-        <TodayPanel slug={slug} entries={hub?.entries ?? []} workingDays={hub?.workingDays ?? []} />
+        <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
