@@ -76,7 +76,9 @@ function AgreementPage() {
   useEffect(() => {
     if (!data) return;
     setDraft(data.data);
+    if (data.nannyId && !nannyId) setNannyId(data.nannyId);
     if (!data.hasContent && data.access === "family") setEditing(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (query.isLoading) {
@@ -93,12 +95,15 @@ function AgreementPage() {
     if (!draft) return;
     setBusy(true);
     try {
-      const result = await saveFn({ data: { slug, data: draft, publish } });
+      const result = await saveFn({
+        data: { slug, data: draft, publish, nannyId: nannyId || undefined },
+      });
       if (!result.ok) {
         toast.error("Please unlock your wallet again.");
         return;
       }
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
+      await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
       toast.success(publish ? "Agreement ready to sign." : "Saved.");
       if (publish) setEditing(false);
     } finally {
