@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      cover_requests: {
+        Row: {
+          children: string | null
+          cover_type: string
+          created_at: string
+          end_date: string | null
+          end_time: string | null
+          family_id: string
+          id: string
+          location: string | null
+          notes: string | null
+          requested_by: string
+          start_date: string
+          start_time: string | null
+          status: string
+          thread_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          children?: string | null
+          cover_type?: string
+          created_at?: string
+          end_date?: string | null
+          end_time?: string | null
+          family_id: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          requested_by?: string
+          start_date: string
+          start_time?: string | null
+          status?: string
+          thread_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          children?: string | null
+          cover_type?: string
+          created_at?: string
+          end_date?: string | null
+          end_time?: string | null
+          family_id?: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          requested_by?: string
+          start_date?: string
+          start_time?: string | null
+          status?: string
+          thread_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cover_requests_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cover_requests_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "support_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daily_logs: {
         Row: {
           activities: string | null
