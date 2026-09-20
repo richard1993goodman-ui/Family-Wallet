@@ -618,7 +618,7 @@ export async function loadHubSummary(slug: string) {
     { data: logs },
     { data: children },
     { count: unread },
-    { data: agreement },
+    schedules,
     { count: contactCount },
     { data: profile },
   ] = await Promise.all([
@@ -645,7 +645,7 @@ export async function loadHubSummary(slug: string) {
         .select("id", { count: "exact", head: true })
         .eq("family_id", family.id)
         .eq(family.access === "nanny" ? "nanny_unread" : "family_unread", true),
-      supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+      loadNannySchedules(family.id),
       supabaseAdmin
         .from("family_contacts")
         .select("id", { count: "exact", head: true })
@@ -657,9 +657,7 @@ export async function loadHubSummary(slug: string) {
         .maybeSingle(),
     ]);
 
-  const workingDays: WorkingDay[] = agreement
-    ? normalizeAgreement(agreement.agreement_data).workingDays
-    : [];
+  const workingDays: WorkingDay[] = schedules[0]?.workingDays ?? [];
 
   const kids = children ?? [];
 
@@ -670,6 +668,7 @@ export async function loadHubSummary(slug: string) {
     childCount: kids.length,
     unreadReplies: unread ?? 0,
     workingDays,
+    schedules,
     access: family.access,
     readiness: {
       children: kids.length > 0,
