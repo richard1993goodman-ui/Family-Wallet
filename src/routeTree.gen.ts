@@ -18,6 +18,7 @@ import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as FuelSlugRouteImport } from './routes/fuel.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
@@ -76,6 +77,11 @@ const FuelSlugRoute = FuelSlugRouteImport.update({
 const GuideSlugRoute = GuideSlugRouteImport.update({
   id: '/guide/$slug',
   path: '/guide/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaveSlugRoute = LeaveSlugRouteImport.update({
+  id: '/leave/$slug',
+  path: '/leave/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LogSlugRoute = LogSlugRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -191,6 +198,7 @@ export interface FileRoutesByTo {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/leave/$slug'
     | '/log/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -270,6 +280,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/leave/$slug'
     | '/log/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -296,6 +307,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/leave/$slug'
     | '/log/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -323,6 +335,7 @@ export interface RootRouteChildren {
   FamilySlugRoute: typeof FamilySlugRoute
   FuelSlugRoute: typeof FuelSlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
+  LeaveSlugRoute: typeof LeaveSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
@@ -398,6 +411,13 @@ declare module '@tanstack/react-router' {
       path: '/guide/$slug'
       fullPath: '/guide/$slug'
       preLoaderRoute: typeof GuideSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leave/$slug': {
+      id: '/leave/$slug'
+      path: '/leave/$slug'
+      fullPath: '/leave/$slug'
+      preLoaderRoute: typeof LeaveSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/log/$slug': {
@@ -537,6 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   FamilySlugRoute: FamilySlugRoute,
   FuelSlugRoute: FuelSlugRoute,
   GuideSlugRoute: GuideSlugRoute,
+  LeaveSlugRoute: LeaveSlugRoute,
   LogSlugRoute: LogSlugRoute,
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
