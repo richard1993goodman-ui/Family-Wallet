@@ -15,6 +15,8 @@ import {
   NotebookPen,
   Clock3,
   Plane,
+  Pill,
+  CalendarCheck,
   Phone,
   Shield,
   LifeBuoy,
@@ -274,6 +276,7 @@ function WalletPage() {
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
+          <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
         </div>
 
         <Link
@@ -581,6 +584,7 @@ function WalletPage() {
         <h2 className="heading-display mt-9 text-lg text-foreground">Help &amp; training</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
+          <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
         </div>
 
@@ -939,6 +943,8 @@ function HubTile({
     | "/activities/$slug"
     | "/fuel/$slug"
     | "/leave/$slug"
+    | "/medication/$slug"
+    | "/checkin/$slug"
     | "/timesheets/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
