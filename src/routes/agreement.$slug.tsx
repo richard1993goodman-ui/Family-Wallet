@@ -293,6 +293,32 @@ function AgreementPage() {
 
   const body = (
     <div className="space-y-6">
+      {!isNanny && data.nannies.length > 1 && (
+        <Card>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Whose agreement
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {data.nannies.map((nanny) => (
+              <Button
+                key={nanny.id}
+                size="sm"
+                variant={nanny.id === data.nannyId ? "default" : "outline"}
+                onClick={() => setNannyId(nanny.id)}
+              >
+                {nanny.name}
+              </Button>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {!isNanny && data.nannies.length > 1 && (
+        <p className="text-sm text-muted-foreground print:hidden">
+          You are viewing {data.nannyName ?? "your nanny"}'s agreement.
+        </p>
+      )}
+
       {!isNanny && (
         <div className="flex flex-wrap gap-3 print:hidden">
           <Button onClick={() => setEditing(true)}>
