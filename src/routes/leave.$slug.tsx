@@ -65,7 +65,10 @@ function LeavePage() {
   const refresh = () => client.invalidateQueries({ queryKey: ["leave", slug] });
 
   const submit = async () => {
-    if (!nannyId) return toast.error("Add a nanny first.");
+    if (!nannyId) {
+      toast.error("Add a nanny first.");
+      return;
+    }
     setSaving(true);
     try {
       const result = await requestFn({
