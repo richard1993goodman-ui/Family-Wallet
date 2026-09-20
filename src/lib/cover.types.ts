@@ -5,12 +5,12 @@ export type CoverStatus = "new" | "arranged" | "declined" | "cancelled";
 export type CoverInput = {
   coverType: CoverType;
   startDate: string;
-  endDate?: string;
-  startTime?: string;
-  endTime?: string;
-  children?: string;
-  location?: string;
-  notes?: string;
+  endDate?: string | undefined;
+  startTime?: string | undefined;
+  endTime?: string | undefined;
+  children?: string | undefined;
+  location?: string | undefined;
+  notes?: string | undefined;
 };
 
 export const COVER_TYPES: { value: CoverType; label: string; blurb: string }[] = [
