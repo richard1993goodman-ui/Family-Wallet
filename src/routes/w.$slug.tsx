@@ -641,7 +641,7 @@ type SetupItem = {
   label: string;
   done: boolean;
   hint: string;
-  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug";
+  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug" | "/nannies/$slug";
 };
 
 function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
@@ -909,6 +909,7 @@ function HubTile({
   slug: string;
   to:
     | "/family/$slug"
+    | "/nannies/$slug"
     | "/guide/$slug"
     | "/planner/$slug"
     | "/log/$slug"
