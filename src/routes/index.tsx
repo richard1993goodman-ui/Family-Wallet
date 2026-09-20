@@ -9,6 +9,7 @@ import {
   Shield,
   Sparkles,
   KeyRound,
+  LifeBuoy,
   Siren,
   Users,
   CalendarDays,
@@ -47,6 +48,7 @@ export const Route = createFileRoute("/")({
 
 const items = [
   { icon: Siren, label: "Emergency card — key contacts and instructions at a glance" },
+  { icon: LifeBuoy, label: "Request cover — emergency cover, babysitting and extra days" },
   { icon: FileText, label: "Your nanny agreement" },
   { icon: IdCard, label: "Your nanny's CV, profile and references" },
   { icon: Shield, label: "Checks & credentials — DBS, ID and right to work" },

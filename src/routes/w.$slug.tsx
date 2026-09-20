@@ -17,6 +17,7 @@ import {
   Plane,
   Phone,
   Shield,
+  LifeBuoy,
   Siren,
   ScrollText,
   Users,
