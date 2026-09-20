@@ -128,6 +128,59 @@ export async function saveFamilyProfile(slug: string, input: ProfileInput) {
   if (error) throw new Error(error.message);
 }
 
+export async function addFamilyContact(
+  slug: string,
+  input: { name: string; relationship?: string; phone: string },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency contacts");
+  const name = clean(input.name, 80);
+  const phone = clean(input.phone, 60);
+  if (!name || !phone) throw new Error("Please add a name and phone number");
+  const { count } = await supabaseAdmin
+    .from("family_contacts")
+    .select("id", { count: "exact", head: true })
+    .eq("family_id", family.id);
+  if ((count ?? 0) >= 3) throw new Error("Up to 3 family emergency contacts can be added");
+  const { error } = await supabaseAdmin.from("family_contacts").insert({
+    family_id: family.id,
+    name,
+    relationship: clean(input.relationship, 80),
+    phone,
+    sort_order: count ?? 0,
+  });
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteFamilyContact(slug: string, id: string) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency contacts");
+  const { error } = await supabaseAdmin
+    .from("family_contacts")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function saveNannyEmergencyContact(
+  slug: string,
+  input: { name?: string; relationship?: string; phone?: string },
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can change emergency contacts");
+  const { error } = await supabaseAdmin
+    .from("families")
+    .update({
+      nanny_emergency_name: clean(input.name, 80),
+      nanny_emergency_relationship: clean(input.relationship, 80),
+      nanny_emergency_phone: clean(input.phone, 60),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", family.id);
+  if (error) throw new Error(error.message);
+}
+
 export async function saveChild(slug: string, input: ChildInput) {
   const family = await requireFamily(slug);
   if (!family) throw new Error("Locked");
@@ -382,7 +435,7 @@ export async function deleteLog(slug: string, id: string) {
 /* ---------------- Support ---------------- */
 
 export async function loadSupport(slug: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) return null;
   const { data: threads } = await supabaseAdmin
     .from("support_threads")
@@ -401,6 +454,7 @@ export async function loadSupport(slug: string) {
 
   return {
     familyName: family.family_name,
+    access: family.access,
     threads: (threads ?? []).map((thread) => ({
       ...thread,
       messages: (messages ?? []).filter((m) => m.thread_id === thread.id),
@@ -409,7 +463,7 @@ export async function loadSupport(slug: string) {
 }
 
 export async function askSupport(slug: string, subject: string, body: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const question = clean(body);
   if (!question) throw new Error("Please write your question");
@@ -427,7 +481,7 @@ export async function askSupport(slug: string, subject: string, body: string) {
     .insert({
       family_id: family.id,
       subject: clean(subject, 140) ?? question.slice(0, 60),
-      last_sender: "family",
+      last_sender: family.access,
       family_unread: false,
     })
     .select("id")
@@ -436,13 +490,13 @@ export async function askSupport(slug: string, subject: string, body: string) {
 
   const { error: msgError } = await supabaseAdmin
     .from("support_messages")
-    .insert({ thread_id: thread.id, sender: "family", body: question });
+    .insert({ thread_id: thread.id, sender: family.access, body: question });
   if (msgError) throw new Error(msgError.message);
   return { id: thread.id };
 }
 
 export async function replyAsFamily(slug: string, threadId: string, body: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   const message = clean(body);
   if (!message) throw new Error("Please write a message");
@@ -455,17 +509,17 @@ export async function replyAsFamily(slug: string, threadId: string, body: string
   if (!thread) throw new Error("Not found");
   await supabaseAdmin.from("support_messages").insert({
     thread_id: threadId,
-    sender: "family",
+    sender: family.access,
     body: message,
   });
   await supabaseAdmin
     .from("support_threads")
-    .update({ last_sender: "family", family_unread: false, updated_at: new Date().toISOString() })
+    .update({ last_sender: family.access, family_unread: false, updated_at: new Date().toISOString() })
     .eq("id", threadId);
 }
 
 export async function markThreadRead(slug: string, threadId: string) {
-  const family = await requireFamily(slug);
+  const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
   await supabaseAdmin
     .from("support_threads")
@@ -574,7 +628,7 @@ export async function loadEmergencyCard(slug: string) {
         .order("sort_order", { ascending: true }),
       supabaseAdmin
         .from("family_contacts")
-        .select("name, relationship, phone")
+        .select("id, name, relationship, phone")
         .eq("family_id", family.id)
         .order("sort_order", { ascending: true }),
       supabaseAdmin
@@ -586,6 +640,7 @@ export async function loadEmergencyCard(slug: string) {
 
   return {
     familyName: family.family_name,
+    access: family.access,
     profile: profile ?? null,
     children: children ?? [],
     contacts: contacts ?? [],
