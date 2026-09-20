@@ -46,6 +46,7 @@ export const Route = createFileRoute("/agreement/$slug")({
 
 function AgreementPage() {
   const { slug } = Route.useParams();
+  const search = Route.useSearch();
   const queryClient = useQueryClient();
   const loadFn = useServerFn(getAgreement);
   const signFn = useServerFn(signDocumentFn);
@@ -53,9 +54,11 @@ function AgreementPage() {
   const generateFn = useServerFn(generateAgreementDraftFn);
   const inviteFn = useServerFn(getNannyInvite);
 
+  const [nannyId, setNannyId] = useState(search.nanny ?? "");
+
   const query = useQuery({
-    queryKey: ["agreement", slug],
-    queryFn: () => loadFn({ data: { slug } }),
+    queryKey: ["agreement", slug, nannyId],
+    queryFn: () => loadFn({ data: { slug, nannyId: nannyId || undefined } }),
   });
 
   const [draft, setDraft] = useState<AgreementData | null>(null);
