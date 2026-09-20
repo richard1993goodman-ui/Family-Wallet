@@ -207,19 +207,20 @@ export async function updateFamilyContact(
 
 export async function saveNannyEmergencyContact(
   slug: string,
-  input: { name?: string; relationship?: string; phone?: string },
+  input: { nannyId: string; name?: string; relationship?: string; phone?: string },
 ) {
   const family = await requireFamily(slug);
   if (!family) throw new Error("Only the family can change emergency contacts");
   const { error } = await supabaseAdmin
-    .from("families")
+    .from("family_nannies")
     .update({
-      nanny_emergency_name: clean(input.name, 80),
-      nanny_emergency_relationship: clean(input.relationship, 80),
-      nanny_emergency_phone: clean(input.phone, 60),
+      emergency_name: clean(input.name, 80),
+      emergency_relationship: clean(input.relationship, 80),
+      emergency_phone: clean(input.phone, 60),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", family.id);
+    .eq("id", input.nannyId)
+    .eq("family_id", family.id);
   if (error) throw new Error(error.message);
 }
 

@@ -3,10 +3,10 @@ import { createServerFn } from "@tanstack/react-start";
 import type { AgreementData } from "./agreement.model";
 
 export const getAgreement = createServerFn({ method: "GET" })
-  .inputValidator((data: { slug: string }) => data)
+  .inputValidator((data: { slug: string; nannyId?: string | null }) => data)
   .handler(async ({ data }) => {
     const { loadAgreement } = await import("./agreement.server");
-    return loadAgreement(data.slug);
+    return loadAgreement(data.slug, data.nannyId ?? null);
   });
 
 export const getSignatures = createServerFn({ method: "GET" })
@@ -17,10 +17,13 @@ export const getSignatures = createServerFn({ method: "GET" })
   });
 
 export const saveAgreementFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { slug: string; data: AgreementData; publish: boolean }) => data)
+  .inputValidator(
+    (data: { slug: string; data: AgreementData; publish: boolean; nannyId?: string | null }) =>
+      data,
+  )
   .handler(async ({ data }) => {
     const { saveAgreementFromWallet } = await import("./agreement.server");
-    return saveAgreementFromWallet(data.slug, data.data, data.publish);
+    return saveAgreementFromWallet(data.slug, data.data, data.publish, data.nannyId ?? null);
   });
 
 export const signDocumentFn = createServerFn({ method: "POST" })
@@ -30,11 +33,18 @@ export const signDocumentFn = createServerFn({ method: "POST" })
       docKind: "agreement" | "terms";
       signerRole: "parent" | "nanny";
       signerName: string;
+      nannyId?: string | null;
     }) => data,
   )
   .handler(async ({ data }) => {
     const { signDocument } = await import("./agreement.server");
-    return signDocument(data.slug, data.docKind, data.signerRole, data.signerName);
+    return signDocument(
+      data.slug,
+      data.docKind,
+      data.signerRole,
+      data.signerName,
+      data.nannyId ?? null,
+    );
   });
 
 export const generateAgreementDraftFn = createServerFn({ method: "POST" })
@@ -45,10 +55,10 @@ export const generateAgreementDraftFn = createServerFn({ method: "POST" })
   });
 
 export const getNannyInvite = createServerFn({ method: "POST" })
-  .inputValidator((data: { slug: string; regenerate?: boolean }) => data)
+  .inputValidator((data: { slug: string; nannyId: string; regenerate?: boolean }) => data)
   .handler(async ({ data }) => {
     const { ensureNannyInvite } = await import("./wallet.server");
-    return ensureNannyInvite(data.slug, data.regenerate === true);
+    return ensureNannyInvite(data.slug, data.nannyId, data.regenerate === true);
   });
 
 export const nannySignIn = createServerFn({ method: "POST" })
