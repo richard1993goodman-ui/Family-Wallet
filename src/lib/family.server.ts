@@ -310,6 +310,24 @@ export async function uploadChildPhoto(
 
 /* ---------------- Weekly planner ---------------- */
 
+export type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
+
+/** Each nanny's agreed days come from their own agreement. */
+export async function loadNannySchedules(familyId: string): Promise<NannySchedule[]> {
+  const [rows, { data: agreements }] = await Promise.all([
+    listNannyRows(familyId),
+    supabaseAdmin.from("nanny_agreements").select("nanny_id, agreement_data").eq("family_id", familyId),
+  ]);
+  return rows.map((row) => {
+    const agreement = (agreements ?? []).find((a) => a.nanny_id === row.id);
+    return {
+      nannyId: row.id,
+      nannyName: row.name,
+      workingDays: agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [],
+    };
+  });
+}
+
 export async function loadPlanner(slug: string, weekStart: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
@@ -318,7 +336,7 @@ export async function loadPlanner(slug: string, weekStart: string) {
   end.setUTCDate(end.getUTCDate() + 6);
   const endStr = end.toISOString().slice(0, 10);
 
-  const [{ data }, { data: agreement }] = await Promise.all([
+  const [{ data }, schedules] = await Promise.all([
     supabaseAdmin
       .from("planner_entries")
       .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
@@ -327,11 +345,17 @@ export async function loadPlanner(slug: string, weekStart: string) {
       .lte("entry_date", endStr)
       .order("entry_date", { ascending: true })
       .order("time_label", { ascending: true }),
-    supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
+    loadNannySchedules(family.id),
   ]);
 
-  const workingDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
-  return { familyName: family.family_name, weekStart, entries: data ?? [], workingDays, access: family.access };
+  return {
+    familyName: family.family_name,
+    weekStart,
+    entries: data ?? [],
+    schedules,
+    workingDays: schedules[0]?.workingDays ?? [],
+    access: family.access,
+  };
 }
 
 export async function addPlannerEntry(
