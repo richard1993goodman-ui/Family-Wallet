@@ -141,9 +141,40 @@ export const saveFamily = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
+    async function syncPrimaryNanny(familyId: string) {
+      const name = data.nannyName.trim();
+      if (!name) return;
+      const { data: existing } = await supabaseAdmin
+        .from("family_nannies")
+        .select("id")
+        .eq("family_id", familyId)
+        .eq("status", "active")
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: true })
+        .limit(1);
+
+      const nannyRow = {
+        name,
+        bio: (data.nannyBio ?? "").trim() || null,
+        emergency_name: (data.nannyEmergencyName ?? "").trim() || null,
+        emergency_relationship: (data.nannyEmergencyRelationship ?? "").trim() || null,
+        emergency_phone: (data.nannyEmergencyPhone ?? "").trim() || null,
+        updated_at: new Date().toISOString(),
+      };
+
+      if (existing && existing.length > 0) {
+        await supabaseAdmin.from("family_nannies").update(nannyRow).eq("id", existing[0]!.id);
+      } else {
+        await supabaseAdmin
+          .from("family_nannies")
+          .insert({ ...nannyRow, family_id: familyId, sort_order: 0 });
+      }
+    }
+
     if (data.id) {
       const { error } = await supabaseAdmin.from("families").update(row).eq("id", data.id);
       if (error) throw new Error(error.message);
+      await syncPrimaryNanny(data.id);
       return { id: data.id };
     }
 
