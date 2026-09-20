@@ -57,7 +57,7 @@ function AgreementPage() {
 
   const query = useQuery({
     queryKey: ["agreement", slug, nannyId],
-    queryFn: () => loadFn({ data: { slug, nannyId: nannyId || undefined } }),
+    queryFn: () => loadFn({ data: { slug, nannyId: nannyId || null } }),
   });
 
   const [draft, setDraft] = useState<AgreementData | null>(null);
@@ -95,7 +95,7 @@ function AgreementPage() {
     setBusy(true);
     try {
       const result = await saveFn({
-        data: { slug, data: draft, publish, nannyId: nannyId || undefined },
+        data: { slug, data: draft, publish, nannyId: nannyId || null },
       });
       if (!result.ok) {
         toast.error("Please unlock your wallet again.");
@@ -189,7 +189,7 @@ function AgreementPage() {
         docKind: "agreement" as const,
         signerRole: role,
         signerName: name,
-        nannyId: nannyId || undefined,
+        nannyId: nannyId || null,
       },
     });
     if (result.ok) {
