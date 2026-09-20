@@ -2,7 +2,7 @@ import { getRequest } from "@tanstack/react-start/server";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
-import { accessLevel, isUnlocked } from "./wallet.server";
+import { isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
 import { TERMS_VERSION } from "./tiers";
 import {
   agreementHasContent,
