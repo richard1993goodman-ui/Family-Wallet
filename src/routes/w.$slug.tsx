@@ -26,9 +26,12 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { getHubSummary } from "@/lib/family.functions";
+import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
 import type { WorkingDay } from "@/lib/agreement.model";
+
+type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { TermsContent } from "@/components/TermsContent";
@@ -77,6 +80,7 @@ function WalletPage() {
   const docFn = useServerFn(getDocumentUrl);
   const hubFn = useServerFn(getHubSummary);
   const agreementFn = useServerFn(getAgreement);
+  const nanniesFn = useServerFn(getNannies);
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -98,18 +102,32 @@ function WalletPage() {
     queryFn: () => agreementFn({ data: { slug } }),
   });
   const agreement = agreementQuery.data ?? null;
-  const agreementDone =
+
+  const nanniesQuery = useQuery({
+    queryKey: ["nannies", slug],
+    queryFn: () => nanniesFn({ data: { slug } }),
+  });
+  const nannies = nanniesQuery.data?.nannies ?? [];
+  const outstandingAgreements = nannies.filter((n) => !n.agreementSigned);
+  const singleAgreementDone =
     agreement?.status === "issued" &&
     signingRows(agreement.signatures, agreement.version).complete;
-  const agreementSubtitle = !agreement
-    ? "Build it, then sign it here"
-    : !agreement.hasContent
-      ? "Not started — build it here"
-      : agreement.status !== "issued"
-        ? "Draft saved — finish and open for signing"
-        : agreementDone
-          ? "Signed by you and your nanny"
-          : "Ready to sign — parent and nanny";
+  const agreementDone =
+    nannies.length > 0 ? outstandingAgreements.length === 0 : Boolean(singleAgreementDone);
+  const agreementSubtitle =
+    nannies.length > 1
+      ? outstandingAgreements.length === 0
+        ? `All ${nannies.length} agreements signed`
+        : `${outstandingAgreements.length} of ${nannies.length} still to sign`
+      : !agreement
+        ? "Build it, then sign it here"
+        : !agreement.hasContent
+          ? "Not started — build it here"
+          : agreement.status !== "issued"
+            ? "Draft saved — finish and open for signing"
+            : agreementDone
+              ? "Signed by you and your nanny"
+              : "Ready to sign — parent and nanny";
 
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
