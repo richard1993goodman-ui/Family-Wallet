@@ -199,6 +199,7 @@ export const saveFamily = createServerFn({ method: "POST" })
       .select("id")
       .single();
     if (error) throw new Error(error.message);
+    await syncPrimaryNanny(inserted.id);
     return { id: inserted.id };
   });
 
