@@ -292,7 +292,14 @@ function WalletPage() {
             slug={slug}
             items={[
               {
-                label: "Nanny agreement signed",
+                label: "Nanny added",
+                done: nannies.length > 0,
+                hint: "Add everyone you employ with us",
+                to: "/nannies/$slug",
+              },
+              {
+                label:
+                  nannies.length > 1 ? "Every nanny agreement signed" : "Nanny agreement signed",
                 done: Boolean(agreementDone),
                 hint: "Build it, then both of you sign it",
                 to: "/agreement/$slug",
@@ -343,7 +350,7 @@ function WalletPage() {
           />
         )}
 
-        {agreement && agreement.hasContent && !agreementDone && (
+        {nannies.length <= 1 && agreement && agreement.hasContent && !agreementDone && (
           <div className="mt-3">
             <SigningProgress
               status={agreement.status}
@@ -353,7 +360,36 @@ function WalletPage() {
           </div>
         )}
 
-        {agreement && !agreementDone && (
+        {nannies.length > 1 && outstandingAgreements.length > 0 && (
+          <div className="mt-3 rounded-xl border border-border bg-card p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Agreements still to sign
+            </p>
+            <ul className="mt-3 space-y-2">
+              {outstandingAgreements.map((nanny) => (
+                <li key={nanny.id}>
+                  <Link
+                    to="/agreement/$slug"
+                    params={{ slug }}
+                    search={{ nanny: nanny.id }}
+                    className="flex items-center justify-between gap-3 rounded-lg px-1 py-1 text-sm hover:bg-muted/60"
+                  >
+                    <span className="font-medium text-foreground">{nanny.name}</span>
+                    <span className="text-muted-foreground">
+                      {nanny.agreementStatus === "none"
+                        ? "Not started"
+                        : nanny.agreementStatus === "draft"
+                          ? "Draft saved"
+                          : "Awaiting signatures"}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {nannies.length <= 1 && agreement && !agreementDone && (
           <Link
             to="/agreement/$slug"
             params={{ slug }}
@@ -384,16 +420,19 @@ function WalletPage() {
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
         </div>
 
-        {(wallet.nannyEmergency || wallet.contacts.length > 0) && (
+        {(wallet.nannies.some((n) => n.emergency) || wallet.contacts.length > 0) && (
           <>
             <h2 className="heading-display mt-9 text-lg text-foreground">Emergency contacts</h2>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {wallet.nannyEmergency && (
-                <ContactCard
-                  label="Nanny's emergency contact"
-                  contact={wallet.nannyEmergency}
-                />
-              )}
+              {wallet.nannies
+                .filter((n) => n.emergency)
+                .map((nanny) => (
+                  <ContactCard
+                    key={nanny.id}
+                    label={`${nanny.name}'s emergency contact`}
+                    contact={nanny.emergency!}
+                  />
+                ))}
               {wallet.contacts.map((contact, i) => (
                 <ContactCard key={i} label="Family emergency contact" contact={contact} />
               ))}
