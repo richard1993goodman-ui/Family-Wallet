@@ -49,7 +49,7 @@ function EmergencyPage() {
     queryKey: ["emergency", slug],
     queryFn: () => loadFn({ data: { slug } }),
   });
-  const [profile, setProfile] = useState({
+  const [profileForm, setProfileForm] = useState({
     homeAddress: "",
     gpDetails: "",
     medicalNotes: "",
@@ -62,7 +62,7 @@ function EmergencyPage() {
   useEffect(() => {
     const data = query.data;
     if (!data) return;
-    setProfile({
+    setProfileForm({
       homeAddress: data.profile?.home_address ?? "",
       gpDetails: data.profile?.gp_details ?? "",
       medicalNotes: data.profile?.medical_notes ?? "",
@@ -84,7 +84,7 @@ function EmergencyPage() {
   }
   if (!query.data) return <LockedNotice slug={slug} />;
 
-  const { children, contacts, nannyEmergency, access } = query.data;
+  const { profile, children, contacts, nannyEmergency, access } = query.data;
   const allContacts = [
     ...contacts.map((c) => ({ ...c, label: "Family contact" })),
     ...(nannyEmergency ? [{ ...nannyEmergency, label: "Nanny's emergency contact" }] : []),
@@ -203,11 +203,11 @@ function EmergencyPage() {
             <Card>
               <p className="heading-display text-lg text-foreground">Family details</p>
               <div className="mt-4 space-y-4">
-                <Field label="Home address" textarea value={profile.homeAddress} onChange={(value) => setProfile({ ...profile, homeAddress: value })} />
-                <Field label="Doctor / GP details" textarea value={profile.gpDetails} onChange={(value) => setProfile({ ...profile, gpDetails: value })} />
-                <Field label="Medical notes" textarea value={profile.medicalNotes} onChange={(value) => setProfile({ ...profile, medicalNotes: value })} />
-                <Field label="Emergency instructions" textarea value={profile.emergencyInstructions} onChange={(value) => setProfile({ ...profile, emergencyInstructions: value })} />
-                <Button disabled={busy} onClick={() => save(() => saveProfile({ data: { slug, ...profile } }), "Family emergency details saved")}>Save family details</Button>
+                <Field label="Home address" textarea value={profileForm.homeAddress} onChange={(value) => setProfileForm({ ...profileForm, homeAddress: value })} />
+                <Field label="Doctor / GP details" textarea value={profileForm.gpDetails} onChange={(value) => setProfileForm({ ...profileForm, gpDetails: value })} />
+                <Field label="Medical notes" textarea value={profileForm.medicalNotes} onChange={(value) => setProfileForm({ ...profileForm, medicalNotes: value })} />
+                <Field label="Emergency instructions" textarea value={profileForm.emergencyInstructions} onChange={(value) => setProfileForm({ ...profileForm, emergencyInstructions: value })} />
+                <Button disabled={busy} onClick={() => save(() => saveProfile({ data: { slug, ...profileForm } }), "Family emergency details saved")}>Save family details</Button>
               </div>
             </Card>
 

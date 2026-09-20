@@ -64,6 +64,7 @@ function SupportPage() {
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
+  const support = query.data;
 
   async function refresh() {
     await queryClient.invalidateQueries({ queryKey: ["support", slug] });
@@ -105,14 +106,16 @@ function SupportPage() {
         />
         <div className="mt-3 flex flex-wrap gap-2">
           {PROMPTS.map((prompt) => (
-            <button
+            <Button
               key={prompt}
               type="button"
+              variant="outline"
+              size="sm"
               onClick={() => setBody(prompt)}
-              className="rounded-full border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground hover:border-primary/40 hover:text-foreground"
+              className="rounded-full text-xs text-muted-foreground"
             >
               {prompt}
-            </button>
+            </Button>
           ))}
         </div>
         <Button className="mt-4" onClick={onAsk} disabled={busy || !body.trim()}>
@@ -121,7 +124,7 @@ function SupportPage() {
       </div>
 
       <div className="mt-6 space-y-5">
-        {query.data.threads.map((thread) => (
+        {support.threads.map((thread) => (
           <section key={thread.id} className="overflow-hidden rounded-xl border border-border bg-card">
             <div className="flex items-start justify-between gap-3">
               <div className="px-4 pt-4 sm:px-5 sm:pt-5">
@@ -130,7 +133,7 @@ function SupportPage() {
                   Athlete Mannies · {thread.status === "closed" ? "Conversation closed" : "Usually replies here"}
                 </p>
               </div>
-              {thread.family_unread && (
+              {(support.access === "nanny" ? thread.nanny_unread : thread.family_unread) && (
                 <Button
                   size="sm"
                   variant="ghost"
@@ -146,7 +149,7 @@ function SupportPage() {
             </div>
             <div className="mt-4 space-y-3 bg-muted/40 px-4 py-5 sm:px-5">
               {thread.messages.map((message) => {
-                const mine = message.sender === query.data.access;
+                const mine = message.sender === support.access;
                 const sender = message.sender === "admin"
                   ? "Athlete Mannies"
                   : message.sender === "nanny"
@@ -167,7 +170,7 @@ function SupportPage() {
             </div>
             <div className="flex gap-2 border-t border-border p-3 sm:p-4">
               <Input
-                placeholder={`Reply as ${query.data.access === "nanny" ? "nanny" : "family"}…`}
+                placeholder={`Reply as ${support.access === "nanny" ? "nanny" : "family"}…`}
                 value={replies[thread.id] ?? ""}
                 onChange={(e) => setReplies({ ...replies, [thread.id]: e.target.value })}
               />
