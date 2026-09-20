@@ -71,6 +71,13 @@
       "when": 1789851189382,
       "tag": "0009_shared_calendar_resources_timesheets",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789887956920,
+      "tag": "0010_add_nanny_support_unread",
+      "breakpoints": true
     }
   ]
 }
