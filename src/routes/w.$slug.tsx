@@ -716,10 +716,10 @@ function shortTime(value: string) {
   return value.replace(/:00$/, "").replace(/^0/, "");
 }
 
-function TodayPanel({ slug, entries, workingDays }: {
+function TodayPanel({ slug, entries, schedules }: {
   slug: string;
   entries: Array<{ id: string; entry_date: string; time_label: string | null; end_time_label: string | null; title: string; entry_type: string; status: string }>;
-  workingDays: WorkingDay[];
+  schedules: NannySchedule[];
 }) {
   const today = new Date();
   const todayIso = today.toISOString().slice(0, 10);
@@ -731,12 +731,24 @@ function TodayPanel({ slug, entries, workingDays }: {
     date.setUTCDate(weekStart.getUTCDate() + index);
     return date.toISOString().slice(0, 10);
   });
+  const onDay = (iso: string) => {
+    const dayName = new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+      weekday: "long",
+      timeZone: "UTC",
+    });
+    return schedules
+      .map((schedule) => ({
+        nannyName: schedule.nannyName,
+        shift: schedule.workingDays.find((day) => day.day === dayName && day.enabled),
+      }))
+      .filter((row): row is { nannyName: string; shift: WorkingDay } => Boolean(row.shift));
+  };
   const selected = new Date(`${selectedDate}T00:00:00Z`);
-  const weekday = selected.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-  const regular = workingDays.find((day) => day.day === weekday && day.enabled);
+  const selectedWorking = onDay(selectedDate);
   const selectedEntries = entries.filter((entry) => entry.entry_date === selectedDate);
   const cancelled = selectedEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled");
   const selectedIsToday = selectedDate === todayIso;
+  const anyHours = schedules.some((schedule) => schedule.workingDays.some((day) => day.enabled));
 
   return (
     <div className="mt-6 rounded-xl border border-border bg-card p-6">
@@ -751,7 +763,7 @@ function TodayPanel({ slug, entries, workingDays }: {
       </div>
 
       <p className="mt-3 text-sm text-muted-foreground">
-        Your nanny’s agreed days and hours sync from the nanny agreement. Add activities, school dates, notes and one-off shift changes manually.
+        Each nanny’s agreed days and hours sync from their nanny agreement. Add activities, school dates, notes and one-off shift changes manually.
       </p>
 
       <div className="mt-5 grid grid-cols-7 gap-1" aria-label="This week">
@@ -760,14 +772,19 @@ function TodayPanel({ slug, entries, workingDays }: {
           const isToday = iso === todayIso;
           const isSelected = iso === selectedDate;
           const hasEntries = entries.some((entry) => entry.entry_date === iso);
-          const dayName = date.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-          const dayShift = workingDays.find((day) => day.day === dayName && day.enabled);
+          const working = onDay(iso);
           const dayCancelled = entries.some(
             (entry) =>
               entry.entry_date === iso &&
               entry.entry_type === "shift_change" &&
               entry.status === "cancelled",
           );
+          const label =
+            working.length === 0 || dayCancelled
+              ? "\u00A0"
+              : working.length === 1
+                ? `${shortTime(working[0]!.shift.startTime)}-${shortTime(working[0]!.shift.endTime)}`
+                : `${working.length} on`;
           return (
             <Button
               key={iso}
@@ -782,11 +799,7 @@ function TodayPanel({ slug, entries, workingDays }: {
                 {date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }).slice(0, 2)}
               </span>
               <span className="text-base">{date.getUTCDate()}</span>
-              <span className="text-[9px] leading-tight opacity-80">
-                {dayShift && !dayCancelled
-                  ? `${shortTime(dayShift.startTime)}-${shortTime(dayShift.endTime)}`
-                  : "\u00A0"}
-              </span>
+              <span className="text-[9px] leading-tight opacity-80">{label}</span>
               <span className={`h-1 w-1 rounded-full ${hasEntries ? "bg-current" : "bg-transparent"}`} />
               {isToday && (
                 <span className="absolute -bottom-5 text-[10px] font-semibold text-primary">Today</span>
@@ -800,23 +813,32 @@ function TodayPanel({ slug, entries, workingDays }: {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Agreed nanny hours
         </p>
-        {workingDays.some((day) => day.enabled) ? (
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {workingDays
-              .filter((day) => day.enabled)
-              .map((day) => (
-                <span
-                  key={day.day}
-                  className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
-                >
-                  {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
-                  {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
-                </span>
+        {anyHours ? (
+          <div className="mt-3 space-y-3">
+            {schedules
+              .filter((schedule) => schedule.workingDays.some((day) => day.enabled))
+              .map((schedule) => (
+                <div key={schedule.nannyId}>
+                  <p className="text-sm font-medium text-foreground">{schedule.nannyName}</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {schedule.workingDays
+                      .filter((day) => day.enabled)
+                      .map((day) => (
+                        <span
+                          key={day.day}
+                          className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
+                        >
+                          {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                          {day.startTime2 && day.endTime2 ? ` · ${day.startTime2}–${day.endTime2}` : ""}
+                        </span>
+                      ))}
+                  </div>
+                </div>
               ))}
           </div>
         ) : (
           <p className="mt-2 text-sm text-muted-foreground">
-            No days set yet — add them in your nanny agreement and they'll appear here.
+            No days set yet — add them in each nanny agreement and they'll appear here.
           </p>
         )}
       </div>
@@ -826,8 +848,16 @@ function TodayPanel({ slug, entries, workingDays }: {
           {selectedIsToday ? "Today" : selected.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
         </p>
       </div>
-      {regular && !cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">Nanny working · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""} · synced from agreement</p>}
-      {cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">This regular nanny shift has been cancelled.</p>}
+      {!cancelled &&
+        selectedWorking.map((row) => (
+          <p key={row.nannyName} className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
+            {row.nannyName} working · {row.shift.startTime}–{row.shift.endTime}
+            {row.shift.startTime2 && row.shift.endTime2
+              ? ` and ${row.shift.startTime2}–${row.shift.endTime2}`
+              : ""} · synced from agreement
+          </p>
+        ))}
+      {cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">A regular nanny shift has been cancelled on this day.</p>}
       <div className="mt-4 space-y-2">
         {selectedEntries.length === 0 && !regular && <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>}
         {selectedEntries.map((entry) => <div key={entry.id} className="flex gap-3 text-sm"><span className="w-24 flex-shrink-0 font-medium text-primary">{entry.time_label ?? "Any time"}{entry.end_time_label ? `–${entry.end_time_label}` : ""}</span><span className="text-foreground">{entry.title}</span></div>)}
