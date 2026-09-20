@@ -137,7 +137,7 @@ function WalletPage() {
       const result = await unlockFn({ data: { slug, code } });
       if (result.ok) {
         setCode("");
-        await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
+        await queryClient.invalidateQueries();
       } else {
         toast.error(
           result.reason === "rate_limited"
