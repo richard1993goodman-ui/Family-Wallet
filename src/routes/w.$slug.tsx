@@ -14,6 +14,7 @@ import {
   MessageCircle,
   NotebookPen,
   Clock3,
+  Plane,
   Phone,
   Shield,
   Siren,
@@ -419,6 +420,7 @@ function WalletPage() {
           <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
           <ExternalToolTile href="https://nanny-nourish-guide.lovable.app" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Open the original cooking and meal ideas app" />
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
+          <HubTile slug={slug} to="/leave/$slug" icon={Plane} title="Holiday &amp; leave" subtitle={isNanny ? "See your entitlement and request time off" : "Track entitlement and approve time off"} />
         </div>
 
         {(wallet.nannies.some((n) => n.emergency) || wallet.contacts.length > 0) && (
@@ -919,6 +921,7 @@ function HubTile({
     | "/terms/$slug"
     | "/activities/$slug"
     | "/fuel/$slug"
+    | "/leave/$slug"
     | "/timesheets/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;

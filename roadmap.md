@@ -21,3 +21,8 @@
 - [x] Replace embedded Activity Guide and Nanny Fuel with links to the original apps.
 - [x] Restyle Ask Athlete Mannies as a message conversation and label family/nanny replies correctly.
 - [x] Verify family and nanny access plus desktop/mobile views.
+
+## Holiday & leave tracker (Sep 20)
+- [x] Leave requests stored per nanny with entitlement from the agreement
+- [x] Holiday & leave page: entitlement, taken, remaining, booking, approval
+- [x] Wallet tile and planner entry for approved leave
