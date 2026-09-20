@@ -110,47 +110,111 @@ export async function attemptUnlock(slug: string, code: string) {
 
 /* ---------------- Nanny invitation & sign-in ---------------- */
 
+/** Codes are hashed against the family (not the individual) so older invites keep working. */
 const nannyKey = (slug: string) => `nanny:${slug}`;
+const nannySessionKey = (slug: string, nannyId: string) => `nanny:${slug}:${nannyId}`;
+
+export type NannyRecord = {
+  id: string;
+  name: string;
+  bio: string | null;
+  photoPath: string | null;
+  emergency: WalletContact | null;
+  code: string | null;
+  invitedAt: string | null;
+};
+
+async function familyRowBySlug(slug: string) {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, status")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  return data ?? null;
+}
+
+export async function listNannyRows(familyId: string) {
+  const { data } = await supabaseAdmin
+    .from("family_nannies")
+    .select(
+      "id, name, bio, photo_path, emergency_name, emergency_relationship, emergency_phone, nanny_code, invited_at, status",
+    )
+    .eq("family_id", familyId)
+    .eq("status", "active")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  return data ?? [];
+}
+
+/** Which nanny (if any) this device is signed in as. */
+async function sessionNannyId(slug: string, familyId: string): Promise<string | null> {
+  const session = await walletSession();
+  const unlocked = session.data.unlocked ?? [];
+  const prefix = `${nannySessionKey(slug, "")}`;
+  const direct = unlocked.find((entry) => entry.startsWith(prefix) && entry.length > prefix.length);
+  const rows = await listNannyRows(familyId);
+  if (direct) {
+    const id = direct.slice(prefix.length);
+    return rows.some((r) => r.id === id) ? id : null;
+  }
+  // Legacy sessions signed in before families could have more than one nanny.
+  if (unlocked.includes(nannyKey(slug))) return rows[0]?.id ?? null;
+  return null;
+}
 
 export async function isNannyUnlocked(slug: string) {
-  const session = await walletSession();
-  return (session.data.unlocked ?? []).includes(nannyKey(slug));
+  const family = await familyRowBySlug(slug);
+  if (!family) return false;
+  return (await sessionNannyId(slug, family.id)) !== null;
 }
 
 /** "family" = parent/wallet holder, "nanny" = invited nanny, null = no access. */
 export async function accessLevel(slug: string): Promise<"family" | "nanny" | null> {
-  if (await isUnlocked(slug)) return "family";
-  if (await isNannyUnlocked(slug)) return "nanny";
-  return null;
+  const session = await sessionAccess(slug);
+  return session?.level ?? null;
 }
 
-/** Parents generate (or fetch) the invite the nanny uses to sign in. */
-export async function ensureNannyInvite(slug: string, regenerate = false) {
-  if (!(await isUnlocked(slug))) return null;
+export async function sessionAccess(
+  slug: string,
+): Promise<{ level: "family" | "nanny"; nannyId: string | null } | null> {
+  if (await isUnlocked(slug)) return { level: "family", nannyId: null };
+  const family = await familyRowBySlug(slug);
+  if (!family) return null;
+  const nannyId = await sessionNannyId(slug, family.id);
+  return nannyId ? { level: "nanny", nannyId } : null;
+}
 
-  const { data: family } = await supabaseAdmin
-    .from("families")
-    .select("id, nanny_code, nanny_name")
-    .eq("slug", slug)
-    .eq("status", "active")
-    .maybeSingle();
+/** Parents generate (or refresh) the invite code for one of their nannies. */
+export async function ensureNannyInvite(slug: string, nannyId: string, regenerate = false) {
+  if (!(await isUnlocked(slug))) return null;
+  const family = await familyRowBySlug(slug);
   if (!family) return null;
 
-  let code = family.nanny_code;
+  const { data: nanny } = await supabaseAdmin
+    .from("family_nannies")
+    .select("id, name, nanny_code")
+    .eq("id", nannyId)
+    .eq("family_id", family.id)
+    .maybeSingle();
+  if (!nanny) return null;
+
+  let code = nanny.nanny_code;
   if (!code || regenerate) {
     code = generateAccessCode();
     const { error } = await supabaseAdmin
-      .from("families")
+      .from("family_nannies")
       .update({
         nanny_code: code,
         nanny_code_hash: hashCode(nannyKey(slug), code),
-        nanny_invited_at: new Date().toISOString(),
+        invited_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       })
-      .eq("id", family.id);
+      .eq("id", nanny.id);
     if (error) return null;
   }
 
-  return { code, slug, nannyName: family.nanny_name ?? null };
+  return { code, slug, nannyId: nanny.id, nannyName: nanny.name };
 }
 
 export async function attemptNannyUnlock(slug: string, code: string) {
@@ -165,28 +229,31 @@ export async function attemptNannyUnlock(slug: string, code: string) {
     .gte("attempted_at", since);
   if ((count ?? 0) >= 8) return { ok: false as const, reason: "rate_limited" as const };
 
-  const { data: family } = await supabaseAdmin
-    .from("families")
-    .select("nanny_code_hash, status")
-    .eq("slug", slug)
-    .maybeSingle();
+  const family = await familyRowBySlug(slug);
+  const attempted = family ? hashCode(nannyKey(slug), code) : "";
 
-  const success =
-    !!family &&
-    family.status === "active" &&
-    !!family.nanny_code_hash &&
-    equals(family.nanny_code_hash, hashCode(nannyKey(slug), code));
+  let matched: { id: string } | null = null;
+  if (family) {
+    const { data: rows } = await supabaseAdmin
+      .from("family_nannies")
+      .select("id, nanny_code_hash")
+      .eq("family_id", family.id)
+      .eq("status", "active");
+    matched =
+      (rows ?? []).find((r) => r.nanny_code_hash && equals(r.nanny_code_hash, attempted)) ?? null;
+  }
 
   await supabaseAdmin
     .from("wallet_access_attempts")
-    .insert({ slug: nannyKey(slug), client_key: key, succeeded: success });
+    .insert({ slug: nannyKey(slug), client_key: key, succeeded: !!matched });
 
-  if (!success) return { ok: false as const, reason: "invalid" as const };
+  if (!matched) return { ok: false as const, reason: "invalid" as const };
 
   const session = await walletSession();
   const current = session.data.unlocked ?? [];
-  if (!current.includes(nannyKey(slug))) {
-    await session.update({ unlocked: [...current, nannyKey(slug)] });
+  const entry = nannySessionKey(slug, matched.id);
+  if (!current.includes(entry)) {
+    await session.update({ unlocked: [...current, entry] });
   }
   return { ok: true as const };
 }
@@ -201,38 +268,43 @@ export type WalletCheck = {
 
 export type WalletContact = { name: string; relationship: string | null; phone: string };
 
+export type WalletNanny = {
+  id: string;
+  name: string;
+  bio: string | null;
+  photoUrl: string | null;
+  emergency: WalletContact | null;
+  isYou: boolean;
+};
+
 export type WalletData = {
   access: "family" | "nanny";
   familyName: string;
   tierBand: string;
-  nannyName: string | null;
-  nannyBio: string | null;
+  nannies: WalletNanny[];
   nannytaxCode: string | null;
-  nannyPhotoUrl: string | null;
   startDate: string | null;
   termsAcceptedOn: string | null;
   updatedAt: string;
-  nannyEmergency: WalletContact | null;
   contacts: WalletContact[];
   documents: { docType: string; fileName: string }[];
   checks: WalletCheck[];
 };
 
 export async function loadWallet(slug: string): Promise<WalletData | null> {
-  const access = await accessLevel(slug);
-  if (!access) return null;
+  const session = await sessionAccess(slug);
+  if (!session) return null;
+  const access = session.level;
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select(
-      "id, family_name, tier_band, nanny_name, nanny_bio, nanny_photo_path, nannytax_code, start_date, terms_accepted_on, status, updated_at, nanny_emergency_name, nanny_emergency_relationship, nanny_emergency_phone",
-    )
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at")
     .eq("slug", slug)
     .maybeSingle();
 
   if (!family || family.status !== "active") return null;
 
-  const [{ data: docs }, { data: contactRows }] = await Promise.all([
+  const [{ data: docs }, { data: contactRows }, nannyRows] = await Promise.all([
     supabaseAdmin
       .from("family_documents")
       .select("doc_type, file_name, visibility, issued_on, reference_label")
@@ -243,15 +315,34 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
       .eq("family_id", family.id)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
+    listNannyRows(family.id),
   ]);
 
-  let nannyPhotoUrl: string | null = null;
-  if (family.nanny_photo_path) {
-    const { data: signed } = await supabaseAdmin.storage
-      .from("family-docs")
-      .createSignedUrl(family.nanny_photo_path, 300);
-    nannyPhotoUrl = signed?.signedUrl ?? null;
-  }
+  const nannies: WalletNanny[] = await Promise.all(
+    nannyRows.map(async (row) => {
+      let photoUrl: string | null = null;
+      if (row.photo_path) {
+        const { data: signed } = await supabaseAdmin.storage
+          .from("family-docs")
+          .createSignedUrl(row.photo_path, 300);
+        photoUrl = signed?.signedUrl ?? null;
+      }
+      return {
+        id: row.id,
+        name: row.name,
+        bio: row.bio,
+        photoUrl,
+        emergency: row.emergency_name
+          ? {
+              name: row.emergency_name,
+              relationship: row.emergency_relationship,
+              phone: row.emergency_phone ?? "",
+            }
+          : null,
+        isYou: session.nannyId === row.id,
+      };
+    }),
+  );
 
   const visible = (docs ?? []).filter((d) => d.visibility !== "hidden");
 
@@ -259,20 +350,11 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     access,
     familyName: family.family_name,
     tierBand: access === "family" ? family.tier_band : "",
-    nannyName: family.nanny_name,
-    nannyBio: family.nanny_bio,
+    nannies,
     nannytaxCode: access === "family" ? family.nannytax_code : null,
-    nannyPhotoUrl,
     startDate: access === "family" ? family.start_date : null,
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
     updatedAt: family.updated_at,
-    nannyEmergency: family.nanny_emergency_name
-      ? {
-          name: family.nanny_emergency_name,
-          relationship: family.nanny_emergency_relationship,
-          phone: family.nanny_emergency_phone ?? "",
-        }
-      : null,
     contacts: (contactRows ?? []).map((c) => ({
       name: c.name,
       relationship: c.relationship,
