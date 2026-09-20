@@ -92,6 +92,13 @@
       "when": 1789906216945,
       "tag": "0012_create_leave_requests",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789906704501,
+      "tag": "0013_create_cover_requests",
+      "breakpoints": true
     }
   ]
 }
