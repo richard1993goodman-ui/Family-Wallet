@@ -859,7 +859,7 @@ function TodayPanel({ slug, entries, schedules }: {
         ))}
       {cancelled && <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">A regular nanny shift has been cancelled on this day.</p>}
       <div className="mt-4 space-y-2">
-        {selectedEntries.length === 0 && !regular && <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>}
+        {selectedEntries.length === 0 && selectedWorking.length === 0 && <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>}
         {selectedEntries.map((entry) => <div key={entry.id} className="flex gap-3 text-sm"><span className="w-24 flex-shrink-0 font-medium text-primary">{entry.time_label ?? "Any time"}{entry.end_time_label ? `–${entry.end_time_label}` : ""}</span><span className="text-foreground">{entry.title}</span></div>)}
       </div>
       <div className="mt-5 flex flex-wrap gap-2">
