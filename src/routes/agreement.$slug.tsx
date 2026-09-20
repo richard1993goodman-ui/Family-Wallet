@@ -22,6 +22,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/agreement/$slug")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    nanny: typeof search["nanny"] === "string" ? (search["nanny"] as string) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Your nanny agreement — Athlete Mannies & Nannies" },
