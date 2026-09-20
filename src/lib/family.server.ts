@@ -620,7 +620,7 @@ export async function loadHubSummary(slug: string) {
         .from("support_threads")
         .select("id", { count: "exact", head: true })
         .eq("family_id", family.id)
-        .eq("family_unread", true),
+        .eq(family.access === "nanny" ? "nanny_unread" : "family_unread", true),
       supabaseAdmin.from("nanny_agreements").select("agreement_data").eq("family_id", family.id).maybeSingle(),
       supabaseAdmin
         .from("family_contacts")

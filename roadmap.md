@@ -20,4 +20,4 @@
 - [x] Move support and nanny training to the bottom of the wallet.
 - [x] Replace embedded Activity Guide and Nanny Fuel with links to the original apps.
 - [x] Restyle Ask Athlete Mannies as a message conversation and label family/nanny replies correctly.
-- [ ] Verify family and nanny access plus desktop/mobile views.
+- [x] Verify family and nanny access plus desktop/mobile views.

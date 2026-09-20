@@ -421,7 +421,12 @@ export const replyToThread = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     await supabaseAdmin
       .from("support_threads")
-      .update({ last_sender: "admin", family_unread: true, updated_at: new Date().toISOString() })
+      .update({
+        last_sender: "admin",
+        family_unread: true,
+        nanny_unread: true,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", data.threadId);
     return { ok: true as const };
   });
