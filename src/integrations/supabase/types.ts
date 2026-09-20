@@ -68,6 +68,7 @@ export type Database = {
           doc_version: string
           family_id: string
           id: string
+          nanny_id: string | null
           signed_at: string
           signer_name: string
           signer_role: string
@@ -78,6 +79,7 @@ export type Database = {
           doc_version?: string
           family_id: string
           id?: string
+          nanny_id?: string | null
           signed_at?: string
           signer_name: string
           signer_role: string
@@ -88,6 +90,7 @@ export type Database = {
           doc_version?: string
           family_id?: string
           id?: string
+          nanny_id?: string | null
           signed_at?: string
           signer_name?: string
           signer_role?: string
@@ -98,6 +101,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_signatures_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
             referencedColumns: ["id"]
           },
         ]
@@ -339,6 +349,68 @@ export type Database = {
           },
         ]
       }
+      family_nannies: {
+        Row: {
+          bio: string | null
+          created_at: string
+          emergency_name: string | null
+          emergency_phone: string | null
+          emergency_relationship: string | null
+          family_id: string
+          id: string
+          invited_at: string | null
+          name: string
+          nanny_code: string | null
+          nanny_code_hash: string | null
+          photo_path: string | null
+          sort_order: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          family_id: string
+          id?: string
+          invited_at?: string | null
+          name: string
+          nanny_code?: string | null
+          nanny_code_hash?: string | null
+          photo_path?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          family_id?: string
+          id?: string
+          invited_at?: string | null
+          name?: string
+          nanny_code?: string | null
+          nanny_code_hash?: string | null
+          photo_path?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       family_profile: {
         Row: {
           emergency_instructions: string | null
@@ -402,6 +474,7 @@ export type Database = {
           hours: string | null
           id: string
           issued_at: string | null
+          nanny_id: string | null
           nanny_name: string | null
           notice_period: string | null
           pay_basis: string | null
@@ -425,6 +498,7 @@ export type Database = {
           hours?: string | null
           id?: string
           issued_at?: string | null
+          nanny_id?: string | null
           nanny_name?: string | null
           notice_period?: string | null
           pay_basis?: string | null
@@ -448,6 +522,7 @@ export type Database = {
           hours?: string | null
           id?: string
           issued_at?: string | null
+          nanny_id?: string | null
           nanny_name?: string | null
           notice_period?: string | null
           pay_basis?: string | null
@@ -465,6 +540,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: true
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_agreements_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
             referencedColumns: ["id"]
           },
         ]
