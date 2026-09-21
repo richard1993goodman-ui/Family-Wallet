@@ -48,6 +48,13 @@ export const CONTRACT_TYPE_LABELS: Record<ContractType, string> = {
   "part-time-term-time": "Part time, term time only",
 };
 
+export type RateBasis = "gross" | "net";
+
+export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
+  gross: "Gross (before tax)",
+  net: "Net (take-home)",
+};
+
 export interface AgreementData {
   employerName: string;
   employerAddress: string;
@@ -70,6 +77,8 @@ export interface AgreementData {
   weeksPerYear: string;
 
   hourlyRate: string;
+  /** Whether the hourly rate quoted is gross (before tax) or net (take-home). */
+  rateBasis: RateBasis;
   paymentMethod: string;
   paymentFrequency: string;
   benefits: string;
