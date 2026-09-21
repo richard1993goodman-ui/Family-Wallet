@@ -531,6 +531,23 @@ export function AgreementBuilder({
             ))}
           </div>
         </Labelled>
+        <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+          <Checkbox
+            className="mt-0.5"
+            checked={data.includeTaxResponsibilityClause}
+            onCheckedChange={(checked) =>
+              update({ includeTaxResponsibilityClause: checked === true })
+            }
+          />
+          <span>
+            <span className="block text-sm font-medium text-foreground">
+              Include tax, National Insurance and pension responsibility wording
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Turn this off to remove the PAYE/HMRC sentence from clause 2.1.
+            </span>
+          </span>
+        </label>
         <Labelled label="Payment frequency">
           <Text value={data.paymentFrequency} onChange={(v) => update({ paymentFrequency: v })} />
         </Labelled>

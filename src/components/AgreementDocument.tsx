@@ -163,9 +163,11 @@ export function AgreementDocument({
         <p>
           <strong>2.1</strong> The Nanny’s salary will be £{data.hourlyRate || "___"} per hour{" "}
           {data.rateBasis === "net" ? "net (take-home)" : "gross (before deductions)"}.
-          {data.rateBasis === "net"
-            ? " The Employer is responsible for all PAYE tax, National Insurance and pension contributions payable in addition to this net figure."
-            : " Income tax, National Insurance and pension contributions will be deducted from this gross figure."}
+          {data.includeTaxResponsibilityClause
+            ? data.rateBasis === "net"
+              ? " The Employer is responsible for all PAYE tax, National Insurance and pension contributions payable in addition to this net figure."
+              : " Income tax, National Insurance and pension contributions will be deducted from this gross figure."
+            : ""}
         </p>
         <p>
           <strong>2.2</strong> The salary shall be payable in arrears{" "}
