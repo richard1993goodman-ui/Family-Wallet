@@ -280,6 +280,7 @@ export const defaultAgreementData: AgreementData = {
   weeksPerYear: "52",
 
   hourlyRate: "",
+  rateBasis: "gross",
   paymentMethod: "Direct debit payment direct to the Nanny's bank",
   paymentFrequency: "Monthly (last day of each month)",
   benefits: "Light refreshments such as tea, coffee, soft drinks and fruit",
@@ -369,6 +370,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     contractType,
     weeksPerYear: str(r["weeksPerYear"], String(DEFAULT_WEEKS_PER_YEAR[contractType])),
     hourlyRate: text("hourlyRate"),
+    rateBasis: str(r["rateBasis"], "gross") === "net" ? "net" : "gross",
     paymentMethod: text("paymentMethod"),
     paymentFrequency: text("paymentFrequency"),
     benefits: text("benefits"),
