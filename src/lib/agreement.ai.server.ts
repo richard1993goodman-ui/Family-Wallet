@@ -48,6 +48,7 @@ function describe(data: AgreementData) {
     `Holiday clause included: ${data.includeHolidayEntitlement ? "yes" : "no"}`,
     `Pro-rata holiday: ${holiday.totalWeeksEntitlement} weeks (${holiday.totalDaysEntitlement} days)`,
     `Hourly rate: ${data.hourlyRate || "not given"} (${data.rateBasis === "net" ? "net / take-home" : "gross"})`,
+    `Tax responsibility wording included in clause 2.1: ${data.includeTaxResponsibilityClause ? "yes" : "no"}`,
     `Pay frequency: ${data.paymentFrequency || "not given"}`,
     `Duties already ticked: ${duties.slice(0, 20).join("; ") || "none"}`,
   ].join("\n");

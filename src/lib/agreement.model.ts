@@ -83,6 +83,8 @@ export interface AgreementData {
   hourlyRate: string;
   /** Whether the hourly rate quoted is gross (before tax) or net (take-home). */
   rateBasis: RateBasis;
+  /** Whether clause 2.1 includes tax, National Insurance and pension responsibility wording. */
+  includeTaxResponsibilityClause: boolean;
   paymentMethod: string;
   paymentFrequency: string;
   benefits: string;
@@ -289,6 +291,7 @@ export const defaultAgreementData: AgreementData = {
 
   hourlyRate: "",
   rateBasis: "gross",
+  includeTaxResponsibilityClause: true,
   paymentMethod: "Direct debit payment direct to the Nanny's bank",
   paymentFrequency: "Monthly (last day of each month)",
   benefits: "Light refreshments such as tea, coffee, soft drinks and fruit",
@@ -382,6 +385,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     allowSchoolHolidayWork: r["allowSchoolHolidayWork"] === true,
     hourlyRate: text("hourlyRate"),
     rateBasis: str(r["rateBasis"], "gross") === "net" ? "net" : "gross",
+    includeTaxResponsibilityClause: r["includeTaxResponsibilityClause"] !== false,
     paymentMethod: text("paymentMethod"),
     paymentFrequency: text("paymentFrequency"),
     benefits: text("benefits"),
