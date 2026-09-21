@@ -3,6 +3,7 @@ import { Plus, Trash2, X } from "lucide-react";
 
 import {
   CONTRACT_TYPE_LABELS,
+  RATE_BASIS_LABELS,
   DEFAULT_WEEKS_PER_YEAR,
   calculateHoliday,
   defaultDuties,
@@ -453,6 +454,27 @@ export function AgreementBuilder({
             onChange={(v) => update({ hourlyRate: v })}
             placeholder="e.g. 15.00"
           />
+        </Labelled>
+        <Labelled
+          label="Is that rate gross or net?"
+          hint="Gross is before tax and National Insurance. Net is take-home pay."
+        >
+          <div className="flex gap-2">
+            {(["gross", "net"] as const).map((basis) => (
+              <button
+                key={basis}
+                type="button"
+                onClick={() => update({ rateBasis: basis })}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  data.rateBasis === basis
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-background text-foreground hover:bg-muted"
+                }`}
+              >
+                {RATE_BASIS_LABELS[basis]}
+              </button>
+            ))}
+          </div>
         </Labelled>
         <Labelled label="Payment frequency">
           <Text value={data.paymentFrequency} onChange={(v) => update({ paymentFrequency: v })} />

@@ -48,6 +48,13 @@ export const CONTRACT_TYPE_LABELS: Record<ContractType, string> = {
   "part-time-term-time": "Part time, term time only",
 };
 
+export type RateBasis = "gross" | "net";
+
+export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
+  gross: "Gross (before tax)",
+  net: "Net (take-home)",
+};
+
 export interface AgreementData {
   employerName: string;
   employerAddress: string;
@@ -70,6 +77,8 @@ export interface AgreementData {
   weeksPerYear: string;
 
   hourlyRate: string;
+  /** Whether the hourly rate quoted is gross (before tax) or net (take-home). */
+  rateBasis: RateBasis;
   paymentMethod: string;
   paymentFrequency: string;
   benefits: string;
@@ -271,6 +280,7 @@ export const defaultAgreementData: AgreementData = {
   weeksPerYear: "52",
 
   hourlyRate: "",
+  rateBasis: "gross",
   paymentMethod: "Direct debit payment direct to the Nanny's bank",
   paymentFrequency: "Monthly (last day of each month)",
   benefits: "Light refreshments such as tea, coffee, soft drinks and fruit",
@@ -360,6 +370,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     contractType,
     weeksPerYear: str(r["weeksPerYear"], String(DEFAULT_WEEKS_PER_YEAR[contractType])),
     hourlyRate: text("hourlyRate"),
+    rateBasis: str(r["rateBasis"], "gross") === "net" ? "net" : "gross",
     paymentMethod: text("paymentMethod"),
     paymentFrequency: text("paymentFrequency"),
     benefits: text("benefits"),
