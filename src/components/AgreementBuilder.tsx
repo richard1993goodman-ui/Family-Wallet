@@ -3,6 +3,7 @@ import { Plus, Trash2, X } from "lucide-react";
 
 import {
   CONTRACT_TYPE_LABELS,
+  RATE_BASIS_LABELS,
   DEFAULT_WEEKS_PER_YEAR,
   calculateHoliday,
   defaultDuties,
