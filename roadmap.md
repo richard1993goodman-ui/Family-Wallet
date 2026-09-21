@@ -26,3 +26,7 @@
 - [x] Leave requests stored per nanny with entitlement from the agreement
 - [x] Holiday & leave page: entitlement, taken, remaining, booking, approval
 - [x] Wallet tile and planner entry for approved leave
+## Sports Passport & Handover (Sep 21)
+- [x] Add Active Kids Sports Passport storage, page, and wallet/home links.
+- [x] Add End-of-Day Handover & Expenses storage, page, and wallet/home links.
+- [x] Verify new pages and preview health.

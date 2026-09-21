@@ -20,11 +20,13 @@ import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as FuelSlugRouteImport } from './routes/fuel.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
+import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
 import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as TermsSlugRouteImport } from './routes/terms.$slug'
@@ -92,6 +94,11 @@ const GuideSlugRoute = GuideSlugRouteImport.update({
   path: '/guide/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HandoverSlugRoute = HandoverSlugRouteImport.update({
+  id: '/handover/$slug',
+  path: '/handover/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeaveSlugRoute = LeaveSlugRouteImport.update({
   id: '/leave/$slug',
   path: '/leave/$slug',
@@ -115,6 +122,11 @@ const NanniesSlugRoute = NanniesSlugRouteImport.update({
 const NannySlugRoute = NannySlugRouteImport.update({
   id: '/nanny/$slug',
   path: '/nanny/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PassportSlugRoute = PassportSlugRouteImport.update({
+  id: '/passport/$slug',
+  path: '/passport/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlannerSlugRoute = PlannerSlugRouteImport.update({
@@ -192,11 +204,13 @@ export interface FileRoutesByFullPath {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/handover/$slug': typeof HandoverSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/passport/$slug': typeof PassportSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -221,11 +235,13 @@ export interface FileRoutesByTo {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/handover/$slug': typeof HandoverSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/passport/$slug': typeof PassportSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -252,11 +268,13 @@ export interface FileRoutesById {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/handover/$slug': typeof HandoverSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/passport/$slug': typeof PassportSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -283,11 +301,13 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/handover/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/passport/$slug'
     | '/planner/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -312,11 +332,13 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/handover/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/passport/$slug'
     | '/planner/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -342,11 +364,13 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/handover/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/passport/$slug'
     | '/planner/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -373,11 +397,13 @@ export interface RootRouteChildren {
   FamilySlugRoute: typeof FamilySlugRoute
   FuelSlugRoute: typeof FuelSlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
+  HandoverSlugRoute: typeof HandoverSlugRoute
   LeaveSlugRoute: typeof LeaveSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   MedicationSlugRoute: typeof MedicationSlugRoute
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
+  PassportSlugRoute: typeof PassportSlugRoute
   PlannerSlugRoute: typeof PlannerSlugRoute
   SupportSlugRoute: typeof SupportSlugRoute
   TermsSlugRoute: typeof TermsSlugRoute
@@ -466,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuideSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/handover/$slug': {
+      id: '/handover/$slug'
+      path: '/handover/$slug'
+      fullPath: '/handover/$slug'
+      preLoaderRoute: typeof HandoverSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/leave/$slug': {
       id: '/leave/$slug'
       path: '/leave/$slug'
@@ -499,6 +532,13 @@ declare module '@tanstack/react-router' {
       path: '/nanny/$slug'
       fullPath: '/nanny/$slug'
       preLoaderRoute: typeof NannySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/passport/$slug': {
+      id: '/passport/$slug'
+      path: '/passport/$slug'
+      fullPath: '/passport/$slug'
+      preLoaderRoute: typeof PassportSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planner/$slug': {
@@ -619,11 +659,13 @@ const rootRouteChildren: RootRouteChildren = {
   FamilySlugRoute: FamilySlugRoute,
   FuelSlugRoute: FuelSlugRoute,
   GuideSlugRoute: GuideSlugRoute,
+  HandoverSlugRoute: HandoverSlugRoute,
   LeaveSlugRoute: LeaveSlugRoute,
   LogSlugRoute: LogSlugRoute,
   MedicationSlugRoute: MedicationSlugRoute,
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
+  PassportSlugRoute: PassportSlugRoute,
   PlannerSlugRoute: PlannerSlugRoute,
   SupportSlugRoute: SupportSlugRoute,
   TermsSlugRoute: TermsSlugRoute,
