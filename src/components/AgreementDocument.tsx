@@ -5,6 +5,23 @@ import {
   type AgreementData,
 } from "@/lib/agreement.model";
 
+function workingPatternClause(data: AgreementData) {
+  const schoolHolidayAddendum =
+    data.allowSchoolHolidayWork && isTermTime(data.contractType)
+      ? " The Employer may offer additional work during school holidays where cover is needed and the Nanny is available. Any such hours must be agreed in advance by both parties and will be paid at the Nanny’s agreed hourly rate, unless otherwise agreed in writing."
+      : "";
+
+  if (data.contractType === "part-time-term-time") {
+    return `This is a part-time, term-time only contract. The Nanny shall normally work ${data.weeksPerYear || "36"} weeks per year during school term time, on the days and hours set out above, and shall not be required to work during school holidays.${schoolHolidayAddendum}`;
+  }
+
+  if (data.contractType === "term-time") {
+    return `This is a term-time only contract. The Nanny shall normally work ${data.weeksPerYear || "36"} weeks per year during school term time and shall not be required to work during school holidays.${schoolHolidayAddendum}`;
+  }
+
+  return `This is a year-round contract of ${data.weeksPerYear || "52"} weeks per year.`;
+}
+
 export function AgreementDocument({
   data,
   version,
@@ -134,14 +151,11 @@ export function AgreementDocument({
           </p>
         )}
 
-        <p>
-          <strong>1.6</strong>{" "}
-          {data.contractType === "part-time-term-time"
-            ? `This is a part-time, term-time only contract. The Nanny shall work ${data.weeksPerYear || "36"} weeks per year during school term time, on the days and hours set out above, and shall not be required to work during school holidays.`
-            : data.contractType === "term-time"
-              ? `This is a term-time only contract. The Nanny shall work ${data.weeksPerYear || "36"} weeks per year during school term time and shall not be required to work during school holidays.`
-              : `This is a year-round contract of ${data.weeksPerYear || "52"} weeks per year.`}
-        </p>
+        {data.includeWorkingPatternClause && (
+          <p>
+            <strong>1.6</strong> {workingPatternClause(data)}
+          </p>
+        )}
       </section>
 
       <section className="mb-8 space-y-3">
@@ -170,23 +184,29 @@ export function AgreementDocument({
         )}
       </section>
 
-      <section className="mb-8">
-        <h2 className="heading-display mb-3 text-base">3. Holiday</h2>
-        {enabledDays.length > 0 ? (
-          <p>
-            The Nanny is entitled to {holiday.totalWeeksEntitlement} weeks (
-            {holiday.totalDaysEntitlement} days / {holiday.totalHoursEntitlement} hours) paid
-            holiday per annum, pro-rated based on their working pattern of{" "}
-            {holiday.weeklyHours.toFixed(1)} hours per week over {holiday.weeksWorkedPerYear} weeks
-            per year{isTermTime(data.contractType) ? " (term time only)" : ""}.
-            {isTermTime(data.contractType) ? " Holiday shall be taken during school holidays." : ""}
-          </p>
-        ) : (
-          <p className="text-muted-foreground">
-            {data.holidayAllowance || "Holiday details to be agreed based on working pattern."}
-          </p>
-        )}
-      </section>
+      {data.includeHolidayEntitlement && (
+        <section className="mb-8">
+          <h2 className="heading-display mb-3 text-base">3. Holiday</h2>
+          {data.holidayAllowance.trim() ? (
+            <p>{data.holidayAllowance}</p>
+          ) : enabledDays.length > 0 ? (
+            <p>
+              The Nanny is entitled to {holiday.totalWeeksEntitlement} weeks (
+              {holiday.totalDaysEntitlement} days / {holiday.totalHoursEntitlement} hours) paid
+              holiday per annum, pro-rated based on their working pattern of{" "}
+              {holiday.weeklyHours.toFixed(1)} hours per week over {holiday.weeksWorkedPerYear} weeks
+              per year{isTermTime(data.contractType) ? " (term time only)" : ""}.
+              {isTermTime(data.contractType)
+                ? " Holiday shall normally be taken during school holidays."
+                : ""}
+            </p>
+          ) : (
+            <p className="text-muted-foreground">
+              Holiday details to be agreed based on working pattern.
+            </p>
+          )}
+        </section>
+      )}
 
       {data.sicknessPolicy && (
         <section className="mb-8">

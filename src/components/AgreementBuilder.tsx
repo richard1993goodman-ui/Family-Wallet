@@ -397,6 +397,40 @@ export function AgreementBuilder({
         >
           <Text value={data.weeksPerYear} onChange={(v) => update({ weeksPerYear: v })} />
         </Labelled>
+        <div className="space-y-3 rounded-xl bg-muted/50 p-4">
+          <label className="flex items-start gap-2.5">
+            <Checkbox
+              className="mt-0.5"
+              checked={data.includeWorkingPatternClause}
+              onCheckedChange={(checked) => update({ includeWorkingPatternClause: checked === true })}
+            />
+            <span>
+              <span className="block text-sm font-medium text-foreground">
+                Include the working-pattern clause in the agreement
+              </span>
+              <span className="block text-xs text-muted-foreground">
+                Turn this off to remove clause 1.6 from the printable agreement.
+              </span>
+            </span>
+          </label>
+          {isTermTime(data.contractType) && (
+            <label className="flex items-start gap-2.5">
+              <Checkbox
+                className="mt-0.5"
+                checked={data.allowSchoolHolidayWork}
+                onCheckedChange={(checked) => update({ allowSchoolHolidayWork: checked === true })}
+              />
+              <span>
+                <span className="block text-sm font-medium text-foreground">
+                  The nanny may be offered school-holiday work if needed and available
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  Adds wording that holiday work is optional, agreed in advance and paid separately.
+                </span>
+              </span>
+            </label>
+          )}
+        </div>
         <div>
           <p className="text-sm font-medium text-foreground">Working days</p>
           <p className="mb-2 text-xs text-muted-foreground">
@@ -411,7 +445,22 @@ export function AgreementBuilder({
       </Section>
 
       <Section title="Holiday (pro-rata)">
-        {holiday.workingDaysPerWeek > 0 ? (
+        <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+          <Checkbox
+            className="mt-0.5"
+            checked={data.includeHolidayEntitlement}
+            onCheckedChange={(checked) => update({ includeHolidayEntitlement: checked === true })}
+          />
+          <span>
+            <span className="block text-sm font-medium text-foreground">
+              Include the holiday entitlement section in the agreement
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Turn this off to remove section 3 from the printable agreement.
+            </span>
+          </span>
+        </label>
+        {data.includeHolidayEntitlement && holiday.workingDaysPerWeek > 0 ? (
           <>
             <div className="grid grid-cols-3 gap-3">
               {[
@@ -434,14 +483,18 @@ export function AgreementBuilder({
                 : "."}
             </p>
           </>
-        ) : (
+        ) : data.includeHolidayEntitlement ? (
           <p className="text-sm text-muted-foreground">
             Tick at least one working day to calculate the holiday entitlement.
+          </p>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            The holiday entitlement section will be left out of the printable agreement.
           </p>
         )}
         <Labelled
           label="Holiday wording (override)"
-          hint="Only used when no working days are ticked."
+          hint="If filled in, this appears instead of the calculated holiday wording."
         >
           <Area value={data.holidayAllowance} onChange={(v) => update({ holidayAllowance: v })} />
         </Labelled>

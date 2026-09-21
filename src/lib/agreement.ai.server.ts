@@ -41,8 +41,11 @@ function describe(data: AgreementData) {
     `Work address: ${data.workAddress || "not given"}`,
     `Start date: ${data.startDate || "not given"}`,
     `Contract type: ${data.contractType}, ${data.weeksPerYear} weeks per year`,
+    `Working pattern clause included: ${data.includeWorkingPatternClause ? "yes" : "no"}`,
+    `School holiday work: ${data.allowSchoolHolidayWork ? "may be offered if needed and the nanny is available, by agreement only" : "not included"}`,
     `Working days: ${days.length ? days.join("; ") : "not set"}`,
     `Weekly hours: ${holiday.weeklyHours}`,
+    `Holiday clause included: ${data.includeHolidayEntitlement ? "yes" : "no"}`,
     `Pro-rata holiday: ${holiday.totalWeeksEntitlement} weeks (${holiday.totalDaysEntitlement} days)`,
     `Hourly rate: ${data.hourlyRate || "not given"} (${data.rateBasis === "net" ? "net / take-home" : "gross"})`,
     `Pay frequency: ${data.paymentFrequency || "not given"}`,
@@ -96,7 +99,7 @@ export async function generateAgreementDraft(
     "What the parents have told us in their own words:",
     notes || "(nothing extra)",
     "",
-    "Return: jobTitle (short, e.g. After-school Nanny); overtimePolicy; otherDutiesClause (a catch-all duties paragraph that also reflects this family's routine, allergies and medication needs); benefits; sicknessPolicy; holidayAllowance (one sentence stating the pro-rata entitlement above); probationPeriod (e.g. '3 months'); extraDuties (short duty lines specific to this family, at most six, each under 160 characters); summary (two sentences telling the parent what was drafted).",
+    "Return: jobTitle (short, e.g. After-school Nanny); overtimePolicy; otherDutiesClause (a catch-all duties paragraph that also reflects this family's routine, allergies and medication needs); benefits; sicknessPolicy; holidayAllowance (one sentence stating the pro-rata entitlement above only if the holiday clause is included; otherwise return an empty string); probationPeriod (e.g. '3 months'); extraDuties (short duty lines specific to this family, at most six, each under 160 characters); summary (two sentences telling the parent what was drafted).",
   ].join("\n");
 
   try {
