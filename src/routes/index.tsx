@@ -43,6 +43,8 @@ export const Route = createFileRoute("/")({
         content:
           "Your nanny agreement, nanny CV, membership details, guarantee and nanny tools, all in one private link.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

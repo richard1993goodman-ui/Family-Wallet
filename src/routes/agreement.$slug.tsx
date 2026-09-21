@@ -37,6 +37,8 @@ export const Route = createFileRoute("/agreement/$slug")({
         property: "og:description",
         content: "Build, read and sign your nanny employment contract inside your family wallet.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

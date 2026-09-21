@@ -75,6 +75,10 @@ export interface AgreementData {
   workingDays: WorkingDay[];
   contractType: ContractType;
   weeksPerYear: string;
+  /** Whether clause 1.6 describing the annual working pattern appears in the printable agreement. */
+  includeWorkingPatternClause: boolean;
+  /** For term-time contracts, whether school-holiday work may be offered if needed and the nanny is available. */
+  allowSchoolHolidayWork: boolean;
 
   hourlyRate: string;
   /** Whether the hourly rate quoted is gross (before tax) or net (take-home). */
@@ -85,6 +89,8 @@ export interface AgreementData {
   expenseRate: string;
 
   pension: string;
+  /** Whether the holiday entitlement section appears in the printable agreement. */
+  includeHolidayEntitlement: boolean;
   holidayAllowance: string;
   sicknessPolicy: string;
 
@@ -278,6 +284,8 @@ export const defaultAgreementData: AgreementData = {
   workingDays: defaultWorkingDays,
   contractType: "year-round",
   weeksPerYear: "52",
+  includeWorkingPatternClause: true,
+  allowSchoolHolidayWork: false,
 
   hourlyRate: "",
   rateBasis: "gross",
@@ -289,6 +297,7 @@ export const defaultAgreementData: AgreementData = {
   pension:
     "The Nanny will be auto-enrolled into the Employer's workplace pension scheme in line with the Pensions Act 2008, subject to the relevant qualifying criteria. The Nanny may opt out in accordance with the scheme rules.",
 
+  includeHolidayEntitlement: true,
   holidayAllowance: "",
 
   sicknessPolicy:
@@ -369,6 +378,8 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     workingDays,
     contractType,
     weeksPerYear: str(r["weeksPerYear"], String(DEFAULT_WEEKS_PER_YEAR[contractType])),
+    includeWorkingPatternClause: r["includeWorkingPatternClause"] !== false,
+    allowSchoolHolidayWork: r["allowSchoolHolidayWork"] === true,
     hourlyRate: text("hourlyRate"),
     rateBasis: str(r["rateBasis"], "gross") === "net" ? "net" : "gross",
     paymentMethod: text("paymentMethod"),
@@ -376,6 +387,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     benefits: text("benefits"),
     expenseRate: text("expenseRate"),
     pension: text("pension"),
+    includeHolidayEntitlement: r["includeHolidayEntitlement"] !== false,
     holidayAllowance: text("holidayAllowance"),
     sicknessPolicy: text("sicknessPolicy"),
     grievanceProcedure: text("grievanceProcedure"),
