@@ -103,7 +103,9 @@ function WorkingDaysEditor({
   };
 
   const toggleSplit = (index: number) => {
-    const day = { ...days[index]! };
+    const selectedDay = days[index];
+    if (!selectedDay) return;
+    const day = { ...selectedDay };
     if (day.startTime2 !== undefined) {
       delete day.startTime2;
       delete day.endTime2;
