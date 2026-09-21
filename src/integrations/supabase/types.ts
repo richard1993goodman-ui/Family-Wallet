@@ -181,6 +181,72 @@ export type Database = {
           },
         ]
       }
+      expense_claims: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          expense_date: string
+          family_id: string
+          id: string
+          item: string
+          nanny_id: string | null
+          notes: string | null
+          reviewed_at: string | null
+          status: string
+          submitted_by: string
+          submitted_by_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          expense_date?: string
+          family_id: string
+          id?: string
+          item: string
+          nanny_id?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          status?: string
+          submitted_by?: string
+          submitted_by_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          expense_date?: string
+          family_id?: string
+          id?: string
+          item?: string
+          nanny_id?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          status?: string
+          submitted_by?: string
+          submitted_by_name?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expense_claims_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expense_claims_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       families: {
         Row: {
           access_code: string
@@ -526,6 +592,84 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: true
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      handover_checklists: {
+        Row: {
+          created_at: string
+          dinner_status: string | null
+          energy: string | null
+          family_id: string
+          handover_date: string
+          homework_status: string | null
+          id: string
+          mood: string | null
+          nanny_id: string | null
+          parent_notes: string | null
+          pe_kit_ready: boolean
+          reading_done: boolean
+          school_bag_ready: boolean
+          submitted_by: string
+          submitted_by_name: string | null
+          tomorrow_notes: string | null
+          updated_at: string
+          water_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          dinner_status?: string | null
+          energy?: string | null
+          family_id: string
+          handover_date?: string
+          homework_status?: string | null
+          id?: string
+          mood?: string | null
+          nanny_id?: string | null
+          parent_notes?: string | null
+          pe_kit_ready?: boolean
+          reading_done?: boolean
+          school_bag_ready?: boolean
+          submitted_by?: string
+          submitted_by_name?: string | null
+          tomorrow_notes?: string | null
+          updated_at?: string
+          water_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          dinner_status?: string | null
+          energy?: string | null
+          family_id?: string
+          handover_date?: string
+          homework_status?: string | null
+          id?: string
+          mood?: string | null
+          nanny_id?: string | null
+          parent_notes?: string | null
+          pe_kit_ready?: boolean
+          reading_done?: boolean
+          school_bag_ready?: boolean
+          submitted_by?: string
+          submitted_by_name?: string | null
+          tomorrow_notes?: string | null
+          updated_at?: string
+          water_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "handover_checklists_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_checklists_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
             referencedColumns: ["id"]
           },
         ]
@@ -890,6 +1034,65 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "saved_resources_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sports_passport_entries: {
+        Row: {
+          activity: string
+          badge: string | null
+          child_name: string
+          confidence_level: number
+          created_at: string
+          effort_level: number
+          entry_date: string
+          family_id: string
+          id: string
+          logged_by: string
+          logged_by_name: string | null
+          minutes: number
+          notes: string | null
+          skill_area: string
+        }
+        Insert: {
+          activity: string
+          badge?: string | null
+          child_name: string
+          confidence_level?: number
+          created_at?: string
+          effort_level?: number
+          entry_date?: string
+          family_id: string
+          id?: string
+          logged_by?: string
+          logged_by_name?: string | null
+          minutes?: number
+          notes?: string | null
+          skill_area?: string
+        }
+        Update: {
+          activity?: string
+          badge?: string | null
+          child_name?: string
+          confidence_level?: number
+          created_at?: string
+          effort_level?: number
+          entry_date?: string
+          family_id?: string
+          id?: string
+          logged_by?: string
+          logged_by_name?: string | null
+          minutes?: number
+          notes?: string | null
+          skill_area?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sports_passport_entries_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"

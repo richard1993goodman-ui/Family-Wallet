@@ -622,6 +622,9 @@ export async function loadHubSummary(slug: string) {
     schedules,
     { count: contactCount },
     { data: profile },
+    { data: passportEntries },
+    { data: handovers },
+    { data: expenses },
   ] = await Promise.all([
       supabaseAdmin
         .from("planner_entries")
@@ -656,6 +659,23 @@ export async function loadHubSummary(slug: string) {
         .select("home_address, gp_details, emergency_instructions, house_rules")
         .eq("family_id", family.id)
         .maybeSingle(),
+      supabaseAdmin
+        .from("sports_passport_entries")
+        .select("id, entry_date, child_name, activity, badge")
+        .eq("family_id", family.id)
+        .order("entry_date", { ascending: false })
+        .limit(1),
+      supabaseAdmin
+        .from("handover_checklists")
+        .select("id, handover_date")
+        .eq("family_id", family.id)
+        .order("handover_date", { ascending: false })
+        .limit(1),
+      supabaseAdmin
+        .from("expense_claims")
+        .select("id, amount")
+        .eq("family_id", family.id)
+        .eq("status", "pending"),
     ]);
 
   const workingDays: WorkingDay[] = schedules[0]?.workingDays ?? [];
@@ -668,6 +688,11 @@ export async function loadHubSummary(slug: string) {
     latestLog: logs?.[0] ?? null,
     childCount: kids.length,
     unreadReplies: unread ?? 0,
+    latestPassport: passportEntries?.[0] ?? null,
+    latestHandover: handovers?.[0] ?? null,
+    pendingExpensesTotal: Number(
+      (expenses ?? []).reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0).toFixed(2),
+    ),
     workingDays,
     schedules,
     access: family.access,

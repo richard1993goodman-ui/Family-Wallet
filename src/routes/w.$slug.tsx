@@ -17,7 +17,10 @@ import {
   Plane,
   Pill,
   CalendarCheck,
+  ClipboardCheck,
+  Dumbbell,
   Phone,
+  ReceiptText,
   Shield,
   LifeBuoy,
   Siren,
@@ -63,6 +66,8 @@ export const Route = createFileRoute("/w/$slug")({
         property: "og:description",
         content: "Your private family wallet from Athlete Mannies & Nannies.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -276,6 +281,7 @@ function WalletPage() {
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
+          <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
           <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
         </div>
 
@@ -437,10 +443,12 @@ function WalletPage() {
 
         <h2 className="heading-display mt-9 text-lg text-foreground">Activities, meals &amp; pay</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/passport/$slug" icon={Dumbbell} title="Active Kids Passport" subtitle={hub?.latestPassport ? `${hub.latestPassport.child_name}: ${hub.latestPassport.activity}` : "Sports skills, challenges and confidence wins"} />
           <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
           <ExternalToolTile href="https://nanny-nourish-guide.lovable.app" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Open the original cooking and meal ideas app" />
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
           <HubTile slug={slug} to="/leave/$slug" icon={Plane} title="Holiday &amp; leave" subtitle={isNanny ? "See your entitlement and request time off" : "Track entitlement and approve time off"} />
+          <HubTile slug={slug} to="/handover/$slug" icon={ReceiptText} title="Expense tracker" subtitle={hub?.pendingExpensesTotal ? `£${hub.pendingExpensesTotal.toFixed(2)} awaiting reimbursement` : isNanny ? "Submit small costs for reimbursement" : "See and mark petty cash as reimbursed"} />
         </div>
 
         {(wallet.nannies.some((n) => n.emergency) || wallet.contacts.length > 0) && (
@@ -945,6 +953,8 @@ function HubTile({
     | "/leave/$slug"
     | "/medication/$slug"
     | "/checkin/$slug"
+    | "/passport/$slug"
+    | "/handover/$slug"
     | "/timesheets/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
