@@ -44,7 +44,7 @@ function describe(data: AgreementData) {
     `Working days: ${days.length ? days.join("; ") : "not set"}`,
     `Weekly hours: ${holiday.weeklyHours}`,
     `Pro-rata holiday: ${holiday.totalWeeksEntitlement} weeks (${holiday.totalDaysEntitlement} days)`,
-    `Hourly rate: ${data.hourlyRate || "not given"}`,
+    `Hourly rate: ${data.hourlyRate || "not given"} (${data.rateBasis === "net" ? "net / take-home" : "gross"})`,
     `Pay frequency: ${data.paymentFrequency || "not given"}`,
     `Duties already ticked: ${duties.slice(0, 20).join("; ") || "none"}`,
   ].join("\n");

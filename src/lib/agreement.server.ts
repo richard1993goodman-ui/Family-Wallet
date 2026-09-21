@@ -369,7 +369,10 @@ function legacyColumns(data: AgreementData) {
     employer_names: clean(data.employerName, 500),
     nanny_name: clean(data.nannyName, 200),
     start_date: clean(data.startDate, 20),
-    hourly_rate: clean(data.hourlyRate, 200),
+    hourly_rate: clean(
+      data.hourlyRate ? `${data.hourlyRate} ${data.rateBasis === "net" ? "net" : "gross"}` : "",
+      200,
+    ),
     pay_basis: clean(data.paymentFrequency, 200),
     probation: clean(data.probationPeriod),
     notice_period: clean(data.standardNotice),
