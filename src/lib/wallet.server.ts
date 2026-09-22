@@ -307,7 +307,9 @@ export type WalletData = {
 export async function loadWallet(slug: string): Promise<WalletData | null> {
   const session = await sessionAccess(slug);
   if (!session) return null;
+  await touchWalletSession();
   const access = session.level;
+
 
   const { data: family } = await supabaseAdmin
     .from("families")
