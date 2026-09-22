@@ -54,6 +54,13 @@ export const generateAgreementDraftFn = createServerFn({ method: "POST" })
     return generateAgreementDraft(data.slug, data.data, data.notes);
   });
 
+export const generateStatementFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; data: AgreementData; notes: string }) => data)
+  .handler(async ({ data }) => {
+    const { generateWrittenStatement } = await import("./agreement.ai.server");
+    return generateWrittenStatement(data.slug, data.data, data.notes);
+  });
+
 export const getNannyInvite = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; nannyId: string; regenerate?: boolean }) => data)
   .handler(async ({ data }) => {

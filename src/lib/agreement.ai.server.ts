@@ -152,3 +152,66 @@ export async function generateAgreementDraft(
     return { ok: false, reason: "unavailable", message };
   }
 }
+
+/**
+ * Writes a short, plain-English written statement of employment particulars
+ * from the key facts only — the simpler alternative to the full contract.
+ */
+export async function generateWrittenStatement(
+  slug: string,
+  data: AgreementData,
+  notes: string,
+): Promise<GenerateStatementResult> {
+  if ((await accessLevel(slug)) !== "family") return { ok: false, reason: "locked" };
+
+  const key = process.env["LOVABLE_API_KEY"];
+  if (!key) return { ok: false, reason: "config" };
+
+  const prompt = [
+    "You are writing a UK written statement of employment particulars (Employment Rights Act 1996, section 1) for a family employing a nanny through Athlete Mannies & Nannies.",
+    "This is the SHORT, friendly alternative to a long formal contract. Write in plain British English, warm but precise, using short paragraphs. Do not invent facts; where a detail is missing, use neutral wording such as 'to be agreed'.",
+    "",
+    "Key details:",
+    describe(data),
+    "",
+    "What the parents told us in their own words:",
+    notes || "(nothing extra)",
+    "",
+    "Return statementBody as plain text with short section headings on their own line (for example: Your job, Days and hours, Pay, Holiday, Sickness, Notice, Confidentiality and safeguarding, Changes to this statement). Cover the legally required particulars: names, job title, start date, place of work, days and hours, pay and how it is paid, holiday entitlement, sickness, notice on both sides, and how changes are agreed. Keep the whole statement under 700 words. Do not use markdown, bullet characters or numbering.",
+    "Also return jobTitle (short) and summary (two sentences telling the parent what was written).",
+  ].join("\n");
+
+  try {
+    const runIdFetch = createLovableAiGatewayRunIdFetch();
+    const lovable = createOpenAI({
+      baseURL: "https://ai.gateway.lovable.dev/v1",
+      apiKey: key,
+      headers: { "Lovable-API-Key": key, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
+      fetch: runIdFetch.fetch,
+    });
+
+    const result = streamText({
+      model: lovable.responses("openai/gpt-6-astra"),
+      prompt,
+      output: Output.object({ schema: StatementSchema }),
+      providerOptions: {
+        openai: {
+          forceReasoning: true,
+          reasoningEffort: "low",
+          reasoningSummary: "auto",
+          store: false,
+          include: ["reasoning.encrypted_content"],
+        },
+      },
+    });
+
+    const statement = await result.output;
+    return { ok: true, statement };
+  } catch (error) {
+    if (NoObjectGeneratedError.isInstance(error)) {
+      return { ok: false, reason: "unavailable", message: "The draft came back incomplete." };
+    }
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return { ok: false, reason: "unavailable", message };
+  }
+}
