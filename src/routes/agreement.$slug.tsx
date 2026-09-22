@@ -7,14 +7,17 @@ import { Copy, Pencil, Printer, Sparkles, UserPlus } from "lucide-react";
 
 import {
   generateAgreementDraftFn,
+  generateStatementFn,
   getAgreement,
   getNannyInvite,
   saveAgreementFn,
   signDocumentFn,
 } from "@/lib/agreement.functions";
-import type { AgreementData } from "@/lib/agreement.model";
+import type { AgreementData, DocumentStyle } from "@/lib/agreement.model";
 import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
+import { StatementBuilder } from "@/components/StatementBuilder";
+import { StatementDocument } from "@/components/StatementDocument";
 import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
