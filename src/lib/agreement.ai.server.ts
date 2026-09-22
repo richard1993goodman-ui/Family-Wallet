@@ -22,6 +22,18 @@ const DraftSchema = z.object({
 
 export type AgreementDraftSuggestion = z.infer<typeof DraftSchema>;
 
+const StatementSchema = z.object({
+  jobTitle: z.string(),
+  statementBody: z.string(),
+  summary: z.string(),
+});
+
+export type StatementSuggestion = z.infer<typeof StatementSchema>;
+
+export type GenerateStatementResult =
+  | { ok: true; statement: StatementSuggestion }
+  | { ok: false; reason: "locked" | "config" | "unavailable"; message?: string };
+
 export type GenerateResult =
   | { ok: true; draft: AgreementDraftSuggestion }
   | { ok: false; reason: "locked" | "config" | "unavailable"; message?: string };
