@@ -162,9 +162,21 @@ function FamilyLogin() {
             className="mt-1 uppercase tracking-widest"
           />
         </div>
+        <label className="flex items-start gap-2 text-sm text-foreground/90">
+          <input
+            type="checkbox"
+            checked={remember}
+            onChange={(e) => setRemember(e.target.checked)}
+            className="mt-0.5 size-4 accent-[hsl(var(--primary))]"
+          />
+          <span>
+            Remember this device — stay signed in for 12 months and keep my wallet link saved here.
+          </span>
+        </label>
         <Button type="submit" className="w-full" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
         </Button>
+
       </form>
     </div>
   );
