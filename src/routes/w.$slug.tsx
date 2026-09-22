@@ -594,6 +594,23 @@ function WalletPage() {
           <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
           <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
+          <a
+            href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+          >
+            <ScrollText className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-1.5 font-medium text-foreground">
+                ACAS disciplinary procedure
+                <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
+              </span>
+              <span className="mt-1 block text-sm text-muted-foreground">
+                Official step-by-step guidance for handling disciplinary matters fairly
+              </span>
+            </span>
+          </a>
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
