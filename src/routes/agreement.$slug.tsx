@@ -56,6 +56,7 @@ function AgreementPage() {
   const signFn = useServerFn(signDocumentFn);
   const saveFn = useServerFn(saveAgreementFn);
   const generateFn = useServerFn(generateAgreementDraftFn);
+  const statementFn = useServerFn(generateStatementFn);
   const inviteFn = useServerFn(getNannyInvite);
 
   const [nannyId, setNannyId] = useState(search.nanny ?? "");
@@ -73,6 +74,7 @@ function AgreementPage() {
   const [aiSummary, setAiSummary] = useState<string | null>(null);
   const [invite, setInvite] = useState<{ code: string } | null>(null);
   const [inviteBusy, setInviteBusy] = useState(false);
+  const [choosing, setChoosing] = useState(false);
 
   const data = query.data;
   const isNanny = data?.access === "nanny";
@@ -81,7 +83,10 @@ function AgreementPage() {
     if (!data) return;
     setDraft(data.data);
     if (data.nannyId && !nannyId) setNannyId(data.nannyId);
-    if (!data.hasContent && data.access === "family") setEditing(true);
+    if (!data.hasContent && data.access === "family") {
+      setEditing(true);
+      setChoosing(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
