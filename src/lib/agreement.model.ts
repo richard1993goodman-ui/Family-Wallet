@@ -55,7 +55,19 @@ export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
   net: "Net (take-home)",
 };
 
+/** Which kind of document the family has chosen: the full formal contract, or a short written statement. */
+export type DocumentStyle = "full" | "statement";
+
+export const DOCUMENT_STYLE_LABELS: Record<DocumentStyle, string> = {
+  full: "Full nanny contract",
+  statement: "Written statement of particulars",
+};
+
 export interface AgreementData {
+  /** "full" = formal contract, "statement" = short written statement of employment particulars. */
+  documentStyle: DocumentStyle;
+  /** The written statement wording (used only when documentStyle is "statement"). */
+  statementBody: string;
   employerName: string;
   employerAddress: string;
   nannyName: string;
