@@ -91,7 +91,14 @@ function FamilyLogin() {
   const unlockFn = useServerFn(unlockWallet);
   const [link, setLink] = useState("");
   const [code, setCode] = useState("");
+  const [remember, setRemember] = useState(true);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("wallet-link");
+    if (saved) setLink(saved);
+    else setRemember(true);
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -104,6 +111,8 @@ function FamilyLogin() {
     try {
       const result = await unlockFn({ data: { slug, code } });
       if (result.ok) {
+        if (remember) window.localStorage.setItem("wallet-link", slug);
+        else window.localStorage.removeItem("wallet-link");
         navigate({ to: "/w/$slug", params: { slug } });
       } else {
         toast.error(
@@ -116,6 +125,7 @@ function FamilyLogin() {
       setBusy(false);
     }
   }
+
 
   return (
     <div className="mt-8 rounded-xl border border-border bg-card p-6">
