@@ -427,6 +427,9 @@ function AgreementPage() {
             <Button disabled={busy} onClick={() => save(true)}>
               {issued ? "Save and re-issue for signing" : "Done — ready to sign"}
             </Button>
+            <Button variant="ghost" disabled={busy} onClick={() => setChoosing(true)}>
+              Switch to a simple statement
+            </Button>
             {data.hasContent && (
               <Button variant="ghost" disabled={busy} onClick={() => setEditing(false)}>
                 Cancel
@@ -478,6 +481,9 @@ function AgreementPage() {
           </Button>
           <Button variant="outline" onClick={() => window.print()}>
             <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
+          </Button>
+          <Button variant="ghost" onClick={() => setChoosing(true)}>
+            Change format
           </Button>
         </div>
       )}
@@ -545,12 +551,21 @@ function AgreementPage() {
       )}
 
       <div className="print-area space-y-6">
-        <AgreementDocument
-          data={data.data}
-          version={data.version}
-          issuedAt={data.issuedAt}
-          familyName={data.familyName}
-        />
+        {data.data.documentStyle === "statement" ? (
+          <StatementDocument
+            data={data.data}
+            version={data.version}
+            issuedAt={data.issuedAt}
+            familyName={data.familyName}
+          />
+        ) : (
+          <AgreementDocument
+            data={data.data}
+            version={data.version}
+            issuedAt={data.issuedAt}
+            familyName={data.familyName}
+          />
+        )}
 
         <Card>
           <h2 className="heading-display text-lg text-foreground">Signatures</h2>
