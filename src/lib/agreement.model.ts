@@ -424,7 +424,8 @@ export function normalizeAgreement(raw: unknown): AgreementData {
 /** True when enough has been written for the agreement to be worth showing. */
 export function agreementHasContent(data: AgreementData): boolean {
   return Boolean(
-    data.employerName ||
+    data.statementBody.trim() ||
+      data.employerName ||
       data.nannyName ||
       data.workAddress ||
       data.hourlyRate ||
