@@ -173,6 +173,43 @@ function AgreementPage() {
     }
   }
 
+  async function generateStatement() {
+    if (!draft) return;
+    setGenerating(true);
+    setAiSummary(null);
+    try {
+      const result = await statementFn({ data: { slug, data: draft, notes } });
+      if (!result.ok) {
+        toast.error(
+          result.reason === "locked"
+            ? "Please unlock your wallet again."
+            : "We couldn't write a statement just now. Please try again in a moment.",
+        );
+        return;
+      }
+      const s = result.statement;
+      setDraft((current) =>
+        current
+          ? {
+              ...current,
+              jobTitle: s.jobTitle || current.jobTitle,
+              statementBody: s.statementBody || current.statementBody,
+            }
+          : current,
+      );
+      setAiSummary(s.summary);
+      toast.success("Statement written — please read it through and edit anything you'd like.");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  function chooseStyle(style: DocumentStyle) {
+    setDraft((current) => (current ? { ...current, documentStyle: style } : current));
+    setChoosing(false);
+    setEditing(true);
+  }
+
   async function makeInvite(regenerate: boolean) {
     if (!data?.nannyId) {
       toast.error("Add a nanny first.");
