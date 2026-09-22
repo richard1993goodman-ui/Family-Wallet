@@ -21,8 +21,9 @@ function sessionConfig() {
 export async function touchWalletSession() {
   try {
     const session = await walletSession();
-    if ((session.data.unlocked ?? []).length === 0) return;
-    await session.update({ unlocked: session.data.unlocked });
+    const unlocked = session.data.unlocked ?? [];
+    if (unlocked.length === 0) return;
+    await session.update({ unlocked });
   } catch {
     /* ignore */
   }
