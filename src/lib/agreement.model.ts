@@ -276,6 +276,8 @@ export const defaultWorkingDays: WorkingDay[] = [
 ];
 
 export const defaultAgreementData: AgreementData = {
+  documentStyle: "full",
+  statementBody: "",
   employerName: "",
   employerAddress: "",
   nannyName: "",
@@ -377,6 +379,8 @@ export function normalizeAgreement(raw: unknown): AgreementData {
   const text = (key: keyof AgreementData) => str(r[key], "");
 
   return {
+    documentStyle: str(r["documentStyle"], "full") === "statement" ? "statement" : "full",
+    statementBody: str(r["statementBody"]).slice(0, 20000),
     employerName: text("employerName"),
     employerAddress: text("employerAddress"),
     nannyName: text("nannyName"),
