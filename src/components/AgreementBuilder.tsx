@@ -90,7 +90,7 @@ function Area({
   );
 }
 
-function WorkingDaysEditor({
+export function WorkingDaysEditor({
   days,
   onChange,
 }: {

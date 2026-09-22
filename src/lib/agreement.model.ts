@@ -55,7 +55,19 @@ export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
   net: "Net (take-home)",
 };
 
+/** Which kind of document the family has chosen: the full formal contract, or a short written statement. */
+export type DocumentStyle = "full" | "statement";
+
+export const DOCUMENT_STYLE_LABELS: Record<DocumentStyle, string> = {
+  full: "Full nanny contract",
+  statement: "Written statement of particulars",
+};
+
 export interface AgreementData {
+  /** "full" = formal contract, "statement" = short written statement of employment particulars. */
+  documentStyle: DocumentStyle;
+  /** The written statement wording (used only when documentStyle is "statement"). */
+  statementBody: string;
   employerName: string;
   employerAddress: string;
   nannyName: string;
@@ -264,6 +276,8 @@ export const defaultWorkingDays: WorkingDay[] = [
 ];
 
 export const defaultAgreementData: AgreementData = {
+  documentStyle: "full",
+  statementBody: "",
   employerName: "",
   employerAddress: "",
   nannyName: "",
@@ -365,6 +379,8 @@ export function normalizeAgreement(raw: unknown): AgreementData {
   const text = (key: keyof AgreementData) => str(r[key], "");
 
   return {
+    documentStyle: str(r["documentStyle"], "full") === "statement" ? "statement" : "full",
+    statementBody: str(r["statementBody"]).slice(0, 20000),
     employerName: text("employerName"),
     employerAddress: text("employerAddress"),
     nannyName: text("nannyName"),
@@ -408,7 +424,8 @@ export function normalizeAgreement(raw: unknown): AgreementData {
 /** True when enough has been written for the agreement to be worth showing. */
 export function agreementHasContent(data: AgreementData): boolean {
   return Boolean(
-    data.employerName ||
+    data.statementBody.trim() ||
+      data.employerName ||
       data.nannyName ||
       data.workAddress ||
       data.hourlyRate ||

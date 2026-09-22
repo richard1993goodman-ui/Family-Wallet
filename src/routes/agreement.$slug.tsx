@@ -7,14 +7,17 @@ import { Copy, Pencil, Printer, Sparkles, UserPlus } from "lucide-react";
 
 import {
   generateAgreementDraftFn,
+  generateStatementFn,
   getAgreement,
   getNannyInvite,
   saveAgreementFn,
   signDocumentFn,
 } from "@/lib/agreement.functions";
-import type { AgreementData } from "@/lib/agreement.model";
+import type { AgreementData, DocumentStyle } from "@/lib/agreement.model";
 import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
+import { StatementBuilder } from "@/components/StatementBuilder";
+import { StatementDocument } from "@/components/StatementDocument";
 import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
@@ -53,6 +56,7 @@ function AgreementPage() {
   const signFn = useServerFn(signDocumentFn);
   const saveFn = useServerFn(saveAgreementFn);
   const generateFn = useServerFn(generateAgreementDraftFn);
+  const statementFn = useServerFn(generateStatementFn);
   const inviteFn = useServerFn(getNannyInvite);
 
   const [nannyId, setNannyId] = useState(search.nanny ?? "");
@@ -70,6 +74,7 @@ function AgreementPage() {
   const [aiSummary, setAiSummary] = useState<string | null>(null);
   const [invite, setInvite] = useState<{ code: string } | null>(null);
   const [inviteBusy, setInviteBusy] = useState(false);
+  const [choosing, setChoosing] = useState(false);
 
   const data = query.data;
   const isNanny = data?.access === "nanny";
@@ -78,7 +83,10 @@ function AgreementPage() {
     if (!data) return;
     setDraft(data.data);
     if (data.nannyId && !nannyId) setNannyId(data.nannyId);
-    if (!data.hasContent && data.access === "family") setEditing(true);
+    if (!data.hasContent && data.access === "family") {
+      setEditing(true);
+      setChoosing(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -165,6 +173,43 @@ function AgreementPage() {
     }
   }
 
+  async function generateStatement() {
+    if (!draft) return;
+    setGenerating(true);
+    setAiSummary(null);
+    try {
+      const result = await statementFn({ data: { slug, data: draft, notes } });
+      if (!result.ok) {
+        toast.error(
+          result.reason === "locked"
+            ? "Please unlock your wallet again."
+            : "We couldn't write a statement just now. Please try again in a moment.",
+        );
+        return;
+      }
+      const s = result.statement;
+      setDraft((current) =>
+        current
+          ? {
+              ...current,
+              jobTitle: s.jobTitle || current.jobTitle,
+              statementBody: s.statementBody || current.statementBody,
+            }
+          : current,
+      );
+      setAiSummary(s.summary);
+      toast.success("Statement written — please read it through and edit anything you'd like.");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  function chooseStyle(style: DocumentStyle) {
+    setDraft((current) => (current ? { ...current, documentStyle: style } : current));
+    setChoosing(false);
+    setEditing(true);
+  }
+
   async function makeInvite(regenerate: boolean) {
     if (!data?.nannyId) {
       toast.error("Add a nanny first.");
@@ -215,6 +260,112 @@ function AgreementPage() {
   const hasEmergencyDetails = Boolean(
     emergency.homeAddress || emergency.children.length || emergency.contacts.length,
   );
+
+  if (choosing && draft && !isNanny) {
+    return (
+      <HubPage
+        slug={slug}
+        title="How would you like your agreement written?"
+        intro="Both options are proper written terms your nanny can sign. Pick whichever suits your family — you can change your mind later."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Full nanny contract</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              The complete, formal employment contract: every duty, holiday calculations, sickness,
+              pension, notice, grievance and disciplinary wording. Best if you want everything
+              spelled out.
+            </p>
+            <Button className="mt-4" onClick={() => chooseStyle("full")}>
+              Use the full contract
+            </Button>
+          </Card>
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Simple written statement</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              A short, plain-English statement written for you from the basics — days, hours, start
+              date and pay. Quick to do, and it still covers what the law requires.
+            </p>
+            <Button className="mt-4" onClick={() => chooseStyle("statement")}>
+              Write a simple statement
+            </Button>
+          </Card>
+        </div>
+        {data.hasContent && (
+          <div className="mt-5">
+            <Button variant="ghost" onClick={() => setChoosing(false)}>
+              Cancel
+            </Button>
+          </div>
+        )}
+      </HubPage>
+    );
+  }
+
+  if (editing && draft && !isNanny && draft.documentStyle === "statement") {
+    return (
+      <HubPage
+        slug={slug}
+        title="Your written statement"
+        intro="Give us the basics and we'll write the statement for you. You can edit every word."
+      >
+        <div className="space-y-5">
+          <Card>
+            <div className="flex items-start gap-3">
+              <Sparkles className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+              <div className="flex-1">
+                <h2 className="heading-display text-lg text-foreground">
+                  Write my statement for me
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Fill in the basics below, then add anything else in your own words — the school
+                  run, bedtime, mileage. We'll turn it into a short statement your nanny can sign.
+                </p>
+                <Textarea
+                  className="mt-3"
+                  rows={3}
+                  value={notes}
+                  placeholder="e.g. Two boys, 8 and 5. School pick-up at 3.30pm, tea, homework and bedtime. Term time only."
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+                <Button className="mt-3" disabled={generating} onClick={generateStatement}>
+                  {generating ? "Writing your statement…" : "Write my statement"}
+                </Button>
+                {aiSummary && (
+                  <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
+                    {aiSummary}
+                  </p>
+                )}
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Always read it through. Nothing is sent to your nanny until you mark it ready to
+                  sign.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <StatementBuilder data={draft} onChange={setDraft} />
+
+          <div className="flex flex-wrap gap-3">
+            <Button variant="outline" disabled={busy} onClick={() => save(false)}>
+              Save and finish later
+            </Button>
+            <Button disabled={busy} onClick={() => save(true)}>
+              {issued ? "Save and re-issue for signing" : "Done — ready to sign"}
+            </Button>
+            <Button variant="ghost" disabled={busy} onClick={() => setChoosing(true)}>
+              Switch to the full contract
+            </Button>
+            {data.hasContent && (
+              <Button variant="ghost" disabled={busy} onClick={() => setEditing(false)}>
+                Cancel
+              </Button>
+            )}
+          </div>
+        </div>
+      </HubPage>
+    );
+  }
 
   if (editing && draft && !isNanny) {
     return (
@@ -276,6 +427,9 @@ function AgreementPage() {
             <Button disabled={busy} onClick={() => save(true)}>
               {issued ? "Save and re-issue for signing" : "Done — ready to sign"}
             </Button>
+            <Button variant="ghost" disabled={busy} onClick={() => setChoosing(true)}>
+              Switch to a simple statement
+            </Button>
             {data.hasContent && (
               <Button variant="ghost" disabled={busy} onClick={() => setEditing(false)}>
                 Cancel
@@ -327,6 +481,9 @@ function AgreementPage() {
           </Button>
           <Button variant="outline" onClick={() => window.print()}>
             <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
+          </Button>
+          <Button variant="ghost" onClick={() => setChoosing(true)}>
+            Change format
           </Button>
         </div>
       )}
@@ -394,12 +551,21 @@ function AgreementPage() {
       )}
 
       <div className="print-area space-y-6">
-        <AgreementDocument
-          data={data.data}
-          version={data.version}
-          issuedAt={data.issuedAt}
-          familyName={data.familyName}
-        />
+        {data.data.documentStyle === "statement" ? (
+          <StatementDocument
+            data={data.data}
+            version={data.version}
+            issuedAt={data.issuedAt}
+            familyName={data.familyName}
+          />
+        ) : (
+          <AgreementDocument
+            data={data.data}
+            version={data.version}
+            issuedAt={data.issuedAt}
+            familyName={data.familyName}
+          />
+        )}
 
         <Card>
           <h2 className="heading-display text-lg text-foreground">Signatures</h2>
