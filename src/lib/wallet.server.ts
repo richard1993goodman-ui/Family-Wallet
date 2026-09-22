@@ -9,12 +9,26 @@ function sessionConfig() {
   return {
     password: process.env["WALLET_SESSION_SECRET"]!,
     name: "family-wallet",
-    maxAge: 60 * 60 * 24 * 30,
+    // Remember this device for a year, refreshed on every visit.
+    maxAge: 60 * 60 * 24 * 365,
     // "none" so the wallet stays unlocked when the app is viewed inside an
     // embedded preview frame; the cookie is still httpOnly and https-only.
     cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
 }
+
+/** Re-issues the cookie so an active family keeps a rolling 12-month session. */
+export async function touchWalletSession() {
+  try {
+    const session = await walletSession();
+    const unlocked = session.data.unlocked ?? [];
+    if (unlocked.length === 0) return;
+    await session.update({ unlocked });
+  } catch {
+    /* ignore */
+  }
+}
+
 
 export function normalizeCode(code: string) {
   return code.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -294,7 +308,9 @@ export type WalletData = {
 export async function loadWallet(slug: string): Promise<WalletData | null> {
   const session = await sessionAccess(slug);
   if (!session) return null;
+  await touchWalletSession();
   const access = session.level;
+
 
   const { data: family } = await supabaseAdmin
     .from("families")

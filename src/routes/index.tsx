@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import {
@@ -91,7 +91,14 @@ function FamilyLogin() {
   const unlockFn = useServerFn(unlockWallet);
   const [link, setLink] = useState("");
   const [code, setCode] = useState("");
+  const [remember, setRemember] = useState(true);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("wallet-link");
+    if (saved) setLink(saved);
+    else setRemember(true);
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -104,6 +111,8 @@ function FamilyLogin() {
     try {
       const result = await unlockFn({ data: { slug, code } });
       if (result.ok) {
+        if (remember) window.localStorage.setItem("wallet-link", slug);
+        else window.localStorage.removeItem("wallet-link");
         navigate({ to: "/w/$slug", params: { slug } });
       } else {
         toast.error(
@@ -116,6 +125,7 @@ function FamilyLogin() {
       setBusy(false);
     }
   }
+
 
   return (
     <div className="mt-8 rounded-xl border border-border bg-card p-6">
@@ -152,9 +162,21 @@ function FamilyLogin() {
             className="mt-1 uppercase tracking-widest"
           />
         </div>
+        <label className="flex items-start gap-2 text-sm text-foreground/90">
+          <input
+            type="checkbox"
+            checked={remember}
+            onChange={(e) => setRemember(e.target.checked)}
+            className="mt-0.5 size-4 accent-[hsl(var(--primary))]"
+          />
+          <span>
+            Remember this device — stay signed in for 12 months and keep my wallet link saved here.
+          </span>
+        </label>
         <Button type="submit" className="w-full" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
         </Button>
+
       </form>
     </div>
   );
