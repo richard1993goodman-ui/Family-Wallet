@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Copy, Plus } from "lucide-react";
 
+import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
 import { TIER_BANDS, tierFor } from "@/lib/tiers";
 import { supabase } from "@/integrations/supabase/client";
@@ -51,6 +52,8 @@ function AdminHome() {
   const [email, setEmail] = useState("");
   const [band, setBand] = useState("3");
   const [nanny, setNanny] = useState("");
+  const [address, setAddress] = useState("");
+  const [filter, setFilter] = useState<"all" | "active" | "cancelled">("all");
 
   const status = useQuery({ queryKey: ["admin-status"], queryFn: () => statusFn() });
   const families = useQuery({
@@ -80,12 +83,14 @@ function AdminHome() {
           termsAcceptedOn: "",
           notes: "",
           status: "active",
+          homeAddress: address,
         },
       });
       setOpen(false);
       setName("");
       setEmail("");
       setNanny("");
+      setAddress("");
       await queryClient.invalidateQueries({ queryKey: ["families"] });
       navigate({ to: "/admin/family/$id", params: { id: result.id } });
     } catch (error) {
@@ -163,6 +168,16 @@ function AdminHome() {
             </DialogHeader>
             <form onSubmit={onCreate} className="space-y-4">
               <div>
+                <Label htmlFor="faddress">Home address</Label>
+                <Input
+                  id="faddress"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="mt-1"
+                  placeholder="House number, street, postcode"
+                />
+              </div>
+              <div>
                 <Label htmlFor="fname">Family name</Label>
                 <Input
                   id="fname"
@@ -227,11 +242,27 @@ function AdminHome() {
           <span className="text-primary">→</span>
         </Link>
 
+        <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+
         <div className="mt-8 space-y-3">
           {families.data?.length === 0 && (
             <p className="text-sm text-muted-foreground">No families yet.</p>
           )}
-          {families.data?.map((family) => (
+          {families.data && families.data.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {(["all", "active", "cancelled"] as const).map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`rounded-full border px-3 py-1 text-sm ${filter === f ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-muted-foreground"}`}
+                >
+                  {f === "all" ? "All" : f === "active" ? "Active members" : "Cancelled"} (
+                  {f === "all" ? families.data.length : families.data.filter((x) => (x.status === "active") === (f === "active")).length})
+                </button>
+              ))}
+            </div>
+          )}
+          {families.data?.filter((x) => filter === "all" || (x.status === "active") === (filter === "active")).map((family) => (
             <div key={family.id} className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -248,9 +279,13 @@ function AdminHome() {
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1">
-                  {family.status !== "active" && (
+                  {family.status === "active" ? (
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                      Active
+                    </span>
+                  ) : (
                     <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-                      Archived
+                      Cancelled
                     </span>
                   )}
                   {family.dbsExpired && (

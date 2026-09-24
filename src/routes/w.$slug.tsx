@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
+import { WalletChallenges } from "@/components/WalletChallenges";
 import { getHubSummary } from "@/lib/family.functions";
 import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
@@ -236,6 +237,8 @@ function WalletPage() {
         <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
           {wallet.familyName}
         </h1>
+
+        <WalletChallenges slug={slug} />
 
         {wallet.nannies.length > 0 && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">

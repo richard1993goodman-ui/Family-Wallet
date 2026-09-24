@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      agency_challenges: {
+        Row: {
+          audience: string
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          is_active: boolean
+          title: string
+        }
+        Insert: {
+          audience?: string
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_active?: boolean
+          title: string
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_active?: boolean
+          title?: string
+        }
+        Relationships: []
+      }
+      challenge_completions: {
+        Row: {
+          challenge_id: string
+          completed_at: string
+          completed_by: string
+          family_id: string
+          id: string
+          note: string | null
+        }
+        Insert: {
+          challenge_id: string
+          completed_at?: string
+          completed_by: string
+          family_id: string
+          id?: string
+          note?: string | null
+        }
+        Update: {
+          challenge_id?: string
+          completed_at?: string
+          completed_by?: string
+          family_id?: string
+          id?: string
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_completions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "agency_challenges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "challenge_completions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenge_recipients: {
+        Row: {
+          challenge_id: string
+          family_id: string
+          id: string
+        }
+        Insert: {
+          challenge_id: string
+          family_id: string
+          id?: string
+        }
+        Update: {
+          challenge_id?: string
+          family_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_recipients_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "agency_challenges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "challenge_recipients_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cover_requests: {
         Row: {
           children: string | null

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import {
   deleteContact,
   deleteDocument,
   getAdminDocumentUrl,
+  deleteFamily,
   getFamily,
   regenerateCode,
   saveFamily,
@@ -78,6 +79,8 @@ function FamilyDetail() {
   const docUrlFn = useServerFn(getAdminDocumentUrl);
   const addContactFn = useServerFn(addContact);
   const deleteContactFn = useServerFn(deleteContact);
+  const deleteFamilyFn = useServerFn(deleteFamily);
+  const navigate = useNavigate();
 
   const query = useQuery({
     queryKey: ["family", id],
@@ -99,6 +102,7 @@ function FamilyDetail() {
     termsAcceptedOn: "",
     notes: "",
     status: "active",
+    homeAddress: "",
   });
   const [uploading, setUploading] = useState<string | null>(null);
   const [contact, setContact] = useState({ name: "", relationship: "", phone: "" });
@@ -120,9 +124,10 @@ function FamilyDetail() {
       startDate: f.start_date ?? "",
       termsAcceptedOn: f.terms_accepted_on ?? "",
       notes: f.notes ?? "",
-      status: f.status ?? "active",
+      status: f.status === "active" ? "active" : "cancelled",
+      homeAddress: query.data?.homeAddress ?? "",
     });
-  }, [query.data?.family]);
+  }, [query.data?.family, query.data?.homeAddress]);
 
   async function refresh() {
     await queryClient.invalidateQueries({ queryKey: ["family", id] });
@@ -638,11 +643,23 @@ function FamilyDetail() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="archived">Archived</SelectItem>
+                      <SelectItem value="active">Active (paying member)</SelectItem>
+                      <SelectItem value="cancelled">Cancelled (wallet locked)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+              <div>
+                <Label htmlFor="homeAddress">Home address</Label>
+                <Textarea
+                  id="homeAddress"
+                  className="mt-1"
+                  rows={3}
+                  placeholder="House number, street, town, postcode"
+                  value={form.homeAddress}
+                  onChange={(e) => setForm({ ...form, homeAddress: e.target.value })}
+                />
+                <p className="mt-1 text-xs text-muted-foreground">Also shows on the family's emergency card.</p>
               </div>
               <div>
                 <Label htmlFor="notes">Private notes</Label>
@@ -655,6 +672,36 @@ function FamilyDetail() {
               </div>
               <Button type="submit">Save changes</Button>
             </form>
+            <div className="mt-8 rounded-xl border border-destructive/40 bg-card p-5">
+              <p className="font-medium text-foreground">Delete this family</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Permanently removes the wallet and everything in it (documents, agreements, logs). This cannot be undone. To keep their records, set them to Cancelled instead.
+              </p>
+              <Button
+                type="button"
+                variant="destructive"
+                className="mt-3"
+                onClick={async () => {
+                  const name = query.data?.family.family_name ?? "";
+                  const typed = window.prompt(`Type the family name to confirm deleting:\n${name}`);
+                  if (typed === null) return;
+                  if (typed.trim().toLowerCase() !== name.trim().toLowerCase()) {
+                    toast.error("Name didn't match — nothing was deleted");
+                    return;
+                  }
+                  try {
+                    await deleteFamilyFn({ data: { id } });
+                    await queryClient.invalidateQueries({ queryKey: ["families"] });
+                    toast.success("Family deleted");
+                    navigate({ to: "/admin" });
+                  } catch (err) {
+                    toast.error(err instanceof Error ? err.message : "Could not delete");
+                  }
+                }}
+              >
+                <Trash2 className="mr-2 h-4 w-4" /> Delete family
+              </Button>
+            </div>
           </>
         )}
       </div>
