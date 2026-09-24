@@ -14,6 +14,7 @@ import {
   signDocumentFn,
 } from "@/lib/agreement.functions";
 import type { AgreementData, DocumentStyle } from "@/lib/agreement.model";
+import { DOCUMENT_STYLE_LABELS } from "@/lib/agreement.model";
 import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
@@ -262,6 +263,7 @@ function AgreementPage() {
   );
 
   if (choosing && draft && !isNanny) {
+    const currentLabel = DOCUMENT_STYLE_LABELS[draft.documentStyle];
     return (
       <HubPage
         slug={slug}
@@ -293,8 +295,12 @@ function AgreementPage() {
         </div>
         {data.hasContent && (
           <div className="mt-5">
-            <Button variant="ghost" onClick={() => setChoosing(false)}>
-              Cancel
+            <p className="text-sm text-muted-foreground">
+              You are currently using:{" "}
+              <span className="font-medium text-foreground">{currentLabel}</span>
+            </p>
+            <Button variant="outline" className="mt-3" onClick={() => setChoosing(false)}>
+              Keep my current format and continue
             </Button>
           </div>
         )}
@@ -476,13 +482,18 @@ function AgreementPage() {
 
       {!isNanny && (
         <div className="flex flex-wrap gap-3 print:hidden">
-          <Button onClick={() => setEditing(true)}>
+          <Button
+            onClick={() => {
+              setEditing(true);
+              setChoosing(true);
+            }}
+          >
             <Pencil className="mr-2 h-4 w-4" /> Edit agreement
           </Button>
           <Button variant="outline" onClick={() => window.print()}>
             <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
           </Button>
-          <Button variant="ghost" onClick={() => setChoosing(true)}>
+          <Button variant="outline" onClick={() => setChoosing(true)}>
             Change format
           </Button>
         </div>
@@ -603,7 +614,13 @@ function AgreementPage() {
 
       {!isNanny && (
         <div className="flex flex-wrap gap-3 print:hidden">
-          <Button variant="outline" onClick={() => setEditing(true)}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setEditing(true);
+              setChoosing(true);
+            }}
+          >
             <Pencil className="mr-2 h-4 w-4" /> Edit agreement
           </Button>
         </div>
