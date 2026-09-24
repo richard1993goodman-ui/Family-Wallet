@@ -94,7 +94,17 @@ export const getFamily = createServerFn({ method: "POST" })
       .eq("family_id", data.id)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });
-    return { family, documents: docs ?? [], contacts: contacts ?? [] };
+    const { data: profile } = await supabaseAdmin
+      .from("family_profile")
+      .select("home_address")
+      .eq("family_id", data.id)
+      .maybeSingle();
+    return {
+      family,
+      documents: docs ?? [],
+      contacts: contacts ?? [],
+      homeAddress: profile?.home_address ?? "",
+    };
   });
 
 export type FamilyInput = {
@@ -113,6 +123,7 @@ export type FamilyInput = {
   termsAcceptedOn: string;
   notes: string;
   status: string;
+  homeAddress?: string;
 };
 
 export const saveFamily = createServerFn({ method: "POST" })
@@ -171,10 +182,29 @@ export const saveFamily = createServerFn({ method: "POST" })
       }
     }
 
+    async function syncAddress(familyId: string) {
+      if (data.homeAddress === undefined) return;
+      const address = data.homeAddress.trim().slice(0, 1000) || null;
+      const { data: existing } = await supabaseAdmin
+        .from("family_profile")
+        .select("id")
+        .eq("family_id", familyId)
+        .maybeSingle();
+      if (existing) {
+        await supabaseAdmin
+          .from("family_profile")
+          .update({ home_address: address, updated_at: new Date().toISOString() })
+          .eq("id", existing.id);
+      } else if (address) {
+        await supabaseAdmin.from("family_profile").insert({ family_id: familyId, home_address: address });
+      }
+    }
+
     if (data.id) {
       const { error } = await supabaseAdmin.from("families").update(row).eq("id", data.id);
       if (error) throw new Error(error.message);
       await syncPrimaryNanny(data.id);
+      await syncAddress(data.id);
       return { id: data.id };
     }
 
@@ -200,7 +230,40 @@ export const saveFamily = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
     await syncPrimaryNanny(inserted.id);
+    await syncAddress(inserted.id);
     return { id: inserted.id };
+  });
+
+export const setFamilyStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string; status: "active" | "cancelled" }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const status = data.status === "cancelled" ? "cancelled" : "active";
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const deleteFamily = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: docs } = await supabaseAdmin
+      .from("family_documents")
+      .select("storage_path")
+      .eq("family_id", data.id);
+    const paths = (docs ?? []).map((d) => d.storage_path).filter(Boolean);
+    if (paths.length) await supabaseAdmin.storage.from("family-docs").remove(paths);
+    const { error } = await supabaseAdmin.from("families").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
   });
 
 export const regenerateCode = createServerFn({ method: "POST" })
