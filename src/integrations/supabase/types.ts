@@ -985,6 +985,63 @@ export type Database = {
           },
         ]
       }
+      partner_perks: {
+        Row: {
+          area: string | null
+          category: string
+          contact_text: string | null
+          created_at: string
+          description: string | null
+          expires_on: string | null
+          id: string
+          is_published: boolean
+          offer_code: string | null
+          offer_text: string
+          partner_name: string
+          redemption_instructions: string | null
+          sort_order: number
+          title: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          area?: string | null
+          category?: string
+          contact_text?: string | null
+          created_at?: string
+          description?: string | null
+          expires_on?: string | null
+          id?: string
+          is_published?: boolean
+          offer_code?: string | null
+          offer_text: string
+          partner_name: string
+          redemption_instructions?: string | null
+          sort_order?: number
+          title: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          area?: string | null
+          category?: string
+          contact_text?: string | null
+          created_at?: string
+          description?: string | null
+          expires_on?: string | null
+          id?: string
+          is_published?: boolean
+          offer_code?: string | null
+          offer_text?: string
+          partner_name?: string
+          redemption_instructions?: string | null
+          sort_order?: number
+          title?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       planner_entries: {
         Row: {
           added_by: string
@@ -1034,6 +1091,81 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      playbook_reads: {
+        Row: {
+          family_id: string
+          id: string
+          playbook_id: string
+          read_at: string
+          reader_role: string
+        }
+        Insert: {
+          family_id: string
+          id?: string
+          playbook_id: string
+          read_at?: string
+          reader_role: string
+        }
+        Update: {
+          family_id?: string
+          id?: string
+          playbook_id?: string
+          read_at?: string
+          reader_role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playbook_reads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playbook_reads_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "seasonal_playbooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      playbook_recipients: {
+        Row: {
+          created_at: string
+          family_id: string
+          id: string
+          playbook_id: string
+        }
+        Insert: {
+          created_at?: string
+          family_id: string
+          id?: string
+          playbook_id: string
+        }
+        Update: {
+          created_at?: string
+          family_id?: string
+          id?: string
+          playbook_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playbook_recipients_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playbook_recipients_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "seasonal_playbooks"
             referencedColumns: ["id"]
           },
         ]
@@ -1145,6 +1277,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      seasonal_playbooks: {
+        Row: {
+          age_guidance: string | null
+          audience: string
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          introduction: string | null
+          is_featured: boolean
+          is_published: boolean
+          published_at: string | null
+          resource_url: string | null
+          season: string
+          sections: Json
+          title: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          age_guidance?: string | null
+          audience?: string
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          introduction?: string | null
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string | null
+          resource_url?: string | null
+          season: string
+          sections?: Json
+          title: string
+          topic: string
+          updated_at?: string
+        }
+        Update: {
+          age_guidance?: string | null
+          audience?: string
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          introduction?: string | null
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string | null
+          resource_url?: string | null
+          season?: string
+          sections?: Json
+          title?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       sports_passport_entries: {
         Row: {
