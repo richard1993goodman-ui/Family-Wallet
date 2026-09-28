@@ -17,6 +17,7 @@ import {
   Plane,
   Pill,
   FileBarChart,
+  Plane,
   CalendarCheck,
   ClipboardCheck,
   Dumbbell,
@@ -35,6 +36,7 @@ import {
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { WalletChallenges } from "@/components/WalletChallenges";
+import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { getHubSummary } from "@/lib/family.functions";
 import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
@@ -239,6 +241,7 @@ function WalletPage() {
           {wallet.familyName}
         </h1>
 
+        <WalletTravelBanner slug={slug} />
         <WalletChallenges slug={slug} />
 
         {wallet.nannies.length > 0 && (
@@ -286,6 +289,7 @@ function WalletPage() {
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
           <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
+          <HubTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
           <HubTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
           <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
         </div>
@@ -978,7 +982,8 @@ function HubTile({
     | "/passport/$slug"
     | "/handover/$slug"
     | "/timesheets/$slug"
-    | "/report/$slug";
+    | "/report/$slug"
+    | "/travel/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
