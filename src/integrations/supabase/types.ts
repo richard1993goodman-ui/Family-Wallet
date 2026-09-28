@@ -1384,6 +1384,68 @@ export type Database = {
           },
         ]
       }
+      travel_trips: {
+        Row: {
+          accommodation: string | null
+          checklist: Json
+          created_at: string
+          destination: string
+          end_date: string
+          family_id: string
+          handover_notes: Json
+          id: string
+          local_emergency: string | null
+          nearest_hospital: string | null
+          notes: string | null
+          start_date: string
+          time_difference: string | null
+          travel_pay: string | null
+          updated_at: string
+        }
+        Insert: {
+          accommodation?: string | null
+          checklist?: Json
+          created_at?: string
+          destination: string
+          end_date: string
+          family_id: string
+          handover_notes?: Json
+          id?: string
+          local_emergency?: string | null
+          nearest_hospital?: string | null
+          notes?: string | null
+          start_date: string
+          time_difference?: string | null
+          travel_pay?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accommodation?: string | null
+          checklist?: Json
+          created_at?: string
+          destination?: string
+          end_date?: string
+          family_id?: string
+          handover_notes?: Json
+          id?: string
+          local_emergency?: string | null
+          nearest_hospital?: string | null
+          notes?: string | null
+          start_date?: string
+          time_difference?: string | null
+          travel_pay?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "travel_trips_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
