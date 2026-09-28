@@ -1,7 +1,8 @@
 # Roadmap
 
-- [x] Add premium-content database schema and security
-- [x] Add agency management for partner perks and playbooks
-- [x] Add private wallet pages and read tracking
-- [x] Add wallet and public home benefit links
-- [x] Verify build and desktop/mobile flows
+- [ ] Add secure service-status and nanny-insurance schema
+- [ ] Add parent/nanny service functions and agency controls
+- [ ] Build payroll concierge and employment cost calculator
+- [ ] Build private curation and safety cover pages
+- [ ] Add wallet and public benefits links
+- [ ] Verify build and parent/nanny/agency responsive flows
