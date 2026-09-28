@@ -16,6 +16,7 @@ import {
   Clock3,
   Plane,
   Pill,
+  FileBarChart,
   CalendarCheck,
   ClipboardCheck,
   Dumbbell,
