@@ -1005,7 +1005,7 @@ function HubTile({
     | "/report/$slug"
     | "/travel/$slug"
     | "/perks/$slug"
-    | "/playbooks/$slug";
+    | "/playbooks/$slug"
     | "/payroll/$slug"
     | "/costs/$slug"
     | "/curation/$slug"
