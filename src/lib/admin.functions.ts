@@ -94,16 +94,20 @@ export const getFamily = createServerFn({ method: "POST" })
       .eq("family_id", data.id)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });
-    const { data: profile } = await supabaseAdmin
-      .from("family_profile")
-      .select("home_address")
-      .eq("family_id", data.id)
-      .maybeSingle();
+    const [{ data: profile }, { data: services }, { data: nannies }, { data: safetyDocuments }] = await Promise.all([
+      supabaseAdmin.from("family_profile").select("home_address").eq("family_id", data.id).maybeSingle(),
+      supabaseAdmin.from("family_services").select("*").eq("family_id", data.id).maybeSingle(),
+      supabaseAdmin.from("family_nannies").select("id, name, insurance_provider, insurance_policy_number, insurance_cover_from, insurance_cover_until").eq("family_id", data.id).eq("status", "active").order("sort_order"),
+      supabaseAdmin.from("nanny_safety_documents").select("id, nanny_id, document_type, file_name, storage_path, issued_on, expires_on, reference_label, visibility").eq("family_id", data.id),
+    ]);
     return {
       family,
       documents: docs ?? [],
       contacts: contacts ?? [],
       homeAddress: profile?.home_address ?? "",
+      services: services ?? null,
+      nannies: nannies ?? [],
+      safetyDocuments: safetyDocuments ?? [],
     };
   });
 
@@ -405,6 +409,66 @@ export const updateDocumentMeta = createServerFn({ method: "POST" })
       })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const saveFamilyServices = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { familyId: string; payrollStatus: string; payrollStartDate: string; payrollNotes: string; curationStatus: string; curationNotes: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("family_services").upsert({
+      family_id: data.familyId,
+      payroll_status: data.payrollStatus,
+      payroll_start_date: data.payrollStartDate || null,
+      payroll_notes: data.payrollNotes.trim() || null,
+      curation_status: data.curationStatus,
+      curation_notes: data.curationNotes.trim() || null,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "family_id" });
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const saveNannyInsurance = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { familyId: string; nannyId: string; provider: string; policyNumber: string; coverFrom: string; coverUntil: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("family_nannies").update({
+      insurance_provider: data.provider.trim() || null,
+      insurance_policy_number: data.policyNumber.trim() || null,
+      insurance_cover_from: data.coverFrom || null,
+      insurance_cover_until: data.coverUntil || null,
+      updated_at: new Date().toISOString(),
+    }).eq("id", data.nannyId).eq("family_id", data.familyId);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const uploadSafetyDocument = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { familyId: string; nannyId: string; documentType: string; fileName: string; contentType: string; base64: string; issuedOn: string; expiresOn: string; referenceLabel: string; visibility: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as unknown as Ctx);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const bytes = Buffer.from(data.base64, "base64");
+    if (bytes.length > 10 * 1024 * 1024) throw new Error("Document must be under 10MB");
+    const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${data.familyId}/safety-${data.nannyId}-${data.documentType}-${Date.now()}-${safeName}`;
+    const { error: uploadError } = await supabaseAdmin.storage.from("family-docs").upload(path, bytes, { contentType: data.contentType, upsert: true });
+    if (uploadError) throw new Error(uploadError.message);
+    const { data: existing } = await supabaseAdmin.from("nanny_safety_documents").select("storage_path").eq("nanny_id", data.nannyId).eq("document_type", data.documentType).maybeSingle();
+    const { error } = await supabaseAdmin.from("nanny_safety_documents").upsert({
+      family_id: data.familyId, nanny_id: data.nannyId, document_type: data.documentType,
+      storage_path: path, file_name: data.fileName, issued_on: data.issuedOn || null,
+      expires_on: data.expiresOn || null, reference_label: data.referenceLabel.trim() || null,
+      visibility: data.visibility,
+    }, { onConflict: "nanny_id,document_type" });
+    if (error) throw new Error(error.message);
+    if (existing?.storage_path && existing.storage_path !== path) await supabaseAdmin.storage.from("family-docs").remove([existing.storage_path]);
     return { ok: true as const };
   });
 
