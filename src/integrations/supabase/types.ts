@@ -598,6 +598,10 @@ export type Database = {
           emergency_relationship: string | null
           family_id: string
           id: string
+          insurance_cover_from: string | null
+          insurance_cover_until: string | null
+          insurance_policy_number: string | null
+          insurance_provider: string | null
           invited_at: string | null
           name: string
           nanny_code: string | null
@@ -615,6 +619,10 @@ export type Database = {
           emergency_relationship?: string | null
           family_id: string
           id?: string
+          insurance_cover_from?: string | null
+          insurance_cover_until?: string | null
+          insurance_policy_number?: string | null
+          insurance_provider?: string | null
           invited_at?: string | null
           name: string
           nanny_code?: string | null
@@ -632,6 +640,10 @@ export type Database = {
           emergency_relationship?: string | null
           family_id?: string
           id?: string
+          insurance_cover_from?: string | null
+          insurance_cover_until?: string | null
+          insurance_policy_number?: string | null
+          insurance_provider?: string | null
           invited_at?: string | null
           name?: string
           nanny_code?: string | null
@@ -694,6 +706,50 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "family_profile_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_services: {
+        Row: {
+          created_at: string
+          curation_notes: string | null
+          curation_status: string
+          family_id: string
+          id: string
+          payroll_notes: string | null
+          payroll_start_date: string | null
+          payroll_status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          curation_notes?: string | null
+          curation_status?: string
+          family_id: string
+          id?: string
+          payroll_notes?: string | null
+          payroll_start_date?: string | null
+          payroll_status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          curation_notes?: string | null
+          curation_status?: string
+          family_id?: string
+          id?: string
+          payroll_notes?: string | null
+          payroll_start_date?: string | null
+          payroll_status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_services_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: true
             referencedRelation: "families"
@@ -978,6 +1034,63 @@ export type Database = {
           },
           {
             foreignKeyName: "nanny_agreements_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nanny_safety_documents: {
+        Row: {
+          document_type: string
+          expires_on: string | null
+          family_id: string
+          file_name: string
+          id: string
+          issued_on: string | null
+          nanny_id: string
+          reference_label: string | null
+          storage_path: string
+          uploaded_at: string
+          visibility: string
+        }
+        Insert: {
+          document_type: string
+          expires_on?: string | null
+          family_id: string
+          file_name: string
+          id?: string
+          issued_on?: string | null
+          nanny_id: string
+          reference_label?: string | null
+          storage_path: string
+          uploaded_at?: string
+          visibility?: string
+        }
+        Update: {
+          document_type?: string
+          expires_on?: string | null
+          family_id?: string
+          file_name?: string
+          id?: string
+          issued_on?: string | null
+          nanny_id?: string
+          reference_label?: string | null
+          storage_path?: string
+          uploaded_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_safety_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"

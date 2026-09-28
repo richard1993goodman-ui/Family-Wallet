@@ -27,6 +27,8 @@ import {
   BadgePercent,
   Gift,
   Library,
+  Handshake,
+  Landmark,
 } from "lucide-react";
 
 import { unlockWallet } from "@/lib/wallet.functions";
@@ -81,6 +83,10 @@ const items = [
   { icon: UtensilsCrossed, label: "Nanny Fuel — cooking and meal ideas" },
   { icon: Sparkles, label: "Nanny activity guide" },
   { icon: BadgePercent, label: "Your Nannytax referral code and membership perks" },
+  { icon: Landmark, label: "Managed Nannytax setup — a guided introduction and visible next steps" },
+  { icon: Calculator, label: "All-in employment cost calculator — pay, NI, pension and payroll estimates" },
+  { icon: Handshake, label: "Private nanny curation — personally selected profiles, never a public catalogue" },
+  { icon: Shield, label: "Insurance & safeguarding record — clear check, training and cover status" },
   { icon: Shield, label: "Your membership tier, fees, terms and our family guarantee" },
 ];
 
@@ -221,7 +227,7 @@ function Index() {
           <h2 className="heading-display text-lg text-foreground">Opening your wallet</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
             We send you a personal wallet link and a short access code. Open the link, enter the
-            code once, and your wallet stays open on that device for 30 days.
+            code once, and your wallet stays open on that device for 12 months when remembered.
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
             Lost your link or code? Message us on WhatsApp or email richard@athletemannies.com and
