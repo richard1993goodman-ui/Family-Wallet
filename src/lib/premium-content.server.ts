@@ -8,8 +8,8 @@ function sections(value: unknown): PlaybookSection[] {
   return value.flatMap((item) => {
     if (!item || typeof item !== "object") return [];
     const row = item as Record<string, unknown>;
-    return typeof row.heading === "string" && typeof row.body === "string"
-      ? [{ heading: row.heading, body: row.body }]
+    return typeof row["heading"] === "string" && typeof row["body"] === "string"
+      ? [{ heading: row["heading"], body: row["body"] }]
       : [];
   });
 }
