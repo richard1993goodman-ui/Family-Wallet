@@ -14,11 +14,15 @@ import {
   getFamily,
   regenerateCode,
   saveFamily,
+  saveFamilyServices,
+  saveNannyInsurance,
+  uploadSafetyDocument,
   updateDocumentMeta,
   uploadDocument,
   uploadNannyPhoto,
 } from "@/lib/admin.functions";
 import { TIER_BANDS } from "@/lib/tiers";
+import { CURATION_STATUSES, PAYROLL_STATUSES, SAFETY_DOCUMENTS } from "@/lib/concierge.types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -71,6 +75,9 @@ function FamilyDetail() {
   const queryClient = useQueryClient();
   const getFamilyFn = useServerFn(getFamily);
   const saveFn = useServerFn(saveFamily);
+  const saveServicesFn = useServerFn(saveFamilyServices);
+  const saveInsuranceFn = useServerFn(saveNannyInsurance);
+  const uploadSafetyFn = useServerFn(uploadSafetyDocument);
   const regenFn = useServerFn(regenerateCode);
   const uploadFn = useServerFn(uploadDocument);
   const photoFn = useServerFn(uploadNannyPhoto);
@@ -106,6 +113,7 @@ function FamilyDetail() {
   });
   const [uploading, setUploading] = useState<string | null>(null);
   const [contact, setContact] = useState({ name: "", relationship: "", phone: "" });
+  const [services, setServices] = useState({ payrollStatus: "not_started", payrollStartDate: "", payrollNotes: "", curationStatus: "not_started", curationNotes: "" });
 
   useEffect(() => {
     const f = query.data?.family;
@@ -128,6 +136,11 @@ function FamilyDetail() {
       homeAddress: query.data?.homeAddress ?? "",
     });
   }, [query.data?.family, query.data?.homeAddress]);
+
+  useEffect(() => {
+    const value = query.data?.services;
+    setServices({ payrollStatus: value?.payroll_status ?? "not_started", payrollStartDate: value?.payroll_start_date ?? "", payrollNotes: value?.payroll_notes ?? "", curationStatus: value?.curation_status ?? "not_started", curationNotes: value?.curation_notes ?? "" });
+  }, [query.data?.services]);
 
   async function refresh() {
     await queryClient.invalidateQueries({ queryKey: ["family", id] });
@@ -195,6 +208,14 @@ function FamilyDetail() {
     } finally {
       setUploading(null);
     }
+  }
+
+  async function onSafetyUpload(nannyId: string, documentType: string, file: File) {
+    const key = `${nannyId}-${documentType}`; setUploading(key);
+    try {
+      await uploadSafetyFn({ data: { familyId: id, nannyId, documentType, fileName: file.name, contentType: file.type || "application/octet-stream", base64: await fileToBase64(file), issuedOn: "", expiresOn: "", referenceLabel: "", visibility: "badge" } });
+      toast.success("Safety record uploaded"); await refresh();
+    } catch (error) { toast.error(error instanceof Error ? error.message : "Upload failed"); } finally { setUploading(null); }
   }
 
   const family = query.data?.family;
@@ -331,6 +352,17 @@ function FamilyDetail() {
                 </div>
               </div>
             </div>
+
+            <form className="mt-4 rounded-xl border border-border bg-card p-5" onSubmit={async (event) => { event.preventDefault(); await saveServicesFn({ data: { familyId: id, ...services } }); toast.success("Concierge status saved"); await refresh(); }}>
+              <p className="text-sm font-medium text-foreground">Family concierge status</p>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2"><div><Label>Payroll setup</Label><Select value={services.payrollStatus} onValueChange={(value) => setServices({ ...services, payrollStatus: value })}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent>{PAYROLL_STATUSES.map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}</SelectContent></Select></div><div><Label>Payroll start date</Label><Input className="mt-1" type="date" value={services.payrollStartDate} onChange={(event) => setServices({ ...services, payrollStartDate: event.target.value })} /></div></div>
+              <Label className="mt-4 block">Family-facing payroll update</Label><Textarea className="mt-1" value={services.payrollNotes} onChange={(event) => setServices({ ...services, payrollNotes: event.target.value })} />
+              <Label className="mt-4 block">Private curation</Label><Select value={services.curationStatus} onValueChange={(value) => setServices({ ...services, curationStatus: value })}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent>{CURATION_STATUSES.map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}</SelectContent></Select>
+              <Label className="mt-4 block">Family-facing search update</Label><Textarea className="mt-1" value={services.curationNotes} onChange={(event) => setServices({ ...services, curationNotes: event.target.value })} />
+              <Button className="mt-4" type="submit">Save concierge status</Button>
+            </form>
+
+            {(query.data?.nannies ?? []).map((nanny) => <NannySafetyAdmin key={nanny.id} familyId={id} nanny={nanny} documents={query.data?.safetyDocuments ?? []} uploading={uploading} onUpload={onSafetyUpload} saveInsurance={async (values) => { await saveInsuranceFn({ data: { familyId: id, nannyId: nanny.id, ...values } }); toast.success("Insurance record saved"); await refresh(); }} />)}
 
             <div className="mt-4 rounded-xl border border-border bg-card p-5">
               <p className="text-sm font-medium text-foreground">Checks &amp; credentials</p>
@@ -707,4 +739,9 @@ function FamilyDetail() {
       </div>
     </div>
   );
+}
+
+function NannySafetyAdmin({ nanny, documents, uploading, onUpload, saveInsurance }: { familyId: string; nanny: { id: string; name: string; insurance_provider: string | null; insurance_policy_number: string | null; insurance_cover_from: string | null; insurance_cover_until: string | null }; documents: { nanny_id: string; document_type: string; file_name: string }[]; uploading: string | null; onUpload: (nannyId: string, type: string, file: File) => Promise<void>; saveInsurance: (values: { provider: string; policyNumber: string; coverFrom: string; coverUntil: string }) => Promise<void> }) {
+  const [values, setValues] = useState({ provider: nanny.insurance_provider ?? "", policyNumber: nanny.insurance_policy_number ?? "", coverFrom: nanny.insurance_cover_from ?? "", coverUntil: nanny.insurance_cover_until ?? "" });
+  return <form className="mt-4 rounded-xl border border-border bg-card p-5" onSubmit={async (event) => { event.preventDefault(); await saveInsurance(values); }}><p className="text-sm font-medium text-foreground">{nanny.name} — insurance &amp; safeguarding</p><div className="mt-4 grid gap-3 sm:grid-cols-2"><Input placeholder="Insurance provider" value={values.provider} onChange={(event) => setValues({ ...values, provider: event.target.value })} /><Input placeholder="Policy/reference" value={values.policyNumber} onChange={(event) => setValues({ ...values, policyNumber: event.target.value })} /><div><Label>Cover from</Label><Input className="mt-1" type="date" value={values.coverFrom} onChange={(event) => setValues({ ...values, coverFrom: event.target.value })} /></div><div><Label>Cover until</Label><Input className="mt-1" type="date" value={values.coverUntil} onChange={(event) => setValues({ ...values, coverUntil: event.target.value })} /></div></div><Button className="mt-3" size="sm" type="submit">Save insurance</Button><div className="mt-5 grid gap-3 sm:grid-cols-2">{SAFETY_DOCUMENTS.map(([type, label]) => { const document = documents.find((item) => item.nanny_id === nanny.id && item.document_type === type); const key = `${nanny.id}-${type}`; return <div key={type}><Label>{label}</Label><p className="mt-1 text-xs text-muted-foreground">{document?.file_name ?? "Not recorded"}</p><Input className="mt-2" type="file" accept="application/pdf,image/*" disabled={uploading === key} onChange={(event) => { const file = event.target.files?.[0]; if (file) void onUpload(nanny.id, type, file); event.target.value = ""; }} /></div>; })}</div></form>;
 }
