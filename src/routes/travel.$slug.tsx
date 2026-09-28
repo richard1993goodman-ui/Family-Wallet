@@ -61,7 +61,7 @@ function TravelPage() {
 
   const isParent = data.access === "family";
   const trip = data.trips.find((t) => t.id === selectedId) ?? data.active ?? data.upcoming ?? data.trips[0] ?? null;
-  const set = (k: keyof TripInput) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm((f) => ({ ...(f ?? emptyTrip), [k]: e.target.value }));
+  const setV = (k: keyof TripInput) => (v: string) => setForm((f) => ({ ...(f ?? emptyTrip), [k]: v }));
 
   return (
     <HubPage slug={slug} title="Travel & Villa Nanny Pack" intro="Going abroad? Add your trip and the wallet switches to travel mode — checklist, local emergency details and travel handover notes in one place.">
@@ -84,17 +84,17 @@ function TravelPage() {
         <Card>
           <h2 className="heading-display text-lg text-foreground">{form.id ? "Edit trip" : "New trip"}</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <Field label="Destination"><Input value={form.destination} onChange={set("destination")} placeholder="e.g. Villa in Mallorca" /></Field>
-            <Field label="Time difference"><Input value={form.timeDifference ?? ""} onChange={set("timeDifference")} placeholder="+1 hour" /></Field>
-            <Field label="Leave date"><Input type="date" value={form.startDate} onChange={set("startDate")} /></Field>
-            <Field label="Return date"><Input type="date" value={form.endDate} onChange={set("endDate")} /></Field>
-            <Field label="Local emergency number"><Input value={form.localEmergency ?? ""} onChange={set("localEmergency")} placeholder="112" /></Field>
-            <Field label="Nearest hospital / clinic"><Input value={form.nearestHospital ?? ""} onChange={set("nearestHospital")} /></Field>
+            <Field label="Destination" value={form.destination ?? ""} onChange={setV("destination")} placeholder="e.g. Villa in Mallorca" />
+            <Field label="Time difference" value={form.timeDifference ?? ""} onChange={setV("timeDifference")} placeholder="+1 hour" />
+            <Field label="Leave date" value={form.startDate ?? ""} onChange={setV("startDate")} type="date" />
+            <Field label="Return date" value={form.endDate ?? ""} onChange={setV("endDate")} type="date" />
+            <Field label="Local emergency number" value={form.localEmergency ?? ""} onChange={setV("localEmergency")} placeholder="112" />
+            <Field label="Nearest hospital / clinic" value={form.nearestHospital ?? ""} onChange={setV("nearestHospital")} />
           </div>
           <div className="mt-3 grid gap-3">
-            <Field label="Accommodation address & Wi-Fi"><Textarea value={form.accommodation ?? ""} onChange={set("accommodation")} rows={2} /></Field>
-            <Field label="Travel pay, days off & nanny room"><Textarea value={form.travelPay ?? ""} onChange={set("travelPay")} rows={2} placeholder="e.g. £180/day, 1 day off per week, own room" /></Field>
-            <Field label="Notes for the nanny"><Textarea value={form.notes ?? ""} onChange={set("notes")} rows={3} /></Field>
+            <Field label="Accommodation address & Wi-Fi" value={form.accommodation ?? ""} onChange={setV("accommodation")} textarea />
+            <Field label="Travel pay, days off & nanny room" value={form.travelPay ?? ""} onChange={setV("travelPay")} textarea placeholder="e.g. £180/day, 1 day off per week, own room" />
+            <Field label="Notes for the nanny" value={form.notes ?? ""} onChange={setV("notes")} textarea />
           </div>
           <div className="mt-4 flex gap-2">
             <Button disabled={busy} onClick={() => run(async () => { const r = await save({ data: { slug, trip: form } }); setSelectedId(r.id); setForm(null); }, "Trip saved")}>Save trip</Button>

@@ -33,6 +33,7 @@ import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as TermsSlugRouteImport } from './routes/terms.$slug'
 import { Route as TimesheetsSlugRouteImport } from './routes/timesheets.$slug'
 import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
+import { Route as TravelSlugRouteImport } from './routes/travel.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
@@ -160,6 +161,11 @@ const TrainingSlugRoute = TrainingSlugRouteImport.update({
   path: '/training/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TravelSlugRoute = TravelSlugRouteImport.update({
+  id: '/travel/$slug',
+  path: '/travel/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WSlugRoute = WSlugRouteImport.update({
   id: '/w/$slug',
   path: '/w/$slug',
@@ -223,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
+  '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -255,6 +262,7 @@ export interface FileRoutesByTo {
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
+  '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -289,6 +297,7 @@ export interface FileRoutesById {
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
   '/training/$slug': typeof TrainingSlugRoute
+  '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -323,6 +332,7 @@ export interface FileRouteTypes {
     | '/terms/$slug'
     | '/timesheets/$slug'
     | '/training/$slug'
+    | '/travel/$slug'
     | '/w/$slug'
     | '/admin/support'
     | '/certificate/$slug/$id'
@@ -355,6 +365,7 @@ export interface FileRouteTypes {
     | '/terms/$slug'
     | '/timesheets/$slug'
     | '/training/$slug'
+    | '/travel/$slug'
     | '/w/$slug'
     | '/admin/support'
     | '/certificate/$slug/$id'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/terms/$slug'
     | '/timesheets/$slug'
     | '/training/$slug'
+    | '/travel/$slug'
     | '/w/$slug'
     | '/_authenticated/admin/support'
     | '/certificate/$slug/$id'
@@ -422,6 +434,7 @@ export interface RootRouteChildren {
   TermsSlugRoute: typeof TermsSlugRoute
   TimesheetsSlugRoute: typeof TimesheetsSlugRoute
   TrainingSlugRoute: typeof TrainingSlugRoute
+  TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
 }
@@ -596,6 +609,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainingSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/travel/$slug': {
+      id: '/travel/$slug'
+      path: '/travel/$slug'
+      fullPath: '/travel/$slug'
+      preLoaderRoute: typeof TravelSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/w/$slug': {
       id: '/w/$slug'
       path: '/w/$slug'
@@ -692,6 +712,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsSlugRoute: TermsSlugRoute,
   TimesheetsSlugRoute: TimesheetsSlugRoute,
   TrainingSlugRoute: TrainingSlugRoute,
+  TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
 }
