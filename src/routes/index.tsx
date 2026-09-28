@@ -64,6 +64,7 @@ const items = [
   { icon: NotebookPen, label: "Daily log — how each day went" },
   { icon: ClipboardCheck, label: "End-of-day handover — homework, dinner, mood and tomorrow's kit" },
   { icon: ReceiptText, label: "Expenses tracker — petty cash and reimbursement notes" },
+  { icon: ClipboardCheck, label: "Friday Weekly Report — a polished recap of the week, ready to print" },
   { icon: Pill, label: "Medication log — timestamped doses so nobody double-doses" },
   { icon: Dumbbell, label: "Active Kids Sports Passport — skills, challenges and confidence wins" },
   { icon: CalendarCheck, label: "Reviews & check-ins — 6-month and yearly conversation guides" },
