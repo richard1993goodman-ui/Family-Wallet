@@ -25,6 +25,8 @@ import {
   ReceiptText,
   UtensilsCrossed,
   BadgePercent,
+  Gift,
+  Library,
 } from "lucide-react";
 
 import { unlockWallet } from "@/lib/wallet.functions";
@@ -67,6 +69,8 @@ const items = [
   { icon: ReceiptText, label: "Expenses tracker — petty cash and reimbursement notes" },
   { icon: ClipboardCheck, label: "Friday Weekly Report — a polished recap of the week, ready to print" },
   { icon: Plane, label: "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes" },
+  { icon: Gift, label: "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations" },
+  { icon: Library, label: "Curated Seasonal Playbooks — timely activity, sport and family guides" },
   { icon: Pill, label: "Medication log — timestamped doses so nobody double-doses" },
   { icon: Dumbbell, label: "Active Kids Sports Passport — skills, challenges and confidence wins" },
   { icon: CalendarCheck, label: "Reviews & check-ins — 6-month and yearly conversation guides" },

@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Premium partner perks and seasonal playbooks are agency-managed records; wallet reads always require the existing link-and-code session so private offers remain private.

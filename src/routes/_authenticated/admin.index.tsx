@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Copy, Plus } from "lucide-react";
 
 import { ChallengesPanel } from "@/components/ChallengesPanel";
+import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
 import { TIER_BANDS, tierFor } from "@/lib/tiers";
 import { supabase } from "@/integrations/supabase/client";
@@ -243,6 +244,7 @@ function AdminHome() {
         </Link>
 
         <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+        <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
 
         <div className="mt-8 space-y-3">
           {families.data?.length === 0 && (
