@@ -17,7 +17,6 @@ import {
   Plane,
   Pill,
   FileBarChart,
-  Plane,
   CalendarCheck,
   ClipboardCheck,
   Dumbbell,
