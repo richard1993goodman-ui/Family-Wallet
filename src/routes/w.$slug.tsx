@@ -32,6 +32,10 @@ import {
   WandSparkles,
   Gift,
   Library,
+  Calculator,
+  Handshake,
+  ShieldCheck,
+  Landmark,
   ExternalLink,
 } from "lucide-react";
 
@@ -282,6 +286,15 @@ function WalletPage() {
           <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
           <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
           <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
+          <HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Checks, training and insurance records in one place" />
+        </div></>}
+
+        {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
+
+        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Family concierge</h2><div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
+          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
+          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
         </div></>}
 
         <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
@@ -993,6 +1006,10 @@ function HubTile({
     | "/travel/$slug"
     | "/perks/$slug"
     | "/playbooks/$slug";
+    | "/payroll/$slug"
+    | "/costs/$slug"
+    | "/curation/$slug"
+    | "/safety/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
