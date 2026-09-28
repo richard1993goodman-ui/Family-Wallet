@@ -30,6 +30,8 @@ import {
   UserPlus,
   UtensilsCrossed,
   WandSparkles,
+  Gift,
+  Library,
   ExternalLink,
 } from "lucide-react";
 
@@ -597,6 +599,12 @@ function WalletPage() {
 
         {!isNanny && <div className="mt-9 flex items-center justify-between rounded-xl border border-border bg-card p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
 
+        <h2 className="heading-display mt-9 text-lg text-foreground">Premium membership</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="VIP Member Perks" subtitle="Private London partner offers and family concierge recommendations" />
+          <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Seasonal Playbooks" subtitle="Curated activity, sport and family guides from the agency" />
+        </div>
+
         <h2 className="heading-display mt-9 text-lg text-foreground">Help &amp; training</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
@@ -982,7 +990,9 @@ function HubTile({
     | "/handover/$slug"
     | "/timesheets/$slug"
     | "/report/$slug"
-    | "/travel/$slug";
+    | "/travel/$slug"
+    | "/perks/$slug"
+    | "/playbooks/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;

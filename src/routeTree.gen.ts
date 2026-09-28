@@ -27,7 +27,9 @@ import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
+import { Route as PerksSlugRouteImport } from './routes/perks.$slug'
 import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
+import { Route as PlaybooksSlugRouteImport } from './routes/playbooks.$slug'
 import { Route as ReportSlugRouteImport } from './routes/report.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as TermsSlugRouteImport } from './routes/terms.$slug'
@@ -131,9 +133,19 @@ const PassportSlugRoute = PassportSlugRouteImport.update({
   path: '/passport/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerksSlugRoute = PerksSlugRouteImport.update({
+  id: '/perks/$slug',
+  path: '/perks/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlannerSlugRoute = PlannerSlugRouteImport.update({
   id: '/planner/$slug',
   path: '/planner/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaybooksSlugRoute = PlaybooksSlugRouteImport.update({
+  id: '/playbooks/$slug',
+  path: '/playbooks/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReportSlugRoute = ReportSlugRouteImport.update({
@@ -223,7 +235,9 @@ export interface FileRoutesByFullPath {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
+  '/perks/$slug': typeof PerksSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
+  '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -256,7 +270,9 @@ export interface FileRoutesByTo {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
+  '/perks/$slug': typeof PerksSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
+  '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -291,7 +307,9 @@ export interface FileRoutesById {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
+  '/perks/$slug': typeof PerksSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
+  '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
@@ -326,7 +344,9 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
+    | '/perks/$slug'
     | '/planner/$slug'
+    | '/playbooks/$slug'
     | '/report/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -359,7 +379,9 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
+    | '/perks/$slug'
     | '/planner/$slug'
+    | '/playbooks/$slug'
     | '/report/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -393,7 +415,9 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
+    | '/perks/$slug'
     | '/planner/$slug'
+    | '/playbooks/$slug'
     | '/report/$slug'
     | '/support/$slug'
     | '/terms/$slug'
@@ -428,7 +452,9 @@ export interface RootRouteChildren {
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
   PassportSlugRoute: typeof PassportSlugRoute
+  PerksSlugRoute: typeof PerksSlugRoute
   PlannerSlugRoute: typeof PlannerSlugRoute
+  PlaybooksSlugRoute: typeof PlaybooksSlugRoute
   ReportSlugRoute: typeof ReportSlugRoute
   SupportSlugRoute: typeof SupportSlugRoute
   TermsSlugRoute: typeof TermsSlugRoute
@@ -567,11 +593,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PassportSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/perks/$slug': {
+      id: '/perks/$slug'
+      path: '/perks/$slug'
+      fullPath: '/perks/$slug'
+      preLoaderRoute: typeof PerksSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/planner/$slug': {
       id: '/planner/$slug'
       path: '/planner/$slug'
       fullPath: '/planner/$slug'
       preLoaderRoute: typeof PlannerSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playbooks/$slug': {
+      id: '/playbooks/$slug'
+      path: '/playbooks/$slug'
+      fullPath: '/playbooks/$slug'
+      preLoaderRoute: typeof PlaybooksSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/report/$slug': {
@@ -706,7 +746,9 @@ const rootRouteChildren: RootRouteChildren = {
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
   PassportSlugRoute: PassportSlugRoute,
+  PerksSlugRoute: PerksSlugRoute,
   PlannerSlugRoute: PlannerSlugRoute,
+  PlaybooksSlugRoute: PlaybooksSlugRoute,
   ReportSlugRoute: ReportSlugRoute,
   SupportSlugRoute: SupportSlugRoute,
   TermsSlugRoute: TermsSlugRoute,
