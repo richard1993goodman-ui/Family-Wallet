@@ -1041,6 +1041,63 @@ export type Database = {
           },
         ]
       }
+      nanny_safety_documents: {
+        Row: {
+          document_type: string
+          expires_on: string | null
+          family_id: string
+          file_name: string
+          id: string
+          issued_on: string | null
+          nanny_id: string
+          reference_label: string | null
+          storage_path: string
+          uploaded_at: string
+          visibility: string
+        }
+        Insert: {
+          document_type: string
+          expires_on?: string | null
+          family_id: string
+          file_name: string
+          id?: string
+          issued_on?: string | null
+          nanny_id: string
+          reference_label?: string | null
+          storage_path: string
+          uploaded_at?: string
+          visibility?: string
+        }
+        Update: {
+          document_type?: string
+          expires_on?: string | null
+          family_id?: string
+          file_name?: string
+          id?: string
+          issued_on?: string | null
+          nanny_id?: string
+          reference_label?: string | null
+          storage_path?: string
+          uploaded_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_safety_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_perks: {
         Row: {
           area: string | null
