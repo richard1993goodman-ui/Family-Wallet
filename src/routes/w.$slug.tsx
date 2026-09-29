@@ -239,6 +239,15 @@ function WalletPage() {
   return (
     <div className="min-h-screen bg-sand">
       <div className="mx-auto max-w-2xl px-5 py-10">
+        {slug === "demo" && (
+          <div className="mb-6 rounded-xl border border-primary/30 bg-card p-4 text-sm">
+            <p className="font-semibold text-primary">You're viewing a demo Family Vault</p>
+            <p className="mt-1 text-muted-foreground">
+              The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member,
+              your own private vault is set up with your family, your nanny and your agreement.
+            </p>
+          </div>
+        )}
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Athlete Mannies &amp; Nannies
         </p>

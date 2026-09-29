@@ -122,6 +122,21 @@ export async function attemptUnlock(slug: string, code: string) {
   return { ok: true as const };
 }
 
+export const DEMO_SLUG = "demo";
+
+/** Only ever unlocks the demo wallet — never a real family. */
+export async function openDemo() {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("slug")
+    .eq("slug", DEMO_SLUG)
+    .eq("status", "active")
+    .maybeSingle();
+  if (!data) return { ok: false as const };
+  await markUnlocked(DEMO_SLUG);
+  return { ok: true as const };
+}
+
 /* ---------------- Nanny invitation & sign-in ---------------- */
 
 /** Codes are hashed against the family (not the individual) so older invites keep working. */

@@ -10,6 +10,12 @@ export const getWalletSummary = createServerFn({ method: "GET" })
     return { unlocked: false as const, exists: !!familyName, familyName };
   });
 
+/** Opens the shared demo wallet (slug "demo") without a code, for prospective families. */
+export const openDemoWallet = createServerFn({ method: "POST" }).handler(async () => {
+  const { openDemo } = await import("./wallet.server");
+  return openDemo();
+});
+
 export const unlockWallet = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; code: string }) => data)
   .handler(async ({ data }) => {
