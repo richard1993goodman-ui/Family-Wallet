@@ -246,9 +246,6 @@ function WalletPage() {
               The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member,
               your own private vault is set up with your family, your nanny and your agreement.
             </p>
-            <a href="https://wa.me/447444209141" className="mt-2 inline-block font-medium text-primary underline">
-              Talk to Athlete Mannies about joining
-            </a>
           </div>
         )}
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
