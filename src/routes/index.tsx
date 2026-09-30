@@ -211,6 +211,18 @@ function Index() {
 
         <FamilyLogin />
 
+        <div className="mt-8 rounded-xl border border-primary/30 bg-card p-6">
+          <h2 className="heading-display text-lg text-foreground">New here?</h2>
+          <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
+            Take a look inside a real member wallet — no login needed. This is a sample family so
+            nothing here is live, but everything you see is what your own family wallet gives you.
+          </p>
+          <Link to="/demo" className="mt-4 block">
+            <Button className="w-full">View the demo wallet</Button>
+          </Link>
+        </div>
+
+
         <div className="mt-8 rounded-xl border border-border bg-card p-6">
           <h2 className="heading-display text-lg text-foreground">Inside your wallet</h2>
           <ul className="mt-4 space-y-3">
