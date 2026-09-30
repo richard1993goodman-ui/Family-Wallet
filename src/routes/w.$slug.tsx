@@ -290,23 +290,7 @@ function WalletPage() {
           </div>
         )}
 
-        {!isNanny && <><h2 className="heading-display mt-7 text-lg text-foreground">Your family</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
-          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
-          <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
-          <HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Checks, training and insurance records in one place" />
-        </div></>}
-
-        {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
-
-        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Family concierge</h2><div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
-          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
-          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
-        </div></>}
-
-        <h2 className="heading-display mt-9 text-lg text-foreground">This week</h2>
+        <h2 className="heading-display mt-7 text-lg text-foreground">This week</h2>
         <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
@@ -346,6 +330,23 @@ function WalletPage() {
             <LifeBuoy className="h-5 w-5 flex-shrink-0 text-primary" />
           </Link>
         )}
+
+        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
+          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
+          <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
+          <HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Checks, training and insurance records in one place" />
+        </div></>}
+
+        {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
+
+        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Family concierge</h2><div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
+          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
+          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
+        </div></>}
+
 
         {!isNanny && (
           <SetupStatus
