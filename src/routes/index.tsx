@@ -214,7 +214,7 @@ function Index() {
         <div className="mt-8 rounded-xl border border-primary/30 bg-card p-6">
           <h2 className="heading-display text-lg text-foreground">New here?</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
-            Take a look inside a real member wallet — no login needed. This is a sample family so
+            Take a look inside a demo member wallet — no login needed. This is a sample family so
             nothing here is live, but everything you see is what your own family wallet gives you.
           </p>
           <Link to="/demo" className="mt-4 block">
