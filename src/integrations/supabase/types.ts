@@ -589,6 +589,73 @@ export type Database = {
           },
         ]
       }
+      family_moments: {
+        Row: {
+          added_by: string
+          added_by_name: string | null
+          caption: string | null
+          child_id: string | null
+          created_at: string
+          family_id: string
+          id: string
+          kind: string
+          milestone_label: string | null
+          moment_date: string
+          nanny_id: string | null
+          storage_path: string | null
+        }
+        Insert: {
+          added_by: string
+          added_by_name?: string | null
+          caption?: string | null
+          child_id?: string | null
+          created_at?: string
+          family_id: string
+          id?: string
+          kind?: string
+          milestone_label?: string | null
+          moment_date: string
+          nanny_id?: string | null
+          storage_path?: string | null
+        }
+        Update: {
+          added_by?: string
+          added_by_name?: string | null
+          caption?: string | null
+          child_id?: string | null
+          created_at?: string
+          family_id?: string
+          id?: string
+          kind?: string
+          milestone_label?: string | null
+          moment_date?: string
+          nanny_id?: string | null
+          storage_path?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_moments_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "family_children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_moments_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_moments_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       family_nannies: {
         Row: {
           bio: string | null
@@ -1789,6 +1856,38 @@ export type Database = {
           succeeded?: boolean
         }
         Relationships: []
+      }
+      welcome_progress: {
+        Row: {
+          created_at: string
+          family_id: string
+          finished_at: string | null
+          steps: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          family_id: string
+          finished_at?: string | null
+          steps?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          family_id?: string
+          finished_at?: string | null
+          steps?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "welcome_progress_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
