@@ -504,7 +504,7 @@ function WalletPage() {
           </>
         )}
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">{isNanny ? "Your agreement" : "Your documents"}</h2>
+        <h2 id="documents" className="heading-display mt-9 scroll-mt-20 text-lg text-foreground">{isNanny ? "Your agreement" : "Your documents"}</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <HubTile
             slug={slug}
