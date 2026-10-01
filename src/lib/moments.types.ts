@@ -3,9 +3,9 @@ export type MomentKind = "photo" | "milestone";
 export type MomentInput = {
   kind: MomentKind;
   momentDate: string;
-  caption?: string;
-  childId?: string;
-  milestoneLabel?: string;
+  caption?: string | undefined;
+  childId?: string | undefined;
+  milestoneLabel?: string | undefined;
 };
 
 export type MomentPhotoInput = MomentInput & {
