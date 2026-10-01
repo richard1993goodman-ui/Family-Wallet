@@ -91,6 +91,8 @@ const benefitGroups = [
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
       "Medication log — timestamped doses so nobody double-doses",
+      "Photo moments & milestones — a private photo diary and milestone journal for your children",
+      "Day-One welcome journey — a guided seven-step setup for your first week",
       "Insurance & safeguarding record — clear check, training and cover status",
     ],
   },

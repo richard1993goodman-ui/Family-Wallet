@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import type { ComponentType, ReactNode } from "react";
 import {
   BadgeCheck,
+  Camera,
   BookOpen,
   CalendarCheck,
   CalendarDays,
@@ -83,7 +84,9 @@ type WalletPath =
   | "/checkin/$slug"
   | "/training/$slug"
   | "/safety/$slug"
-  | "/terms/$slug";
+  | "/terms/$slug"
+  | "/welcome/$slug"
+  | "/moments/$slug";
 
 type NavItem = {
   label: string;
@@ -122,6 +125,8 @@ const walletPrefixes = new Set([
   "training",
   "safety",
   "terms",
+  "welcome",
+  "moments",
 ]);
 
 const navGroups: NavGroup[] = [
@@ -134,11 +139,13 @@ const navGroups: NavGroup[] = [
       { label: "Friday report", icon: FileBarChart, to: "/report/$slug" },
       { label: "Medication log", icon: Pill, to: "/medication/$slug" },
       { label: "Travel pack", icon: Plane, to: "/travel/$slug" },
+      { label: "Photo moments", icon: Camera, to: "/moments/$slug" },
     ],
   },
   {
     label: "Family",
     items: [
+      { label: "Welcome journey", icon: Sparkles, to: "/welcome/$slug", parentOnly: true },
       { label: "Emergency card", icon: Siren, to: "/emergency/$slug" },
       { label: "Children & routines", icon: Users, to: "/family/$slug", parentOnly: true },
       { label: "Your nannies", icon: UserPlus, to: "/nannies/$slug", parentOnly: true },

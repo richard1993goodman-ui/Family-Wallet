@@ -11,3 +11,4 @@
 
 - Premium partner perks and seasonal playbooks are agency-managed records; wallet reads always require the existing link-and-code session so private offers remain private.
 - All unlocked family-wallet routes render inside one shared responsive navigation shell so desktop, mobile, parent, and nanny navigation stay consistent.
+- Every new wallet feature reads data through the shared link-and-code session (requireFamily / requireSharedFamily), splits into lib/<feature>.{functions,types}.ts plus a .server.ts helper, and gets a /<feature>/$slug page inside the shared navigation shell; demo sample rows are seeded in drizzle migrations.

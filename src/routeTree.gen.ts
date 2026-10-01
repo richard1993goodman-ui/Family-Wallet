@@ -27,6 +27,7 @@ import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
+import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
@@ -42,6 +43,7 @@ import { Route as TimesheetsSlugRouteImport } from './routes/timesheets.$slug'
 import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
 import { Route as TravelSlugRouteImport } from './routes/travel.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
+import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
@@ -138,6 +140,11 @@ const MedicationSlugRoute = MedicationSlugRouteImport.update({
   path: '/medication/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MomentsSlugRoute = MomentsSlugRouteImport.update({
+  id: '/moments/$slug',
+  path: '/moments/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NanniesSlugRoute = NanniesSlugRouteImport.update({
   id: '/nannies/$slug',
   path: '/nannies/$slug',
@@ -213,6 +220,11 @@ const WSlugRoute = WSlugRouteImport.update({
   path: '/w/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WelcomeSlugRoute = WelcomeSlugRouteImport.update({
+  id: '/welcome/$slug',
+  path: '/welcome/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -265,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
+  '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
@@ -280,6 +293,7 @@ export interface FileRoutesByFullPath {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/welcome/$slug': typeof WelcomeSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -305,6 +319,7 @@ export interface FileRoutesByTo {
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
+  '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
@@ -320,6 +335,7 @@ export interface FileRoutesByTo {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/welcome/$slug': typeof WelcomeSlugRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -347,6 +363,7 @@ export interface FileRoutesById {
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
+  '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/passport/$slug': typeof PassportSlugRoute
@@ -362,6 +379,7 @@ export interface FileRoutesById {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/welcome/$slug': typeof WelcomeSlugRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -389,6 +407,7 @@ export interface FileRouteTypes {
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
+    | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
@@ -404,6 +423,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/welcome/$slug'
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin/'
@@ -429,6 +449,7 @@ export interface FileRouteTypes {
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
+    | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
@@ -444,6 +465,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/welcome/$slug'
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin'
@@ -470,6 +492,7 @@ export interface FileRouteTypes {
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
+    | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/passport/$slug'
@@ -485,6 +508,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/welcome/$slug'
     | '/_authenticated/admin/support'
     | '/certificate/$slug/$id'
     | '/_authenticated/admin/'
@@ -512,6 +536,7 @@ export interface RootRouteChildren {
   LeaveSlugRoute: typeof LeaveSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   MedicationSlugRoute: typeof MedicationSlugRoute
+  MomentsSlugRoute: typeof MomentsSlugRoute
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
   PassportSlugRoute: typeof PassportSlugRoute
@@ -527,6 +552,7 @@ export interface RootRouteChildren {
   TrainingSlugRoute: typeof TrainingSlugRoute
   TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
+  WelcomeSlugRoute: typeof WelcomeSlugRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
 }
 
@@ -658,6 +684,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MedicationSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/moments/$slug': {
+      id: '/moments/$slug'
+      path: '/moments/$slug'
+      fullPath: '/moments/$slug'
+      preLoaderRoute: typeof MomentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nannies/$slug': {
       id: '/nannies/$slug'
       path: '/nannies/$slug'
@@ -763,6 +796,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/welcome/$slug': {
+      id: '/welcome/$slug'
+      path: '/welcome/$slug'
+      fullPath: '/welcome/$slug'
+      preLoaderRoute: typeof WelcomeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/admin'
@@ -846,6 +886,7 @@ const rootRouteChildren: RootRouteChildren = {
   LeaveSlugRoute: LeaveSlugRoute,
   LogSlugRoute: LogSlugRoute,
   MedicationSlugRoute: MedicationSlugRoute,
+  MomentsSlugRoute: MomentsSlugRoute,
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
   PassportSlugRoute: PassportSlugRoute,
@@ -861,6 +902,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrainingSlugRoute: TrainingSlugRoute,
   TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
+  WelcomeSlugRoute: WelcomeSlugRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
 }
 export const routeTree = rootRouteImport
