@@ -7,11 +7,19 @@ export type WelcomeStepId =
   | "nanny"
   | "dailyLog";
 
+export type WelcomeRoute =
+  | "/agreement/$slug"
+  | "/emergency/$slug"
+  | "/family/$slug"
+  | "/planner/$slug"
+  | "/nannies/$slug"
+  | "/log/$slug";
+
 export type WelcomeStepDef = {
   id: WelcomeStepId;
   label: string;
   description: string;
-  href: string;
+  href: WelcomeRoute;
 };
 
 export const WELCOME_STEPS: WelcomeStepDef[] = [

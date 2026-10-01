@@ -13,7 +13,7 @@ import {
   getMoments,
   saveMomentPhotoFn,
 } from "@/lib/moments.functions";
-import type { MomentsData, MomentRow } from "@/lib/moments.server";
+import type { MomentsData, MomentRow } from "@/lib/moments.types";
 
 export const Route = createFileRoute("/moments/$slug")({
   head: () => ({
@@ -274,7 +274,7 @@ function MomentCard({
 }: {
   moment: MomentRow;
   canDelete: boolean;
-  onDelete: ReturnType<typeof useServerFn<typeof deleteMomentFn>>;
+  onDelete: (args: { data: { slug: string; id: string } }) => Promise<unknown>;
   slug: string;
   refresh: () => Promise<void>;
 }) {

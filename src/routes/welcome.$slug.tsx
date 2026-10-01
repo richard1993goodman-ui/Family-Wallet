@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Camera, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -127,12 +128,18 @@ function WelcomePage() {
                 <p className="font-medium text-foreground">{step.label}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <Button size="sm" variant={step.done ? "outline" : "default"} asChild>
-                    <a href={step.href.replace("$slug", slug)}>
-                      {step.done ? "Revisit" : "Do this now"}
-                      <ChevronRight className="h-4 w-4" />
-                    </a>
-                  </Button>
+                  <Link
+                    to={step.href}
+                    params={{ slug }}
+                    className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium ${
+                      step.done
+                        ? "border border-border text-foreground hover:bg-muted"
+                        : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    }`}
+                  >
+                    {step.done ? "Revisit" : "Do this now"}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
                   {isFamily && (
                     <Button
                       size="sm"
