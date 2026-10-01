@@ -310,7 +310,9 @@ function MomentCard({
       {moment.caption && <p className="mt-2 text-sm text-foreground">{moment.caption}</p>}
       <div className="mt-2 flex items-center justify-between gap-2 text-xs text-muted-foreground">
         <span>
-          {moment.childName ?? "Family"} · by {moment.addedByName ?? (moment.addedBy === "nanny" ? "your nanny" : "a parent")}
+          {[moment.childName, moment.addedByName ?? (moment.addedBy === "nanny" ? "your nanny" : "a parent")]
+            .filter(Boolean)
+            .join(" · ")}
         </span>
         {canDelete && (
           <button
