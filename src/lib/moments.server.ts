@@ -1,27 +1,6 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSharedFamily } from "./family.server";
-import type { MomentInput, MomentPhotoInput } from "./moments.types";
-
-export type MomentRow = {
-  id: string;
-  kind: string;
-  momentDate: string;
-  caption: string | null;
-  milestoneLabel: string | null;
-  childId: string | null;
-  childName: string | null;
-  photoUrl: string | null;
-  addedBy: string;
-  addedByName: string | null;
-  createdAt: string;
-};
-
-export type MomentsData = {
-  access: "family" | "nanny";
-  familyName: string;
-  children: { id: string; name: string }[];
-  moments: MomentRow[];
-};
+import type { MomentsData, MomentInput, MomentPhotoInput, MomentRow } from "./moments.types";
 
 export async function loadMoments(slug: string): Promise<MomentsData | null> {
   const family = await requireSharedFamily(slug);
