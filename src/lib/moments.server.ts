@@ -100,7 +100,6 @@ export async function addMoment(slug: string, input: MomentInput) {
   const childId = await resolveChildId(family.id, input.childId);
   const { error } = await supabaseAdmin.from("family_moments").insert({
     family_id: family.id,
-    nanny_id: family.access === "nanny" ? null : null,
     kind: input.kind,
     moment_date: input.momentDate,
     caption: clean(input.caption, 500),
