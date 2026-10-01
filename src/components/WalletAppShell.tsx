@@ -25,7 +25,6 @@ import {
   NotebookPen,
   Pill,
   Plane,
-  ReceiptText,
   ScrollText,
   ShieldCheck,
   Siren,
