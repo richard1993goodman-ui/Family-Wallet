@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import {
+  ArrowRight,
   FileText,
   IdCard,
   Calculator,
@@ -29,6 +30,10 @@ import {
   Library,
   Handshake,
   Landmark,
+  LockKeyhole,
+  Smartphone,
+  ChevronDown,
+  HeartHandshake,
 } from "lucide-react";
 
 import { unlockWallet } from "@/lib/wallet.functions";
@@ -58,36 +63,68 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const items = [
-  { icon: Siren, label: "Emergency card — key contacts and instructions at a glance" },
-  { icon: LifeBuoy, label: "Request cover — emergency cover, babysitting and extra days" },
-  { icon: FileText, label: "Your nanny agreement" },
-  { icon: IdCard, label: "Your nanny's CV, profile and references" },
-  { icon: Shield, label: "Checks & credentials — DBS, ID and right to work" },
-  { icon: Users, label: "Know my family — children's profiles and the nanny quick guide" },
-  { icon: CalendarDays, label: "Weekly planner — what's on each day, Monday to Sunday" },
-  { icon: NotebookPen, label: "Daily log — how each day went" },
-  { icon: ClipboardCheck, label: "End-of-day handover — homework, dinner, mood and tomorrow's kit" },
-  { icon: ReceiptText, label: "Expenses tracker — petty cash and reimbursement notes" },
-  { icon: ClipboardCheck, label: "Friday Weekly Report — a polished recap of the week, ready to print" },
-  { icon: Plane, label: "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes" },
-  { icon: Gift, label: "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations" },
-  { icon: Library, label: "Curated Seasonal Playbooks — timely activity, sport and family guides" },
-  { icon: Pill, label: "Medication log — timestamped doses so nobody double-doses" },
-  { icon: Dumbbell, label: "Active Kids Sports Passport — skills, challenges and confidence wins" },
-  { icon: CalendarCheck, label: "Reviews & check-ins — 6-month and yearly conversation guides" },
-  { icon: MessagesSquare, label: "Ask Athlete Mannies — message us straight from the wallet" },
-  { icon: GraduationCap, label: "Nanny training hub — safeguarding, routines and emergencies" },
-  { icon: Award, label: "Nanny training certificate — kept in the wallet once passed" },
-  { icon: Calculator, label: "Timesheet calculator" },
-  { icon: UtensilsCrossed, label: "Nanny Fuel — cooking and meal ideas" },
-  { icon: Sparkles, label: "Nanny activity guide" },
-  { icon: BadgePercent, label: "Your Nannytax referral code and membership perks" },
-  { icon: Landmark, label: "Managed Nannytax setup — a guided introduction and visible next steps" },
-  { icon: Calculator, label: "All-in employment cost calculator — pay, NI, pension and payroll estimates" },
-  { icon: Handshake, label: "Private nanny curation — personally selected profiles, never a public catalogue" },
-  { icon: Shield, label: "Insurance & safeguarding record — clear check, training and cover status" },
-  { icon: Shield, label: "Your membership tier, fees, terms and our family guarantee" },
+const benefitGroups = [
+  {
+    icon: CalendarDays,
+    title: "Today & planning",
+    summary: "Keep every handover, shift and family update in one calm daily view.",
+    featured: ["Weekly planner", "Daily log", "Friday report"],
+    items: [
+      "Weekly planner — what's on each day, Monday to Sunday",
+      "Daily log — how each day went",
+      "End-of-day handover — homework, dinner, mood and tomorrow's kit",
+      "Expenses tracker — petty cash and reimbursement notes",
+      "Friday Weekly Report — a polished recap of the week, ready to print",
+      "Timesheet calculator",
+      "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes",
+    ],
+  },
+  {
+    icon: Siren,
+    title: "Family & safety",
+    summary: "The essential people, details and safeguards your nanny needs at a glance.",
+    featured: ["Emergency card", "Children's profiles", "Safety records"],
+    items: [
+      "Emergency card — key contacts and instructions at a glance",
+      "Request cover — emergency cover, babysitting and extra days",
+      "Your nanny's CV, profile and references",
+      "Checks & credentials — DBS, ID and right to work",
+      "Know my family — children's profiles and the nanny quick guide",
+      "Medication log — timestamped doses so nobody double-doses",
+      "Insurance & safeguarding record — clear check, training and cover status",
+    ],
+  },
+  {
+    icon: FileText,
+    title: "Agreement & employment",
+    summary: "Your working arrangement, pay tools and key documents stay together.",
+    featured: ["Nanny agreement", "Employment costs", "Nannytax support"],
+    items: [
+      "Your nanny agreement",
+      "Managed Nannytax setup — a guided introduction and visible next steps",
+      "All-in employment cost calculator — pay, NI, pension and payroll estimates",
+      "Your Nannytax referral code and membership perks",
+      "Your membership tier, fees, terms and our family guarantee",
+      "Reviews & check-ins — 6-month and yearly conversation guides",
+    ],
+  },
+  {
+    icon: HeartHandshake,
+    title: "Support & membership",
+    summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
+    featured: ["Ask Athlete Mannies", "Member perks", "Training hub"],
+    items: [
+      "Ask Athlete Mannies — message us straight from the wallet",
+      "Private nanny curation — personally selected profiles, never a public catalogue",
+      "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
+      "Curated Seasonal Playbooks — timely activity, sport and family guides",
+      "Active Kids Sports Passport — skills, challenges and confidence wins",
+      "Nanny training hub — safeguarding, routines and emergencies",
+      "Nanny training certificate — kept in the wallet once passed",
+      "Nanny Fuel — cooking and meal ideas",
+      "Nanny activity guide",
+    ],
+  },
 ];
 
 function slugFromInput(input: string) {
@@ -141,15 +178,21 @@ function FamilyLogin() {
 
 
   return (
-    <div className="mt-8 rounded-xl border border-border bg-card p-6">
+    <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-5 shadow-xl shadow-primary/5 backdrop-blur-xl sm:p-7">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary to-transparent" />
       <div className="flex items-center gap-3">
-        <KeyRound className="h-5 w-5 text-primary" />
-        <h2 className="heading-display text-lg text-foreground">Family login</h2>
+        <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md shadow-primary/15">
+          <KeyRound className="h-5 w-5" />
+        </span>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Member access</p>
+          <h2 className="heading-display text-xl text-foreground">Open your family wallet</h2>
+        </div>
       </div>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Already have your link and code? Open your wallet here.
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        Use the private link and access code sent to your family.
       </p>
-      <form onSubmit={onSubmit} className="mt-4 space-y-4">
+      <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>
           <Label htmlFor="wallet-link">Your wallet link</Label>
           <Input
@@ -159,7 +202,7 @@ function FamilyLogin() {
             placeholder="e.g. smith-4f2a"
             autoComplete="off"
             required
-            className="mt-1"
+            className="mt-1.5 h-11 bg-background/70"
           />
         </div>
         <div>
@@ -172,7 +215,7 @@ function FamilyLogin() {
             autoComplete="off"
             maxLength={8}
             required
-            className="mt-1 uppercase tracking-widest"
+            className="mt-1.5 h-11 bg-background/70 uppercase tracking-widest"
           />
         </div>
         <label className="flex items-start gap-2 text-sm text-foreground/90">
@@ -186,68 +229,152 @@ function FamilyLogin() {
             Remember this device — stay signed in for 12 months and keep my wallet link saved here.
           </span>
         </label>
-        <Button type="submit" className="w-full" disabled={busy}>
+        <Button type="submit" size="lg" className="w-full shadow-lg shadow-primary/15" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
+          {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
-
       </form>
-    </div>
+    </section>
   );
 }
 
 function Index() {
   return (
-    <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-2xl px-5 py-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Athlete Mannies &amp; Nannies
-        </p>
-        <h1 className="heading-display mt-3 text-4xl leading-tight text-primary">
-          The Family Wallet
-        </h1>
-        <p className="mt-4 text-[15px] leading-relaxed text-foreground/90">
-
-        </p>
-
-        <FamilyLogin />
-
-        <div className="mt-8 rounded-xl border border-primary/30 bg-card p-6">
-          <h2 className="heading-display text-lg text-foreground">New here?</h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
-            Take a look inside a demo member wallet — no login needed. This is a sample family so
-            nothing here is live, but everything you see is what your own family wallet gives you.
-          </p>
-          <Link to="/demo" className="mt-4 block">
-            <Button className="w-full">View the demo wallet</Button>
-          </Link>
+    <div className="min-h-screen overflow-hidden bg-sand">
+      <header className="border-b border-border/70 bg-background/75 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
+          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/15">
+            AM
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-foreground">Athlete Mannies &amp; Nannies</p>
+            <p className="text-xs text-muted-foreground">Private family membership</p>
+          </div>
+          <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
+            <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
+          </span>
         </div>
+      </header>
 
+      <main>
+        <section className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:px-8 sm:pt-14">
+          <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
+            <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">
+              The Family Wallet
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+              More than finding a nanny. Your membership keeps family routines, essential documents,
+              everyday support and trusted agency guidance together in one private place.
+            </p>
+          </div>
 
-        <div className="mt-8 rounded-xl border border-border bg-card p-6">
-          <h2 className="heading-display text-lg text-foreground">Inside your wallet</h2>
-          <ul className="mt-4 space-y-3">
-            {items.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-3 text-[15px] text-foreground/90">
-                <Icon className="h-5 w-5 flex-shrink-0 text-primary" />
-                {label}
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
+              <FamilyLogin />
 
-        <div className="mt-8 rounded-xl border border-border bg-card p-6">
-          <h2 className="heading-display text-lg text-foreground">Opening your wallet</h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
-            We send you a personal wallet link and a short access code. Open the link, enter the
-            code once, and your wallet stays open on that device for 12 months when remembered.
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Lost your link or code? Message us on WhatsApp or email richard@athletemannies.com and
-            we will send it again.
-          </p>
-        </div>
+              <div className="mt-4 rounded-2xl border border-secondary/70 bg-background/70 p-5 backdrop-blur-lg sm:p-6">
+                <div className="flex items-start gap-3">
+                  <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
+                    <Smartphone className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
+                    <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/75">
+                  Step inside a complete sample family wallet with no login. Nothing in the demo is live.
+                </p>
+                <Button asChild variant="outline" size="lg" className="mt-4 w-full border-primary/30 bg-card/70">
+                  <Link to="/demo">
+                    View the demo wallet <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
 
-        <div className="mt-10 text-center">
+            <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your wallet</p>
+              <h2 className="heading-display mt-2 text-3xl leading-tight text-foreground">
+                Everything around your nanny, in one place
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                A practical daily home for parents and nannies, backed by ongoing agency support.
+              </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {benefitGroups.map(({ icon: Icon, title, summary, featured }) => (
+                  <article key={title} className="rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm backdrop-blur-lg transition-transform duration-200 hover:-translate-y-0.5">
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <Icon className="h-4.5 w-4.5" />
+                      </span>
+                      <h3 className="font-semibold text-foreground">{title}</h3>
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{summary}</p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {featured.map((label) => (
+                        <span key={label} className="rounded-md bg-muted px-2 py-1 text-[11px] font-medium text-foreground/75">
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section className="border-y border-border/70 bg-background/65 backdrop-blur-lg">
+          <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+            <details className="group rounded-xl border border-border bg-card/75">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
+                <div>
+                  <h2 className="heading-display text-xl text-foreground">See everything included</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Wallet.</p>
+                </div>
+                <ChevronDown className="h-5 w-5 flex-none text-primary transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="grid gap-7 border-t border-border px-5 py-6 sm:grid-cols-2 sm:px-6">
+                {benefitGroups.map(({ icon: Icon, title, items }) => (
+                  <div key={title}>
+                    <h3 className="flex items-center gap-2 font-semibold text-foreground">
+                      <Icon className="h-4 w-4 text-primary" /> {title}
+                    </h3>
+                    <ul className="mt-3 space-y-2.5">
+                      {items.map((item) => (
+                        <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground">
+                          <span className="mt-2 size-1.5 flex-none rounded-full bg-secondary" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-6xl gap-6 px-5 py-10 sm:px-8 md:grid-cols-2">
+          <div>
+            <h2 className="heading-display text-xl text-foreground">Opening your wallet</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              We send your personal wallet link and short access code. Enter them once and choose
+              “Remember this device” to stay signed in for 12 months.
+            </p>
+          </div>
+          <div className="md:border-l md:border-border md:pl-6">
+            <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Message us on WhatsApp or email richard@athletemannies.com and we will resend your link and code.
+            </p>
+          </div>
+        </section>
+
+        <div className="pb-10 text-center">
           <Link
             to="/admin"
             className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
@@ -255,7 +382,7 @@ function Index() {
             Agency sign in
           </Link>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
