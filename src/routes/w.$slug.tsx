@@ -37,12 +37,15 @@ import {
   ShieldCheck,
   Landmark,
   ExternalLink,
+  Camera,
+  Sparkles,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
 import { WalletChallenges } from "@/components/WalletChallenges";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { getHubSummary } from "@/lib/family.functions";
+import { getWelcome } from "@/lib/welcome.functions";
 import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
@@ -257,6 +260,7 @@ function WalletPage() {
 
         <WalletTravelBanner slug={slug} />
         <WalletChallenges slug={slug} />
+        {!isNanny && <WelcomeCard slug={slug} />}
 
         {wallet.nannies.length > 0 && (
           <div className="mt-4 rounded-xl border border-border bg-card p-6">
@@ -299,6 +303,7 @@ function WalletPage() {
           <HubTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
           <HubTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
           <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
+          <HubTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
         </div>
 
         <Link
@@ -1019,7 +1024,8 @@ function HubTile({
     | "/payroll/$slug"
     | "/costs/$slug"
     | "/curation/$slug"
-    | "/safety/$slug";
+    | "/safety/$slug"
+    | "/moments/$slug";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   subtitle: string;
@@ -1058,5 +1064,34 @@ function ExternalToolTile({
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
       </span>
     </a>
+  );
+}
+
+function WelcomeCard({ slug }: { slug: string }) {
+  const welcomeFn = useServerFn(getWelcome);
+  const welcomeQuery = useQuery({
+    queryKey: ["welcome", slug],
+    queryFn: () => welcomeFn({ data: { slug } }),
+  });
+  const welcome = welcomeQuery.data;
+
+  if (!welcome || welcome.completed || welcome.finishedAt) return null;
+
+  return (
+    <Link
+      to="/welcome/$slug"
+      params={{ slug }}
+      className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-primary/40 bg-accent p-5 hover:border-primary"
+    >
+      <span>
+        <span className="block font-medium text-foreground">
+          Finish setting up your wallet — {welcome.doneCount} of {welcome.total} done
+        </span>
+        <span className="mt-1 block text-sm text-muted-foreground">
+          Seven small steps: agreement, emergency card, contacts, children, planner and more.
+        </span>
+      </span>
+      <Sparkles className="h-5 w-5 flex-shrink-0 text-primary" />
+    </Link>
   );
 }
