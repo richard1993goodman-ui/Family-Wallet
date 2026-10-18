@@ -180,7 +180,7 @@ function FamilyLogin() {
 
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-5 shadow-xl shadow-primary/5 backdrop-blur-xl sm:p-7">
+    <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-5 shadow-xl shadow-primary/5 sm:p-7">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary to-transparent" />
       <div className="flex items-center gap-3">
         <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md shadow-primary/15">
@@ -231,7 +231,7 @@ function FamilyLogin() {
             Remember this device — stay signed in for 12 months and keep my wallet link saved here.
           </span>
         </label>
-        <Button type="submit" size="lg" className="w-full shadow-lg shadow-primary/15" disabled={busy}>
+        <Button type="submit" size="lg" className="w-full" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
@@ -243,9 +243,9 @@ function FamilyLogin() {
 function Index() {
   return (
     <div className="min-h-screen overflow-hidden bg-sand">
-      <header className="border-b border-border/70 bg-background/75 backdrop-blur-xl">
+      <header className="border-b border-border/70 bg-background/75">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/15">
+          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">
             AM
           </span>
           <div className="min-w-0">
@@ -275,7 +275,7 @@ function Index() {
             <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
               <FamilyLogin />
 
-              <div className="mt-4 rounded-2xl border border-secondary/70 bg-background/70 p-5 backdrop-blur-lg sm:p-6">
+              <div className="mt-4 rounded-2xl border border-secondary/70 bg-background/70 p-5 sm:p-6">
                 <div className="flex items-start gap-3">
                   <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
                     <Smartphone className="h-5 w-5" />
@@ -307,7 +307,7 @@ function Index() {
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {benefitGroups.map(({ icon: Icon, title, summary, featured }) => (
-                  <article key={title} className="rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm backdrop-blur-lg transition-transform duration-200 hover:-translate-y-0.5">
+                  <article key={title} className="rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm">
                     <div className="flex items-center gap-3">
                       <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Icon className="h-4.5 w-4.5" />
@@ -329,9 +329,9 @@ function Index() {
           </div>
         </section>
 
-        <section className="border-y border-border/70 bg-background/65 backdrop-blur-lg">
+        <section className="border-y border-border/70 bg-background/65">
           <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-            <details className="group rounded-xl border border-border bg-card/75">
+            <details className="group rounded-2xl bg-card shadow-sm/75">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
                 <div>
                   <h2 className="heading-display text-xl text-foreground">See everything included</h2>
