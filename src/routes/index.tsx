@@ -331,7 +331,7 @@ function Index() {
 
         <section className="border-y border-border/70 bg-background/65">
           <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-            <details className="group rounded-xl border border-border bg-card/75">
+            <details className="group rounded-2xl bg-card shadow-sm/75">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
                 <div>
                   <h2 className="heading-display text-xl text-foreground">See everything included</h2>

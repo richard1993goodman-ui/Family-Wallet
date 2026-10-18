@@ -204,7 +204,7 @@ function WalletPage() {
 
     return (
       <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
-        <div className="w-full max-w-sm rounded-xl border border-border bg-card p-7 text-center">
+        <div className="w-full max-w-sm rounded-2xl bg-card shadow-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Athlete Mannies &amp; Nannies
@@ -243,7 +243,7 @@ function WalletPage() {
     <div className="min-h-screen bg-sand">
       <div className="mx-auto max-w-2xl px-5 py-10">
         {slug === "demo" && (
-          <div className="mb-6 rounded-xl border border-primary/30 bg-card p-4 text-sm">
+          <div className="mb-6 rounded-2xl bg-card shadow-sm p-4 text-sm">
             <p className="font-semibold text-primary">You're viewing a demo Family Vault</p>
             <p className="mt-1 text-muted-foreground">
               The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member,
@@ -263,7 +263,7 @@ function WalletPage() {
         {!isNanny && <WelcomeCard slug={slug} />}
 
         {wallet.nannies.length > 0 && (
-          <div className="mt-4 rounded-xl border border-border bg-card p-6">
+          <div className="mt-4 rounded-2xl bg-card shadow-sm p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               {wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}
             </p>
@@ -427,7 +427,7 @@ function WalletPage() {
         )}
 
         {nannies.length > 1 && outstandingAgreements.length > 0 && (
-          <div className="mt-3 rounded-xl border border-border bg-card p-5">
+          <div className="mt-3 rounded-2xl bg-card shadow-sm p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Agreements still to sign
             </p>
@@ -565,7 +565,7 @@ function WalletPage() {
                   return (
                     <div
                       key={check.docType}
-                      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5"
+                      className="flex items-start gap-3 rounded-2xl bg-card shadow-sm p-5"
                     >
                       <BadgeCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                       <span>
@@ -594,7 +594,7 @@ function WalletPage() {
         {!isNanny && wallet.nannytaxCode && (
           <>
             <h2 className="ios-section-title mt-8">Your Nannytax code</h2>
-            <div className="mt-3 rounded-xl border border-border bg-card p-5">
+            <div className="mt-3 rounded-2xl bg-card shadow-sm p-5">
               <p className="text-sm text-muted-foreground">
                 Use this referral code when you set up payroll with Nannytax.
               </p>
@@ -625,7 +625,7 @@ function WalletPage() {
           </>
         )}
 
-        {!isNanny && <div className="mt-9 flex items-center justify-between rounded-xl border border-border bg-card p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
+        {!isNanny && <div className="mt-9 flex items-center justify-between rounded-2xl bg-card shadow-sm p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
 
         <h2 className="ios-section-title mt-8">Premium membership</h2>
         <div className="ios-group mt-2">
@@ -709,7 +709,7 @@ function ContactCard({
   contact: { name: string; relationship: string | null; phone: string };
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-2xl bg-card shadow-sm p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         {label}
       </p>
@@ -745,7 +745,7 @@ function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
   const barColour = allDone ? "bg-emerald-600" : done >= total / 2 ? "bg-amber-500" : "bg-destructive";
 
   return (
-    <div className="mt-4 rounded-xl border border-border bg-card p-5">
+    <div className="mt-4 rounded-2xl bg-card shadow-sm p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -844,7 +844,7 @@ function TodayPanel({ slug, entries, schedules }: {
   const anyHours = schedules.some((schedule) => schedule.workingDays.some((day) => day.enabled));
 
   return (
-    <div className="mt-6 rounded-xl border border-border bg-card p-6">
+    <div className="mt-6 rounded-2xl bg-card shadow-sm p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Family calendar</p>
@@ -980,7 +980,7 @@ function DocTile({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="flex w-full items-start gap-3 rounded-xl border border-border bg-card p-5 text-left transition-colors hover:border-primary/40 disabled:cursor-not-allowed disabled:opacity-55"
+      className="flex w-full items-start gap-3 rounded-2xl bg-card shadow-sm p-5 text-left transition-colors hover:border-primary/40 disabled:cursor-not-allowed disabled:opacity-55"
     >
       <span className="ios-icon"><Icon className="h-4 w-4" /></span>
       <span>
