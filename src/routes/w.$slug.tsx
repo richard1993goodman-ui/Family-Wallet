@@ -294,9 +294,9 @@ function WalletPage() {
           </div>
         )}
 
-        <h2 className="heading-display mt-7 text-lg text-foreground">This week</h2>
+        <h2 className="ios-section-title mt-6">This week</h2>
         <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div className="ios-group mt-2">
           <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
           <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
@@ -336,8 +336,8 @@ function WalletPage() {
           </Link>
         )}
 
-        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Your family</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
+        <div className="ios-group mt-2">
           <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
           <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
           <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
@@ -346,7 +346,7 @@ function WalletPage() {
 
         {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
 
-        {!isNanny && <><h2 className="heading-display mt-9 text-lg text-foreground">Family concierge</h2><div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
           <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
           <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
           <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
@@ -479,8 +479,8 @@ function WalletPage() {
         )}
 
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Activities, meals &amp; pay</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <h2 className="ios-section-title mt-8">Activities, meals &amp; pay</h2>
+        <div className="ios-group mt-2">
           <HubTile slug={slug} to="/passport/$slug" icon={Dumbbell} title="Active Kids Passport" subtitle={hub?.latestPassport ? `${hub.latestPassport.child_name}: ${hub.latestPassport.activity}` : "Sports skills, challenges and confidence wins"} />
           <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
           <ExternalToolTile href="https://nanny-nourish-guide.lovable.app" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Open the original cooking and meal ideas app" />
@@ -491,8 +491,8 @@ function WalletPage() {
 
         {(wallet.nannies.some((n) => n.emergency) || wallet.contacts.length > 0) && (
           <>
-            <h2 className="heading-display mt-9 text-lg text-foreground">Emergency contacts</h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <h2 className="ios-section-title mt-8">Emergency contacts</h2>
+            <div className="ios-group mt-2">
               {wallet.nannies
                 .filter((n) => n.emergency)
                 .map((nanny) => (
@@ -510,7 +510,7 @@ function WalletPage() {
         )}
 
         <h2 id="documents" className="heading-display mt-9 scroll-mt-20 text-lg text-foreground">{isNanny ? "Your agreement" : "Your documents"}</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div className="ios-group mt-2">
           <HubTile
             slug={slug}
             to="/agreement/$slug"
@@ -544,10 +544,10 @@ function WalletPage() {
 
         {!isNanny && wallet.checks.length > 0 && (
           <>
-            <h2 className="heading-display mt-9 text-lg text-foreground">
+            <h2 className="ios-section-title mt-8">
               Checks &amp; credentials
             </h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <div className="ios-group mt-2">
               {wallet.checks.map((check) => {
                 const meta = CHECK_LABELS[check.docType] ?? { title: check.docType };
                 const detail = [
@@ -593,7 +593,7 @@ function WalletPage() {
 
         {!isNanny && wallet.nannytaxCode && (
           <>
-            <h2 className="heading-display mt-9 text-lg text-foreground">Your Nannytax code</h2>
+            <h2 className="ios-section-title mt-8">Your Nannytax code</h2>
             <div className="mt-3 rounded-xl border border-border bg-card p-5">
               <p className="text-sm text-muted-foreground">
                 Use this referral code when you set up payroll with Nannytax.
@@ -627,14 +627,14 @@ function WalletPage() {
 
         {!isNanny && <div className="mt-9 flex items-center justify-between rounded-xl border border-border bg-card p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Premium membership</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <h2 className="ios-section-title mt-8">Premium membership</h2>
+        <div className="ios-group mt-2">
           <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="VIP Member Perks" subtitle="Private London partner offers and family concierge recommendations" />
           <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Seasonal Playbooks" subtitle="Curated activity, sport and family guides from the agency" />
         </div>
 
-        <h2 className="heading-display mt-9 text-lg text-foreground">Help &amp; training</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <h2 className="ios-section-title mt-8">Help &amp; training</h2>
+        <div className="ios-group mt-2">
           <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
           <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
@@ -642,7 +642,7 @@ function WalletPage() {
             href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+            className="ios-row"
           >
             <ScrollText className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
             <span className="min-w-0 flex-1">
@@ -982,7 +982,7 @@ function DocTile({
       disabled={disabled}
       className="flex w-full items-start gap-3 rounded-xl border border-border bg-card p-5 text-left transition-colors hover:border-primary/40 disabled:cursor-not-allowed disabled:opacity-55"
     >
-      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span className="ios-icon"><Icon className="h-4 w-4" /></span>
       <span>
         <span className="block font-medium text-foreground">{title}</span>
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
@@ -1034,9 +1034,9 @@ function HubTile({
     <Link
       to={to}
       params={{ slug }}
-      className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40"
+      className="ios-row"
     >
-      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+      <span className="ios-icon"><Icon className="h-4 w-4" /></span>
       <span>
         <span className="block font-medium text-foreground">{title}</span>
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
@@ -1057,8 +1057,8 @@ function ExternalToolTile({
   subtitle: string;
 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/40">
-      <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+    <a href={href} target="_blank" rel="noopener noreferrer" className="ios-row">
+      <span className="ios-icon"><Icon className="h-4 w-4" /></span>
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-1.5 font-medium text-foreground">{title}<ExternalLink className="h-3.5 w-3.5" /></span>
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
