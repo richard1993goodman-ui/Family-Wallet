@@ -676,7 +676,7 @@ function FamilyDetail() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="active">Active (paying member)</SelectItem>
-                      <SelectItem value="cancelled">Cancelled (wallet locked)</SelectItem>
+                      <SelectItem value="cancelled">Cancelled (vault locked)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

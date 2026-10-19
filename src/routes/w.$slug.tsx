@@ -192,7 +192,7 @@ function WalletPage() {
       return (
         <div className="flex min-h-screen items-center justify-center bg-sand px-5">
           <div className="max-w-sm text-center">
-            <h1 className="heading-display text-2xl text-primary">Wallet not found</h1>
+            <h1 className="heading-display text-2xl text-primary">Vault not found</h1>
             <p className="mt-3 text-sm text-muted-foreground">
               This link isn't active. Please check the link we sent you, or get in touch and we'll
               send a fresh one.
@@ -658,7 +658,7 @@ function WalletPage() {
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
-          Wallet last updated{" "}
+          Vault last updated{" "}
           {new Date(wallet.updatedAt).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",
