@@ -129,6 +129,15 @@ const benefitGroups = [
   },
 ];
 
+const headlineBenefits = [
+  { icon: CalendarDays, title: "Everyone sees the same week", detail: "Shifts, school runs and clubs in one shared planner." },
+  { icon: Pill, title: "No double-dosing with the medication log", detail: "Every dose timed and signed, so nobody has to text to check." },
+  { icon: ReceiptText, title: "A Friday report ready to print", detail: "Hours, activities, handovers and expenses, summed up for you." },
+  { icon: Siren, title: "Emergency details always to hand", detail: "Key contacts, allergies and instructions in one tap." },
+  { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
+  { icon: LifeBuoy, title: "Cover when your nanny is off", detail: "Request backup or extra days straight from your phone." },
+];
+
 function slugFromInput(input: string) {
   const trimmed = input.trim();
   // Accept a full wallet link or just the short name at the end.
@@ -305,26 +314,19 @@ function Index() {
                 A practical daily home for parents and nannies, backed by ongoing agency support.
               </p>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {benefitGroups.map(({ icon: Icon, title, summary, featured }) => (
-                  <article key={title} className="rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm">
-                    <div className="flex items-center gap-3">
-                      <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <Icon className="h-4.5 w-4.5" />
-                      </span>
-                      <h3 className="font-semibold text-foreground">{title}</h3>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {headlineBenefits.map(({ icon: Icon, title, detail }) => (
+                  <li key={title} className="flex gap-3 rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm">
+                    <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-4.5 w-4.5" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold leading-snug text-foreground">{title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{detail}</p>
                     </div>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{summary}</p>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {featured.map((label) => (
-                        <span key={label} className="rounded-md bg-muted px-2 py-1 text-[11px] font-medium text-foreground/75">
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           </div>
         </section>
