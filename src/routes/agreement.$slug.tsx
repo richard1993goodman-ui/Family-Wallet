@@ -637,7 +637,7 @@ function AgreementPage() {
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Read your agreement in full and sign it here. Your signed copy is kept in the family's
-            wallet.
+            vault.
           </p>
           <div className="mt-6">{body}</div>
           <BackToWallet slug={slug} />
