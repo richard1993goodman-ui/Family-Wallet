@@ -58,7 +58,7 @@ export async function loadWalletChallenges(slug: string): Promise<WalletChalleng
 
 export async function markChallengeDone(slug: string, challengeId: string, note?: string) {
   const family = await requireSharedFamily(slug);
-  if (!family) throw new Error("Wallet is locked");
+  if (!family) throw new Error("Vault is locked");
   const list = await visibleChallenges(family.id);
   if (!list.some((c) => c.id === challengeId)) throw new Error("Challenge not found");
   const { error } = await supabaseAdmin.from("challenge_completions").upsert(

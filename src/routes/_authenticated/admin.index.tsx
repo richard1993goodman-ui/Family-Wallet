@@ -31,10 +31,10 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
-      { title: "Families — Athlete Mannies Family Wallet" },
-      { name: "description", content: "Create and manage private family wallets." },
-      { property: "og:title", content: "Families — Athlete Mannies Family Wallet" },
-      { property: "og:description", content: "Create and manage private family wallets." },
+      { title: "Families — Athlete Mannies Family Vault" },
+      { name: "description", content: "Create and manage private Family Vaults." },
+      { property: "og:title", content: "Families — Athlete Mannies Family Vault" },
+      { property: "og:description", content: "Create and manage private Family Vaults." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -110,7 +110,7 @@ function AdminHome() {
           <h1 className="heading-display text-xl text-primary">Not an agency account</h1>
           {status.data.adminExists ? (
             <p className="mt-3 text-sm text-muted-foreground">
-              This account does not have access to the wallet admin.
+              This account does not have access to the vault admin.
             </p>
           ) : (
             <>
@@ -147,7 +147,7 @@ function AdminHome() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Athlete Mannies &amp; Nannies
             </p>
-            <h1 className="heading-display mt-2 text-3xl text-primary">Family wallets</h1>
+            <h1 className="heading-display mt-2 text-3xl text-primary">Family Vaults</h1>
           </div>
           <button
             onClick={signOut}

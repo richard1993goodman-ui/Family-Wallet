@@ -67,16 +67,16 @@ import {
 export const Route = createFileRoute("/w/$slug")({
   head: () => ({
     meta: [
-      { title: "Your Family Wallet — Athlete Mannies & Nannies" },
+      { title: "Your Family Vault — Athlete Mannies & Nannies" },
       {
         name: "description",
         content:
-          "Your private family wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
+          "Your private Family Vault: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Your Family Wallet — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Your Family Vault — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Your private family wallet from Athlete Mannies & Nannies.",
+        content: "Your private Family Vault from Athlete Mannies & Nannies.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -180,7 +180,7 @@ function WalletPage() {
   if (query.isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading your wallet…
+        Loading your vault…
       </div>
     );
   }
@@ -192,7 +192,7 @@ function WalletPage() {
       return (
         <div className="flex min-h-screen items-center justify-center bg-sand px-5">
           <div className="max-w-sm text-center">
-            <h1 className="heading-display text-2xl text-primary">Wallet not found</h1>
+            <h1 className="heading-display text-2xl text-primary">Vault not found</h1>
             <p className="mt-3 text-sm text-muted-foreground">
               This link isn't active. Please check the link we sent you, or get in touch and we'll
               send a fresh one.
@@ -225,7 +225,7 @@ function WalletPage() {
               required
             />
             <Button type="submit" className="w-full" disabled={busy}>
-              {busy ? "Checking…" : "Open my wallet"}
+              {busy ? "Checking…" : "Open my vault"}
             </Button>
           </form>
         </div>
@@ -658,7 +658,7 @@ function WalletPage() {
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
-          Wallet last updated{" "}
+          Vault last updated{" "}
           {new Date(wallet.updatedAt).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",
@@ -682,7 +682,7 @@ function WalletPage() {
               await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
             }}
           >
-            Lock this wallet
+            Lock this vault
           </button>
         </div>
       </div>
@@ -1085,7 +1085,7 @@ function WelcomeCard({ slug }: { slug: string }) {
     >
       <span>
         <span className="block font-medium text-foreground">
-          Finish setting up your wallet — {welcome.doneCount} of {welcome.total} done
+          Finish setting up your vault — {welcome.doneCount} of {welcome.total} done
         </span>
         <span className="mt-1 block text-sm text-muted-foreground">
           Seven small steps: agreement, emergency card, contacts, children, planner and more.

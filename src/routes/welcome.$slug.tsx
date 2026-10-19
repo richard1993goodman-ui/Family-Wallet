@@ -16,12 +16,12 @@ export const Route = createFileRoute("/welcome/$slug")({
       { title: "Welcome journey — Athlete Mannies & Nannies" },
       {
         name: "description",
-        content: "A guided first-week path to set up your family wallet completely.",
+        content: "A guided first-week path to set up your Family Vault completely.",
       },
       { property: "og:title", content: "Welcome journey — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Set up your family wallet step by step — agreement, emergency card, contacts and more.",
+        content: "Set up your Family Vault step by step — agreement, emergency card, contacts and more.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -71,7 +71,7 @@ function WelcomePage() {
     try {
       await finishFn({ data: { slug } });
       await refresh();
-      toast.success("Setup finished — enjoy your wallet!");
+      toast.success("Setup finished — enjoy your vault!");
     } finally {
       setBusy(false);
     }
@@ -85,8 +85,8 @@ function WelcomePage() {
       title="Welcome journey"
       intro={
         isFamily
-          ? "Seven small steps to get your wallet working for your family. Most take under a minute, and anything you've already done is ticked automatically."
-          : "A guided look at what the family is setting up in their wallet."
+          ? "Seven small steps to get your vault working for your family. Most take under a minute, and anything you've already done is ticked automatically."
+          : "A guided look at what the family is setting up in their vault."
       }
     >
       <Card>
@@ -97,8 +97,8 @@ function WelcomePage() {
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
               {data.completed
-                ? "Your wallet is fully set up — everything below stays here whenever you need it."
-                : "Keep going — each tick makes the wallet more useful for everyone."}
+                ? "Your vault is fully set up — everything below stays here whenever you need it."
+                : "Keep going — each tick makes the vault more useful for everyone."}
             </p>
           </div>
           <Sparkles className="h-8 w-8 flex-shrink-0 text-primary" />
@@ -163,7 +163,7 @@ function WelcomePage() {
             <div>
               <p className="font-medium text-foreground">All done early?</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Tidy the journey away now — you can always come back from your wallet home.
+                Tidy the journey away now — you can always come back from your vault home.
               </p>
             </div>
             <Button variant="outline" disabled={busy} onClick={finish}>

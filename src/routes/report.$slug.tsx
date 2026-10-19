@@ -12,7 +12,7 @@ export const Route = createFileRoute("/report/$slug")({
   head: () => ({
     meta: [
       { title: "Friday Weekly Report — Athlete Mannies & Nannies" },
-      { name: "description", content: "A polished weekly recap of hours, handovers, activities, sports progress and expenses from your family wallet." },
+      { name: "description", content: "A polished weekly recap of hours, handovers, activities, sports progress and expenses from your Family Vault." },
       { property: "og:title", content: "Friday Weekly Report — Athlete Mannies & Nannies" },
       { property: "og:description", content: "Your family's week at a glance, ready to review or print." },
       { property: "og:type", content: "website" },

@@ -38,10 +38,10 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/family/$id")({
   head: () => ({
     meta: [
-      { title: "Family details — Athlete Mannies Family Wallet" },
-      { name: "description", content: "Edit a family's wallet, documents and membership." },
-      { property: "og:title", content: "Family details — Athlete Mannies Family Wallet" },
-      { property: "og:description", content: "Edit a family's wallet, documents and membership." },
+      { title: "Family details — Athlete Mannies Family Vault" },
+      { name: "description", content: "Edit a family's vault, documents and membership." },
+      { property: "og:title", content: "Family details — Athlete Mannies Family Vault" },
+      { property: "og:description", content: "Edit a family's vault, documents and membership." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -255,7 +255,7 @@ function FamilyDetail() {
             </div>
 
             <div className="mt-4 rounded-xl border border-border bg-card p-5">
-              <p className="text-sm font-medium text-foreground">Wallet link &amp; access code</p>
+              <p className="text-sm font-medium text-foreground">Vault link &amp; access code</p>
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                 <code className="rounded bg-muted px-2 py-1">/w/{family.slug}</code>
                 <code className="rounded bg-muted px-2 py-1">Code {family.access_code}</code>
@@ -332,7 +332,7 @@ function FamilyDetail() {
                   );
                 })}
                 <div>
-                  <Label className="text-sm">Nanny photo (shown in the wallet)</Label>
+                  <Label className="text-sm">Nanny photo (shown in the vault)</Label>
                   {family.nanny_photo_path ? (
                     <p className="mt-1 text-sm text-muted-foreground">Photo set — upload again to replace</p>
                   ) : (
@@ -610,7 +610,7 @@ function FamilyDetail() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="nbio">Nanny bio (shown in the wallet)</Label>
+                <Label htmlFor="nbio">Nanny bio (shown in the vault)</Label>
                 <Textarea
                   id="nbio"
                   className="mt-1"
@@ -629,7 +629,7 @@ function FamilyDetail() {
                   onChange={(e) => setForm({ ...form, nannytaxCode: e.target.value })}
                 />
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Shown in this family's wallet with a link to nannytax.co.uk.
+                  Shown in this family's vault with a link to nannytax.co.uk.
                 </p>
               </div>
               <div>
@@ -676,7 +676,7 @@ function FamilyDetail() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="active">Active (paying member)</SelectItem>
-                      <SelectItem value="cancelled">Cancelled (wallet locked)</SelectItem>
+                      <SelectItem value="cancelled">Cancelled (vault locked)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -707,7 +707,7 @@ function FamilyDetail() {
             <div className="mt-8 rounded-xl border border-destructive/40 bg-card p-5">
               <p className="font-medium text-foreground">Delete this family</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Permanently removes the wallet and everything in it (documents, agreements, logs). This cannot be undone. To keep their records, set them to Cancelled instead.
+                Permanently removes the vault and everything in it (documents, agreements, logs). This cannot be undone. To keep their records, set them to Cancelled instead.
               </p>
               <Button
                 type="button"

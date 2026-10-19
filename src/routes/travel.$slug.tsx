@@ -64,7 +64,7 @@ function TravelPage() {
   const setV = (k: keyof TripInput) => (v: string) => setForm((f) => ({ ...(f ?? emptyTrip), [k]: v }));
 
   return (
-    <HubPage slug={slug} title="Travel & Villa Nanny Pack" intro="Going abroad? Add your trip and the wallet switches to travel mode — checklist, local emergency details and travel handover notes in one place.">
+    <HubPage slug={slug} title="Travel & Villa Nanny Pack" intro="Going abroad? Add your trip and the vault switches to travel mode — checklist, local emergency details and travel handover notes in one place.">
       {data.trips.length > 1 && (
         <div className="mb-4 flex flex-wrap gap-2">
           {data.trips.map((t) => (
@@ -103,7 +103,7 @@ function TravelPage() {
         </Card>
       )}
 
-      {!trip && !form && <Card><p className="text-sm text-muted-foreground">{isParent ? "No trips yet. Add one to switch your wallet into travel mode while you're away." : "No trips have been added yet."}</p></Card>}
+      {!trip && !form && <Card><p className="text-sm text-muted-foreground">{isParent ? "No trips yet. Add one to switch your vault into travel mode while you're away." : "No trips have been added yet."}</p></Card>}
 
       {trip && !form && (
         <div className="space-y-4">

@@ -13,11 +13,11 @@ import { COVER_TYPES, type CoverType } from "@/lib/cover.types";
 export const Route = createFileRoute("/cover/$slug")({
   head: () => ({
     meta: [
-      { title: "Emergency cover request | Athlete Mannies Family Wallet" },
+      { title: "Emergency cover request | Athlete Mannies Family Vault" },
       {
         name: "description",
         content:
-          "Request emergency nanny cover, babysitting or holiday cover from Athlete Mannies straight from your family wallet.",
+          "Request emergency nanny cover, babysitting or holiday cover from Athlete Mannies straight from your Family Vault.",
       },
       { property: "og:title", content: "Emergency cover request" },
       {

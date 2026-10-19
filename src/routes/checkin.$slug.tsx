@@ -19,7 +19,7 @@ import { CHECKIN_KINDS, CHECKIN_PROMPTS, type CheckinKind } from "@/lib/checkin.
 export const Route = createFileRoute("/checkin/$slug")({
   head: () => ({
     meta: [
-      { title: "Reviews & check-ins | Athlete Mannies Family Wallet" },
+      { title: "Reviews & check-ins | Athlete Mannies Family Vault" },
       {
         name: "description",
         content:
@@ -90,7 +90,7 @@ function CheckinPage() {
         setAnswers({});
       }
       await query.refetch();
-      toast.success(complete ? "Check-in saved to your wallet" : "Draft saved");
+      toast.success(complete ? "Check-in saved to your vault" : "Draft saved");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not save the check-in");
     } finally {
@@ -199,7 +199,7 @@ function CheckinPage() {
             <Save className="h-4 w-4" /> Save draft
           </Button>
           <Button disabled={saving} onClick={() => save(true)}>
-            <CalendarCheck className="h-4 w-4" /> Save to wallet
+            <CalendarCheck className="h-4 w-4" /> Save to vault
           </Button>
         </div>
       </Card>
