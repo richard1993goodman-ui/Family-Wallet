@@ -22,7 +22,7 @@ export const Route = createFileRoute("/support/$slug")({
       { property: "og:title", content: "Ask Athlete Mannies — Support" },
       {
         property: "og:description",
-        content: "Send a question to your Athlete Mannies team and get an answer in your wallet.",
+        content: "Send a question to your Athlete Mannies team and get an answer in your vault.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -89,7 +89,7 @@ function SupportPage() {
     <HubPage
       slug={slug}
       title="Ask Athlete Mannies"
-      intro="Anything at all — pay, holidays, behaviour, a replacement nanny. We answer here in your wallet."
+      intro="Anything at all — pay, holidays, behaviour, a replacement nanny. We answer here in your vault."
     >
       <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
         <Input

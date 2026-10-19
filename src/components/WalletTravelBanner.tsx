@@ -8,7 +8,7 @@ import { getTravel } from "@/lib/travel.functions";
 const fmt = (d: string) =>
   new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
 
-/** Travel mode: shown at the top of the wallet while a trip is on (or coming up within 14 days). */
+/** Travel mode: shown at the top of the vault while a trip is on (or coming up within 14 days). */
 export function WalletTravelBanner({ slug }: { slug: string }) {
   const fn = useServerFn(getTravel);
   const { data } = useQuery({ queryKey: ["travel", slug], queryFn: () => fn({ data: { slug } }) });

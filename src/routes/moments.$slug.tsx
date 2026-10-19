@@ -21,7 +21,7 @@ export const Route = createFileRoute("/moments/$slug")({
       { title: "Photo moments & milestones — Athlete Mannies & Nannies" },
       {
         name: "description",
-        content: "A private photo diary and milestone journal for your children, kept in your family wallet.",
+        content: "A private photo diary and milestone journal for your children, kept in your Family Vault.",
       },
       {
         property: "og:title",

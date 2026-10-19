@@ -34,12 +34,12 @@ export const Route = createFileRoute("/agreement/$slug")({
       {
         name: "description",
         content:
-          "Build, read and sign your full nanny employment contract inside your family wallet — no printing, no email attachments.",
+          "Build, read and sign your full nanny employment contract inside your Family Vault — no printing, no email attachments.",
       },
       { property: "og:title", content: "Your nanny agreement — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Build, read and sign your nanny employment contract inside your family wallet.",
+        content: "Build, read and sign your nanny employment contract inside your Family Vault.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -109,7 +109,7 @@ function AgreementPage() {
         data: { slug, data: draft, publish, nannyId: nannyId || null },
       });
       if (!result.ok) {
-        toast.error("Please unlock your wallet again.");
+        toast.error("Please unlock your vault again.");
         return;
       }
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
@@ -130,7 +130,7 @@ function AgreementPage() {
       if (!result.ok) {
         toast.error(
           result.reason === "locked"
-            ? "Please unlock your wallet again."
+            ? "Please unlock your vault again."
             : "We couldn't write a draft just now. Please try again in a moment.",
         );
         return;
@@ -183,7 +183,7 @@ function AgreementPage() {
       if (!result.ok) {
         toast.error(
           result.reason === "locked"
-            ? "Please unlock your wallet again."
+            ? "Please unlock your vault again."
             : "We couldn't write a statement just now. Please try again in a moment.",
         );
         return;
@@ -220,7 +220,7 @@ function AgreementPage() {
     try {
       const result = await inviteFn({ data: { slug, nannyId: data.nannyId, regenerate } });
       if (!result) {
-        toast.error("Please unlock your wallet again.");
+        toast.error("Please unlock your vault again.");
         return;
       }
       setInvite({ code: result.code });
@@ -241,7 +241,7 @@ function AgreementPage() {
       },
     });
     if (result.ok) {
-      toast.success("Signed and saved to the wallet.");
+      toast.success("Signed and saved to the vault.");
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
       await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
     } else if (result.reason === "name") {
@@ -520,7 +520,7 @@ function AgreementPage() {
               <h2 className="heading-display text-lg text-foreground">Invite your nanny to sign</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Send your nanny their own link and code. It opens the agreement only — the rest of
-                your wallet stays private.
+                your vault stays private.
               </p>
               {invite ? (
                 <div className="mt-3 space-y-2">
@@ -650,7 +650,7 @@ function AgreementPage() {
     <HubPage
       slug={slug}
       title="Your nanny agreement"
-      intro="Read it here, sign it here. Your signed copy stays in your wallet."
+      intro="Read it here, sign it here. Your signed copy stays in your vault."
     >
       {body}
     </HubPage>

@@ -27,7 +27,7 @@ export const Route = createFileRoute("/nannies/$slug")({
       { property: "og:title", content: "Your nannies — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Manage every nanny in your family wallet — codes, details and agreements.",
+        content: "Manage every nanny in your Family Vault — codes, details and agreements.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -98,7 +98,7 @@ function NanniesPage() {
     try {
       const result = await inviteFn({ data: { slug, nannyId, regenerate } });
       if (!result) {
-        toast.error("Please unlock your wallet again.");
+        toast.error("Please unlock your vault again.");
         return;
       }
       setCodes((current) => ({ ...current, [nannyId]: result.code }));

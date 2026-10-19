@@ -17,12 +17,12 @@ export const Route = createFileRoute("/terms/$slug")({
       {
         name: "description",
         content:
-          "Read and sign your Athlete Mannies membership terms and conditions inside your family wallet.",
+          "Read and sign your Athlete Mannies membership terms and conditions inside your Family Vault.",
       },
       { property: "og:title", content: "Membership terms — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Read and sign your membership terms inside your family wallet.",
+        content: "Read and sign your membership terms inside your Family Vault.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -57,7 +57,7 @@ function TermsPage() {
       data: { slug, docKind: "terms" as const, signerRole: role, signerName: name },
     });
     if (result.ok) {
-      toast.success("Terms signed and saved to your wallet.");
+      toast.success("Terms signed and saved to your vault.");
       await queryClient.invalidateQueries({ queryKey: ["signatures", slug] });
       await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
     } else if (result.reason === "name") {
@@ -73,7 +73,7 @@ function TermsPage() {
     <HubPage
       slug={slug}
       title="Membership terms & conditions"
-      intro="Read them here and sign them here — your signed copy stays in your wallet."
+      intro="Read them here and sign them here — your signed copy stays in your vault."
     >
       <div className="space-y-6">
         <Card>

@@ -11,12 +11,12 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Agency sign in — Athlete Mannies Family Wallet" },
+      { title: "Agency sign in — Athlete Mannies Family Vault" },
       {
         name: "description",
-        content: "Sign in to manage Athlete Mannies family wallets, documents and membership tiers.",
+        content: "Sign in to manage Athlete Mannies Family Vaults, documents and membership tiers.",
       },
-      { property: "og:title", content: "Agency sign in — Athlete Mannies Family Wallet" },
+      { property: "og:title", content: "Agency sign in — Athlete Mannies Family Vault" },
       { property: "og:description", content: "Private sign in for the Athlete Mannies team." },
       { name: "robots", content: "noindex" },
     ],

@@ -44,13 +44,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Family Wallet — Athlete Mannies & Nannies" },
+      { title: "Family Vault — Athlete Mannies & Nannies" },
       {
         name: "description",
         content:
-          "Every Athlete Mannies family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every Athlete Mannies family gets a private vault holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Family Wallet — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Family Vault — Athlete Mannies & Nannies" },
       {
         property: "og:description",
         content:
@@ -116,13 +116,13 @@ const benefitGroups = [
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
     featured: ["Ask Athlete Mannies", "Member perks", "Training hub"],
     items: [
-      "Ask Athlete Mannies — message us straight from the wallet",
+      "Ask Athlete Mannies — message us straight from the vault",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
       "Curated Seasonal Playbooks — timely activity, sport and family guides",
       "Active Kids Sports Passport — skills, challenges and confidence wins",
       "Nanny training hub — safeguarding, routines and emergencies",
-      "Nanny training certificate — kept in the wallet once passed",
+      "Nanny training certificate — kept in the vault once passed",
       "Nanny Fuel — cooking and meal ideas",
       "Nanny activity guide",
     ],
@@ -156,7 +156,7 @@ function FamilyLogin() {
     e.preventDefault();
     const slug = slugFromInput(link);
     if (!slug) {
-      toast.error("Please enter your wallet link.");
+      toast.error("Please enter your vault link.");
       return;
     }
     setBusy(true);
@@ -188,7 +188,7 @@ function FamilyLogin() {
         </span>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Member access</p>
-          <h2 className="heading-display text-xl text-foreground">Open your family wallet</h2>
+          <h2 className="heading-display text-xl text-foreground">Open your Family Vault</h2>
         </div>
       </div>
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -196,7 +196,7 @@ function FamilyLogin() {
       </p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>
-          <Label htmlFor="wallet-link">Your wallet link</Label>
+          <Label htmlFor="wallet-link">Your vault link</Label>
           <Input
             id="wallet-link"
             value={link}
@@ -228,11 +228,11 @@ function FamilyLogin() {
             className="mt-0.5 size-4 accent-[hsl(var(--primary))]"
           />
           <span>
-            Remember this device — stay signed in for 12 months and keep my wallet link saved here.
+            Remember this device — stay signed in for 12 months and keep my vault link saved here.
           </span>
         </label>
         <Button type="submit" size="lg" className="w-full" disabled={busy}>
-          {busy ? "Opening…" : "Open my wallet"}
+          {busy ? "Opening…" : "Open my vault"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
       </form>
@@ -263,7 +263,7 @@ function Index() {
           <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-2 duration-500">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
             <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">
-              The Family Wallet
+              The Family Vault
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
               More than finding a nanny. Your membership keeps family routines, essential documents,
@@ -281,23 +281,23 @@ function Index() {
                     <Smartphone className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the vault?</p>
                     <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
                   </div>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-foreground/75">
-                  Step inside a complete sample family wallet with no login. Nothing in the demo is live.
+                  Step inside a complete sample Family Vault with no login. Nothing in the demo is live.
                 </p>
                 <Button asChild variant="outline" size="lg" className="mt-4 w-full border-primary/30 bg-card/70">
                   <Link to="/demo">
-                    View the demo wallet <ArrowRight className="h-4 w-4" />
+                    View the demo vault <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>
             </div>
 
             <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your wallet</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your Family Vault</p>
               <h2 className="heading-display mt-2 text-3xl leading-tight text-foreground">
                 Everything around your nanny, in one place
               </h2>
@@ -335,7 +335,7 @@ function Index() {
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
                 <div>
                   <h2 className="heading-display text-xl text-foreground">See everything included</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Wallet.</p>
+                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Vault.</p>
                 </div>
                 <ChevronDown className="h-5 w-5 flex-none text-primary transition-transform group-open:rotate-180" />
               </summary>
@@ -362,7 +362,7 @@ function Index() {
 
         <section className="mx-auto grid max-w-6xl gap-6 px-5 py-10 sm:px-8 md:grid-cols-2">
           <div>
-            <h2 className="heading-display text-xl text-foreground">Opening your wallet</h2>
+            <h2 className="heading-display text-xl text-foreground">Opening your vault</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               We send your personal wallet link and short access code. Enter them once and choose
               “Remember this device” to stay signed in for 12 months.
