@@ -366,7 +366,7 @@ function Index() {
           <div>
             <h2 className="heading-display text-xl text-foreground">Opening your vault</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              We send your personal wallet link and short access code. Enter them once and choose
+              We send your personal vault link and short access code. Enter them once and choose
               “Remember this device” to stay signed in for 12 months.
             </p>
           </div>
