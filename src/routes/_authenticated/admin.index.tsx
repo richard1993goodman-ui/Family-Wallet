@@ -52,6 +52,7 @@ function AdminHome() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [band, setBand] = useState("3");
+  const [introFee, setIntroFee] = useState("");
   const [nanny, setNanny] = useState("");
   const [address, setAddress] = useState("");
   const [filter, setFilter] = useState<"all" | "active" | "cancelled">("all");
@@ -79,6 +80,7 @@ function AdminHome() {
           contactEmail: email,
           contactPhone: "",
           tierBand: band,
+          introFeePercent: introFee,
           nannyName: nanny,
           startDate: "",
           termsAcceptedOn: "",
@@ -92,6 +94,7 @@ function AdminHome() {
       setEmail("");
       setNanny("");
       setAddress("");
+      setIntroFee("");
       await queryClient.invalidateQueries({ queryKey: ["families"] });
       navigate({ to: "/admin/family/$id", params: { id: result.id } });
     } catch (error) {
@@ -213,6 +216,14 @@ function AdminHome() {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
+                <Label htmlFor="fintro">Introduction fee (% of annual nanny pay + VAT)</Label>
+                <div className="mt-1 flex items-center gap-2">
+                  <Input id="fintro" type="number" min="0" step="0.5" placeholder="e.g. 10" value={introFee} onChange={(e) => setIntroFee(e.target.value)} />
+                  <span className="whitespace-nowrap text-sm text-muted-foreground">% + VAT</span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">Leave blank if no introduction fee applies.</p>
               </div>
               <div>
                 <Label htmlFor="fnanny">Nanny name</Label>

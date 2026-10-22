@@ -1,0 +1,1 @@
+ALTER TABLE public.families ADD COLUMN intro_fee_percent numeric;

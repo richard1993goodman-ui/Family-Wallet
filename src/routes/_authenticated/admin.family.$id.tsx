@@ -99,6 +99,7 @@ function FamilyDetail() {
     contactEmail: "",
     contactPhone: "",
     tierBand: "3",
+    introFeePercent: "",
     nannyName: "",
     nannyBio: "",
     nannytaxCode: "",
@@ -123,6 +124,7 @@ function FamilyDetail() {
       contactEmail: f.contact_email ?? "",
       contactPhone: f.contact_phone ?? "",
       tierBand: f.tier_band ?? "3",
+      introFeePercent: f.intro_fee_percent == null ? "" : String(f.intro_fee_percent),
       nannyName: f.nanny_name ?? "",
       nannyBio: f.nanny_bio ?? "",
       nannytaxCode: f.nannytax_code ?? "",
@@ -587,6 +589,14 @@ function FamilyDetail() {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
+                <Label htmlFor="introfee">Introduction fee (% of annual nanny pay + VAT)</Label>
+                <div className="mt-1 flex items-center gap-2">
+                  <Input id="introfee" type="number" min="0" step="0.5" placeholder="e.g. 10" value={form.introFeePercent} onChange={(e) => setForm({ ...form, introFeePercent: e.target.value })} />
+                  <span className="whitespace-nowrap text-sm text-muted-foreground">% + VAT</span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">Leave blank if no introduction fee applies.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>

@@ -117,6 +117,7 @@ export type FamilyInput = {
   contactEmail: string;
   contactPhone: string;
   tierBand: string;
+  introFeePercent?: string;
   nannyName: string;
   nannyBio?: string;
   nannytaxCode?: string;
@@ -143,6 +144,9 @@ export const saveFamily = createServerFn({ method: "POST" })
       contact_email: data.contactEmail.trim() || null,
       contact_phone: data.contactPhone.trim() || null,
       tier_band: data.tierBand,
+      ...(data.introFeePercent !== undefined
+        ? { intro_fee_percent: data.introFeePercent.trim() === "" ? null : Math.max(0, Number(data.introFeePercent) || 0) }
+        : {}),
       nanny_name: data.nannyName.trim() || null,
       nanny_bio: (data.nannyBio ?? "").trim() || null,
       nannytax_code: (data.nannytaxCode ?? "").trim() || null,
