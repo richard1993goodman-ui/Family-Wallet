@@ -361,6 +361,7 @@ export type Database = {
           created_at: string
           family_name: string
           id: string
+          intro_fee_percent: number | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -387,6 +388,7 @@ export type Database = {
           created_at?: string
           family_name: string
           id?: string
+          intro_fee_percent?: number | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -413,6 +415,7 @@ export type Database = {
           created_at?: string
           family_name?: string
           id?: string
+          intro_fee_percent?: number | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
