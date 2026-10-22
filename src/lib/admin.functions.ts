@@ -50,7 +50,7 @@ export const listFamilies = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, tier_band, nanny_name, status, access_code, created_at")
+      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     const families = data ?? [];
@@ -143,7 +143,7 @@ export const saveFamily = createServerFn({ method: "POST" })
       family_name: data.familyName.trim(),
       contact_email: data.contactEmail.trim() || null,
       contact_phone: data.contactPhone.trim() || null,
-      tier_band: data.tierBand,
+      tier_band: data.tierBand || "",
       ...(data.introFeePercent !== undefined
         ? { intro_fee_percent: data.introFeePercent.trim() === "" ? null : Math.max(0, Number(data.introFeePercent) || 0) }
         : {}),
