@@ -89,6 +89,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "The private Family Vault from Athlete Mannies & Nannies: your nanny agreement, nanny CV, membership and everyday nanny tools in one place.",
       },
       { name: "author", content: "Athlete Mannies & Nannies" },
+      { name: "theme-color", content: "#17325b" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
