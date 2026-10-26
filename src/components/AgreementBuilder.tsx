@@ -500,6 +500,24 @@ export function AgreementBuilder({
         >
           <Area value={data.holidayAllowance} onChange={(v) => update({ holidayAllowance: v })} />
         </Labelled>
+        {data.includeHolidayEntitlement && (
+          <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+            <Checkbox
+              className="mt-0.5"
+              checked={data.rolledUpHolidayPay}
+              onCheckedChange={(checked) => update({ rolledUpHolidayPay: checked === true })}
+            />
+            <span>
+              <span className="block text-sm font-medium text-foreground">
+                Roll holiday pay up into each payslip
+              </span>
+              <span className="block text-xs text-muted-foreground">
+                For term-time and part-year nannies: holiday pay is paid at 12.07% with each
+                payslip instead of being paid when holiday is taken.
+              </span>
+            </span>
+          </label>
+        )}
       </Section>
 
       <Section title="Pay">
