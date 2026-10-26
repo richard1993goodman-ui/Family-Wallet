@@ -207,6 +207,15 @@ export function AgreementDocument({
               Holiday details to be agreed based on working pattern.
             </p>
           )}
+          {data.rolledUpHolidayPay && (
+            <p className="mt-3">
+              Holiday pay will be “rolled up” and paid together with the Nanny’s salary for each
+              pay period, calculated at 12.07% of the pay for the hours worked in that period and
+              shown separately on each payslip. The Nanny’s holiday should be taken during school
+              holidays or other non-working periods; no separate payment is made when holiday is
+              taken, as holiday pay has already been paid throughout the year.
+            </p>
+          )}
         </section>
       )}
 

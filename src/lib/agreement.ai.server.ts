@@ -59,6 +59,7 @@ function describe(data: AgreementData) {
     `Weekly hours: ${holiday.weeklyHours}`,
     `Holiday clause included: ${data.includeHolidayEntitlement ? "yes" : "no"}`,
     `Pro-rata holiday: ${holiday.totalWeeksEntitlement} weeks (${holiday.totalDaysEntitlement} days)`,
+    `Rolled-up holiday pay: ${data.rolledUpHolidayPay ? "yes — holiday pay is paid at 12.07% with each payslip, not when holiday is taken" : "no"}`,
     `Hourly rate: ${data.hourlyRate || "not given"} (${data.rateBasis === "net" ? "net / take-home" : "gross"})`,
     `Tax responsibility wording included in clause 2.1: ${data.includeTaxResponsibilityClause ? "yes" : "no"}`,
     `Pay frequency: ${data.paymentFrequency || "not given"}`,
