@@ -106,6 +106,8 @@ export interface AgreementData {
   /** Whether the holiday entitlement section appears in the printable agreement. */
   includeHolidayEntitlement: boolean;
   holidayAllowance: string;
+  /** Whether holiday pay is rolled up and paid with each payslip (part-year / term-time workers). */
+  rolledUpHolidayPay: boolean;
   sicknessPolicy: string;
 
   grievanceProcedure: string;
@@ -316,6 +318,7 @@ export const defaultAgreementData: AgreementData = {
 
   includeHolidayEntitlement: true,
   holidayAllowance: "",
+  rolledUpHolidayPay: false,
 
   sicknessPolicy:
     "If the Nanny is unable to attend work due to sickness or injury they shall (insofar as they are able) promptly notify the Employer either in person or by telephone (as appropriate) on the first day of absence. The Employer may require a doctor's certificate after seven consecutive days of sickness. Statutory Sick Pay will be paid in accordance with the law.",
@@ -409,6 +412,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     pension: text("pension"),
     includeHolidayEntitlement: r["includeHolidayEntitlement"] !== false,
     holidayAllowance: text("holidayAllowance"),
+    rolledUpHolidayPay: r["rolledUpHolidayPay"] === true,
     sicknessPolicy: text("sicknessPolicy"),
     grievanceProcedure: text("grievanceProcedure"),
     disciplinaryProcedure: text("disciplinaryProcedure"),
