@@ -1860,6 +1860,54 @@ export type Database = {
         }
         Relationships: []
       }
+      welcome_checkins: {
+        Row: {
+          confirmed_at: string | null
+          confirmed_by: string
+          family_id: string
+          id: string
+          nanny_id: string
+          note: string
+          step_id: string
+          updated_at: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          confirmed_by: string
+          family_id: string
+          id?: string
+          nanny_id: string
+          note?: string
+          step_id: string
+          updated_at?: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          confirmed_by?: string
+          family_id?: string
+          id?: string
+          nanny_id?: string
+          note?: string
+          step_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "welcome_checkins_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "welcome_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       welcome_progress: {
         Row: {
           created_at: string
