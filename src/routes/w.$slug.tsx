@@ -45,7 +45,7 @@ import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/
 import { WalletChallenges } from "@/components/WalletChallenges";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { getHubSummary } from "@/lib/family.functions";
-import { getWelcome } from "@/lib/welcome.functions";
+import { getFirst48 } from "@/lib/welcome.functions";
 import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
 import { TERMS_HUB_URL } from "@/lib/tiers";
@@ -260,7 +260,6 @@ function WalletPage() {
 
         <WalletTravelBanner slug={slug} />
         <WalletChallenges slug={slug} />
-        {!isNanny && <WelcomeCard slug={slug} />}
 
         {wallet.nannies.length > 0 && (
           <div className="mt-4 rounded-2xl bg-card shadow-sm p-6">
@@ -305,6 +304,8 @@ function WalletPage() {
           <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
           <HubTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
         </div>
+
+        <WelcomeCard slug={slug} />
 
         <Link
           to="/emergency/$slug"
@@ -1068,14 +1069,17 @@ function ExternalToolTile({
 }
 
 function WelcomeCard({ slug }: { slug: string }) {
-  const welcomeFn = useServerFn(getWelcome);
+  const welcomeFn = useServerFn(getFirst48);
   const welcomeQuery = useQuery({
-    queryKey: ["welcome", slug],
+    queryKey: ["first48", slug],
     queryFn: () => welcomeFn({ data: { slug } }),
   });
   const welcome = welcomeQuery.data;
 
-  if (!welcome || welcome.completed || welcome.finishedAt) return null;
+  if (!welcome) return null;
+  const done = welcome.nannies.reduce((total, nanny) => total + nanny.doneCount, 0);
+  const total = welcome.nannies.reduce((total, nanny) => total + nanny.total, 0);
+  const completed = total > 0 && done === total;
 
   return (
     <Link
@@ -1085,10 +1089,10 @@ function WelcomeCard({ slug }: { slug: string }) {
     >
       <span>
         <span className="block font-medium text-foreground">
-          Finish setting up your vault — {welcome.doneCount} of {welcome.total} done
+          {completed ? "First 48 hours — agreed together" : "First 48 hours — a confident start"}
         </span>
         <span className="mt-1 block text-sm text-muted-foreground">
-          Seven small steps: agreement, emergency card, contacts, children, planner and more.
+          {total ? `${done} of ${total} agreed by parent and nanny · Routines, pickups and your first handover` : "Add your nanny, then agree the essentials together."}
         </span>
       </span>
       <Sparkles className="h-5 w-5 flex-shrink-0 text-primary" />

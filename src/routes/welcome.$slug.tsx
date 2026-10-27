@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -8,20 +8,25 @@ import { toast } from "sonner";
 
 import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
-import { finishWelcomeFn, getWelcome, setWelcomeStepFn } from "@/lib/welcome.functions";
+import { First48Checklist } from "@/components/First48Checklist";
+import { finishWelcomeFn, getWelcome, getFirst48, setWelcomeStepFn } from "@/lib/welcome.functions";
+
+const welcomeOptions = (slug: string) => queryOptions({ queryKey: ["welcome", slug], queryFn: () => getWelcome({ data: { slug } }) });
+const first48Options = (slug: string) => queryOptions({ queryKey: ["first48", slug], queryFn: () => getFirst48({ data: { slug } }) });
 
 export const Route = createFileRoute("/welcome/$slug")({
+  loader: async ({ context, params }) => { await Promise.all([context.queryClient.ensureQueryData(welcomeOptions(params.slug)), context.queryClient.ensureQueryData(first48Options(params.slug))]); },
   head: () => ({
     meta: [
-      { title: "Welcome journey — Athlete Mannies & Nannies" },
+      { title: "First 48 hours — Family Vault | Athlete Mannies & Nannies" },
       {
         name: "description",
-        content: "A guided first-week path to set up your Family Vault completely.",
+        content: "A shared parent and nanny checklist for a confident first two days, with confirmations, routines and settling-in notes.",
       },
-      { property: "og:title", content: "Welcome journey — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "First 48 hours — Family Vault" },
       {
         property: "og:description",
-        content: "Set up your Family Vault step by step — agreement, emergency card, contacts and more.",
+        content: "Agree the essentials together, from school collection and safety to your first handover.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -34,21 +39,13 @@ export const Route = createFileRoute("/welcome/$slug")({
 function WelcomePage() {
   const { slug } = Route.useParams();
   const client = useQueryClient();
-  const loadFn = useServerFn(getWelcome);
   const stepFn = useServerFn(setWelcomeStepFn);
   const finishFn = useServerFn(finishWelcomeFn);
   const [busy, setBusy] = useState(false);
 
-  const query = useQuery({ queryKey: ["welcome", slug], queryFn: () => loadFn({ data: { slug } }) });
-
-  if (query.isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
-    );
-  }
-  if (!query.data) return <LockedNotice slug={slug} />;
+  const query = useSuspenseQuery(welcomeOptions(slug));
+  const first48 = useSuspenseQuery(first48Options(slug));
+  if (!query.data || !first48.data) return <LockedNotice slug={slug} />;
 
   const data = query.data;
   const isFamily = data.access === "family";
@@ -82,13 +79,13 @@ function WelcomePage() {
   return (
     <HubPage
       slug={slug}
-      title="Welcome journey"
-      intro={
-        isFamily
-          ? "Seven small steps to get your vault working for your family. Most take under a minute, and anything you've already done is ticked automatically."
-          : "A guided look at what the family is setting up in their vault."
-      }
+      title="First 48 hours"
+      intro="A confident start for your family and nanny. Clear routines, shared expectations and a little time to talk."
     >
+      <First48Checklist slug={slug} data={first48.data} />
+      <details className="mt-8 border-t border-border pt-5">
+      <summary className="cursor-pointer font-semibold text-foreground">Family Vault setup · {data.doneCount} of {data.total} done</summary>
+      <div className="mt-4">
       <Card>
         <div className="flex items-center justify-between gap-4">
           <div>
@@ -172,6 +169,8 @@ function WelcomePage() {
           </div>
         </Card>
       )}
+      </div>
+      </details>
     </HubPage>
   );
 }
