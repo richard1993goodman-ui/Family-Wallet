@@ -92,7 +92,7 @@ const benefitGroups = [
       "Know my family — children's profiles and the nanny quick guide",
       "Medication log — timestamped doses so nobody double-doses",
       "Photo moments & milestones — a private photo diary and milestone journal for your children",
-      "Day-One welcome journey — a guided seven-step setup for your first week",
+      "First 48 hours — agree routines, pickups and expectations together with a shared parent and nanny checklist",
       "Insurance & safeguarding record — clear check, training and cover status",
     ],
   },

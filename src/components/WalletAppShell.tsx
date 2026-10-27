@@ -145,7 +145,7 @@ const navGroups: NavGroup[] = [
   {
     label: "Family",
     items: [
-      { label: "Welcome journey", icon: Sparkles, to: "/welcome/$slug", parentOnly: true },
+      { label: "First 48 hours", icon: Sparkles, to: "/welcome/$slug" },
       { label: "Emergency card", icon: Siren, to: "/emergency/$slug" },
       { label: "Children & routines", icon: Users, to: "/family/$slug", parentOnly: true },
       { label: "Your nannies", icon: UserPlus, to: "/nannies/$slug", parentOnly: true },

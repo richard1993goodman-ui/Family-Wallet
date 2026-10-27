@@ -176,6 +176,13 @@
       "when": 1792697952973,
       "tag": "0024_family_intro_fee",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793099361676,
+      "tag": "0025_first_48_hours_checklist",
+      "breakpoints": true
     }
   ]
 }
