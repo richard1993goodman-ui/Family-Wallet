@@ -1,5 +1,10 @@
 # Roadmap
 
+- [ ] Extend the welcome journey with a shared first-48-hours checklist
+- [ ] Add parent/nanny confirmations, notes and progress
+- [ ] Update Family Vault and homepage entry points
+- [ ] Verify checklist persistence and access protection
+
 - [x] Add secure service-status and nanny-insurance schema
 - [x] Add parent/nanny service functions and agency controls
 - [x] Build payroll concierge and employment cost calculator
