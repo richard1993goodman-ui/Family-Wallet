@@ -42,7 +42,7 @@ function Segmented<T extends string>({ value, options, onChange }: { value: T; o
 }
 
 function CalculatorPage() {
-  const [input, setInput] = useState<CostInput>({ rate: 15, basis: "net", hoursPerDay: 3.5, daysPerWeek: 3, pattern: "term-time", termWeeks: 38, includeMembership: true, payrollMonthly: 0 });
+  const [input, setInput] = useState<CostInput>({ rate: 15, basis: "net", hoursPerDay: 3.5, daysPerWeek: 3, pattern: "term-time", termWeeks: 38, includeMembership: false, payrollMonthly: 0 });
   const set = <K extends keyof CostInput>(k: K, v: CostInput[K]) => setInput((o) => ({ ...o, [k]: v }));
   const num = (k: keyof CostInput) => (e: React.ChangeEvent<HTMLInputElement>) => set(k, Number(e.target.value) as never);
   const r = calculateNannyCost(input);
@@ -57,7 +57,7 @@ function CalculatorPage() {
     `Estimated all-in: ${gbp(r.monthlyTotal)}/month (${gbp2(r.allInHourly)}/hr)`,
   ].filter(Boolean).join("\n");
 
-  const waText = `Hi Richard, I ran our numbers through the cost calculator (${r.days} days, ${r.weeklyHours} hrs/wk, £${input.rate}/hr ${input.basis}, ${r.tier.name} tier — about ${gbp(r.monthlyTotal)}/month). Can we talk about finding a nanny?`;
+  const waText = `Hi Richard, I ran our numbers through the cost calculator (${r.days} days, ${r.weeklyHours} hrs/wk, £${input.rate}/hr ${input.basis}${input.includeMembership ? `, ${r.tier.name} tier` : ""} — about ${gbp(r.monthlyTotal)}/month). Can we talk about finding a nanny?`;
 
   const rows: [string, number][] = [
     ["Nanny take-home pay", r.netPay],
@@ -77,7 +77,7 @@ function CalculatorPage() {
         <Link to="/" className="inline-flex items-center gap-1 text-sm text-primary"><ArrowLeft className="h-4 w-4" /> Home</Link>
         <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Plan your budget</p>
         <h1 className="heading-display mt-2 text-3xl text-foreground sm:text-4xl">What will a nanny really cost?</h1>
-        <p className="mt-3 text-muted-foreground">Enter the rate you've discussed — take-home or gross — and see your full monthly outlay, including tax, pension and membership.</p>
+        <p className="mt-3 text-muted-foreground">Enter the rate you've discussed — take-home or gross — and see your full monthly outlay, including tax and pension. Membership is unticked by default, so you can add it only if you're on a monthly plan.</p>
 
         <section className="mt-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm sm:grid-cols-2 sm:p-6">
           <div className="sm:col-span-2 space-y-2">
@@ -97,7 +97,7 @@ function CalculatorPage() {
           <div className="space-y-2"><Label htmlFor="payroll">Payroll service per month (£, optional)</Label><Input id="payroll" type="number" min="0" value={input.payrollMonthly || ""} onChange={num("payrollMonthly")} /></div>
           <label className="flex items-center gap-3 text-sm text-foreground sm:col-span-2">
             <input type="checkbox" className="h-4 w-4 accent-primary" checked={input.includeMembership} onChange={(e) => set("includeMembership", e.target.checked)} />
-            Include Athlete Mannies membership ({r.tier.name}, £{r.tier.monthly} + VAT/month for {r.days} day{r.days > 1 ? "s" : ""} a week)
+            <span>Include Athlete Mannies membership ({r.tier.name}, £{r.tier.monthly} + VAT/month for {r.days} day{r.days > 1 ? "s" : ""} a week). Leave unticked if you're paying the one-off introduction fee instead.</span>
           </label>
         </section>
 
