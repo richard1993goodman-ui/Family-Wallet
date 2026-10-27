@@ -42,7 +42,7 @@ function Segmented<T extends string>({ value, options, onChange }: { value: T; o
 }
 
 function CalculatorPage() {
-  const [input, setInput] = useState<CostInput>({ rate: 15, basis: "net", hoursPerDay: 3.5, daysPerWeek: 3, pattern: "term-time", termWeeks: 38, includeMembership: true, payrollMonthly: 0 });
+  const [input, setInput] = useState<CostInput>({ rate: 15, basis: "net", hoursPerDay: 3.5, daysPerWeek: 3, pattern: "term-time", termWeeks: 38, includeMembership: false, payrollMonthly: 0 });
   const set = <K extends keyof CostInput>(k: K, v: CostInput[K]) => setInput((o) => ({ ...o, [k]: v }));
   const num = (k: keyof CostInput) => (e: React.ChangeEvent<HTMLInputElement>) => set(k, Number(e.target.value) as never);
   const r = calculateNannyCost(input);
@@ -57,7 +57,7 @@ function CalculatorPage() {
     `Estimated all-in: ${gbp(r.monthlyTotal)}/month (${gbp2(r.allInHourly)}/hr)`,
   ].filter(Boolean).join("\n");
 
-  const waText = `Hi Richard, I ran our numbers through the cost calculator (${r.days} days, ${r.weeklyHours} hrs/wk, £${input.rate}/hr ${input.basis}, ${r.tier.name} tier — about ${gbp(r.monthlyTotal)}/month). Can we talk about finding a nanny?`;
+  const waText = `Hi Richard, I ran our numbers through the cost calculator (${r.days} days, ${r.weeklyHours} hrs/wk, £${input.rate}/hr ${input.basis}${input.includeMembership ? `, ${r.tier.name} tier` : ""} — about ${gbp(r.monthlyTotal)}/month). Can we talk about finding a nanny?`;
 
   const rows: [string, number][] = [
     ["Nanny take-home pay", r.netPay],
