@@ -302,6 +302,9 @@ function Index() {
                     View the demo vault <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
+                <Link to="/calculator" className="mt-3 flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline">
+                  What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
 
