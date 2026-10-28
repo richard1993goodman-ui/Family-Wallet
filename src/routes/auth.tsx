@@ -32,11 +32,63 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "setup">("signin");
   const [sent, setSent] = useState(false);
 
+  const [twoStep, setTwoStep] = useState<
+    null | { kind: "verify"; factorId: string } | { kind: "enroll"; factorId: string; qr: string; secret: string }
+  >(null);
+  const [code, setCode] = useState("");
+
+  async function continueTwoStep() {
+    const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal?.currentLevel === "aal2") {
+      navigate({ to: "/admin", replace: true });
+      return;
+    }
+    const { data: factors, error } = await supabase.auth.mfa.listFactors();
+    if (error) throw error;
+    const verified = factors?.totp?.find((f) => f.status === "verified");
+    if (verified) {
+      setTwoStep({ kind: "verify", factorId: verified.id });
+      return;
+    }
+    // Clear half-finished setups before starting a fresh one.
+    for (const f of factors?.all ?? []) {
+      if (f.status !== "verified") await supabase.auth.mfa.unenroll({ factorId: f.id });
+    }
+    const { data: enrolled, error: enrollError } = await supabase.auth.mfa.enroll({
+      factorType: "totp",
+      friendlyName: `Authenticator ${Date.now()}`,
+    });
+    if (enrollError) throw enrollError;
+    setTwoStep({ kind: "enroll", factorId: enrolled.id, qr: enrolled.totp.qr_code, secret: enrolled.totp.secret });
+  }
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin", replace: true });
+      if (data.session) continueTwoStep().catch(() => undefined);
     });
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function onVerify(e: React.FormEvent) {
+    e.preventDefault();
+    if (!twoStep) return;
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: twoStep.factorId, code: code.trim() });
+      if (error) throw new Error("That code didn't work. Check your authenticator app and try again.");
+      navigate({ to: "/admin", replace: true });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function cancelTwoStep() {
+    await supabase.auth.signOut();
+    setTwoStep(null);
+    setCode("");
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,7 +106,7 @@ function AuthPage() {
       }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      navigate({ to: "/admin", replace: true });
+      await continueTwoStep();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Something went wrong");
     } finally {
@@ -82,7 +134,45 @@ function AuthPage() {
             : "Private area for Athlete Mannies and invited partner agency staff."}
         </p>
 
-        {sent ? (
+        {twoStep ? (
+          <form onSubmit={onVerify} className="mt-6 space-y-4">
+            <p className="font-medium text-foreground">Two-step verification</p>
+            {twoStep.kind === "enroll" ? (
+              <>
+                <p className="text-sm text-muted-foreground">
+                  One-time setup: scan this with an authenticator app (Google Authenticator, Microsoft Authenticator or
+                  1Password), then enter the 6-digit code it shows.
+                </p>
+                <img src={twoStep.qr} alt="Authenticator setup QR code" className="mx-auto size-44 rounded-lg bg-card" />
+                <p className="break-all text-center text-xs text-muted-foreground">
+                  Can't scan? Enter this key: <span className="font-mono">{twoStep.secret}</span>
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">Enter the 6-digit code from your authenticator app.</p>
+            )}
+            <div>
+              <Label htmlFor="code">6-digit code</Label>
+              <Input
+                id="code"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                pattern="[0-9]{6}"
+                maxLength={6}
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+                required
+                className="mt-1 text-center font-mono text-lg tracking-[0.4em]"
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={busy || code.length !== 6}>
+              {busy ? "Checking…" : "Verify and continue"}
+            </Button>
+            <button type="button" onClick={cancelTwoStep} className="w-full text-center text-sm text-muted-foreground hover:text-foreground">
+              Cancel and sign out
+            </button>
+          </form>
+        ) : sent ? (
           <div className="mt-6 rounded-lg border border-border bg-muted p-4 text-sm">
             <p className="font-medium text-foreground">Check your email</p>
             <p className="mt-1 text-muted-foreground">
