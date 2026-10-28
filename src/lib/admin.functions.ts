@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { AgreementData } from "./agreement.model";
 
-import { assertFamilyInScope, assertPathInScope, assertRowInScope, requireStaff, resolveStaffScope } from "./staff.server";
+import { assertFamilyInScope, assertPathInScope, assertRowInScope, requireStaff, resolveStaffScope } from "./staff.scope";
 
 export const getAdminStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -12,11 +12,13 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       .from("user_roles")
       .select("id", { count: "exact", head: true })
       .eq("role", "admin");
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    return { isAdmin: data === true, adminExists: (count ?? 0) > 0 };
+    const scope = await resolveStaffScope(context);
+    return {
+      isAdmin: scope !== null,
+      isOwner: scope?.kind === "owner",
+      agencyName: scope?.kind === "partner" ? scope.agencyName : null,
+      adminExists: (count ?? 0) > 0,
+    };
   });
 
 export const claimAdmin = createServerFn({ method: "POST" })
@@ -42,8 +44,9 @@ export const listFamilies = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at")
-      .order("created_at", { ascending: false });
+      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at, partner_agency_id")
+      .order("created_at", { ascending: false })
+      .match(scope.kind === "partner" ? { partner_agency_id: scope.agencyId } : {});
     if (error) throw new Error(error.message);
     const families = data ?? [];
     const { data: dbsDocs } = await supabaseAdmin
@@ -122,6 +125,8 @@ export type FamilyInput = {
   notes: string;
   status: string;
   homeAddress?: string;
+  /** Owner only: which partner agency runs this family ("" = AthleteMannies). */
+  partnerAgencyId?: string;
 };
 
 export const saveFamily = createServerFn({ method: "POST" })
@@ -151,6 +156,11 @@ export const saveFamily = createServerFn({ method: "POST" })
       notes: data.notes.trim() || null,
       status: data.status,
       updated_at: new Date().toISOString(),
+      ...(scope.kind === "partner"
+        ? { partner_agency_id: scope.agencyId }
+        : data.partnerAgencyId !== undefined
+          ? { partner_agency_id: data.partnerAgencyId || null }
+          : {}),
     };
 
     async function syncPrimaryNanny(familyId: string) {
@@ -202,6 +212,7 @@ export const saveFamily = createServerFn({ method: "POST" })
     }
 
     if (data.id) {
+      await assertFamilyInScope(scope, data.id);
       const { error } = await supabaseAdmin.from("families").update(row).eq("id", data.id);
       if (error) throw new Error(error.message);
       await syncPrimaryNanny(data.id);
@@ -563,11 +574,18 @@ export const listSupportThreads = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: threads, error } = await supabaseAdmin
+    let threadQuery = supabaseAdmin
       .from("support_threads")
       .select("id, family_id, subject, status, last_sender, created_at, updated_at")
       .order("updated_at", { ascending: false })
       .limit(100);
+    if (scope.kind === "partner") {
+      const { data: own } = await supabaseAdmin.from("families").select("id").eq("partner_agency_id", scope.agencyId);
+      const ownIds = (own ?? []).map((f) => f.id);
+      if (ownIds.length === 0) return [];
+      threadQuery = threadQuery.in("family_id", ownIds);
+    }
+    const { data: threads, error } = await threadQuery;
     if (error) throw new Error(error.message);
     const ids = (threads ?? []).map((t) => t.id);
     const familyIds = [...new Set((threads ?? []).map((t) => t.family_id))];
