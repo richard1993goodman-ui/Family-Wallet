@@ -148,7 +148,7 @@ function AdminHome() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Athlete Mannies &amp; Nannies
+              {status.data?.agencyName ? `${status.data.agencyName} · Powered by Athlete Mannies` : "Athlete Mannies & Nannies"}
             </p>
             <h1 className="heading-display mt-2 text-3xl text-primary">Family Vaults</h1>
           </div>
@@ -260,8 +260,24 @@ function AdminHome() {
           <span className="text-primary">→</span>
         </Link>
 
-        <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-        <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+        {status.data?.isOwner && (
+          <>
+            <Link
+              to="/admin/agencies"
+              className="mt-3 flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
+            >
+              <span>
+                <span className="block font-medium text-foreground">Partner agencies</span>
+                <span className="mt-1 block text-sm text-muted-foreground">
+                  Agencies using the vault for their own families, and who can sign in for them
+                </span>
+              </span>
+              <span className="text-primary">→</span>
+            </Link>
+            <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+            <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+          </>
+        )}
 
         <div className="mt-8 space-y-3">
           {families.data?.length === 0 && (
@@ -297,6 +313,7 @@ function AdminHome() {
                       ? `Introduction fee ${family.intro_fee_percent}% + VAT`
                       : `${tierFor(family.tier_band).days} · ${tierFor(family.tier_band).price}`}
                     {family.nanny_name ? ` · Nanny: ${family.nanny_name}` : ""}
+                    {status.data?.isOwner && family.partner_agency_id ? " · Partner agency" : ""}
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1">
