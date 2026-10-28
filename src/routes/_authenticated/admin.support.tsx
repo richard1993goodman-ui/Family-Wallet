@@ -1,3 +1,4 @@
+import { requireTwoStepClient } from "@/lib/two-step";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/admin/support")({
+  beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
       { title: "Support inbox — Athlete Mannies admin" },

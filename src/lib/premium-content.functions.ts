@@ -1,3 +1,4 @@
+import { assertTwoStep } from "./staff.scope";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
@@ -5,6 +6,7 @@ type Ctx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Pro
 type Section = { heading: string; body: string };
 
 async function assertAdmin(context: Ctx) {
+  assertTwoStep(context);
   const { data } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
   if (data !== true) throw new Error("Forbidden");
 }
