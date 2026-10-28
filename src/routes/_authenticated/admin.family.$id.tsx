@@ -1,3 +1,4 @@
+import { requireTwoStepClient } from "@/lib/two-step";
 import { listPartnerAgencies } from "@/lib/agencies.functions";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -38,6 +39,7 @@ import {
 } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/admin/family/$id")({
+  beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
       { title: "Family details — Athlete Mannies Family Vault" },

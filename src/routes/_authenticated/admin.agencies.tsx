@@ -1,3 +1,4 @@
+import { requireTwoStepClient } from "@/lib/two-step";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -11,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
+  beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
       { title: "Partner agencies — Athlete Mannies Family Vault" },

@@ -1,3 +1,4 @@
+import { requireTwoStepClient } from "@/lib/two-step";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -6,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { getFamilyHub } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/hub/$id")({
+  beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
       { title: "Family hub overview — Athlete Mannies admin" },

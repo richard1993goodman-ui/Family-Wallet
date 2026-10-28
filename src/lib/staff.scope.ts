@@ -7,11 +7,18 @@ export type StaffScope =
 type StaffCtx = {
   supabase: { rpc: (fn: string, args: Record<string, unknown>) => PromiseLike<{ data: unknown }> };
   userId: string;
-  claims?: { email?: string } | null;
+  claims?: { email?: string; aal?: string } | null;
 };
+
+/** Agency access needs a session verified with an authenticator-app code. */
+export function assertTwoStep(context: unknown) {
+  const aal = (context as StaffCtx).claims?.aal;
+  if (aal !== "aal2") throw new Error("Two-step verification required. Please sign in again.");
+}
 
 export async function resolveStaffScope(context: unknown): Promise<StaffScope | null> {
   const ctx = context as StaffCtx;
+  assertTwoStep(context);
   const { data: isAdmin } = await ctx.supabase.rpc("has_role", { _user_id: ctx.userId, _role: "admin" });
   if (isAdmin === true) return { kind: "owner" };
 
