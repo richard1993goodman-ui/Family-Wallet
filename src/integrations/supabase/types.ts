@@ -373,6 +373,7 @@ export type Database = {
           nanny_photo_path: string | null
           nannytax_code: string | null
           notes: string | null
+          partner_agency_id: string | null
           slug: string
           start_date: string | null
           status: string
@@ -400,6 +401,7 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          partner_agency_id?: string | null
           slug: string
           start_date?: string | null
           status?: string
@@ -427,6 +429,7 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          partner_agency_id?: string | null
           slug?: string
           start_date?: string | null
           status?: string
@@ -434,7 +437,15 @@ export type Database = {
           tier_band?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "families_partner_agency_id_fkey"
+            columns: ["partner_agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       family_children: {
         Row: {
@@ -1164,6 +1175,71 @@ export type Database = {
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_agencies: {
+        Row: {
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string
+          id: string
+          name: string
+          short_name: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          short_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          short_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      partner_agency_staff: {
+        Row: {
+          agency_id: string
+          created_at: string
+          email: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          agency_id: string
+          created_at?: string
+          email: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          agency_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_agency_staff_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
             referencedColumns: ["id"]
           },
         ]
