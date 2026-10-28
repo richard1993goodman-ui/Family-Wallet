@@ -149,7 +149,7 @@ function AuthPage() {
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "setup"
-            ? "First time here? Use the email your agency was invited with and choose a password. We'll email you a link to confirm it's you."
+            ? "First time here? Enter the email Athlete Mannies added for you. We'll email you a secure link to choose your password."
             : "Private area for Athlete Mannies and invited partner agency staff."}
         </p>
 
@@ -204,7 +204,7 @@ function AuthPage() {
           <div className="mt-6 rounded-lg border border-border bg-muted p-4 text-sm">
             <p className="font-medium text-foreground">Check your email</p>
             <p className="mt-1 text-muted-foreground">
-              We've sent a confirmation link to {email}. Open it on this device, then sign in with your new password.
+              If {email} has been invited, a setup link is on its way. Open it, choose a password, then set up your authenticator code.
             </p>
             <Button variant="outline" className="mt-4 w-full" onClick={() => { setSent(false); setMode("signin"); }}>
               Back to sign in
@@ -240,7 +240,7 @@ function AuthPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Please wait…" : mode === "setup" ? "Set password" : "Sign in"}
+            {busy ? "Please wait…" : mode === "setup" ? "Email me a setup link" : "Sign in"}
           </Button>
         </form>
         <button
