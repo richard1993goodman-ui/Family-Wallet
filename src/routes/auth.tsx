@@ -29,6 +29,8 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [mode, setMode] = useState<"signin" | "setup">("signin");
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -40,6 +42,16 @@ function AuthPage() {
     e.preventDefault();
     setBusy(true);
     try {
+      if (mode === "setup") {
+        const { error } = await supabase.auth.signUp({
+          email: email.trim().toLowerCase(),
+          password,
+          options: { emailRedirectTo: `${window.location.origin}/auth` },
+        });
+        if (error) throw error;
+        setSent(true);
+        return;
+      }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       navigate({ to: "/admin", replace: true });
@@ -65,8 +77,23 @@ function AuthPage() {
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Private area for the agency owner only. New accounts cannot be created here.
+          {mode === "setup"
+            ? "First time here? Use the email your agency was invited with and choose a password. We'll email you a link to confirm it's you."
+            : "Private area for Athlete Mannies and invited partner agency staff."}
         </p>
+
+        {sent ? (
+          <div className="mt-6 rounded-lg border border-border bg-muted p-4 text-sm">
+            <p className="font-medium text-foreground">Check your email</p>
+            <p className="mt-1 text-muted-foreground">
+              We've sent a confirmation link to {email}. Open it on this device, then sign in with your new password.
+            </p>
+            <Button variant="outline" className="mt-4 w-full" onClick={() => { setSent(false); setMode("signin"); }}>
+              Back to sign in
+            </Button>
+          </div>
+        ) : (
+        <>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
@@ -87,7 +114,7 @@ function AuthPage() {
               id="password"
               type="password"
               value={password}
-              autoComplete="current-password"
+              autoComplete={mode === "setup" ? "new-password" : "current-password"}
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
@@ -95,9 +122,18 @@ function AuthPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Please wait…" : "Sign in"}
+            {busy ? "Please wait…" : mode === "setup" ? "Set password" : "Sign in"}
           </Button>
         </form>
+        <button
+          type="button"
+          onClick={() => setMode(mode === "setup" ? "signin" : "setup")}
+          className="mt-4 w-full text-center text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
+          {mode === "setup" ? "Already set a password? Sign in" : "Invited partner staff? Set up your password"}
+        </button>
+        </>
+        )}
       </div>
     </div>
   );
