@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Copy, Trash2 } from "lucide-react";
 
 import {
+  getAdminStatus,
   addContact,
   deleteContact,
   deleteDocument,
