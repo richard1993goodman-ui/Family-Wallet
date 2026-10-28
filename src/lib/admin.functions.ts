@@ -42,11 +42,12 @@ export const listFamilies = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data, error } = await supabaseAdmin
+    let familyQuery = supabaseAdmin
       .from("families")
       .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at, partner_agency_id")
-      .order("created_at", { ascending: false })
-      .match(scope.kind === "partner" ? { partner_agency_id: scope.agencyId } : {});
+      .order("created_at", { ascending: false });
+    if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
+    const { data, error } = await familyQuery;
     if (error) throw new Error(error.message);
     const families = data ?? [];
     const { data: dbsDocs } = await supabaseAdmin
