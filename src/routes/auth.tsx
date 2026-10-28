@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
+import { useServerFn } from "@tanstack/react-start";
+import { requestStaffSetup } from "@/lib/staff-setup.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +38,24 @@ function AuthPage() {
     null | { kind: "verify"; factorId: string } | { kind: "enroll"; factorId: string; qr: string; secret: string }
   >(null);
   const [code, setCode] = useState("");
+  const [choosePassword, setChoosePassword] = useState(false);
+  const requestSetupFn = useServerFn(requestStaffSetup);
+
+  async function onChoosePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password });
+      if (error) throw error;
+      setChoosePassword(false);
+      window.history.replaceState(null, "", "/auth");
+      await continueTwoStep();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function continueTwoStep() {
     const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
@@ -64,6 +84,10 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
+      if (data.session && new URLSearchParams(window.location.search).get("setup") === "1") {
+        setChoosePassword(true);
+        return;
+      }
       if (data.session) continueTwoStep().catch(() => undefined);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,12 +119,7 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "setup") {
-        const { error } = await supabase.auth.signUp({
-          email: email.trim().toLowerCase(),
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/auth` },
-        });
-        if (error) throw error;
+        await requestSetupFn({ data: { email, origin: window.location.origin } });
         setSent(true);
         return;
       }
@@ -130,11 +149,20 @@ function AuthPage() {
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "setup"
-            ? "First time here? Use the email your agency was invited with and choose a password. We'll email you a link to confirm it's you."
+            ? "First time here? Enter the email Athlete Mannies added for you. We'll email you a secure link to choose your password."
             : "Private area for Athlete Mannies and invited partner agency staff."}
         </p>
 
-        {twoStep ? (
+        {choosePassword ? (
+          <form onSubmit={onChoosePassword} className="mt-6 space-y-4">
+            <p className="font-medium text-foreground">Choose your password</p>
+            <div>
+              <Label htmlFor="newpw">New password</Label>
+              <Input id="newpw" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1" />
+            </div>
+            <Button type="submit" className="w-full" disabled={busy}>{busy ? "Saving…" : "Save and continue"}</Button>
+          </form>
+        ) : twoStep ? (
           <form onSubmit={onVerify} className="mt-6 space-y-4">
             <p className="font-medium text-foreground">Two-step verification</p>
             {twoStep.kind === "enroll" ? (
@@ -176,7 +204,7 @@ function AuthPage() {
           <div className="mt-6 rounded-lg border border-border bg-muted p-4 text-sm">
             <p className="font-medium text-foreground">Check your email</p>
             <p className="mt-1 text-muted-foreground">
-              We've sent a confirmation link to {email}. Open it on this device, then sign in with your new password.
+              If {email} has been invited, a setup link is on its way. Open it, choose a password, then set up your authenticator code.
             </p>
             <Button variant="outline" className="mt-4 w-full" onClick={() => { setSent(false); setMode("signin"); }}>
               Back to sign in
@@ -198,21 +226,21 @@ function AuthPage() {
               className="mt-1"
             />
           </div>
-          <div>
+          {mode === "signin" && (<div>
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
-              autoComplete={mode === "setup" ? "new-password" : "current-password"}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
               className="mt-1"
             />
-          </div>
+          </div>)}
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Please wait…" : mode === "setup" ? "Set password" : "Sign in"}
+            {busy ? "Please wait…" : mode === "setup" ? "Email me a setup link" : "Sign in"}
           </Button>
         </form>
         <button
