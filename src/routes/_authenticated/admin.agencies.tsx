@@ -10,6 +10,7 @@ import { addAgencyStaff, deletePartnerAgency, listPartnerAgencies, removeAgencyS
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { tierFor } from "@/lib/partner-tiers";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
@@ -93,9 +94,23 @@ function AgenciesPage() {
                 <div>
                   <p className="heading-display text-lg">{a.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {a.activeFamilies} active {a.activeFamilies === 1 ? "family" : "families"}
-                    {a.contact_email ? ` · ${a.contact_email}` : ""}
+                    {a.contact_email ?? ""}
                   </p>
+                  {(() => {
+                    const t = tierFor(a.activeFamilies);
+                    const pct = t.max ? Math.min(100, (a.activeFamilies / t.max) * 100) : 100;
+                    return (
+                      <div className="mt-2 w-64 max-w-full">
+                        <p className="text-sm font-medium">
+                          {t.max ? `${a.activeFamilies} / ${t.max}` : a.activeFamilies} active families — {t.name} tier
+                          <span className="text-muted-foreground"> · {t.monthly ? `£${t.monthly}/month + VAT` : "Custom pricing"} · no setup fee</span>
+                        </p>
+                        <div className="mt-1 h-2 rounded-full bg-muted">
+                          <div className="h-2 rounded-full bg-primary" style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
                 <div className="flex shrink-0 gap-2">
                 <Button
