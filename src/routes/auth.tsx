@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
+import { useServerFn } from "@tanstack/react-start";
+import { requestStaffSetup } from "@/lib/staff-setup.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +38,24 @@ function AuthPage() {
     null | { kind: "verify"; factorId: string } | { kind: "enroll"; factorId: string; qr: string; secret: string }
   >(null);
   const [code, setCode] = useState("");
+  const [choosePassword, setChoosePassword] = useState(false);
+  const requestSetupFn = useServerFn(requestStaffSetup);
+
+  async function onChoosePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password });
+      if (error) throw error;
+      setChoosePassword(false);
+      window.history.replaceState(null, "", "/auth");
+      await continueTwoStep();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function continueTwoStep() {
     const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
@@ -64,6 +84,10 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
+      if (data.session && new URLSearchParams(window.location.search).get("setup") === "1") {
+        setChoosePassword(true);
+        return;
+      }
       if (data.session) continueTwoStep().catch(() => undefined);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,12 +119,7 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "setup") {
-        const { error } = await supabase.auth.signUp({
-          email: email.trim().toLowerCase(),
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/auth` },
-        });
-        if (error) throw error;
+        await requestSetupFn({ data: { email, origin: window.location.origin } });
         setSent(true);
         return;
       }
@@ -134,7 +153,16 @@ function AuthPage() {
             : "Private area for Athlete Mannies and invited partner agency staff."}
         </p>
 
-        {twoStep ? (
+        {choosePassword ? (
+          <form onSubmit={onChoosePassword} className="mt-6 space-y-4">
+            <p className="font-medium text-foreground">Choose your password</p>
+            <div>
+              <Label htmlFor="newpw">New password</Label>
+              <Input id="newpw" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1" />
+            </div>
+            <Button type="submit" className="w-full" disabled={busy}>{busy ? "Saving…" : "Save and continue"}</Button>
+          </form>
+        ) : twoStep ? (
           <form onSubmit={onVerify} className="mt-6 space-y-4">
             <p className="font-medium text-foreground">Two-step verification</p>
             {twoStep.kind === "enroll" ? (
