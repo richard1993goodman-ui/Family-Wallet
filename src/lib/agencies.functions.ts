@@ -70,3 +70,21 @@ export const removeAgencyStaff = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true as const };
   });
+
+export const deletePartnerAgency = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { count } = await supabaseAdmin
+      .from("families")
+      .select("id", { count: "exact", head: true })
+      .eq("partner_agency_id", data.id);
+    if ((count ?? 0) > 0) {
+      throw new Error(`This agency still has ${count} ${count === 1 ? "family" : "families"}. Delete or move them first.`);
+    }
+    const { error } = await supabaseAdmin.from("partner_agencies").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });

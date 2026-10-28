@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +29,7 @@ function AgenciesPage() {
   const saveFn = useServerFn(savePartnerAgency);
   const addStaffFn = useServerFn(addAgencyStaff);
   const removeStaffFn = useServerFn(removeAgencyStaff);
+  const deleteFn = useServerFn(deletePartnerAgency);
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -94,6 +95,7 @@ function AgenciesPage() {
                     {a.contact_email ? ` · ${a.contact_email}` : ""}
                   </p>
                 </div>
+                <div className="flex shrink-0 gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -106,6 +108,18 @@ function AgenciesPage() {
                 >
                   {a.status === "active" ? "Pause access" : "Reactivate"}
                 </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-destructive"
+                  onClick={() => {
+                    if (!window.confirm(`Remove ${a.name} permanently? Their staff will lose access. This cannot be undone.`)) return;
+                    void run(() => deleteFn({ data: { id: a.id } }), "Agency removed");
+                  }}
+                >
+                  <Trash2 className="mr-1 h-4 w-4" /> Remove
+                </Button>
+                </div>
               </div>
               {a.status !== "active" && <p className="mt-2 text-xs font-medium text-destructive">Paused — staff cannot sign in.</p>}
 
