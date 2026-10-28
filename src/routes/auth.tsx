@@ -226,7 +226,7 @@ function AuthPage() {
               className="mt-1"
             />
           </div>
-          <div>
+          {mode === "signin" && (<div>
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
@@ -238,7 +238,7 @@ function AuthPage() {
               minLength={8}
               className="mt-1"
             />
-          </div>
+          </div>)}
           <Button type="submit" className="w-full" disabled={busy}>
             {busy ? "Please wait…" : mode === "setup" ? "Email me a setup link" : "Sign in"}
           </Button>
