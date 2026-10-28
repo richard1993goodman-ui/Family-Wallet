@@ -232,7 +232,7 @@ function AuthPage() {
               id="password"
               type="password"
               value={password}
-              autoComplete={mode === "setup" ? "new-password" : "current-password"}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}

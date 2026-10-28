@@ -17,9 +17,7 @@ export const requestStaffSetup = createServerFn({ method: "POST" })
     if (staff && !staff.user_id) {
       const { data: agency } = await supabaseAdmin.from("partner_agencies").select("status").eq("id", staff.agency_id).maybeSingle();
       if (agency?.status === "active") {
-        const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
-          redirectTo: origin ? `${origin}/auth?setup=1` : undefined,
-        });
+        const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, origin ? { redirectTo: `${origin}/auth?setup=1` } : {});
         if (error && !/already/i.test(error.message)) console.error("staff invite failed", error.message);
       }
     }
