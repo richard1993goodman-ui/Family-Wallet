@@ -218,7 +218,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         activePrefix={location.prefix}
       />
       <SidebarInset className="min-w-0 bg-sand">
-        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} />
+        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} agencyName={summaryQuery.data.wallet.agencyName ?? null} />
         <div className="min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
           {children}
         </div>
@@ -232,7 +232,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   );
 }
 
-function WalletTopBar({ familyName }: { familyName: string }) {
+function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyName: string | null }) {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:px-6">
       <SidebarTrigger className="h-9 w-9" />
@@ -241,7 +241,8 @@ function WalletTopBar({ familyName }: { familyName: string }) {
         <p className="text-xs text-muted-foreground">Family Vault</p>
       </div>
       <span className="ml-auto hidden items-center gap-1.5 text-xs font-medium text-muted-foreground sm:flex">
-        <Sparkles className="h-3.5 w-3.5 text-primary" /> Athlete Mannies &amp; Nannies
+        <Sparkles className="h-3.5 w-3.5 text-primary" />
+        {agencyName ? <>{agencyName} · Powered by Athlete Mannies</> : <>Athlete Mannies &amp; Nannies</>}
       </span>
     </header>
   );

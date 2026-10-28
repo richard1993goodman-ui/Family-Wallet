@@ -309,6 +309,8 @@ export type WalletNanny = {
 export type WalletData = {
   access: "family" | "nanny";
   familyName: string;
+  /** Partner agency running this vault; null = Athlete Mannies & Nannies. */
+  agencyName: string | null;
   tierBand: string;
   nannies: WalletNanny[];
   nannytaxCode: string | null;
@@ -329,7 +331,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at")
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, partner_agency:partner_agencies(name)")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -380,6 +382,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
   return {
     access,
     familyName: family.family_name,
+    agencyName: (family.partner_agency as { name: string } | null)?.name ?? null,
     tierBand: access === "family" ? family.tier_band : "",
     nannies,
     nannytaxCode: access === "family" ? family.nannytax_code : null,
