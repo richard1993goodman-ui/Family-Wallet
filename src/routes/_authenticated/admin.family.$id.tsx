@@ -1,3 +1,4 @@
+import { listPartnerAgencies } from "@/lib/agencies.functions";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -6,6 +7,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Copy, Trash2 } from "lucide-react";
 
 import {
+  getAdminStatus,
   addContact,
   deleteContact,
   deleteDocument,
@@ -111,7 +113,13 @@ function FamilyDetail() {
     notes: "",
     status: "active",
     homeAddress: "",
+    partnerAgencyId: "",
   });
+  const statusFn = useServerFn(getAdminStatus);
+  const agenciesFn = useServerFn(listPartnerAgencies);
+  const staffStatus = useQuery({ queryKey: ["admin-status"], queryFn: () => statusFn() });
+  const isOwner = staffStatus.data?.isOwner === true;
+  const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => agenciesFn(), enabled: isOwner });
   const [uploading, setUploading] = useState<string | null>(null);
   const [contact, setContact] = useState({ name: "", relationship: "", phone: "" });
   const [services, setServices] = useState({ payrollStatus: "not_started", payrollStartDate: "", payrollNotes: "", curationStatus: "not_started", curationNotes: "" });
@@ -136,6 +144,7 @@ function FamilyDetail() {
       notes: f.notes ?? "",
       status: f.status === "active" ? "active" : "cancelled",
       homeAddress: query.data?.homeAddress ?? "",
+      partnerAgencyId: f.partner_agency_id ?? "",
     });
   }, [query.data?.family, query.data?.homeAddress]);
 
@@ -152,7 +161,8 @@ function FamilyDetail() {
   async function onSave(e: React.FormEvent) {
     e.preventDefault();
     try {
-      await saveFn({ data: { id, ...form, tierBand: form.introFeePercent.trim() === "" ? form.tierBand : "" } });
+      const { partnerAgencyId, ...rest } = form;
+      await saveFn({ data: { id, ...rest, ...(isOwner ? { partnerAgencyId } : {}), tierBand: form.introFeePercent.trim() === "" ? form.tierBand : "" } });
       toast.success("Saved");
       await refresh();
     } catch (error) {
@@ -696,6 +706,25 @@ function FamilyDetail() {
                     </SelectContent>
                   </Select>
                 </div>
+                {isOwner && (agencies.data?.length ?? 0) > 0 && (
+                  <div>
+                    <Label>Run by</Label>
+                    <Select
+                      value={form.partnerAgencyId || "own"}
+                      onValueChange={(value) => setForm({ ...form, partnerAgencyId: value === "own" ? "" : value })}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="own">Athlete Mannies (your family)</SelectItem>
+                        {agencies.data?.map((a) => (
+                          <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
               </div>
               <div>
                 <Label htmlFor="homeAddress">Home address</Label>

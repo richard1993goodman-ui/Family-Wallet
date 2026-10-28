@@ -46,6 +46,7 @@ import { Route as TravelSlugRouteImport } from './routes/travel.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
 import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
 import { Route as AuthenticatedAdminAgreementIdRouteImport } from './routes/_authenticated/admin.agreement.$id'
@@ -236,6 +237,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminAgenciesRoute =
+  AuthenticatedAdminAgenciesRouteImport.update({
+    id: '/admin/agencies',
+    path: '/admin/agencies',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminSupportRoute =
   AuthenticatedAdminSupportRouteImport.update({
     id: '/admin/support',
@@ -301,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -344,6 +352,7 @@ export interface FileRoutesByTo {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -389,6 +398,7 @@ export interface FileRoutesById {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -434,6 +444,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/admin/agencies'
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin/'
@@ -477,6 +488,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/admin/agencies'
     | '/admin/support'
     | '/certificate/$slug/$id'
     | '/admin'
@@ -521,6 +533,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
     | '/certificate/$slug/$id'
     | '/_authenticated/admin/'
@@ -830,6 +843,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/agencies': {
+      id: '/_authenticated/admin/agencies'
+      path: '/admin/agencies'
+      fullPath: '/admin/agencies'
+      preLoaderRoute: typeof AuthenticatedAdminAgenciesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/support': {
       id: '/_authenticated/admin/support'
       path: '/admin/support'
@@ -869,6 +889,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminAgenciesRoute: typeof AuthenticatedAdminAgenciesRoute
   AuthenticatedAdminSupportRoute: typeof AuthenticatedAdminSupportRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminAgreementIdRoute: typeof AuthenticatedAdminAgreementIdRoute
@@ -877,6 +898,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminAgenciesRoute: AuthenticatedAdminAgenciesRoute,
   AuthenticatedAdminSupportRoute: AuthenticatedAdminSupportRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminAgreementIdRoute: AuthenticatedAdminAgreementIdRoute,

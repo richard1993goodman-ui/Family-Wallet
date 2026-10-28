@@ -2,15 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { AgreementData } from "./agreement.model";
 
-type Ctx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> }; userId: string };
-
-async function assertAdmin(context: Ctx) {
-  const { data } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (data !== true) throw new Error("Forbidden");
-}
+import { assertFamilyInScope, assertPathInScope, assertRowInScope, requireStaff, resolveStaffScope } from "./staff.scope";
 
 export const getAdminStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -20,11 +12,13 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       .from("user_roles")
       .select("id", { count: "exact", head: true })
       .eq("role", "admin");
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    return { isAdmin: data === true, adminExists: (count ?? 0) > 0 };
+    const scope = await resolveStaffScope(context);
+    return {
+      isAdmin: scope !== null,
+      isOwner: scope?.kind === "owner",
+      agencyName: scope?.kind === "partner" ? scope.agencyName : null,
+      adminExists: (count ?? 0) > 0,
+    };
   });
 
 export const claimAdmin = createServerFn({ method: "POST" })
@@ -46,12 +40,14 @@ export const claimAdmin = createServerFn({ method: "POST" })
 export const listFamilies = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data, error } = await supabaseAdmin
+    let familyQuery = supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at")
+      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at, partner_agency_id")
       .order("created_at", { ascending: false });
+    if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
+    const { data, error } = await familyQuery;
     if (error) throw new Error(error.message);
     const families = data ?? [];
     const { data: dbsDocs } = await supabaseAdmin
@@ -75,7 +71,8 @@ export const getFamily = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: family, error } = await supabaseAdmin
       .from("families")
@@ -129,13 +126,15 @@ export type FamilyInput = {
   notes: string;
   status: string;
   homeAddress?: string;
+  /** Owner only: which partner agency runs this family ("" = AthleteMannies). */
+  partnerAgencyId?: string;
 };
 
 export const saveFamily = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: FamilyInput) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { generateAccessCode, hashCode } = await import("./wallet.server");
 
@@ -158,6 +157,11 @@ export const saveFamily = createServerFn({ method: "POST" })
       notes: data.notes.trim() || null,
       status: data.status,
       updated_at: new Date().toISOString(),
+      ...(scope.kind === "partner"
+        ? { partner_agency_id: scope.agencyId }
+        : data.partnerAgencyId !== undefined
+          ? { partner_agency_id: data.partnerAgencyId || null }
+          : {}),
     };
 
     async function syncPrimaryNanny(familyId: string) {
@@ -209,6 +213,7 @@ export const saveFamily = createServerFn({ method: "POST" })
     }
 
     if (data.id) {
+      await assertFamilyInScope(scope, data.id);
       const { error } = await supabaseAdmin.from("families").update(row).eq("id", data.id);
       if (error) throw new Error(error.message);
       await syncPrimaryNanny(data.id);
@@ -246,7 +251,8 @@ export const setFamilyStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string; status: "active" | "cancelled" }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
     const status = data.status === "cancelled" ? "cancelled" : "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
@@ -261,7 +267,8 @@ export const deleteFamily = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: docs } = await supabaseAdmin
       .from("family_documents")
@@ -278,7 +285,8 @@ export const regenerateCode = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { generateAccessCode, hashCode } = await import("./wallet.server");
     const { data: family } = await supabaseAdmin
@@ -302,7 +310,8 @@ export const recordDocument = createServerFn({ method: "POST" })
     (data: { familyId: string; docType: string; storagePath: string; fileName: string }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("family_documents").upsert(
       {
@@ -322,7 +331,8 @@ export const deleteDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertRowInScope(scope, "family_documents", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: doc } = await supabaseAdmin
       .from("family_documents")
@@ -339,7 +349,8 @@ export const getAdminDocumentUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { storagePath: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertPathInScope(scope, data.storagePath);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: signed } = await supabaseAdmin.storage
       .from("family-docs")
@@ -362,7 +373,8 @@ export const uploadDocument = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const bytes = Buffer.from(data.base64, "base64");
     const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
@@ -402,7 +414,8 @@ export const updateDocumentMeta = createServerFn({ method: "POST" })
     (data: { id: string; visibility: string; issuedOn: string; referenceLabel: string }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertRowInScope(scope, "family_documents", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("family_documents")
@@ -420,7 +433,8 @@ export const saveFamilyServices = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { familyId: string; payrollStatus: string; payrollStartDate: string; payrollNotes: string; curationStatus: string; curationNotes: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("family_services").upsert({
       family_id: data.familyId,
@@ -439,7 +453,8 @@ export const saveNannyInsurance = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { familyId: string; nannyId: string; provider: string; policyNumber: string; coverFrom: string; coverUntil: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("family_nannies").update({
       insurance_provider: data.provider.trim() || null,
@@ -456,7 +471,8 @@ export const uploadSafetyDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { familyId: string; nannyId: string; documentType: string; fileName: string; contentType: string; base64: string; issuedOn: string; expiresOn: string; referenceLabel: string; visibility: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const bytes = Buffer.from(data.base64, "base64");
     if (bytes.length > 10 * 1024 * 1024) throw new Error("Document must be under 10MB");
@@ -482,7 +498,8 @@ export const uploadNannyPhoto = createServerFn({ method: "POST" })
     (data: { familyId: string; fileName: string; contentType: string; base64: string }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const bytes = Buffer.from(data.base64, "base64");
     const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
@@ -520,7 +537,8 @@ export const addContact = createServerFn({ method: "POST" })
     (data: { familyId: string; name: string; relationship: string; phone: string }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { count } = await supabaseAdmin
       .from("family_contacts")
@@ -542,7 +560,8 @@ export const deleteContact = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertRowInScope(scope, "family_contacts", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("family_contacts").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
@@ -554,13 +573,20 @@ export const deleteContact = createServerFn({ method: "POST" })
 export const listSupportThreads = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: threads, error } = await supabaseAdmin
+    let threadQuery = supabaseAdmin
       .from("support_threads")
       .select("id, family_id, subject, status, last_sender, created_at, updated_at")
       .order("updated_at", { ascending: false })
       .limit(100);
+    if (scope.kind === "partner") {
+      const { data: own } = await supabaseAdmin.from("families").select("id").eq("partner_agency_id", scope.agencyId);
+      const ownIds = (own ?? []).map((f) => f.id);
+      if (ownIds.length === 0) return [];
+      threadQuery = threadQuery.in("family_id", ownIds);
+    }
+    const { data: threads, error } = await threadQuery;
     if (error) throw new Error(error.message);
     const ids = (threads ?? []).map((t) => t.id);
     const familyIds = [...new Set((threads ?? []).map((t) => t.family_id))];
@@ -589,7 +615,8 @@ export const replyToThread = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { threadId: string; body: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertRowInScope(scope, "support_threads", data.threadId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const body = data.body.trim().slice(0, 4000);
     if (!body) throw new Error("Please write a reply");
@@ -613,7 +640,8 @@ export const setThreadStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { threadId: string; status: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertRowInScope(scope, "support_threads", data.threadId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("support_threads")
@@ -629,7 +657,8 @@ export const getFamilyHub = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [{ data: family }, { data: profile }, { data: children }, { data: logs }, { data: entries }] =
       await Promise.all([
@@ -668,7 +697,8 @@ export const getAgreementAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { familyId: string }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { adminLoadAgreement } = await import("./agreement.server");
     return adminLoadAgreement(data.familyId);
   });
@@ -677,7 +707,8 @@ export const saveAgreementAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { familyId: string; fields: AgreementData; publish: boolean }) => data)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { adminSaveAgreement } = await import("./agreement.server");
     return adminSaveAgreement(data.familyId, data.fields, data.publish);
   });
@@ -688,7 +719,8 @@ export const signAsAgency = createServerFn({ method: "POST" })
     (data: { familyId: string; docKind: "agreement" | "terms"; name: string }) => data,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.familyId);
     const { adminSign } = await import("./agreement.server");
     return adminSign(data.familyId, data.docKind, data.name);
   });
