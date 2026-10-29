@@ -49,13 +49,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, guarantee and everyday nanny tools.",
+          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, guarantee and nanny tools, all in one private link.",
+          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -106,7 +106,7 @@ const benefitGroups = [
       "Managed Nannytax setup — a guided introduction and visible next steps",
       "All-in employment cost calculator — pay, NI, pension and payroll estimates",
       "Your Nannytax referral code",
-      "Agency terms and your family guarantee",
+      "Agency terms and conditions",
       "Reviews & check-ins — 6-month and yearly conversation guides",
     ],
   },
