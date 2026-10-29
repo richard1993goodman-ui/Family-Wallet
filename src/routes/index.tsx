@@ -144,12 +144,12 @@ function Index() {
     <div className="min-h-screen overflow-hidden bg-sand">
       <header className="border-b border-border/70 bg-background/75">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">
-            AM
+          <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <Wallet className="h-5 w-5" aria-hidden="true" />
           </span>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
-            <p className="text-xs text-muted-foreground">For nanny agencies &amp; their families</p>
+            <p className="text-xs text-muted-foreground">Your childcare, safely in one place</p>
           </div>
           <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
             <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
