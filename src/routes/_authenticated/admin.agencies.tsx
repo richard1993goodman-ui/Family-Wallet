@@ -35,9 +35,9 @@ function AgenciesPage() {
   const deleteFn = useServerFn(deletePartnerAgency);
   const exportFn = useServerFn(exportAgencyRecords);
   const [brand, setBrand] = useState("");
-  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null };
-  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string }>) =>
-    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "" } });
+  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null; allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean };
+  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string; allowChallenges: boolean; allowPerks: boolean; allowPlaybooks: boolean }>) =>
+    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "", allowChallenges: patch.allowChallenges, allowPerks: patch.allowPerks, allowPlaybooks: patch.allowPlaybooks } });
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -177,6 +177,21 @@ function AgenciesPage() {
                 >
                   {a.intro_pricing ? "End intro rate" : "Use intro rate"}
                 </Button>
+                {([
+                  ["allowChallenges", "allow_challenges", "Kids challenges"],
+                  ["allowPerks", "allow_perks", "Partner perks"],
+                  ["allowPlaybooks", "allow_playbooks", "Seasonal playbooks"],
+                ] as const).map(([key, col, label]) => (
+                  <Button
+                    key={key}
+                    variant={a[col] ? "default" : "outline"}
+                    size="sm"
+                    aria-pressed={a[col]}
+                    onClick={() => run(() => saveAgency(a, { [key]: !a[col] }), a[col] ? `${label} switched off` : `${label} switched on`)}
+                  >
+                    {a[col] ? "✓ " : ""}{label}
+                  </Button>
+                ))}
                 <Button
                   variant="outline"
                   size="sm"

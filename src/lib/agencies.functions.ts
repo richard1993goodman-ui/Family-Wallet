@@ -24,7 +24,7 @@ export const listPartnerAgencies = createServerFn({ method: "GET" })
 
 export const savePartnerAgency = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string }) => d)
+  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string; allowChallenges?: boolean; allowPerks?: boolean; allowPlaybooks?: boolean }) => d)
   .handler(async ({ data, context }) => {
     await requireOwner(context);
     const name = data.name.trim().slice(0, 120);
@@ -37,6 +37,9 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       brand_name: data.brandName?.trim().slice(0, 120) || null,
       intro_pricing: !!data.introPricing,
       short_name: data.shortName?.trim().toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) || null,
+      ...(data.allowChallenges !== undefined ? { allow_challenges: data.allowChallenges } : {}),
+      ...(data.allowPerks !== undefined ? { allow_perks: data.allowPerks } : {}),
+      ...(data.allowPlaybooks !== undefined ? { allow_playbooks: data.allowPlaybooks } : {}),
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
