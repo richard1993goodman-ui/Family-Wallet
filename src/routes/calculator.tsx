@@ -115,14 +115,14 @@ function CalculatorPage() {
           </dl>
         </section>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <Button size="lg" asChild><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" /> Discuss this with Richard</a></Button>
-          <Button size="lg" variant="outline" onClick={async () => { await navigator.clipboard.writeText(summary); toast.success("Summary copied — paste it into WhatsApp"); }}><Copy className="h-4 w-4" /> Copy summary</Button>
+        <div className="mt-5">
+          <Button size="lg" variant="outline" className="w-full" onClick={async () => { await navigator.clipboard.writeText(summary); toast.success("Summary copied — paste it into your notes or chat"); }}><Copy className="h-4 w-4" /> Copy summary</Button>
         </div>
 
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          Planning estimate using 2026/27 UK rates for a single job with a standard tax code. Pension assumes auto-enrolment at 3% employer / 5% employee when pay is over £10,000. Your nanny is employed by your household; your agency doesn't run payroll — we recommend Nannytax. Confirm final figures with your payroll provider.
+          Planning estimate using 2026/27 UK rates for a single job with a standard tax code. Pension assumes auto-enrolment at 3% employer / 5% employee when pay is over £10,000. Your nanny is employed by your household, and payroll is run by a specialist provider — we recommend Nannytax. Confirm final figures with your payroll provider.
         </p>
+
       </div>
     </main>
   );
