@@ -66,7 +66,7 @@ function PlannerPage() {
   const copyFn = useServerFn(copyPreviousWeekFn);
 
   const [weekStart, setWeekStart] = useState(() => mondayOf(new Date()));
-  const [draft, setDraft] = useState<{ date: string; time: string; endTime: string; title: string; child: string; entryType: string; status: string; notes: string } | null>(
+  const [draft, setDraft] = useState<{ date: string; time: string; endTime: string; title: string; child: string; entryType: string; status: string; notes: string; friend?: string; address?: string; contactName?: string; contactPhone?: string } | null>(
     null,
   );
 
@@ -202,6 +202,7 @@ function PlannerPage() {
                       {entry.child_name && (
                         <span className="text-muted-foreground"> · {entry.child_name}</span>
                       )}
+                      {entry.entry_type === "playdate" && entry.notes && <span className="mt-1 block whitespace-pre-wrap text-xs text-muted-foreground">{entry.notes}</span>}
                     </span>
                     <button
                       className="text-muted-foreground hover:text-destructive"
@@ -244,10 +245,17 @@ function PlannerPage() {
                   />
                   <div className="grid gap-2 sm:grid-cols-2">
                     <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.entryType} onChange={(e) => setDraft({ ...draft, entryType: e.target.value, title: e.target.value === "school_holiday" ? "School holiday" : e.target.value === "inset_day" ? "Inset day" : draft.title })}>
-                      <option value="note">Note</option><option value="activity">Activity</option><option value="meal">Meal</option><option value="school_holiday">School holiday</option><option value="inset_day">Inset day</option><option value="shift_change">Shift change</option>
+                      <option value="note">Note</option><option value="activity">Activity</option><option value="meal">Meal</option><option value="school_holiday">School holiday</option><option value="inset_day">Inset day</option><option value="shift_change">Shift change</option>{isParent && <option value="playdate">Playdate</option>}
                     </select>
+                    {draft.entryType === "playdate" && <p className="self-center text-xs text-muted-foreground">Add the friend, where it is and who to call in an emergency.</p>}
                     {draft.entryType === "shift_change" && <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.status} onChange={(e) => setDraft({ ...draft, status: e.target.value, title: e.target.value === "cancelled" ? "Nanny shift cancelled" : "Changed nanny shift" })}><option value="active">Changed shift</option><option value="cancelled">Cancel regular shift</option></select>}
                   </div>
+                  {draft.entryType === "playdate" && <div className="grid gap-2 sm:grid-cols-2">
+                    <Input placeholder="Friend's name" value={draft.friend ?? ""} onChange={(e) => setDraft({ ...draft, friend: e.target.value })} />
+                    <Input placeholder="Address" value={draft.address ?? ""} onChange={(e) => setDraft({ ...draft, address: e.target.value })} />
+                    <Input placeholder="Emergency contact (e.g. Sarah, Leo's mum)" value={draft.contactName ?? ""} onChange={(e) => setDraft({ ...draft, contactName: e.target.value })} />
+                    <Input type="tel" placeholder="Emergency phone" value={draft.contactPhone ?? ""} onChange={(e) => setDraft({ ...draft, contactPhone: e.target.value })} />
+                  </div>}
                   <Input placeholder="Extra notes (optional)" value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} />
                   <div className="flex gap-2">
                     <Button size="sm" onClick={onAdd}>
