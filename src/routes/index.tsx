@@ -119,7 +119,7 @@ const benefitGroups = [
       "Ask Athlete Mannies — message us straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
-      "Curated Seasonal Playbooks — timely activity, sport and family guides",
+      "Agency Materials — audiobooks, digital books, activity and family guides",
       "Active Kids Sports Passport — skills, challenges and confidence wins",
       "Nanny training hub — safeguarding, routines and emergencies",
       "Nanny training certificate — kept in the wallet once passed",

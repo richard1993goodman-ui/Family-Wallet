@@ -631,7 +631,7 @@ function WalletPage() {
         <h2 className="ios-section-title mt-8">Premium membership</h2>
         <div className="ios-group mt-2">
           <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="VIP Member Perks" subtitle="Private London partner offers and family concierge recommendations" />
-          <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Seasonal Playbooks" subtitle="Curated activity, sport and family guides from the agency" />
+          <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Agency Materials" subtitle="Audiobooks, digital books, activity guides and seasonal packs from the agency" />
         </div>
 
         <h2 className="ios-section-title mt-8">Help &amp; training</h2>
