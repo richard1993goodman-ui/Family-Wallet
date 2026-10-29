@@ -11,6 +11,7 @@ import {
   GraduationCap,
   IdCard,
   Lock,
+  Heart,
   KeyRound,
   MessageCircle,
   NotebookPen,
@@ -377,6 +378,7 @@ function WalletPage() {
         <h2 className="ios-section-title mt-6">Your household</h2>
         <div className="ios-group mt-2">
           <HubTile slug={slug} to="/housemanual/$slug" icon={KeyRound} title="House Manual & Codes" subtitle="WiFi, alarm and lockbox codes, house rules and everyday instructions" />
+          <HubTile slug={slug} to="/kids/$slug" icon={Heart} title="Kids' Playbook" subtitle="Comforts and quirks, how we handle big moments, friends and rainy-day ideas" />
         </div>
         {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
         <div className="ios-group mt-2">
@@ -961,6 +963,7 @@ function HubTile({
     | "/report/$slug"
     | "/messages/$slug"
     | "/housemanual/$slug"
+    | "/kids/$slug"
     | "/pettycash/$slug"
     | "/travel/$slug"
     | "/perks/$slug"
