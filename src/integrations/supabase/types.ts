@@ -1091,6 +1091,47 @@ export type Database = {
           },
         ]
       }
+      kids_playbook_entries: {
+        Row: {
+          added_by: string
+          category: string
+          child_name: string
+          family_id: string
+          id: string
+          notes: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          added_by?: string
+          category: string
+          child_name?: string
+          family_id: string
+          id?: string
+          notes?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string
+          category?: string
+          child_name?: string
+          family_id?: string
+          id?: string
+          notes?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kids_playbook_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leave_requests: {
         Row: {
           created_at: string

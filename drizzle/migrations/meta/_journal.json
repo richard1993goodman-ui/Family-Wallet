@@ -239,6 +239,13 @@
       "when": 1793293266945,
       "tag": "0033_house_manual_secret_presence",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1793295063632,
+      "tag": "0034_kids_playbook",
+      "breakpoints": true
     }
   ]
 }
