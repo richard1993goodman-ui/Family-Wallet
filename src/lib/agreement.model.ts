@@ -1,4 +1,4 @@
-/** Full nanny agreement model — shared by the admin builder, the vault view and the server. */
+/** Full nanny agreement model — shared by the admin builder, the wallet view and the server. */
 
 export interface NannyDuty {
   id: string;

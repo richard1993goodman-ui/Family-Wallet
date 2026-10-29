@@ -40,7 +40,7 @@ export function SigningProgress({ status, version, signatures, compact }: Signin
     status !== "issued"
       ? "Not open for signing yet — finish the agreement and choose “Done — ready to sign”."
       : complete
-        ? "Both signatures are in. Your signed copy stays in the vault."
+        ? "Both signatures are in. Your signed copy stays in the wallet."
         : done === 0
           ? "Waiting on both signatures — parent and nanny."
           : `Waiting on the ${required.find((r) => !r.signature)?.label.toLowerCase()} signature.`;

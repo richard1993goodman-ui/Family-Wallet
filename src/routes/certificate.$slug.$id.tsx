@@ -14,7 +14,7 @@ export const Route = createFileRoute("/certificate/$slug/$id")({
       {
         name: "description",
         content:
-          "A completion certificate for the Athlete Mannies after-school nanny training, stored in your Family Vault.",
+          "A completion certificate for the Athlete Mannies after-school nanny training, stored in your Family Wallet.",
       },
       { property: "og:title", content: "Training Certificate — Athlete Mannies & Nannies" },
       {
@@ -50,7 +50,7 @@ function CertificatePage() {
         <div className="max-w-sm">
           <h1 className="heading-display text-2xl text-primary">Certificate not available</h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            Unlock your vault first, or complete the training to earn a certificate.
+            Unlock your wallet first, or complete the training to earn a certificate.
           </p>
           <Link
             to="/training/$slug"

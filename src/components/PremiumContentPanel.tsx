@@ -30,7 +30,7 @@ export function PremiumContentPanel({ families }: { families: Family[] }) {
 
   return <div className="mt-8 rounded-xl border border-border bg-card p-5">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <div><h2 className="heading-display text-lg text-foreground">Premium membership content</h2><p className="mt-1 text-sm text-muted-foreground">Publish partner offers and seasonal guides directly into Family Vaults.</p></div>
+      <div><h2 className="heading-display text-lg text-foreground">Premium membership content</h2><p className="mt-1 text-sm text-muted-foreground">Publish partner offers and seasonal guides directly into Family Wallets.</p></div>
       <div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => { setPerk(blankPerk); setMode("perk"); }}><Gift className="h-4 w-4" /> Add perk</Button><Button size="sm" onClick={() => { setPlaybook(blankPlaybook); setMode("playbook"); }}><BookOpen className="h-4 w-4" /> Add playbook</Button></div>
     </div>
 

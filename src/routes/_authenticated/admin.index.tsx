@@ -33,10 +33,10 @@ export const Route = createFileRoute("/_authenticated/admin/")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Families — Athlete Mannies Family Vault" },
-      { name: "description", content: "Create and manage private Family Vaults." },
-      { property: "og:title", content: "Families — Athlete Mannies Family Vault" },
-      { property: "og:description", content: "Create and manage private Family Vaults." },
+      { title: "Families — Athlete Mannies Family Wallet" },
+      { name: "description", content: "Create and manage private Family Wallets." },
+      { property: "og:title", content: "Families — Athlete Mannies Family Wallet" },
+      { property: "og:description", content: "Create and manage private Family Wallets." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -115,7 +115,7 @@ function AdminHome() {
           <h1 className="heading-display text-xl text-primary">Not an agency account</h1>
           {status.data.adminExists ? (
             <p className="mt-3 text-sm text-muted-foreground">
-              This account does not have access to the vault admin.
+              This account does not have access to the wallet admin.
             </p>
           ) : (
             <>
@@ -152,7 +152,7 @@ function AdminHome() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               {status.data?.agencyName ? `${status.data.agencyName} · Powered by Athlete Mannies` : "Athlete Mannies & Nannies"}
             </p>
-            <h1 className="heading-display mt-2 text-3xl text-primary">Family Vaults</h1>
+            <h1 className="heading-display mt-2 text-3xl text-primary">Family Wallets</h1>
           </div>
           <button
             onClick={signOut}
@@ -271,7 +271,7 @@ function AdminHome() {
               <span>
                 <span className="block font-medium text-foreground">Partner agencies</span>
                 <span className="mt-1 block text-sm text-muted-foreground">
-                  Agencies using the vault for their own families, and who can sign in for them
+                  Agencies using the wallet for their own families, and who can sign in for them
                 </span>
               </span>
               <span className="text-primary">→</span>

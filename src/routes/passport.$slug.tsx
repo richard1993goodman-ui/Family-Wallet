@@ -21,12 +21,12 @@ export const Route = createFileRoute("/passport/$slug")({
       {
         name: "description",
         content:
-          "Track each child's sports skills, active challenges, confidence wins and screen-free progress inside the Family Vault.",
+          "Track each child's sports skills, active challenges, confidence wins and screen-free progress inside the Family Wallet.",
       },
       { property: "og:title", content: "Active Kids Sports Passport — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Sports skills, active challenges and confidence wins in your Family Vault.",
+        content: "Sports skills, active challenges and confidence wins in your Family Wallet.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

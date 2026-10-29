@@ -22,7 +22,7 @@ export const Route = createFileRoute("/log/$slug")({
       { property: "og:title", content: "Daily Log — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "See how the day went, every day, in your Family Vault.",
+        content: "See how the day went, every day, in your Family Wallet.",
       },
       { name: "robots", content: "noindex" },
     ],

@@ -238,7 +238,7 @@ function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyNa
       <SidebarTrigger className="h-9 w-9" />
       <div className="min-w-0">
         <p className="truncate text-sm font-semibold text-foreground">{familyName}</p>
-        <p className="text-xs text-muted-foreground">Family Vault</p>
+        <p className="text-xs text-muted-foreground">Family Wallet</p>
       </div>
       <span className="ml-auto hidden items-center gap-1.5 text-xs font-medium text-muted-foreground sm:flex">
         <Sparkles className="h-3.5 w-3.5 text-primary" />
@@ -275,7 +275,7 @@ function WalletNavigation({
           </span>
           <span className="min-w-0 group-data-[collapsible=icon]:hidden">
             <span className="block truncate text-sm font-semibold">{familyName}</span>
-            <span className="block text-xs text-sidebar-foreground/65">Family Vault</span>
+            <span className="block text-xs text-sidebar-foreground/65">Family Wallet</span>
           </span>
         </Link>
       </SidebarHeader>
@@ -350,7 +350,7 @@ function MobileTabs({ slug, isNanny, activePrefix }: { slug: string; isNanny: bo
 
   return (
     <nav
-      aria-label="Vault navigation"
+      aria-label="Wallet navigation"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-18px_var(--foreground)] backdrop-blur md:hidden"
     >
       <div className="grid h-16 grid-cols-5">
@@ -376,7 +376,7 @@ function MobileTabs({ slug, isNanny, activePrefix }: { slug: string; isNanny: bo
           variant="ghost"
           onClick={toggleSidebar}
           className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[10px] font-medium text-muted-foreground"
-          aria-label="Open all vault pages"
+          aria-label="Open all wallet pages"
         >
           <Menu className="h-5 w-5" />
           <span>More</span>

@@ -22,7 +22,7 @@ export const Route = createFileRoute("/training/$slug")({
       { property: "og:title", content: "Nanny Training Hub — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Complete the training quiz and earn a certificate in your Family Vault.",
+        content: "Complete the training quiz and earn a certificate in your Family Wallet.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -101,7 +101,7 @@ function TrainingPage() {
     <HubPage
       slug={slug}
       title="Nanny training hub"
-      intro={`Twenty questions on the after-school routine, safeguarding, emergencies, food and professional conduct. Score ${PASS_MARK} or more to earn a completion certificate in this vault.`}
+      intro={`Twenty questions on the after-school routine, safeguarding, emergencies, food and professional conduct. Score ${PASS_MARK} or more to earn a completion certificate in this wallet.`}
     >
       {result && (
         <Card>

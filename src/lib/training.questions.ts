@@ -173,7 +173,7 @@ export const TRAINING_QUESTIONS: TrainingQuestion[] = [
   {
     id: "q15",
     section: "Emergencies and first aid",
-    question: "The emergency card in the Family Vault exists so that:",
+    question: "The emergency card in the Family Wallet exists so that:",
     options: [
       "Parents have a record for insurance",
       "You can find contacts, allergies, medication, GP details and the home address in one tap",

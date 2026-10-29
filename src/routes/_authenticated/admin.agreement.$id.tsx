@@ -63,7 +63,7 @@ function AdminAgreementPage() {
     setBusy(true);
     try {
       await saveFn({ data: { familyId: id, fields: data, publish } });
-      toast.success(publish ? "Agreement issued to the vault" : "Draft saved");
+      toast.success(publish ? "Agreement issued to the wallet" : "Draft saved");
       await queryClient.invalidateQueries({ queryKey: ["admin-agreement", id] });
     } catch {
       toast.error("Could not save. Please try again.");
@@ -115,7 +115,7 @@ function AdminAgreementPage() {
             Save draft
           </Button>
           <Button disabled={busy} onClick={() => save(true)}>
-            {record.status === "issued" ? "Publish update" : "Issue to vault"}
+            {record.status === "issued" ? "Publish update" : "Issue to wallet"}
           </Button>
           {preview && (
             <Button variant="outline" onClick={() => window.print()}>

@@ -36,7 +36,7 @@ function PlaybooksPage() {
     if (!item?.readAt) { await markRead({ data: { slug, playbookId: id } }); await qc.invalidateQueries({ queryKey: ["playbooks", slug] }); }
   };
   return (
-    <HubPage slug={slug} title="Curated Seasonal Playbooks" intro="Timely ideas for active children, calmer routines and memorable school holidays — prepared by the agency and delivered to your vault.">
+    <HubPage slug={slug} title="Curated Seasonal Playbooks" intro="Timely ideas for active children, calmer routines and memorable school holidays — prepared by the agency and delivered to your wallet.">
       <div className="space-y-4">
         {data.playbooks.length === 0 && <Card><p className="text-sm text-muted-foreground">Your first seasonal playbook is being prepared.</p></Card>}
         {data.playbooks.map((playbook, index) => {

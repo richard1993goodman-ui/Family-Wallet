@@ -19,7 +19,7 @@ export const Route = createFileRoute("/leave/$slug")({
         content: "Track your nanny's holiday entitlement, book time off and approve leave requests.",
       },
       { property: "og:title", content: "Holiday & leave — Athlete Mannies & Nannies" },
-      { property: "og:description", content: "Holiday entitlement and leave requests in your Family Vault." },
+      { property: "og:description", content: "Holiday entitlement and leave requests in your Family Wallet." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
