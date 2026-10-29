@@ -26,6 +26,8 @@ export type MealIdea = {
   childJob: string;
 };
 
+export type ShiftType = "nanny" | "babysitting";
+
 export type ShiftInput = {
   shiftDate: string;
   startTime: string;
@@ -34,6 +36,7 @@ export type ShiftInput = {
   isOvernight: boolean;
   hourlyRate: number;
   notes?: string;
+  shiftType?: ShiftType;
 };
 
 export function rawShiftMinutes(entry: Pick<ShiftInput, "startTime" | "endTime" | "isOvernight">) {
@@ -52,4 +55,15 @@ export function shiftHours(entry: ShiftInput) {
 
 export function shiftAmount(entry: ShiftInput) {
   return shiftHours(entry) * Math.max(0, entry.hourlyRate || 0);
+}
+
+export function isBabysitting(entry: Pick<ShiftInput, "shiftType">) {
+  return entry.shiftType === "babysitting";
+}
+
+export function shiftTotals(entries: ShiftInput[]) {
+  return {
+    hours: entries.reduce((sum, s) => sum + shiftHours(s), 0),
+    amount: entries.reduce((sum, s) => sum + shiftAmount(s), 0),
+  };
 }

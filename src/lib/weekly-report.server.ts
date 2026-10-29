@@ -28,7 +28,7 @@ export async function loadWeeklyReport(slug: string, anchor?: string) {
   const [handovers, expenses, shifts, planner, passport, meds, logs, leave] = await Promise.all([
     supabaseAdmin.from("handover_checklists").select("handover_date, homework_status, dinner_status, mood, energy, reading_done, tomorrow_notes, submitted_by_name").eq("family_id", fid).gte("handover_date", start).lte("handover_date", end).order("handover_date"),
     supabaseAdmin.from("expense_claims").select("expense_date, item, amount, status").eq("family_id", fid).gte("expense_date", start).lte("expense_date", end).order("expense_date"),
-    supabaseAdmin.from("timesheet_shifts").select("shift_date, start_time, end_time, break_minutes, is_overnight, hourly_rate, status").eq("family_id", fid).gte("shift_date", start).lte("shift_date", end).order("shift_date"),
+    supabaseAdmin.from("timesheet_shifts").select("shift_date, start_time, end_time, break_minutes, is_overnight, hourly_rate, status, shift_type").eq("family_id", fid).gte("shift_date", start).lte("shift_date", end).order("shift_date"),
     supabaseAdmin.from("planner_entries").select("entry_date, time_label, title, child_name, entry_type, status").eq("family_id", fid).gte("entry_date", start).lte("entry_date", end).order("entry_date"),
     supabaseAdmin.from("sports_passport_entries").select("entry_date, child_name, activity, minutes, badge, confidence_level").eq("family_id", fid).gte("entry_date", start).lte("entry_date", end).order("entry_date"),
     supabaseAdmin.from("medication_doses").select("given_at, child_name, medicine, dose, given_by_name").eq("family_id", fid).gte("given_at", `${start}T00:00:00Z`).lte("given_at", `${end}T23:59:59Z`).order("given_at"),
@@ -50,9 +50,11 @@ export async function loadWeeklyReport(slug: string, anchor?: string) {
     familyName: family.family_name,
     week: { start, end },
     stats: {
-      hours: shiftRows.reduce((a, s) => a + s.hours, 0),
-      approvedPay: shiftRows.filter((s) => s.status === "approved").reduce((a, s) => a + s.pay, 0),
+      hours: shiftRows.filter((s) => s.shift_type !== "babysitting").reduce((a, s) => a + s.hours, 0),
+      approvedPay: shiftRows.filter((s) => s.status === "approved" && s.shift_type !== "babysitting").reduce((a, s) => a + s.pay, 0),
       pendingShifts: shiftRows.filter((s) => s.status !== "approved").length,
+      babysittingHours: shiftRows.filter((s) => s.shift_type === "babysitting").reduce((a, s) => a + s.hours, 0),
+      babysittingPay: shiftRows.filter((s) => s.shift_type === "babysitting" && s.status === "approved").reduce((a, s) => a + s.pay, 0),
       activeMinutes: passportRows.reduce((a, p) => a + Number(p.minutes ?? 0), 0),
       badges: passportRows.filter((p) => p.badge).length,
       handovers: (handovers.data ?? []).length,
