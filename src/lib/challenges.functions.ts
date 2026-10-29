@@ -1,17 +1,7 @@
-import { assertTwoStep } from "./staff.scope";
+import { assertContentRow, assertFamiliesInAgency, requireContentScope } from "./staff.scope";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-type Ctx = {
-  supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> };
-  userId: string;
-};
-
-async function assertAdmin(context: Ctx) {
-  assertTwoStep(context);
-  const { data } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
-  if (data !== true) throw new Error("Forbidden");
-}
 
 const clean = (v: string | undefined | null, max: number) => {
   const t = (v ?? "").trim();
@@ -21,11 +11,12 @@ const clean = (v: string | undefined | null, max: number) => {
 export const listChallengesAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const agencyId = await requireContentScope(context, "challenges");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: challenges } = await supabaseAdmin
+    const base = supabaseAdmin
       .from("agency_challenges")
-      .select("id, title, description, due_date, audience, is_active, created_at")
+      .select("id, title, description, due_date, audience, is_active, created_at");
+    const { data: challenges } = await (agencyId ? base.eq("agency_id", agencyId) : base.is("agency_id", null))
       .order("created_at", { ascending: false })
       .limit(50);
     const ids = (challenges ?? []).map((c) => c.id);
@@ -50,7 +41,8 @@ export const createChallenge = createServerFn({ method: "POST" })
     (d: { title: string; description?: string; dueDate?: string; audience: "all" | "selected"; familyIds: string[] }) => d,
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    const agencyId = await requireContentScope(context, "challenges");
+    if (data.audience === "selected") await assertFamiliesInAgency(data.familyIds, agencyId);
     const title = clean(data.title, 160);
     if (!title) throw new Error("Add a challenge title");
     if (data.audience === "selected" && data.familyIds.length === 0) throw new Error("Pick at least one family");
@@ -62,6 +54,7 @@ export const createChallenge = createServerFn({ method: "POST" })
         description: clean(data.description, 2000),
         due_date: data.dueDate || null,
         audience: data.audience === "selected" ? "selected" : "all",
+        agency_id: agencyId,
       })
       .select("id")
       .single();
@@ -79,7 +72,7 @@ export const setChallengeActive = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string; active: boolean }) => d)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    await assertContentRow("agency_challenges", data.id, await requireContentScope(context, "challenges"));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("agency_challenges").update({ is_active: data.active }).eq("id", data.id);
     return { ok: true as const };
@@ -89,7 +82,7 @@ export const deleteChallenge = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context as unknown as Ctx);
+    await assertContentRow("agency_challenges", data.id, await requireContentScope(context, "challenges"));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("agency_challenges").delete().eq("id", data.id);
     return { ok: true as const };

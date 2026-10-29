@@ -276,9 +276,13 @@ function AdminHome() {
               </span>
               <span className="text-primary">→</span>
             </Link>
-            <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-            <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
           </>
+        )}
+        {status.data?.features.challenges && (
+          <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+        )}
+        {(status.data?.features.perks || status.data?.features.playbooks) && (
+          <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
         )}
 
         <div className="mt-8 space-y-3">
@@ -311,7 +315,9 @@ function AdminHome() {
                     {family.family_name}
                   </Link>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {family.intro_fee_percent != null
+                    {family.fee_amount
+                      ? `${family.fee_label || "Fee"} · ${family.fee_amount}`
+                      : family.intro_fee_percent != null
                       ? `Introduction fee ${family.intro_fee_percent}% + VAT`
                       : `${tierFor(family.tier_band).days} · ${tierFor(family.tier_band).price}`}
                     {family.nanny_name ? ` · Nanny: ${family.nanny_name}` : ""}

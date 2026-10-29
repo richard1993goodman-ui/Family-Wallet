@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSharedFamily } from "./family.server";
+import { walletContentAgency } from "./staff.scope";
 
 export type WalletChallenge = {
   id: string;
@@ -12,10 +13,13 @@ export type WalletChallenge = {
 };
 
 async function visibleChallenges(familyId: string) {
-  const { data: all } = await supabaseAdmin
+  const agency = await walletContentAgency(familyId, "challenges");
+  if (agency === false) return [];
+  const base = supabaseAdmin
     .from("agency_challenges")
     .select("id, title, description, due_date, audience, created_at")
-    .eq("is_active", true)
+    .eq("is_active", true);
+  const { data: all } = await (agency ? base.eq("agency_id", agency) : base.is("agency_id", null))
     .order("created_at", { ascending: false })
     .limit(20);
   const list = all ?? [];

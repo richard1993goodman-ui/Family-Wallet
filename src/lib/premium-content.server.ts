@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSharedFamily } from "./family.server";
+import { walletContentAgency } from "./staff.scope";
 
 export type PlaybookSection = { heading: string; body: string };
 
@@ -17,13 +18,17 @@ function sections(value: unknown): PlaybookSection[] {
 export async function loadPartnerPerks(slug: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
-  const { data, error } = await supabaseAdmin
+  const agency = await walletContentAgency(family.id, "perks");
+  if (agency === false) return { access: family.access, perks: [] };
+  let perkQuery = supabaseAdmin
     .from("partner_perks")
     .select("id, title, partner_name, category, area, offer_text, description, redemption_instructions, offer_code, website_url, contact_text, expires_on")
     .eq("is_published", true)
     .or(`expires_on.is.null,expires_on.gte.${new Date().toISOString().slice(0, 10)}`)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
+  perkQuery = agency ? perkQuery.eq("agency_id", agency) : perkQuery.is("agency_id", null);
+  const { data, error } = await perkQuery;
   if (error) throw new Error(error.message);
   return {
     access: family.access,
@@ -38,6 +43,8 @@ export async function loadPartnerPerks(slug: string) {
 export async function loadPlaybooks(slug: string) {
   const family = await requireSharedFamily(slug);
   if (!family) return null;
+  const agency = await walletContentAgency(family.id, "playbooks");
+  if (agency === false) return { access: family.access, playbooks: [] };
   const { data: recipientRows } = await supabaseAdmin
     .from("playbook_recipients")
     .select("playbook_id")
@@ -51,6 +58,7 @@ export async function loadPlaybooks(slug: string) {
     .order("published_at", { ascending: false });
   if (selectedIds.length) query = query.or(`audience.eq.all,id.in.(${selectedIds.join(",")})`);
   else query = query.eq("audience", "all");
+  query = agency ? query.eq("agency_id", agency) : query.is("agency_id", null);
   const [{ data, error }, { data: reads }] = await Promise.all([
     query,
     supabaseAdmin.from("playbook_reads").select("playbook_id, reader_role, read_at").eq("family_id", family.id).eq("reader_role", family.access),
@@ -66,6 +74,9 @@ export async function loadPlaybooks(slug: string) {
 export async function recordPlaybookRead(slug: string, playbookId: string) {
   const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
+  const agency = await walletContentAgency(family.id, "playbooks");
+  const { data: pb } = await supabaseAdmin.from("seasonal_playbooks").select("agency_id").eq("id", playbookId).maybeSingle();
+  if (agency === false || !pb || (pb.agency_id ?? null) !== agency) throw new Error("Not found");
   const { error } = await supabaseAdmin.from("playbook_reads").upsert(
     { playbook_id: playbookId, family_id: family.id, reader_role: family.access, read_at: new Date().toISOString() },
     { onConflict: "playbook_id,family_id,reader_role" },

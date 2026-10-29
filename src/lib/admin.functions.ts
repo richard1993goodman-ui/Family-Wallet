@@ -13,7 +13,13 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       .select("id", { count: "exact", head: true })
       .eq("role", "admin");
     const scope = await resolveStaffScope(context);
+    let features = { challenges: scope?.kind === "owner", perks: scope?.kind === "owner", playbooks: scope?.kind === "owner" };
+    if (scope?.kind === "partner") {
+      const { data: ag } = await supabaseAdmin.from("partner_agencies").select("allow_challenges, allow_perks, allow_playbooks").eq("id", scope.agencyId).maybeSingle();
+      features = { challenges: !!ag?.allow_challenges, perks: !!ag?.allow_perks, playbooks: !!ag?.allow_playbooks };
+    }
     return {
+      features,
       isAdmin: scope !== null,
       isOwner: scope?.kind === "owner",
       agencyName: scope?.kind === "partner" ? scope.agencyName : null,
@@ -44,7 +50,7 @@ export const listFamilies = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     let familyQuery = supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, tier_band, intro_fee_percent, nanny_name, status, access_code, created_at, partner_agency_id")
+      .select("id, slug, family_name, tier_band, intro_fee_percent, fee_label, fee_amount, nanny_name, status, access_code, created_at, partner_agency_id")
       .order("created_at", { ascending: false });
     if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
     const { data, error } = await familyQuery;
@@ -126,6 +132,9 @@ export type FamilyInput = {
   notes: string;
   status: string;
   homeAddress?: string;
+  /** Agency's own fee wording, e.g. "Monthly retainer" / "£180 + VAT per month". Overrides the standard band when set. */
+  feeLabel?: string;
+  feeAmount?: string;
   /** Owner only: which partner agency runs this family ("" = AthleteMannies). */
   partnerAgencyId?: string;
 };
@@ -143,6 +152,8 @@ export const saveFamily = createServerFn({ method: "POST" })
       contact_email: data.contactEmail.trim() || null,
       contact_phone: data.contactPhone.trim() || null,
       tier_band: data.tierBand || "",
+      ...(data.feeLabel !== undefined ? { fee_label: data.feeLabel.trim().slice(0, 80) || null } : {}),
+      ...(data.feeAmount !== undefined ? { fee_amount: data.feeAmount.trim().slice(0, 80) || null } : {}),
       ...(data.introFeePercent !== undefined
         ? { intro_fee_percent: data.introFeePercent.trim() === "" ? null : Math.max(0, Number(data.introFeePercent) || 0) }
         : {}),

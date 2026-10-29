@@ -104,6 +104,8 @@ function FamilyDetail() {
     contactPhone: "",
     tierBand: "3",
     introFeePercent: "",
+    feeLabel: "",
+    feeAmount: "",
     nannyName: "",
     nannyBio: "",
     nannytaxCode: "",
@@ -135,6 +137,8 @@ function FamilyDetail() {
       contactPhone: f.contact_phone ?? "",
       tierBand: f.tier_band || "3",
       introFeePercent: f.intro_fee_percent == null ? "" : String(f.intro_fee_percent),
+      feeLabel: f.fee_label ?? "",
+      feeAmount: f.fee_amount ?? "",
       nannyName: f.nanny_name ?? "",
       nannyBio: f.nanny_bio ?? "",
       nannytaxCode: f.nannytax_code ?? "",
@@ -584,7 +588,15 @@ function FamilyDetail() {
                   />
                 </div>
               </div>
-              {form.introFeePercent.trim() === "" ? (
+              <div className="rounded-xl border border-border p-3">
+                <Label>Your own fee (optional)</Label>
+                <p className="mt-1 text-xs text-muted-foreground">Use this when your agency charges differently — it replaces the standard membership shown to the family.</p>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  <Input aria-label="Fee name" placeholder="e.g. Monthly retainer" value={form.feeLabel} onChange={(e) => setForm({ ...form, feeLabel: e.target.value })} />
+                  <Input aria-label="Fee amount" placeholder="e.g. £180 + VAT per month" value={form.feeAmount} onChange={(e) => setForm({ ...form, feeAmount: e.target.value })} />
+                </div>
+              </div>
+              {form.feeAmount.trim() !== "" ? null : form.introFeePercent.trim() === "" ? (
                 <div>
                   <Label>Membership</Label>
                   <Select
