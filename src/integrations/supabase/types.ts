@@ -968,6 +968,44 @@ export type Database = {
           },
         ]
       }
+      house_manual_entries: {
+        Row: {
+          category: string
+          family_id: string
+          id: string
+          notes: string
+          secret_value: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          family_id: string
+          id?: string
+          notes?: string
+          secret_value?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          family_id?: string
+          id?: string
+          notes?: string
+          secret_value?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "house_manual_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       household_messages: {
         Row: {
           body: string
