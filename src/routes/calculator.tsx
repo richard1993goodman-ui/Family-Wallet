@@ -126,7 +126,7 @@ function CalculatorPage() {
         </div>
 
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          Planning estimate using 2026/27 UK rates for a single job with a standard tax code. Pension assumes auto-enrolment at 3% employer / 5% employee when pay is over £10,000. Your nanny is employed by your household; Athlete Mannies doesn't run payroll — we recommend Nannytax and cover the joining fee for members. Confirm final figures with your payroll provider.
+          Planning estimate using 2026/27 UK rates for a single job with a standard tax code. Pension assumes auto-enrolment at 3% employer / 5% employee when pay is over £10,000. Your nanny is employed by your household; your agency doesn't run payroll — we recommend Nannytax and cover the joining fee for members. Confirm final figures with your payroll provider.
         </p>
       </div>
     </main>

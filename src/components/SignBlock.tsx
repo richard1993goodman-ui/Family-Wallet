@@ -8,7 +8,7 @@ import type { Signature } from "@/lib/agreement.types";
 const ROLE_LABELS: Record<Signature["signerRole"], string> = {
   parent: "Parent / employer",
   nanny: "Nanny / manny",
-  agency: "Athlete Mannies",
+  agency: "Agency",
 };
 
 export function formatSignedAt(value: string) {

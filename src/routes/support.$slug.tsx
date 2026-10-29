@@ -130,7 +130,7 @@ function SupportPage() {
               <div className="px-4 pt-4 sm:px-5 sm:pt-5">
                 <p className="heading-display text-lg text-foreground">{thread.subject}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Athlete Mannies · {thread.status === "closed" ? "Conversation closed" : "Usually replies here"}
+                  Your agency · {thread.status === "closed" ? "Conversation closed" : "Usually replies here"}
                 </p>
               </div>
               {(support.access === "nanny" ? thread.nanny_unread : thread.family_unread) && (
@@ -151,7 +151,7 @@ function SupportPage() {
               {thread.messages.map((message) => {
                 const mine = message.sender === support.access;
                 const sender = message.sender === "admin"
-                  ? "Athlete Mannies"
+                  ? "Your agency"
                   : message.sender === "nanny"
                     ? "Nanny"
                     : "Family";

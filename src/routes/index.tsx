@@ -148,7 +148,7 @@ function Index() {
             AM
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-foreground">Athlete Mannies &amp; Nannies</p>
+            <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
             <p className="text-xs text-muted-foreground">Private family membership</p>
           </div>
           <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
@@ -267,7 +267,7 @@ function Index() {
           <div className="md:border-l md:border-border md:pl-6">
             <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Message us on WhatsApp or email richard@athletemannies.com and we will resend your link and code.
+              Message us on WhatsApp or contact your agency and we will resend your link and code.
             </p>
           </div>
         </section>

@@ -31,6 +31,6 @@ function PayrollPage() {
     </Card>
     <div className="mt-4 grid gap-3 sm:grid-cols-2"><Card><h2 className="font-medium text-foreground">Ask us to arrange it</h2><p className="mt-2 text-sm text-muted-foreground">We’ll contact you, coordinate the introduction and help keep setup moving.</p><Button className="mt-4" disabled={current === "introduction_requested" || current === "setup_in_progress" || current === "payroll_ready"} onClick={async () => { await request({ data: { slug, kind: "payroll", message: "Please help us arrange our Nannytax payroll setup." } }); await client.invalidateQueries({ queryKey: ["concierge", slug] }); toast.success("Request sent to your agency"); }}>Request managed setup</Button></Card>
       <Card><h2 className="font-medium text-foreground">Your referral code</h2><p className="mt-2 font-mono text-lg font-semibold text-foreground">{query.data.nannytaxCode ?? "Not added yet"}</p><a href="https://www.nannytax.co.uk" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">Visit Nannytax <ExternalLink className="h-4 w-4" /></a></Card></div>
-    <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Nannytax is an independent provider. Athlete Mannies coordinates your introduction but does not file payroll or tax returns.</p>
+    <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Nannytax is an independent provider. Your agency coordinates your introduction but does not file payroll or tax returns.</p>
   </HubPage>;
 }

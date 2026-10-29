@@ -144,12 +144,12 @@ function AuthPage() {
           Back to home page
         </Link>
         <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Athlete Mannies &amp; Nannies
+          The Family Wallet
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "setup"
-            ? "First time here? Enter the email Athlete Mannies added for you. We'll email you a secure link to choose your password."
+            ? "First time here? Enter the email your agency added for you. We'll email you a secure link to choose your password."
             : "Private area for your agency and invited partner agency staff."}
         </p>
 

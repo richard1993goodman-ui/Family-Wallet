@@ -88,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "The private Family Wallet from your agency: your nanny agreement, nanny CV, membership and everyday nanny tools in one place.",
       },
-      { name: "author", content: "Athlete Mannies & Nannies" },
+      { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#17325b" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/certificate/$slug/$id")({
       {
         name: "description",
         content:
-          "A completion certificate for the Athlete Mannies after-school nanny training, stored in your Family Wallet.",
+          "A completion certificate for the after-school nanny training, stored in your Family Wallet.",
       },
       { property: "og:title", content: "Training Certificate — The Family Wallet" },
       {
@@ -85,7 +85,7 @@ function CertificatePage() {
         <div className="mt-6 rounded-xl border-2 border-primary/30 bg-card p-9 text-center">
           <Award className="mx-auto h-10 w-10 text-primary" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Athlete Mannies &amp; Nannies
+            The Family Wallet
           </p>
           <h1 className="heading-display mt-3 text-3xl text-primary">Certificate of completion</h1>
           <p className="mt-6 text-sm text-muted-foreground">This certifies that</p>

@@ -207,7 +207,7 @@ function WalletPage() {
         <div className="w-full max-w-sm rounded-2xl bg-card shadow-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Athlete Mannies &amp; Nannies
+            The Family Wallet
           </p>
           <h1 className="heading-display mt-2 text-2xl text-primary">{data.familyName}</h1>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -252,7 +252,7 @@ function WalletPage() {
           </div>
         )}
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Athlete Mannies &amp; Nannies
+          The Family Wallet
         </p>
         <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
           {wallet.familyName}
