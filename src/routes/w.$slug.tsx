@@ -51,7 +51,6 @@ import { getAgreement } from "@/lib/agreement.functions";
 import type { WorkingDay } from "@/lib/agreement.model";
 
 type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
-import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,7 +68,7 @@ export const Route = createFileRoute("/w/$slug")({
       {
         name: "description",
         content:
-          "Your private Family Wallet: nanny agreement, nanny CV, terms, our family guarantee and everyday nanny tools.",
+          "Your private Family Wallet: nanny agreement, nanny CV, messages, petty cash and everyday nanny tools.",
       },
       { property: "og:title", content: "Your Family Wallet" },
       {
@@ -104,7 +103,6 @@ function WalletPage() {
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
-  const [sheet, setSheet] = useState<null | "terms" | "guarantee">(null);
 
   const query = useQuery({
     queryKey: ["wallet", slug],
@@ -649,16 +647,6 @@ function WalletPage() {
         </div>
       </div>
 
-      <Dialog open={sheet !== null} onOpenChange={(open) => !open && setSheet(null)}>
-        <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="heading-display text-xl">
-              Our family guarantee
-            </DialogTitle>
-          </DialogHeader>
-          <GuaranteeContent />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
@@ -981,6 +969,8 @@ function HubTile({
     | "/handover/$slug"
     | "/timesheets/$slug"
     | "/report/$slug"
+    | "/messages/$slug"
+    | "/pettycash/$slug"
     | "/travel/$slug"
     | "/perks/$slug"
     | "/playbooks/$slug"
