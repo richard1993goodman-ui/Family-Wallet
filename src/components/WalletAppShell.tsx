@@ -173,7 +173,7 @@ const navGroups: NavGroup[] = [
       { label: "Employment costs", icon: Calculator, to: "/costs/$slug", parentOnly: true },
       { label: "Private nanny curation", icon: Handshake, to: "/curation/$slug", parentOnly: true },
       { label: "VIP member perks", icon: Gift, to: "/perks/$slug", parentOnly: true },
-      { label: "Seasonal playbooks", icon: Library, to: "/playbooks/$slug" },
+      { label: "Agency materials", icon: Library, to: "/playbooks/$slug" },
     ],
   },
   {

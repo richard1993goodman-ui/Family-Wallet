@@ -208,7 +208,7 @@ function AgenciesPage() {
                 </div>
               </div>
               {a.status !== "active" && <p className="mt-2 text-xs font-medium text-destructive">Paused — staff cannot sign in.</p>}
-              <p className="mt-3 text-sm text-muted-foreground">Included controls: kids challenges, parent perks and seasonal playbooks.</p>
+              <p className="mt-3 text-sm text-muted-foreground">Included controls: kids challenges, parent perks and agency materials.</p>
 
               <p className="mt-4 text-sm font-medium">People who can sign in</p>
               <ul className="mt-2 space-y-1">
