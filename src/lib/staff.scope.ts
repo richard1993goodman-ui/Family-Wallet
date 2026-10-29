@@ -96,3 +96,62 @@ export async function assertPathInScope(scope: StaffScope, storagePath: string):
   if (!/^[0-9a-f-]{36}$/i.test(familyId) || storagePath.includes("..")) throw new Error("Not found");
   await assertFamilyInScope(scope, familyId);
 }
+
+/* ---------- Premium content (challenges, perks, playbooks) ---------- */
+
+export type ContentFeature = "challenges" | "perks" | "playbooks";
+type FeatureFlags = { allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean; status?: string };
+
+/** A partner agency only gets a content tool once the owner switches it on for them. */
+export function partnerContentAllowed(agency: FeatureFlags | null | undefined, feature: ContentFeature): boolean {
+  if (!agency || (agency.status && agency.status !== "active")) return false;
+  return agency[`allow_${feature}`] === true;
+}
+
+/** Returns the agency that owns content made by this staff member: null = AthleteMannies (owner). */
+export async function requireContentScope(context: unknown, feature: ContentFeature): Promise<string | null> {
+  const scope = await requireStaff(context);
+  if (scope.kind === "owner") return null;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("allow_challenges, allow_perks, allow_playbooks, status")
+    .eq("id", scope.agencyId)
+    .maybeSingle();
+  if (!partnerContentAllowed(data, feature)) throw new Error("This tool isn't switched on for your agency");
+  return scope.agencyId;
+}
+
+/** Content rows must belong to the caller's agency (null = owner content). */
+export async function assertContentRow(
+  table: "agency_challenges" | "partner_perks" | "seasonal_playbooks",
+  id: string,
+  agencyId: string | null,
+): Promise<void> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from(table).select("agency_id").eq("id", id).maybeSingle();
+  if (!data || (data.agency_id ?? null) !== agencyId) throw new Error("Not found");
+}
+
+/** Families picked as recipients must sit inside the caller's agency. */
+export async function assertFamiliesInAgency(familyIds: string[], agencyId: string | null): Promise<void> {
+  if (!familyIds.length) return;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from("families").select("id, partner_agency_id").in("id", familyIds);
+  const ok = (data ?? []).length === new Set(familyIds).size && (data ?? []).every((f) => (f.partner_agency_id ?? null) === agencyId);
+  if (!ok) throw new Error("Family not found");
+}
+
+/** Which agency's content a wallet family sees, or false when that tool is off for their agency. */
+export async function walletContentAgency(familyId: string, feature: ContentFeature): Promise<string | null | false> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();
+  const agencyId = fam?.partner_agency_id ?? null;
+  if (!agencyId) return null;
+  const { data: agency } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("allow_challenges, allow_perks, allow_playbooks, status")
+    .eq("id", agencyId)
+    .maybeSingle();
+  return partnerContentAllowed(agency, feature) ? agencyId : false;
+}
