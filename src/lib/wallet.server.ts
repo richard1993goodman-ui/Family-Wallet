@@ -316,6 +316,7 @@ export type WalletData = {
   nannytaxCode: string | null;
   startDate: string | null;
   termsAcceptedOn: string | null;
+  hasTerms: boolean;
   updatedAt: string;
   contacts: WalletContact[];
   documents: { docType: string; fileName: string }[];
@@ -388,6 +389,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     nannytaxCode: access === "family" ? family.nannytax_code : null,
     startDate: access === "family" ? family.start_date : null,
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
+    hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
     updatedAt: family.updated_at,
     contacts: (contactRows ?? []).map((c) => ({
       name: c.name,

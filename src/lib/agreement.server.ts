@@ -269,7 +269,7 @@ export async function signDocument(
 
   let docVersion = TERMS_VERSION;
   if (docKind === "terms") {
-    const t = await termsForFamily(resolved.family.id);
+    const t = await termsForFamily(family.id);
     if (!t) return { ok: false as const, reason: "not_ready" as const };
     docVersion = String(t.version);
   }
