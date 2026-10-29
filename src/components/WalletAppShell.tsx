@@ -1,3 +1,4 @@
+import { readDemoBrand } from "@/lib/demo-brand";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -207,6 +208,11 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
     enabled: Boolean(location),
   });
 
+  const [demoBrand, setDemoBrandState] = useState<string | null>(null);
+  useEffect(() => {
+    setDemoBrandState(location?.slug === "demo" ? readDemoBrand() : null);
+  }, [location?.slug]);
+
   if (!location || !summaryQuery.data?.unlocked) return <>{children}</>;
 
   return (
@@ -218,7 +224,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         activePrefix={location.prefix}
       />
       <SidebarInset className="min-w-0 bg-sand">
-        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} agencyName={summaryQuery.data.wallet.agencyName ?? null} />
+        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} agencyName={demoBrand ?? summaryQuery.data.wallet.agencyName ?? null} />
         <div className="min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
           {children}
         </div>
