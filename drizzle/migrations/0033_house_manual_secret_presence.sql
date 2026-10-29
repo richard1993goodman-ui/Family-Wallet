@@ -1,0 +1,1 @@
+ALTER TABLE public.house_manual_entries ADD COLUMN has_secret boolean GENERATED ALWAYS AS (secret_value IS NOT NULL AND secret_value <> '') STORED;

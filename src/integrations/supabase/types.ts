@@ -972,6 +972,7 @@ export type Database = {
         Row: {
           category: string
           family_id: string
+          has_secret: boolean | null
           id: string
           notes: string
           secret_value: string | null
@@ -981,6 +982,7 @@ export type Database = {
         Insert: {
           category: string
           family_id: string
+          has_secret?: boolean | null
           id?: string
           notes?: string
           secret_value?: string | null
@@ -990,6 +992,7 @@ export type Database = {
         Update: {
           category?: string
           family_id?: string
+          has_secret?: boolean | null
           id?: string
           notes?: string
           secret_value?: string | null
