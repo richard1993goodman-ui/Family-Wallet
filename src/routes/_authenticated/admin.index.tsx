@@ -9,7 +9,7 @@ import { Copy, Plus } from "lucide-react";
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
-import { TIER_BANDS, tierFor } from "@/lib/tiers";
+
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

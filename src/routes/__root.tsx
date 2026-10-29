@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "The private Family Wallet from your agency: your nanny agreement, nanny CV, membership and everyday nanny tools in one place.",
+          "The private Family Wallet from your agency: your nanny agreement, nanny CV and everyday nanny tools in one place.",
       },
       { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#17325b" },

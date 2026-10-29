@@ -119,7 +119,7 @@ const benefitGroups = [
     items: [
       "Ask your agency — message your agency straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
-      "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
+      "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
       "Active Kids Sports Passport — skills, challenges and confidence wins",
       "Nanny training hub — safeguarding, routines and emergencies",

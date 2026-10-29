@@ -24,7 +24,6 @@ import {
   uploadDocument,
   uploadNannyPhoto,
 } from "@/lib/admin.functions";
-import { TIER_BANDS } from "@/lib/tiers";
 import { CURATION_STATUSES, PAYROLL_STATUSES, SAFETY_DOCUMENTS } from "@/lib/concierge.types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
