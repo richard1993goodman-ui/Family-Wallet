@@ -259,7 +259,6 @@ function WalletPage() {
         </h1>
 
         <WalletTravelBanner slug={slug} />
-        <h2 className="ios-section-title mt-6">To do</h2>
         {!isNanny && (
           <SetupStatus
             slug={slug}
