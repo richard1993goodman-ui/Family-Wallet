@@ -26,6 +26,7 @@ import { Route as FuelSlugRouteImport } from './routes/fuel.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
 import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as HousemanualSlugRouteImport } from './routes/housemanual.$slug'
+import { Route as KidsSlugRouteImport } from './routes/kids.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
@@ -140,6 +141,11 @@ const HandoverSlugRoute = HandoverSlugRouteImport.update({
 const HousemanualSlugRoute = HousemanualSlugRouteImport.update({
   id: '/housemanual/$slug',
   path: '/housemanual/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KidsSlugRoute = KidsSlugRouteImport.update({
+  id: '/kids/$slug',
+  path: '/kids/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeaveSlugRoute = LeaveSlugRouteImport.update({
@@ -319,6 +325,7 @@ export interface FileRoutesByFullPath {
   '/guide/$slug': typeof GuideSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
+  '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
@@ -368,6 +375,7 @@ export interface FileRoutesByTo {
   '/guide/$slug': typeof GuideSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
+  '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
@@ -419,6 +427,7 @@ export interface FileRoutesById {
   '/guide/$slug': typeof GuideSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
+  '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
@@ -470,6 +479,7 @@ export interface FileRouteTypes {
     | '/guide/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
+    | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
@@ -519,6 +529,7 @@ export interface FileRouteTypes {
     | '/guide/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
+    | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
@@ -569,6 +580,7 @@ export interface FileRouteTypes {
     | '/guide/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
+    | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
     | '/medication/$slug'
@@ -620,6 +632,7 @@ export interface RootRouteChildren {
   GuideSlugRoute: typeof GuideSlugRoute
   HandoverSlugRoute: typeof HandoverSlugRoute
   HousemanualSlugRoute: typeof HousemanualSlugRoute
+  KidsSlugRoute: typeof KidsSlugRoute
   LeaveSlugRoute: typeof LeaveSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   MedicationSlugRoute: typeof MedicationSlugRoute
@@ -766,6 +779,13 @@ declare module '@tanstack/react-router' {
       path: '/housemanual/$slug'
       fullPath: '/housemanual/$slug'
       preLoaderRoute: typeof HousemanualSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kids/$slug': {
+      id: '/kids/$slug'
+      path: '/kids/$slug'
+      fullPath: '/kids/$slug'
+      preLoaderRoute: typeof KidsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leave/$slug': {
@@ -1027,6 +1047,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuideSlugRoute: GuideSlugRoute,
   HandoverSlugRoute: HandoverSlugRoute,
   HousemanualSlugRoute: HousemanualSlugRoute,
+  KidsSlugRoute: KidsSlugRoute,
   LeaveSlugRoute: LeaveSlugRoute,
   LogSlugRoute: LogSlugRoute,
   MedicationSlugRoute: MedicationSlugRoute,
