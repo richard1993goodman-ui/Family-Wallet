@@ -8,6 +8,7 @@ import { Copy, Plus } from "lucide-react";
 
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
+import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -256,6 +257,7 @@ function AdminHome() {
         )}
         {(status.data?.features.perks || status.data?.features.playbooks) && (
           <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+          <div className="mt-6"><AgencyTermsPanel /></div>
         )}
 
         <div className="mt-8 space-y-3">
