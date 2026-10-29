@@ -149,7 +149,7 @@ function Index() {
           </span>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
-            <p className="text-xs text-muted-foreground">Private family membership</p>
+            <p className="text-xs text-muted-foreground">For nanny agencies &amp; their families</p>
           </div>
           <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
             <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure

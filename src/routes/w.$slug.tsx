@@ -67,13 +67,13 @@ import {
 export const Route = createFileRoute("/w/$slug")({
   head: () => ({
     meta: [
-      { title: "Your The Family Wallet" },
+      { title: "Your Family Wallet" },
       {
         name: "description",
         content:
           "Your private Family Wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Your The Family Wallet" },
+      { property: "og:title", content: "Your Family Wallet" },
       {
         property: "og:description",
         content: "Your private Family Wallet from your agency.",
@@ -252,7 +252,7 @@ function WalletPage() {
           </div>
         )}
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          The Family Wallet
+          {wallet.agencyName ?? "The Family Wallet"}
         </p>
         <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
           {wallet.familyName}
