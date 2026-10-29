@@ -36,6 +36,7 @@ import {
   Users,
   UtensilsCrossed,
   WandSparkles,
+  Wallet,
 } from "lucide-react";
 
 import { getWalletSummary } from "@/lib/wallet.functions";
@@ -277,8 +278,8 @@ function WalletNavigation({
           onClick={() => isMobile && setOpenMobile(false)}
           className="flex min-w-0 items-center gap-3 rounded-md p-1.5 hover:bg-sidebar-accent"
         >
-          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary font-display text-sm font-semibold text-sidebar-primary-foreground">
-            AM
+          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
+            <Wallet className="h-4 w-4" aria-hidden="true" />
           </span>
           <span className="min-w-0 group-data-[collapsible=icon]:hidden">
             <span className="block truncate text-sm font-semibold">{familyName}</span>
