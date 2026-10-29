@@ -84,7 +84,7 @@ function TermsPage() {
           <div className="mt-5 border-t border-border pt-5">
             <SignForm
               role="parent"
-              statement={`I have read and agree to your agency membership terms and conditions (version ${data.termsVersion}).`}
+              statement={`I have read and agree to the agency membership terms and conditions (version ${data.termsVersion}).`}
               onSign={onSign}
             />
           </div>

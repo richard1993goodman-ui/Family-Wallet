@@ -16,7 +16,7 @@ export const Route = createFileRoute("/auth")({
       { title: "Agency sign in — The Family Wallet" },
       {
         name: "description",
-        content: "Sign in to manage your agency Family Wallets, documents and membership tiers.",
+        content: "Sign in to manage Family Wallets, documents and membership tiers.",
       },
       { property: "og:title", content: "Agency sign in — The Family Wallet" },
       { property: "og:description", content: "Private sign in for your agency team." },
