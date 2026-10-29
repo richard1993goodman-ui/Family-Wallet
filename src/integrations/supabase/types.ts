@@ -1379,6 +1379,50 @@ export type Database = {
           },
         ]
       }
+      petty_cash_entries: {
+        Row: {
+          added_by: string
+          added_by_name: string | null
+          amount: number
+          created_at: string
+          description: string
+          entry_date: string
+          family_id: string
+          id: string
+          kind: string
+        }
+        Insert: {
+          added_by: string
+          added_by_name?: string | null
+          amount: number
+          created_at?: string
+          description: string
+          entry_date: string
+          family_id: string
+          id?: string
+          kind: string
+        }
+        Update: {
+          added_by?: string
+          added_by_name?: string | null
+          amount?: number
+          created_at?: string
+          description?: string
+          entry_date?: string
+          family_id?: string
+          id?: string
+          kind?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "petty_cash_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       planner_entries: {
         Row: {
           added_by: string
