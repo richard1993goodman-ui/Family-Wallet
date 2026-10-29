@@ -167,6 +167,7 @@ export async function loadTimesheets(slug: string) {
 export async function submitShift(slug: string, input: ShiftInput) {
   const family = await sharedFamily(slug);
   if (!family) throw new Error("Please sign in again.");
+  const shiftType = input.shiftType === "babysitting" ? "babysitting" : "nanny";
   const { data, error } = await supabaseAdmin.from("timesheet_shifts").insert({
     family_id: family.id,
     shift_date: input.shiftDate,
@@ -176,6 +177,7 @@ export async function submitShift(slug: string, input: ShiftInput) {
     is_overnight: input.isOvernight,
     hourly_rate: Math.max(0, input.hourlyRate || 0),
     notes: input.notes?.trim().slice(0, 1000) || null,
+    shift_type: shiftType,
     submitted_by: family.access,
     status: family.access === "family" ? "approved" : "pending",
     reviewed_at: family.access === "family" ? new Date().toISOString() : null,
@@ -186,7 +188,7 @@ export async function submitShift(slug: string, input: ShiftInput) {
     entry_date: input.shiftDate,
     time_label: input.startTime,
     end_time_label: input.endTime,
-    title: "Nanny shift",
+    title: shiftType === "babysitting" ? "Babysitting" : "Nanny shift",
     entry_type: "shift",
     added_by: family.access,
     notes: input.notes?.trim().slice(0, 1000) || null,
