@@ -19,6 +19,6 @@ export type ManualInput = z.infer<typeof manualEntrySchema>;
 export type ManualRow = { id: string; category: ManualInput["category"]; title: string; notes: string; hasSecret: boolean; updatedAt: string };
 export type ManualData = { access: "family" | "nanny"; entries: ManualRow[] };
 export function canManageManual(access: string | null) { return access === "family"; }
-export function manualSummary(row: { id: string; category: string; title: string; notes: string; has_secret: boolean; updated_at: string }): ManualRow {
-  return { id: row.id, category: row.category as ManualRow["category"], title: row.title, notes: row.notes, hasSecret: row.has_secret, updatedAt: row.updated_at };
+export function manualSummary(row: { id: string; category: string; title: string; notes: string; has_secret: boolean | null; updated_at: string }): ManualRow {
+  return { id: row.id, category: row.category as ManualRow["category"], title: row.title, notes: row.notes, hasSecret: row.has_secret === true, updatedAt: row.updated_at };
 }
