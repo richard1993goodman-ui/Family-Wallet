@@ -10,7 +10,7 @@ describe("partner agency isolation", () => {
   it("partner staff cannot see another agency's families", () => {
     expect(canSeeFamily(partner, "agency-b")).toBe(false);
   });
-  it("partner staff cannot see Athlete Mannies' own families", () => {
+  it("partner staff cannot see the owner's own families", () => {
     expect(canSeeFamily(partner, null)).toBe(false);
   });
   it("the owner sees every family", () => {

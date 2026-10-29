@@ -44,11 +44,6 @@ export const TOOL_LINKS = [
     description: "Age-appropriate indoor and outdoor activity ideas in seconds.",
     href: "https://nannyguide.lovable.app",
   },
-  {
-    title: "Nanny agreement builder",
-    description: "Create or update a childcare contract with holiday allowance worked out.",
-    href: "https://athletemanniesnannyagreement.lovable.app",
-  },
 ];
 
 

@@ -1,4 +1,4 @@
-// Agency staff scope: the AthleteMannies owner (admin role) sees every family;
+// Agency staff scope: the the owner agency owner (admin role) sees every family;
 // partner-agency staff see only families whose partner_agency_id matches theirs.
 export type StaffScope =
   | { kind: "owner" }
@@ -107,7 +107,7 @@ export function partnerContentAllowed(agency: FeatureFlags | null | undefined, _
   return !!agency && agency.status === "active";
 }
 
-/** Returns the agency that owns content made by this staff member: null = AthleteMannies (owner). */
+/** Returns the agency that owns content made by this staff member: null = the owner agency (owner). */
 export async function requireContentScope(context: unknown, feature: ContentFeature): Promise<string | null> {
   const scope = await requireStaff(context);
   if (scope.kind === "owner") return null;
