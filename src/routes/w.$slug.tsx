@@ -39,6 +39,7 @@ import {
   ExternalLink,
   Camera,
   Sparkles,
+  Wallet,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
@@ -73,7 +74,7 @@ export const Route = createFileRoute("/w/$slug")({
       { property: "og:title", content: "Your Family Wallet" },
       {
         property: "og:description",
-        content: "Your private Family Wallet from your agency.",
+        content: "Your private Family Wallet for your family and nanny.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
