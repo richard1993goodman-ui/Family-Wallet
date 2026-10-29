@@ -190,6 +190,13 @@
       "when": 1793199562286,
       "tag": "0026_partner_agencies",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1793285012740,
+      "tag": "0027_agency_fees_and_content",
+      "breakpoints": true
     }
   ]
 }

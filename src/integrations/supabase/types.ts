@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       agency_challenges: {
         Row: {
+          agency_id: string | null
           audience: string
           created_at: string
           description: string | null
@@ -25,6 +26,7 @@ export type Database = {
           title: string
         }
         Insert: {
+          agency_id?: string | null
           audience?: string
           created_at?: string
           description?: string | null
@@ -34,6 +36,7 @@ export type Database = {
           title: string
         }
         Update: {
+          agency_id?: string | null
           audience?: string
           created_at?: string
           description?: string | null
@@ -42,7 +45,15 @@ export type Database = {
           is_active?: boolean
           title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "agency_challenges_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       challenge_completions: {
         Row: {
@@ -360,6 +371,8 @@ export type Database = {
           contact_phone: string | null
           created_at: string
           family_name: string
+          fee_amount: string | null
+          fee_label: string | null
           id: string
           intro_fee_percent: number | null
           nanny_bio: string | null
@@ -388,6 +401,8 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           family_name: string
+          fee_amount?: string | null
+          fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
           nanny_bio?: string | null
@@ -416,6 +431,8 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           family_name?: string
+          fee_amount?: string | null
+          fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
           nanny_bio?: string | null
@@ -1181,6 +1198,9 @@ export type Database = {
       }
       partner_agencies: {
         Row: {
+          allow_challenges: boolean
+          allow_perks: boolean
+          allow_playbooks: boolean
           brand_name: string | null
           contact_email: string | null
           contact_phone: string | null
@@ -1193,6 +1213,9 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          allow_challenges?: boolean
+          allow_perks?: boolean
+          allow_playbooks?: boolean
           brand_name?: string | null
           contact_email?: string | null
           contact_phone?: string | null
@@ -1205,6 +1228,9 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          allow_challenges?: boolean
+          allow_perks?: boolean
+          allow_playbooks?: boolean
           brand_name?: string | null
           contact_email?: string | null
           contact_phone?: string | null
@@ -1252,6 +1278,7 @@ export type Database = {
       }
       partner_perks: {
         Row: {
+          agency_id: string | null
           area: string | null
           category: string
           contact_text: string | null
@@ -1270,6 +1297,7 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          agency_id?: string | null
           area?: string | null
           category?: string
           contact_text?: string | null
@@ -1288,6 +1316,7 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          agency_id?: string | null
           area?: string | null
           category?: string
           contact_text?: string | null
@@ -1305,7 +1334,15 @@ export type Database = {
           updated_at?: string
           website_url?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "partner_perks_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       planner_entries: {
         Row: {
@@ -1546,6 +1583,7 @@ export type Database = {
       seasonal_playbooks: {
         Row: {
           age_guidance: string | null
+          agency_id: string | null
           audience: string
           cover_image_url: string | null
           created_at: string
@@ -1563,6 +1601,7 @@ export type Database = {
         }
         Insert: {
           age_guidance?: string | null
+          agency_id?: string | null
           audience?: string
           cover_image_url?: string | null
           created_at?: string
@@ -1580,6 +1619,7 @@ export type Database = {
         }
         Update: {
           age_guidance?: string | null
+          agency_id?: string | null
           audience?: string
           cover_image_url?: string | null
           created_at?: string
@@ -1595,7 +1635,15 @@ export type Database = {
           topic?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "seasonal_playbooks_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sports_passport_entries: {
         Row: {
