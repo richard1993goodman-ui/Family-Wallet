@@ -1,7 +1,8 @@
 # Roadmap
 
-- [ ] Give all active partners full agency-scoped challenge, parent perk and playbook controls
-- [ ] Verify permissions and available partner controls
+- [x] Give all active partners full agency-scoped challenge, parent perk and playbook controls
+- [x] Verify agency-scoped content permission tests
+- [ ] Check management buttons and saving content as a partner in the browser — blocked by authenticator verification on the available session
 
 - [x] Extend the welcome journey with a shared first-48-hours checklist
 - [x] Add parent/nanny confirmations, notes and progress
