@@ -38,6 +38,8 @@ export const Route = createFileRoute("/_authenticated/admin/")({
       { property: "og:title", content: "Families — Athlete Mannies Family Wallet" },
       { property: "og:description", content: "Create and manage private Family Wallets." },
       { name: "robots", content: "noindex" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AdminHome,

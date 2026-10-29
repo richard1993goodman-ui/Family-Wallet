@@ -21,15 +21,19 @@ describe("partner agency isolation", () => {
 
 describe("partner premium content tools", () => {
   const off = { allow_challenges: false, allow_perks: false, allow_playbooks: false, status: "active" };
-  it("a tool stays locked until the owner switches it on", () => {
-    expect(partnerContentAllowed(off, "challenges")).toBe(false);
+  it("active partners can manage their own challenges without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "challenges")).toBe(true);
   });
-  it("switching on one tool does not unlock the others", () => {
-    const on = { ...off, allow_perks: true };
-    expect(partnerContentAllowed(on, "perks")).toBe(true);
-    expect(partnerContentAllowed(on, "playbooks")).toBe(false);
+  it("active partners can manage their own parent perks without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "perks")).toBe(true);
+  });
+  it("active partners can manage their own playbooks without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "playbooks")).toBe(true);
   });
   it("a paused agency loses its tools", () => {
     expect(partnerContentAllowed({ ...off, allow_challenges: true, status: "paused" }, "challenges")).toBe(false);
+  });
+  it("a missing agency cannot access content", () => {
+    expect(partnerContentAllowed(null, "perks")).toBe(false);
   });
 });

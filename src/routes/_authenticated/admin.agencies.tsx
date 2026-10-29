@@ -21,6 +21,8 @@ export const Route = createFileRoute("/_authenticated/admin/agencies")({
       { property: "og:title", content: "Partner agencies — Athlete Mannies Family Wallet" },
       { property: "og:description", content: "Set up partner agencies and who can sign in for them." },
       { name: "robots", content: "noindex" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AgenciesPage,
@@ -177,21 +179,6 @@ function AgenciesPage() {
                 >
                   {a.intro_pricing ? "End intro rate" : "Use intro rate"}
                 </Button>
-                {([
-                  ["allowChallenges", "allow_challenges", "Kids challenges"],
-                  ["allowPerks", "allow_perks", "Partner perks"],
-                  ["allowPlaybooks", "allow_playbooks", "Seasonal playbooks"],
-                ] as const).map(([key, col, label]) => (
-                  <Button
-                    key={key}
-                    variant={a[col] ? "default" : "outline"}
-                    size="sm"
-                    aria-pressed={a[col]}
-                    onClick={() => run(() => saveAgency(a, { [key]: !a[col] }), a[col] ? `${label} switched off` : `${label} switched on`)}
-                  >
-                    {a[col] ? "✓ " : ""}{label}
-                  </Button>
-                ))}
                 <Button
                   variant="outline"
                   size="sm"
@@ -221,6 +208,7 @@ function AgenciesPage() {
                 </div>
               </div>
               {a.status !== "active" && <p className="mt-2 text-xs font-medium text-destructive">Paused — staff cannot sign in.</p>}
+              <p className="mt-3 text-sm text-muted-foreground">Included controls: kids challenges, parent perks and seasonal playbooks.</p>
 
               <p className="mt-4 text-sm font-medium">People who can sign in</p>
               <ul className="mt-2 space-y-1">
