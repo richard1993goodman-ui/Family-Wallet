@@ -131,7 +131,7 @@ export type FamilyInput = {
   /** Agency's own fee wording, e.g. "Monthly retainer" / "£180 + VAT per month". Overrides the standard band when set. */
   feeLabel?: string;
   feeAmount?: string;
-  /** Owner only: which partner agency runs this family ("" = AthleteMannies). */
+  /** Owner only: which partner agency runs this family ("" = the owner agency). */
   partnerAgencyId?: string;
 };
 

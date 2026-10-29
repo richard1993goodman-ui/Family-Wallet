@@ -309,7 +309,7 @@ export type WalletNanny = {
 export type WalletData = {
   access: "family" | "nanny";
   familyName: string;
-  /** Partner agency running this wallet; null = Athlete Mannies & Nannies. */
+  /** Partner agency running this wallet; null = owner agency. */
   agencyName: string | null;
   tierBand: string;
   nannies: WalletNanny[];

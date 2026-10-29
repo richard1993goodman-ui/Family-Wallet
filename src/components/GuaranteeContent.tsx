@@ -20,21 +20,18 @@ export function GuaranteeContent() {
           <Shield className="h-7 w-7 text-primary" />
         </div>
         <h2 className="heading-display text-2xl text-foreground">Our Commitment &amp; Guarantee</h2>
-        <p className="mt-1 text-sm italic text-muted-foreground">Athlete Mannies &amp; Nannies</p>
       </div>
 
       <div className="space-y-4 text-[15px] leading-relaxed text-foreground">
         <p className="font-semibold">To our valued family,</p>
         <p>
-          We at <strong>Athlete Mannies &amp; Nannies</strong> understand that entrusting someone
+          We understand that entrusting someone
           with the care of your children is one of the most important decisions you will ever make.
           That is why we make the following commitment to you — not as a formality, but as a genuine
           promise from our agency to your family.
         </p>
         <p>
-          With over <strong>11 years of trusted placements</strong> and consistently{" "}
-          <strong>5-star family reviews</strong>, we have built our reputation on a personal,
-          relationship-led service that families truly depend on.
+          We believe in a personal, relationship-led service that families can truly depend on.
         </p>
       </div>
 
@@ -59,7 +56,7 @@ export function GuaranteeContent() {
       </div>
 
       <p className="mt-6 text-sm text-muted-foreground">
-        Richard Goodman, on behalf of your agency &amp; Nannies
+        On behalf of your agency
       </p>
     </div>
   );
