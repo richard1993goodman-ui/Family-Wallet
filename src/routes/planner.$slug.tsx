@@ -87,6 +87,7 @@ function PlannerPage() {
   if (!query.data) return <LockedNotice slug={slug} />;
 
   const entries = query.data.entries;
+  const isParent = query.data.access === "family";
   const workingDays = query.data.workingDays;
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
@@ -98,7 +99,7 @@ function PlannerPage() {
     if (!draft) return;
     try {
       await addFn({
-        data: { slug, entryDate: draft.date, timeLabel: draft.time, endTimeLabel: draft.endTime, title: draft.title, childName: draft.child, entryType: draft.entryType, status: draft.status, notes: draft.notes },
+        data: { slug, entryDate: draft.date, timeLabel: draft.time, endTimeLabel: draft.endTime, title: draft.entryType === "playdate" && !draft.title.trim() && draft.friend ? `Playdate with ${draft.friend}` : draft.title, childName: draft.child, entryType: draft.entryType, status: draft.status, notes: draft.entryType === "playdate" ? [draft.friend && `Friend: ${draft.friend}`, draft.address && `Address: ${draft.address}`, (draft.contactName || draft.contactPhone) && `Emergency contact: ${[draft.contactName, draft.contactPhone].filter(Boolean).join(" — ")}`, draft.notes].filter(Boolean).join("\n") : draft.notes },
       });
       setDraft(null);
       await refresh();

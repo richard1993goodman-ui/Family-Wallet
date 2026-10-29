@@ -3,7 +3,7 @@ import { z } from "zod";
 export const PLAYBOOK_CATEGORIES = [
   { id: "comfort", label: "Quirks & comfort", examples: "What soothes them, fears and sensitivities, current obsessions" },
   { id: "handle", label: "How we handle…", examples: "Tantrums, rewards, screen and gaming rules — so everyone says the same thing" },
-  { id: "friends", label: "Friends & pick-ups", examples: "Approved friends, their parents' numbers and who can collect from clubs" },
+  { id: "friends", label: "Friends & pick-ups", examples: "Best friends, club pick-up arrangements — add playdates with address and emergency contact in the Calendar" },
   { id: "activities", label: "Rainy-day ideas", examples: "Home activities, favourite recipes and local spots the kids love" },
 ] as const;
 export type PlaybookCategory = (typeof PLAYBOOK_CATEGORIES)[number]["id"];
