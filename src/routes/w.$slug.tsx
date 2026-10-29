@@ -259,101 +259,7 @@ function WalletPage() {
         </h1>
 
         <WalletTravelBanner slug={slug} />
-        <WalletChallenges slug={slug} />
-
-        {wallet.nannies.length > 0 && (
-          <div className="mt-4 rounded-2xl bg-card shadow-sm p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              {wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}
-            </p>
-            <div className="mt-3 space-y-4">
-              {wallet.nannies.map((nanny) => (
-                <div key={nanny.id} className="flex items-start gap-4">
-                  {nanny.photoUrl && (
-                    <img
-                      src={nanny.photoUrl}
-                      alt={nanny.name}
-                      className="h-16 w-16 flex-shrink-0 rounded-full border border-border object-cover"
-                    />
-                  )}
-                  <div>
-                    <p className="heading-display text-xl text-foreground">
-                      {nanny.name}
-                      {nanny.isYou && (
-                        <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs font-medium">
-                          You
-                        </span>
-                      )}
-                    </p>
-                    {nanny.bio && <p className="mt-1 text-sm text-muted-foreground">{nanny.bio}</p>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <h2 className="ios-section-title mt-6">This week</h2>
-        <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
-          <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
-          <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
-          <HubTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
-          <HubTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
-          <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
-          <HubTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
-        </div>
-
-        <WelcomeCard slug={slug} />
-
-        <Link
-          to="/emergency/$slug"
-          params={{ slug }}
-          className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-destructive/40 bg-card p-5 hover:border-destructive"
-        >
-          <span>
-            <span className="block font-medium text-foreground">Emergency card</span>
-            <span className="mt-1 block text-sm text-muted-foreground">
-              Contacts, allergies, medication, GP and home address — in one tap
-            </span>
-          </span>
-          <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
-        </Link>
-
-        {!isNanny && (
-          <Link
-            to="/cover/$slug"
-            params={{ slug }}
-            className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-primary/50 bg-accent p-5 hover:border-primary"
-          >
-            <span>
-              <span className="block font-medium text-foreground">Request cover</span>
-              <span className="mt-1 block text-sm text-muted-foreground">
-                Nanny off sick, a night out or an extra day — ask us for cover or a babysitter
-              </span>
-            </span>
-            <LifeBuoy className="h-5 w-5 flex-shrink-0 text-primary" />
-          </Link>
-        )}
-
-        {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
-          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
-          <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
-          <HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Checks, training and insurance records in one place" />
-        </div></>}
-
-        {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
-
-        {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
-          <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
-          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
-          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
-        </div></>}
-
-
+        <h2 className="ios-section-title mt-6">To do</h2>
         {!isNanny && (
           <SetupStatus
             slug={slug}
@@ -416,6 +322,100 @@ function WalletPage() {
             ]}
           />
         )}
+        <WelcomeCard slug={slug} />
+
+        {wallet.nannies.length > 0 && (
+          <div className="mt-4 rounded-2xl bg-card shadow-sm p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              {wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}
+            </p>
+            <div className="mt-3 space-y-4">
+              {wallet.nannies.map((nanny) => (
+                <div key={nanny.id} className="flex items-start gap-4">
+                  {nanny.photoUrl && (
+                    <img
+                      src={nanny.photoUrl}
+                      alt={nanny.name}
+                      className="h-16 w-16 flex-shrink-0 rounded-full border border-border object-cover"
+                    />
+                  )}
+                  <div>
+                    <p className="heading-display text-xl text-foreground">
+                      {nanny.name}
+                      {nanny.isYou && (
+                        <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs font-medium">
+                          You
+                        </span>
+                      )}
+                    </p>
+                    {nanny.bio && <p className="mt-1 text-sm text-muted-foreground">{nanny.bio}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <h2 className="ios-section-title mt-6">This week</h2>
+        <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
+        <div className="ios-group mt-2">
+          <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
+          <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
+          <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
+          <HubTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
+          <HubTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
+          <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
+          <HubTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
+        </div>
+
+
+        <Link
+          to="/emergency/$slug"
+          params={{ slug }}
+          className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-destructive/40 bg-card p-5 hover:border-destructive"
+        >
+          <span>
+            <span className="block font-medium text-foreground">Emergency card</span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              Contacts, allergies, medication, GP and home address — in one tap
+            </span>
+          </span>
+          <Siren className="h-5 w-5 flex-shrink-0 text-destructive" />
+        </Link>
+
+        {!isNanny && (
+          <Link
+            to="/cover/$slug"
+            params={{ slug }}
+            className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-primary/50 bg-accent p-5 hover:border-primary"
+          >
+            <span>
+              <span className="block font-medium text-foreground">Request cover</span>
+              <span className="mt-1 block text-sm text-muted-foreground">
+                Nanny off sick, a night out or an extra day — ask us for cover or a babysitter
+              </span>
+            </span>
+            <LifeBuoy className="h-5 w-5 flex-shrink-0 text-primary" />
+          </Link>
+        )}
+
+        {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
+        <div className="ios-group mt-2">
+          <HubTile slug={slug} to="/family/$slug" icon={Users} title="Know my family" subtitle={hub?.childCount ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added` : "Children, routines, allergies and house rules"} />
+          <HubTile slug={slug} to="/nannies/$slug" icon={UserPlus} title="Your nannies" subtitle={nannies.length ? `${nannies.length} added — invite codes and agreements` : "Add each nanny you employ with us"} />
+          <HubTile slug={slug} to="/guide/$slug" icon={BookOpen} title="Nanny quick guide" subtitle="A one-page summary for your nanny" />
+          <HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Checks, training and insurance records in one place" />
+        </div></>}
+
+        {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
+
+        {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
+          <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
+          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
+          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
+        </div></>}
+
+
 
         {nannies.length <= 1 && agreement && agreement.hasContent && !agreementDone && (
           <div className="mt-3">
@@ -481,6 +481,7 @@ function WalletPage() {
 
 
         <h2 className="ios-section-title mt-8">Activities, meals &amp; pay</h2>
+        <WalletChallenges slug={slug} />
         <div className="ios-group mt-2">
           <HubTile slug={slug} to="/passport/$slug" icon={Dumbbell} title="Active Kids Passport" subtitle={hub?.latestPassport ? `${hub.latestPassport.child_name}: ${hub.latestPassport.activity}` : "Sports skills, challenges and confidence wins"} />
           <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
@@ -743,6 +744,7 @@ function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
   const total = items.length;
   const allDone = done === total;
   const outstanding = items.filter((item) => !item.done);
+  if (allDone) return null;
   const barColour = allDone ? "bg-emerald-600" : done >= total / 2 ? "bg-amber-500" : "bg-destructive";
 
   return (
@@ -1080,6 +1082,7 @@ function WelcomeCard({ slug }: { slug: string }) {
   const done = welcome.nannies.reduce((total, nanny) => total + nanny.doneCount, 0);
   const total = welcome.nannies.reduce((total, nanny) => total + nanny.total, 0);
   const completed = total > 0 && done === total;
+  if (completed) return null;
 
   return (
     <Link
