@@ -1953,6 +1953,7 @@ export type Database = {
           notes: string | null
           reviewed_at: string | null
           shift_date: string
+          shift_type: string
           start_time: string
           status: string
           submitted_by: string
@@ -1969,6 +1970,7 @@ export type Database = {
           notes?: string | null
           reviewed_at?: string | null
           shift_date: string
+          shift_type?: string
           start_time: string
           status?: string
           submitted_by?: string
@@ -1985,6 +1987,7 @@ export type Database = {
           notes?: string | null
           reviewed_at?: string | null
           shift_date?: string
+          shift_type?: string
           start_time?: string
           status?: string
           submitted_by?: string
