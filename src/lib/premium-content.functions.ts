@@ -33,15 +33,17 @@ export const listPremiumContentAdmin = createServerFn({ method: "GET" }).middlew
   const [perkScope, playScope] = await Promise.all([tryScope(context, "perks"), tryScope(context, "playbooks")]);
   if (!perkScope && !playScope) throw new Error("Forbidden");
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const own = <T extends { agency_id: string | null }>(rows: T[] | null, a: string | null) => (rows ?? []).filter((r) => (r.agency_id ?? null) === a);
+  const agencyId = (perkScope ?? playScope)!.agencyId;
+  const perkQ = supabaseAdmin.from("partner_perks").select("*").order("sort_order").order("created_at", { ascending: false });
+  const playQ = supabaseAdmin.from("seasonal_playbooks").select("*").order("created_at", { ascending: false });
   const [{ data: perkRows, error: perkError }, { data: playRows, error: playbookError }] = await Promise.all([
-    perkScope ? supabaseAdmin.from("partner_perks").select("*").order("sort_order").order("created_at", { ascending: false }) : Promise.resolve({ data: [], error: null }),
-    playScope ? supabaseAdmin.from("seasonal_playbooks").select("*").order("created_at", { ascending: false }) : Promise.resolve({ data: [], error: null }),
+    agencyId ? perkQ.eq("agency_id", agencyId) : perkQ.is("agency_id", null),
+    agencyId ? playQ.eq("agency_id", agencyId) : playQ.is("agency_id", null),
   ]);
   if (perkError) throw new Error(perkError.message);
   if (playbookError) throw new Error(playbookError.message);
-  const perks = perkScope ? own(perkRows, perkScope.agencyId) : [];
-  const playbooks = playScope ? own(playRows, playScope.agencyId) : [];
+  const perks = perkScope ? (perkRows ?? []) : [];
+  const playbooks = playScope ? (playRows ?? []) : [];
   const { data: recipients } = playbooks.length
     ? await supabaseAdmin.from("playbook_recipients").select("playbook_id, family_id").in("playbook_id", playbooks.map((p) => p.id))
     : { data: [] as { playbook_id: string; family_id: string }[] };
