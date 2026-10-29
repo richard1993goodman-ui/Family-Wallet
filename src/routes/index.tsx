@@ -87,6 +87,7 @@ const benefitGroups = [
     featured: ["Emergency card", "Children's profiles", "Safety records"],
     items: [
       "Emergency card — key contacts and instructions at a glance",
+      "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
       "Your nanny's CV, profile and references",
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
@@ -136,6 +137,7 @@ const headlineBenefits = [
   { icon: Siren, title: "Emergency details always to hand", detail: "Key contacts, allergies and instructions in one tap." },
   { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
   { icon: LifeBuoy, title: "Petty cash that always adds up", detail: "Top-ups and receipts logged, so everyone knows what's left." },
+  { icon: KeyRound, title: "No more ‘what’s the WiFi password?’", detail: "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed." },
 ];
 
 
@@ -294,7 +296,8 @@ const PREVIEW_ITEMS = [
 const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
 
 function TodayPreview() {
-  const today = (new Date().getDay() + 6) % 7;
+  const [today, setToday] = useState<number | null>(null);
+  useEffect(() => { setToday((new Date().getDay() + 6) % 7); }, []);
   return (
     <div className="mt-4 rounded-2xl border border-border bg-card/80 p-5 sm:p-6" aria-label="Sample calendar preview">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Sample preview</p>

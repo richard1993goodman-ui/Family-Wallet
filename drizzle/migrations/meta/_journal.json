@@ -225,6 +225,20 @@
       "when": 1793290486260,
       "tag": "0031_babysitting_shift_type",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1793293239778,
+      "tag": "0032_house_manual_entries",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1793293266945,
+      "tag": "0033_house_manual_secret_presence",
+      "breakpoints": true
     }
   ]
 }

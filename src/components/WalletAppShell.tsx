@@ -20,6 +20,7 @@ import {
   Gift,
   Handshake,
   Home,
+  KeyRound,
   Landmark,
   Library,
   LifeBuoy,
@@ -91,7 +92,8 @@ type WalletPath =
   | "/welcome/$slug"
   | "/moments/$slug"
   | "/pettycash/$slug"
-  | "/messages/$slug";
+  | "/messages/$slug"
+  | "/housemanual/$slug";
 
 type NavItem = {
   label: string;
@@ -134,6 +136,7 @@ const walletPrefixes = new Set([
   "moments",
   "pettycash",
   "messages",
+  "housemanual",
 ]);
 
 const navGroups: NavGroup[] = [
@@ -154,6 +157,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: "First 48 hours", icon: Sparkles, to: "/welcome/$slug" },
       { label: "Emergency card", icon: Siren, to: "/emergency/$slug" },
+      { label: "House Manual & Codes", icon: KeyRound, to: "/housemanual/$slug" },
       { label: "Children & routines", icon: Users, to: "/family/$slug", parentOnly: true },
       { label: "Your nannies", icon: UserPlus, to: "/nannies/$slug", parentOnly: true },
       { label: "Nanny quick guide", icon: BookOpen, to: "/guide/$slug", parentOnly: true },
@@ -345,7 +349,7 @@ function MobileTabs({ slug, isNanny, activePrefix }: { slug: string; isNanny: bo
       label: "Family",
       icon: Users,
       to: (isNanny ? "/guide/$slug" : "/family/$slug") as "/guide/$slug" | "/family/$slug",
-      prefixes: ["family", "nannies", "guide", "emergency"],
+      prefixes: ["family", "nannies", "guide", "emergency", "housemanual"],
     },
     { label: "Documents", icon: FileText, to: "/agreement/$slug" as const, prefixes: ["agreement", "terms", "safety"] },
   ];
