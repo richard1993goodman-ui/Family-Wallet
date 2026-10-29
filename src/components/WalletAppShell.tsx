@@ -163,17 +163,17 @@ const navGroups: NavGroup[] = [
       { label: "Timesheets", icon: Clock3, to: "/timesheets/$slug" },
       { label: "Holiday & leave", icon: Plane, to: "/leave/$slug" },
       { label: "Handover & expenses", icon: ClipboardCheck, to: "/handover/$slug" },
-      { label: "Membership terms", icon: ScrollText, to: "/terms/$slug", parentOnly: true },
+      { label: "Agency terms", icon: ScrollText, to: "/terms/$slug", parentOnly: true },
     ],
   },
   {
-    label: "Membership",
+    label: "Agency support",
     items: [
       { label: "Request cover", icon: LifeBuoy, to: "/cover/$slug", parentOnly: true },
       { label: "Payroll setup", icon: Landmark, to: "/payroll/$slug", parentOnly: true },
       { label: "Employment costs", icon: Calculator, to: "/costs/$slug", parentOnly: true },
       { label: "Private nanny curation", icon: Handshake, to: "/curation/$slug", parentOnly: true },
-      { label: "VIP member perks", icon: Gift, to: "/perks/$slug", parentOnly: true },
+      { label: "Family perks", icon: Gift, to: "/perks/$slug", parentOnly: true },
       { label: "Agency materials", icon: Library, to: "/playbooks/$slug" },
     ],
   },
@@ -334,7 +334,7 @@ function WalletNavigation({
       <SidebarSeparator />
       <SidebarFooter className="p-3">
         <p className="px-2 text-xs leading-relaxed text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden">
-          {isNanny ? "Nanny access" : "Family membership"} · Private and secure
+          {isNanny ? "Nanny access" : "Family access"} · Private and secure
         </p>
       </SidebarFooter>
       <SidebarRail />

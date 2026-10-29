@@ -5,7 +5,6 @@ const commitmentPoints = [
   "Ongoing placement support throughout your time with us",
   "WhatsApp support 7 days a week, Monday to Sunday",
   "Fully vetted nannies & mannies — Enhanced DBS, references, ID & Right-to-Work checks on every carer",
-  "Transparent, cost-effective pricing with no hidden fees",
   "Access to babysitters, holiday care and SEN-experienced carers whenever you need them",
   "Extra babysitters available for date nights, events and additional cover",
   "Emergency childcare support when the unexpected happens",

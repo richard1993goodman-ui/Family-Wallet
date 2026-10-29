@@ -206,35 +206,6 @@ function AdminHome() {
                   className="mt-1"
                 />
               </div>
-              {introFee.trim() === "" ? (
-                <div>
-                  <Label>Membership</Label>
-                  <Select value={band} onValueChange={setBand}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TIER_BANDS.map((t) => (
-                        <SelectItem key={t.value} value={t.value}>
-                          {t.days} — {t.price}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ) : (
-                <div className="rounded-xl border border-border bg-muted/40 p-3 text-sm text-muted-foreground">
-                  Introduction fee replaces monthly membership — this family pays the one-off placement fee instead.
-                </div>
-              )}
-              <div>
-                <Label htmlFor="fintro">Introduction fee (% of annual nanny pay + VAT)</Label>
-                <div className="mt-1 flex items-center gap-2">
-                  <Input id="fintro" type="number" min="0" step="0.5" placeholder="e.g. 10" value={introFee} onChange={(e) => setIntroFee(e.target.value)} />
-                  <span className="whitespace-nowrap text-sm text-muted-foreground">% + VAT</span>
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">Adding an introduction fee replaces the monthly membership for this family.</p>
-              </div>
               <div>
                 <Label htmlFor="fnanny">Nanny name</Label>
                 <Input
@@ -317,12 +288,7 @@ function AdminHome() {
                     {family.family_name}
                   </Link>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {family.fee_amount
-                      ? `${family.fee_label || "Fee"} · ${family.fee_amount}`
-                      : family.intro_fee_percent != null
-                      ? `Introduction fee ${family.intro_fee_percent}% + VAT`
-                      : `${tierFor(family.tier_band).days} · ${tierFor(family.tier_band).price}`}
-                    {family.nanny_name ? ` · Nanny: ${family.nanny_name}` : ""}
+                    {family.nanny_name ? `Nanny: ${family.nanny_name}` : "No nanny added yet"}
                     {status.data?.isOwner && family.partner_agency_id ? " · Partner agency" : ""}
                   </p>
                 </div>

@@ -13,16 +13,16 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/terms/$slug")({
   head: () => ({
     meta: [
-      { title: "Membership terms — The Family Wallet" },
+      { title: "Agency terms — The Family Wallet" },
       {
         name: "description",
         content:
-          "Read and sign your agency membership terms and conditions inside your Family Wallet.",
+          "Read and sign your agency terms and conditions inside your Family Wallet.",
       },
-      { property: "og:title", content: "Membership terms — The Family Wallet" },
+      { property: "og:title", content: "Agency terms — The Family Wallet" },
       {
         property: "og:description",
-        content: "Read and sign your membership terms inside your Family Wallet.",
+        content: "Read and sign your agency terms inside your Family Wallet.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -72,7 +72,7 @@ function TermsPage() {
   return (
     <HubPage
       slug={slug}
-      title="Membership terms & conditions"
+      title="Agency terms & conditions"
       intro="Read them here and sign them here — your signed copy stays in your wallet."
     >
       <div className="space-y-6">
@@ -84,7 +84,7 @@ function TermsPage() {
           <div className="mt-5 border-t border-border pt-5">
             <SignForm
               role="parent"
-              statement={`I have read and agree to the agency membership terms and conditions (version ${data.termsVersion}).`}
+              statement={`I have read and agree to the agency terms and conditions (version ${data.termsVersion}).`}
               onSign={onSign}
             />
           </div>

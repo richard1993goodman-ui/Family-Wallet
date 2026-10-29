@@ -94,7 +94,7 @@ function NannySignInPage() {
         </form>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          You can see daily care information and work tools. Private family membership details stay hidden.
+          You can see daily care information and work tools. Private family details stay hidden.
         </p>
       </div>
     </div>

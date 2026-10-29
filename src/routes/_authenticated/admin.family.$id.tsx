@@ -43,9 +43,9 @@ export const Route = createFileRoute("/_authenticated/admin/family/$id")({
   head: () => ({
     meta: [
       { title: "Family details — The Family Wallet" },
-      { name: "description", content: "Edit a family's wallet, documents and membership." },
+      { name: "description", content: "Edit a family's wallet, documents and nanny details." },
       { property: "og:title", content: "Family details — The Family Wallet" },
-      { property: "og:description", content: "Edit a family's wallet, documents and membership." },
+      { property: "og:description", content: "Edit a family's wallet, documents and nanny details." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -587,46 +587,6 @@ function FamilyDetail() {
                     onChange={(e) => setForm({ ...form, contactPhone: e.target.value })}
                   />
                 </div>
-              </div>
-              <div className="rounded-xl border border-border p-3">
-                <Label>Your own fee (optional)</Label>
-                <p className="mt-1 text-xs text-muted-foreground">Use this when your agency charges differently — it replaces the standard membership shown to the family.</p>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                  <Input aria-label="Fee name" placeholder="e.g. Monthly retainer" value={form.feeLabel} onChange={(e) => setForm({ ...form, feeLabel: e.target.value })} />
-                  <Input aria-label="Fee amount" placeholder="e.g. £180 + VAT per month" value={form.feeAmount} onChange={(e) => setForm({ ...form, feeAmount: e.target.value })} />
-                </div>
-              </div>
-              {form.feeAmount.trim() !== "" ? null : form.introFeePercent.trim() === "" ? (
-                <div>
-                  <Label>Membership</Label>
-                  <Select
-                    value={form.tierBand}
-                    onValueChange={(value) => setForm({ ...form, tierBand: value })}
-                  >
-                    <SelectTrigger className="mt-1">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TIER_BANDS.map((t) => (
-                        <SelectItem key={t.value} value={t.value}>
-                          {t.days} — {t.price}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ) : (
-                <div className="rounded-xl border border-border bg-muted/40 p-3 text-sm text-muted-foreground">
-                  Introduction fee replaces monthly membership — this family pays the one-off placement fee instead.
-                </div>
-              )}
-              <div>
-                <Label htmlFor="introfee">Introduction fee (% of annual nanny pay + VAT)</Label>
-                <div className="mt-1 flex items-center gap-2">
-                  <Input id="introfee" type="number" min="0" step="0.5" placeholder="e.g. 10" value={form.introFeePercent} onChange={(e) => setForm({ ...form, introFeePercent: e.target.value })} />
-                  <span className="whitespace-nowrap text-sm text-muted-foreground">% + VAT</span>
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">Adding an introduction fee replaces the monthly membership for this family.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
