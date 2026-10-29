@@ -1,17 +1,5 @@
 # Roadmap
 
-- [x] Give all active partners full agency-scoped challenge, parent perk and playbook controls
-- [x] Verify agency-scoped content permission tests
-- [ ] Check management buttons and saving content as a partner in the browser — blocked by authenticator verification on the available session
-
-- [x] Extend the welcome journey with a shared first-48-hours checklist
-- [x] Add parent/nanny confirmations, notes and progress
-- [x] Update Family Vault and homepage entry points
-- [x] Verify checklist persistence in the demo, access protection and permission tests
-
-- [x] Add secure service-status and nanny-insurance schema
-- [x] Add parent/nanny service functions and agency controls
-- [x] Build payroll concierge and employment cost calculator
-- [x] Build private curation and safety cover pages
-- [x] Add wallet and public benefits links
-- [x] Verify typecheck, build and access-controlled service routes
+- [x] Remove guarantee, agency terms, agency support/extras from the family wallet and navigation
+- [x] Petty cash float tracker (family adds money, nanny logs spending)
+- [x] Family–nanny messages: topic threads both sides can post in, like a messaging portal

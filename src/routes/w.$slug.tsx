@@ -39,6 +39,7 @@ import {
   ExternalLink,
   Camera,
   Sparkles,
+  Wallet,
 } from "lucide-react";
 
 import { getDocumentUrl, getWalletSummary, lockWalletFn, unlockWallet } from "@/lib/wallet.functions";
@@ -51,7 +52,6 @@ import { getAgreement } from "@/lib/agreement.functions";
 import type { WorkingDay } from "@/lib/agreement.model";
 
 type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
-import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress, signingRows } from "@/components/SigningProgress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,12 +69,12 @@ export const Route = createFileRoute("/w/$slug")({
       {
         name: "description",
         content:
-          "Your private Family Wallet: nanny agreement, nanny CV, terms, our family guarantee and everyday nanny tools.",
+          "Your private Family Wallet: nanny agreement, nanny CV, messages, petty cash and everyday nanny tools.",
       },
       { property: "og:title", content: "Your Family Wallet" },
       {
         property: "og:description",
-        content: "Your private Family Wallet from your agency.",
+        content: "Your private Family Wallet for your family and nanny.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -104,7 +104,6 @@ function WalletPage() {
 
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
-  const [sheet, setSheet] = useState<null | "terms" | "guarantee">(null);
 
   const query = useQuery({
     queryKey: ["wallet", slug],
@@ -274,12 +273,6 @@ function WalletPage() {
                 hint: "Build it, then both of you sign it",
                 to: "/agreement/$slug",
               },
-              ...(wallet.hasTerms ? [{
-                label: "Agency terms signed",
-                done: Boolean(wallet.termsAcceptedOn),
-                hint: "Read and sign your agency terms",
-                to: "/terms/$slug" as const,
-              }] : []),
               {
                 label: "Children added",
                 done: Boolean(hub?.readiness?.children),
@@ -524,21 +517,8 @@ function WalletPage() {
             disabled={!hasDoc("cv")}
             onClick={() => openDoc("cv")}
           />}
-          {!isNanny && wallet.hasTerms && <HubTile
-            slug={slug}
-            to="/terms/$slug"
-            icon={ScrollText}
-            title="Agency terms"
-            subtitle={
-              wallet.termsAcceptedOn ? "Signed — view your copy" : "Read and sign your terms"
-            }
-          />}
-          {!isNanny && <DocTile
-            icon={Shield}
-            title="Our family guarantee"
-            subtitle="What we promise you, always"
-            onClick={() => setSheet("guarantee")}
-          />}
+          <HubTile slug={slug} to="/messages/$slug" icon={MessageCircle} title="Messages" subtitle="Chat between parents and nanny, one thread per topic" />
+          <HubTile slug={slug} to="/pettycash/$slug" icon={Wallet} title="Petty cash float" subtitle="Money added, money spent, and what's left" />
         </div>
 
         {!isNanny && wallet.checks.length > 0 && (
@@ -624,16 +604,8 @@ function WalletPage() {
           </>
         )}
 
-        <h2 className="ios-section-title mt-8">Extras from your agency</h2>
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="Family perks" subtitle="Private London partner offers and family concierge recommendations" />
-          <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Agency Materials" subtitle="Audiobooks, digital books, activity guides and seasonal packs from the agency" />
-        </div>
-
         <h2 className="ios-section-title mt-8">Help &amp; training</h2>
         <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask your agency" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
-          <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
           <a
             href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
@@ -676,16 +648,6 @@ function WalletPage() {
         </div>
       </div>
 
-      <Dialog open={sheet !== null} onOpenChange={(open) => !open && setSheet(null)}>
-        <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="heading-display text-xl">
-              Our family guarantee
-            </DialogTitle>
-          </DialogHeader>
-          <GuaranteeContent />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
@@ -1008,6 +970,8 @@ function HubTile({
     | "/handover/$slug"
     | "/timesheets/$slug"
     | "/report/$slug"
+    | "/messages/$slug"
+    | "/pettycash/$slug"
     | "/travel/$slug"
     | "/perks/$slug"
     | "/playbooks/$slug"

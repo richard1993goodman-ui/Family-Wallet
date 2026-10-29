@@ -89,7 +89,9 @@ type WalletPath =
   | "/safety/$slug"
   | "/terms/$slug"
   | "/welcome/$slug"
-  | "/moments/$slug";
+  | "/moments/$slug"
+  | "/pettycash/$slug"
+  | "/messages/$slug";
 
 type NavItem = {
   label: string;
@@ -130,6 +132,8 @@ const walletPrefixes = new Set([
   "terms",
   "welcome",
   "moments",
+  "pettycash",
+  "messages",
 ]);
 
 const navGroups: NavGroup[] = [
@@ -159,29 +163,19 @@ const navGroups: NavGroup[] = [
   {
     label: "Work",
     items: [
+      { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
       { label: "Nanny agreement", icon: FileText, to: "/agreement/$slug" },
       { label: "Timesheets", icon: Clock3, to: "/timesheets/$slug" },
       { label: "Holiday & leave", icon: Plane, to: "/leave/$slug" },
       { label: "Handover & expenses", icon: ClipboardCheck, to: "/handover/$slug" },
-      { label: "Agency terms", icon: ScrollText, to: "/terms/$slug", parentOnly: true },
-    ],
-  },
-  {
-    label: "Agency support",
-    items: [
-      { label: "Request cover", icon: LifeBuoy, to: "/cover/$slug", parentOnly: true },
+      { label: "Petty cash float", icon: Wallet, to: "/pettycash/$slug" },
       { label: "Payroll setup", icon: Landmark, to: "/payroll/$slug", parentOnly: true },
       { label: "Employment costs", icon: Calculator, to: "/costs/$slug", parentOnly: true },
-      { label: "Private nanny curation", icon: Handshake, to: "/curation/$slug", parentOnly: true },
-      { label: "Family perks", icon: Gift, to: "/perks/$slug", parentOnly: true },
-      { label: "Agency materials", icon: Library, to: "/playbooks/$slug" },
     ],
   },
   {
     label: "Help & training",
     items: [
-      { label: "Ask your agency", icon: MessageCircle, to: "/support/$slug" },
-      { label: "Reviews & check-ins", icon: CalendarCheck, to: "/checkin/$slug" },
       { label: "Nanny training", icon: BadgeCheck, to: "/training/$slug" },
       { label: "Safety records", icon: ShieldCheck, to: "/safety/$slug" },
       { label: "Nanny Fuel", icon: UtensilsCrossed, href: "https://nanny-nourish-guide.lovable.app" },

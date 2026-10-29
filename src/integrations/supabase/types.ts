@@ -968,6 +968,88 @@ export type Database = {
           },
         ]
       }
+      household_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          sender: string
+          sender_name: string | null
+          thread_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          sender: string
+          sender_name?: string | null
+          thread_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          sender?: string
+          sender_name?: string | null
+          thread_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "household_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      household_threads: {
+        Row: {
+          created_at: string
+          created_by: string
+          family_id: string
+          family_unread: boolean
+          id: string
+          last_sender: string
+          nanny_unread: boolean
+          title: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          family_id: string
+          family_unread?: boolean
+          id?: string
+          last_sender: string
+          nanny_unread?: boolean
+          title: string
+          topic?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          family_id?: string
+          family_unread?: boolean
+          id?: string
+          last_sender?: string
+          nanny_unread?: boolean
+          title?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leave_requests: {
         Row: {
           created_at: string
@@ -1375,6 +1457,50 @@ export type Database = {
             columns: ["agency_id"]
             isOneToOne: false
             referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      petty_cash_entries: {
+        Row: {
+          added_by: string
+          added_by_name: string | null
+          amount: number
+          created_at: string
+          description: string
+          entry_date: string
+          family_id: string
+          id: string
+          kind: string
+        }
+        Insert: {
+          added_by: string
+          added_by_name?: string | null
+          amount: number
+          created_at?: string
+          description: string
+          entry_date: string
+          family_id: string
+          id?: string
+          kind: string
+        }
+        Update: {
+          added_by?: string
+          added_by_name?: string | null
+          amount?: number
+          created_at?: string
+          description?: string
+          entry_date?: string
+          family_id?: string
+          id?: string
+          kind?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "petty_cash_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
             referencedColumns: ["id"]
           },
         ]
