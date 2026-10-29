@@ -113,10 +113,10 @@ const benefitGroups = [
   {
     icon: HeartHandshake,
     title: "Support & extras",
-    summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
-    featured: ["Ask your agency", "Family perks", "Training hub"],
+    summary: "Trusted ideas, thoughtful extras and everything that makes family life easier.",
+    featured: ["Messages", "Family perks", "Training hub"],
     items: [
-      "Ask your agency — message your agency straight from the wallet",
+      "Messages — topic conversations between family and nanny, kept in the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -205,7 +205,7 @@ function Index() {
                 Everything around your nanny, in one place
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                A practical daily home for parents and nannies, backed by ongoing agency support.
+                A practical daily home for parents and nannies, with everything in one private place.
               </p>
 
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
