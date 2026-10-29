@@ -274,12 +274,6 @@ function WalletPage() {
                 hint: "Build it, then both of you sign it",
                 to: "/agreement/$slug",
               },
-              ...(wallet.hasTerms ? [{
-                label: "Agency terms signed",
-                done: Boolean(wallet.termsAcceptedOn),
-                hint: "Read and sign your agency terms",
-                to: "/terms/$slug" as const,
-              }] : []),
               {
                 label: "Children added",
                 done: Boolean(hub?.readiness?.children),
@@ -524,21 +518,8 @@ function WalletPage() {
             disabled={!hasDoc("cv")}
             onClick={() => openDoc("cv")}
           />}
-          {!isNanny && wallet.hasTerms && <HubTile
-            slug={slug}
-            to="/terms/$slug"
-            icon={ScrollText}
-            title="Agency terms"
-            subtitle={
-              wallet.termsAcceptedOn ? "Signed — view your copy" : "Read and sign your terms"
-            }
-          />}
-          {!isNanny && <DocTile
-            icon={Shield}
-            title="Our family guarantee"
-            subtitle="What we promise you, always"
-            onClick={() => setSheet("guarantee")}
-          />}
+          <HubTile slug={slug} to="/messages/$slug" icon={MessageCircle} title="Messages" subtitle="Chat between parents and nanny, one thread per topic" />
+          <HubTile slug={slug} to="/pettycash/$slug" icon={Wallet} title="Petty cash float" subtitle="Money added, money spent, and what's left" />
         </div>
 
         {!isNanny && wallet.checks.length > 0 && (
@@ -624,16 +605,8 @@ function WalletPage() {
           </>
         )}
 
-        <h2 className="ios-section-title mt-8">Extras from your agency</h2>
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="Family perks" subtitle="Private London partner offers and family concierge recommendations" />
-          <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Agency Materials" subtitle="Audiobooks, digital books, activity guides and seasonal packs from the agency" />
-        </div>
-
         <h2 className="ios-section-title mt-8">Help &amp; training</h2>
         <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask your agency" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
-          <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
           <a
             href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
