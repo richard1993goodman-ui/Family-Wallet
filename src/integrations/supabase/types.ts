@@ -2027,6 +2027,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_partner_brand: {
+        Args: { _handle: string }
+        Returns: {
+          agency_name: string
+          handle: string
+          wallet_name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
