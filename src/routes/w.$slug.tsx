@@ -23,7 +23,6 @@ import {
   Phone,
   ReceiptText,
   Shield,
-  LifeBuoy,
   Siren,
   ScrollText,
   Users,
