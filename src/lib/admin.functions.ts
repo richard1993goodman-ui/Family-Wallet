@@ -13,11 +13,7 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       .select("id", { count: "exact", head: true })
       .eq("role", "admin");
     const scope = await resolveStaffScope(context);
-    let features = { challenges: scope?.kind === "owner", perks: scope?.kind === "owner", playbooks: scope?.kind === "owner" };
-    if (scope?.kind === "partner") {
-      const { data: ag } = await supabaseAdmin.from("partner_agencies").select("allow_challenges, allow_perks, allow_playbooks").eq("id", scope.agencyId).maybeSingle();
-      features = { challenges: !!ag?.allow_challenges, perks: !!ag?.allow_perks, playbooks: !!ag?.allow_playbooks };
-    }
+    const features = { challenges: scope !== null, perks: scope !== null, playbooks: scope !== null };
     return {
       features,
       isAdmin: scope !== null,

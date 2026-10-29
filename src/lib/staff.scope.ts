@@ -102,10 +102,9 @@ export async function assertPathInScope(scope: StaffScope, storagePath: string):
 export type ContentFeature = "challenges" | "perks" | "playbooks";
 type FeatureFlags = { allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean; status?: string };
 
-/** A partner agency only gets a content tool once the owner switches it on for them. */
-export function partnerContentAllowed(agency: FeatureFlags | null | undefined, feature: ContentFeature): boolean {
-  if (!agency || (agency.status && agency.status !== "active")) return false;
-  return agency[`allow_${feature}`] === true;
+/** Every active partner gets every content tool; legacy allow_* values are not access gates. */
+export function partnerContentAllowed(agency: FeatureFlags | null | undefined, _feature: ContentFeature): boolean {
+  return !!agency && agency.status === "active";
 }
 
 /** Returns the agency that owns content made by this staff member: null = AthleteMannies (owner). */
@@ -118,7 +117,7 @@ export async function requireContentScope(context: unknown, feature: ContentFeat
     .select("allow_challenges, allow_perks, allow_playbooks, status")
     .eq("id", scope.agencyId)
     .maybeSingle();
-  if (!partnerContentAllowed(data, feature)) throw new Error("This tool isn't switched on for your agency");
+  if (!partnerContentAllowed(data, feature)) throw new Error("Agency access is paused or unavailable");
   return scope.agencyId;
 }
 
@@ -142,7 +141,7 @@ export async function assertFamiliesInAgency(familyIds: string[], agencyId: stri
   if (!ok) throw new Error("Family not found");
 }
 
-/** Which agency's content a wallet family sees, or false when that tool is off for their agency. */
+/** Which agency's content a wallet family sees, or false when their agency is unavailable. */
 export async function walletContentAgency(familyId: string, feature: ContentFeature): Promise<string | null | false> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();

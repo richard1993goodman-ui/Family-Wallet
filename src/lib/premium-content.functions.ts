@@ -31,9 +31,10 @@ export const markPlaybookRead = createServerFn({ method: "POST" }).inputValidato
 
 export const listPremiumContentAdmin = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   const [perkScope, playScope] = await Promise.all([tryScope(context, "perks"), tryScope(context, "playbooks")]);
-  if (!perkScope && !playScope) throw new Error("Forbidden");
+  const contentScope = perkScope ?? playScope;
+  if (!contentScope) throw new Error("Forbidden");
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const agencyId = (perkScope ?? playScope)!.agencyId;
+  const agencyId = contentScope.agencyId;
   const perkQ = supabaseAdmin.from("partner_perks").select("*").order("sort_order").order("created_at", { ascending: false });
   const playQ = supabaseAdmin.from("seasonal_playbooks").select("*").order("created_at", { ascending: false });
   const [{ data: perkRows, error: perkError }, { data: playRows, error: playbookError }] = await Promise.all([

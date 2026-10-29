@@ -37,9 +37,9 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       brand_name: data.brandName?.trim().slice(0, 120) || null,
       intro_pricing: !!data.introPricing,
       short_name: data.shortName?.trim().toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) || null,
-      ...(data.allowChallenges !== undefined ? { allow_challenges: data.allowChallenges } : {}),
-      ...(data.allowPerks !== undefined ? { allow_perks: data.allowPerks } : {}),
-      ...(data.allowPlaybooks !== undefined ? { allow_playbooks: data.allowPlaybooks } : {}),
+      allow_challenges: true,
+      allow_perks: true,
+      allow_playbooks: true,
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
