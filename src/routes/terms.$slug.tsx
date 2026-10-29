@@ -2,10 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Printer } from "lucide-react";
+import { Download } from "lucide-react";
 
 import { getSignatures, signDocumentFn } from "@/lib/agreement.functions";
-import { TermsContent } from "@/components/TermsContent";
 import { HubPage, LockedNotice, Card } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { Button } from "@/components/ui/button";
@@ -82,23 +81,24 @@ function TermsPage() {
             <SignatureList signatures={signatures} />
           </div>
           <div className="mt-5 border-t border-border pt-5">
-            <SignForm
+            {data.terms && <SignForm
               role="parent"
               statement={`I have read and agree to the agency terms and conditions (version ${data.termsVersion}).`}
               onSign={onSign}
-            />
+            />}
           </div>
         </Card>
 
-        <Card>
-          <div className="print-area">
-            <TermsContent />
-          </div>
-        </Card>
-
-        <Button variant="outline" onClick={() => window.print()}>
-          <Printer className="mr-2 h-4 w-4" /> Print or save as PDF
-        </Button>
+        {data.terms?.url ? (
+          <Card>
+            <iframe title="Agency terms" src={data.terms.url} className="h-[70vh] w-full rounded-lg border border-border" />
+            <Button asChild variant="outline" className="mt-4">
+              <a href={data.terms.url} target="_blank" rel="noopener noreferrer"><Download className="mr-2 h-4 w-4" /> Open or download ({data.terms.fileName})</a>
+            </Button>
+          </Card>
+        ) : (
+          <Card><p className="text-sm text-muted-foreground">Your agency hasn't added its terms yet.</p></Card>
+        )}
       </div>
     </HubPage>
   );

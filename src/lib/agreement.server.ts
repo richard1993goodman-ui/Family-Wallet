@@ -4,6 +4,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
 import { isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
 import { TERMS_VERSION } from "./tiers";
+import { termsForFamily } from "./agency-terms.server";
 import {
   agreementHasContent,
   defaultAgreementData,
@@ -244,7 +245,8 @@ export async function loadSignatures(slug: string) {
   return {
     familyName: family.family_name,
     signatures: mapSignatures(data),
-    termsVersion: TERMS_VERSION,
+    terms: await termsForFamily(family.id),
+    termsVersion: (await termsForFamily(family.id))?.version.toString() ?? TERMS_VERSION,
   };
 }
 
@@ -266,6 +268,11 @@ export async function signDocument(
   if (!name || name.length < 3) return { ok: false as const, reason: "name" as const };
 
   let docVersion = TERMS_VERSION;
+  if (docKind === "terms") {
+    const t = await termsForFamily(family.id);
+    if (!t) return { ok: false as const, reason: "not_ready" as const };
+    docVersion = String(t.version);
+  }
   let signedNannyId: string | null = null;
   if (docKind === "agreement") {
     if (!resolved.nannyId) return { ok: false as const, reason: "not_ready" as const };
