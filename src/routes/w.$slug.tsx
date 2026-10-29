@@ -11,6 +11,7 @@ import {
   GraduationCap,
   IdCard,
   Lock,
+  Heart,
   KeyRound,
   MessageCircle,
   NotebookPen,

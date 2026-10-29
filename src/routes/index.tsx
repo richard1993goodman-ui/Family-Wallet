@@ -33,6 +33,7 @@ import {
   LockKeyhole,
   Smartphone,
   ChevronDown,
+  Heart,
   HeartHandshake,
   Wallet,
 } from "lucide-react";
