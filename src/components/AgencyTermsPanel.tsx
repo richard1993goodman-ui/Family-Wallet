@@ -25,7 +25,7 @@ export function AgencyTermsPanel() {
 
   async function onFile(file: File | undefined) {
     if (!file) return;
-    if (file.type !== "application/pdf") return toast.error("Please choose a PDF file.");
+    if (file.type !== "application/pdf") { toast.error("Please choose a PDF file."); return; }
     setBusy(true);
     try {
       await upFn({ data: { fileName: file.name, contentType: file.type, base64: await toBase64(file) } });
