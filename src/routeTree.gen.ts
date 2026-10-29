@@ -34,6 +34,7 @@ import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
 import { Route as PayrollSlugRouteImport } from './routes/payroll.$slug'
 import { Route as PerksSlugRouteImport } from './routes/perks.$slug'
+import { Route as PettycashSlugRouteImport } from './routes/pettycash.$slug'
 import { Route as PlannerSlugRouteImport } from './routes/planner.$slug'
 import { Route as PlaybooksSlugRouteImport } from './routes/playbooks.$slug'
 import { Route as ReportSlugRouteImport } from './routes/report.$slug'
@@ -179,6 +180,11 @@ const PerksSlugRoute = PerksSlugRouteImport.update({
   path: '/perks/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PettycashSlugRoute = PettycashSlugRouteImport.update({
+  id: '/pettycash/$slug',
+  path: '/pettycash/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlannerSlugRoute = PlannerSlugRouteImport.update({
   id: '/planner/$slug',
   path: '/planner/$slug',
@@ -309,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
+  '/pettycash/$slug': typeof PettycashSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
@@ -355,6 +362,7 @@ export interface FileRoutesByTo {
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
+  '/pettycash/$slug': typeof PettycashSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
@@ -403,6 +411,7 @@ export interface FileRoutesById {
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
+  '/pettycash/$slug': typeof PettycashSlugRoute
   '/planner/$slug': typeof PlannerSlugRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/report/$slug': typeof ReportSlugRoute
@@ -451,6 +460,7 @@ export interface FileRouteTypes {
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
+    | '/pettycash/$slug'
     | '/planner/$slug'
     | '/playbooks/$slug'
     | '/report/$slug'
@@ -497,6 +507,7 @@ export interface FileRouteTypes {
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
+    | '/pettycash/$slug'
     | '/planner/$slug'
     | '/playbooks/$slug'
     | '/report/$slug'
@@ -544,6 +555,7 @@ export interface FileRouteTypes {
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
+    | '/pettycash/$slug'
     | '/planner/$slug'
     | '/playbooks/$slug'
     | '/report/$slug'
@@ -592,6 +604,7 @@ export interface RootRouteChildren {
   PassportSlugRoute: typeof PassportSlugRoute
   PayrollSlugRoute: typeof PayrollSlugRoute
   PerksSlugRoute: typeof PerksSlugRoute
+  PettycashSlugRoute: typeof PettycashSlugRoute
   PlannerSlugRoute: typeof PlannerSlugRoute
   PlaybooksSlugRoute: typeof PlaybooksSlugRoute
   ReportSlugRoute: typeof ReportSlugRoute
@@ -785,6 +798,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerksSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pettycash/$slug': {
+      id: '/pettycash/$slug'
+      path: '/pettycash/$slug'
+      fullPath: '/pettycash/$slug'
+      preLoaderRoute: typeof PettycashSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/planner/$slug': {
       id: '/planner/$slug'
       path: '/planner/$slug'
@@ -975,6 +995,7 @@ const rootRouteChildren: RootRouteChildren = {
   PassportSlugRoute: PassportSlugRoute,
   PayrollSlugRoute: PayrollSlugRoute,
   PerksSlugRoute: PerksSlugRoute,
+  PettycashSlugRoute: PettycashSlugRoute,
   PlannerSlugRoute: PlannerSlugRoute,
   PlaybooksSlugRoute: PlaybooksSlugRoute,
   ReportSlugRoute: ReportSlugRoute,
