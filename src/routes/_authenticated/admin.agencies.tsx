@@ -4,13 +4,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Download, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, deletePartnerAgency, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { tierFor } from "@/lib/partner-tiers";
+import { partnerFee } from "@/lib/partner-tiers";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
@@ -33,6 +33,11 @@ function AgenciesPage() {
   const addStaffFn = useServerFn(addAgencyStaff);
   const removeStaffFn = useServerFn(removeAgencyStaff);
   const deleteFn = useServerFn(deletePartnerAgency);
+  const exportFn = useServerFn(exportAgencyRecords);
+  const [brand, setBrand] = useState("");
+  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean };
+  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean }>) =>
+    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing } });
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,8 +71,9 @@ function AgenciesPage() {
           onSubmit={(e) => {
             e.preventDefault();
             void run(async () => {
-              await saveFn({ data: { name, contactEmail: email, contactPhone: "", status: "active" } });
+              await saveFn({ data: { name, contactEmail: email, contactPhone: "", status: "active", brandName: brand, introPricing: true } });
               setName("");
+              setBrand("");
               setEmail("");
             }, "Agency added");
           }}
@@ -83,6 +89,11 @@ function AgenciesPage() {
               <Input id="aemail" type="email" className="mt-1" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
           </div>
+          <div>
+            <Label htmlFor="abrand">Wallet name families see</Label>
+            <Input id="abrand" className="mt-1" placeholder="e.g. Nurture Family Wallet" value={brand} onChange={(e) => setBrand(e.target.value)} />
+            <p className="mt-1 text-xs text-muted-foreground">Shown across their families' wallets with "Powered by AthleteMannies". New agencies start on the £35 per family introductory rate.</p>
+          </div>
           <Button type="submit"><Plus className="mr-2 h-4 w-4" /> Add agency</Button>
         </form>
 
@@ -96,14 +107,15 @@ function AgenciesPage() {
                   <p className="text-sm text-muted-foreground">
                     {a.contact_email ?? ""}
                   </p>
+                  <p className="text-sm">Families see: <strong>{a.brand_name || a.name}</strong> · Powered by AthleteMannies</p>
                   {(() => {
-                    const t = tierFor(a.activeFamilies);
+                    const t = partnerFee(a.activeFamilies, a.intro_pricing);
                     const pct = t.max ? Math.min(100, (a.activeFamilies / t.max) * 100) : 100;
                     return (
                       <div className="mt-2 w-64 max-w-full">
                         <p className="text-sm font-medium">
-                          {t.max ? `${a.activeFamilies} / ${t.max}` : a.activeFamilies} active families — {t.name} tier
-                          <span className="text-muted-foreground"> · {t.monthly ? `£${t.monthly}/month + VAT` : "Custom pricing"} · no setup fee</span>
+                          {t.max ? `${a.activeFamilies} / ${t.max}` : a.activeFamilies} active families — {t.label}{t.label === "Introductory" ? " (£35 per family)" : " tier"}
+                          <span className="text-muted-foreground"> · {t.monthly !== null ? `£${t.monthly}/month + VAT` : "Bespoke pricing"} · no setup fee</span>
                         </p>
                         <div className="mt-1 h-2 rounded-full bg-muted">
                           <div className="h-2 rounded-full bg-primary" style={{ width: `${pct}%` }} />
@@ -112,18 +124,50 @@ function AgenciesPage() {
                     );
                   })()}
                 </div>
-                <div className="flex shrink-0 gap-2">
+                <div className="flex shrink-0 flex-wrap justify-end gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() =>
                     run(
-                      () => saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: a.status === "active" ? "paused" : "active" } }),
+                      () => saveAgency(a, { status: a.status === "active" ? "paused" : "active" }),
                       a.status === "active" ? "Agency paused — staff can no longer sign in" : "Agency reactivated",
                     )
                   }
                 >
                   {a.status === "active" ? "Pause access" : "Reactivate"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const n = window.prompt("Wallet name families see", a.brand_name || a.name);
+                    if (n !== null) void run(() => saveAgency(a, { brandName: n }), "Wallet name updated");
+                  }}
+                >
+                  Rename wallet
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => run(() => saveAgency(a, { introPricing: !a.intro_pricing }), a.intro_pricing ? "Introductory rate off" : "Introductory rate on")}
+                >
+                  {a.intro_pricing ? "End intro rate" : "Use intro rate"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => run(async () => {
+                    const json = await exportFn({ data: { id: a.id } });
+                    const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = `${(a.brand_name || a.name).replace(/[^a-z0-9]+/gi, "-")}-records.json`;
+                    document.body.appendChild(link); link.click(); link.remove();
+                    setTimeout(() => URL.revokeObjectURL(url), 30000);
+                  }, "Export downloaded")}
+                >
+                  <Download className="mr-1 h-4 w-4" /> Export
                 </Button>
                 <Button
                   variant="outline"
