@@ -17,7 +17,7 @@ const playbookQuery = (slug: string) => queryOptions({ queryKey: ["kids-playbook
 export const Route = createFileRoute("/kids/$slug")({
   head: () => ({ meta: [
     { title: "Kids' Playbook — The Family Wallet" },
-    { name: "description", content: "Each child's comforts and quirks, how you handle big moments, approved friends and rainy-day ideas." },
+    { name: "description", content: "Each child's comforts and quirks, how you handle big moments, friends, playdates and rainy-day ideas." },
     { property: "og:title", content: "Kids' Playbook — The Family Wallet" },
     { property: "og:description", content: "Keep parents and nanny in sync on everything that matters to the kids." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
