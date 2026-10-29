@@ -13,13 +13,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Agency sign in — Athlete Mannies Family Wallet" },
+      { title: "Agency sign in — The Family Wallet" },
       {
         name: "description",
-        content: "Sign in to manage Athlete Mannies Family Wallets, documents and membership tiers.",
+        content: "Sign in to manage Family Wallets, documents and membership tiers.",
       },
-      { property: "og:title", content: "Agency sign in — Athlete Mannies Family Wallet" },
-      { property: "og:description", content: "Private sign in for the Athlete Mannies team." },
+      { property: "og:title", content: "Agency sign in — The Family Wallet" },
+      { property: "og:description", content: "Private sign in for your agency team." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -144,13 +144,13 @@ function AuthPage() {
           Back to home page
         </Link>
         <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Athlete Mannies &amp; Nannies
+          The Family Wallet
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "setup"
-            ? "First time here? Enter the email Athlete Mannies added for you. We'll email you a secure link to choose your password."
-            : "Private area for Athlete Mannies and invited partner agency staff."}
+            ? "First time here? Enter the email your agency added for you. We'll email you a secure link to choose your password."
+            : "Private area for your agency and invited partner agency staff."}
         </p>
 
         {choosePassword ? (

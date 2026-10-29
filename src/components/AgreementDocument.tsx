@@ -40,7 +40,7 @@ export function AgreementDocument({
   return (
     <article className="rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-foreground shadow-sm sm:p-8 print:border-0 print:p-0 print:shadow-none">
       <header className="mb-8 border-b border-border pb-6 text-center">
-        <p className="heading-display text-lg text-primary">Athlete Mannies &amp; Nannies</p>
+        <p className="heading-display text-lg text-primary">The Family Wallet</p>
         <h1 className="heading-display mt-1 text-xl text-foreground">
           Contract of employment for a nanny or male nanny
         </h1>

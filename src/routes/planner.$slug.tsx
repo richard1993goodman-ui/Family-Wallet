@@ -18,13 +18,13 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/planner/$slug")({
   head: () => ({
     meta: [
-      { title: "Weekly Planner — Athlete Mannies & Nannies" },
+      { title: "Weekly Planner — The Family Wallet" },
       {
         name: "description",
         content:
           "Your shared week with your nanny: pickups, clubs, homework and activities, day by day.",
       },
-      { property: "og:title", content: "Weekly Planner — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Weekly Planner — The Family Wallet" },
       {
         property: "og:description",
         content: "Plan the week together with your nanny, from any phone.",

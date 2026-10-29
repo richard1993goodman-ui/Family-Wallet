@@ -13,12 +13,12 @@ import { LEAVE_TYPES, type LeaveType } from "@/lib/leave.types";
 export const Route = createFileRoute("/leave/$slug")({
   head: () => ({
     meta: [
-      { title: "Holiday & leave — Athlete Mannies & Nannies" },
+      { title: "Holiday & leave — The Family Wallet" },
       {
         name: "description",
         content: "Track your nanny's holiday entitlement, book time off and approve leave requests.",
       },
-      { property: "og:title", content: "Holiday & leave — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Holiday & leave — The Family Wallet" },
       { property: "og:description", content: "Holiday entitlement and leave requests in your Family Wallet." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

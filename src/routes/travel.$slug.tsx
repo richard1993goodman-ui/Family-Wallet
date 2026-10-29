@@ -15,9 +15,9 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/travel/$slug")({
   head: () => ({
     meta: [
-      { title: "Travel & Villa Nanny Pack — Athlete Mannies & Nannies" },
+      { title: "Travel & Villa Nanny Pack — The Family Wallet" },
       { name: "description", content: "Travel mode for families abroad: a packing and safety checklist, local emergency details and travel handover notes." },
-      { property: "og:title", content: "Travel & Villa Nanny Pack — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Travel & Villa Nanny Pack — The Family Wallet" },
       { property: "og:description", content: "Checklist, local emergency info and travel handovers for trips abroad." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

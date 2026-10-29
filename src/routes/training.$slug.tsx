@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/training/$slug")({
   head: () => ({
     meta: [
-      { title: "Nanny Training Hub — Athlete Mannies & Nannies" },
+      { title: "Nanny Training Hub — The Family Wallet" },
       {
         name: "description",
         content:
           "A 20-question training check for after-school nannies: routine, safeguarding, emergencies, food and professional conduct, with a completion certificate.",
       },
-      { property: "og:title", content: "Nanny Training Hub — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Nanny Training Hub — The Family Wallet" },
       {
         property: "og:description",
         content: "Complete the training quiz and earn a certificate in your Family Wallet.",

@@ -44,13 +44,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Family Wallet — Athlete Mannies & Nannies" },
+      { title: "The Family Wallet" },
       {
         name: "description",
         content:
-          "Every Athlete Mannies family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Family Wallet — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
@@ -114,9 +114,9 @@ const benefitGroups = [
     icon: HeartHandshake,
     title: "Support & membership",
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
-    featured: ["Ask Athlete Mannies", "Member perks", "Training hub"],
+    featured: ["Ask your agency", "Member perks", "Training hub"],
     items: [
-      "Ask Athlete Mannies — message us straight from the wallet",
+      "Ask your agency — message your agency straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -148,8 +148,8 @@ function Index() {
             AM
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-foreground">Athlete Mannies &amp; Nannies</p>
-            <p className="text-xs text-muted-foreground">Private family membership</p>
+            <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
+            <p className="text-xs text-muted-foreground">For nanny agencies &amp; their families</p>
           </div>
           <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
             <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
@@ -267,7 +267,7 @@ function Index() {
           <div className="md:border-l md:border-border md:pl-6">
             <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Message us on WhatsApp or email richard@athletemannies.com and we will resend your link and code.
+              Contact your agency and they will resend your link and code.
             </p>
           </div>
         </section>

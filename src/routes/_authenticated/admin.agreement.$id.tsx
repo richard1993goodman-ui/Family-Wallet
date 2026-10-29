@@ -19,12 +19,12 @@ export const Route = createFileRoute("/_authenticated/admin/agreement/$id")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Nanny agreement builder — Athlete Mannies admin" },
+      { title: "Nanny agreement builder — The Family Wallet admin" },
       {
         name: "description",
         content: "Build, issue and countersign a family's full nanny employment contract.",
       },
-      { property: "og:title", content: "Nanny agreement builder — Athlete Mannies admin" },
+      { property: "og:title", content: "Nanny agreement builder — The Family Wallet admin" },
       { property: "og:description", content: "Build, issue and countersign a nanny contract." },
       { name: "robots", content: "noindex" },
     ],
@@ -146,7 +146,7 @@ function AdminAgreementPage() {
             <div className="mt-5 space-y-3 border-t border-border pt-5">
               <label className="block">
                 <span className="text-sm font-medium text-foreground">
-                  Sign on behalf of Athlete Mannies
+                  Sign on behalf of your agency
                 </span>
                 <Input
                   className="mt-1.5"

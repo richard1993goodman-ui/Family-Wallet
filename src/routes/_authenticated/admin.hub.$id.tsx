@@ -10,12 +10,12 @@ export const Route = createFileRoute("/_authenticated/admin/hub/$id")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Family hub overview — Athlete Mannies admin" },
+      { title: "Family hub overview — The Family Wallet admin" },
       {
         name: "description",
         content: "Read-only view of a family's profile, children, planner and daily logs.",
       },
-      { property: "og:title", content: "Family hub overview — Athlete Mannies admin" },
+      { property: "og:title", content: "Family hub overview — The Family Wallet admin" },
       { property: "og:description", content: "See what a family has added to their wallet." },
       { name: "robots", content: "noindex" },
     ],

@@ -67,16 +67,16 @@ import {
 export const Route = createFileRoute("/w/$slug")({
   head: () => ({
     meta: [
-      { title: "Your Family Wallet — Athlete Mannies & Nannies" },
+      { title: "Your Family Wallet" },
       {
         name: "description",
         content:
           "Your private Family Wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Your Family Wallet — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Your Family Wallet" },
       {
         property: "og:description",
-        content: "Your private Family Wallet from Athlete Mannies & Nannies.",
+        content: "Your private Family Wallet from your agency.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -207,7 +207,7 @@ function WalletPage() {
         <div className="w-full max-w-sm rounded-2xl bg-card shadow-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Athlete Mannies &amp; Nannies
+            The Family Wallet
           </p>
           <h1 className="heading-display mt-2 text-2xl text-primary">{data.familyName}</h1>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -252,7 +252,7 @@ function WalletPage() {
           </div>
         )}
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Athlete Mannies &amp; Nannies
+          {wallet.agencyName ?? "The Family Wallet"}
         </p>
         <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
           {wallet.familyName}
@@ -572,7 +572,7 @@ function WalletPage() {
                       <span>
                         <span className="block font-medium text-foreground">{meta.title}</span>
                         <span className="mt-1 block text-sm text-muted-foreground">
-                          Verified by Athlete Mannies{detail ? ` · ${detail}` : ""}
+                          Verified by your agency{detail ? ` · ${detail}` : ""}
                         </span>
                       </span>
                     </div>
@@ -636,7 +636,7 @@ function WalletPage() {
 
         <h2 className="ios-section-title mt-8">Help &amp; training</h2>
         <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask Athlete Mannies" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
+          <HubTile slug={slug} to="/support/$slug" icon={MessageCircle} title="Ask your agency" subtitle={hub?.unreadReplies ? `${hub.unreadReplies} new repl${hub.unreadReplies === 1 ? "y" : "ies"} from us` : `Message us as ${isNanny ? "the nanny" : "the family"}`} />
           <HubTile slug={slug} to="/checkin/$slug" icon={CalendarCheck} title="Reviews &amp; check-ins" subtitle="6-month and yearly guides, or ask us for a neutral call" />
           <HubTile slug={slug} to="/training/$slug" icon={GraduationCap} title="Nanny training hub" subtitle="20 questions on routine, safeguarding and emergencies — with a certificate" />
           <a

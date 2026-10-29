@@ -16,9 +16,9 @@ export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Partner agencies — Athlete Mannies Family Wallet" },
+      { title: "Partner agencies — The Family Wallet" },
       { name: "description", content: "Set up partner agencies and who can sign in for them." },
-      { property: "og:title", content: "Partner agencies — Athlete Mannies Family Wallet" },
+      { property: "og:title", content: "Partner agencies — The Family Wallet" },
       { property: "og:description", content: "Set up partner agencies and who can sign in for them." },
       { name: "robots", content: "noindex" },
       { property: "og:type", content: "website" },
@@ -65,7 +65,7 @@ function AgenciesPage() {
         <h1 className="heading-display mt-3 text-3xl text-primary">Partner agencies</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Each partner agency signs in at the agency login with an email you add here. They only ever see their own
-          families — never yours or another agency's. Their families' wallets show their name, powered by Athlete Mannies.
+          families — never yours or another agency's. Their families' wallets show their name, powered by your agency.
         </p>
 
         <form
@@ -94,7 +94,7 @@ function AgenciesPage() {
           <div>
             <Label htmlFor="abrand">Wallet name families see</Label>
             <Input id="abrand" className="mt-1" placeholder="e.g. Nurture Family Wallet" value={brand} onChange={(e) => setBrand(e.target.value)} />
-            <p className="mt-1 text-xs text-muted-foreground">Shown across their families' wallets with "Powered by AthleteMannies". New agencies start on the £35 per family introductory rate.</p>
+            <p className="mt-1 text-xs text-muted-foreground">Shown across their families' wallets with "Powered by The Family Wallet". New agencies start on the £35 per family introductory rate.</p>
           </div>
           <Button type="submit"><Plus className="mr-2 h-4 w-4" /> Add agency</Button>
         </form>
@@ -109,7 +109,7 @@ function AgenciesPage() {
                   <p className="text-sm text-muted-foreground">
                     {a.contact_email ?? ""}
                   </p>
-                  <p className="text-sm">Families see: <strong>{a.brand_name || a.name}</strong> · Powered by AthleteMannies</p>
+                  <p className="text-sm">Families see: <strong>{a.brand_name || a.name}</strong> · Powered by The Family Wallet</p>
                   {a.short_name ? (
                     <div className="mt-2 space-y-1 text-sm">
                       {([["Their page", `/p/${a.short_name}`], ["Their demo", `/p/${a.short_name}/demo`]] as const).map(([label, path]) => (

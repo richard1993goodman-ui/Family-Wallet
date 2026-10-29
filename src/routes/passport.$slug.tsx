@@ -17,13 +17,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/passport/$slug")({
   head: () => ({
     meta: [
-      { title: "Active Kids Sports Passport — Athlete Mannies & Nannies" },
+      { title: "Active Kids Sports Passport — The Family Wallet" },
       {
         name: "description",
         content:
           "Track each child's sports skills, active challenges, confidence wins and screen-free progress inside the Family Wallet.",
       },
-      { property: "og:title", content: "Active Kids Sports Passport — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Active Kids Sports Passport — The Family Wallet" },
       {
         property: "og:description",
         content: "Sports skills, active challenges and confidence wins in your Family Wallet.",

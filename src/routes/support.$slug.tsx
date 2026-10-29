@@ -13,16 +13,16 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/support/$slug")({
   head: () => ({
     meta: [
-      { title: "Ask Athlete Mannies — Support" },
+      { title: "Ask your agency — Support" },
       {
         name: "description",
         content:
-          "Ask the Athlete Mannies team anything about your nanny, pay, holidays or day-to-day childcare.",
+          "Ask your agency team anything about your nanny, pay, holidays or day-to-day childcare.",
       },
-      { property: "og:title", content: "Ask Athlete Mannies — Support" },
+      { property: "og:title", content: "Ask your agency — Support" },
       {
         property: "og:description",
-        content: "Send a question to your Athlete Mannies team and get an answer in your wallet.",
+        content: "Send a question to your agency team and get an answer in your wallet.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -88,7 +88,7 @@ function SupportPage() {
   return (
     <HubPage
       slug={slug}
-      title="Ask Athlete Mannies"
+      title="Ask your agency"
       intro="Anything at all — pay, holidays, behaviour, a replacement nanny. We answer here in your wallet."
     >
       <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
@@ -130,7 +130,7 @@ function SupportPage() {
               <div className="px-4 pt-4 sm:px-5 sm:pt-5">
                 <p className="heading-display text-lg text-foreground">{thread.subject}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Athlete Mannies · {thread.status === "closed" ? "Conversation closed" : "Usually replies here"}
+                  Your agency · {thread.status === "closed" ? "Conversation closed" : "Usually replies here"}
                 </p>
               </div>
               {(support.access === "nanny" ? thread.nanny_unread : thread.family_unread) && (
@@ -151,7 +151,7 @@ function SupportPage() {
               {thread.messages.map((message) => {
                 const mine = message.sender === support.access;
                 const sender = message.sender === "admin"
-                  ? "Athlete Mannies"
+                  ? "Your agency"
                   : message.sender === "nanny"
                     ? "Nanny"
                     : "Family";

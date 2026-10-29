@@ -82,13 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Family Wallet — Athlete Mannies & Nannies" },
+      { title: "The Family Wallet" },
       {
         name: "description",
         content:
-          "The private Family Wallet from Athlete Mannies & Nannies: your nanny agreement, nanny CV, membership and everyday nanny tools in one place.",
+          "The private Family Wallet from your agency: your nanny agreement, nanny CV, membership and everyday nanny tools in one place.",
       },
-      { name: "author", content: "Athlete Mannies & Nannies" },
+      { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#17325b" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

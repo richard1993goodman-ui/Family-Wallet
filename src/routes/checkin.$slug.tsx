@@ -19,11 +19,11 @@ import { CHECKIN_KINDS, CHECKIN_PROMPTS, type CheckinKind } from "@/lib/checkin.
 export const Route = createFileRoute("/checkin/$slug")({
   head: () => ({
     meta: [
-      { title: "Reviews & check-ins | Athlete Mannies Family Wallet" },
+      { title: "Reviews & check-ins | The Family Wallet" },
       {
         name: "description",
         content:
-          "Structured 6-month and yearly check-in prompts for families and nannies, plus the option of a neutral call with Athlete Mannies.",
+          "Structured 6-month and yearly check-in prompts for families and nannies, plus the option of a neutral call with your agency.",
       },
       { property: "og:title", content: "Reviews & check-ins" },
       {
@@ -205,7 +205,7 @@ function CheckinPage() {
       </Card>
 
       <h2 className="heading-display mt-8 text-xl text-foreground">
-        Ask Athlete Mannies for a call
+        Ask your agency for a call
       </h2>
       <div className="mt-3">
         <Card>
