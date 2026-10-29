@@ -36,6 +36,7 @@ import {
   Users,
   UtensilsCrossed,
   WandSparkles,
+  Wallet,
 } from "lucide-react";
 
 import { getWalletSummary } from "@/lib/wallet.functions";

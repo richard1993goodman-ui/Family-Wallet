@@ -34,6 +34,7 @@ import {
   Smartphone,
   ChevronDown,
   HeartHandshake,
+  Wallet,
 } from "lucide-react";
 
 import { FamilyLogin } from "@/components/FamilyLogin";
