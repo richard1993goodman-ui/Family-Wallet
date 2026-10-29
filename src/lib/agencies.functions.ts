@@ -24,7 +24,7 @@ export const listPartnerAgencies = createServerFn({ method: "GET" })
 
 export const savePartnerAgency = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string }) => d)
+  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean }) => d)
   .handler(async ({ data, context }) => {
     await requireOwner(context);
     const name = data.name.trim().slice(0, 120);
@@ -34,6 +34,8 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       contact_email: data.contactEmail.trim() || null,
       contact_phone: data.contactPhone.trim() || null,
       status: data.status === "paused" ? "paused" : "active",
+      brand_name: data.brandName?.trim().slice(0, 120) || null,
+      intro_pricing: !!data.introPricing,
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -87,4 +89,39 @@ export const deletePartnerAgency = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin.from("partner_agencies").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true as const };
+  });
+
+// Owner-only export of every record held for one partner agency (supports the 30-day exit export).
+const EXPORT_TABLES = [
+  "family_children", "family_contacts", "family_profile", "family_nannies", "nanny_agreements",
+  "document_signatures", "family_documents", "nanny_safety_documents", "timesheet_shifts", "leave_requests",
+  "expense_claims", "medication_doses", "handover_checklists", "daily_logs", "planner_entries",
+  "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments",
+] as const;
+
+export const exportAgencyRecords = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: agency } = await supabaseAdmin.from("partner_agencies").select("*").eq("id", data.id).maybeSingle();
+    if (!agency) throw new Error("Agency not found");
+    const { data: families } = await supabaseAdmin
+      .from("families")
+      .select("id, slug, family_name, contact_email, contact_phone, tier_band, nanny_name, start_date, status, notes, created_at, updated_at")
+      .eq("partner_agency_id", data.id);
+    const ids = (families ?? []).map((f) => f.id);
+    const records: Record<string, unknown[]> = {};
+    for (const t of EXPORT_TABLES) {
+      if (!ids.length) { records[t] = []; continue; }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: rows } = await (supabaseAdmin.from(t as any) as any).select("*").in("family_id", ids);
+      records[t] = (rows ?? []).map((r: Record<string, unknown>) => {
+        const { nanny_code, nanny_code_hash, ...rest } = r;
+        void nanny_code; void nanny_code_hash;
+        return rest;
+      });
+    }
+    return JSON.stringify({ exportedAt: new Date().toISOString(), agency, families: families ?? [], records }, null, 2);
   });
