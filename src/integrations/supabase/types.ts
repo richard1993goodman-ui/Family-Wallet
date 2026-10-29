@@ -1181,30 +1181,36 @@ export type Database = {
       }
       partner_agencies: {
         Row: {
+          brand_name: string | null
           contact_email: string | null
           contact_phone: string | null
           created_at: string
           id: string
+          intro_pricing: boolean
           name: string
           short_name: string | null
           status: string
           updated_at: string
         }
         Insert: {
+          brand_name?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
           id?: string
+          intro_pricing?: boolean
           name: string
           short_name?: string | null
           status?: string
           updated_at?: string
         }
         Update: {
+          brand_name?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
           id?: string
+          intro_pricing?: boolean
           name?: string
           short_name?: string | null
           status?: string
