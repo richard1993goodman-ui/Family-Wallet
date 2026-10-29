@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Copy, MessageCircle } from "lucide-react";
+import { ArrowLeft, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/calculator")({
 
 const gbp = (v: number) => new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }).format(v);
 const gbp2 = (v: number) => new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(v);
-const WHATSAPP = "447817780423";
+
 
 function Segmented<T extends string>({ value, options, onChange }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
   return (
@@ -57,7 +57,6 @@ function CalculatorPage() {
     `Estimated all-in: ${gbp(r.monthlyTotal)}/month (${gbp2(r.allInHourly)}/hr)`,
   ].filter(Boolean).join("\n");
 
-  const waText = `Hi Richard, I ran our numbers through the cost calculator (${r.days} days, ${r.weeklyHours} hrs/wk, £${input.rate}/hr ${input.basis}${input.includeMembership ? `, ${r.tier.name} tier` : ""} — about ${gbp(r.monthlyTotal)}/month). Can we talk about finding a nanny?`;
 
   const rows: [string, number][] = [
     ["Nanny take-home pay", r.netPay],
