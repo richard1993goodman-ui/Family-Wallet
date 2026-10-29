@@ -238,11 +238,11 @@ function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyNa
       <SidebarTrigger className="h-9 w-9" />
       <div className="min-w-0">
         <p className="truncate text-sm font-semibold text-foreground">{familyName}</p>
-        <p className="text-xs text-muted-foreground">Family Wallet</p>
+        <p className="truncate text-xs text-muted-foreground">{agencyName ?? "Family Wallet"}</p>
       </div>
       <span className="ml-auto hidden items-center gap-1.5 text-xs font-medium text-muted-foreground sm:flex">
         <Sparkles className="h-3.5 w-3.5 text-primary" />
-        {agencyName ? <>{agencyName} · Powered by Athlete Mannies</> : <>Athlete Mannies &amp; Nannies</>}
+        {agencyName ? <>Powered by AthleteMannies</> : <>Athlete Mannies &amp; Nannies</>}
       </span>
     </header>
   );
