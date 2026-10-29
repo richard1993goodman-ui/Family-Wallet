@@ -218,7 +218,7 @@ export async function loadAgreement(
   };
 }
 
-/** Families build their own agreement from inside the vault. */
+/** Families build their own agreement from inside the wallet. */
 export async function saveAgreementFromWallet(
   slug: string,
   input: AgreementData,

@@ -67,16 +67,16 @@ import {
 export const Route = createFileRoute("/w/$slug")({
   head: () => ({
     meta: [
-      { title: "Your Family Vault — Athlete Mannies & Nannies" },
+      { title: "Your Family Wallet — Athlete Mannies & Nannies" },
       {
         name: "description",
         content:
-          "Your private Family Vault: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
+          "Your private Family Wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Your Family Vault — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Your Family Wallet — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "Your private Family Vault from Athlete Mannies & Nannies.",
+        content: "Your private Family Wallet from Athlete Mannies & Nannies.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -180,7 +180,7 @@ function WalletPage() {
   if (query.isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading your vault…
+        Loading your wallet…
       </div>
     );
   }
@@ -192,7 +192,7 @@ function WalletPage() {
       return (
         <div className="flex min-h-screen items-center justify-center bg-sand px-5">
           <div className="max-w-sm text-center">
-            <h1 className="heading-display text-2xl text-primary">Vault not found</h1>
+            <h1 className="heading-display text-2xl text-primary">Wallet not found</h1>
             <p className="mt-3 text-sm text-muted-foreground">
               This link isn't active. Please check the link we sent you, or get in touch and we'll
               send a fresh one.
@@ -225,7 +225,7 @@ function WalletPage() {
               required
             />
             <Button type="submit" className="w-full" disabled={busy}>
-              {busy ? "Checking…" : "Open my vault"}
+              {busy ? "Checking…" : "Open my wallet"}
             </Button>
           </form>
         </div>
@@ -244,10 +244,10 @@ function WalletPage() {
       <div className="mx-auto max-w-2xl px-5 py-10">
         {slug === "demo" && (
           <div className="mb-6 rounded-2xl bg-card shadow-sm p-4 text-sm">
-            <p className="font-semibold text-primary">You're viewing a demo Family Vault</p>
+            <p className="font-semibold text-primary">You're viewing a demo Family Wallet</p>
             <p className="mt-1 text-muted-foreground">
               The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member,
-              your own private vault is set up with your family, your nanny and your agreement.
+              your own private wallet is set up with your family, your nanny and your agreement.
             </p>
           </div>
         )}
@@ -659,7 +659,7 @@ function WalletPage() {
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
-          Vault last updated{" "}
+          Wallet last updated{" "}
           {new Date(wallet.updatedAt).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",
@@ -683,7 +683,7 @@ function WalletPage() {
               await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
             }}
           >
-            Lock this vault
+            Lock this wallet
           </button>
         </div>
       </div>

@@ -24,12 +24,12 @@ export const Route = createFileRoute("/handover/$slug")({
       {
         name: "description",
         content:
-          "A quick end-of-day handover for homework, dinner, mood and kit, plus petty cash and expenses in the Family Vault.",
+          "A quick end-of-day handover for homework, dinner, mood and kit, plus petty cash and expenses in the Family Wallet.",
       },
       { property: "og:title", content: "Handover & Expenses — Athlete Mannies & Nannies" },
       {
         property: "og:description",
-        content: "End-of-day updates and small expenses in your Family Vault.",
+        content: "End-of-day updates and small expenses in your Family Wallet.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -18,12 +18,12 @@ export const Route = createFileRoute("/welcome/$slug")({
   loader: async ({ context, params }) => { await Promise.all([context.queryClient.ensureQueryData(welcomeOptions(params.slug)), context.queryClient.ensureQueryData(first48Options(params.slug))]); },
   head: () => ({
     meta: [
-      { title: "First 48 hours — Family Vault | Athlete Mannies & Nannies" },
+      { title: "First 48 hours — Family Wallet | Athlete Mannies & Nannies" },
       {
         name: "description",
         content: "A shared parent and nanny checklist for a confident first two days, with confirmations, routines and settling-in notes.",
       },
-      { property: "og:title", content: "First 48 hours — Family Vault" },
+      { property: "og:title", content: "First 48 hours — Family Wallet" },
       {
         property: "og:description",
         content: "Agree the essentials together, from school collection and safety to your first handover.",
@@ -68,7 +68,7 @@ function WelcomePage() {
     try {
       await finishFn({ data: { slug } });
       await refresh();
-      toast.success("Setup finished — enjoy your vault!");
+      toast.success("Setup finished — enjoy your wallet!");
     } finally {
       setBusy(false);
     }
@@ -84,7 +84,7 @@ function WelcomePage() {
     >
       <First48Checklist slug={slug} data={first48.data} />
       <details className="mt-8 border-t border-border pt-5">
-      <summary className="cursor-pointer font-semibold text-foreground">Family Vault setup · {data.doneCount} of {data.total} done</summary>
+      <summary className="cursor-pointer font-semibold text-foreground">Family Wallet setup · {data.doneCount} of {data.total} done</summary>
       <div className="mt-4">
       <Card>
         <div className="flex items-center justify-between gap-4">
@@ -94,8 +94,8 @@ function WelcomePage() {
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
               {data.completed
-                ? "Your vault is fully set up — everything below stays here whenever you need it."
-                : "Keep going — each tick makes the vault more useful for everyone."}
+                ? "Your wallet is fully set up — everything below stays here whenever you need it."
+                : "Keep going — each tick makes the wallet more useful for everyone."}
             </p>
           </div>
           <Sparkles className="h-8 w-8 flex-shrink-0 text-primary" />
@@ -160,7 +160,7 @@ function WelcomePage() {
             <div>
               <p className="font-medium text-foreground">All done early?</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Tidy the journey away now — you can always come back from your vault home.
+                Tidy the journey away now — you can always come back from your wallet home.
               </p>
             </div>
             <Button variant="outline" disabled={busy} onClick={finish}>

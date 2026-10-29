@@ -16,9 +16,9 @@ export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Partner agencies — Athlete Mannies Family Vault" },
+      { title: "Partner agencies — Athlete Mannies Family Wallet" },
       { name: "description", content: "Set up partner agencies and who can sign in for them." },
-      { property: "og:title", content: "Partner agencies — Athlete Mannies Family Vault" },
+      { property: "og:title", content: "Partner agencies — Athlete Mannies Family Wallet" },
       { property: "og:description", content: "Set up partner agencies and who can sign in for them." },
       { name: "robots", content: "noindex" },
     ],
@@ -58,7 +58,7 @@ function AgenciesPage() {
         <h1 className="heading-display mt-3 text-3xl text-primary">Partner agencies</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Each partner agency signs in at the agency login with an email you add here. They only ever see their own
-          families — never yours or another agency's. Their families' vaults show their name, powered by Athlete Mannies.
+          families — never yours or another agency's. Their families' wallets show their name, powered by Athlete Mannies.
         </p>
 
         <form

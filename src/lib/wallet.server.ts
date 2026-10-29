@@ -11,7 +11,7 @@ function sessionConfig() {
     name: "family-wallet",
     // Remember this device for a year, refreshed on every visit.
     maxAge: 60 * 60 * 24 * 365,
-    // "none" so the vault stays unlocked when the app is viewed inside an
+    // "none" so the wallet stays unlocked when the app is viewed inside an
     // embedded preview frame; the cookie is still httpOnly and https-only.
     cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
@@ -124,7 +124,7 @@ export async function attemptUnlock(slug: string, code: string) {
 
 export const DEMO_SLUG = "demo";
 
-/** Only ever unlocks the demo vault — never a real family. */
+/** Only ever unlocks the demo wallet — never a real family. */
 export async function openDemo() {
   const { data } = await supabaseAdmin
     .from("families")
@@ -309,7 +309,7 @@ export type WalletNanny = {
 export type WalletData = {
   access: "family" | "nanny";
   familyName: string;
-  /** Partner agency running this vault; null = Athlete Mannies & Nannies. */
+  /** Partner agency running this wallet; null = Athlete Mannies & Nannies. */
   agencyName: string | null;
   tierBand: string;
   nannies: WalletNanny[];

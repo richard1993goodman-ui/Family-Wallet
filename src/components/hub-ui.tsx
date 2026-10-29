@@ -23,7 +23,7 @@ export function HubPage({
           params={{ slug }}
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to vault
+          <ArrowLeft className="h-4 w-4" /> Back to wallet
         </Link>
         <h1 className="heading-display mt-4 text-3xl leading-tight text-primary">{title}</h1>
         {intro && <p className="mt-2 text-sm text-muted-foreground">{intro}</p>}
@@ -42,7 +42,7 @@ export function BackToWallet({ slug }: { slug: string }) {
         params={{ slug }}
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
       >
-        <ArrowLeft className="h-4 w-4" /> Back to vault
+        <ArrowLeft className="h-4 w-4" /> Back to wallet
       </Link>
     </div>
   );
@@ -52,7 +52,7 @@ export function LockedNotice({ slug }: { slug: string }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-sand px-5">
       <div className="max-w-sm text-center">
-        <h1 className="heading-display text-2xl text-primary">Please unlock your vault</h1>
+        <h1 className="heading-display text-2xl text-primary">Please unlock your wallet</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           Enter your access code first, then come back to this page.
         </p>
@@ -61,7 +61,7 @@ export function LockedNotice({ slug }: { slug: string }) {
           params={{ slug }}
           className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
         >
-          Go to my vault
+          Go to my wallet
         </Link>
       </div>
     </div>

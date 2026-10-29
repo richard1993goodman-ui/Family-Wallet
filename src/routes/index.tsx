@@ -44,13 +44,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Family Vault — Athlete Mannies & Nannies" },
+      { title: "Family Wallet — Athlete Mannies & Nannies" },
       {
         name: "description",
         content:
-          "Every Athlete Mannies family gets a private vault holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every Athlete Mannies family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Family Vault — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Family Wallet — Athlete Mannies & Nannies" },
       {
         property: "og:description",
         content:
@@ -116,13 +116,13 @@ const benefitGroups = [
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
     featured: ["Ask Athlete Mannies", "Member perks", "Training hub"],
     items: [
-      "Ask Athlete Mannies — message us straight from the vault",
+      "Ask Athlete Mannies — message us straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
       "Curated Seasonal Playbooks — timely activity, sport and family guides",
       "Active Kids Sports Passport — skills, challenges and confidence wins",
       "Nanny training hub — safeguarding, routines and emergencies",
-      "Nanny training certificate — kept in the vault once passed",
+      "Nanny training certificate — kept in the wallet once passed",
       "Nanny Fuel — cooking and meal ideas",
       "Nanny activity guide",
     ],
@@ -165,7 +165,7 @@ function FamilyLogin() {
     e.preventDefault();
     const slug = slugFromInput(link);
     if (!slug) {
-      toast.error("Please enter your vault link.");
+      toast.error("Please enter your wallet link.");
       return;
     }
     setBusy(true);
@@ -197,7 +197,7 @@ function FamilyLogin() {
         </span>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Member access</p>
-          <h2 className="heading-display text-xl text-foreground">Open your Family Vault</h2>
+          <h2 className="heading-display text-xl text-foreground">Open your Family Wallet</h2>
         </div>
       </div>
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -205,7 +205,7 @@ function FamilyLogin() {
       </p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>
-          <Label htmlFor="wallet-link">Your vault link</Label>
+          <Label htmlFor="wallet-link">Your wallet link</Label>
           <Input
             id="wallet-link"
             value={link}
@@ -237,11 +237,11 @@ function FamilyLogin() {
             className="mt-0.5 size-4 accent-[hsl(var(--primary))]"
           />
           <span>
-            Remember this device — stay signed in for 12 months and keep my vault link saved here.
+            Remember this device — stay signed in for 12 months and keep my wallet link saved here.
           </span>
         </label>
         <Button type="submit" size="lg" className="w-full" disabled={busy}>
-          {busy ? "Opening…" : "Open my vault"}
+          {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
       </form>
@@ -272,7 +272,7 @@ function Index() {
           <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-2 duration-500">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
             <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">
-              The Family Vault
+              The Family Wallet
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
               More than finding a nanny. Your membership keeps family routines, essential documents,
@@ -290,26 +290,27 @@ function Index() {
                     <Smartphone className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the vault?</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
                     <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
                   </div>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-foreground/75">
-                  Step inside a complete sample Family Vault with no login. Nothing in the demo is live.
+                  Step inside a complete sample Family Wallet with no login. Nothing in the demo is live.
                 </p>
                 <Button asChild variant="outline" size="lg" className="mt-4 w-full border-primary/30 bg-card/70">
                   <Link to="/demo">
-                    View the demo vault <ArrowRight className="h-4 w-4" />
+                    View the demo wallet <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
                 <Link to="/calculator" className="mt-3 flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline">
                   What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
+              <TodayPreview />
             </div>
 
             <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your Family Vault</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your Family Wallet</p>
               <h2 className="heading-display mt-2 text-3xl leading-tight text-foreground">
                 Everything around your nanny, in one place
               </h2>
@@ -340,7 +341,7 @@ function Index() {
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
                 <div>
                   <h2 className="heading-display text-xl text-foreground">See everything included</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Vault.</p>
+                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Wallet.</p>
                 </div>
                 <ChevronDown className="h-5 w-5 flex-none text-primary transition-transform group-open:rotate-180" />
               </summary>
@@ -367,9 +368,9 @@ function Index() {
 
         <section className="mx-auto grid max-w-6xl gap-6 px-5 py-10 sm:px-8 md:grid-cols-2">
           <div>
-            <h2 className="heading-display text-xl text-foreground">Opening your vault</h2>
+            <h2 className="heading-display text-xl text-foreground">Opening your wallet</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              We send your personal vault link and short access code. Enter them once and choose
+              We send your personal wallet link and short access code. Enter them once and choose
               “Remember this device” to stay signed in for 12 months.
             </p>
           </div>
@@ -390,6 +391,45 @@ function Index() {
           </Link>
         </div>
       </main>
+    </div>
+  );
+}
+
+const PREVIEW_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PREVIEW_ITEMS = [
+  { time: "3:30pm", text: "School pick-up — Jess (nanny shift 3:30–8pm)" },
+  { time: "4:30pm", text: "Football training, bring shin pads" },
+  { time: "6:00pm", text: "Dinner from Nanny Fuel — chicken traybake" },
+];
+const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
+
+function TodayPreview() {
+  const today = (new Date().getDay() + 6) % 7;
+  return (
+    <div className="mt-4 rounded-2xl border border-border bg-card/80 p-5 sm:p-6" aria-label="Sample calendar preview">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Sample preview</p>
+      <h2 className="heading-display mt-1 text-xl text-foreground">Today at the Harringtons'</h2>
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center">
+        {PREVIEW_DAYS.map((d, i) => (
+          <div key={d} className={`rounded-lg py-2 text-xs font-medium ${i === today ? "bg-primary text-primary-foreground" : i < 5 ? "bg-secondary/60 text-secondary-foreground" : "text-muted-foreground"}`}>
+            {d}
+          </div>
+        ))}
+      </div>
+      <ul className="mt-4 space-y-2">
+        {PREVIEW_ITEMS.map((it) => (
+          <li key={it.time} className="flex gap-3 text-sm">
+            <span className="w-14 flex-none font-semibold text-primary">{it.time}</span>
+            <span className="text-foreground/80">{it.text}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Suggested activities</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {PREVIEW_IDEAS.map((a) => (
+          <span key={a} className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">{a}</span>
+        ))}
+      </div>
     </div>
   );
 }

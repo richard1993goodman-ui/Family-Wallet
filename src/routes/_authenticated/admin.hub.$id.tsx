@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/admin/hub/$id")({
         content: "Read-only view of a family's profile, children, planner and daily logs.",
       },
       { property: "og:title", content: "Family hub overview — Athlete Mannies admin" },
-      { property: "og:description", content: "See what a family has added to their vault." },
+      { property: "og:description", content: "See what a family has added to their wallet." },
       { name: "robots", content: "noindex" },
     ],
   }),
