@@ -71,7 +71,7 @@ export const Route = createFileRoute("/w/$slug")({
       {
         name: "description",
         content:
-          "Your private Family Wallet: nanny agreement, nanny CV, membership, terms, our family guarantee and everyday nanny tools.",
+          "Your private Family Wallet: nanny agreement, nanny CV, terms, our family guarantee and everyday nanny tools.",
       },
       { property: "og:title", content: "Your Family Wallet" },
       {
@@ -277,9 +277,9 @@ function WalletPage() {
                 to: "/agreement/$slug",
               },
               {
-                label: "Membership terms signed",
+                label: "Agency terms signed",
                 done: Boolean(wallet.termsAcceptedOn),
-                hint: "Read and sign your membership terms",
+                hint: "Read and sign your agency terms",
                 to: "/terms/$slug",
               },
               {
@@ -410,7 +410,7 @@ function WalletPage() {
 
         {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
           <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
-          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate pay, employer costs, pension and payroll fees" />
+          <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate your nanny's pay, employer NI and pension" />
           <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
         </div></>}
 
@@ -530,7 +530,7 @@ function WalletPage() {
             slug={slug}
             to="/terms/$slug"
             icon={ScrollText}
-            title="Membership terms"
+            title="Agency terms"
             subtitle={
               wallet.termsAcceptedOn ? "Signed — view your copy" : "Read and sign your terms"
             }
@@ -626,11 +626,9 @@ function WalletPage() {
           </>
         )}
 
-        {!isNanny && <div className="mt-9 flex items-center justify-between rounded-2xl bg-card shadow-sm p-5"><span className="font-medium text-foreground">Membership</span><span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Active</span></div>}
-
-        <h2 className="ios-section-title mt-8">Premium membership</h2>
+        <h2 className="ios-section-title mt-8">Extras from your agency</h2>
         <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="VIP Member Perks" subtitle="Private London partner offers and family concierge recommendations" />
+          <HubTile slug={slug} to="/perks/$slug" icon={Gift} title="Family perks" subtitle="Private London partner offers and family concierge recommendations" />
           <HubTile slug={slug} to="/playbooks/$slug" icon={Library} title="Agency Materials" subtitle="Audiobooks, digital books, activity guides and seasonal packs from the agency" />
         </div>
 
@@ -692,7 +690,7 @@ function WalletPage() {
         <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="heading-display text-xl">
-              {sheet === "terms" ? "Membership terms & conditions" : "Our family guarantee"}
+              {sheet === "terms" ? "Agency terms & conditions" : "Our family guarantee"}
             </DialogTitle>
           </DialogHeader>
           {sheet === "terms" ? <TermsContent /> : <GuaranteeContent />}

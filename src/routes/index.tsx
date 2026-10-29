@@ -49,13 +49,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, guarantee and everyday nanny tools.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, membership details, guarantee and nanny tools, all in one private link.",
+          "Your nanny agreement, nanny CV, guarantee and nanny tools, all in one private link.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -106,20 +106,20 @@ const benefitGroups = [
       "Your nanny agreement",
       "Managed Nannytax setup — a guided introduction and visible next steps",
       "All-in employment cost calculator — pay, NI, pension and payroll estimates",
-      "Your Nannytax referral code and membership perks",
-      "Your membership tier, fees, terms and our family guarantee",
+      "Your Nannytax referral code",
+      "Agency terms and your family guarantee",
       "Reviews & check-ins — 6-month and yearly conversation guides",
     ],
   },
   {
     icon: HeartHandshake,
-    title: "Support & membership",
+    title: "Support & extras",
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
-    featured: ["Ask your agency", "Member perks", "Training hub"],
+    featured: ["Ask your agency", "Family perks", "Training hub"],
     items: [
       "Ask your agency — message your agency straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
-      "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
+      "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
       "Active Kids Sports Passport — skills, challenges and confidence wins",
       "Nanny training hub — safeguarding, routines and emergencies",
@@ -166,8 +166,8 @@ function Index() {
               The Family Wallet
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-              More than finding a nanny. Your membership keeps family routines, essential documents,
-              everyday support and trusted agency guidance together in one private place.
+              Your family and your new nanny, beautifully organised. Routines, essential documents,
+              everyday support and trusted agency guidance, together in one private place.
             </p>
           </div>
 

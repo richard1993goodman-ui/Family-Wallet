@@ -11,9 +11,9 @@ import { getPerks } from "@/lib/premium-content.functions";
 
 export const Route = createFileRoute("/perks/$slug")({
   head: () => ({ meta: [
-    { title: "VIP Member Perks — The Family Wallet" },
+    { title: "Family perks — The Family Wallet" },
     { name: "description", content: "Private London partner offers and family concierge recommendations for your agency members." },
-    { property: "og:title", content: "VIP Member Perks — The Family Wallet" },
+    { property: "og:title", content: "Family perks — The Family Wallet" },
     { property: "og:description", content: "Private London partner offers and family concierge recommendations." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
@@ -27,12 +27,12 @@ function PerksPage() {
   const fetchPerks = useServerFn(getPerks);
   const { data, isLoading } = useQuery({ queryKey: ["partner-perks", slug], queryFn: () => fetchPerks({ data: { slug } }) });
   const [category, setCategory] = useState("All");
-  if (isLoading) return <HubPage slug={slug} title="VIP Member Perks"><p className="text-sm text-muted-foreground">Loading your offers…</p></HubPage>;
-  if (!data) return <HubPage slug={slug} title="VIP Member Perks"><LockedNotice slug={slug} /></HubPage>;
+  if (isLoading) return <HubPage slug={slug} title="Family perks"><p className="text-sm text-muted-foreground">Loading your offers…</p></HubPage>;
+  if (!data) return <HubPage slug={slug} title="Family perks"><LockedNotice slug={slug} /></HubPage>;
   const categories = ["All", ...Array.from(new Set(data.perks.map((perk) => perk.category)))];
   const shown = data.perks.filter((perk) => category === "All" || perk.category === category);
   return (
-    <HubPage slug={slug} title="VIP Member Perks & London Concierge" intro="A private edit of trusted London partners, priority access and member-only offers selected for busy families.">
+    <HubPage slug={slug} title="Family perks & London Concierge" intro="A private edit of trusted London partners, priority access and member-only offers selected for busy families.">
       <div className="mb-5 flex flex-wrap gap-2">
         {categories.map((item) => <Button key={item} size="sm" variant={category === item ? "default" : "outline"} onClick={() => setCategory(item)}>{item}</Button>)}
       </div>
