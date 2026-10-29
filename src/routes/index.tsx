@@ -89,7 +89,7 @@ const benefitGroups = [
     items: [
       "Emergency card — key contacts and instructions at a glance",
       "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
-      "Kids' Playbook — quirks and comforts, how we handle big moments, approved friends and rainy-day ideas",
+      "Kids' Playbook — quirks and comforts, how we handle big moments, friends and rainy-day ideas",
       "Your nanny's CV, profile and references",
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
@@ -140,7 +140,7 @@ const headlineBenefits = [
   { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
   { icon: LifeBuoy, title: "Petty cash that always adds up", detail: "Top-ups and receipts logged, so everyone knows what's left." },
   { icon: KeyRound, title: "No more ‘what’s the WiFi password?’", detail: "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed." },
-  { icon: Heart, title: "Everyone on the same page with the kids", detail: "The Kids' Playbook shares what soothes each child, the house rules you agree on, approved friends and rainy-day ideas." },
+  { icon: Heart, title: "Everyone on the same page with the kids", detail: "The Kids' Playbook shares what soothes each child, the house rules you agree on, friends and rainy-day ideas." },
 ];
 
 

@@ -374,6 +374,7 @@ export async function addPlannerEntry(
 ) {
   const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Locked");
+  if (input.entryType === "playdate" && family.access !== "family") throw new Error("Only parents can add playdates.");
   const title = clean(input.title, 160);
   if (!title) throw new Error("Please add what's happening");
   const { count } = await supabaseAdmin
