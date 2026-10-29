@@ -87,7 +87,6 @@ const benefitGroups = [
     featured: ["Emergency card", "Children's profiles", "Safety records"],
     items: [
       "Emergency card — key contacts and instructions at a glance",
-      "Request cover — emergency cover, babysitting and extra days",
       "Your nanny's CV, profile and references",
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
@@ -136,7 +135,7 @@ const headlineBenefits = [
   { icon: ReceiptText, title: "A Friday report ready to print", detail: "Hours, activities, handovers and expenses, summed up for you." },
   { icon: Siren, title: "Emergency details always to hand", detail: "Key contacts, allergies and instructions in one tap." },
   { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
-  { icon: LifeBuoy, title: "Cover when your nanny is off", detail: "Request backup or extra days straight from your phone." },
+  { icon: LifeBuoy, title: "Petty cash that always adds up", detail: "Top-ups and receipts logged, so everyone knows what's left." },
 ];
 
 
