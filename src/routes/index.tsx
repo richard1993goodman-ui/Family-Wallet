@@ -49,13 +49,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, guarantee and everyday nanny tools.",
+          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, guarantee and nanny tools, all in one private link.",
+          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -106,17 +106,17 @@ const benefitGroups = [
       "Managed Nannytax setup — a guided introduction and visible next steps",
       "All-in employment cost calculator — pay, NI, pension and payroll estimates",
       "Your Nannytax referral code",
-      "Agency terms and your family guarantee",
+      "Agency terms and conditions",
       "Reviews & check-ins — 6-month and yearly conversation guides",
     ],
   },
   {
     icon: HeartHandshake,
     title: "Support & extras",
-    summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
-    featured: ["Ask your agency", "Family perks", "Training hub"],
+    summary: "Trusted ideas, thoughtful extras and everything that makes family life easier.",
+    featured: ["Messages", "Family perks", "Training hub"],
     items: [
-      "Ask your agency — message your agency straight from the wallet",
+      "Messages — topic conversations between family and nanny, kept in the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -166,7 +166,7 @@ function Index() {
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
               Your family and your new nanny, beautifully organised. Routines, essential documents,
-              everyday support and trusted agency guidance, together in one private place.
+              daily notes and messages, together in one private place.
             </p>
           </div>
 
@@ -205,7 +205,7 @@ function Index() {
                 Everything around your nanny, in one place
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                A practical daily home for parents and nannies, backed by ongoing agency support.
+                A practical daily home for parents and nannies, with everything in one private place.
               </p>
 
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">

@@ -46,7 +46,7 @@ export function First48Checklist({ slug, data }: { slug: string; data: Checklist
       </section>)}
       <div className="mt-7 flex items-start gap-3 border-t border-border pt-5">
         <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-        <div><p className="font-medium text-foreground">Something still feels unclear?</p><Button asChild variant="link" className="h-auto p-0"><Link to="/support/$slug" params={{ slug }}>Ask your agency <ChevronRight className="h-4 w-4" /></Link></Button></div>
+        <div><p className="font-medium text-foreground">Something still feels unclear?</p><Button asChild variant="link" className="h-auto p-0"><Link to="/messages/$slug" params={{ slug }}>Message each other <ChevronRight className="h-4 w-4" /></Link></Button></div>
       </div>
     </div>
   );

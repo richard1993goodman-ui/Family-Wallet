@@ -23,7 +23,7 @@ export const Route = createFileRoute("/checkin/$slug")({
       {
         name: "description",
         content:
-          "Structured 6-month and yearly check-in prompts for families and nannies, plus the option of a neutral call with your agency.",
+          "Structured 6-month and yearly check-in prompts for families and nannies, plus the option of a neutral review call.",
       },
       { property: "og:title", content: "Reviews & check-ins" },
       {
@@ -106,7 +106,7 @@ function CheckinPage() {
       });
       setCallNotes("");
       await query.refetch();
-      toast.success("Call requested — we'll be in touch to arrange a time");
+      toast.success("Review call requested — we'll be in touch to arrange a time");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not send the request");
     } finally {
@@ -118,7 +118,7 @@ function CheckinPage() {
     <HubPage
       slug={slug}
       title="Reviews & check-ins"
-      intro="A guided conversation for families and nannies — what is going well, what is changing, and pay or bonus reviews. Either of you can also ask us for a neutral call."
+      intro="A guided conversation for families and nannies — what is going well, what is changing, and pay or bonus reviews. Either of you can also ask for a neutral review call."
     >
       {due && (
         <div className="mb-6 rounded-xl border border-primary/40 bg-accent p-4">
@@ -205,12 +205,12 @@ function CheckinPage() {
       </Card>
 
       <h2 className="heading-display mt-8 text-xl text-foreground">
-        Ask your agency for a call
+        Ask for a neutral review call
       </h2>
       <div className="mt-3">
         <Card>
           <p className="text-sm text-muted-foreground">
-            Either the family or the nanny can ask for a neutral call with us — a good way to smooth
+            Either the family or the nanny can ask for a neutral review call — a good way to smooth
             something out early rather than letting it build.
           </p>
           <Textarea

@@ -79,7 +79,7 @@ export const FIRST_48_STEPS = [
   { id: "pickup", phase: "before", label: "Confirm school collection", description: "Check collection permission, the meeting point, travel arrangements and a backup plan.", href: "/planner/$slug" },
   { id: "home", phase: "day1", label: "Walk through the home together", description: "Cover keys, alarms, pets, safe areas and where food, spare clothes and essentials are kept.", href: "/guide/$slug" },
   { id: "routine", phase: "day1", label: "Agree the after-school routine", description: "Talk through snacks, homework, screen time, dinner and what helps each child settle.", href: "/guide/$slug" },
-  { id: "boundaries", phase: "day1", label: "Set communication and privacy boundaries", description: "Agree when to message, photo permissions, visitors and how to raise a concern.", href: "/support/$slug" },
+  { id: "boundaries", phase: "day1", label: "Set communication and privacy boundaries", description: "Agree when to message, photo permissions, visitors and how to raise a concern.", href: "/messages/$slug" },
   { id: "expenses", phase: "day1", label: "Agree spending and reimbursements", description: "Set spending permission for food, travel and activities, receipt expectations and how expenses will be repaid.", href: "/handover/$slug" },
   { id: "handover", phase: "day1", label: "Complete the first handover", description: "Share food, mood, activities, any medication given and anything needed tomorrow.", href: "/handover/$slug" },
   { id: "review", phase: "day2", label: "Have a ten-minute settling-in chat", description: "What went well? What was unclear? Agree one adjustment before the next shift.", href: "/checkin/$slug" },
