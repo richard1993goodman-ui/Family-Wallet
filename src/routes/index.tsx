@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every your agency family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every agency family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
@@ -116,7 +116,7 @@ const benefitGroups = [
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
     featured: ["Ask your agency", "Member perks", "Training hub"],
     items: [
-      "Ask your agency — message us straight from the wallet",
+      "Ask your agency — message your agency straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -267,7 +267,7 @@ function Index() {
           <div className="md:border-l md:border-border md:pl-6">
             <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Message us on WhatsApp or contact your agency and we will resend your link and code.
+              Contact your agency and they will resend your link and code.
             </p>
           </div>
         </section>

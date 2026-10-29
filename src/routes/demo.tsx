@@ -8,9 +8,9 @@ export const Route = createFileRoute("/demo")({
   head: () => ({
     meta: [
       { title: "Demo The Family Wallet" },
-      { name: "description", content: "Explore a sample your agency Family Wallet: agreement, planner, daily logs, sports passport and more." },
+      { name: "description", content: "Explore a sample Family Wallet: agreement, planner, daily logs, sports passport and more." },
       { property: "og:title", content: "Demo The Family Wallet" },
-      { property: "og:description", content: "See what a private your agency Family Wallet looks like for members." },
+      { property: "og:description", content: "See what a private Family Wallet looks like for members." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
