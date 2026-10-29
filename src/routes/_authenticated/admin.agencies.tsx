@@ -36,7 +36,7 @@ function AgenciesPage() {
   const exportFn = useServerFn(exportAgencyRecords);
   const [brand, setBrand] = useState("");
   type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null };
-  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean }>) =>
+  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string }>) =>
     saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "" } });
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
