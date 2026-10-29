@@ -20,6 +20,7 @@ import {
   Gift,
   Handshake,
   Home,
+  KeyRound,
   Landmark,
   Library,
   LifeBuoy,
@@ -92,6 +93,7 @@ type WalletPath =
   | "/moments/$slug"
   | "/pettycash/$slug"
   | "/messages/$slug";
+ 
 
 type NavItem = {
   label: string;
