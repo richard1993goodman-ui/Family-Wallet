@@ -197,6 +197,13 @@
       "when": 1793285012740,
       "tag": "0027_agency_fees_and_content",
       "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1793288465436,
+      "tag": "0028_agency_terms",
+      "breakpoints": true
     }
   ]
 }

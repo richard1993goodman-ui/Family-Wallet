@@ -55,6 +55,41 @@ export type Database = {
           },
         ]
       }
+      agency_terms: {
+        Row: {
+          agency_id: string | null
+          file_name: string
+          id: string
+          storage_path: string
+          uploaded_at: string
+          version: number
+        }
+        Insert: {
+          agency_id?: string | null
+          file_name: string
+          id?: string
+          storage_path: string
+          uploaded_at?: string
+          version?: number
+        }
+        Update: {
+          agency_id?: string | null
+          file_name?: string
+          id?: string
+          storage_path?: string
+          uploaded_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agency_terms_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       challenge_completions: {
         Row: {
           challenge_id: string
