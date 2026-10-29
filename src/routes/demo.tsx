@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { openDemoWallet } from "@/lib/wallet.functions";
+import { setDemoBrand } from "@/lib/demo-brand";
 
 export const Route = createFileRoute("/demo")({
   head: () => ({
@@ -24,7 +25,7 @@ function DemoEntry() {
 
   useEffect(() => {
     open()
-      .then((r) => (r.ok ? navigate({ to: "/w/$slug", params: { slug: "demo" }, replace: true }) : setFailed(true)))
+      .then((r) => (r.ok ? (setDemoBrand(null), navigate({ to: "/w/$slug", params: { slug: "demo" }, replace: true })) : setFailed(true)))
       .catch(() => setFailed(true));
   }, [open, navigate]);
 

@@ -24,7 +24,7 @@ export const listPartnerAgencies = createServerFn({ method: "GET" })
 
 export const savePartnerAgency = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean }) => d)
+  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string }) => d)
   .handler(async ({ data, context }) => {
     await requireOwner(context);
     const name = data.name.trim().slice(0, 120);
@@ -36,12 +36,13 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       status: data.status === "paused" ? "paused" : "active",
       brand_name: data.brandName?.trim().slice(0, 120) || null,
       intro_pricing: !!data.introPricing,
+      short_name: data.shortName?.trim().toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) || null,
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     if (data.id) {
       const { error } = await supabaseAdmin.from("partner_agencies").update(row).eq("id", data.id);
-      if (error) throw new Error(error.message);
+      if (error) throw new Error(error.code === "23505" ? "That web address is already taken" : error.message);
       return { id: data.id };
     }
     const { data: inserted, error } = await supabaseAdmin.from("partner_agencies").insert(row).select("id").single();

@@ -35,9 +35,9 @@ function AgenciesPage() {
   const deleteFn = useServerFn(deletePartnerAgency);
   const exportFn = useServerFn(exportAgencyRecords);
   const [brand, setBrand] = useState("");
-  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean };
-  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean }>) =>
-    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing } });
+  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null };
+  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string }>) =>
+    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "" } });
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -108,6 +108,19 @@ function AgenciesPage() {
                     {a.contact_email ?? ""}
                   </p>
                   <p className="text-sm">Families see: <strong>{a.brand_name || a.name}</strong> · Powered by AthleteMannies</p>
+                  {a.short_name ? (
+                    <div className="mt-2 space-y-1 text-sm">
+                      {([["Their page", `/p/${a.short_name}`], ["Their demo", `/p/${a.short_name}/demo`]] as const).map(([label, path]) => (
+                        <div key={label} className="flex flex-wrap items-center gap-2">
+                          <span className="text-muted-foreground">{label}:</span>
+                          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{window.location.origin}{path}</code>
+                          <Button variant="ghost" size="sm" className="h-7 px-2" onClick={() => { void navigator.clipboard.writeText(window.location.origin + path); toast.success("Link copied"); }}>Copy</Button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">Set a web address to get their branded page and demo links.</p>
+                  )}
                   {(() => {
                     const t = partnerFee(a.activeFamilies, a.intro_pricing);
                     const pct = t.max ? Math.min(100, (a.activeFamilies / t.max) * 100) : 100;
@@ -146,6 +159,16 @@ function AgenciesPage() {
                   }}
                 >
                   Rename wallet
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const n = window.prompt("Web address for their page (letters, numbers, dashes), e.g. nurture", a.short_name ?? "");
+                    if (n !== null) void run(() => saveAgency(a, { shortName: n }), "Web address saved");
+                  }}
+                >
+                  Web address
                 </Button>
                 <Button
                   variant="outline"
