@@ -534,7 +534,7 @@ function WalletPage() {
                       <span>
                         <span className="block font-medium text-foreground">{meta.title}</span>
                         <span className="mt-1 block text-sm text-muted-foreground">
-                          Verified by your agency{detail ? ` · ${detail}` : ""}
+                          Verified{detail ? ` · ${detail}` : ""}
                         </span>
                       </span>
                     </div>

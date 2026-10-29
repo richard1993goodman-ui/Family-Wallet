@@ -166,7 +166,7 @@ function Index() {
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
               Your family and your new nanny, beautifully organised. Routines, essential documents,
-              everyday support and trusted agency guidance, together in one private place.
+              daily notes and messages, together in one private place.
             </p>
           </div>
 
