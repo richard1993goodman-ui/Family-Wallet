@@ -306,6 +306,7 @@ function Index() {
                   What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
+              <TodayPreview />
             </div>
 
             <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
@@ -390,6 +391,45 @@ function Index() {
           </Link>
         </div>
       </main>
+    </div>
+  );
+}
+
+const PREVIEW_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PREVIEW_ITEMS = [
+  { time: "3:30pm", text: "School pick-up — Jess (nanny shift 3:30–8pm)" },
+  { time: "4:30pm", text: "Football training, bring shin pads" },
+  { time: "6:00pm", text: "Dinner from Nanny Fuel — chicken traybake" },
+];
+const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
+
+function TodayPreview() {
+  const today = (new Date().getDay() + 6) % 7;
+  return (
+    <div className="mt-4 rounded-2xl border border-border bg-card/80 p-5 sm:p-6" aria-label="Sample calendar preview">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Sample preview</p>
+      <h2 className="heading-display mt-1 text-xl text-foreground">Today at the Harringtons'</h2>
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center">
+        {PREVIEW_DAYS.map((d, i) => (
+          <div key={d} className={`rounded-lg py-2 text-xs font-medium ${i === today ? "bg-primary text-primary-foreground" : i < 5 ? "bg-secondary/60 text-secondary-foreground" : "text-muted-foreground"}`}>
+            {d}
+          </div>
+        ))}
+      </div>
+      <ul className="mt-4 space-y-2">
+        {PREVIEW_ITEMS.map((it) => (
+          <li key={it.time} className="flex gap-3 text-sm">
+            <span className="w-14 flex-none font-semibold text-primary">{it.time}</span>
+            <span className="text-foreground/80">{it.text}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Suggested activities</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {PREVIEW_IDEAS.map((a) => (
+          <span key={a} className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">{a}</span>
+        ))}
+      </div>
     </div>
   );
 }
