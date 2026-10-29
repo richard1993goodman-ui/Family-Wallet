@@ -48,13 +48,11 @@ import { getHubSummary } from "@/lib/family.functions";
 import { getFirst48 } from "@/lib/welcome.functions";
 import { getNannies } from "@/lib/nannies.functions";
 import { getAgreement } from "@/lib/agreement.functions";
-import { TERMS_HUB_URL } from "@/lib/tiers";
 import type { WorkingDay } from "@/lib/agreement.model";
 
 type NannySchedule = { nannyId: string; nannyName: string; workingDays: WorkingDay[] };
 import { GuaranteeContent } from "@/components/GuaranteeContent";
 import { SigningProgress, signingRows } from "@/components/SigningProgress";
-import { TermsContent } from "@/components/TermsContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -276,12 +274,12 @@ function WalletPage() {
                 hint: "Build it, then both of you sign it",
                 to: "/agreement/$slug",
               },
-              {
+              ...(wallet.hasTerms ? [{
                 label: "Agency terms signed",
                 done: Boolean(wallet.termsAcceptedOn),
                 hint: "Read and sign your agency terms",
-                to: "/terms/$slug",
-              },
+                to: "/terms/$slug" as const,
+              }] : []),
               {
                 label: "Children added",
                 done: Boolean(hub?.readiness?.children),
@@ -526,7 +524,7 @@ function WalletPage() {
             disabled={!hasDoc("cv")}
             onClick={() => openDoc("cv")}
           />}
-          {!isNanny && <HubTile
+          {!isNanny && wallet.hasTerms && <HubTile
             slug={slug}
             to="/terms/$slug"
             icon={ScrollText}
@@ -665,15 +663,7 @@ function WalletPage() {
           })}
         </p>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-sm">
-          <a
-            href={TERMS_HUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
-          >
-            Full terms hub <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+        <div className="mt-4 flex flex-wrap items-center justify-end gap-3 border-t border-border pt-6 text-sm">
           <button
             className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
             onClick={async () => {
@@ -690,10 +680,10 @@ function WalletPage() {
         <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="heading-display text-xl">
-              {sheet === "terms" ? "Agency terms & conditions" : "Our family guarantee"}
+              Our family guarantee
             </DialogTitle>
           </DialogHeader>
-          {sheet === "terms" ? <TermsContent /> : <GuaranteeContent />}
+          <GuaranteeContent />
         </DialogContent>
       </Dialog>
     </div>
