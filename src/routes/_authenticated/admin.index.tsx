@@ -257,8 +257,8 @@ function AdminHome() {
         )}
         {(status.data?.features.perks || status.data?.features.playbooks) && (
           <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-          <div className="mt-6"><AgencyTermsPanel /></div>
         )}
+        <div className="mt-6"><AgencyTermsPanel /></div>
 
         <div className="mt-8 space-y-3">
           {families.data?.length === 0 && (
