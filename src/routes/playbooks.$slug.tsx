@@ -36,9 +36,9 @@ function PlaybooksPage() {
     if (!item?.readAt) { await markRead({ data: { slug, playbookId: id } }); await qc.invalidateQueries({ queryKey: ["playbooks", slug] }); }
   };
   return (
-    <HubPage slug={slug} title="Agency Materials" intro="Audiobooks, digital books, activity guides and seasonal packs — prepared by the agency and delivered to your wallet.">
+    <HubPage slug={slug} title="Agency Materials" intro="Audiobooks, digital books, activity guides and seasonal packs — prepared for your family and delivered to your wallet.">
       <div className="space-y-4">
-        {data.playbooks.length === 0 && <Card><p className="text-sm text-muted-foreground">Your first agency material is being prepared.</p></Card>}
+        {data.playbooks.length === 0 && <Card><p className="text-sm text-muted-foreground">Your first material is being prepared.</p></Card>}
         {data.playbooks.map((playbook, index) => {
           const expanded = openId === playbook.id;
           return <article key={playbook.id} className={`overflow-hidden rounded-xl border bg-card ${playbook.is_featured && index === 0 ? "border-primary/50" : "border-border"}`}>
