@@ -70,9 +70,10 @@ function ReportPage() {
           {data.shifts.length ? (
             <ul className="mt-2 space-y-1 text-sm">
               {data.shifts.map((sh, i) => (
-                <li key={i} className="flex justify-between gap-2"><span>{fmt(sh.shift_date)} · {sh.start_time.slice(0, 5)}–{sh.end_time.slice(0, 5)}</span><span className="text-muted-foreground">{sh.hours.toFixed(1)}h · {sh.status}</span></li>
+                <li key={i} className="flex justify-between gap-2"><span>{fmt(sh.shift_date)} · {sh.start_time.slice(0, 5)}–{sh.end_time.slice(0, 5)}{sh.shift_type === "babysitting" ? " · Babysitting" : ""}</span><span className="text-muted-foreground">{sh.hours.toFixed(1)}h · {sh.status}</span></li>
               ))}
-              <li className="border-t border-border pt-2 font-medium">Approved pay £{s.approvedPay.toFixed(2)}{s.pendingShifts ? ` · ${s.pendingShifts} shift(s) awaiting approval` : ""}</li>
+              <li className="border-t border-border pt-2 font-medium">Approved nanny pay £{s.approvedPay.toFixed(2)}{s.pendingShifts ? ` · ${s.pendingShifts} shift(s) awaiting approval` : ""}</li>
+              {s.babysittingHours > 0 && <li className="font-medium">Babysitting: {s.babysittingHours.toFixed(1)}h · approved £{s.babysittingPay.toFixed(2)}</li>}
             </ul>
           ) : <Empty text="No timesheet shifts logged this week." />}
         </Card>
