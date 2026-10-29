@@ -30,7 +30,7 @@ export function PremiumContentPanel({ families }: { families: Family[] }) {
 
   return <div className="mt-8 rounded-xl border border-border bg-card p-5">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <div><h2 className="heading-display text-lg text-foreground">Parent perks & agency materials</h2></div>
+      <div><h2 className="heading-display text-lg text-foreground">Parent perks & agency materials</h2><p className="mt-1 text-xs text-muted-foreground">Audiobooks, digital books, activity guides and seasonal packs you publish to family wallets.</p></div>
       <div className="flex gap-2">{query.data?.canPerks && <Button size="sm" variant="outline" onClick={() => { setPerk(blankPerk); setMode("perk"); }}><Gift className="h-4 w-4" /> Add perk</Button>}{query.data?.canPlaybooks && <Button size="sm" onClick={() => { setPlaybook(blankPlaybook); setMode("playbook"); }}><BookOpen className="h-4 w-4" /> Add material</Button>}</div>
     </div>
 
@@ -60,7 +60,7 @@ export function PremiumContentPanel({ families }: { families: Family[] }) {
   </div>;
 }
 
-function TextField({ label, value, set, type }: { label: string; value: string; set: (value: string) => void; type?: string }) { return <label className="block"><span className="text-sm font-medium text-foreground">{label}</span><Input className="mt-1" type={type} value={value} onChange={(e) => set(e.target.value)} /></label>; }
+function TextField({ label, value, set, type, placeholder }: { label: string; value: string; set: (value: string) => void; type?: string; placeholder?: string }) { return <label className="block"><span className="text-sm font-medium text-foreground">{label}</span><Input className="mt-1" type={type} placeholder={placeholder} value={value} onChange={(e) => set(e.target.value)} /></label>; }
 function LongField({ label, value, set }: { label: string; value: string; set: (value: string) => void }) { return <label className="block"><span className="text-sm font-medium text-foreground">{label}</span><Textarea className="mt-1" value={value} onChange={(e) => set(e.target.value)} /></label>; }
 function Check({ label, checked, set }: { label: string; checked: boolean; set: (value: boolean) => void }) { return <label className="flex items-center gap-2 text-sm text-foreground"><input type="checkbox" checked={checked} onChange={(e) => set(e.target.checked)} />{label}</label>; }
 function ContentList({ title, icon: Icon, empty, rows }: { title: string; icon: typeof Gift; empty: string; rows: { id: string; title: string; subtitle: string; edit: () => void; remove: () => void }[] }) { return <div className="rounded-lg border border-border p-4"><h3 className="flex items-center gap-2 font-medium text-foreground"><Icon className="h-4 w-4 text-primary" />{title}</h3>{rows.length === 0 && <p className="mt-3 text-sm text-muted-foreground">{empty}</p>}<div className="mt-3 space-y-2">{rows.map((row) => <div key={row.id} className="flex items-start justify-between gap-2 border-t border-border pt-2"><div><p className="text-sm font-medium text-foreground">{row.title}</p><p className="text-xs text-muted-foreground">{row.subtitle}</p></div><div className="flex"><Button size="icon" variant="ghost" aria-label={`Edit ${row.title}`} onClick={row.edit}><Pencil className="h-4 w-4" /></Button><Button size="icon" variant="ghost" aria-label={`Delete ${row.title}`} onClick={() => { if (confirm(`Delete ${row.title}?`)) void row.remove(); }}><Trash2 className="h-4 w-4" /></Button></div></div>)}</div></div>; }
