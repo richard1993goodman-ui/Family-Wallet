@@ -100,7 +100,7 @@ export const TRAINING_QUESTIONS: TrainingQuestion[] = [
     options: [
       "Post about it anonymously in a nanny group for advice",
       "Wait a few weeks to see if it happens again",
-      "Report it the same day to Athlete Mannies and, where a child is at risk of harm, to children's social care or the police",
+      "Report it the same day to your agency and, where a child is at risk of harm, to children's social care or the police",
       "Confront the person you suspect",
     ],
   },

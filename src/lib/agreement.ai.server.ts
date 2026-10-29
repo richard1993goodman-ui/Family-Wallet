@@ -97,7 +97,7 @@ export async function generateAgreementDraft(
   );
 
   const prompt = [
-    "You are drafting sections of a UK nanny employment agreement for a family using the Athlete Mannies & Nannies service.",
+    "You are drafting sections of a UK nanny employment agreement for a family using a nanny agency service.",
     "Write clear, plain British English suitable for a private household employment contract. Be specific to this family. Do not invent facts that are not given; leave general wording where a detail is missing.",
     "",
     "Agreement details so far:",
@@ -169,7 +169,7 @@ export async function generateWrittenStatement(
   if (!key) return { ok: false, reason: "config" };
 
   const prompt = [
-    "You are writing a UK written statement of employment particulars (Employment Rights Act 1996, section 1) for a family employing a nanny through Athlete Mannies & Nannies.",
+    "You are writing a UK written statement of employment particulars (Employment Rights Act 1996, section 1) for a family employing a nanny through a nanny agency.",
     "This is the SHORT, friendly alternative to a long formal contract. Write in plain British English, warm but precise, using short paragraphs. Do not invent facts; where a detail is missing, use neutral wording such as 'to be agreed'.",
     "",
     "Key details:",

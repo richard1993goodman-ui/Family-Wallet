@@ -42,9 +42,9 @@ export const Route = createFileRoute("/_authenticated/admin/family/$id")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Family details — Athlete Mannies Family Wallet" },
+      { title: "Family details — The Family Wallet" },
       { name: "description", content: "Edit a family's wallet, documents and membership." },
-      { property: "og:title", content: "Family details — Athlete Mannies Family Wallet" },
+      { property: "og:title", content: "Family details — The Family Wallet" },
       { property: "og:description", content: "Edit a family's wallet, documents and membership." },
       { name: "robots", content: "noindex" },
     ],
@@ -731,7 +731,7 @@ function FamilyDetail() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="own">Athlete Mannies (your family)</SelectItem>
+                        <SelectItem value="own">Your own agency (direct family)</SelectItem>
                         {agencies.data?.map((a) => (
                           <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>
                         ))}

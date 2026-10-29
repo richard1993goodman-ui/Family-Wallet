@@ -13,16 +13,16 @@ import { COVER_TYPES, type CoverType } from "@/lib/cover.types";
 export const Route = createFileRoute("/cover/$slug")({
   head: () => ({
     meta: [
-      { title: "Emergency cover request | Athlete Mannies Family Wallet" },
+      { title: "Emergency cover request | The Family Wallet" },
       {
         name: "description",
         content:
-          "Request emergency nanny cover, babysitting or holiday cover from Athlete Mannies straight from your Family Wallet.",
+          "Request emergency nanny cover, babysitting or holiday cover from your agency straight from your Family Wallet.",
       },
       { property: "og:title", content: "Emergency cover request" },
       {
         property: "og:description",
-        content: "Ask Athlete Mannies for cover, babysitting or an extra day in a couple of taps.",
+        content: "Ask your agency for cover, babysitting or an extra day in a couple of taps.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -133,7 +133,7 @@ function CoverPage() {
           />
         </div>
         <p className="mt-3 text-sm text-muted-foreground">
-          Your request goes straight to Athlete Mannies and appears in your messages, so you can
+          Your request goes straight to your agency and appears in your messages, so you can
           chat with us about it there.
         </p>
         <Button className="mt-4" disabled={saving} onClick={submit}>

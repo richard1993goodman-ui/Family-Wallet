@@ -12,13 +12,13 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/nanny/$slug")({
   head: () => ({
     meta: [
-      { title: "Nanny sign in — Athlete Mannies & Nannies" },
+      { title: "Nanny sign in — The Family Wallet" },
       {
         name: "description",
         content:
           "Nannies sign in with their invitation code to read and sign the family's nanny agreement.",
       },
-      { property: "og:title", content: "Nanny sign in — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Nanny sign in — The Family Wallet" },
       {
         property: "og:description",
         content: "Read and sign the family's nanny agreement with your invitation code.",

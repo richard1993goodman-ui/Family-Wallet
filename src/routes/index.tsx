@@ -44,13 +44,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Family Wallet — Athlete Mannies & Nannies" },
+      { title: "The Family Wallet" },
       {
         name: "description",
         content:
-          "Every Athlete Mannies family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
+          "Every your agency family gets a private wallet holding their nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools.",
       },
-      { property: "og:title", content: "Family Wallet — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
@@ -114,9 +114,9 @@ const benefitGroups = [
     icon: HeartHandshake,
     title: "Support & membership",
     summary: "Direct agency support, trusted ideas and thoughtful extras for family life.",
-    featured: ["Ask Athlete Mannies", "Member perks", "Training hub"],
+    featured: ["Ask your agency", "Member perks", "Training hub"],
     items: [
-      "Ask Athlete Mannies — message us straight from the wallet",
+      "Ask your agency — message us straight from the wallet",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "VIP Member Perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",

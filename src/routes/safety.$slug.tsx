@@ -8,8 +8,8 @@ import { getSafety, getSafetyDocumentUrl } from "@/lib/concierge.functions";
 import { SAFETY_DOCUMENTS } from "@/lib/concierge.types";
 
 export const Route = createFileRoute("/safety/$slug")({ head: () => ({ meta: [
-  { title: "Insurance & Safeguarding — Athlete Mannies" }, { name: "description", content: "Private nanny insurance, identity and safeguarding records." },
-  { property: "og:title", content: "Insurance & Safeguarding — Athlete Mannies" }, { property: "og:description", content: "See the safety and insurance records held for your nanny." },
+  { title: "Insurance & Safeguarding — The Family Wallet" }, { name: "description", content: "Private nanny insurance, identity and safeguarding records." },
+  { property: "og:title", content: "Insurance & Safeguarding — The Family Wallet" }, { property: "og:description", content: "See the safety and insurance records held for your nanny." },
   { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
 ] }), component: SafetyPage });
 

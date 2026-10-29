@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/guide/$slug")({
   head: () => ({
     meta: [
-      { title: "Nanny Quick Guide — Athlete Mannies & Nannies" },
+      { title: "Nanny Quick Guide — The Family Wallet" },
       {
         name: "description",
         content:
           "A one-page quick guide for your nanny: children, allergies, routines, school and key contacts.",
       },
-      { property: "og:title", content: "Nanny Quick Guide — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Nanny Quick Guide — The Family Wallet" },
       {
         property: "og:description",
         content: "Everything the nanny needs in one scroll, drawn from your family profile.",

@@ -18,14 +18,14 @@ import type { MomentsData, MomentRow } from "@/lib/moments.types";
 export const Route = createFileRoute("/moments/$slug")({
   head: () => ({
     meta: [
-      { title: "Photo moments & milestones — Athlete Mannies & Nannies" },
+      { title: "Photo moments & milestones — The Family Wallet" },
       {
         name: "description",
         content: "A private photo diary and milestone journal for your children, kept in your Family Wallet.",
       },
       {
         property: "og:title",
-        content: "Photo moments & milestones — Athlete Mannies & Nannies",
+        content: "Photo moments & milestones — The Family Wallet",
       },
       {
         property: "og:description",

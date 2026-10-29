@@ -10,13 +10,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/certificate/$slug/$id")({
   head: () => ({
     meta: [
-      { title: "Training Certificate — Athlete Mannies & Nannies" },
+      { title: "Training Certificate — The Family Wallet" },
       {
         name: "description",
         content:
           "A completion certificate for the Athlete Mannies after-school nanny training, stored in your Family Wallet.",
       },
-      { property: "og:title", content: "Training Certificate — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Training Certificate — The Family Wallet" },
       {
         property: "og:description",
         content: "Proof of completed after-school nanny training.",

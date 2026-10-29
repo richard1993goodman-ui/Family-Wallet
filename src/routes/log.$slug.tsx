@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/log/$slug")({
   head: () => ({
     meta: [
-      { title: "Daily Log — Athlete Mannies & Nannies" },
+      { title: "Daily Log — The Family Wallet" },
       {
         name: "description",
         content:
           "A short end-of-shift update from your nanny: what they did, what they ate, homework and mood.",
       },
-      { property: "og:title", content: "Daily Log — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Daily Log — The Family Wallet" },
       {
         property: "og:description",
         content: "See how the day went, every day, in your Family Wallet.",

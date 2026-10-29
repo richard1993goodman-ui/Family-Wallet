@@ -179,7 +179,7 @@ const navGroups: NavGroup[] = [
   {
     label: "Help & training",
     items: [
-      { label: "Ask Athlete Mannies", icon: MessageCircle, to: "/support/$slug" },
+      { label: "Ask your agency", icon: MessageCircle, to: "/support/$slug" },
       { label: "Reviews & check-ins", icon: CalendarCheck, to: "/checkin/$slug" },
       { label: "Nanny training", icon: BadgeCheck, to: "/training/$slug" },
       { label: "Safety records", icon: ShieldCheck, to: "/safety/$slug" },
@@ -249,7 +249,7 @@ function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyNa
       </div>
       <span className="ml-auto hidden items-center gap-1.5 text-xs font-medium text-muted-foreground sm:flex">
         <Sparkles className="h-3.5 w-3.5 text-primary" />
-        {agencyName ? <>Powered by AthleteMannies</> : <>Athlete Mannies &amp; Nannies</>}
+        {agencyName ? <>Powered by The Family Wallet</> : <>Athlete Mannies &amp; Nannies</>}
       </span>
     </header>
   );

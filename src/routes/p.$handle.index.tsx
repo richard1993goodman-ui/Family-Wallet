@@ -11,7 +11,7 @@ export const Route = createFileRoute("/p/$handle/")({
     return brand;
   },
   head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.walletName} — Powered by Athlete Mannies` : "Family Wallet unavailable";
+    const title = loaderData ? `${loaderData.walletName} — Powered by The Family Wallet` : "Family Wallet unavailable";
     const description = loaderData
       ? `${loaderData.agencyName}'s private Family Wallet: shared calendar, nanny agreement, emergency card, medication log and Friday reports.`
       : "This Family Wallet page isn't available.";
@@ -54,7 +54,7 @@ function PartnerHome() {
           <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">{initials}</span>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-foreground">{brand.agencyName}</p>
-            <p className="text-xs text-muted-foreground">Powered by Athlete Mannies</p>
+            <p className="text-xs text-muted-foreground">Powered by The Family Wallet</p>
           </div>
           <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
             <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure

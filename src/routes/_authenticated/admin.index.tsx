@@ -33,9 +33,9 @@ export const Route = createFileRoute("/_authenticated/admin/")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Families — Athlete Mannies Family Wallet" },
+      { title: "Families — The Family Wallet" },
       { name: "description", content: "Create and manage private Family Wallets." },
-      { property: "og:title", content: "Families — Athlete Mannies Family Wallet" },
+      { property: "og:title", content: "Families — The Family Wallet" },
       { property: "og:description", content: "Create and manage private Family Wallets." },
       { name: "robots", content: "noindex" },
       { property: "og:type", content: "website" },
@@ -152,7 +152,7 @@ function AdminHome() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              {status.data?.agencyName ? `${status.data.agencyName} · Powered by Athlete Mannies` : "Athlete Mannies & Nannies"}
+              {status.data?.agencyName ? `${status.data.agencyName} · Powered by The Family Wallet` : "Athlete Mannies & Nannies"}
             </p>
             <h1 className="heading-display mt-2 text-3xl text-primary">Family Wallets</h1>
           </div>

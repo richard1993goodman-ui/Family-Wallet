@@ -11,9 +11,9 @@ import { getPerks } from "@/lib/premium-content.functions";
 
 export const Route = createFileRoute("/perks/$slug")({
   head: () => ({ meta: [
-    { title: "VIP Member Perks — Athlete Mannies & Nannies" },
-    { name: "description", content: "Private London partner offers and family concierge recommendations for Athlete Mannies members." },
-    { property: "og:title", content: "VIP Member Perks — Athlete Mannies & Nannies" },
+    { title: "VIP Member Perks — The Family Wallet" },
+    { name: "description", content: "Private London partner offers and family concierge recommendations for your agency members." },
+    { property: "og:title", content: "VIP Member Perks — The Family Wallet" },
     { property: "og:description", content: "Private London partner offers and family concierge recommendations." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },

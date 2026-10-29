@@ -18,13 +18,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/nannies/$slug")({
   head: () => ({
     meta: [
-      { title: "Your nannies — Athlete Mannies & Nannies" },
+      { title: "Your nannies — The Family Wallet" },
       {
         name: "description",
         content:
           "Add everyone who works with your family, share their sign-in code and keep each nanny agreement in one place.",
       },
-      { property: "og:title", content: "Your nannies — Athlete Mannies & Nannies" },
+      { property: "og:title", content: "Your nannies — The Family Wallet" },
       {
         property: "og:description",
         content: "Manage every nanny in your Family Wallet — codes, details and agreements.",

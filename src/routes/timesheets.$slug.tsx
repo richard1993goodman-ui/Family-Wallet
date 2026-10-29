@@ -12,9 +12,9 @@ import { shiftAmount, shiftHours, type ShiftInput } from "@/lib/work-tools.model
 
 export const Route = createFileRoute("/timesheets/$slug")({
   head: () => ({ meta: [
-    { title: "Timesheets — Athlete Mannies & Nannies" },
+    { title: "Timesheets — The Family Wallet" },
     { name: "description", content: "Record nanny shifts and review payment in the private Family Wallet." },
-    { property: "og:title", content: "Timesheets — Athlete Mannies & Nannies" },
+    { property: "og:title", content: "Timesheets — The Family Wallet" },
     { property: "og:description", content: "Record and approve nanny shifts." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
   ] }),

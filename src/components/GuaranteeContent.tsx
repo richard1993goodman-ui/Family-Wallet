@@ -60,7 +60,7 @@ export function GuaranteeContent() {
       </div>
 
       <p className="mt-6 text-sm text-muted-foreground">
-        Richard Goodman, on behalf of Athlete Mannies &amp; Nannies
+        Richard Goodman, on behalf of your agency &amp; Nannies
       </p>
     </div>
   );
