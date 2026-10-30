@@ -46,45 +46,61 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-slate-blue: var(--slate-blue);
+  --color-slate-blue-soft: var(--slate-blue-soft);
 }
 
 :root {
-  --radius: 0.875rem;
-  --background: oklch(0.965 0.004 260);
-  --foreground: oklch(0.2 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 260);
-  --primary: oklch(0.32 0.08 258);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.8 0.13 80);
-  --secondary-foreground: oklch(0.2 0.02 260);
-  --muted: oklch(0.94 0.004 260);
-  --muted-foreground: oklch(0.52 0.015 260);
-  --accent: oklch(0.95 0.03 85);
-  --accent-foreground: oklch(0.25 0.03 260);
-  --destructive: oklch(0.6 0.21 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.004 260);
-  --input: oklch(0.9 0.004 260);
-  --ring: oklch(0.32 0.08 258);
-  --sand: oklch(0.965 0.004 260);
-  --chart-1: oklch(0.32 0.08 258);
-  --chart-2: oklch(0.8 0.13 80);
-  --chart-3: oklch(0.6 0.08 230);
-  --chart-4: oklch(0.68 0.13 50);
-  --chart-5: oklch(0.6 0.09 160);
-  --sidebar: oklch(0.975 0.003 260);
-  --sidebar-foreground: oklch(0.2 0.02 260);
-  --sidebar-primary: oklch(0.32 0.08 258);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.93 0.006 260);
-  --sidebar-accent-foreground: oklch(0.2 0.02 260);
-  --sidebar-border: oklch(0.9 0.004 260);
-  --sidebar-ring: oklch(0.32 0.08 258);
+  --radius: 1.25rem;
+  --background: oklch(0.975 0.012 80);
+  --foreground: oklch(0.24 0.012 65);
+  --card: oklch(0.993 0.007 85);
+  --card-foreground: oklch(0.24 0.012 65);
+  --popover: oklch(0.993 0.007 85);
+  --popover-foreground: oklch(0.24 0.012 65);
+  --primary: oklch(0.57 0.08 45);
+  --primary-foreground: oklch(0.98 0.015 80);
+  --secondary: oklch(0.94 0.025 135);
+  --secondary-foreground: oklch(0.38 0.04 135);
+  --muted: oklch(0.945 0.02 75);
+  --muted-foreground: oklch(0.52 0.02 70);
+  --accent: oklch(0.94 0.025 50);
+  --accent-foreground: oklch(0.45 0.07 45);
+  --destructive: oklch(0.5 0.11 30);
+  --destructive-foreground: oklch(0.98 0.015 80);
+  --border: oklch(0.89 0.025 75);
+  --input: oklch(0.89 0.025 75);
+  --ring: oklch(0.57 0.08 45);
+  --sand: oklch(0.965 0.016 78);
+  --sage: oklch(0.56 0.04 135);
+  --sage-soft: oklch(0.955 0.015 135);
+  --clay: oklch(0.6 0.08 45);
+  --clay-soft: oklch(0.94 0.025 50);
+  --slate-blue: oklch(0.57 0.035 230);
+  --slate-blue-soft: oklch(0.95 0.01 230);
+  --gradient-brand: linear-gradient(145deg, oklch(0.5 0.075 45), oklch(0.68 0.08 55));
+  --gradient-paper: radial-gradient(circle at top left, color-mix(in oklab, var(--clay) 16%, transparent), transparent 34rem), radial-gradient(circle at 85% 10%, color-mix(in oklab, var(--sage) 13%, transparent), transparent 28rem), linear-gradient(135deg, oklch(0.975 0.012 80), oklch(0.955 0.02 75) 58%, oklch(0.91 0.03 70));
+  --shadow-paper: 0 20px 60px color-mix(in oklab, oklch(0.3 0.04 60) 12%, transparent);
+  --shadow-paper-sm: 0 10px 28px color-mix(in oklab, oklch(0.3 0.04 60) 9%, transparent);
+  --chart-1: oklch(0.57 0.08 45);
+  --chart-2: oklch(0.56 0.04 135);
+  --chart-3: oklch(0.57 0.035 230);
+  --chart-4: oklch(0.65 0.1 75);
+  --chart-5: oklch(0.5 0.11 30);
+  --sidebar: oklch(0.985 0.01 85);
+  --sidebar-foreground: oklch(0.24 0.012 65);
+  --sidebar-primary: oklch(0.57 0.08 45);
+  --sidebar-primary-foreground: oklch(0.98 0.015 80);
+  --sidebar-accent: oklch(0.993 0.007 85);
+  --sidebar-accent-foreground: oklch(0.24 0.012 65);
+  --sidebar-border: oklch(0.89 0.025 75);
+  --sidebar-ring: oklch(0.57 0.08 45);
 }
 
 .dark {
@@ -126,8 +142,12 @@
   body {
     -webkit-font-smoothing: antialiased;
     background-color: var(--color-background);
+    background-image: var(--gradient-paper);
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   h1,
@@ -140,15 +160,39 @@
 
 @utility heading-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.022em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+@utility paper-panel {
+  border: 1px solid color-mix(in oklab, var(--color-border) 84%, transparent);
+  border-radius: var(--radius);
+  background-color: color-mix(in oklab, var(--color-card) 92%, transparent);
+  box-shadow: var(--shadow-paper);
+}
+
+@utility brand-mark {
+  background-image: var(--gradient-brand);
+  color: var(--color-primary-foreground);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 32%, transparent), 0 12px 22px color-mix(in oklab, var(--color-clay) 22%, transparent);
+}
+
+@utility eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--color-clay);
 }
 
 @utility ios-group {
   display: block;
   overflow: hidden;
   border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklab, var(--color-border) 84%, transparent);
   background-color: var(--color-card);
+  box-shadow: var(--shadow-paper-sm);
   & > * + * {
     border-top: 0.5px solid var(--color-border);
   }
@@ -188,9 +232,9 @@
   justify-content: center;
   width: 1.875rem;
   height: 1.875rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
+  border-radius: 0.625rem;
+  background-color: var(--color-clay-soft);
+  color: var(--color-accent-foreground);
 }
 
 @utility ios-section-title {
