@@ -238,7 +238,7 @@ function WalletPage() {
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-sand">
       <div className="mx-auto max-w-2xl px-5 py-10">
         {slug === "demo" && (
           <div className="mb-6 rounded-2xl bg-card shadow-sm p-4 text-sm">
@@ -249,10 +249,10 @@ function WalletPage() {
             </p>
           </div>
         )}
-        <p className="eyebrow">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           {wallet.agencyName ?? "The Family Wallet"}
         </p>
-        <h1 className="heading-display mt-2 text-5xl leading-[0.92] text-foreground">
+        <h1 className="heading-display mt-2 text-3xl leading-tight text-primary">
           {wallet.familyName}
         </h1>
 
