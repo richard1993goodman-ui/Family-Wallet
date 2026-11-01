@@ -1,1 +1,43 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5ob3VzZWhvbGRfdGhyZWFkcyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICB0b3BpYyB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ2dlbmVyYWwnLAogIHRpdGxlIHRleHQgTk9UIE5VTEwsCiAgY3JlYXRlZF9ieSB0ZXh0IE5PVCBOVUxMLAogIGxhc3Rfc2VuZGVyIHRleHQgTk9UIE5VTEwsCiAgZmFtaWx5X3VucmVhZCBib29sZWFuIE5PVCBOVUxMIERFRkFVTFQgZmFsc2UsCiAgbmFubnlfdW5yZWFkIGJvb2xlYW4gTk9UIE5VTEwgREVGQVVMVCBmYWxzZSwKICBjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgdXBkYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CkdSQU5UIFNFTEVDVCwgSU5TRVJULCBVUERBVEUsIERFTEVURSBPTiBwdWJsaWMuaG91c2Vob2xkX3RocmVhZHMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5ob3VzZWhvbGRfdGhyZWFkcyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy5ob3VzZWhvbGRfdGhyZWFkcyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwpDUkVBVEUgUE9MSUNZICJBZG1pbnMgbWFuYWdlIGhvdXNlaG9sZCB0aHJlYWRzIiBPTiBwdWJsaWMuaG91c2Vob2xkX3RocmVhZHMgRk9SIEFMTCBUTyBhdXRoZW50aWNhdGVkClVTSU5HIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpIFdJVEggQ0hFQ0sgKHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nKSk7CkNSRUFURSBJTkRFWCBob3VzZWhvbGRfdGhyZWFkc19mYW1pbHlfaWR4IE9OIHB1YmxpYy5ob3VzZWhvbGRfdGhyZWFkcyhmYW1pbHlfaWQsIHVwZGF0ZWRfYXQgREVTQyk7CgpDUkVBVEUgVEFCTEUgcHVibGljLmhvdXNlaG9sZF9tZXNzYWdlcyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIHRocmVhZF9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmhvdXNlaG9sZF90aHJlYWRzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBzZW5kZXIgdGV4dCBOT1QgTlVMTCwKICBzZW5kZXJfbmFtZSB0ZXh0LAogIGJvZHkgdGV4dCBOT1QgTlVMTCwKICBjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCkKKTsKR1JBTlQgU0VMRUNULCBJTlNFUlQsIFVQREFURSwgREVMRVRFIE9OIHB1YmxpYy5ob3VzZWhvbGRfbWVzc2FnZXMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5ob3VzZWhvbGRfbWVzc2FnZXMgVE8gc2VydmljZV9yb2xlOwpBTFRFUiBUQUJMRSBwdWJsaWMuaG91c2Vob2xkX21lc3NhZ2VzIEVOQUJMRSBST1cgTEVWRUwgU0VDVVJJVFk7CkNSRUFURSBQT0xJQ1kgIkFkbWlucyBtYW5hZ2UgaG91c2Vob2xkIG1lc3NhZ2VzIiBPTiBwdWJsaWMuaG91c2Vob2xkX21lc3NhZ2VzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKSBXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpOwpDUkVBVEUgSU5ERVggaG91c2Vob2xkX21lc3NhZ2VzX3RocmVhZF9pZHggT04gcHVibGljLmhvdXNlaG9sZF9tZXNzYWdlcyh0aHJlYWRfaWQsIGNyZWF0ZWRfYXQpOwoKV0lUSCB0IEFTICgKICBJTlNFUlQgSU5UTyBwdWJsaWMuaG91c2Vob2xkX3RocmVhZHMgKGZhbWlseV9pZCwgdG9waWMsIHRpdGxlLCBjcmVhdGVkX2J5LCBsYXN0X3NlbmRlciwgZmFtaWx5X3VucmVhZCkKICBTRUxFQ1QgaWQsICdjaGlsZCcsICdPbGl2ZXInJ3Mgc3dpbW1pbmcga2l0JywgJ2ZhbWlseScsICduYW5ueScsIHRydWUgRlJPTSBwdWJsaWMuZmFtaWxpZXMgV0hFUkUgc2x1ZyA9ICdkZW1vJwogIFJFVFVSTklORyBpZAopCklOU0VSVCBJTlRPIHB1YmxpYy5ob3VzZWhvbGRfbWVzc2FnZXMgKHRocmVhZF9pZCwgc2VuZGVyLCBzZW5kZXJfbmFtZSwgYm9keSwgY3JlYXRlZF9hdCkKU0VMRUNUIHQuaWQsIHYuc2VuZGVyLCB2Lm5hbWUsIHYuYm9keSwgbm93KCkgLSB2LmFnbyBGUk9NIHQsCihWQUxVRVMgKCdmYW1pbHknLCAnUGFyZW50JywgJ1N3aW1taW5nIG1vdmVkIHRvIFRodXJzZGF5IHRoaXMgd2VlayDigJQga2l0IGlzIGluIHRoZSBoYWxsIGN1cGJvYXJkLicsIGludGVydmFsICcyIGhvdXJzJyksCiAgICAgICAgKCduYW5ueScsICdKZXNzJywgJ1BlcmZlY3QsIEknJ2xsIGdyYWIgaXQuIERvIHdlIG5lZWQgYSBuZXcgcGFpciBvZiBnb2dnbGVzPyBUaGUgc3RyYXAgaXMgc25hcHBpbmcuJywgaW50ZXJ2YWwgJzEgaG91cicpKSBBUyB2KHNlbmRlciwgbmFtZSwgYm9keSwgYWdvKTs=
+CREATE TABLE public.household_threads (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  topic text NOT NULL DEFAULT 'general',
+  title text NOT NULL,
+  created_by text NOT NULL,
+  last_sender text NOT NULL,
+  family_unread boolean NOT NULL DEFAULT false,
+  nanny_unread boolean NOT NULL DEFAULT false,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.household_threads TO authenticated;
+GRANT ALL ON public.household_threads TO service_role;
+ALTER TABLE public.household_threads ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage household threads" ON public.household_threads FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE INDEX household_threads_family_idx ON public.household_threads(family_id, updated_at DESC);
+
+CREATE TABLE public.household_messages (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  thread_id uuid NOT NULL REFERENCES public.household_threads(id) ON DELETE CASCADE,
+  sender text NOT NULL,
+  sender_name text,
+  body text NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.household_messages TO authenticated;
+GRANT ALL ON public.household_messages TO service_role;
+ALTER TABLE public.household_messages ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage household messages" ON public.household_messages FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE INDEX household_messages_thread_idx ON public.household_messages(thread_id, created_at);
+
+WITH t AS (
+  INSERT INTO public.household_threads (family_id, topic, title, created_by, last_sender, family_unread)
+  SELECT id, 'child', 'Oliver''s swimming kit', 'family', 'nanny', true FROM public.families WHERE slug = 'demo'
+  RETURNING id
+)
+INSERT INTO public.household_messages (thread_id, sender, sender_name, body, created_at)
+SELECT t.id, v.sender, v.name, v.body, now() - v.ago FROM t,
+(VALUES ('family', 'Parent', 'Swimming moved to Thursday this week — kit is in the hall cupboard.', interval '2 hours'),
+        ('nanny', 'Jess', 'Perfect, I''ll grab it. Do we need a new pair of goggles? The strap is snapping.', interval '1 hour')) AS v(sender, name, body, ago);

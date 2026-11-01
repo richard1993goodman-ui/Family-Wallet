@@ -1,1 +1,141 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgQ2hldnJvbkxlZnQsIENoZXZyb25SaWdodCwgUHJpbnRlciB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBnZXRXZWVrbHlSZXBvcnQgfSBmcm9tICJAL2xpYi93ZWVrbHktcmVwb3J0LmZ1bmN0aW9ucyI7CmltcG9ydCB7IENhcmQsIEh1YlBhZ2UsIExvY2tlZE5vdGljZSB9IGZyb20gIkAvY29tcG9uZW50cy9odWItdWkiOwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL3JlcG9ydC8kc2x1ZyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiRnJpZGF5IFdlZWtseSBSZXBvcnQg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7IG5hbWU6ICJkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJBIHBvbGlzaGVkIHdlZWtseSByZWNhcCBvZiBob3VycywgaGFuZG92ZXJzLCBhY3Rpdml0aWVzLCBzcG9ydHMgcHJvZ3Jlc3MgYW5kIGV4cGVuc2VzIGZyb20geW91ciBGYW1pbHkgV2FsbGV0LiIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkZyaWRheSBXZWVrbHkgUmVwb3J0IOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwgY29udGVudDogIllvdXIgZmFtaWx5J3Mgd2VlayBhdCBhIGdsYW5jZSwgcmVhZHkgdG8gcmV2aWV3IG9yIHByaW50LiIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnR5cGUiLCBjb250ZW50OiAid2Vic2l0ZSIgfSwKICAgICAgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnkiIH0sCiAgICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IFJlcG9ydFBhZ2UsCn0pOwoKY29uc3QgZm10ID0gKGQ6IHN0cmluZykgPT4KICBuZXcgRGF0ZShgJHtkLnNsaWNlKDAsIDEwKX1UMDA6MDA6MDBaYCkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsgd2Vla2RheTogInNob3J0IiwgZGF5OiAibnVtZXJpYyIsIG1vbnRoOiAic2hvcnQiLCB0aW1lWm9uZTogIlVUQyIgfSk7CmNvbnN0IHNoaWZ0V2VlayA9IChkOiBzdHJpbmcsIGRheXM6IG51bWJlcikgPT4gbmV3IERhdGUobmV3IERhdGUoYCR7ZH1UMDA6MDA6MDBaYCkuZ2V0VGltZSgpICsgZGF5cyAqIDg2NDAwMDAwKS50b0lTT1N0cmluZygpLnNsaWNlKDAsIDEwKTsKCmZ1bmN0aW9uIFJlcG9ydFBhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBmZXRjaFJlcG9ydCA9IHVzZVNlcnZlckZuKGdldFdlZWtseVJlcG9ydCk7CiAgY29uc3QgW2FuY2hvciwgc2V0QW5jaG9yXSA9IHVzZVN0YXRlPHN0cmluZyB8IHVuZGVmaW5lZD4odW5kZWZpbmVkKTsKICBjb25zdCB7IGRhdGEsIGlzTG9hZGluZyB9ID0gdXNlUXVlcnkoewogICAgcXVlcnlLZXk6IFsid2Vla2x5LXJlcG9ydCIsIHNsdWcsIGFuY2hvciA/PyAidGhpcyJdLAogICAgcXVlcnlGbjogKCkgPT4gZmV0Y2hSZXBvcnQoeyBkYXRhOiB7IHNsdWcsIGFuY2hvciB9IH0pLAogIH0pOwoKICBpZiAoaXNMb2FkaW5nKSByZXR1cm4gPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IkZyaWRheSBXZWVrbHkgUmVwb3J0Ij48cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5QcmVwYXJpbmcgeW91ciB3ZWVr4oCmPC9wPjwvSHViUGFnZT47CiAgaWYgKCFkYXRhKSByZXR1cm4gPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IkZyaWRheSBXZWVrbHkgUmVwb3J0Ij48TG9ja2VkTm90aWNlIHNsdWc9e3NsdWd9IC8+PC9IdWJQYWdlPjsKCiAgY29uc3QgcyA9IGRhdGEuc3RhdHM7CiAgY29uc3QgRW1wdHkgPSAoeyB0ZXh0IH06IHsgdGV4dDogc3RyaW5nIH0pID0+IDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPnt0ZXh0fTwvcD47CgogIHJldHVybiAoCiAgICA8SHViUGFnZSBzbHVnPXtzbHVnfSB0aXRsZT0iRnJpZGF5IFdlZWtseSBSZXBvcnQiIGludHJvPXtgVGhlICR7ZGF0YS5mYW1pbHlOYW1lfSBmYW1pbHkgwrcgJHtmbXQoZGF0YS53ZWVrLnN0YXJ0KX0g4oCTICR7Zm10KGRhdGEud2Vlay5lbmQpfWB9PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWItNSBmbGV4IGZsZXgtd3JhcCBpdGVtcy1jZW50ZXIgZ2FwLTIgcHJpbnQ6aGlkZGVuIj4KICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Im91dGxpbmUiIHNpemU9InNtIiBvbkNsaWNrPXsoKSA9PiBzZXRBbmNob3Ioc2hpZnRXZWVrKGRhdGEud2Vlay5zdGFydCwgLTcpKX0+PENoZXZyb25MZWZ0IGNsYXNzTmFtZT0iaC00IHctNCIgLz4gUHJldmlvdXMgd2VlazwvQnV0dG9uPgogICAgICAgIDxCdXR0b24gdmFyaWFudD0ib3V0bGluZSIgc2l6ZT0ic20iIG9uQ2xpY2s9eygpID0+IHNldEFuY2hvcihzaGlmdFdlZWsoZGF0YS53ZWVrLnN0YXJ0LCA3KSl9Pk5leHQgd2VlayA8Q2hldnJvblJpZ2h0IGNsYXNzTmFtZT0iaC00IHctNCIgLz48L0J1dHRvbj4KICAgICAgICA8QnV0dG9uIHNpemU9InNtIiBjbGFzc05hbWU9Im1sLWF1dG8iIG9uQ2xpY2s9eygpID0+IHdpbmRvdy5wcmludCgpfT48UHJpbnRlciBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IFByaW50IC8gc2F2ZSBQREY8L0J1dHRvbj4KICAgICAgPC9kaXY+CgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBncmlkLWNvbHMtMiBnYXAtMyBzbTpncmlkLWNvbHMtNCI+CiAgICAgICAge1sKICAgICAgICAgIFsiSG91cnMgd29ya2VkIiwgcy5ob3Vycy50b0ZpeGVkKDEpXSwKICAgICAgICAgIFsiQWN0aXZlIG1pbnV0ZXMiLCBTdHJpbmcocy5hY3RpdmVNaW51dGVzKV0sCiAgICAgICAgICBbIkhhbmRvdmVycyIsIFN0cmluZyhzLmhhbmRvdmVycyldLAogICAgICAgICAgWyJFeHBlbnNlcyIsIGDCoyR7cy5leHBlbnNlc1RvdGFsLnRvRml4ZWQoMil9YF0sCiAgICAgICAgXS5tYXAoKFtsYWJlbCwgdmFsdWVdKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleT17bGFiZWx9IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNCI+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC14cyB1cHBlcmNhc2UgdHJhY2tpbmctd2lkZSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntsYWJlbH08L3A+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTEgdGV4dC0yeGwgdGV4dC1wcmltYXJ5Ij57dmFsdWV9PC9wPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSl9CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTUgc3BhY2UteS00Ij4KICAgICAgICA8Q2FyZD4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+SG91cnMgJmFtcDsgcGF5PC9oMj4KICAgICAgICAgIHtkYXRhLnNoaWZ0cy5sZW5ndGggPyAoCiAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9Im10LTIgc3BhY2UteS0xIHRleHQtc20iPgogICAgICAgICAgICAgIHtkYXRhLnNoaWZ0cy5tYXAoKHNoLCBpKSA9PiAoCiAgICAgICAgICAgICAgICA8bGkga2V5PXtpfSBjbGFzc05hbWU9ImZsZXgganVzdGlmeS1iZXR3ZWVuIGdhcC0yIj48c3Bhbj57Zm10KHNoLnNoaWZ0X2RhdGUpfSDCtyB7c2guc3RhcnRfdGltZS5zbGljZSgwLCA1KX3igJN7c2guZW5kX3RpbWUuc2xpY2UoMCwgNSl9e3NoLnNoaWZ0X3R5cGUgPT09ICJiYWJ5c2l0dGluZyIgPyAiIMK3IEJhYnlzaXR0aW5nIiA6ICIifTwvc3Bhbj48c3BhbiBjbGFzc05hbWU9InRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e3NoLmhvdXJzLnRvRml4ZWQoMSl9aCDCtyB7c2guc3RhdHVzfTwvc3Bhbj48L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9ImJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtMiBmb250LW1lZGl1bSI+QXBwcm92ZWQgbmFubnkgcGF5IMKje3MuYXBwcm92ZWRQYXkudG9GaXhlZCgyKX17cy5wZW5kaW5nU2hpZnRzID8gYCDCtyAke3MucGVuZGluZ1NoaWZ0c30gc2hpZnQocykgYXdhaXRpbmcgYXBwcm92YWxgIDogIiJ9PC9saT4KICAgICAgICAgICAgICB7cy5iYWJ5c2l0dGluZ0hvdXJzID4gMCAmJiA8bGkgY2xhc3NOYW1lPSJmb250LW1lZGl1bSI+QmFieXNpdHRpbmc6IHtzLmJhYnlzaXR0aW5nSG91cnMudG9GaXhlZCgxKX1oIMK3IGFwcHJvdmVkIMKje3MuYmFieXNpdHRpbmdQYXkudG9GaXhlZCgyKX08L2xpPn0KICAgICAgICAgICAgPC91bD4KICAgICAgICAgICkgOiA8RW1wdHkgdGV4dD0iTm8gdGltZXNoZWV0IHNoaWZ0cyBsb2dnZWQgdGhpcyB3ZWVrLiIgLz59CiAgICAgICAgPC9DYXJkPgoKICAgICAgICA8Q2FyZD4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+QWN0aXZlIEtpZHMgaGlnaGxpZ2h0czwvaDI+CiAgICAgICAgICB7ZGF0YS5wYXNzcG9ydC5sZW5ndGggPyAoCiAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9Im10LTIgc3BhY2UteS0xIHRleHQtc20iPgogICAgICAgICAgICAgIHtkYXRhLnBhc3Nwb3J0Lm1hcCgocCwgaSkgPT4gKAogICAgICAgICAgICAgICAgPGxpIGtleT17aX0+e2ZtdChwLmVudHJ5X2RhdGUpfSDCtyA8c3Ryb25nPntwLmNoaWxkX25hbWV9PC9zdHJvbmc+IOKAlCB7cC5hY3Rpdml0eX0gKHtwLm1pbnV0ZXN9IG1pbil7cC5iYWRnZSA/IGAgwrcg8J+PhSAke3AuYmFkZ2V9YCA6ICIifTwvbGk+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvdWw+CiAgICAgICAgICApIDogPEVtcHR5IHRleHQ9Ik5vIHNwb3J0cyBwYXNzcG9ydCBlbnRyaWVzIHRoaXMgd2Vlay4iIC8+fQogICAgICAgIDwvQ2FyZD4KCiAgICAgICAgPENhcmQ+CiAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPkRhaWx5IGhhbmRvdmVyczwvaDI+CiAgICAgICAgICB7ZGF0YS5oYW5kb3ZlcnMubGVuZ3RoIHx8IGRhdGEubG9ncy5sZW5ndGggPyAoCiAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9Im10LTIgc3BhY2UteS0yIHRleHQtc20iPgogICAgICAgICAgICAgIHtkYXRhLmhhbmRvdmVycy5tYXAoKGgsIGkpID0+ICgKICAgICAgICAgICAgICAgIDxsaSBrZXk9e2BoJHtpfWB9PjxzdHJvbmc+e2ZtdChoLmhhbmRvdmVyX2RhdGUpfTwvc3Ryb25nPiDigJQgTW9vZDoge2gubW9vZCB8fCAi4oCUIn0gwrcgRW5lcmd5OiB7aC5lbmVyZ3kgfHwgIuKAlCJ9IMK3IEhvbWV3b3JrOiB7aC5ob21ld29ya19zdGF0dXMgfHwgIuKAlCJ9IMK3IERpbm5lcjoge2guZGlubmVyX3N0YXR1cyB8fCAi4oCUIn17aC50b21vcnJvd19ub3RlcyA/IDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5OZXh0OiB7aC50b21vcnJvd19ub3Rlc308L3NwYW4+IDogbnVsbH08L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIHtkYXRhLmxvZ3MubWFwKChsLCBpKSA9PiAoCiAgICAgICAgICAgICAgICA8bGkga2V5PXtgbCR7aX1gfT48c3Ryb25nPntmbXQobC5sb2dfZGF0ZSl9PC9zdHJvbmc+IOKAlCB7W2wuYWN0aXZpdGllcywgbC5ub3Rlc10uZmlsdGVyKEJvb2xlYW4pLmpvaW4oIiDCtyAiKSB8fCAiRGFpbHkgbG9nIGFkZGVkIn08L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L3VsPgogICAgICAgICAgKSA6IDxFbXB0eSB0ZXh0PSJObyBoYW5kb3ZlcnMgb3IgZGFpbHkgbG9ncyB0aGlzIHdlZWsuIiAvPn0KICAgICAgICA8L0NhcmQ+CgogICAgICAgIDxDYXJkPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5QbGFubmVyICZhbXA7IGxlYXZlPC9oMj4KICAgICAgICAgIHtkYXRhLnBsYW5uZXIubGVuZ3RoIHx8IGRhdGEubGVhdmUubGVuZ3RoID8gKAogICAgICAgICAgICA8dWwgY2xhc3NOYW1lPSJtdC0yIHNwYWNlLXktMSB0ZXh0LXNtIj4KICAgICAgICAgICAgICB7ZGF0YS5wbGFubmVyLm1hcCgocCwgaSkgPT4gKAogICAgICAgICAgICAgICAgPGxpIGtleT17aX0+e2ZtdChwLmVudHJ5X2RhdGUpfXtwLnRpbWVfbGFiZWwgPyBgICR7cC50aW1lX2xhYmVsfWAgOiAiIn0gwrcge3AudGl0bGV9e3AuY2hpbGRfbmFtZSA/IGAgKCR7cC5jaGlsZF9uYW1lfSlgIDogIiJ9PC9saT4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICB7ZGF0YS5sZWF2ZS5tYXAoKGwsIGkpID0+ICgKICAgICAgICAgICAgICAgIDxsaSBrZXk9e2BsdiR7aX1gfT5MZWF2ZToge2ZtdChsLnN0YXJ0X2RhdGUpfeKAk3tmbXQobC5lbmRfZGF0ZSl9IMK3IHtsLmRheXN9IGRheShzKSDCtyB7bC5zdGF0dXN9PC9saT4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC91bD4KICAgICAgICAgICkgOiA8RW1wdHkgdGV4dD0iTm90aGluZyBvbiB0aGUgcGxhbm5lciB0aGlzIHdlZWsuIiAvPn0KICAgICAgICA8L0NhcmQ+CgogICAgICAgIDxDYXJkPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5NZWRpY2F0aW9uICZhbXA7IGV4cGVuc2VzPC9oMj4KICAgICAgICAgIHtkYXRhLm1lZGljYXRpb24ubGVuZ3RoID8gKAogICAgICAgICAgICA8dWwgY2xhc3NOYW1lPSJtdC0yIHNwYWNlLXktMSB0ZXh0LXNtIj4KICAgICAgICAgICAgICB7ZGF0YS5tZWRpY2F0aW9uLm1hcCgobSwgaSkgPT4gKAogICAgICAgICAgICAgICAgPGxpIGtleT17aX0+e2ZtdChtLmdpdmVuX2F0KX0gwrcge20uY2hpbGRfbmFtZX06IHttLm1lZGljaW5lfSB7bS5kb3NlfSDigJQgZ2l2ZW4gYnkge20uZ2l2ZW5fYnlfbmFtZX08L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L3VsPgogICAgICAgICAgKSA6IDxFbXB0eSB0ZXh0PSJObyBtZWRpY2F0aW9uIGdpdmVuIHRoaXMgd2Vlay4iIC8+fQogICAgICAgICAge2RhdGEuZXhwZW5zZXMubGVuZ3RoID8gKAogICAgICAgICAgICA8dWwgY2xhc3NOYW1lPSJtdC0zIHNwYWNlLXktMSBib3JkZXItdCBib3JkZXItYm9yZGVyIHB0LTIgdGV4dC1zbSI+CiAgICAgICAgICAgICAge2RhdGEuZXhwZW5zZXMubWFwKChlLCBpKSA9PiAoCiAgICAgICAgICAgICAgICA8bGkga2V5PXtpfSBjbGFzc05hbWU9ImZsZXgganVzdGlmeS1iZXR3ZWVuIj48c3Bhbj57Zm10KGUuZXhwZW5zZV9kYXRlKX0gwrcge2UuaXRlbX08L3NwYW4+PHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQiPsKje051bWJlcihlLmFtb3VudCkudG9GaXhlZCgyKX0gwrcge2Uuc3RhdHVzfTwvc3Bhbj48L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIHtzLmV4cGVuc2VzUGVuZGluZyA+IDAgJiYgPGxpIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0iPsKje3MuZXhwZW5zZXNQZW5kaW5nLnRvRml4ZWQoMil9IGF3YWl0aW5nIHJlaW1idXJzZW1lbnQ8L2xpPn0KICAgICAgICAgICAgPC91bD4KICAgICAgICAgICkgOiBudWxsfQogICAgICAgIDwvQ2FyZD4KICAgICAgPC9kaXY+CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Printer } from "lucide-react";
+
+import { getWeeklyReport } from "@/lib/weekly-report.functions";
+import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/report/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Friday Weekly Report — The Family Wallet" },
+      { name: "description", content: "A polished weekly recap of hours, handovers, activities, sports progress and expenses from your Family Wallet." },
+      { property: "og:title", content: "Friday Weekly Report — The Family Wallet" },
+      { property: "og:description", content: "Your family's week at a glance, ready to review or print." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: ReportPage,
+});
+
+const fmt = (d: string) =>
+  new Date(`${d.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+const shiftWeek = (d: string, days: number) => new Date(new Date(`${d}T00:00:00Z`).getTime() + days * 86400000).toISOString().slice(0, 10);
+
+function ReportPage() {
+  const { slug } = Route.useParams();
+  const fetchReport = useServerFn(getWeeklyReport);
+  const [anchor, setAnchor] = useState<string | undefined>(undefined);
+  const { data, isLoading } = useQuery({
+    queryKey: ["weekly-report", slug, anchor ?? "this"],
+    queryFn: () => fetchReport({ data: { slug, anchor } }),
+  });
+
+  if (isLoading) return <HubPage slug={slug} title="Friday Weekly Report"><p className="text-sm text-muted-foreground">Preparing your week…</p></HubPage>;
+  if (!data) return <HubPage slug={slug} title="Friday Weekly Report"><LockedNotice slug={slug} /></HubPage>;
+
+  const s = data.stats;
+  const Empty = ({ text }: { text: string }) => <p className="text-sm text-muted-foreground">{text}</p>;
+
+  return (
+    <HubPage slug={slug} title="Friday Weekly Report" intro={`The ${data.familyName} family · ${fmt(data.week.start)} – ${fmt(data.week.end)}`}>
+      <div className="mb-5 flex flex-wrap items-center gap-2 print:hidden">
+        <Button variant="outline" size="sm" onClick={() => setAnchor(shiftWeek(data.week.start, -7))}><ChevronLeft className="h-4 w-4" /> Previous week</Button>
+        <Button variant="outline" size="sm" onClick={() => setAnchor(shiftWeek(data.week.start, 7))}>Next week <ChevronRight className="h-4 w-4" /></Button>
+        <Button size="sm" className="ml-auto" onClick={() => window.print()}><Printer className="h-4 w-4" /> Print / save PDF</Button>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {[
+          ["Hours worked", s.hours.toFixed(1)],
+          ["Active minutes", String(s.activeMinutes)],
+          ["Handovers", String(s.handovers)],
+          ["Expenses", `£${s.expensesTotal.toFixed(2)}`],
+        ].map(([label, value]) => (
+          <div key={label} className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
+            <p className="heading-display mt-1 text-2xl text-primary">{value}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 space-y-4">
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Hours &amp; pay</h2>
+          {data.shifts.length ? (
+            <ul className="mt-2 space-y-1 text-sm">
+              {data.shifts.map((sh, i) => (
+                <li key={i} className="flex justify-between gap-2"><span>{fmt(sh.shift_date)} · {sh.start_time.slice(0, 5)}–{sh.end_time.slice(0, 5)}{sh.shift_type === "babysitting" ? " · Babysitting" : ""}</span><span className="text-muted-foreground">{sh.hours.toFixed(1)}h · {sh.status}</span></li>
+              ))}
+              <li className="border-t border-border pt-2 font-medium">Approved nanny pay £{s.approvedPay.toFixed(2)}{s.pendingShifts ? ` · ${s.pendingShifts} shift(s) awaiting approval` : ""}</li>
+              {s.babysittingHours > 0 && <li className="font-medium">Babysitting: {s.babysittingHours.toFixed(1)}h · approved £{s.babysittingPay.toFixed(2)}</li>}
+            </ul>
+          ) : <Empty text="No timesheet shifts logged this week." />}
+        </Card>
+
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Active Kids highlights</h2>
+          {data.passport.length ? (
+            <ul className="mt-2 space-y-1 text-sm">
+              {data.passport.map((p, i) => (
+                <li key={i}>{fmt(p.entry_date)} · <strong>{p.child_name}</strong> — {p.activity} ({p.minutes} min){p.badge ? ` · 🏅 ${p.badge}` : ""}</li>
+              ))}
+            </ul>
+          ) : <Empty text="No sports passport entries this week." />}
+        </Card>
+
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Daily handovers</h2>
+          {data.handovers.length || data.logs.length ? (
+            <ul className="mt-2 space-y-2 text-sm">
+              {data.handovers.map((h, i) => (
+                <li key={`h${i}`}><strong>{fmt(h.handover_date)}</strong> — Mood: {h.mood || "—"} · Energy: {h.energy || "—"} · Homework: {h.homework_status || "—"} · Dinner: {h.dinner_status || "—"}{h.tomorrow_notes ? <span className="block text-muted-foreground">Next: {h.tomorrow_notes}</span> : null}</li>
+              ))}
+              {data.logs.map((l, i) => (
+                <li key={`l${i}`}><strong>{fmt(l.log_date)}</strong> — {[l.activities, l.notes].filter(Boolean).join(" · ") || "Daily log added"}</li>
+              ))}
+            </ul>
+          ) : <Empty text="No handovers or daily logs this week." />}
+        </Card>
+
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Planner &amp; leave</h2>
+          {data.planner.length || data.leave.length ? (
+            <ul className="mt-2 space-y-1 text-sm">
+              {data.planner.map((p, i) => (
+                <li key={i}>{fmt(p.entry_date)}{p.time_label ? ` ${p.time_label}` : ""} · {p.title}{p.child_name ? ` (${p.child_name})` : ""}</li>
+              ))}
+              {data.leave.map((l, i) => (
+                <li key={`lv${i}`}>Leave: {fmt(l.start_date)}–{fmt(l.end_date)} · {l.days} day(s) · {l.status}</li>
+              ))}
+            </ul>
+          ) : <Empty text="Nothing on the planner this week." />}
+        </Card>
+
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Medication &amp; expenses</h2>
+          {data.medication.length ? (
+            <ul className="mt-2 space-y-1 text-sm">
+              {data.medication.map((m, i) => (
+                <li key={i}>{fmt(m.given_at)} · {m.child_name}: {m.medicine} {m.dose} — given by {m.given_by_name}</li>
+              ))}
+            </ul>
+          ) : <Empty text="No medication given this week." />}
+          {data.expenses.length ? (
+            <ul className="mt-3 space-y-1 border-t border-border pt-2 text-sm">
+              {data.expenses.map((e, i) => (
+                <li key={i} className="flex justify-between"><span>{fmt(e.expense_date)} · {e.item}</span><span className="text-muted-foreground">£{Number(e.amount).toFixed(2)} · {e.status}</span></li>
+              ))}
+              {s.expensesPending > 0 && <li className="font-medium">£{s.expensesPending.toFixed(2)} awaiting reimbursement</li>}
+            </ul>
+          ) : null}
+        </Card>
+      </div>
+    </HubPage>
+  );
+}

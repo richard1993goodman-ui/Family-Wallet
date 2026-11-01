@@ -1,1 +1,39 @@
-aW1wb3J0IHsgTGluayB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VRdWVyeSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgUGxhbmUgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW1wb3J0IHsgZ2V0VHJhdmVsIH0gZnJvbSAiQC9saWIvdHJhdmVsLmZ1bmN0aW9ucyI7Cgpjb25zdCBmbXQgPSAoZDogc3RyaW5nKSA9PgogIG5ldyBEYXRlKGAke2R9VDAwOjAwOjAwWmApLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7IGRheTogIm51bWVyaWMiLCBtb250aDogInNob3J0IiwgdGltZVpvbmU6ICJVVEMiIH0pOwoKLyoqIFRyYXZlbCBtb2RlOiBzaG93biBhdCB0aGUgdG9wIG9mIHRoZSB3YWxsZXQgd2hpbGUgYSB0cmlwIGlzIG9uIChvciBjb21pbmcgdXAgd2l0aGluIDE0IGRheXMpLiAqLwpleHBvcnQgZnVuY3Rpb24gV2FsbGV0VHJhdmVsQmFubmVyKHsgc2x1ZyB9OiB7IHNsdWc6IHN0cmluZyB9KSB7CiAgY29uc3QgZm4gPSB1c2VTZXJ2ZXJGbihnZXRUcmF2ZWwpOwogIGNvbnN0IHsgZGF0YSB9ID0gdXNlUXVlcnkoeyBxdWVyeUtleTogWyJ0cmF2ZWwiLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gZm4oeyBkYXRhOiB7IHNsdWcgfSB9KSB9KTsKICBpZiAoIWRhdGEpIHJldHVybiBudWxsOwogIGNvbnN0IHRyaXAgPSBkYXRhLmFjdGl2ZSA/PyBkYXRhLnVwY29taW5nOwogIGlmICghdHJpcCkgcmV0dXJuIG51bGw7CiAgY29uc3Qgc29vbiA9ICFkYXRhLmFjdGl2ZSAmJiAobmV3IERhdGUoYCR7dHJpcC5zdGFydERhdGV9VDAwOjAwOjAwWmApLmdldFRpbWUoKSAtIERhdGUubm93KCkpIC8gODY0MDAwMDAgPD0gMTQ7CiAgaWYgKCFkYXRhLmFjdGl2ZSAmJiAhc29vbikgcmV0dXJuIG51bGw7CiAgY29uc3QgZG9uZSA9IHRyaXAuY2hlY2tsaXN0LmZpbHRlcigoaSkgPT4gaS5kb25lKS5sZW5ndGg7CgogIHJldHVybiAoCiAgICA8TGluawogICAgICB0bz0iL3RyYXZlbC8kc2x1ZyIKICAgICAgcGFyYW1zPXt7IHNsdWcgfX0KICAgICAgY2xhc3NOYW1lPSJtYi02IGJsb2NrIHJvdW5kZWQtMnhsIGJvcmRlci0yIGJvcmRlci1wcmltYXJ5IGJnLXByaW1hcnkgcC01IHRleHQtcHJpbWFyeS1mb3JlZ3JvdW5kIgogICAgPgogICAgICA8cCBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIHRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctd2lkZXN0IG9wYWNpdHktODAiPgogICAgICAgIDxQbGFuZSBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IHtkYXRhLmFjdGl2ZSA/ICJUcmF2ZWwgbW9kZSBpcyBvbiIgOiAiVHJpcCBjb21pbmcgdXAifQogICAgICA8L3A+CiAgICAgIDxwIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTEgdGV4dC0yeGwiPnt0cmlwLmRlc3RpbmF0aW9ufTwvcD4KICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gb3BhY2l0eS05MCI+CiAgICAgICAge2ZtdCh0cmlwLnN0YXJ0RGF0ZSl9IOKAkyB7Zm10KHRyaXAuZW5kRGF0ZSl9IMK3IENoZWNrbGlzdCB7ZG9uZX0ve3RyaXAuY2hlY2tsaXN0Lmxlbmd0aH0KICAgICAgICB7dHJpcC5sb2NhbEVtZXJnZW5jeSA/IGAgwrcgTG9jYWwgZW1lcmdlbmN5ICR7dHJpcC5sb2NhbEVtZXJnZW5jeX1gIDogIiJ9CiAgICAgIDwvcD4KICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gZm9udC1tZWRpdW0gdW5kZXJsaW5lIHVuZGVybGluZS1vZmZzZXQtNCI+T3BlbiB0cmF2ZWwgcGFjayAmYW1wOyBoYW5kb3ZlciBub3RlcyDihpI8L3A+CiAgICA8L0xpbms+CiAgKTsKfQo=
+import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { Plane } from "lucide-react";
+
+import { getTravel } from "@/lib/travel.functions";
+
+const fmt = (d: string) =>
+  new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+
+/** Travel mode: shown at the top of the wallet while a trip is on (or coming up within 14 days). */
+export function WalletTravelBanner({ slug }: { slug: string }) {
+  const fn = useServerFn(getTravel);
+  const { data } = useQuery({ queryKey: ["travel", slug], queryFn: () => fn({ data: { slug } }) });
+  if (!data) return null;
+  const trip = data.active ?? data.upcoming;
+  if (!trip) return null;
+  const soon = !data.active && (new Date(`${trip.startDate}T00:00:00Z`).getTime() - Date.now()) / 86400000 <= 14;
+  if (!data.active && !soon) return null;
+  const done = trip.checklist.filter((i) => i.done).length;
+
+  return (
+    <Link
+      to="/travel/$slug"
+      params={{ slug }}
+      className="mb-6 block rounded-2xl border-2 border-primary bg-primary p-5 text-primary-foreground"
+    >
+      <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest opacity-80">
+        <Plane className="h-4 w-4" /> {data.active ? "Travel mode is on" : "Trip coming up"}
+      </p>
+      <p className="heading-display mt-1 text-2xl">{trip.destination}</p>
+      <p className="mt-1 text-sm opacity-90">
+        {fmt(trip.startDate)} – {fmt(trip.endDate)} · Checklist {done}/{trip.checklist.length}
+        {trip.localEmergency ? ` · Local emergency ${trip.localEmergency}` : ""}
+      </p>
+      <p className="mt-2 text-sm font-medium underline underline-offset-4">Open travel pack &amp; handover notes →</p>
+    </Link>
+  );
+}

@@ -1,1 +1,67 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IEJvb2tPcGVuLCBFeHRlcm5hbExpbmssIFNwYXJrbGVzIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKCmltcG9ydCB7IENhcmQsIEh1YlBhZ2UsIExvY2tlZE5vdGljZSB9IGZyb20gIkAvY29tcG9uZW50cy9odWItdWkiOwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKaW1wb3J0IHsgZ2V0UGxheWJvb2tzLCBtYXJrUGxheWJvb2tSZWFkIH0gZnJvbSAiQC9saWIvcHJlbWl1bS1jb250ZW50LmZ1bmN0aW9ucyI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9wbGF5Ym9va3MvJHNsdWciKSh7CiAgaGVhZDogKCkgPT4gKHsgbWV0YTogWwogICAgeyB0aXRsZTogIkFnZW5jeSBNYXRlcmlhbHMg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgeyBuYW1lOiAiZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQXVkaW9ib29rcywgZGlnaXRhbCBib29rcywgYWN0aXZpdHkgZ3VpZGVzIGFuZCBzZWFzb25hbCBwYWNrcyBmb3IgeW91ciBmYW1pbHkuIiB9LAogICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkFnZW5jeSBNYXRlcmlhbHMg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgeyBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwgY29udGVudDogIkF1ZGlvYm9va3MsIGRpZ2l0YWwgYm9va3MsIGd1aWRlcyBhbmQgc2Vhc29uYWwgcGFja3MgZm9yIGZhbWlsaWVzIGFuZCBuYW5uaWVzLiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICB7IG5hbWU6ICJ0d2l0dGVyOmNhcmQiLCBjb250ZW50OiAic3VtbWFyeSIgfSwKICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogIF0gfSksCiAgY29tcG9uZW50OiBQbGF5Ym9va3NQYWdlLAp9KTsKCmZ1bmN0aW9uIFBsYXlib29rc1BhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBmZXRjaFBsYXlib29rcyA9IHVzZVNlcnZlckZuKGdldFBsYXlib29rcyk7CiAgY29uc3QgbWFya1JlYWQgPSB1c2VTZXJ2ZXJGbihtYXJrUGxheWJvb2tSZWFkKTsKICBjb25zdCBxYyA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgeyBkYXRhLCBpc0xvYWRpbmcgfSA9IHVzZVF1ZXJ5KHsgcXVlcnlLZXk6IFsicGxheWJvb2tzIiwgc2x1Z10sIHF1ZXJ5Rm46ICgpID0+IGZldGNoUGxheWJvb2tzKHsgZGF0YTogeyBzbHVnIH0gfSkgfSk7CiAgY29uc3QgW29wZW5JZCwgc2V0T3BlbklkXSA9IHVzZVN0YXRlPHN0cmluZyB8IG51bGw+KG51bGwpOwogIGlmIChpc0xvYWRpbmcpIHJldHVybiA8SHViUGFnZSBzbHVnPXtzbHVnfSB0aXRsZT0iQWdlbmN5IE1hdGVyaWFscyI+PHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+TG9hZGluZyB0aGUgbGF0ZXN0IGVkaXTigKY8L3A+PC9IdWJQYWdlPjsKICBpZiAoIWRhdGEpIHJldHVybiA8SHViUGFnZSBzbHVnPXtzbHVnfSB0aXRsZT0iQWdlbmN5IE1hdGVyaWFscyI+PExvY2tlZE5vdGljZSBzbHVnPXtzbHVnfSAvPjwvSHViUGFnZT47CiAgY29uc3Qgb3BlbiA9IGFzeW5jIChpZDogc3RyaW5nKSA9PiB7CiAgICBzZXRPcGVuSWQoKGN1cnJlbnQpID0+IGN1cnJlbnQgPT09IGlkID8gbnVsbCA6IGlkKTsKICAgIGNvbnN0IGl0ZW0gPSBkYXRhLnBsYXlib29rcy5maW5kKChwbGF5Ym9vaykgPT4gcGxheWJvb2suaWQgPT09IGlkKTsKICAgIGlmICghaXRlbT8ucmVhZEF0KSB7IGF3YWl0IG1hcmtSZWFkKHsgZGF0YTogeyBzbHVnLCBwbGF5Ym9va0lkOiBpZCB9IH0pOyBhd2FpdCBxYy5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbInBsYXlib29rcyIsIHNsdWddIH0pOyB9CiAgfTsKICByZXR1cm4gKAogICAgPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IkFnZW5jeSBNYXRlcmlhbHMiIGludHJvPSJBdWRpb2Jvb2tzLCBkaWdpdGFsIGJvb2tzLCBhY3Rpdml0eSBndWlkZXMgYW5kIHNlYXNvbmFsIHBhY2tzIOKAlCBwcmVwYXJlZCBmb3IgeW91ciBmYW1pbHkgYW5kIGRlbGl2ZXJlZCB0byB5b3VyIHdhbGxldC4iPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS00Ij4KICAgICAgICB7ZGF0YS5wbGF5Ym9va3MubGVuZ3RoID09PSAwICYmIDxDYXJkPjxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPllvdXIgZmlyc3QgbWF0ZXJpYWwgaXMgYmVpbmcgcHJlcGFyZWQuPC9wPjwvQ2FyZD59CiAgICAgICAge2RhdGEucGxheWJvb2tzLm1hcCgocGxheWJvb2ssIGluZGV4KSA9PiB7CiAgICAgICAgICBjb25zdCBleHBhbmRlZCA9IG9wZW5JZCA9PT0gcGxheWJvb2suaWQ7CiAgICAgICAgICByZXR1cm4gPGFydGljbGUga2V5PXtwbGF5Ym9vay5pZH0gY2xhc3NOYW1lPXtgb3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQteGwgYm9yZGVyIGJnLWNhcmQgJHtwbGF5Ym9vay5pc19mZWF0dXJlZCAmJiBpbmRleCA9PT0gMCA/ICJib3JkZXItcHJpbWFyeS81MCIgOiAiYm9yZGVyLWJvcmRlciJ9YH0+CiAgICAgICAgICAgIHtwbGF5Ym9vay5jb3Zlcl9pbWFnZV91cmwgJiYgPGltZyBzcmM9e3BsYXlib29rLmNvdmVyX2ltYWdlX3VybH0gYWx0PSIiIGNsYXNzTmFtZT0iYXNwZWN0LVsxNi83XSB3LWZ1bGwgb2JqZWN0LWNvdmVyIiAvPn0KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InAtNSI+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQganVzdGlmeS1iZXR3ZWVuIGdhcC00Ij4KICAgICAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC14cyBmb250LXNlbWlib2xkIHVwcGVyY2FzZSB0cmFja2luZy1bMC4xOGVtXSB0ZXh0LXByaW1hcnkiPntwbGF5Ym9vay5zZWFzb259IMK3IHtwbGF5Ym9vay50b3BpY308L3A+CiAgICAgICAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0xIHRleHQteGwgdGV4dC1mb3JlZ3JvdW5kIj57cGxheWJvb2sudGl0bGV9PC9oMj4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgeyFwbGF5Ym9vay5yZWFkQXQgPyA8c3BhbiBjbGFzc05hbWU9InJvdW5kZWQtZnVsbCBiZy1hY2NlbnQgcHgtMi41IHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LWFjY2VudC1mb3JlZ3JvdW5kIj5OZXc8L3NwYW4+IDogcGxheWJvb2suaXNfZmVhdHVyZWQgPyA8U3BhcmtsZXMgY2xhc3NOYW1lPSJoLTUgdy01IHRleHQtcHJpbWFyeSIgLz4gOiA8Qm9va09wZW4gY2xhc3NOYW1lPSJoLTUgdy01IHRleHQtcHJpbWFyeSIgLz59CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAge3BsYXlib29rLmludHJvZHVjdGlvbiAmJiA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntwbGF5Ym9vay5pbnRyb2R1Y3Rpb259PC9wPn0KICAgICAgICAgICAgICB7cGxheWJvb2suYWdlX2d1aWRhbmNlICYmIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXhzIGZvbnQtbWVkaXVtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+QmVzdCBmb3I6IHtwbGF5Ym9vay5hZ2VfZ3VpZGFuY2V9PC9wPn0KICAgICAgICAgICAgICA8QnV0dG9uIGNsYXNzTmFtZT0ibXQtNCIgdmFyaWFudD17ZXhwYW5kZWQgPyAib3V0bGluZSIgOiAiZGVmYXVsdCJ9IG9uQ2xpY2s9eygpID0+IHZvaWQgb3BlbihwbGF5Ym9vay5pZCl9PntleHBhbmRlZCA/ICJDbG9zZSBtYXRlcmlhbCIgOiAiT3BlbiBtYXRlcmlhbCJ9PC9CdXR0b24+CiAgICAgICAgICAgICAge2V4cGFuZGVkICYmIDxkaXYgY2xhc3NOYW1lPSJtdC01IHNwYWNlLXktNSBib3JkZXItdCBib3JkZXItYm9yZGVyIHB0LTUiPgogICAgICAgICAgICAgICAge3BsYXlib29rLnNlY3Rpb25zLm1hcCgoc2VjdGlvbikgPT4gPHNlY3Rpb24ga2V5PXtzZWN0aW9uLmhlYWRpbmd9PjxoMyBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+e3NlY3Rpb24uaGVhZGluZ308L2gzPjxwIGNsYXNzTmFtZT0ibXQtMSB3aGl0ZXNwYWNlLXByZS1saW5lIHRleHQtc20gbGVhZGluZy02IHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e3NlY3Rpb24uYm9keX08L3A+PC9zZWN0aW9uPil9CiAgICAgICAgICAgICAgICB7cGxheWJvb2sucmVzb3VyY2VfdXJsICYmIDxCdXR0b24gYXNDaGlsZCB2YXJpYW50PSJvdXRsaW5lIj48YSBocmVmPXtwbGF5Ym9vay5yZXNvdXJjZV91cmx9IHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiPk9wZW4gZXh0cmEgcmVzb3VyY2UgPEV4dGVybmFsTGluayBjbGFzc05hbWU9ImgtNCB3LTQiIC8+PC9hPjwvQnV0dG9uPn0KICAgICAgICAgICAgICA8L2Rpdj59CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9hcnRpY2xlPjsKICAgICAgICB9KX0KICAgICAgPC9kaXY+CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQ==
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { BookOpen, ExternalLink, Sparkles } from "lucide-react";
+
+import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { getPlaybooks, markPlaybookRead } from "@/lib/premium-content.functions";
+
+export const Route = createFileRoute("/playbooks/$slug")({
+  head: () => ({ meta: [
+    { title: "Agency Materials — The Family Wallet" },
+    { name: "description", content: "Audiobooks, digital books, activity guides and seasonal packs for your family." },
+    { property: "og:title", content: "Agency Materials — The Family Wallet" },
+    { property: "og:description", content: "Audiobooks, digital books, guides and seasonal packs for families and nannies." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] }),
+  component: PlaybooksPage,
+});
+
+function PlaybooksPage() {
+  const { slug } = Route.useParams();
+  const fetchPlaybooks = useServerFn(getPlaybooks);
+  const markRead = useServerFn(markPlaybookRead);
+  const qc = useQueryClient();
+  const { data, isLoading } = useQuery({ queryKey: ["playbooks", slug], queryFn: () => fetchPlaybooks({ data: { slug } }) });
+  const [openId, setOpenId] = useState<string | null>(null);
+  if (isLoading) return <HubPage slug={slug} title="Agency Materials"><p className="text-sm text-muted-foreground">Loading the latest edit…</p></HubPage>;
+  if (!data) return <HubPage slug={slug} title="Agency Materials"><LockedNotice slug={slug} /></HubPage>;
+  const open = async (id: string) => {
+    setOpenId((current) => current === id ? null : id);
+    const item = data.playbooks.find((playbook) => playbook.id === id);
+    if (!item?.readAt) { await markRead({ data: { slug, playbookId: id } }); await qc.invalidateQueries({ queryKey: ["playbooks", slug] }); }
+  };
+  return (
+    <HubPage slug={slug} title="Agency Materials" intro="Audiobooks, digital books, activity guides and seasonal packs — prepared for your family and delivered to your wallet.">
+      <div className="space-y-4">
+        {data.playbooks.length === 0 && <Card><p className="text-sm text-muted-foreground">Your first material is being prepared.</p></Card>}
+        {data.playbooks.map((playbook, index) => {
+          const expanded = openId === playbook.id;
+          return <article key={playbook.id} className={`overflow-hidden rounded-xl border bg-card ${playbook.is_featured && index === 0 ? "border-primary/50" : "border-border"}`}>
+            {playbook.cover_image_url && <img src={playbook.cover_image_url} alt="" className="aspect-[16/7] w-full object-cover" />}
+            <div className="p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{playbook.season} · {playbook.topic}</p>
+                  <h2 className="heading-display mt-1 text-xl text-foreground">{playbook.title}</h2>
+                </div>
+                {!playbook.readAt ? <span className="rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-accent-foreground">New</span> : playbook.is_featured ? <Sparkles className="h-5 w-5 text-primary" /> : <BookOpen className="h-5 w-5 text-primary" />}
+              </div>
+              {playbook.introduction && <p className="mt-3 text-sm text-muted-foreground">{playbook.introduction}</p>}
+              {playbook.age_guidance && <p className="mt-2 text-xs font-medium text-muted-foreground">Best for: {playbook.age_guidance}</p>}
+              <Button className="mt-4" variant={expanded ? "outline" : "default"} onClick={() => void open(playbook.id)}>{expanded ? "Close material" : "Open material"}</Button>
+              {expanded && <div className="mt-5 space-y-5 border-t border-border pt-5">
+                {playbook.sections.map((section) => <section key={section.heading}><h3 className="heading-display text-lg text-foreground">{section.heading}</h3><p className="mt-1 whitespace-pre-line text-sm leading-6 text-muted-foreground">{section.body}</p></section>)}
+                {playbook.resource_url && <Button asChild variant="outline"><a href={playbook.resource_url} target="_blank" rel="noopener noreferrer">Open extra resource <ExternalLink className="h-4 w-4" /></a></Button>}
+              </div>}
+            </div>
+          </article>;
+        })}
+      </div>
+    </HubPage>
+  );
+}

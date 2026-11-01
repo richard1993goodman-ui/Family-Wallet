@@ -1,1 +1,10 @@
-IyBSb2FkbWFwCgotIFt4XSBIb3VzZSBNYW51YWwgJiBDb2RlczogcHJpdmF0ZSBob3VzZWhvbGQgZW50cmllcywgdGFwLXRvLXJldmVhbCBjb2RlcywgZmFtaWx5IGVkaXRpbmcgYW5kIG5hbm55IHZpZXdpbmcKLSBbeF0gQWRkIEhvdXNlIE1hbnVhbCAmIENvZGVzIHRvIGhvbWVwYWdlLCB3YWxsZXQgaG9tZSBhbmQgc2hhcmVkIG5hdmlnYXRpb24KLSBbeF0gVmVyaWZ5IGRlbW8gc2F2aW5nL3JlYWRiYWNrL2VkaXQvZGVsZXRlLCByZXZlYWwvaGlkZSwgc2lnbmVkLW91dCBibG9ja2luZyBhbmQgcGVybWlzc2lvbi9wcml2YWN5IHRlc3RzIChyZWFsIGhvdXNlaG9sZCBhbmQgbmFubnktc2Vzc2lvbiBmbG93cyBub3QgZXhlcmNpc2VkKQoKLSBbeF0gUmVtb3ZlIGd1YXJhbnRlZSwgYWdlbmN5IHRlcm1zLCBhZ2VuY3kgc3VwcG9ydC9leHRyYXMgZnJvbSB0aGUgZmFtaWx5IHdhbGxldCBhbmQgbmF2aWdhdGlvbgotIFt4XSBQZXR0eSBjYXNoIGZsb2F0IHRyYWNrZXIgKGZhbWlseSBhZGRzIG1vbmV5LCBuYW5ueSBsb2dzIHNwZW5kaW5nKQotIFt4XSBGYW1pbHnigJNuYW5ueSBtZXNzYWdlczogdG9waWMgdGhyZWFkcyBib3RoIHNpZGVzIGNhbiBwb3N0IGluLCBsaWtlIGEgbWVzc2FnaW5nIHBvcnRhbAotIFt4XSBDb3N0IGNhbGN1bGF0b3I6IHJlbW92ZSBSaWNoYXJkL1doYXRzQXBwIGNvbnRhY3QsIGtlZXAgQ29weSBzdW1tYXJ5Cg==
+# Roadmap
+
+- [x] House Manual & Codes: private household entries, tap-to-reveal codes, family editing and nanny viewing
+- [x] Add House Manual & Codes to homepage, wallet home and shared navigation
+- [x] Verify demo saving/readback/edit/delete, reveal/hide, signed-out blocking and permission/privacy tests (real household and nanny-session flows not exercised)
+
+- [x] Remove guarantee, agency terms, agency support/extras from the family wallet and navigation
+- [x] Petty cash float tracker (family adds money, nanny logs spending)
+- [x] Family–nanny messages: topic threads both sides can post in, like a messaging portal
+- [x] Cost calculator: remove Richard/WhatsApp contact, keep Copy summary

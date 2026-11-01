@@ -1,1 +1,206 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgVHJhc2gyIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKCmltcG9ydCB7IGFkZExvZ0ZuLCBkZWxldGVMb2dGbiwgZ2V0TG9ncyB9IGZyb20gIkAvbGliL2ZhbWlseS5mdW5jdGlvbnMiOwppbXBvcnQgeyBNT09EUyB9IGZyb20gIkAvbGliL2ZhbWlseS50eXBlcyI7CmltcG9ydCB7IENhcmQsIEZpZWxkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9sb2cvJHNsdWciKSh7CiAgaGVhZDogKCkgPT4gKHsKICAgIG1ldGE6IFsKICAgICAgeyB0aXRsZTogIkRhaWx5IExvZyDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBuYW1lOiAiZGVzY3JpcHRpb24iLAogICAgICAgIGNvbnRlbnQ6CiAgICAgICAgICAiQSBzaG9ydCBlbmQtb2Ytc2hpZnQgdXBkYXRlIGZyb20geW91ciBuYW5ueTogd2hhdCB0aGV5IGRpZCwgd2hhdCB0aGV5IGF0ZSwgaG9tZXdvcmsgYW5kIG1vb2QuIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkRhaWx5IExvZyDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiU2VlIGhvdyB0aGUgZGF5IHdlbnQsIGV2ZXJ5IGRheSwgaW4geW91ciBGYW1pbHkgV2FsbGV0LiIsCiAgICAgIH0sCiAgICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IExvZ1BhZ2UsCn0pOwoKY29uc3QgZW1wdHlEcmFmdCA9IHsKICBsb2dEYXRlOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkuc2xpY2UoMCwgMTApLAogIGFjdGl2aXRpZXM6ICIiLAogIGZvb2Q6ICIiLAogIGhvbWV3b3JrOiAiIiwKICBtb29kOiAiIiwKICBub3RlczogIiIsCiAgdG9tb3Jyb3c6ICIiLAp9OwoKZnVuY3Rpb24gTG9nUGFnZSgpIHsKICBjb25zdCB7IHNsdWcgfSA9IFJvdXRlLnVzZVBhcmFtcygpOwogIGNvbnN0IHF1ZXJ5Q2xpZW50ID0gdXNlUXVlcnlDbGllbnQoKTsKICBjb25zdCBsb2FkRm4gPSB1c2VTZXJ2ZXJGbihnZXRMb2dzKTsKICBjb25zdCBhZGRGbiA9IHVzZVNlcnZlckZuKGFkZExvZ0ZuKTsKICBjb25zdCByZW1vdmVGbiA9IHVzZVNlcnZlckZuKGRlbGV0ZUxvZ0ZuKTsKCiAgY29uc3QgW2RyYWZ0LCBzZXREcmFmdF0gPSB1c2VTdGF0ZSh7IC4uLmVtcHR5RHJhZnQgfSk7CiAgY29uc3QgW29wZW4sIHNldE9wZW5dID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtidXN5LCBzZXRCdXN5XSA9IHVzZVN0YXRlKGZhbHNlKTsKCiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7CiAgICBxdWVyeUtleTogWyJsb2dzIiwgc2x1Z10sCiAgICBxdWVyeUZuOiAoKSA9PiBsb2FkRm4oeyBkYXRhOiB7IHNsdWcgfSB9KSwKICB9KTsKCiAgaWYgKHF1ZXJ5LmlzTG9hZGluZykgewogICAgcmV0dXJuICgKICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1zYW5kIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICBMb2FkaW5n4oCmCiAgICAgIDwvZGl2PgogICAgKTsKICB9CiAgaWYgKCFxdWVyeS5kYXRhKSByZXR1cm4gPExvY2tlZE5vdGljZSBzbHVnPXtzbHVnfSAvPjsKCiAgYXN5bmMgZnVuY3Rpb24gb25TYXZlKCkgewogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IGFkZEZuKHsgZGF0YTogeyBzbHVnLCAuLi5kcmFmdCB9IH0pOwogICAgICBzZXREcmFmdCh7IC4uLmVtcHR5RHJhZnQgfSk7CiAgICAgIHNldE9wZW4oZmFsc2UpOwogICAgICBhd2FpdCBxdWVyeUNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbImxvZ3MiLCBzbHVnXSB9KTsKICAgICAgdG9hc3Quc3VjY2VzcygiVXBkYXRlIGFkZGVkIik7CiAgICB9IGNhdGNoIHsKICAgICAgdG9hc3QuZXJyb3IoIkNvdWxkbid0IHNhdmUgdGhhdCB1cGRhdGUiKTsKICAgIH0gZmluYWxseSB7CiAgICAgIHNldEJ1c3koZmFsc2UpOwogICAgfQogIH0KCiAgcmV0dXJuICgKICAgIDxIdWJQYWdlCiAgICAgIHNsdWc9e3NsdWd9CiAgICAgIHRpdGxlPSJEYWlseSBsb2ciCiAgICAgIGludHJvPSJBIHF1aWNrIG5vdGUgYXQgdGhlIGVuZCBvZiBhIHNoaWZ0LiBPbmUgbGluZSBpcyBwbGVudHkg4oCUIG5vdGhpbmcgaGVyZSBpcyBjb21wdWxzb3J5LiIKICAgID4KICAgICAge29wZW4gPyAoCiAgICAgICAgPENhcmQ+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS00Ij4KICAgICAgICAgICAgPEZpZWxkCiAgICAgICAgICAgICAgbGFiZWw9IkRhdGUiCiAgICAgICAgICAgICAgdHlwZT0iZGF0ZSIKICAgICAgICAgICAgICB2YWx1ZT17ZHJhZnQubG9nRGF0ZX0KICAgICAgICAgICAgICBvbkNoYW5nZT17KHYpID0+IHNldERyYWZ0KHsgLi4uZHJhZnQsIGxvZ0RhdGU6IHYgfSl9CiAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDxGaWVsZAogICAgICAgICAgICAgIGxhYmVsPSJXaGF0IHdlIGRpZCIKICAgICAgICAgICAgICB0ZXh0YXJlYQogICAgICAgICAgICAgIHZhbHVlPXtkcmFmdC5hY3Rpdml0aWVzfQogICAgICAgICAgICAgIG9uQ2hhbmdlPXsodikgPT4gc2V0RHJhZnQoeyAuLi5kcmFmdCwgYWN0aXZpdGllczogdiB9KX0KICAgICAgICAgICAgLz4KICAgICAgICAgICAgPEZpZWxkCiAgICAgICAgICAgICAgbGFiZWw9IldoYXQgd2UgYXRlIgogICAgICAgICAgICAgIHRleHRhcmVhCiAgICAgICAgICAgICAgdmFsdWU9e2RyYWZ0LmZvb2R9CiAgICAgICAgICAgICAgb25DaGFuZ2U9eyh2KSA9PiBzZXREcmFmdCh7IC4uLmRyYWZ0LCBmb29kOiB2IH0pfQogICAgICAgICAgICAvPgogICAgICAgICAgICA8RmllbGQKICAgICAgICAgICAgICBsYWJlbD0iSG9tZXdvcmsiCiAgICAgICAgICAgICAgdmFsdWU9e2RyYWZ0LmhvbWV3b3JrfQogICAgICAgICAgICAgIG9uQ2hhbmdlPXsodikgPT4gc2V0RHJhZnQoeyAuLi5kcmFmdCwgaG9tZXdvcms6IHYgfSl9CiAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+TW9vZDwvc3Bhbj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMiBmbGV4IGZsZXgtd3JhcCBnYXAtMiI+CiAgICAgICAgICAgICAgICB7TU9PRFMubWFwKChtb29kKSA9PiAoCiAgICAgICAgICAgICAgICAgIDxidXR0b24KICAgICAgICAgICAgICAgICAgICBrZXk9e21vb2R9CiAgICAgICAgICAgICAgICAgICAgdHlwZT0iYnV0dG9uIgogICAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldERyYWZ0KHsgLi4uZHJhZnQsIG1vb2Q6IGRyYWZ0Lm1vb2QgPT09IG1vb2QgPyAiIiA6IG1vb2QgfSl9CiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgcm91bmRlZC1mdWxsIGJvcmRlciBweC0zIHB5LTEuNSB0ZXh0LXNtICR7CiAgICAgICAgICAgICAgICAgICAgICBkcmFmdC5tb29kID09PSBtb29kCiAgICAgICAgICAgICAgICAgICAgICAgID8gImJvcmRlci1wcmltYXJ5IGJnLWFjY2VudCB0ZXh0LWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICAgICAgICAgIDogImJvcmRlci1ib3JkZXIgYmctY2FyZCB0ZXh0LW11dGVkLWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICAgICAgfWB9CiAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICB7bW9vZH0KICAgICAgICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxGaWVsZAogICAgICAgICAgICAgIGxhYmVsPSJBbnl0aGluZyBub3Rld29ydGh5IgogICAgICAgICAgICAgIHRleHRhcmVhCiAgICAgICAgICAgICAgdmFsdWU9e2RyYWZ0Lm5vdGVzfQogICAgICAgICAgICAgIG9uQ2hhbmdlPXsodikgPT4gc2V0RHJhZnQoeyAuLi5kcmFmdCwgbm90ZXM6IHYgfSl9CiAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDxGaWVsZAogICAgICAgICAgICAgIGxhYmVsPSJUb21vcnJvdydzIHJlcXVpcmVtZW50cyIKICAgICAgICAgICAgICB0ZXh0YXJlYQogICAgICAgICAgICAgIHZhbHVlPXtkcmFmdC50b21vcnJvd30KICAgICAgICAgICAgICBvbkNoYW5nZT17KHYpID0+IHNldERyYWZ0KHsgLi4uZHJhZnQsIHRvbW9ycm93OiB2IH0pfQogICAgICAgICAgICAvPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBnYXAtMyI+CiAgICAgICAgICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvblNhdmV9IGRpc2FibGVkPXtidXN5fT4KICAgICAgICAgICAgICAgIHtidXN5ID8gIlNhdmluZ+KApiIgOiAiU2F2ZSB1cGRhdGUifQogICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgIDxCdXR0b24gdmFyaWFudD0ib3V0bGluZSIgb25DbGljaz17KCkgPT4gc2V0T3BlbihmYWxzZSl9PgogICAgICAgICAgICAgICAgQ2FuY2VsCiAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9DYXJkPgogICAgICApIDogKAogICAgICAgIDxCdXR0b24gb25DbGljaz17KCkgPT4gc2V0T3Blbih0cnVlKX0+QWRkIHRvZGF5J3MgdXBkYXRlPC9CdXR0b24+CiAgICAgICl9CgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNiBzcGFjZS15LTMiPgogICAgICAgIHtxdWVyeS5kYXRhLmxvZ3MubGVuZ3RoID09PSAwICYmICgKICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5vIHVwZGF0ZXMgeWV0LjwvcD4KICAgICAgICApfQogICAgICAgIHtxdWVyeS5kYXRhLmxvZ3MubWFwKChsb2cpID0+ICgKICAgICAgICAgIDxDYXJkIGtleT17bG9nLmlkfT4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQganVzdGlmeS1iZXR3ZWVuIGdhcC0zIj4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgICB7bmV3IERhdGUoYCR7bG9nLmxvZ19kYXRlfVQwMDowMDowMFpgKS50b0xvY2FsZURhdGVTdHJpbmcoImVuLUdCIiwgewogICAgICAgICAgICAgICAgICB3ZWVrZGF5OiAibG9uZyIsCiAgICAgICAgICAgICAgICAgIGRheTogIm51bWVyaWMiLAogICAgICAgICAgICAgICAgICBtb250aDogImxvbmciLAogICAgICAgICAgICAgICAgICB0aW1lWm9uZTogIlVUQyIsCiAgICAgICAgICAgICAgICB9KX0KICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1kZXN0cnVjdGl2ZSIKICAgICAgICAgICAgICAgIG9uQ2xpY2s9e2FzeW5jICgpID0+IHsKICAgICAgICAgICAgICAgICAgYXdhaXQgcmVtb3ZlRm4oeyBkYXRhOiB7IHNsdWcsIGlkOiBsb2cuaWQgfSB9KTsKICAgICAgICAgICAgICAgICAgYXdhaXQgcXVlcnlDbGllbnQuaW52YWxpZGF0ZVF1ZXJpZXMoeyBxdWVyeUtleTogWyJsb2dzIiwgc2x1Z10gfSk7CiAgICAgICAgICAgICAgICB9fQogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSIgLz4KICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIHtsb2cubW9vZCAmJiA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQiPntsb2cubW9vZH08L3A+fQogICAgICAgICAgICA8TG9nTGluZSBsYWJlbD0iV2hhdCB3ZSBkaWQiIHZhbHVlPXtsb2cuYWN0aXZpdGllc30gLz4KICAgICAgICAgICAgPExvZ0xpbmUgbGFiZWw9IldoYXQgd2UgYXRlIiB2YWx1ZT17bG9nLmZvb2R9IC8+CiAgICAgICAgICAgIDxMb2dMaW5lIGxhYmVsPSJIb21ld29yayIgdmFsdWU9e2xvZy5ob21ld29ya30gLz4KICAgICAgICAgICAgPExvZ0xpbmUgbGFiZWw9Ik5vdGV3b3J0aHkiIHZhbHVlPXtsb2cubm90ZXN9IC8+CiAgICAgICAgICAgIDxMb2dMaW5lIGxhYmVsPSJUb21vcnJvdyIgdmFsdWU9e2xvZy50b21vcnJvd30gLz4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICApKX0KICAgICAgPC9kaXY+CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQoKZnVuY3Rpb24gTG9nTGluZSh7IGxhYmVsLCB2YWx1ZSB9OiB7IGxhYmVsOiBzdHJpbmc7IHZhbHVlOiBzdHJpbmcgfCBudWxsIH0pIHsKICBpZiAoIXZhbHVlKSByZXR1cm4gbnVsbDsKICByZXR1cm4gKAogICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gd2hpdGVzcGFjZS1wcmUtbGluZSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICA8c3BhbiBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2xhYmVsfTogPC9zcGFuPgogICAgICB7dmFsdWV9CiAgICA8L3A+CiAgKTsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Trash2 } from "lucide-react";
+
+import { addLogFn, deleteLogFn, getLogs } from "@/lib/family.functions";
+import { MOODS } from "@/lib/family.types";
+import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/log/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Daily Log — The Family Wallet" },
+      {
+        name: "description",
+        content:
+          "A short end-of-shift update from your nanny: what they did, what they ate, homework and mood.",
+      },
+      { property: "og:title", content: "Daily Log — The Family Wallet" },
+      {
+        property: "og:description",
+        content: "See how the day went, every day, in your Family Wallet.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: LogPage,
+});
+
+const emptyDraft = {
+  logDate: new Date().toISOString().slice(0, 10),
+  activities: "",
+  food: "",
+  homework: "",
+  mood: "",
+  notes: "",
+  tomorrow: "",
+};
+
+function LogPage() {
+  const { slug } = Route.useParams();
+  const queryClient = useQueryClient();
+  const loadFn = useServerFn(getLogs);
+  const addFn = useServerFn(addLogFn);
+  const removeFn = useServerFn(deleteLogFn);
+
+  const [draft, setDraft] = useState({ ...emptyDraft });
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const query = useQuery({
+    queryKey: ["logs", slug],
+    queryFn: () => loadFn({ data: { slug } }),
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading…
+      </div>
+    );
+  }
+  if (!query.data) return <LockedNotice slug={slug} />;
+
+  async function onSave() {
+    setBusy(true);
+    try {
+      await addFn({ data: { slug, ...draft } });
+      setDraft({ ...emptyDraft });
+      setOpen(false);
+      await queryClient.invalidateQueries({ queryKey: ["logs", slug] });
+      toast.success("Update added");
+    } catch {
+      toast.error("Couldn't save that update");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <HubPage
+      slug={slug}
+      title="Daily log"
+      intro="A quick note at the end of a shift. One line is plenty — nothing here is compulsory."
+    >
+      {open ? (
+        <Card>
+          <div className="space-y-4">
+            <Field
+              label="Date"
+              type="date"
+              value={draft.logDate}
+              onChange={(v) => setDraft({ ...draft, logDate: v })}
+            />
+            <Field
+              label="What we did"
+              textarea
+              value={draft.activities}
+              onChange={(v) => setDraft({ ...draft, activities: v })}
+            />
+            <Field
+              label="What we ate"
+              textarea
+              value={draft.food}
+              onChange={(v) => setDraft({ ...draft, food: v })}
+            />
+            <Field
+              label="Homework"
+              value={draft.homework}
+              onChange={(v) => setDraft({ ...draft, homework: v })}
+            />
+            <div>
+              <span className="text-sm font-medium text-foreground">Mood</span>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {MOODS.map((mood) => (
+                  <button
+                    key={mood}
+                    type="button"
+                    onClick={() => setDraft({ ...draft, mood: draft.mood === mood ? "" : mood })}
+                    className={`rounded-full border px-3 py-1.5 text-sm ${
+                      draft.mood === mood
+                        ? "border-primary bg-accent text-foreground"
+                        : "border-border bg-card text-muted-foreground"
+                    }`}
+                  >
+                    {mood}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Field
+              label="Anything noteworthy"
+              textarea
+              value={draft.notes}
+              onChange={(v) => setDraft({ ...draft, notes: v })}
+            />
+            <Field
+              label="Tomorrow's requirements"
+              textarea
+              value={draft.tomorrow}
+              onChange={(v) => setDraft({ ...draft, tomorrow: v })}
+            />
+            <div className="flex gap-3">
+              <Button onClick={onSave} disabled={busy}>
+                {busy ? "Saving…" : "Save update"}
+              </Button>
+              <Button variant="outline" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Card>
+      ) : (
+        <Button onClick={() => setOpen(true)}>Add today's update</Button>
+      )}
+
+      <div className="mt-6 space-y-3">
+        {query.data.logs.length === 0 && (
+          <p className="text-sm text-muted-foreground">No updates yet.</p>
+        )}
+        {query.data.logs.map((log) => (
+          <Card key={log.id}>
+            <div className="flex items-start justify-between gap-3">
+              <p className="heading-display text-lg text-foreground">
+                {new Date(`${log.log_date}T00:00:00Z`).toLocaleDateString("en-GB", {
+                  weekday: "long",
+                  day: "numeric",
+                  month: "long",
+                  timeZone: "UTC",
+                })}
+              </p>
+              <button
+                className="text-muted-foreground hover:text-destructive"
+                onClick={async () => {
+                  await removeFn({ data: { slug, id: log.id } });
+                  await queryClient.invalidateQueries({ queryKey: ["logs", slug] });
+                }}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            {log.mood && <p className="mt-1 text-sm text-foreground">{log.mood}</p>}
+            <LogLine label="What we did" value={log.activities} />
+            <LogLine label="What we ate" value={log.food} />
+            <LogLine label="Homework" value={log.homework} />
+            <LogLine label="Noteworthy" value={log.notes} />
+            <LogLine label="Tomorrow" value={log.tomorrow} />
+          </Card>
+        ))}
+      </div>
+    </HubPage>
+  );
+}
+
+function LogLine({ label, value }: { label: string; value: string | null }) {
+  if (!value) return null;
+  return (
+    <p className="mt-2 text-sm whitespace-pre-line text-muted-foreground">
+      <span className="font-medium text-foreground">{label}: </span>
+      {value}
+    </p>
+  );
+}

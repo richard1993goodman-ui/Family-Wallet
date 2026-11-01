@@ -1,1 +1,26 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5raWRzX3BsYXlib29rX2VudHJpZXMgKAogaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogZmFtaWx5X2lkIHV1aWQgTk9UIE5VTEwgUkVGRVJFTkNFUyBwdWJsaWMuZmFtaWxpZXMoaWQpIE9OIERFTEVURSBDQVNDQURFLAogY2F0ZWdvcnkgdGV4dCBOT1QgTlVMTCBDSEVDSyAoY2F0ZWdvcnkgSU4gKCdjb21mb3J0JywnaGFuZGxlJywnZnJpZW5kcycsJ2FjdGl2aXRpZXMnKSksCiBjaGlsZF9uYW1lIHRleHQgTk9UIE5VTEwgREVGQVVMVCAnJyBDSEVDSyAoY2hhcl9sZW5ndGgoY2hpbGRfbmFtZSkgPD0gNjApLAogdGl0bGUgdGV4dCBOT1QgTlVMTCBDSEVDSyAoY2hhcl9sZW5ndGgodGl0bGUpIEJFVFdFRU4gMSBBTkQgMTAwKSwKIG5vdGVzIHRleHQgTk9UIE5VTEwgREVGQVVMVCAnJyBDSEVDSyAoY2hhcl9sZW5ndGgobm90ZXMpIDw9IDQwMDApLAogYWRkZWRfYnkgdGV4dCBOT1QgTlVMTCBERUZBVUxUICdmYW1pbHknIENIRUNLIChhZGRlZF9ieSBJTiAoJ2ZhbWlseScsJ25hbm55JykpLAogdXBkYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CkdSQU5UIEFMTCBPTiBwdWJsaWMua2lkc19wbGF5Ym9va19lbnRyaWVzIFRPIHNlcnZpY2Vfcm9sZTsKQUxURVIgVEFCTEUgcHVibGljLmtpZHNfcGxheWJvb2tfZW50cmllcyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwpDT01NRU5UIE9OIFRBQkxFIHB1YmxpYy5raWRzX3BsYXlib29rX2VudHJpZXMgSVMgJ0tpZHMgcGxheWJvb2suIFNlcnZpY2Utcm9sZSBvbmx5OyBzZXJ2ZXIgZnVuY3Rpb25zIHZlcmlmeSB0aGUgZmFtaWx5IGxpbmstYW5kLWNvZGUgc2Vzc2lvbi4nOwpDUkVBVEUgSU5ERVgga2lkc19wbGF5Ym9va19mYW1pbHkgT04gcHVibGljLmtpZHNfcGxheWJvb2tfZW50cmllcyhmYW1pbHlfaWQsIGNhdGVnb3J5KTsKSU5TRVJUIElOVE8gcHVibGljLmtpZHNfcGxheWJvb2tfZW50cmllcyAoZmFtaWx5X2lkLCBjYXRlZ29yeSwgY2hpbGRfbmFtZSwgdGl0bGUsIG5vdGVzLCBhZGRlZF9ieSkKU0VMRUNUIGYuaWQsIHYuYywgdi5jaGlsZCwgdi50LCB2Lm4sIHYuYnkgRlJPTSBwdWJsaWMuZmFtaWxpZXMgZiwKKFZBTFVFUyAoJ2NvbWZvcnQnLCdPbGl2ZXInLCdDYWxtcyBkb3duIHdpdGgnLCdGaXZlIG1pbnV0ZXMgb2YgcXVpZXQgcmVhZGluZyBvbiB0aGUgYmVhbmJhZywgdGhlbiBhIGh1Zy4nLCdmYW1pbHknKSwKICgnY29tZm9ydCcsJ09saXZlcicsJ0N1cnJlbnQgb2JzZXNzaW9uJywnRGlub3NhdXJzIOKAlCBhc2sgaGltIGFib3V0IHRoZSBULXJleCB2cyBTcGlub3NhdXJ1cyBkZWJhdGUhJywnZmFtaWx5JyksCiAoJ2NvbWZvcnQnLCdNaWEnLCdTZW5zaXRpdml0aWVzJywnSGF0ZXMgbG91ZCBibGVuZGVycyBhbmQgY2xvdGhpbmcgdGFncy4gU2NhcmVkIG9mIGJpZyBkb2dzIG9uIHdhbGtzLicsJ2ZhbWlseScpLAogKCdoYW5kbGUnLCcnLCdCaWcgZW1vdGlvbnMnLCdXZSBuYW1lIHRoZSBmZWVsaW5nIGZpcnN0LCB0aGVuIGhvbGQgdGhlIGJvdW5kYXJ5LiBDYWxtIHN0ZXAgZm9yIDMgbWludXRlcyBpZiBuZWVkZWQuJywnZmFtaWx5JyksCiAoJ2hhbmRsZScsJycsJ1NjcmVlbnMnLCczMCBtaW51dGVzIGFmdGVyIGhvbWV3b3JrIG9ubHkuIE5vIFlvdVR1YmUgYmVmb3JlIGRpbm5lci4nLCdmYW1pbHknKSwKICgnaGFuZGxlJywnJywnUmV3YXJkcycsJ1N0YXIgY2hhcnQgb24gdGhlIGZyaWRnZSDigJQgMTAgc3RhcnMgPSBTYXR1cmRheSB0cmVhdC4nLCdmYW1pbHknKSwKICgnZnJpZW5kcycsJ09saXZlcicsJ0xlbyAoWWVhciAzKScsJ011bTogU2FyYWguIENhbiB0YWtlIE9saXZlciBob21lIGFmdGVyIGZvb3RiYWxsIG9uIFRodXJzZGF5cy4nLCdmYW1pbHknKSwKICgnYWN0aXZpdGllcycsJycsJ1JhaW55IGRheSBkZW4nLCdCbGFua2V0cyBhcmUgaW4gdGhlIGhhbGwgY3VwYm9hcmQuIEtpZHMgbG92ZSBhIGRlbiArIHRvcmNoIHN0b3J5IHRpbWUuJywnbmFubnknKSwKICgnYWN0aXZpdGllcycsJycsJ0xvY2FsIGZhdm91cml0ZScsJ0xpYnJhcnkgc3RvcnkgaG91ciBTYXR1cmRheXMgMTA6MzAuIFBhcmsgY2Fmw6kgZG9lcyBiYWJ5Y2Npbm9zLicsJ25hbm55JykpIEFTIHYoYywgY2hpbGQsIHQsIG4sIGJ5KQpXSEVSRSBmLnNsdWcgPSAnZGVtbyc7
+CREATE TABLE public.kids_playbook_entries (
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+ family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+ category text NOT NULL CHECK (category IN ('comfort','handle','friends','activities')),
+ child_name text NOT NULL DEFAULT '' CHECK (char_length(child_name) <= 60),
+ title text NOT NULL CHECK (char_length(title) BETWEEN 1 AND 100),
+ notes text NOT NULL DEFAULT '' CHECK (char_length(notes) <= 4000),
+ added_by text NOT NULL DEFAULT 'family' CHECK (added_by IN ('family','nanny')),
+ updated_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT ALL ON public.kids_playbook_entries TO service_role;
+ALTER TABLE public.kids_playbook_entries ENABLE ROW LEVEL SECURITY;
+COMMENT ON TABLE public.kids_playbook_entries IS 'Kids playbook. Service-role only; server functions verify the family link-and-code session.';
+CREATE INDEX kids_playbook_family ON public.kids_playbook_entries(family_id, category);
+INSERT INTO public.kids_playbook_entries (family_id, category, child_name, title, notes, added_by)
+SELECT f.id, v.c, v.child, v.t, v.n, v.by FROM public.families f,
+(VALUES ('comfort','Oliver','Calms down with','Five minutes of quiet reading on the beanbag, then a hug.','family'),
+ ('comfort','Oliver','Current obsession','Dinosaurs — ask him about the T-rex vs Spinosaurus debate!','family'),
+ ('comfort','Mia','Sensitivities','Hates loud blenders and clothing tags. Scared of big dogs on walks.','family'),
+ ('handle','','Big emotions','We name the feeling first, then hold the boundary. Calm step for 3 minutes if needed.','family'),
+ ('handle','','Screens','30 minutes after homework only. No YouTube before dinner.','family'),
+ ('handle','','Rewards','Star chart on the fridge — 10 stars = Saturday treat.','family'),
+ ('friends','Oliver','Leo (Year 3)','Mum: Sarah. Can take Oliver home after football on Thursdays.','family'),
+ ('activities','','Rainy day den','Blankets are in the hall cupboard. Kids love a den + torch story time.','nanny'),
+ ('activities','','Local favourite','Library story hour Saturdays 10:30. Park café does babyccinos.','nanny')) AS v(c, child, t, n, by)
+WHERE f.slug = 'demo';

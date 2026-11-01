@@ -1,1 +1,16 @@
-ZXhwb3J0IHR5cGUgTGVhdmVUeXBlID0gImhvbGlkYXkiIHwgInNpY2siIHwgInVucGFpZCIgfCAib3RoZXIiOwoKZXhwb3J0IHR5cGUgTGVhdmVJbnB1dCA9IHsKICBuYW5ueUlkOiBzdHJpbmc7CiAgbGVhdmVUeXBlOiBMZWF2ZVR5cGU7CiAgc3RhcnREYXRlOiBzdHJpbmc7CiAgZW5kRGF0ZTogc3RyaW5nOwogIG5vdGVzPzogc3RyaW5nOwp9OwoKZXhwb3J0IGNvbnN0IExFQVZFX1RZUEVTOiB7IHZhbHVlOiBMZWF2ZVR5cGU7IGxhYmVsOiBzdHJpbmcgfVtdID0gWwogIHsgdmFsdWU6ICJob2xpZGF5IiwgbGFiZWw6ICJIb2xpZGF5IiB9LAogIHsgdmFsdWU6ICJzaWNrIiwgbGFiZWw6ICJTaWNrIGxlYXZlIiB9LAogIHsgdmFsdWU6ICJ1bnBhaWQiLCBsYWJlbDogIlVucGFpZCBsZWF2ZSIgfSwKICB7IHZhbHVlOiAib3RoZXIiLCBsYWJlbDogIk90aGVyIiB9LApdOwo=
+export type LeaveType = "holiday" | "sick" | "unpaid" | "other";
+
+export type LeaveInput = {
+  nannyId: string;
+  leaveType: LeaveType;
+  startDate: string;
+  endDate: string;
+  notes?: string;
+};
+
+export const LEAVE_TYPES: { value: LeaveType; label: string }[] = [
+  { value: "holiday", label: "Holiday" },
+  { value: "sick", label: "Sick leave" },
+  { value: "unpaid", label: "Unpaid leave" },
+  { value: "other", label: "Other" },
+];

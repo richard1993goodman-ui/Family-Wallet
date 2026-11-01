@@ -1,1 +1,105 @@
-ZXhwb3J0IHR5cGUgV2VsY29tZVN0ZXBJZCA9CiAgfCAiYWdyZWVtZW50IgogIHwgImVtZXJnZW5jeSIKICB8ICJjb250YWN0cyIKICB8ICJjaGlsZHJlbiIKICB8ICJwbGFubmVyIgogIHwgIm5hbm55IgogIHwgImRhaWx5TG9nIjsKCmV4cG9ydCB0eXBlIFdlbGNvbWVSb3V0ZSA9CiAgfCAiL2FncmVlbWVudC8kc2x1ZyIKICB8ICIvZW1lcmdlbmN5LyRzbHVnIgogIHwgIi9mYW1pbHkvJHNsdWciCiAgfCAiL3BsYW5uZXIvJHNsdWciCiAgfCAiL25hbm5pZXMvJHNsdWciCiAgfCAiL2xvZy8kc2x1ZyI7CgpleHBvcnQgdHlwZSBXZWxjb21lU3RlcERlZiA9IHsKICBpZDogV2VsY29tZVN0ZXBJZDsKICBsYWJlbDogc3RyaW5nOwogIGRlc2NyaXB0aW9uOiBzdHJpbmc7CiAgaHJlZjogV2VsY29tZVJvdXRlOwp9OwoKZXhwb3J0IGNvbnN0IFdFTENPTUVfU1RFUFM6IFdlbGNvbWVTdGVwRGVmW10gPSBbCiAgewogICAgaWQ6ICJhZ3JlZW1lbnQiLAogICAgbGFiZWw6ICJCdWlsZCB5b3VyIG5hbm55IGFncmVlbWVudCIsCiAgICBkZXNjcmlwdGlvbjogIkRheXMsIGhvdXJzLCBwYXkgYW5kIGR1dGllcyDigJQgc2lnbmVkIGJ5IHlvdSBhbmQgeW91ciBuYW5ueS4iLAogICAgaHJlZjogIi9hZ3JlZW1lbnQvJHNsdWciLAogIH0sCiAgewogICAgaWQ6ICJlbWVyZ2VuY3kiLAogICAgbGFiZWw6ICJGaWxsIGluIHRoZSBlbWVyZ2VuY3kgY2FyZCIsCiAgICBkZXNjcmlwdGlvbjogIkhvbWUgYWRkcmVzcywgR1AgYW5kIHdoYXQgdG8gZG8gaW4gYW4gZW1lcmdlbmN5LiIsCiAgICBocmVmOiAiL2VtZXJnZW5jeS8kc2x1ZyIsCiAgfSwKICB7CiAgICBpZDogImNvbnRhY3RzIiwKICAgIGxhYmVsOiAiQWRkIGtleSBjb250YWN0cyIsCiAgICBkZXNjcmlwdGlvbjogIk11bSwgZGFkLCBncmFuZHBhcmVudHMgYW5kIGFueW9uZSB5b3VyIG5hbm55IG1heSBjYWxsLiIsCiAgICBocmVmOiAiL2VtZXJnZW5jeS8kc2x1ZyIsCiAgfSwKICB7CiAgICBpZDogImNoaWxkcmVuIiwKICAgIGxhYmVsOiAiQWRkIHlvdXIgY2hpbGRyZW4iLAogICAgZGVzY3JpcHRpb246ICJSb3V0aW5lcywgYWxsZXJnaWVzLCBzY2hvb2xzIGFuZCB3aGF0IG1ha2VzIHRoZW0gdGljay4iLAogICAgaHJlZjogIi9mYW1pbHkvJHNsdWciLAogIH0sCiAgewogICAgaWQ6ICJwbGFubmVyIiwKICAgIGxhYmVsOiAiUGxhbiB5b3VyIGZpcnN0IHdlZWsiLAogICAgZGVzY3JpcHRpb246ICJBY3Rpdml0aWVzLCBwaWNrdXBzIGFuZCBhbnl0aGluZyB5b3VyIG5hbm55IG5lZWRzIHRvIGtub3cuIiwKICAgIGhyZWY6ICIvcGxhbm5lci8kc2x1ZyIsCiAgfSwKICB7CiAgICBpZDogIm5hbm55IiwKICAgIGxhYmVsOiAiSW52aXRlIHlvdXIgbmFubnkiLAogICAgZGVzY3JpcHRpb246ICJTaGFyZSB0aGVpciBsaW5rIGFuZCBzaWduLWluIGNvZGUgc28gdGhleSBjYW4gdmlldyBhbmQgc2lnbi4iLAogICAgaHJlZjogIi9uYW5uaWVzLyRzbHVnIiwKICB9LAogIHsKICAgIGlkOiAiZGFpbHlMb2ciLAogICAgbGFiZWw6ICJUcnkgdGhlIGRhaWx5IGxvZyIsCiAgICBkZXNjcmlwdGlvbjogIkhvdyBlYWNoIGRheSB3ZW50IOKAlCBmb29kLCBtb29kLCBob21ld29yayBhbmQgdG9tb3Jyb3cuIiwKICAgIGhyZWY6ICIvbG9nLyRzbHVnIiwKICB9LApdOwoKZXhwb3J0IGNvbnN0IEZJUlNUXzQ4X1BIQVNFUyA9IFsKICB7IGlkOiAiYmVmb3JlIiwgbGFiZWw6ICJCZWZvcmUgdGhlIGZpcnN0IHNoaWZ0IiB9LAogIHsgaWQ6ICJkYXkxIiwgbGFiZWw6ICJEYXkgb25lIiB9LAogIHsgaWQ6ICJkYXkyIiwgbGFiZWw6ICJCeSB0aGUgZW5kIG9mIGRheSB0d28iIH0sCl0gYXMgY29uc3Q7CgpleHBvcnQgY29uc3QgRklSU1RfNDhfU1RFUFMgPSBbCiAgeyBpZDogImV4cGVjdGF0aW9ucyIsIHBoYXNlOiAiYmVmb3JlIiwgbGFiZWw6ICJBZ3JlZSB0aGUgd29ya2luZyBhcnJhbmdlbWVudCIsIGRlc2NyaXB0aW9uOiAiQ29uZmlybSBzdGFydCBhbmQgZmluaXNoIHRpbWVzLCBkdXRpZXMsIHBheSwgYnJlYWtzIGFuZCB3aG8gdG8gY29udGFjdCBpZiBydW5uaW5nIGxhdGUuIiwgaHJlZjogIi9hZ3JlZW1lbnQvJHNsdWciIH0sCiAgeyBpZDogInNhZmV0eSIsIHBoYXNlOiAiYmVmb3JlIiwgbGFiZWw6ICJUYWxrIHRocm91Z2ggYWxsZXJnaWVzIGFuZCBlbWVyZ2VuY2llcyIsIGRlc2NyaXB0aW9uOiAiUmV2aWV3IGVtZXJnZW5jeSBjb250YWN0cywgYWxsZXJnaWVzLCBtZWRpY2F0aW9uIGluc3RydWN0aW9ucyBhbmQgd2hlcmUgZmlyc3QtYWlkIHN1cHBsaWVzIGFyZSBrZXB0LiIsIGhyZWY6ICIvZW1lcmdlbmN5LyRzbHVnIiB9LAogIHsgaWQ6ICJwaWNrdXAiLCBwaGFzZTogImJlZm9yZSIsIGxhYmVsOiAiQ29uZmlybSBzY2hvb2wgY29sbGVjdGlvbiIsIGRlc2NyaXB0aW9uOiAiQ2hlY2sgY29sbGVjdGlvbiBwZXJtaXNzaW9uLCB0aGUgbWVldGluZyBwb2ludCwgdHJhdmVsIGFycmFuZ2VtZW50cyBhbmQgYSBiYWNrdXAgcGxhbi4iLCBocmVmOiAiL3BsYW5uZXIvJHNsdWciIH0sCiAgeyBpZDogImhvbWUiLCBwaGFzZTogImRheTEiLCBsYWJlbDogIldhbGsgdGhyb3VnaCB0aGUgaG9tZSB0b2dldGhlciIsIGRlc2NyaXB0aW9uOiAiQ292ZXIga2V5cywgYWxhcm1zLCBwZXRzLCBzYWZlIGFyZWFzIGFuZCB3aGVyZSBmb29kLCBzcGFyZSBjbG90aGVzIGFuZCBlc3NlbnRpYWxzIGFyZSBrZXB0LiIsIGhyZWY6ICIvZ3VpZGUvJHNsdWciIH0sCiAgeyBpZDogInJvdXRpbmUiLCBwaGFzZTogImRheTEiLCBsYWJlbDogIkFncmVlIHRoZSBhZnRlci1zY2hvb2wgcm91dGluZSIsIGRlc2NyaXB0aW9uOiAiVGFsayB0aHJvdWdoIHNuYWNrcywgaG9tZXdvcmssIHNjcmVlbiB0aW1lLCBkaW5uZXIgYW5kIHdoYXQgaGVscHMgZWFjaCBjaGlsZCBzZXR0bGUuIiwgaHJlZjogIi9ndWlkZS8kc2x1ZyIgfSwKICB7IGlkOiAiYm91bmRhcmllcyIsIHBoYXNlOiAiZGF5MSIsIGxhYmVsOiAiU2V0IGNvbW11bmljYXRpb24gYW5kIHByaXZhY3kgYm91bmRhcmllcyIsIGRlc2NyaXB0aW9uOiAiQWdyZWUgd2hlbiB0byBtZXNzYWdlLCBwaG90byBwZXJtaXNzaW9ucywgdmlzaXRvcnMgYW5kIGhvdyB0byByYWlzZSBhIGNvbmNlcm4uIiwgaHJlZjogIi9tZXNzYWdlcy8kc2x1ZyIgfSwKICB7IGlkOiAiZXhwZW5zZXMiLCBwaGFzZTogImRheTEiLCBsYWJlbDogIkFncmVlIHNwZW5kaW5nIGFuZCByZWltYnVyc2VtZW50cyIsIGRlc2NyaXB0aW9uOiAiU2V0IHNwZW5kaW5nIHBlcm1pc3Npb24gZm9yIGZvb2QsIHRyYXZlbCBhbmQgYWN0aXZpdGllcywgcmVjZWlwdCBleHBlY3RhdGlvbnMgYW5kIGhvdyBleHBlbnNlcyB3aWxsIGJlIHJlcGFpZC4iLCBocmVmOiAiL2hhbmRvdmVyLyRzbHVnIiB9LAogIHsgaWQ6ICJoYW5kb3ZlciIsIHBoYXNlOiAiZGF5MSIsIGxhYmVsOiAiQ29tcGxldGUgdGhlIGZpcnN0IGhhbmRvdmVyIiwgZGVzY3JpcHRpb246ICJTaGFyZSBmb29kLCBtb29kLCBhY3Rpdml0aWVzLCBhbnkgbWVkaWNhdGlvbiBnaXZlbiBhbmQgYW55dGhpbmcgbmVlZGVkIHRvbW9ycm93LiIsIGhyZWY6ICIvaGFuZG92ZXIvJHNsdWciIH0sCiAgeyBpZDogInJldmlldyIsIHBoYXNlOiAiZGF5MiIsIGxhYmVsOiAiSGF2ZSBhIHRlbi1taW51dGUgc2V0dGxpbmctaW4gY2hhdCIsIGRlc2NyaXB0aW9uOiAiV2hhdCB3ZW50IHdlbGw/IFdoYXQgd2FzIHVuY2xlYXI/IEFncmVlIG9uZSBhZGp1c3RtZW50IGJlZm9yZSB0aGUgbmV4dCBzaGlmdC4iLCBocmVmOiAiL2NoZWNraW4vJHNsdWciIH0sCiAgeyBpZDogIm5leHRzaGlmdCIsIHBoYXNlOiAiZGF5MiIsIGxhYmVsOiAiQ29uZmlybSB0aGUgbmV4dCBzaGlmdCB0b2dldGhlciIsIGRlc2NyaXB0aW9uOiAiQ2hlY2sgdGhlIG5leHQgcGlja3VwLCBjbHVicywga2l0IGFuZCBhbnkgY2hhbmdlcyBzbyBub2JvZHkgaXMgbGVmdCBndWVzc2luZy4iLCBocmVmOiAiL3BsYW5uZXIvJHNsdWciIH0sCl0gYXMgY29uc3Q7CgpleHBvcnQgdHlwZSBGaXJzdDQ4U3RlcElkID0gKHR5cGVvZiBGSVJTVF80OF9TVEVQUylbbnVtYmVyXVsiaWQiXTsKZXhwb3J0IHR5cGUgRmlyc3Q0OElucHV0ID0geyBzbHVnOiBzdHJpbmc7IG5hbm55SWQ6IHN0cmluZzsgc3RlcElkOiBGaXJzdDQ4U3RlcElkOyBjb25maXJtZWQ6IGJvb2xlYW47IG5vdGU6IHN0cmluZyB9OwoKZXhwb3J0IGZ1bmN0aW9uIHZhbGlkYXRlRmlyc3Q0OElucHV0KGlucHV0OiBGaXJzdDQ4SW5wdXQpIHsKICBpZiAoIUZJUlNUXzQ4X1NURVBTLnNvbWUoKHN0ZXApID0+IHN0ZXAuaWQgPT09IGlucHV0LnN0ZXBJZCkpIHRocm93IG5ldyBFcnJvcigiVW5rbm93biBjaGVja2xpc3QgaXRlbS4iKTsKICBpZiAodHlwZW9mIGlucHV0LmNvbmZpcm1lZCAhPT0gImJvb2xlYW4iKSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBjb25maXJtIHlvdXIgY2hvaWNlLiIpOwogIGlmICh0eXBlb2YgaW5wdXQubm90ZSAhPT0gInN0cmluZyIgfHwgaW5wdXQubm90ZS5sZW5ndGggPiAyMDAwKSB0aHJvdyBuZXcgRXJyb3IoIktlZXAgbm90ZXMgdW5kZXIgMiwwMDAgY2hhcmFjdGVycy4iKTsKICByZXR1cm4geyAuLi5pbnB1dCwgbm90ZTogaW5wdXQubm90ZS50cmltKCkgfTsKfQoKZXhwb3J0IGZ1bmN0aW9uIGNhbkNvbmZpcm1GaXJzdDQ4KGFjY2VzczogImZhbWlseSIgfCAibmFubnkiLCBzaWduZWRJbk5hbm55SWQ6IHN0cmluZyB8IG51bGwsIHRhcmdldE5hbm55SWQ6IHN0cmluZykgewogIHJldHVybiBhY2Nlc3MgPT09ICJmYW1pbHkiIHx8IChzaWduZWRJbk5hbm55SWQgIT09IG51bGwgJiYgc2lnbmVkSW5OYW5ueUlkID09PSB0YXJnZXROYW5ueUlkKTsKfQoKZXhwb3J0IGZ1bmN0aW9uIGZpcnN0NDhEb25lKHBhcmVudENvbmZpcm1lZDogc3RyaW5nIHwgbnVsbCwgbmFubnlDb25maXJtZWQ6IHN0cmluZyB8IG51bGwpIHsKICByZXR1cm4gQm9vbGVhbihwYXJlbnRDb25maXJtZWQgJiYgbmFubnlDb25maXJtZWQpOwp9Cg==
+export type WelcomeStepId =
+  | "agreement"
+  | "emergency"
+  | "contacts"
+  | "children"
+  | "planner"
+  | "nanny"
+  | "dailyLog";
+
+export type WelcomeRoute =
+  | "/agreement/$slug"
+  | "/emergency/$slug"
+  | "/family/$slug"
+  | "/planner/$slug"
+  | "/nannies/$slug"
+  | "/log/$slug";
+
+export type WelcomeStepDef = {
+  id: WelcomeStepId;
+  label: string;
+  description: string;
+  href: WelcomeRoute;
+};
+
+export const WELCOME_STEPS: WelcomeStepDef[] = [
+  {
+    id: "agreement",
+    label: "Build your nanny agreement",
+    description: "Days, hours, pay and duties — signed by you and your nanny.",
+    href: "/agreement/$slug",
+  },
+  {
+    id: "emergency",
+    label: "Fill in the emergency card",
+    description: "Home address, GP and what to do in an emergency.",
+    href: "/emergency/$slug",
+  },
+  {
+    id: "contacts",
+    label: "Add key contacts",
+    description: "Mum, dad, grandparents and anyone your nanny may call.",
+    href: "/emergency/$slug",
+  },
+  {
+    id: "children",
+    label: "Add your children",
+    description: "Routines, allergies, schools and what makes them tick.",
+    href: "/family/$slug",
+  },
+  {
+    id: "planner",
+    label: "Plan your first week",
+    description: "Activities, pickups and anything your nanny needs to know.",
+    href: "/planner/$slug",
+  },
+  {
+    id: "nanny",
+    label: "Invite your nanny",
+    description: "Share their link and sign-in code so they can view and sign.",
+    href: "/nannies/$slug",
+  },
+  {
+    id: "dailyLog",
+    label: "Try the daily log",
+    description: "How each day went — food, mood, homework and tomorrow.",
+    href: "/log/$slug",
+  },
+];
+
+export const FIRST_48_PHASES = [
+  { id: "before", label: "Before the first shift" },
+  { id: "day1", label: "Day one" },
+  { id: "day2", label: "By the end of day two" },
+] as const;
+
+export const FIRST_48_STEPS = [
+  { id: "expectations", phase: "before", label: "Agree the working arrangement", description: "Confirm start and finish times, duties, pay, breaks and who to contact if running late.", href: "/agreement/$slug" },
+  { id: "safety", phase: "before", label: "Talk through allergies and emergencies", description: "Review emergency contacts, allergies, medication instructions and where first-aid supplies are kept.", href: "/emergency/$slug" },
+  { id: "pickup", phase: "before", label: "Confirm school collection", description: "Check collection permission, the meeting point, travel arrangements and a backup plan.", href: "/planner/$slug" },
+  { id: "home", phase: "day1", label: "Walk through the home together", description: "Cover keys, alarms, pets, safe areas and where food, spare clothes and essentials are kept.", href: "/guide/$slug" },
+  { id: "routine", phase: "day1", label: "Agree the after-school routine", description: "Talk through snacks, homework, screen time, dinner and what helps each child settle.", href: "/guide/$slug" },
+  { id: "boundaries", phase: "day1", label: "Set communication and privacy boundaries", description: "Agree when to message, photo permissions, visitors and how to raise a concern.", href: "/messages/$slug" },
+  { id: "expenses", phase: "day1", label: "Agree spending and reimbursements", description: "Set spending permission for food, travel and activities, receipt expectations and how expenses will be repaid.", href: "/handover/$slug" },
+  { id: "handover", phase: "day1", label: "Complete the first handover", description: "Share food, mood, activities, any medication given and anything needed tomorrow.", href: "/handover/$slug" },
+  { id: "review", phase: "day2", label: "Have a ten-minute settling-in chat", description: "What went well? What was unclear? Agree one adjustment before the next shift.", href: "/checkin/$slug" },
+  { id: "nextshift", phase: "day2", label: "Confirm the next shift together", description: "Check the next pickup, clubs, kit and any changes so nobody is left guessing.", href: "/planner/$slug" },
+] as const;
+
+export type First48StepId = (typeof FIRST_48_STEPS)[number]["id"];
+export type First48Input = { slug: string; nannyId: string; stepId: First48StepId; confirmed: boolean; note: string };
+
+export function validateFirst48Input(input: First48Input) {
+  if (!FIRST_48_STEPS.some((step) => step.id === input.stepId)) throw new Error("Unknown checklist item.");
+  if (typeof input.confirmed !== "boolean") throw new Error("Please confirm your choice.");
+  if (typeof input.note !== "string" || input.note.length > 2000) throw new Error("Keep notes under 2,000 characters.");
+  return { ...input, note: input.note.trim() };
+}
+
+export function canConfirmFirst48(access: "family" | "nanny", signedInNannyId: string | null, targetNannyId: string) {
+  return access === "family" || (signedInNannyId !== null && signedInNannyId === targetNannyId);
+}
+
+export function first48Done(parentConfirmed: string | null, nannyConfirmed: string | null) {
+  return Boolean(parentConfirmed && nannyConfirmed);
+}

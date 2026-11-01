@@ -1,1 +1,397 @@
-aW1wb3J0IHsgcmVhZERlbW9CcmFuZCB9IGZyb20gIkAvbGliL2RlbW8tYnJhbmQiOwppbXBvcnQgeyBMaW5rLCB1c2VSb3V0ZXJTdGF0ZSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VRdWVyeSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHR5cGUgeyBDb21wb25lbnRUeXBlLCBSZWFjdE5vZGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7CiAgQmFkZ2VDaGVjaywKICBDYW1lcmEsCiAgQm9va09wZW4sCiAgQ2FsZW5kYXJDaGVjaywKICBDYWxlbmRhckRheXMsCiAgQ2FsY3VsYXRvciwKICBDbGlwYm9hcmRDaGVjaywKICBDbG9jazMsCiAgRHVtYmJlbGwsCiAgRXh0ZXJuYWxMaW5rLAogIEZpbGVCYXJDaGFydCwKICBGaWxlVGV4dCwKICBHaWZ0LAogIEhhbmRzaGFrZSwKICBIb21lLAogIEhlYXJ0LAogIEtleVJvdW5kLAogIExhbmRtYXJrLAogIExpYnJhcnksCiAgTGlmZUJ1b3ksCiAgTWVudSwKICBNZXNzYWdlQ2lyY2xlLAogIE5vdGVib29rUGVuLAogIFBpbGwsCiAgUGxhbmUsCiAgU2Nyb2xsVGV4dCwKICBTaGllbGRDaGVjaywKICBTaXJlbiwKICBTcGFya2xlcywKICBVc2VyUGx1cywKICBVc2VycywKICBVdGVuc2lsc0Nyb3NzZWQsCiAgV2FuZFNwYXJrbGVzLAogIFdhbGxldCwKfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW1wb3J0IHsgZ2V0V2FsbGV0U3VtbWFyeSB9IGZyb20gIkAvbGliL3dhbGxldC5mdW5jdGlvbnMiOwppbXBvcnQgeyBjbiB9IGZyb20gIkAvbGliL3V0aWxzIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7CiAgU2lkZWJhciwKICBTaWRlYmFyQ29udGVudCwKICBTaWRlYmFyRm9vdGVyLAogIFNpZGViYXJHcm91cCwKICBTaWRlYmFyR3JvdXBDb250ZW50LAogIFNpZGViYXJHcm91cExhYmVsLAogIFNpZGViYXJIZWFkZXIsCiAgU2lkZWJhckluc2V0LAogIFNpZGViYXJNZW51LAogIFNpZGViYXJNZW51QnV0dG9uLAogIFNpZGViYXJNZW51SXRlbSwKICBTaWRlYmFyUHJvdmlkZXIsCiAgU2lkZWJhclJhaWwsCiAgU2lkZWJhclNlcGFyYXRvciwKICBTaWRlYmFyVHJpZ2dlciwKICB1c2VTaWRlYmFyLAp9IGZyb20gIkAvY29tcG9uZW50cy91aS9zaWRlYmFyIjsKCnR5cGUgV2FsbGV0UGF0aCA9CiAgfCAiL3cvJHNsdWciCiAgfCAiL3BsYW5uZXIvJHNsdWciCiAgfCAiL2xvZy8kc2x1ZyIKICB8ICIvcmVwb3J0LyRzbHVnIgogIHwgIi9lbWVyZ2VuY3kvJHNsdWciCiAgfCAiL2ZhbWlseS8kc2x1ZyIKICB8ICIvbmFubmllcy8kc2x1ZyIKICB8ICIvZ3VpZGUvJHNsdWciCiAgfCAiL2FncmVlbWVudC8kc2x1ZyIKICB8ICIvdGltZXNoZWV0cy8kc2x1ZyIKICB8ICIvbGVhdmUvJHNsdWciCiAgfCAiL2hhbmRvdmVyLyRzbHVnIgogIHwgIi9tZWRpY2F0aW9uLyRzbHVnIgogIHwgIi90cmF2ZWwvJHNsdWciCiAgfCAiL3Bhc3Nwb3J0LyRzbHVnIgogIHwgIi9jb3Zlci8kc2x1ZyIKICB8ICIvcGF5cm9sbC8kc2x1ZyIKICB8ICIvY29zdHMvJHNsdWciCiAgfCAiL2N1cmF0aW9uLyRzbHVnIgogIHwgIi9wZXJrcy8kc2x1ZyIKICB8ICIvcGxheWJvb2tzLyRzbHVnIgogIHwgIi9zdXBwb3J0LyRzbHVnIgogIHwgIi9jaGVja2luLyRzbHVnIgogIHwgIi90cmFpbmluZy8kc2x1ZyIKICB8ICIvc2FmZXR5LyRzbHVnIgogIHwgIi90ZXJtcy8kc2x1ZyIKICB8ICIvd2VsY29tZS8kc2x1ZyIKICB8ICIvbW9tZW50cy8kc2x1ZyIKICB8ICIvcGV0dHljYXNoLyRzbHVnIgogIHwgIi9tZXNzYWdlcy8kc2x1ZyIKICB8ICIvaG91c2VtYW51YWwvJHNsdWciCiAgfCAiL2tpZHMvJHNsdWciOwoKdHlwZSBOYXZJdGVtID0gewogIGxhYmVsOiBzdHJpbmc7CiAgaWNvbjogQ29tcG9uZW50VHlwZTx7IGNsYXNzTmFtZT86IHN0cmluZyB9PjsKICB0bz86IFdhbGxldFBhdGg7CiAgaHJlZj86IHN0cmluZzsKICBwYXJlbnRPbmx5PzogYm9vbGVhbjsKfTsKCnR5cGUgTmF2R3JvdXAgPSB7IGxhYmVsOiBzdHJpbmc7IGl0ZW1zOiBOYXZJdGVtW10gfTsKCmNvbnN0IHdhbGxldFByZWZpeGVzID0gbmV3IFNldChbCiAgInciLAogICJwbGFubmVyIiwKICAibG9nIiwKICAicmVwb3J0IiwKICAiZW1lcmdlbmN5IiwKICAiZmFtaWx5IiwKICAibmFubmllcyIsCiAgImd1aWRlIiwKICAiYWdyZWVtZW50IiwKICAidGltZXNoZWV0cyIsCiAgImxlYXZlIiwKICAiaGFuZG92ZXIiLAogICJtZWRpY2F0aW9uIiwKICAidHJhdmVsIiwKICAicGFzc3BvcnQiLAogICJjb3ZlciIsCiAgInBheXJvbGwiLAogICJjb3N0cyIsCiAgImN1cmF0aW9uIiwKICAicGVya3MiLAogICJwbGF5Ym9va3MiLAogICJzdXBwb3J0IiwKICAiY2hlY2tpbiIsCiAgInRyYWluaW5nIiwKICAic2FmZXR5IiwKICAidGVybXMiLAogICJ3ZWxjb21lIiwKICAibW9tZW50cyIsCiAgInBldHR5Y2FzaCIsCiAgIm1lc3NhZ2VzIiwKICAiaG91c2VtYW51YWwiLAogICJraWRzIiwKXSk7Cgpjb25zdCBuYXZHcm91cHM6IE5hdkdyb3VwW10gPSBbCiAgewogICAgbGFiZWw6ICJUb2RheSIsCiAgICBpdGVtczogWwogICAgICB7IGxhYmVsOiAiSG9tZSIsIGljb246IEhvbWUsIHRvOiAiL3cvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJDYWxlbmRhciIsIGljb246IENhbGVuZGFyRGF5cywgdG86ICIvcGxhbm5lci8kc2x1ZyIgfSwKICAgICAgeyBsYWJlbDogIkRhaWx5IGxvZyIsIGljb246IE5vdGVib29rUGVuLCB0bzogIi9sb2cvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJGcmlkYXkgcmVwb3J0IiwgaWNvbjogRmlsZUJhckNoYXJ0LCB0bzogIi9yZXBvcnQvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJNZWRpY2F0aW9uIGxvZyIsIGljb246IFBpbGwsIHRvOiAiL21lZGljYXRpb24vJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJUcmF2ZWwgcGFjayIsIGljb246IFBsYW5lLCB0bzogIi90cmF2ZWwvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJQaG90byBtb21lbnRzIiwgaWNvbjogQ2FtZXJhLCB0bzogIi9tb21lbnRzLyRzbHVnIiB9LAogICAgXSwKICB9LAogIHsKICAgIGxhYmVsOiAiRmFtaWx5IiwKICAgIGl0ZW1zOiBbCiAgICAgIHsgbGFiZWw6ICJGaXJzdCA0OCBob3VycyIsIGljb246IFNwYXJrbGVzLCB0bzogIi93ZWxjb21lLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiRW1lcmdlbmN5IGNhcmQiLCBpY29uOiBTaXJlbiwgdG86ICIvZW1lcmdlbmN5LyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiSG91c2UgTWFudWFsICYgQ29kZXMiLCBpY29uOiBLZXlSb3VuZCwgdG86ICIvaG91c2VtYW51YWwvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJLaWRzJyBQbGF5Ym9vayIsIGljb246IEhlYXJ0LCB0bzogIi9raWRzLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiQ2hpbGRyZW4gJiByb3V0aW5lcyIsIGljb246IFVzZXJzLCB0bzogIi9mYW1pbHkvJHNsdWciLCBwYXJlbnRPbmx5OiB0cnVlIH0sCiAgICAgIHsgbGFiZWw6ICJZb3VyIG5hbm5pZXMiLCBpY29uOiBVc2VyUGx1cywgdG86ICIvbmFubmllcy8kc2x1ZyIsIHBhcmVudE9ubHk6IHRydWUgfSwKICAgICAgeyBsYWJlbDogIk5hbm55IHF1aWNrIGd1aWRlIiwgaWNvbjogQm9va09wZW4sIHRvOiAiL2d1aWRlLyRzbHVnIiwgcGFyZW50T25seTogdHJ1ZSB9LAogICAgICB7IGxhYmVsOiAiQWN0aXZlIEtpZHMgUGFzc3BvcnQiLCBpY29uOiBEdW1iYmVsbCwgdG86ICIvcGFzc3BvcnQvJHNsdWciIH0sCiAgICBdLAogIH0sCiAgewogICAgbGFiZWw6ICJXb3JrIiwKICAgIGl0ZW1zOiBbCiAgICAgIHsgbGFiZWw6ICJNZXNzYWdlcyIsIGljb246IE1lc3NhZ2VDaXJjbGUsIHRvOiAiL21lc3NhZ2VzLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiTmFubnkgYWdyZWVtZW50IiwgaWNvbjogRmlsZVRleHQsIHRvOiAiL2FncmVlbWVudC8kc2x1ZyIgfSwKICAgICAgeyBsYWJlbDogIlRpbWVzaGVldHMiLCBpY29uOiBDbG9jazMsIHRvOiAiL3RpbWVzaGVldHMvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJIb2xpZGF5ICYgbGVhdmUiLCBpY29uOiBQbGFuZSwgdG86ICIvbGVhdmUvJHNsdWciIH0sCiAgICAgIHsgbGFiZWw6ICJIYW5kb3ZlciAmIGV4cGVuc2VzIiwgaWNvbjogQ2xpcGJvYXJkQ2hlY2ssIHRvOiAiL2hhbmRvdmVyLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiUGV0dHkgY2FzaCBmbG9hdCIsIGljb246IFdhbGxldCwgdG86ICIvcGV0dHljYXNoLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiUGF5cm9sbCBzZXR1cCIsIGljb246IExhbmRtYXJrLCB0bzogIi9wYXlyb2xsLyRzbHVnIiwgcGFyZW50T25seTogdHJ1ZSB9LAogICAgICB7IGxhYmVsOiAiRW1wbG95bWVudCBjb3N0cyIsIGljb246IENhbGN1bGF0b3IsIHRvOiAiL2Nvc3RzLyRzbHVnIiwgcGFyZW50T25seTogdHJ1ZSB9LAogICAgXSwKICB9LAogIHsKICAgIGxhYmVsOiAiSGVscCAmIHRyYWluaW5nIiwKICAgIGl0ZW1zOiBbCiAgICAgIHsgbGFiZWw6ICJOYW5ueSB0cmFpbmluZyIsIGljb246IEJhZGdlQ2hlY2ssIHRvOiAiL3RyYWluaW5nLyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiU2FmZXR5IHJlY29yZHMiLCBpY29uOiBTaGllbGRDaGVjaywgdG86ICIvc2FmZXR5LyRzbHVnIiB9LAogICAgICB7IGxhYmVsOiAiTmFubnkgRnVlbCIsIGljb246IFV0ZW5zaWxzQ3Jvc3NlZCwgaHJlZjogImh0dHBzOi8vbmFubnktbm91cmlzaC1ndWlkZS5sb3ZhYmxlLmFwcCIgfSwKICAgICAgeyBsYWJlbDogIkFjdGl2aXR5IGd1aWRlIiwgaWNvbjogV2FuZFNwYXJrbGVzLCBocmVmOiAiaHR0cHM6Ly9uYW5ueWd1aWRlLmxvdmFibGUuYXBwIiB9LAogICAgXSwKICB9LApdOwoKZnVuY3Rpb24gZ2V0V2FsbGV0TG9jYXRpb24ocGF0aG5hbWU6IHN0cmluZykgewogIGNvbnN0IFtwcmVmaXgsIHNsdWddID0gcGF0aG5hbWUuc3BsaXQoIi8iKS5maWx0ZXIoQm9vbGVhbik7CiAgaWYgKCFwcmVmaXggfHwgIXNsdWcgfHwgIXdhbGxldFByZWZpeGVzLmhhcyhwcmVmaXgpKSByZXR1cm4gbnVsbDsKICByZXR1cm4geyBwcmVmaXgsIHNsdWcgfTsKfQoKZnVuY3Rpb24gcm91dGVQcmVmaXgodG86IFdhbGxldFBhdGgpIHsKICByZXR1cm4gdG8uc3BsaXQoIi8iKVsxXSA/PyAiIjsKfQoKZXhwb3J0IGZ1bmN0aW9uIFdhbGxldEFwcFNoZWxsKHsgY2hpbGRyZW4gfTogeyBjaGlsZHJlbjogUmVhY3ROb2RlIH0pIHsKICBjb25zdCBwYXRobmFtZSA9IHVzZVJvdXRlclN0YXRlKHsgc2VsZWN0OiAoc3RhdGUpID0+IHN0YXRlLmxvY2F0aW9uLnBhdGhuYW1lIH0pOwogIGNvbnN0IGxvY2F0aW9uID0gZ2V0V2FsbGV0TG9jYXRpb24ocGF0aG5hbWUpOwogIGNvbnN0IHN1bW1hcnlGbiA9IHVzZVNlcnZlckZuKGdldFdhbGxldFN1bW1hcnkpOwogIGNvbnN0IHN1bW1hcnlRdWVyeSA9IHVzZVF1ZXJ5KHsKICAgIHF1ZXJ5S2V5OiBbIndhbGxldCIsIGxvY2F0aW9uPy5zbHVnID8/ICJub3QtYS13YWxsZXQiXSwKICAgIHF1ZXJ5Rm46ICgpID0+IHN1bW1hcnlGbih7IGRhdGE6IHsgc2x1ZzogbG9jYXRpb24/LnNsdWcgPz8gIiIgfSB9KSwKICAgIGVuYWJsZWQ6IEJvb2xlYW4obG9jYXRpb24pLAogIH0pOwoKICBjb25zdCBbZGVtb0JyYW5kLCBzZXREZW1vQnJhbmRTdGF0ZV0gPSB1c2VTdGF0ZTxzdHJpbmcgfCBudWxsPihudWxsKTsKICB1c2VFZmZlY3QoKCkgPT4gewogICAgc2V0RGVtb0JyYW5kU3RhdGUobG9jYXRpb24/LnNsdWcgPT09ICJkZW1vIiA/IHJlYWREZW1vQnJhbmQoKSA6IG51bGwpOwogIH0sIFtsb2NhdGlvbj8uc2x1Z10pOwoKICBpZiAoIWxvY2F0aW9uIHx8ICFzdW1tYXJ5UXVlcnkuZGF0YT8udW5sb2NrZWQpIHJldHVybiA8PntjaGlsZHJlbn08Lz47CgogIHJldHVybiAoCiAgICA8U2lkZWJhclByb3ZpZGVyPgogICAgICA8V2FsbGV0TmF2aWdhdGlvbgogICAgICAgIHNsdWc9e2xvY2F0aW9uLnNsdWd9CiAgICAgICAgZmFtaWx5TmFtZT17c3VtbWFyeVF1ZXJ5LmRhdGEud2FsbGV0LmZhbWlseU5hbWV9CiAgICAgICAgaXNOYW5ueT17c3VtbWFyeVF1ZXJ5LmRhdGEud2FsbGV0LmFjY2VzcyA9PT0gIm5hbm55In0KICAgICAgICBhY3RpdmVQcmVmaXg9e2xvY2F0aW9uLnByZWZpeH0KICAgICAgLz4KICAgICAgPFNpZGViYXJJbnNldCBjbGFzc05hbWU9Im1pbi13LTAgYmctc2FuZCI+CiAgICAgICAgPFdhbGxldFRvcEJhciBmYW1pbHlOYW1lPXtzdW1tYXJ5UXVlcnkuZGF0YS53YWxsZXQuZmFtaWx5TmFtZX0gYWdlbmN5TmFtZT17ZGVtb0JyYW5kID8/IHN1bW1hcnlRdWVyeS5kYXRhLndhbGxldC5hZ2VuY3lOYW1lID8/IG51bGx9IC8+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1pbi13LTAgZmxleC0xIHBiLVtjYWxjKDUuNXJlbStlbnYoc2FmZS1hcmVhLWluc2V0LWJvdHRvbSkpXSBtZDpwYi0wIj4KICAgICAgICAgIHtjaGlsZHJlbn0KICAgICAgICA8L2Rpdj4KICAgICAgICA8TW9iaWxlVGFicwogICAgICAgICAgc2x1Zz17bG9jYXRpb24uc2x1Z30KICAgICAgICAgIGlzTmFubnk9e3N1bW1hcnlRdWVyeS5kYXRhLndhbGxldC5hY2Nlc3MgPT09ICJuYW5ueSJ9CiAgICAgICAgICBhY3RpdmVQcmVmaXg9e2xvY2F0aW9uLnByZWZpeH0KICAgICAgICAvPgogICAgICA8L1NpZGViYXJJbnNldD4KICAgIDwvU2lkZWJhclByb3ZpZGVyPgogICk7Cn0KCmZ1bmN0aW9uIFdhbGxldFRvcEJhcih7IGZhbWlseU5hbWUsIGFnZW5jeU5hbWUgfTogeyBmYW1pbHlOYW1lOiBzdHJpbmc7IGFnZW5jeU5hbWU6IHN0cmluZyB8IG51bGwgfSkgewogIHJldHVybiAoCiAgICA8aGVhZGVyIGNsYXNzTmFtZT0ic3RpY2t5IHRvcC0wIHotMzAgZmxleCBoLTE0IGl0ZW1zLWNlbnRlciBnYXAtMyBib3JkZXItYiBib3JkZXItYm9yZGVyIGJnLWJhY2tncm91bmQvOTUgcHgtNCBiYWNrZHJvcC1ibHVyIG1kOnB4LTYiPgogICAgICA8U2lkZWJhclRyaWdnZXIgY2xhc3NOYW1lPSJoLTkgdy05IiAvPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWluLXctMCI+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJ0cnVuY2F0ZSB0ZXh0LXNtIGZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIj57ZmFtaWx5TmFtZX08L3A+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJ0cnVuY2F0ZSB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e2FnZW5jeU5hbWUgPz8gIkZhbWlseSBXYWxsZXQifTwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxzcGFuIGNsYXNzTmFtZT0ibWwtYXV0byBoaWRkZW4gaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LW11dGVkLWZvcmVncm91bmQgc206ZmxleCI+CiAgICAgICAgPFNwYXJrbGVzIGNsYXNzTmFtZT0iaC0zLjUgdy0zLjUgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgIHthZ2VuY3lOYW1lID8gPD57YWdlbmN5TmFtZX0gwrcgUG93ZXJlZCBieSBUaGUgRmFtaWx5IFdhbGxldDwvPiA6IDw+VGhlIEZhbWlseSBXYWxsZXQ8Lz59CiAgICAgIDwvc3Bhbj4KICAgIDwvaGVhZGVyPgogICk7Cn0KCmZ1bmN0aW9uIFdhbGxldE5hdmlnYXRpb24oewogIHNsdWcsCiAgZmFtaWx5TmFtZSwKICBpc05hbm55LAogIGFjdGl2ZVByZWZpeCwKfTogewogIHNsdWc6IHN0cmluZzsKICBmYW1pbHlOYW1lOiBzdHJpbmc7CiAgaXNOYW5ueTogYm9vbGVhbjsKICBhY3RpdmVQcmVmaXg6IHN0cmluZzsKfSkgewogIGNvbnN0IHsgaXNNb2JpbGUsIHNldE9wZW5Nb2JpbGUgfSA9IHVzZVNpZGViYXIoKTsKCiAgcmV0dXJuICgKICAgIDxTaWRlYmFyIGNvbGxhcHNpYmxlPSJpY29uIiBjbGFzc05hbWU9ImJvcmRlci1zaWRlYmFyLWJvcmRlciI+CiAgICAgIDxTaWRlYmFySGVhZGVyIGNsYXNzTmFtZT0iYm9yZGVyLWIgYm9yZGVyLXNpZGViYXItYm9yZGVyIHAtMyI+CiAgICAgICAgPExpbmsKICAgICAgICAgIHRvPSIvdy8kc2x1ZyIKICAgICAgICAgIHBhcmFtcz17eyBzbHVnIH19CiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBpc01vYmlsZSAmJiBzZXRPcGVuTW9iaWxlKGZhbHNlKX0KICAgICAgICAgIGNsYXNzTmFtZT0iZmxleCBtaW4tdy0wIGl0ZW1zLWNlbnRlciBnYXAtMyByb3VuZGVkLW1kIHAtMS41IGhvdmVyOmJnLXNpZGViYXItYWNjZW50IgogICAgICAgID4KICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iZmxleCBoLTggdy04IGZsZXgtbm9uZSBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgcm91bmRlZC1tZCBiZy1zaWRlYmFyLXByaW1hcnkgdGV4dC1zaWRlYmFyLXByaW1hcnktZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIDxXYWxsZXQgY2xhc3NOYW1lPSJoLTQgdy00IiBhcmlhLWhpZGRlbj0idHJ1ZSIgLz4KICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0ibWluLXctMCBncm91cC1kYXRhLVtjb2xsYXBzaWJsZT1pY29uXTpoaWRkZW4iPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRydW5jYXRlIHRleHQtc20gZm9udC1zZW1pYm9sZCI+e2ZhbWlseU5hbWV9PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQteHMgdGV4dC1zaWRlYmFyLWZvcmVncm91bmQvNjUiPkZhbWlseSBXYWxsZXQ8L3NwYW4+CiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgPC9MaW5rPgogICAgICA8L1NpZGViYXJIZWFkZXI+CiAgICAgIDxTaWRlYmFyQ29udGVudCBjbGFzc05hbWU9InB5LTIiPgogICAgICAgIHtuYXZHcm91cHMubWFwKChncm91cCkgPT4gewogICAgICAgICAgY29uc3QgaXRlbXMgPSBncm91cC5pdGVtcy5maWx0ZXIoKGl0ZW0pID0+ICFpdGVtLnBhcmVudE9ubHkgfHwgIWlzTmFubnkpOwogICAgICAgICAgaWYgKGl0ZW1zLmxlbmd0aCA9PT0gMCkgcmV0dXJuIG51bGw7CiAgICAgICAgICByZXR1cm4gKAogICAgICAgICAgICA8U2lkZWJhckdyb3VwIGtleT17Z3JvdXAubGFiZWx9PgogICAgICAgICAgICAgIDxTaWRlYmFyR3JvdXBMYWJlbD57Z3JvdXAubGFiZWx9PC9TaWRlYmFyR3JvdXBMYWJlbD4KICAgICAgICAgICAgICA8U2lkZWJhckdyb3VwQ29udGVudD4KICAgICAgICAgICAgICAgIDxTaWRlYmFyTWVudT4KICAgICAgICAgICAgICAgICAge2l0ZW1zLm1hcCgoaXRlbSkgPT4gKAogICAgICAgICAgICAgICAgICAgIDxTaWRlYmFyTWVudUl0ZW0ga2V5PXtpdGVtLmxhYmVsfT4KICAgICAgICAgICAgICAgICAgICAgIHtpdGVtLnRvID8gKAogICAgICAgICAgICAgICAgICAgICAgICA8U2lkZWJhck1lbnVCdXR0b24KICAgICAgICAgICAgICAgICAgICAgICAgICBhc0NoaWxkCiAgICAgICAgICAgICAgICAgICAgICAgICAgaXNBY3RpdmU9e2FjdGl2ZVByZWZpeCA9PT0gcm91dGVQcmVmaXgoaXRlbS50byl9CiAgICAgICAgICAgICAgICAgICAgICAgICAgdG9vbHRpcD17aXRlbS5sYWJlbH0KICAgICAgICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxMaW5rCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bz17aXRlbS50b30KICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhcmFtcz17eyBzbHVnIH19CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBpc01vYmlsZSAmJiBzZXRPcGVuTW9iaWxlKGZhbHNlKX0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByZWxvYWQ9ImludGVudCIKICAgICAgICAgICAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aXRlbS5pY29uIC8+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj57aXRlbS5sYWJlbH08L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPC9MaW5rPgogICAgICAgICAgICAgICAgICAgICAgICA8L1NpZGViYXJNZW51QnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgKSA6ICgKICAgICAgICAgICAgICAgICAgICAgICAgPFNpZGViYXJNZW51QnV0dG9uIGFzQ2hpbGQgdG9vbHRpcD17aXRlbS5sYWJlbH0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj17aXRlbS5ocmVmfSB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpdGVtLmljb24gLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPntpdGVtLmxhYmVsfTwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxFeHRlcm5hbExpbmsgY2xhc3NOYW1lPSJtbC1hdXRvIGgtMyB3LTMiIC8+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPC9hPgogICAgICAgICAgICAgICAgICAgICAgICA8L1NpZGViYXJNZW51QnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgKX0KICAgICAgICAgICAgICAgICAgICA8L1NpZGViYXJNZW51SXRlbT4KICAgICAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgICAgICA8L1NpZGViYXJNZW51PgogICAgICAgICAgICAgIDwvU2lkZWJhckdyb3VwQ29udGVudD4KICAgICAgICAgICAgPC9TaWRlYmFyR3JvdXA+CiAgICAgICAgICApOwogICAgICAgIH0pfQogICAgICA8L1NpZGViYXJDb250ZW50PgogICAgICA8U2lkZWJhclNlcGFyYXRvciAvPgogICAgICA8U2lkZWJhckZvb3RlciBjbGFzc05hbWU9InAtMyI+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJweC0yIHRleHQteHMgbGVhZGluZy1yZWxheGVkIHRleHQtc2lkZWJhci1mb3JlZ3JvdW5kLzYwIGdyb3VwLWRhdGEtW2NvbGxhcHNpYmxlPWljb25dOmhpZGRlbiI+CiAgICAgICAgICB7aXNOYW5ueSA/ICJOYW5ueSBhY2Nlc3MiIDogIkZhbWlseSBhY2Nlc3MifSDCtyBQcml2YXRlIGFuZCBzZWN1cmUKICAgICAgICA8L3A+CiAgICAgIDwvU2lkZWJhckZvb3Rlcj4KICAgICAgPFNpZGViYXJSYWlsIC8+CiAgICA8L1NpZGViYXI+CiAgKTsKfQoKZnVuY3Rpb24gTW9iaWxlVGFicyh7IHNsdWcsIGlzTmFubnksIGFjdGl2ZVByZWZpeCB9OiB7IHNsdWc6IHN0cmluZzsgaXNOYW5ueTogYm9vbGVhbjsgYWN0aXZlUHJlZml4OiBzdHJpbmcgfSkgewogIGNvbnN0IHsgdG9nZ2xlU2lkZWJhciB9ID0gdXNlU2lkZWJhcigpOwogIGNvbnN0IHRhYnMgPSBbCiAgICB7IGxhYmVsOiAiSG9tZSIsIGljb246IEhvbWUsIHRvOiAiL3cvJHNsdWciIGFzIGNvbnN0LCBwcmVmaXhlczogWyJ3Il0gfSwKICAgIHsgbGFiZWw6ICJDYWxlbmRhciIsIGljb246IENhbGVuZGFyRGF5cywgdG86ICIvcGxhbm5lci8kc2x1ZyIgYXMgY29uc3QsIHByZWZpeGVzOiBbInBsYW5uZXIiXSB9LAogICAgewogICAgICBsYWJlbDogIkZhbWlseSIsCiAgICAgIGljb246IFVzZXJzLAogICAgICB0bzogKGlzTmFubnkgPyAiL2d1aWRlLyRzbHVnIiA6ICIvZmFtaWx5LyRzbHVnIikgYXMgIi9ndWlkZS8kc2x1ZyIgfCAiL2ZhbWlseS8kc2x1ZyIsCiAgICAgIHByZWZpeGVzOiBbImZhbWlseSIsICJuYW5uaWVzIiwgImd1aWRlIiwgImVtZXJnZW5jeSIsICJob3VzZW1hbnVhbCIsICJraWRzIl0sCiAgICB9LAogICAgeyBsYWJlbDogIkRvY3VtZW50cyIsIGljb246IEZpbGVUZXh0LCB0bzogIi9hZ3JlZW1lbnQvJHNsdWciIGFzIGNvbnN0LCBwcmVmaXhlczogWyJhZ3JlZW1lbnQiLCAidGVybXMiLCAic2FmZXR5Il0gfSwKICBdOwoKICByZXR1cm4gKAogICAgPG5hdgogICAgICBhcmlhLWxhYmVsPSJXYWxsZXQgbmF2aWdhdGlvbiIKICAgICAgY2xhc3NOYW1lPSJmaXhlZCBpbnNldC14LTAgYm90dG9tLTAgei00MCBib3JkZXItdCBib3JkZXItYm9yZGVyIGJnLWJhY2tncm91bmQvOTUgcGItW2VudihzYWZlLWFyZWEtaW5zZXQtYm90dG9tKV0gc2hhZG93LVswXy04cHhfMjRweF8tMThweF92YXIoLS1mb3JlZ3JvdW5kKV0gYmFja2Ryb3AtYmx1ciBtZDpoaWRkZW4iCiAgICA+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJncmlkIGgtMTYgZ3JpZC1jb2xzLTUiPgogICAgICAgIHt0YWJzLm1hcCgodGFiKSA9PiB7CiAgICAgICAgICBjb25zdCBhY3RpdmUgPSB0YWIucHJlZml4ZXMuaW5jbHVkZXMoYWN0aXZlUHJlZml4KTsKICAgICAgICAgIHJldHVybiAoCiAgICAgICAgICAgIDxMaW5rCiAgICAgICAgICAgICAga2V5PXt0YWIubGFiZWx9CiAgICAgICAgICAgICAgdG89e3RhYi50b30KICAgICAgICAgICAgICBwYXJhbXM9e3sgc2x1ZyB9fQogICAgICAgICAgICAgIGNsYXNzTmFtZT17Y24oCiAgICAgICAgICAgICAgICAiZmxleCBtaW4tdy0wIGZsZXgtY29sIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBnYXAtMSBweC0xIHRleHQtWzEwcHhdIGZvbnQtbWVkaXVtIiwKICAgICAgICAgICAgICAgIGFjdGl2ZSA/ICJ0ZXh0LXByaW1hcnkiIDogInRleHQtbXV0ZWQtZm9yZWdyb3VuZCIsCiAgICAgICAgICAgICAgKX0KICAgICAgICAgICAgPgogICAgICAgICAgICAgIDx0YWIuaWNvbiBjbGFzc05hbWU9e2NuKCJoLTUgdy01IiwgYWN0aXZlICYmICJmaWxsLXByaW1hcnkvMTAiKX0gLz4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRydW5jYXRlIj57dGFiLmxhYmVsfTwvc3Bhbj4KICAgICAgICAgICAgPC9MaW5rPgogICAgICAgICAgKTsKICAgICAgICB9KX0KICAgICAgICA8QnV0dG9uCiAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICB2YXJpYW50PSJnaG9zdCIKICAgICAgICAgIG9uQ2xpY2s9e3RvZ2dsZVNpZGViYXJ9CiAgICAgICAgICBjbGFzc05hbWU9ImgtZnVsbCBtaW4tdy0wIGZsZXgtY29sIGdhcC0xIHJvdW5kZWQtbm9uZSBweC0xIHRleHQtWzEwcHhdIGZvbnQtbWVkaXVtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCIKICAgICAgICAgIGFyaWEtbGFiZWw9Ik9wZW4gYWxsIHdhbGxldCBwYWdlcyIKICAgICAgICA+CiAgICAgICAgICA8TWVudSBjbGFzc05hbWU9ImgtNSB3LTUiIC8+CiAgICAgICAgICA8c3Bhbj5Nb3JlPC9zcGFuPgogICAgICAgIDwvQnV0dG9uPgogICAgICA8L2Rpdj4KICAgIDwvbmF2PgogICk7Cn0=
+import { readDemoBrand } from "@/lib/demo-brand";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import type { ComponentType, ReactNode } from "react";
+import { useEffect, useState } from "react";
+import {
+  BadgeCheck,
+  Camera,
+  BookOpen,
+  CalendarCheck,
+  CalendarDays,
+  Calculator,
+  ClipboardCheck,
+  Clock3,
+  Dumbbell,
+  ExternalLink,
+  FileBarChart,
+  FileText,
+  Gift,
+  Handshake,
+  Home,
+  Heart,
+  KeyRound,
+  Landmark,
+  Library,
+  LifeBuoy,
+  Menu,
+  MessageCircle,
+  NotebookPen,
+  Pill,
+  Plane,
+  ScrollText,
+  ShieldCheck,
+  Siren,
+  Sparkles,
+  UserPlus,
+  Users,
+  UtensilsCrossed,
+  WandSparkles,
+  Wallet,
+} from "lucide-react";
+
+import { getWalletSummary } from "@/lib/wallet.functions";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
+
+type WalletPath =
+  | "/w/$slug"
+  | "/planner/$slug"
+  | "/log/$slug"
+  | "/report/$slug"
+  | "/emergency/$slug"
+  | "/family/$slug"
+  | "/nannies/$slug"
+  | "/guide/$slug"
+  | "/agreement/$slug"
+  | "/timesheets/$slug"
+  | "/leave/$slug"
+  | "/handover/$slug"
+  | "/medication/$slug"
+  | "/travel/$slug"
+  | "/passport/$slug"
+  | "/cover/$slug"
+  | "/payroll/$slug"
+  | "/costs/$slug"
+  | "/curation/$slug"
+  | "/perks/$slug"
+  | "/playbooks/$slug"
+  | "/support/$slug"
+  | "/checkin/$slug"
+  | "/training/$slug"
+  | "/safety/$slug"
+  | "/terms/$slug"
+  | "/welcome/$slug"
+  | "/moments/$slug"
+  | "/pettycash/$slug"
+  | "/messages/$slug"
+  | "/housemanual/$slug"
+  | "/kids/$slug";
+
+type NavItem = {
+  label: string;
+  icon: ComponentType<{ className?: string }>;
+  to?: WalletPath;
+  href?: string;
+  parentOnly?: boolean;
+};
+
+type NavGroup = { label: string; items: NavItem[] };
+
+const walletPrefixes = new Set([
+  "w",
+  "planner",
+  "log",
+  "report",
+  "emergency",
+  "family",
+  "nannies",
+  "guide",
+  "agreement",
+  "timesheets",
+  "leave",
+  "handover",
+  "medication",
+  "travel",
+  "passport",
+  "cover",
+  "payroll",
+  "costs",
+  "curation",
+  "perks",
+  "playbooks",
+  "support",
+  "checkin",
+  "training",
+  "safety",
+  "terms",
+  "welcome",
+  "moments",
+  "pettycash",
+  "messages",
+  "housemanual",
+  "kids",
+]);
+
+const navGroups: NavGroup[] = [
+  {
+    label: "Today",
+    items: [
+      { label: "Home", icon: Home, to: "/w/$slug" },
+      { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" },
+      { label: "Daily log", icon: NotebookPen, to: "/log/$slug" },
+      { label: "Friday report", icon: FileBarChart, to: "/report/$slug" },
+      { label: "Medication log", icon: Pill, to: "/medication/$slug" },
+      { label: "Travel pack", icon: Plane, to: "/travel/$slug" },
+      { label: "Photo moments", icon: Camera, to: "/moments/$slug" },
+    ],
+  },
+  {
+    label: "Family",
+    items: [
+      { label: "First 48 hours", icon: Sparkles, to: "/welcome/$slug" },
+      { label: "Emergency card", icon: Siren, to: "/emergency/$slug" },
+      { label: "House Manual & Codes", icon: KeyRound, to: "/housemanual/$slug" },
+      { label: "Kids' Playbook", icon: Heart, to: "/kids/$slug" },
+      { label: "Children & routines", icon: Users, to: "/family/$slug", parentOnly: true },
+      { label: "Your nannies", icon: UserPlus, to: "/nannies/$slug", parentOnly: true },
+      { label: "Nanny quick guide", icon: BookOpen, to: "/guide/$slug", parentOnly: true },
+      { label: "Active Kids Passport", icon: Dumbbell, to: "/passport/$slug" },
+    ],
+  },
+  {
+    label: "Work",
+    items: [
+      { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
+      { label: "Nanny agreement", icon: FileText, to: "/agreement/$slug" },
+      { label: "Timesheets", icon: Clock3, to: "/timesheets/$slug" },
+      { label: "Holiday & leave", icon: Plane, to: "/leave/$slug" },
+      { label: "Handover & expenses", icon: ClipboardCheck, to: "/handover/$slug" },
+      { label: "Petty cash float", icon: Wallet, to: "/pettycash/$slug" },
+      { label: "Payroll setup", icon: Landmark, to: "/payroll/$slug", parentOnly: true },
+      { label: "Employment costs", icon: Calculator, to: "/costs/$slug", parentOnly: true },
+    ],
+  },
+  {
+    label: "Help & training",
+    items: [
+      { label: "Nanny training", icon: BadgeCheck, to: "/training/$slug" },
+      { label: "Safety records", icon: ShieldCheck, to: "/safety/$slug" },
+      { label: "Nanny Fuel", icon: UtensilsCrossed, href: "https://nanny-nourish-guide.lovable.app" },
+      { label: "Activity guide", icon: WandSparkles, href: "https://nannyguide.lovable.app" },
+    ],
+  },
+];
+
+function getWalletLocation(pathname: string) {
+  const [prefix, slug] = pathname.split("/").filter(Boolean);
+  if (!prefix || !slug || !walletPrefixes.has(prefix)) return null;
+  return { prefix, slug };
+}
+
+function routePrefix(to: WalletPath) {
+  return to.split("/")[1] ?? "";
+}
+
+export function WalletAppShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const location = getWalletLocation(pathname);
+  const summaryFn = useServerFn(getWalletSummary);
+  const summaryQuery = useQuery({
+    queryKey: ["wallet", location?.slug ?? "not-a-wallet"],
+    queryFn: () => summaryFn({ data: { slug: location?.slug ?? "" } }),
+    enabled: Boolean(location),
+  });
+
+  const [demoBrand, setDemoBrandState] = useState<string | null>(null);
+  useEffect(() => {
+    setDemoBrandState(location?.slug === "demo" ? readDemoBrand() : null);
+  }, [location?.slug]);
+
+  if (!location || !summaryQuery.data?.unlocked) return <>{children}</>;
+
+  return (
+    <SidebarProvider>
+      <WalletNavigation
+        slug={location.slug}
+        familyName={summaryQuery.data.wallet.familyName}
+        isNanny={summaryQuery.data.wallet.access === "nanny"}
+        activePrefix={location.prefix}
+      />
+      <SidebarInset className="min-w-0 bg-sand">
+        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} agencyName={demoBrand ?? summaryQuery.data.wallet.agencyName ?? null} />
+        <div className="min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
+          {children}
+        </div>
+        <MobileTabs
+          slug={location.slug}
+          isNanny={summaryQuery.data.wallet.access === "nanny"}
+          activePrefix={location.prefix}
+        />
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+
+function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyName: string | null }) {
+  return (
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:px-6">
+      <SidebarTrigger className="h-9 w-9" />
+      <div className="min-w-0">
+        <p className="truncate text-sm font-semibold text-foreground">{familyName}</p>
+        <p className="truncate text-xs text-muted-foreground">{agencyName ?? "Family Wallet"}</p>
+      </div>
+      <span className="ml-auto hidden items-center gap-1.5 text-xs font-medium text-muted-foreground sm:flex">
+        <Sparkles className="h-3.5 w-3.5 text-primary" />
+        {agencyName ? <>{agencyName} · Powered by The Family Wallet</> : <>The Family Wallet</>}
+      </span>
+    </header>
+  );
+}
+
+function WalletNavigation({
+  slug,
+  familyName,
+  isNanny,
+  activePrefix,
+}: {
+  slug: string;
+  familyName: string;
+  isNanny: boolean;
+  activePrefix: string;
+}) {
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  return (
+    <Sidebar collapsible="icon" className="border-sidebar-border">
+      <SidebarHeader className="border-b border-sidebar-border p-3">
+        <Link
+          to="/w/$slug"
+          params={{ slug }}
+          onClick={() => isMobile && setOpenMobile(false)}
+          className="flex min-w-0 items-center gap-3 rounded-md p-1.5 hover:bg-sidebar-accent"
+        >
+          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
+            <Wallet className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <span className="min-w-0 group-data-[collapsible=icon]:hidden">
+            <span className="block truncate text-sm font-semibold">{familyName}</span>
+            <span className="block text-xs text-sidebar-foreground/65">Family Wallet</span>
+          </span>
+        </Link>
+      </SidebarHeader>
+      <SidebarContent className="py-2">
+        {navGroups.map((group) => {
+          const items = group.items.filter((item) => !item.parentOnly || !isNanny);
+          if (items.length === 0) return null;
+          return (
+            <SidebarGroup key={group.label}>
+              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      {item.to ? (
+                        <SidebarMenuButton
+                          asChild
+                          isActive={activePrefix === routePrefix(item.to)}
+                          tooltip={item.label}
+                        >
+                          <Link
+                            to={item.to}
+                            params={{ slug }}
+                            onClick={() => isMobile && setOpenMobile(false)}
+                            preload="intent"
+                          >
+                            <item.icon />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      ) : (
+                        <SidebarMenuButton asChild tooltip={item.label}>
+                          <a href={item.href} target="_blank" rel="noopener noreferrer">
+                            <item.icon />
+                            <span>{item.label}</span>
+                            <ExternalLink className="ml-auto h-3 w-3" />
+                          </a>
+                        </SidebarMenuButton>
+                      )}
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          );
+        })}
+      </SidebarContent>
+      <SidebarSeparator />
+      <SidebarFooter className="p-3">
+        <p className="px-2 text-xs leading-relaxed text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden">
+          {isNanny ? "Nanny access" : "Family access"} · Private and secure
+        </p>
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
+  );
+}
+
+function MobileTabs({ slug, isNanny, activePrefix }: { slug: string; isNanny: boolean; activePrefix: string }) {
+  const { toggleSidebar } = useSidebar();
+  const tabs = [
+    { label: "Home", icon: Home, to: "/w/$slug" as const, prefixes: ["w"] },
+    { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" as const, prefixes: ["planner"] },
+    {
+      label: "Family",
+      icon: Users,
+      to: (isNanny ? "/guide/$slug" : "/family/$slug") as "/guide/$slug" | "/family/$slug",
+      prefixes: ["family", "nannies", "guide", "emergency", "housemanual", "kids"],
+    },
+    { label: "Documents", icon: FileText, to: "/agreement/$slug" as const, prefixes: ["agreement", "terms", "safety"] },
+  ];
+
+  return (
+    <nav
+      aria-label="Wallet navigation"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-18px_var(--foreground)] backdrop-blur md:hidden"
+    >
+      <div className="grid h-16 grid-cols-5">
+        {tabs.map((tab) => {
+          const active = tab.prefixes.includes(activePrefix);
+          return (
+            <Link
+              key={tab.label}
+              to={tab.to}
+              params={{ slug }}
+              className={cn(
+                "flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[10px] font-medium",
+                active ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              <tab.icon className={cn("h-5 w-5", active && "fill-primary/10")} />
+              <span className="truncate">{tab.label}</span>
+            </Link>
+          );
+        })}
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={toggleSidebar}
+          className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[10px] font-medium text-muted-foreground"
+          aria-label="Open all wallet pages"
+        >
+          <Menu className="h-5 w-5" />
+          <span>More</span>
+        </Button>
+      </div>
+    </nav>
+  );
+}

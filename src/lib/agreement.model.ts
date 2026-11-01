@@ -1,1 +1,439 @@
-LyoqIEZ1bGwgbmFubnkgYWdyZWVtZW50IG1vZGVsIOKAlCBzaGFyZWQgYnkgdGhlIGFkbWluIGJ1aWxkZXIsIHRoZSB3YWxsZXQgdmlldyBhbmQgdGhlIHNlcnZlci4gKi8KCmV4cG9ydCBpbnRlcmZhY2UgTmFubnlEdXR5IHsKICBpZDogc3RyaW5nOwogIGxhYmVsOiBzdHJpbmc7CiAgZGV0YWlsczogc3RyaW5nOwogIGVuYWJsZWQ6IGJvb2xlYW47Cn0KCmV4cG9ydCBpbnRlcmZhY2UgV29ya2luZ0RheSB7CiAgZGF5OiBzdHJpbmc7CiAgZW5hYmxlZDogYm9vbGVhbjsKICBzdGFydFRpbWU6IHN0cmluZzsKICBlbmRUaW1lOiBzdHJpbmc7CiAgLyoqIE9wdGlvbmFsIHNlY29uZCBibG9jayBmb3Igc3BsaXQgc2hpZnRzIChlLmcuIDE1OjAw4oCTMTk6MDAgYWZ0ZXIgYSAwNzowMOKAkzA5OjAwIG1vcm5pbmcgYmxvY2spLiAqLwogIHN0YXJ0VGltZTI/OiBzdHJpbmc7CiAgZW5kVGltZTI/OiBzdHJpbmc7Cn0KCmNvbnN0IHRvTWludXRlcyA9ICh0OiBzdHJpbmcpOiBudW1iZXIgPT4gewogIGNvbnN0IFtoLCBtXSA9ICh0IHx8ICIwOjAiKS5zcGxpdCgiOiIpLm1hcChOdW1iZXIpOwogIHJldHVybiAoaCB8fCAwKSAqIDYwICsgKG0gfHwgMCk7Cn07CgovKiogVG90YWwgaG91cnMgd29ya2VkIGluIGEgZGF5LCBpbmNsdWRpbmcgYW4gb3B0aW9uYWwgc3BsaXQtc2hpZnQgc2Vjb25kIGJsb2NrLiAqLwpleHBvcnQgY29uc3Qgd29ya2luZ0RheUhvdXJzID0gKGRheTogV29ya2luZ0RheSk6IG51bWJlciA9PiB7CiAgbGV0IGhvdXJzID0gKHRvTWludXRlcyhkYXkuZW5kVGltZSkgLSB0b01pbnV0ZXMoZGF5LnN0YXJ0VGltZSkpIC8gNjA7CiAgaWYgKGRheS5zdGFydFRpbWUyICYmIGRheS5lbmRUaW1lMikgewogICAgaG91cnMgKz0gKHRvTWludXRlcyhkYXkuZW5kVGltZTIpIC0gdG9NaW51dGVzKGRheS5zdGFydFRpbWUyKSkgLyA2MDsKICB9CiAgcmV0dXJuIE1hdGgubWF4KDAsIGhvdXJzKTsKfTsKCmV4cG9ydCB0eXBlIENvbnRyYWN0VHlwZSA9ICJ5ZWFyLXJvdW5kIiB8ICJ0ZXJtLXRpbWUiIHwgInBhcnQtdGltZS10ZXJtLXRpbWUiOwoKZXhwb3J0IGNvbnN0IGlzVGVybVRpbWUgPSAodHlwZTogQ29udHJhY3RUeXBlKTogYm9vbGVhbiA9PgogIHR5cGUgPT09ICJ0ZXJtLXRpbWUiIHx8IHR5cGUgPT09ICJwYXJ0LXRpbWUtdGVybS10aW1lIjsKCmV4cG9ydCBjb25zdCBERUZBVUxUX1dFRUtTX1BFUl9ZRUFSOiBSZWNvcmQ8Q29udHJhY3RUeXBlLCBudW1iZXI+ID0gewogICJ5ZWFyLXJvdW5kIjogNTIsCiAgInRlcm0tdGltZSI6IDM2LAogICJwYXJ0LXRpbWUtdGVybS10aW1lIjogMzYsCn07CgpleHBvcnQgY29uc3QgQ09OVFJBQ1RfVFlQRV9MQUJFTFM6IFJlY29yZDxDb250cmFjdFR5cGUsIHN0cmluZz4gPSB7CiAgInllYXItcm91bmQiOiAiRnVsbCB0aW1lLCB5ZWFyIHJvdW5kIiwKICAidGVybS10aW1lIjogIlRlcm0tdGltZSBvbmx5IiwKICAicGFydC10aW1lLXRlcm0tdGltZSI6ICJQYXJ0IHRpbWUsIHRlcm0gdGltZSBvbmx5IiwKfTsKCmV4cG9ydCB0eXBlIFJhdGVCYXNpcyA9ICJncm9zcyIgfCAibmV0IjsKCmV4cG9ydCBjb25zdCBSQVRFX0JBU0lTX0xBQkVMUzogUmVjb3JkPFJhdGVCYXNpcywgc3RyaW5nPiA9IHsKICBncm9zczogIkdyb3NzIChiZWZvcmUgdGF4KSIsCiAgbmV0OiAiTmV0ICh0YWtlLWhvbWUpIiwKfTsKCi8qKiBXaGljaCBraW5kIG9mIGRvY3VtZW50IHRoZSBmYW1pbHkgaGFzIGNob3NlbjogdGhlIGZ1bGwgZm9ybWFsIGNvbnRyYWN0LCBvciBhIHNob3J0IHdyaXR0ZW4gc3RhdGVtZW50LiAqLwpleHBvcnQgdHlwZSBEb2N1bWVudFN0eWxlID0gImZ1bGwiIHwgInN0YXRlbWVudCI7CgpleHBvcnQgY29uc3QgRE9DVU1FTlRfU1RZTEVfTEFCRUxTOiBSZWNvcmQ8RG9jdW1lbnRTdHlsZSwgc3RyaW5nPiA9IHsKICBmdWxsOiAiRnVsbCBuYW5ueSBjb250cmFjdCIsCiAgc3RhdGVtZW50OiAiV3JpdHRlbiBzdGF0ZW1lbnQgb2YgcGFydGljdWxhcnMiLAp9OwoKZXhwb3J0IGludGVyZmFjZSBBZ3JlZW1lbnREYXRhIHsKICAvKiogImZ1bGwiID0gZm9ybWFsIGNvbnRyYWN0LCAic3RhdGVtZW50IiA9IHNob3J0IHdyaXR0ZW4gc3RhdGVtZW50IG9mIGVtcGxveW1lbnQgcGFydGljdWxhcnMuICovCiAgZG9jdW1lbnRTdHlsZTogRG9jdW1lbnRTdHlsZTsKICAvKiogVGhlIHdyaXR0ZW4gc3RhdGVtZW50IHdvcmRpbmcgKHVzZWQgb25seSB3aGVuIGRvY3VtZW50U3R5bGUgaXMgInN0YXRlbWVudCIpLiAqLwogIHN0YXRlbWVudEJvZHk6IHN0cmluZzsKICBlbXBsb3llck5hbWU6IHN0cmluZzsKICBlbXBsb3llckFkZHJlc3M6IHN0cmluZzsKICBuYW5ueU5hbWU6IHN0cmluZzsKCiAgam9iVGl0bGU6IHN0cmluZzsKICB3b3JrQWRkcmVzczogc3RyaW5nOwogIHN0YXJ0RGF0ZTogc3RyaW5nOwogIGlzRml4ZWRUZXJtOiBib29sZWFuOwogIGVuZERhdGU6IHN0cmluZzsKICBmaXhlZFRlcm1SZWFzb246IHN0cmluZzsKICBwcm9iYXRpb25QZXJpb2Q6IHN0cmluZzsKICBvdmVydGltZVBvbGljeTogc3RyaW5nOwoKICBkdXRpZXM6IE5hbm55RHV0eVtdOwogIG90aGVyRHV0aWVzQ2xhdXNlOiBzdHJpbmc7CgogIHdvcmtpbmdEYXlzOiBXb3JraW5nRGF5W107CiAgY29udHJhY3RUeXBlOiBDb250cmFjdFR5cGU7CiAgd2Vla3NQZXJZZWFyOiBzdHJpbmc7CiAgLyoqIFdoZXRoZXIgY2xhdXNlIDEuNiBkZXNjcmliaW5nIHRoZSBhbm51YWwgd29ya2luZyBwYXR0ZXJuIGFwcGVhcnMgaW4gdGhlIHByaW50YWJsZSBhZ3JlZW1lbnQuICovCiAgaW5jbHVkZVdvcmtpbmdQYXR0ZXJuQ2xhdXNlOiBib29sZWFuOwogIC8qKiBGb3IgdGVybS10aW1lIGNvbnRyYWN0cywgd2hldGhlciBzY2hvb2wtaG9saWRheSB3b3JrIG1heSBiZSBvZmZlcmVkIGlmIG5lZWRlZCBhbmQgdGhlIG5hbm55IGlzIGF2YWlsYWJsZS4gKi8KICBhbGxvd1NjaG9vbEhvbGlkYXlXb3JrOiBib29sZWFuOwoKICBob3VybHlSYXRlOiBzdHJpbmc7CiAgLyoqIFdoZXRoZXIgdGhlIGhvdXJseSByYXRlIHF1b3RlZCBpcyBncm9zcyAoYmVmb3JlIHRheCkgb3IgbmV0ICh0YWtlLWhvbWUpLiAqLwogIHJhdGVCYXNpczogUmF0ZUJhc2lzOwogIC8qKiBXaGV0aGVyIGNsYXVzZSAyLjEgaW5jbHVkZXMgdGF4LCBOYXRpb25hbCBJbnN1cmFuY2UgYW5kIHBlbnNpb24gcmVzcG9uc2liaWxpdHkgd29yZGluZy4gKi8KICBpbmNsdWRlVGF4UmVzcG9uc2liaWxpdHlDbGF1c2U6IGJvb2xlYW47CiAgcGF5bWVudE1ldGhvZDogc3RyaW5nOwogIHBheW1lbnRGcmVxdWVuY3k6IHN0cmluZzsKICBiZW5lZml0czogc3RyaW5nOwogIGV4cGVuc2VSYXRlOiBzdHJpbmc7CgogIHBlbnNpb246IHN0cmluZzsKICAvKiogV2hldGhlciB0aGUgaG9saWRheSBlbnRpdGxlbWVudCBzZWN0aW9uIGFwcGVhcnMgaW4gdGhlIHByaW50YWJsZSBhZ3JlZW1lbnQuICovCiAgaW5jbHVkZUhvbGlkYXlFbnRpdGxlbWVudDogYm9vbGVhbjsKICBob2xpZGF5QWxsb3dhbmNlOiBzdHJpbmc7CiAgLyoqIFdoZXRoZXIgaG9saWRheSBwYXkgaXMgcm9sbGVkIHVwIGFuZCBwYWlkIHdpdGggZWFjaCBwYXlzbGlwIChwYXJ0LXllYXIgLyB0ZXJtLXRpbWUgd29ya2VycykuICovCiAgcm9sbGVkVXBIb2xpZGF5UGF5OiBib29sZWFuOwogIHNpY2tuZXNzUG9saWN5OiBzdHJpbmc7CgogIGdyaWV2YW5jZVByb2NlZHVyZTogc3RyaW5nOwogIGRpc2NpcGxpbmFyeVByb2NlZHVyZTogc3RyaW5nOwogIGRhdGFQcm90ZWN0aW9uOiBzdHJpbmc7CiAgZGJzQ2hlY2tlZDogc3RyaW5nOwogIHJlZmVyZW5jZXM6IHN0cmluZzsKICBnYXJkZW5MZWF2ZTogc3RyaW5nOwoKICBwcm9iYXRpb25Ob3RpY2U6IHN0cmluZzsKICBzdGFuZGFyZE5vdGljZTogc3RyaW5nOwp9CgpleHBvcnQgaW50ZXJmYWNlIEhvbGlkYXlDYWxjdWxhdGlvbiB7CiAgdG90YWxXZWVrc0VudGl0bGVtZW50OiBudW1iZXI7CiAgdG90YWxEYXlzRW50aXRsZW1lbnQ6IG51bWJlcjsKICB0b3RhbEhvdXJzRW50aXRsZW1lbnQ6IG51bWJlcjsKICB3ZWVrbHlIb3VyczogbnVtYmVyOwogIHdvcmtpbmdEYXlzUGVyV2VlazogbnVtYmVyOwogIHdlZWtzV29ya2VkUGVyWWVhcjogbnVtYmVyOwogIGNvbnRyYWN0VHlwZTogQ29udHJhY3RUeXBlOwp9Cgpjb25zdCBVS19TVEFUVVRPUllfV0VFS1MgPSA1LjY7Ci8qKiBXZWVrcyBhY3R1YWxseSB3b3JrZWQgYnkgYSBmdWxsLXllYXIgZW1wbG95ZWUgKDUyIOKIkiA1LjYgd2Vla3MgaG9saWRheSkuICovCmNvbnN0IEZVTExfWUVBUl9XT1JLSU5HX1dFRUtTID0gNDYuNDsKCmV4cG9ydCBmdW5jdGlvbiBjYWxjdWxhdGVIb2xpZGF5KAogIHdvcmtpbmdEYXlzOiBXb3JraW5nRGF5W10sCiAgY29udHJhY3RUeXBlOiBDb250cmFjdFR5cGUsCiAgd2Vla3NQZXJZZWFyOiBzdHJpbmcsCik6IEhvbGlkYXlDYWxjdWxhdGlvbiB7CiAgY29uc3QgZW5hYmxlZERheXMgPSB3b3JraW5nRGF5cy5maWx0ZXIoKGQpID0+IGQuZW5hYmxlZCk7CiAgY29uc3Qgd29ya2luZ0RheXNQZXJXZWVrID0gZW5hYmxlZERheXMubGVuZ3RoOwogIGNvbnN0IHdlZWtseUhvdXJzID0gZW5hYmxlZERheXMucmVkdWNlKCh0b3RhbCwgZGF5KSA9PiB0b3RhbCArIHdvcmtpbmdEYXlIb3VycyhkYXkpLCAwKTsKCiAgY29uc3QgcGFyc2VkV2Vla3MgPSBwYXJzZUZsb2F0KHdlZWtzUGVyWWVhciA/PyAiIik7CiAgY29uc3Qgd2Vla3NXb3JrZWRQZXJZZWFyID0KICAgIE51bWJlci5pc0Zpbml0ZShwYXJzZWRXZWVrcykgJiYgcGFyc2VkV2Vla3MgPiAwCiAgICAgID8gcGFyc2VkV2Vla3MKICAgICAgOiBERUZBVUxUX1dFRUtTX1BFUl9ZRUFSW2NvbnRyYWN0VHlwZV07CgogIGNvbnN0IHRvdGFsV2Vla3NFbnRpdGxlbWVudCA9CiAgICB3ZWVrc1dvcmtlZFBlclllYXIgPj0gRlVMTF9ZRUFSX1dPUktJTkdfV0VFS1MKICAgICAgPyBVS19TVEFUVVRPUllfV0VFS1MKICAgICAgOiBwYXJzZUZsb2F0KCgoVUtfU1RBVFVUT1JZX1dFRUtTICogd2Vla3NXb3JrZWRQZXJZZWFyKSAvIEZVTExfWUVBUl9XT1JLSU5HX1dFRUtTKS50b0ZpeGVkKDIpKTsKCiAgY29uc3QgdG90YWxEYXlzRW50aXRsZW1lbnQgPSBwYXJzZUZsb2F0KCh0b3RhbFdlZWtzRW50aXRsZW1lbnQgKiB3b3JraW5nRGF5c1BlcldlZWspLnRvRml4ZWQoMSkpOwogIGNvbnN0IGF2Z0hvdXJzUGVyRGF5ID0gd29ya2luZ0RheXNQZXJXZWVrID4gMCA/IHdlZWtseUhvdXJzIC8gd29ya2luZ0RheXNQZXJXZWVrIDogMDsKICBjb25zdCB0b3RhbEhvdXJzRW50aXRsZW1lbnQgPSBwYXJzZUZsb2F0KCh0b3RhbERheXNFbnRpdGxlbWVudCAqIGF2Z0hvdXJzUGVyRGF5KS50b0ZpeGVkKDEpKTsKCiAgcmV0dXJuIHsKICAgIHRvdGFsV2Vla3NFbnRpdGxlbWVudCwKICAgIHRvdGFsRGF5c0VudGl0bGVtZW50LAogICAgdG90YWxIb3Vyc0VudGl0bGVtZW50LAogICAgd2Vla2x5SG91cnMsCiAgICB3b3JraW5nRGF5c1BlcldlZWssCiAgICB3ZWVrc1dvcmtlZFBlclllYXIsCiAgICBjb250cmFjdFR5cGUsCiAgfTsKfQoKLyoqIEZvcm1hdCBhbiBJU08gZGF0ZSBzdHJpbmcgKFlZWVktTU0tREQpIGFzIGUuZy4gIjE1IEF1Z3VzdCAyMDI2Ii4gKi8KZXhwb3J0IGNvbnN0IGZvcm1hdFVLRGF0ZSA9IChpc286IHN0cmluZywgZmFsbGJhY2sgPSAiX19fX19fX19fX19fX19fX19fXyIpOiBzdHJpbmcgPT4gewogIGlmICghaXNvKSByZXR1cm4gZmFsbGJhY2s7CiAgY29uc3QgZGF0ZSA9IG5ldyBEYXRlKGAke2lzb31UMDA6MDA6MDBgKTsKICBpZiAoTnVtYmVyLmlzTmFOKGRhdGUuZ2V0VGltZSgpKSkgcmV0dXJuIGZhbGxiYWNrOwogIHJldHVybiBkYXRlLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7IGRheTogIm51bWVyaWMiLCBtb250aDogImxvbmciLCB5ZWFyOiAibnVtZXJpYyIgfSk7Cn07CgpleHBvcnQgY29uc3QgZGVmYXVsdER1dGllczogTmFubnlEdXR5W10gPSBbCiAgeyBpZDogImNhcmluZyIsIGxhYmVsOiAiQ2FyaW5nIGZvciBjaGlsZHJlbiIsIGRldGFpbHM6ICIiLCBlbmFibGVkOiB0cnVlIH0sCiAgewogICAgaWQ6ICJjb2xsZWN0aW5nIiwKICAgIGxhYmVsOiAiQ29sbGVjdGluZyBjaGlsZHJlbiBmcm9tIHNjaG9vbCBhbmQgdHJhbnNwb3J0aW5nIHRoZW0gaG9tZSBzYWZlbHkiLAogICAgZGV0YWlsczogIiIsCiAgICBlbmFibGVkOiB0cnVlLAogIH0sCiAgewogICAgaWQ6ICJtZWFscyIsCiAgICBsYWJlbDoKICAgICAgIkhlbHBpbmcgdG8gcGxhbiBoZWFsdGh5IG51dHJpdGlvdXMgbWVhbHMgYW5kIHByZXBhcmluZyB0aGUgY2hpbGRyZW4ncyBzbmFja3MgYW5kIG1lYWxzIiwKICAgIGRldGFpbHM6ICIiLAogICAgZW5hYmxlZDogdHJ1ZSwKICB9LAogIHsKICAgIGlkOiAiY29va2luZyIsCiAgICBsYWJlbDoKICAgICAgIkNvb2tpbmcgZmFtaWx5IGV2ZW5pbmcgbWVhbHMsIGVuc3VyaW5nIHRoZSBjaGlsZHJlbiBlYXQgYSBob3QgbWVhbCB3aGlsc3Qgc2l0dGluZyBhdCB0aGUgdGFibGUgYW5kIGVuY291cmFnaW5nIGdvb2QgdGFibGUgbWFubmVycyIsCiAgICBkZXRhaWxzOiAiIiwKICAgIGVuYWJsZWQ6IHRydWUsCiAgfSwKICB7CiAgICBpZDogImxlYXJuaW5nIiwKICAgIGxhYmVsOgogICAgICAiRW5jb3VyYWdpbmcgdGhlIGNoaWxkcmVuJ3MgbGVhcm5pbmcsIGluY2x1ZGluZyBhc3Npc3Rpbmcgd2l0aCBob21ld29yayBhbmQgcmVjb3JkaW5nIHRoaXMgaW4gdGhlaXIgaG9tZS1zY2hvb2wgaGFuZG92ZXIgYm9vayIsCiAgICBkZXRhaWxzOiAiIiwKICAgIGVuYWJsZWQ6IHRydWUsCiAgfSwKICB7CiAgICBpZDogInRpZHlpbmciLAogICAgbGFiZWw6CiAgICAgICJLZWVwaW5nIGNoaWxkcmVuJ3MgYXJlYSBvZiB0aGUgaG91c2UgY2xlYW4gYW5kIHRpZHkg4oCTIHBsYXlyb29tLCBraXRjaGVuLCBiZWRyb29tcywgYmF0aHJvb20gYW5kIGNsb2Frcm9vbSIsCiAgICBkZXRhaWxzOiAiIiwKICAgIGVuYWJsZWQ6IHRydWUsCiAgfSwKICB7CiAgICBpZDogImJhdGh0aW1lIiwKICAgIGxhYmVsOiAiU3VwZXJ2aXNpbmcgY2hpbGRyZW4ncyBiYXRoLXRpbWUgYW5kIHByZXBhcmluZyB0aGVtIGZvciBiZWQgd2l0aCBzdG9yeSB0aW1lIiwKICAgIGRldGFpbHM6ICIiLAogICAgZW5hYmxlZDogdHJ1ZSwKICB9LAogIHsKICAgIGlkOiAiYmVoYXZpb3VyIiwKICAgIGxhYmVsOgogICAgICAiVXNpbmcgY29uc2lzdGVudCBiZWhhdmlvdXJhbCBtYW5hZ2VtZW50IHRlY2huaXF1ZXMsIHByZXZpb3VzbHkgZGlzY3Vzc2VkIGFuZCBhZ3JlZWQgd2l0aCB0aGUgZW1wbG95ZXJzIGFuZCB0ZWFjaGluZyBnb29kIG1hbm5lcnMiLAogICAgZGV0YWlsczogIiIsCiAgICBlbmFibGVkOiB0cnVlLAogIH0sCiAgewogICAgaWQ6ICJjb21tdW5pY2F0aW9uIiwKICAgIGxhYmVsOiAiQ29tbXVuaWNhdGluZyBwcm9ncmVzcyBhbmQgZGFpbHkgYWN0aXZpdGllcyB3aXRoIHRoZSBFbXBsb3llciIsCiAgICBkZXRhaWxzOiAiIiwKICAgIGVuYWJsZWQ6IHRydWUsCiAgfSwKICB7CiAgICBpZDogInN1cGVydmlzaW9uIiwKICAgIGxhYmVsOgogICAgICAiU3VwZXJ2aXNpbmcgdGhlIGNoaWxkcmVuIGF0IGFsbCB0aW1lcyBhbmQgb25seSB1c2luZyBwdWJsaWMgdHJhbnNwb3J0IHdpdGggY2hpbGRyZW4gd2hlbiBhZ3JlZWQgaW4gYWR2YW5jZSB3aXRoIHRoZSBFbXBsb3llciIsCiAgICBkZXRhaWxzOiAiIiwKICAgIGVuYWJsZWQ6IHRydWUsCiAgfSwKICB7CiAgICBpZDogImFjdGl2aXRpZXMiLAogICAgbGFiZWw6ICJPcmdhbmlzaW5nIGFnZS1hcHByb3ByaWF0ZSwgc3RpbXVsYXRpbmcgYWN0aXZpdGllcyBmb3IgdGhlIGNoaWxkcmVuIiwKICAgIGRldGFpbHM6ICIiLAogICAgZW5hYmxlZDogdHJ1ZSwKICB9LAogIHsgaWQ6ICJpbnRlcmVzdHMiLCBsYWJlbDogIlN1cHBvcnRpbmcgdGhlIGNoaWxkcmVuJ3MgaW50ZXJlc3RzIiwgZGV0YWlsczogIiIsIGVuYWJsZWQ6IHRydWUgfSwKICB7CiAgICBpZDogInBsYXlkYXRlcyIsCiAgICBsYWJlbDogIkhvc3RpbmcgdGhlIG9jY2FzaW9uYWwgcGxheS1kYXRlIHdpdGggb25lIG9mIHRoZSBjaGlsZHJlbidzIGZyaWVuZHMiLAogICAgZGV0YWlsczogIiIsCiAgICBlbmFibGVkOiB0cnVlLAogIH0sCiAgewogICAgaWQ6ICJtZWRpY2F0aW9uIiwKICAgIGxhYmVsOiAiQWRtaW5pc3RlcmluZyBtZWRpY2F0aW9uLCBzdWNoIGFzIENhbHBvbCwgd2hlbiByZXF1aXJlZCBhcyBhZ3JlZWQgYnkgdGhlIEVtcGxveWVyIiwKICAgIGRldGFpbHM6ICIiLAogICAgZW5hYmxlZDogdHJ1ZSwKICB9LAogIHsKICAgIGlkOiAibGF1bmRyeSIsCiAgICBsYWJlbDogIkhlbHBpbmcgd2l0aCBjaGlsZHJlbidzIGxhdW5kcnk7IGxvYWQgd2FzaGluZyBtYWNoaW5lLCBkcnlpbmciLAogICAgZGV0YWlsczogIiIsCiAgICBlbmFibGVkOiB0cnVlLAogIH0sCl07CgpleHBvcnQgY29uc3QgZGVmYXVsdFdvcmtpbmdEYXlzOiBXb3JraW5nRGF5W10gPSBbCiAgeyBkYXk6ICJNb25kYXkiLCBlbmFibGVkOiBmYWxzZSwgc3RhcnRUaW1lOiAiMDk6MDAiLCBlbmRUaW1lOiAiMTc6MDAiIH0sCiAgeyBkYXk6ICJUdWVzZGF5IiwgZW5hYmxlZDogZmFsc2UsIHN0YXJ0VGltZTogIjA5OjAwIiwgZW5kVGltZTogIjE3OjAwIiB9LAogIHsgZGF5OiAiV2VkbmVzZGF5IiwgZW5hYmxlZDogZmFsc2UsIHN0YXJ0VGltZTogIjA5OjAwIiwgZW5kVGltZTogIjE3OjAwIiB9LAogIHsgZGF5OiAiVGh1cnNkYXkiLCBlbmFibGVkOiBmYWxzZSwgc3RhcnRUaW1lOiAiMDk6MDAiLCBlbmRUaW1lOiAiMTc6MDAiIH0sCiAgeyBkYXk6ICJGcmlkYXkiLCBlbmFibGVkOiBmYWxzZSwgc3RhcnRUaW1lOiAiMDk6MDAiLCBlbmRUaW1lOiAiMTc6MDAiIH0sCiAgeyBkYXk6ICJTYXR1cmRheSIsIGVuYWJsZWQ6IGZhbHNlLCBzdGFydFRpbWU6ICIwOTowMCIsIGVuZFRpbWU6ICIxNzowMCIgfSwKICB7IGRheTogIlN1bmRheSIsIGVuYWJsZWQ6IGZhbHNlLCBzdGFydFRpbWU6ICIwOTowMCIsIGVuZFRpbWU6ICIxNzowMCIgfSwKXTsKCmV4cG9ydCBjb25zdCBkZWZhdWx0QWdyZWVtZW50RGF0YTogQWdyZWVtZW50RGF0YSA9IHsKICBkb2N1bWVudFN0eWxlOiAiZnVsbCIsCiAgc3RhdGVtZW50Qm9keTogIiIsCiAgZW1wbG95ZXJOYW1lOiAiIiwKICBlbXBsb3llckFkZHJlc3M6ICIiLAogIG5hbm55TmFtZTogIiIsCgogIGpvYlRpdGxlOiAiTmFubnkiLAogIHdvcmtBZGRyZXNzOiAiIiwKICBzdGFydERhdGU6ICIiLAogIGlzRml4ZWRUZXJtOiBmYWxzZSwKICBlbmREYXRlOiAiIiwKICBmaXhlZFRlcm1SZWFzb246ICIiLAoKICBwcm9iYXRpb25QZXJpb2Q6ICIzIG1vbnRocyIsCiAgb3ZlcnRpbWVQb2xpY3k6CiAgICAiT3ZlcnRpbWUgaXMgbm90IHBhaWQ7IGFueSBhZGRpdGlvbmFsIGhvdXJzIHJlcXVpcmVkIG9uIGFuIG9jY2FzaW9uYWwgYmFzaXMgd2lsbCBiZSB0YWtlbiBhcyB0aW1lIG9mZiBpbiBsaWV1IGJ5IHByaW9yIGFncmVlbWVudCB3aXRoIHRoZSBFbXBsb3llci4iLAoKICBkdXRpZXM6IGRlZmF1bHREdXRpZXMsCiAgb3RoZXJEdXRpZXNDbGF1c2U6CiAgICAiVGhlIE5hbm55IHNoYWxsIGFsc28gcGVyZm9ybSBhbnkgb3RoZXIgcmVhc29uYWJsZSBkdXRpZXMgYXMgbWF5IGZyb20gdGltZSB0byB0aW1lIGJlIHJlcXVpcmVkIGJ5IHRoZSBFbXBsb3llciBhbmQgd2hpY2ggYXJlIGNvbnNpc3RlbnQgd2l0aCB0aGUgcm9sZSBvZiBhIE5hbm55LiIsCgogIHdvcmtpbmdEYXlzOiBkZWZhdWx0V29ya2luZ0RheXMsCiAgY29udHJhY3RUeXBlOiAieWVhci1yb3VuZCIsCiAgd2Vla3NQZXJZZWFyOiAiNTIiLAogIGluY2x1ZGVXb3JraW5nUGF0dGVybkNsYXVzZTogdHJ1ZSwKICBhbGxvd1NjaG9vbEhvbGlkYXlXb3JrOiBmYWxzZSwKCiAgaG91cmx5UmF0ZTogIiIsCiAgcmF0ZUJhc2lzOiAiZ3Jvc3MiLAogIGluY2x1ZGVUYXhSZXNwb25zaWJpbGl0eUNsYXVzZTogdHJ1ZSwKICBwYXltZW50TWV0aG9kOiAiRGlyZWN0IGRlYml0IHBheW1lbnQgZGlyZWN0IHRvIHRoZSBOYW5ueSdzIGJhbmsiLAogIHBheW1lbnRGcmVxdWVuY3k6ICJNb250aGx5IChsYXN0IGRheSBvZiBlYWNoIG1vbnRoKSIsCiAgYmVuZWZpdHM6ICJMaWdodCByZWZyZXNobWVudHMgc3VjaCBhcyB0ZWEsIGNvZmZlZSwgc29mdCBkcmlua3MgYW5kIGZydWl0IiwKICBleHBlbnNlUmF0ZTogIjQ1IiwKCiAgcGVuc2lvbjoKICAgICJUaGUgTmFubnkgd2lsbCBiZSBhdXRvLWVucm9sbGVkIGludG8gdGhlIEVtcGxveWVyJ3Mgd29ya3BsYWNlIHBlbnNpb24gc2NoZW1lIGluIGxpbmUgd2l0aCB0aGUgUGVuc2lvbnMgQWN0IDIwMDgsIHN1YmplY3QgdG8gdGhlIHJlbGV2YW50IHF1YWxpZnlpbmcgY3JpdGVyaWEuIFRoZSBOYW5ueSBtYXkgb3B0IG91dCBpbiBhY2NvcmRhbmNlIHdpdGggdGhlIHNjaGVtZSBydWxlcy4iLAoKICBpbmNsdWRlSG9saWRheUVudGl0bGVtZW50OiB0cnVlLAogIGhvbGlkYXlBbGxvd2FuY2U6ICIiLAogIHJvbGxlZFVwSG9saWRheVBheTogZmFsc2UsCgogIHNpY2tuZXNzUG9saWN5OgogICAgIklmIHRoZSBOYW5ueSBpcyB1bmFibGUgdG8gYXR0ZW5kIHdvcmsgZHVlIHRvIHNpY2tuZXNzIG9yIGluanVyeSB0aGV5IHNoYWxsIChpbnNvZmFyIGFzIHRoZXkgYXJlIGFibGUpIHByb21wdGx5IG5vdGlmeSB0aGUgRW1wbG95ZXIgZWl0aGVyIGluIHBlcnNvbiBvciBieSB0ZWxlcGhvbmUgKGFzIGFwcHJvcHJpYXRlKSBvbiB0aGUgZmlyc3QgZGF5IG9mIGFic2VuY2UuIFRoZSBFbXBsb3llciBtYXkgcmVxdWlyZSBhIGRvY3RvcidzIGNlcnRpZmljYXRlIGFmdGVyIHNldmVuIGNvbnNlY3V0aXZlIGRheXMgb2Ygc2lja25lc3MuIFN0YXR1dG9yeSBTaWNrIFBheSB3aWxsIGJlIHBhaWQgaW4gYWNjb3JkYW5jZSB3aXRoIHRoZSBsYXcuIiwKCiAgZ3JpZXZhbmNlUHJvY2VkdXJlOgogICAgIkFueSBncmlldmFuY2UgcmVsYXRpbmcgdG8gdGhlIGVtcGxveW1lbnQgc2hvdWxkIGZpcnN0IGJlIHJhaXNlZCBpbmZvcm1hbGx5IHdpdGggdGhlIEVtcGxveWVyLiBJZiB0aGUgbWF0dGVyIGlzIG5vdCByZXNvbHZlZCwgdGhlIE5hbm55IHNob3VsZCBzZXQgb3V0IHRoZSBncmlldmFuY2UgaW4gd3JpdGluZyBhbmQgdGhlIEVtcGxveWVyIHdpbGwgYXJyYW5nZSBhIG1lZXRpbmcgdG8gZGlzY3VzcyBpdC4gQSBmb3JtYWwgcHJvY2VkdXJlIGlzIGF2YWlsYWJsZSBvbiByZXF1ZXN0LCBpbiBsaW5lIHdpdGggdGhlIEFDQVMgQ29kZSBvZiBQcmFjdGljZS4iLAogIGRpc2NpcGxpbmFyeVByb2NlZHVyZToKICAgICJUaGUgRW1wbG95ZXIgd2lsbCBmb2xsb3cgYSBmYWlyIGRpc2NpcGxpbmFyeSBwcm9jZWR1cmUgY29uc2lzdGVudCB3aXRoIHRoZSBBQ0FTIENvZGUgb2YgUHJhY3RpY2UuIEluIHRoZSBmaXJzdCBpbnN0YW5jZSBhbnkgY29uY2VybnMgd2lsbCBiZSBkaXNjdXNzZWQgaW5mb3JtYWxseS4gV2hlcmUgYSBmb3JtYWwgcHJvY2VzcyBpcyByZXF1aXJlZCwgdGhlIE5hbm55IHdpbGwgYmUgaW5mb3JtZWQgb2YgdGhlIG5hdHVyZSBvZiB0aGUgY29uY2VybiBpbiB3cml0aW5nIGFuZCBnaXZlbiB0aGUgb3Bwb3J0dW5pdHkgdG8gcmVzcG9uZCBiZWZvcmUgYW55IGRlY2lzaW9uIGlzIG1hZGUuIiwKICBkYXRhUHJvdGVjdGlvbjoKICAgICJUaGUgRW1wbG95ZXIgd2lsbCBwcm9jZXNzIHRoZSBOYW5ueSdzIHBlcnNvbmFsIGRhdGEgaW4gYWNjb3JkYW5jZSB3aXRoIHRoZSBHZW5lcmFsIERhdGEgUHJvdGVjdGlvbiBSZWd1bGF0aW9uIChHRFBSKSBhbmQgdGhlIERhdGEgUHJvdGVjdGlvbiBBY3QgMjAxOC4gUGVyc29uYWwgZGF0YSB3aWxsIGJlIGtlcHQgY29uZmlkZW50aWFsIGFuZCB1c2VkIG9ubHkgZm9yIHRoZSBwdXJwb3NlcyBvZiBhZG1pbmlzdGVyaW5nIHRoZSBlbXBsb3ltZW50IHJlbGF0aW9uc2hpcC4iLAogIGRic0NoZWNrZWQ6CiAgICAiVGhlIE5hbm55IGNvbmZpcm1zIHRoYXQgYW4gZW5oYW5jZWQgRGlzY2xvc3VyZSBhbmQgQmFycmluZyBTZXJ2aWNlIChEQlMpIGNoZWNrIGhhcyBiZWVuIGNhcnJpZWQgb3V0LiBUaGUgRW1wbG95ZXIgd2lsbCByZXRhaW4gYSBjb3B5IG9mIHRoZSBjZXJ0aWZpY2F0ZSBvbiBmaWxlLiIsCiAgcmVmZXJlbmNlczoKICAgICJUaGUgTmFubnkgaGFzIHByb3ZpZGVkIHR3byBzYXRpc2ZhY3RvcnkgcmVmZXJlbmNlcyB3aGljaCB0aGUgRW1wbG95ZXIgaGFzIHRha2VuIHVwIGFuZCB2ZXJpZmllZCBwcmlvciB0byB0aGUgY29tbWVuY2VtZW50IG9mIGVtcGxveW1lbnQuIiwKICBnYXJkZW5MZWF2ZToKICAgICJEdXJpbmcgYW55IG5vdGljZSBwZXJpb2QsIHRoZSBFbXBsb3llciBtYXkgcmVxdWlyZSB0aGUgTmFubnkgbm90IHRvIGF0dGVuZCB3b3JrIChnYXJkZW4gbGVhdmUpIHdoaWxlIHJlbWFpbmluZyBlbXBsb3llZCBhbmQgZW50aXRsZWQgdG8gZnVsbCBwYXkgYW5kIGJlbmVmaXRzLiIsCgogIHByb2JhdGlvbk5vdGljZTogIjEgd2VlayIsCiAgc3RhbmRhcmROb3RpY2U6ICI0IHdlZWtzIiwKfTsKCmNvbnN0IENPTlRSQUNUX1RZUEVTOiBDb250cmFjdFR5cGVbXSA9IFsieWVhci1yb3VuZCIsICJ0ZXJtLXRpbWUiLCAicGFydC10aW1lLXRlcm0tdGltZSJdOwoKZnVuY3Rpb24gc3RyKHZhbHVlOiB1bmtub3duLCBmYWxsYmFjayA9ICIiKTogc3RyaW5nIHsKICByZXR1cm4gdHlwZW9mIHZhbHVlID09PSAic3RyaW5nIiA/IHZhbHVlIDogdHlwZW9mIHZhbHVlID09PSAibnVtYmVyIiA/IFN0cmluZyh2YWx1ZSkgOiBmYWxsYmFjazsKfQoKLyoqIENvZXJjZSBhbnl0aGluZyBzdG9yZWQgaW4gdGhlIGRhdGFiYXNlIGludG8gYSBjb21wbGV0ZSwgc2FmZSBBZ3JlZW1lbnREYXRhLiAqLwpleHBvcnQgZnVuY3Rpb24gbm9ybWFsaXplQWdyZWVtZW50KHJhdzogdW5rbm93bik6IEFncmVlbWVudERhdGEgewogIGNvbnN0IHIgPSAocmF3ICYmIHR5cGVvZiByYXcgPT09ICJvYmplY3QiID8gcmF3IDoge30pIGFzIFJlY29yZDxzdHJpbmcsIHVua25vd24+OwogIGNvbnN0IGJhc2UgPSBkZWZhdWx0QWdyZWVtZW50RGF0YTsKCiAgY29uc3QgZHV0aWVzID0gQXJyYXkuaXNBcnJheShyWyJkdXRpZXMiXSkKICAgID8gKHJbImR1dGllcyJdIGFzIFJlY29yZDxzdHJpbmcsIHVua25vd24+W10pLm1hcCgoZCwgaSkgPT4gKHsKICAgICAgICBpZDogc3RyKGRbImlkIl0sIGBkdXR5LSR7aX1gKSwKICAgICAgICBsYWJlbDogc3RyKGRbImxhYmVsIl0pLnNsaWNlKDAsIDQwMCksCiAgICAgICAgZGV0YWlsczogc3RyKGRbImRldGFpbHMiXSkuc2xpY2UoMCwgMTAwMCksCiAgICAgICAgZW5hYmxlZDogZFsiZW5hYmxlZCJdICE9PSBmYWxzZSwKICAgICAgfSkpCiAgICA6IGJhc2UuZHV0aWVzLm1hcCgoZCkgPT4gKHsgLi4uZCB9KSk7CgogIGNvbnN0IHdvcmtpbmdEYXlzID0gQXJyYXkuaXNBcnJheShyWyJ3b3JraW5nRGF5cyJdKQogICAgPyAoclsid29ya2luZ0RheXMiXSBhcyBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPltdKS5tYXAoKGQsIGkpID0+IHsKICAgICAgICBjb25zdCBkYXk6IFdvcmtpbmdEYXkgPSB7CiAgICAgICAgICBkYXk6IHN0cihkWyJkYXkiXSwgYmFzZS53b3JraW5nRGF5c1tpXT8uZGF5ID8/ICJEYXkiKSwKICAgICAgICAgIGVuYWJsZWQ6IGRbImVuYWJsZWQiXSA9PT0gdHJ1ZSwKICAgICAgICAgIHN0YXJ0VGltZTogc3RyKGRbInN0YXJ0VGltZSJdLCAiMDk6MDAiKSwKICAgICAgICAgIGVuZFRpbWU6IHN0cihkWyJlbmRUaW1lIl0sICIxNzowMCIpLAogICAgICAgIH07CiAgICAgICAgaWYgKGRbInN0YXJ0VGltZTIiXSAmJiBkWyJlbmRUaW1lMiJdKSB7CiAgICAgICAgICBkYXkuc3RhcnRUaW1lMiA9IHN0cihkWyJzdGFydFRpbWUyIl0pOwogICAgICAgICAgZGF5LmVuZFRpbWUyID0gc3RyKGRbImVuZFRpbWUyIl0pOwogICAgICAgIH0KICAgICAgICByZXR1cm4gZGF5OwogICAgICB9KQogICAgOiBiYXNlLndvcmtpbmdEYXlzLm1hcCgoZCkgPT4gKHsgLi4uZCB9KSk7CgogIGNvbnN0IGNvbnRyYWN0VHlwZVJhdyA9IHN0cihyWyJjb250cmFjdFR5cGUiXSwgYmFzZS5jb250cmFjdFR5cGUpIGFzIENvbnRyYWN0VHlwZTsKICBjb25zdCBjb250cmFjdFR5cGUgPSBDT05UUkFDVF9UWVBFUy5pbmNsdWRlcyhjb250cmFjdFR5cGVSYXcpID8gY29udHJhY3RUeXBlUmF3IDogInllYXItcm91bmQiOwoKICBjb25zdCB0ZXh0ID0gKGtleToga2V5b2YgQWdyZWVtZW50RGF0YSkgPT4gc3RyKHJba2V5XSwgIiIpOwoKICByZXR1cm4gewogICAgZG9jdW1lbnRTdHlsZTogc3RyKHJbImRvY3VtZW50U3R5bGUiXSwgImZ1bGwiKSA9PT0gInN0YXRlbWVudCIgPyAic3RhdGVtZW50IiA6ICJmdWxsIiwKICAgIHN0YXRlbWVudEJvZHk6IHN0cihyWyJzdGF0ZW1lbnRCb2R5Il0pLnNsaWNlKDAsIDIwMDAwKSwKICAgIGVtcGxveWVyTmFtZTogdGV4dCgiZW1wbG95ZXJOYW1lIiksCiAgICBlbXBsb3llckFkZHJlc3M6IHRleHQoImVtcGxveWVyQWRkcmVzcyIpLAogICAgbmFubnlOYW1lOiB0ZXh0KCJuYW5ueU5hbWUiKSwKICAgIGpvYlRpdGxlOiBzdHIoclsiam9iVGl0bGUiXSwgIk5hbm55IiksCiAgICB3b3JrQWRkcmVzczogdGV4dCgid29ya0FkZHJlc3MiKSwKICAgIHN0YXJ0RGF0ZTogdGV4dCgic3RhcnREYXRlIiksCiAgICBpc0ZpeGVkVGVybTogclsiaXNGaXhlZFRlcm0iXSA9PT0gdHJ1ZSwKICAgIGVuZERhdGU6IHRleHQoImVuZERhdGUiKSwKICAgIGZpeGVkVGVybVJlYXNvbjogdGV4dCgiZml4ZWRUZXJtUmVhc29uIiksCiAgICBwcm9iYXRpb25QZXJpb2Q6IHRleHQoInByb2JhdGlvblBlcmlvZCIpLAogICAgb3ZlcnRpbWVQb2xpY3k6IHRleHQoIm92ZXJ0aW1lUG9saWN5IiksCiAgICBkdXRpZXMsCiAgICBvdGhlckR1dGllc0NsYXVzZTogdGV4dCgib3RoZXJEdXRpZXNDbGF1c2UiKSwKICAgIHdvcmtpbmdEYXlzLAogICAgY29udHJhY3RUeXBlLAogICAgd2Vla3NQZXJZZWFyOiBzdHIoclsid2Vla3NQZXJZZWFyIl0sIFN0cmluZyhERUZBVUxUX1dFRUtTX1BFUl9ZRUFSW2NvbnRyYWN0VHlwZV0pKSwKICAgIGluY2x1ZGVXb3JraW5nUGF0dGVybkNsYXVzZTogclsiaW5jbHVkZVdvcmtpbmdQYXR0ZXJuQ2xhdXNlIl0gIT09IGZhbHNlLAogICAgYWxsb3dTY2hvb2xIb2xpZGF5V29yazogclsiYWxsb3dTY2hvb2xIb2xpZGF5V29yayJdID09PSB0cnVlLAogICAgaG91cmx5UmF0ZTogdGV4dCgiaG91cmx5UmF0ZSIpLAogICAgcmF0ZUJhc2lzOiBzdHIoclsicmF0ZUJhc2lzIl0sICJncm9zcyIpID09PSAibmV0IiA/ICJuZXQiIDogImdyb3NzIiwKICAgIGluY2x1ZGVUYXhSZXNwb25zaWJpbGl0eUNsYXVzZTogclsiaW5jbHVkZVRheFJlc3BvbnNpYmlsaXR5Q2xhdXNlIl0gIT09IGZhbHNlLAogICAgcGF5bWVudE1ldGhvZDogdGV4dCgicGF5bWVudE1ldGhvZCIpLAogICAgcGF5bWVudEZyZXF1ZW5jeTogdGV4dCgicGF5bWVudEZyZXF1ZW5jeSIpLAogICAgYmVuZWZpdHM6IHRleHQoImJlbmVmaXRzIiksCiAgICBleHBlbnNlUmF0ZTogdGV4dCgiZXhwZW5zZVJhdGUiKSwKICAgIHBlbnNpb246IHRleHQoInBlbnNpb24iKSwKICAgIGluY2x1ZGVIb2xpZGF5RW50aXRsZW1lbnQ6IHJbImluY2x1ZGVIb2xpZGF5RW50aXRsZW1lbnQiXSAhPT0gZmFsc2UsCiAgICBob2xpZGF5QWxsb3dhbmNlOiB0ZXh0KCJob2xpZGF5QWxsb3dhbmNlIiksCiAgICByb2xsZWRVcEhvbGlkYXlQYXk6IHJbInJvbGxlZFVwSG9saWRheVBheSJdID09PSB0cnVlLAogICAgc2lja25lc3NQb2xpY3k6IHRleHQoInNpY2tuZXNzUG9saWN5IiksCiAgICBncmlldmFuY2VQcm9jZWR1cmU6IHRleHQoImdyaWV2YW5jZVByb2NlZHVyZSIpLAogICAgZGlzY2lwbGluYXJ5UHJvY2VkdXJlOiB0ZXh0KCJkaXNjaXBsaW5hcnlQcm9jZWR1cmUiKSwKICAgIGRhdGFQcm90ZWN0aW9uOiB0ZXh0KCJkYXRhUHJvdGVjdGlvbiIpLAogICAgZGJzQ2hlY2tlZDogdGV4dCgiZGJzQ2hlY2tlZCIpLAogICAgcmVmZXJlbmNlczogdGV4dCgicmVmZXJlbmNlcyIpLAogICAgZ2FyZGVuTGVhdmU6IHRleHQoImdhcmRlbkxlYXZlIiksCiAgICBwcm9iYXRpb25Ob3RpY2U6IHRleHQoInByb2JhdGlvbk5vdGljZSIpLAogICAgc3RhbmRhcmROb3RpY2U6IHRleHQoInN0YW5kYXJkTm90aWNlIiksCiAgfTsKfQoKLyoqIFRydWUgd2hlbiBlbm91Z2ggaGFzIGJlZW4gd3JpdHRlbiBmb3IgdGhlIGFncmVlbWVudCB0byBiZSB3b3J0aCBzaG93aW5nLiAqLwpleHBvcnQgZnVuY3Rpb24gYWdyZWVtZW50SGFzQ29udGVudChkYXRhOiBBZ3JlZW1lbnREYXRhKTogYm9vbGVhbiB7CiAgcmV0dXJuIEJvb2xlYW4oCiAgICBkYXRhLnN0YXRlbWVudEJvZHkudHJpbSgpIHx8CiAgICAgIGRhdGEuZW1wbG95ZXJOYW1lIHx8CiAgICAgIGRhdGEubmFubnlOYW1lIHx8CiAgICAgIGRhdGEud29ya0FkZHJlc3MgfHwKICAgICAgZGF0YS5ob3VybHlSYXRlIHx8CiAgICAgIGRhdGEuc3RhcnREYXRlIHx8CiAgICAgIGRhdGEud29ya2luZ0RheXMuc29tZSgoZCkgPT4gZC5lbmFibGVkKSwKICApOwp9Cg==
+/** Full nanny agreement model — shared by the admin builder, the wallet view and the server. */
+
+export interface NannyDuty {
+  id: string;
+  label: string;
+  details: string;
+  enabled: boolean;
+}
+
+export interface WorkingDay {
+  day: string;
+  enabled: boolean;
+  startTime: string;
+  endTime: string;
+  /** Optional second block for split shifts (e.g. 15:00–19:00 after a 07:00–09:00 morning block). */
+  startTime2?: string;
+  endTime2?: string;
+}
+
+const toMinutes = (t: string): number => {
+  const [h, m] = (t || "0:0").split(":").map(Number);
+  return (h || 0) * 60 + (m || 0);
+};
+
+/** Total hours worked in a day, including an optional split-shift second block. */
+export const workingDayHours = (day: WorkingDay): number => {
+  let hours = (toMinutes(day.endTime) - toMinutes(day.startTime)) / 60;
+  if (day.startTime2 && day.endTime2) {
+    hours += (toMinutes(day.endTime2) - toMinutes(day.startTime2)) / 60;
+  }
+  return Math.max(0, hours);
+};
+
+export type ContractType = "year-round" | "term-time" | "part-time-term-time";
+
+export const isTermTime = (type: ContractType): boolean =>
+  type === "term-time" || type === "part-time-term-time";
+
+export const DEFAULT_WEEKS_PER_YEAR: Record<ContractType, number> = {
+  "year-round": 52,
+  "term-time": 36,
+  "part-time-term-time": 36,
+};
+
+export const CONTRACT_TYPE_LABELS: Record<ContractType, string> = {
+  "year-round": "Full time, year round",
+  "term-time": "Term-time only",
+  "part-time-term-time": "Part time, term time only",
+};
+
+export type RateBasis = "gross" | "net";
+
+export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
+  gross: "Gross (before tax)",
+  net: "Net (take-home)",
+};
+
+/** Which kind of document the family has chosen: the full formal contract, or a short written statement. */
+export type DocumentStyle = "full" | "statement";
+
+export const DOCUMENT_STYLE_LABELS: Record<DocumentStyle, string> = {
+  full: "Full nanny contract",
+  statement: "Written statement of particulars",
+};
+
+export interface AgreementData {
+  /** "full" = formal contract, "statement" = short written statement of employment particulars. */
+  documentStyle: DocumentStyle;
+  /** The written statement wording (used only when documentStyle is "statement"). */
+  statementBody: string;
+  employerName: string;
+  employerAddress: string;
+  nannyName: string;
+
+  jobTitle: string;
+  workAddress: string;
+  startDate: string;
+  isFixedTerm: boolean;
+  endDate: string;
+  fixedTermReason: string;
+  probationPeriod: string;
+  overtimePolicy: string;
+
+  duties: NannyDuty[];
+  otherDutiesClause: string;
+
+  workingDays: WorkingDay[];
+  contractType: ContractType;
+  weeksPerYear: string;
+  /** Whether clause 1.6 describing the annual working pattern appears in the printable agreement. */
+  includeWorkingPatternClause: boolean;
+  /** For term-time contracts, whether school-holiday work may be offered if needed and the nanny is available. */
+  allowSchoolHolidayWork: boolean;
+
+  hourlyRate: string;
+  /** Whether the hourly rate quoted is gross (before tax) or net (take-home). */
+  rateBasis: RateBasis;
+  /** Whether clause 2.1 includes tax, National Insurance and pension responsibility wording. */
+  includeTaxResponsibilityClause: boolean;
+  paymentMethod: string;
+  paymentFrequency: string;
+  benefits: string;
+  expenseRate: string;
+
+  pension: string;
+  /** Whether the holiday entitlement section appears in the printable agreement. */
+  includeHolidayEntitlement: boolean;
+  holidayAllowance: string;
+  /** Whether holiday pay is rolled up and paid with each payslip (part-year / term-time workers). */
+  rolledUpHolidayPay: boolean;
+  sicknessPolicy: string;
+
+  grievanceProcedure: string;
+  disciplinaryProcedure: string;
+  dataProtection: string;
+  dbsChecked: string;
+  references: string;
+  gardenLeave: string;
+
+  probationNotice: string;
+  standardNotice: string;
+}
+
+export interface HolidayCalculation {
+  totalWeeksEntitlement: number;
+  totalDaysEntitlement: number;
+  totalHoursEntitlement: number;
+  weeklyHours: number;
+  workingDaysPerWeek: number;
+  weeksWorkedPerYear: number;
+  contractType: ContractType;
+}
+
+const UK_STATUTORY_WEEKS = 5.6;
+/** Weeks actually worked by a full-year employee (52 − 5.6 weeks holiday). */
+const FULL_YEAR_WORKING_WEEKS = 46.4;
+
+export function calculateHoliday(
+  workingDays: WorkingDay[],
+  contractType: ContractType,
+  weeksPerYear: string,
+): HolidayCalculation {
+  const enabledDays = workingDays.filter((d) => d.enabled);
+  const workingDaysPerWeek = enabledDays.length;
+  const weeklyHours = enabledDays.reduce((total, day) => total + workingDayHours(day), 0);
+
+  const parsedWeeks = parseFloat(weeksPerYear ?? "");
+  const weeksWorkedPerYear =
+    Number.isFinite(parsedWeeks) && parsedWeeks > 0
+      ? parsedWeeks
+      : DEFAULT_WEEKS_PER_YEAR[contractType];
+
+  const totalWeeksEntitlement =
+    weeksWorkedPerYear >= FULL_YEAR_WORKING_WEEKS
+      ? UK_STATUTORY_WEEKS
+      : parseFloat(((UK_STATUTORY_WEEKS * weeksWorkedPerYear) / FULL_YEAR_WORKING_WEEKS).toFixed(2));
+
+  const totalDaysEntitlement = parseFloat((totalWeeksEntitlement * workingDaysPerWeek).toFixed(1));
+  const avgHoursPerDay = workingDaysPerWeek > 0 ? weeklyHours / workingDaysPerWeek : 0;
+  const totalHoursEntitlement = parseFloat((totalDaysEntitlement * avgHoursPerDay).toFixed(1));
+
+  return {
+    totalWeeksEntitlement,
+    totalDaysEntitlement,
+    totalHoursEntitlement,
+    weeklyHours,
+    workingDaysPerWeek,
+    weeksWorkedPerYear,
+    contractType,
+  };
+}
+
+/** Format an ISO date string (YYYY-MM-DD) as e.g. "15 August 2026". */
+export const formatUKDate = (iso: string, fallback = "___________________"): string => {
+  if (!iso) return fallback;
+  const date = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return fallback;
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+};
+
+export const defaultDuties: NannyDuty[] = [
+  { id: "caring", label: "Caring for children", details: "", enabled: true },
+  {
+    id: "collecting",
+    label: "Collecting children from school and transporting them home safely",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "meals",
+    label:
+      "Helping to plan healthy nutritious meals and preparing the children's snacks and meals",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "cooking",
+    label:
+      "Cooking family evening meals, ensuring the children eat a hot meal whilst sitting at the table and encouraging good table manners",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "learning",
+    label:
+      "Encouraging the children's learning, including assisting with homework and recording this in their home-school handover book",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "tidying",
+    label:
+      "Keeping children's area of the house clean and tidy – playroom, kitchen, bedrooms, bathroom and cloakroom",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "bathtime",
+    label: "Supervising children's bath-time and preparing them for bed with story time",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "behaviour",
+    label:
+      "Using consistent behavioural management techniques, previously discussed and agreed with the employers and teaching good manners",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "communication",
+    label: "Communicating progress and daily activities with the Employer",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "supervision",
+    label:
+      "Supervising the children at all times and only using public transport with children when agreed in advance with the Employer",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "activities",
+    label: "Organising age-appropriate, stimulating activities for the children",
+    details: "",
+    enabled: true,
+  },
+  { id: "interests", label: "Supporting the children's interests", details: "", enabled: true },
+  {
+    id: "playdates",
+    label: "Hosting the occasional play-date with one of the children's friends",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "medication",
+    label: "Administering medication, such as Calpol, when required as agreed by the Employer",
+    details: "",
+    enabled: true,
+  },
+  {
+    id: "laundry",
+    label: "Helping with children's laundry; load washing machine, drying",
+    details: "",
+    enabled: true,
+  },
+];
+
+export const defaultWorkingDays: WorkingDay[] = [
+  { day: "Monday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Tuesday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Wednesday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Thursday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Friday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Saturday", enabled: false, startTime: "09:00", endTime: "17:00" },
+  { day: "Sunday", enabled: false, startTime: "09:00", endTime: "17:00" },
+];
+
+export const defaultAgreementData: AgreementData = {
+  documentStyle: "full",
+  statementBody: "",
+  employerName: "",
+  employerAddress: "",
+  nannyName: "",
+
+  jobTitle: "Nanny",
+  workAddress: "",
+  startDate: "",
+  isFixedTerm: false,
+  endDate: "",
+  fixedTermReason: "",
+
+  probationPeriod: "3 months",
+  overtimePolicy:
+    "Overtime is not paid; any additional hours required on an occasional basis will be taken as time off in lieu by prior agreement with the Employer.",
+
+  duties: defaultDuties,
+  otherDutiesClause:
+    "The Nanny shall also perform any other reasonable duties as may from time to time be required by the Employer and which are consistent with the role of a Nanny.",
+
+  workingDays: defaultWorkingDays,
+  contractType: "year-round",
+  weeksPerYear: "52",
+  includeWorkingPatternClause: true,
+  allowSchoolHolidayWork: false,
+
+  hourlyRate: "",
+  rateBasis: "gross",
+  includeTaxResponsibilityClause: true,
+  paymentMethod: "Direct debit payment direct to the Nanny's bank",
+  paymentFrequency: "Monthly (last day of each month)",
+  benefits: "Light refreshments such as tea, coffee, soft drinks and fruit",
+  expenseRate: "45",
+
+  pension:
+    "The Nanny will be auto-enrolled into the Employer's workplace pension scheme in line with the Pensions Act 2008, subject to the relevant qualifying criteria. The Nanny may opt out in accordance with the scheme rules.",
+
+  includeHolidayEntitlement: true,
+  holidayAllowance: "",
+  rolledUpHolidayPay: false,
+
+  sicknessPolicy:
+    "If the Nanny is unable to attend work due to sickness or injury they shall (insofar as they are able) promptly notify the Employer either in person or by telephone (as appropriate) on the first day of absence. The Employer may require a doctor's certificate after seven consecutive days of sickness. Statutory Sick Pay will be paid in accordance with the law.",
+
+  grievanceProcedure:
+    "Any grievance relating to the employment should first be raised informally with the Employer. If the matter is not resolved, the Nanny should set out the grievance in writing and the Employer will arrange a meeting to discuss it. A formal procedure is available on request, in line with the ACAS Code of Practice.",
+  disciplinaryProcedure:
+    "The Employer will follow a fair disciplinary procedure consistent with the ACAS Code of Practice. In the first instance any concerns will be discussed informally. Where a formal process is required, the Nanny will be informed of the nature of the concern in writing and given the opportunity to respond before any decision is made.",
+  dataProtection:
+    "The Employer will process the Nanny's personal data in accordance with the General Data Protection Regulation (GDPR) and the Data Protection Act 2018. Personal data will be kept confidential and used only for the purposes of administering the employment relationship.",
+  dbsChecked:
+    "The Nanny confirms that an enhanced Disclosure and Barring Service (DBS) check has been carried out. The Employer will retain a copy of the certificate on file.",
+  references:
+    "The Nanny has provided two satisfactory references which the Employer has taken up and verified prior to the commencement of employment.",
+  gardenLeave:
+    "During any notice period, the Employer may require the Nanny not to attend work (garden leave) while remaining employed and entitled to full pay and benefits.",
+
+  probationNotice: "1 week",
+  standardNotice: "4 weeks",
+};
+
+const CONTRACT_TYPES: ContractType[] = ["year-round", "term-time", "part-time-term-time"];
+
+function str(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : typeof value === "number" ? String(value) : fallback;
+}
+
+/** Coerce anything stored in the database into a complete, safe AgreementData. */
+export function normalizeAgreement(raw: unknown): AgreementData {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const base = defaultAgreementData;
+
+  const duties = Array.isArray(r["duties"])
+    ? (r["duties"] as Record<string, unknown>[]).map((d, i) => ({
+        id: str(d["id"], `duty-${i}`),
+        label: str(d["label"]).slice(0, 400),
+        details: str(d["details"]).slice(0, 1000),
+        enabled: d["enabled"] !== false,
+      }))
+    : base.duties.map((d) => ({ ...d }));
+
+  const workingDays = Array.isArray(r["workingDays"])
+    ? (r["workingDays"] as Record<string, unknown>[]).map((d, i) => {
+        const day: WorkingDay = {
+          day: str(d["day"], base.workingDays[i]?.day ?? "Day"),
+          enabled: d["enabled"] === true,
+          startTime: str(d["startTime"], "09:00"),
+          endTime: str(d["endTime"], "17:00"),
+        };
+        if (d["startTime2"] && d["endTime2"]) {
+          day.startTime2 = str(d["startTime2"]);
+          day.endTime2 = str(d["endTime2"]);
+        }
+        return day;
+      })
+    : base.workingDays.map((d) => ({ ...d }));
+
+  const contractTypeRaw = str(r["contractType"], base.contractType) as ContractType;
+  const contractType = CONTRACT_TYPES.includes(contractTypeRaw) ? contractTypeRaw : "year-round";
+
+  const text = (key: keyof AgreementData) => str(r[key], "");
+
+  return {
+    documentStyle: str(r["documentStyle"], "full") === "statement" ? "statement" : "full",
+    statementBody: str(r["statementBody"]).slice(0, 20000),
+    employerName: text("employerName"),
+    employerAddress: text("employerAddress"),
+    nannyName: text("nannyName"),
+    jobTitle: str(r["jobTitle"], "Nanny"),
+    workAddress: text("workAddress"),
+    startDate: text("startDate"),
+    isFixedTerm: r["isFixedTerm"] === true,
+    endDate: text("endDate"),
+    fixedTermReason: text("fixedTermReason"),
+    probationPeriod: text("probationPeriod"),
+    overtimePolicy: text("overtimePolicy"),
+    duties,
+    otherDutiesClause: text("otherDutiesClause"),
+    workingDays,
+    contractType,
+    weeksPerYear: str(r["weeksPerYear"], String(DEFAULT_WEEKS_PER_YEAR[contractType])),
+    includeWorkingPatternClause: r["includeWorkingPatternClause"] !== false,
+    allowSchoolHolidayWork: r["allowSchoolHolidayWork"] === true,
+    hourlyRate: text("hourlyRate"),
+    rateBasis: str(r["rateBasis"], "gross") === "net" ? "net" : "gross",
+    includeTaxResponsibilityClause: r["includeTaxResponsibilityClause"] !== false,
+    paymentMethod: text("paymentMethod"),
+    paymentFrequency: text("paymentFrequency"),
+    benefits: text("benefits"),
+    expenseRate: text("expenseRate"),
+    pension: text("pension"),
+    includeHolidayEntitlement: r["includeHolidayEntitlement"] !== false,
+    holidayAllowance: text("holidayAllowance"),
+    rolledUpHolidayPay: r["rolledUpHolidayPay"] === true,
+    sicknessPolicy: text("sicknessPolicy"),
+    grievanceProcedure: text("grievanceProcedure"),
+    disciplinaryProcedure: text("disciplinaryProcedure"),
+    dataProtection: text("dataProtection"),
+    dbsChecked: text("dbsChecked"),
+    references: text("references"),
+    gardenLeave: text("gardenLeave"),
+    probationNotice: text("probationNotice"),
+    standardNotice: text("standardNotice"),
+  };
+}
+
+/** True when enough has been written for the agreement to be worth showing. */
+export function agreementHasContent(data: AgreementData): boolean {
+  return Boolean(
+    data.statementBody.trim() ||
+      data.employerName ||
+      data.nannyName ||
+      data.workAddress ||
+      data.hourlyRate ||
+      data.startDate ||
+      data.workingDays.some((d) => d.enabled),
+  );
+}

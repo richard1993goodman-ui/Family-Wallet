@@ -1,1 +1,23 @@
-ZXhwb3J0IGNvbnN0IE1FU1NBR0VfVE9QSUNTID0gWwogIHsgaWQ6ICJnZW5lcmFsIiwgbGFiZWw6ICJHZW5lcmFsIiB9LAogIHsgaWQ6ICJjaGlsZCIsIGxhYmVsOiAiQ2hpbGRyZW4iIH0sCiAgeyBpZDogInNjaG9vbCIsIGxhYmVsOiAiU2Nob29sICYgaG9tZXdvcmsiIH0sCiAgeyBpZDogIm1lYWxzIiwgbGFiZWw6ICJNZWFscyIgfSwKICB7IGlkOiAiaGVhbHRoIiwgbGFiZWw6ICJIZWFsdGgiIH0sCiAgeyBpZDogInNjaGVkdWxlIiwgbGFiZWw6ICJTY2hlZHVsZSAmIGhvdXJzIiB9LAogIHsgaWQ6ICJwYXkiLCBsYWJlbDogIlBheSAmIGV4cGVuc2VzIiB9LApdIGFzIGNvbnN0OwoKZXhwb3J0IHR5cGUgTWVzc2FnZVRvcGljID0gKHR5cGVvZiBNRVNTQUdFX1RPUElDUylbbnVtYmVyXVsiaWQiXTsKCmV4cG9ydCB0eXBlIEhvdXNlaG9sZE1lc3NhZ2UgPSB7IGlkOiBzdHJpbmc7IHNlbmRlcjogc3RyaW5nOyBzZW5kZXJOYW1lOiBzdHJpbmcgfCBudWxsOyBib2R5OiBzdHJpbmc7IGNyZWF0ZWRBdDogc3RyaW5nIH07CmV4cG9ydCB0eXBlIEhvdXNlaG9sZFRocmVhZCA9IHsKICBpZDogc3RyaW5nOwogIHRvcGljOiBzdHJpbmc7CiAgdGl0bGU6IHN0cmluZzsKICBsYXN0U2VuZGVyOiBzdHJpbmc7CiAgdW5yZWFkOiBib29sZWFuOwogIHVwZGF0ZWRBdDogc3RyaW5nOwogIG1lc3NhZ2VzOiBIb3VzZWhvbGRNZXNzYWdlW107Cn07CmV4cG9ydCB0eXBlIEhvdXNlaG9sZE1lc3NhZ2VzRGF0YSA9IHsgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7IHRocmVhZHM6IEhvdXNlaG9sZFRocmVhZFtdIH07Cg==
+export const MESSAGE_TOPICS = [
+  { id: "general", label: "General" },
+  { id: "child", label: "Children" },
+  { id: "school", label: "School & homework" },
+  { id: "meals", label: "Meals" },
+  { id: "health", label: "Health" },
+  { id: "schedule", label: "Schedule & hours" },
+  { id: "pay", label: "Pay & expenses" },
+] as const;
+
+export type MessageTopic = (typeof MESSAGE_TOPICS)[number]["id"];
+
+export type HouseholdMessage = { id: string; sender: string; senderName: string | null; body: string; createdAt: string };
+export type HouseholdThread = {
+  id: string;
+  topic: string;
+  title: string;
+  lastSender: string;
+  unread: boolean;
+  updatedAt: string;
+  messages: HouseholdMessage[];
+};
+export type HouseholdMessagesData = { access: "family" | "nanny"; threads: HouseholdThread[] };

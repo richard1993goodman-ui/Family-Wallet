@@ -1,1 +1,67 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5mYW1pbHlfbmFubmllcyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBuYW1lIHRleHQgTk9UIE5VTEwsCiAgYmlvIHRleHQsCiAgcGhvdG9fcGF0aCB0ZXh0LAogIGVtZXJnZW5jeV9uYW1lIHRleHQsCiAgZW1lcmdlbmN5X3JlbGF0aW9uc2hpcCB0ZXh0LAogIGVtZXJnZW5jeV9waG9uZSB0ZXh0LAogIG5hbm55X2NvZGUgdGV4dCwKICBuYW5ueV9jb2RlX2hhc2ggdGV4dCwKICBpbnZpdGVkX2F0IHRpbWVzdGFtcHR6LAogIHN0YXR1cyB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ2FjdGl2ZScsCiAgc29ydF9vcmRlciBpbnRlZ2VyIE5PVCBOVUxMIERFRkFVTFQgMCwKICBjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgdXBkYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CgpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLmZhbWlseV9uYW5uaWVzIFRPIGF1dGhlbnRpY2F0ZWQ7CkdSQU5UIEFMTCBPTiBwdWJsaWMuZmFtaWx5X25hbm5pZXMgVE8gc2VydmljZV9yb2xlOwoKQUxURVIgVEFCTEUgcHVibGljLmZhbWlseV9uYW5uaWVzIEVOQUJMRSBST1cgTEVWRUwgU0VDVVJJVFk7CgpDUkVBVEUgUE9MSUNZICJBZG1pbnMgbWFuYWdlIGZhbWlseSBuYW5uaWVzIgpPTiBwdWJsaWMuZmFtaWx5X25hbm5pZXMgRk9SIEFMTCBUTyBhdXRoZW50aWNhdGVkClVTSU5HIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJzo6YXBwX3JvbGUpKQpXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJzo6YXBwX3JvbGUpKTsKCkNSRUFURSBJTkRFWCBmYW1pbHlfbmFubmllc19mYW1pbHlfaWRfaWR4IE9OIHB1YmxpYy5mYW1pbHlfbmFubmllcyAoZmFtaWx5X2lkKTsKCkFMVEVSIFRBQkxFIHB1YmxpYy5uYW5ueV9hZ3JlZW1lbnRzCiAgQUREIENPTFVNTiBuYW5ueV9pZCB1dWlkIFJFRkVSRU5DRVMgcHVibGljLmZhbWlseV9uYW5uaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERTsKCkFMVEVSIFRBQkxFIHB1YmxpYy5kb2N1bWVudF9zaWduYXR1cmVzCiAgQUREIENPTFVNTiBuYW5ueV9pZCB1dWlkIFJFRkVSRU5DRVMgcHVibGljLmZhbWlseV9uYW5uaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERTsKCklOU0VSVCBJTlRPIHB1YmxpYy5mYW1pbHlfbmFubmllcyAoCiAgZmFtaWx5X2lkLCBuYW1lLCBiaW8sIHBob3RvX3BhdGgsCiAgZW1lcmdlbmN5X25hbWUsIGVtZXJnZW5jeV9yZWxhdGlvbnNoaXAsIGVtZXJnZW5jeV9waG9uZSwKICBuYW5ueV9jb2RlLCBuYW5ueV9jb2RlX2hhc2gsIGludml0ZWRfYXQKKQpTRUxFQ1QKICBmLmlkLAogIENPQUxFU0NFKE5VTExJRihidHJpbShmLm5hbm55X25hbWUpLCAnJyksICdOYW5ueScpLAogIGYubmFubnlfYmlvLAogIGYubmFubnlfcGhvdG9fcGF0aCwKICBmLm5hbm55X2VtZXJnZW5jeV9uYW1lLAogIGYubmFubnlfZW1lcmdlbmN5X3JlbGF0aW9uc2hpcCwKICBmLm5hbm55X2VtZXJnZW5jeV9waG9uZSwKICBmLm5hbm55X2NvZGUsCiAgZi5uYW5ueV9jb2RlX2hhc2gsCiAgZi5uYW5ueV9pbnZpdGVkX2F0CkZST00gcHVibGljLmZhbWlsaWVzIGYKV0hFUkUgQ09BTEVTQ0UoTlVMTElGKGJ0cmltKGYubmFubnlfbmFtZSksICcnKSwgZi5uYW5ueV9jb2RlLCBmLm5hbm55X2JpbywgZi5uYW5ueV9lbWVyZ2VuY3lfbmFtZSkgSVMgTk9UIE5VTEw7CgpVUERBVEUgcHVibGljLm5hbm55X2FncmVlbWVudHMgYQpTRVQgbmFubnlfaWQgPSBuLmlkCkZST00gcHVibGljLmZhbWlseV9uYW5uaWVzIG4KV0hFUkUgbi5mYW1pbHlfaWQgPSBhLmZhbWlseV9pZCBBTkQgYS5uYW5ueV9pZCBJUyBOVUxMOwoKVVBEQVRFIHB1YmxpYy5kb2N1bWVudF9zaWduYXR1cmVzIHMKU0VUIG5hbm55X2lkID0gbi5pZApGUk9NIHB1YmxpYy5mYW1pbHlfbmFubmllcyBuCldIRVJFIG4uZmFtaWx5X2lkID0gcy5mYW1pbHlfaWQgQU5EIHMubmFubnlfaWQgSVMgTlVMTCBBTkQgcy5kb2Nfa2luZCA9ICdhZ3JlZW1lbnQnOwoKQ1JFQVRFIElOREVYIG5hbm55X2FncmVlbWVudHNfbmFubnlfaWRfaWR4IE9OIHB1YmxpYy5uYW5ueV9hZ3JlZW1lbnRzIChuYW5ueV9pZCk7CkNSRUFURSBJTkRFWCBkb2N1bWVudF9zaWduYXR1cmVzX25hbm55X2lkX2lkeCBPTiBwdWJsaWMuZG9jdW1lbnRfc2lnbmF0dXJlcyAobmFubnlfaWQpOw==
+CREATE TABLE public.family_nannies (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  name text NOT NULL,
+  bio text,
+  photo_path text,
+  emergency_name text,
+  emergency_relationship text,
+  emergency_phone text,
+  nanny_code text,
+  nanny_code_hash text,
+  invited_at timestamptz,
+  status text NOT NULL DEFAULT 'active',
+  sort_order integer NOT NULL DEFAULT 0,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.family_nannies TO authenticated;
+GRANT ALL ON public.family_nannies TO service_role;
+
+ALTER TABLE public.family_nannies ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage family nannies"
+ON public.family_nannies FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'::app_role))
+WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
+
+CREATE INDEX family_nannies_family_id_idx ON public.family_nannies (family_id);
+
+ALTER TABLE public.nanny_agreements
+  ADD COLUMN nanny_id uuid REFERENCES public.family_nannies(id) ON DELETE CASCADE;
+
+ALTER TABLE public.document_signatures
+  ADD COLUMN nanny_id uuid REFERENCES public.family_nannies(id) ON DELETE CASCADE;
+
+INSERT INTO public.family_nannies (
+  family_id, name, bio, photo_path,
+  emergency_name, emergency_relationship, emergency_phone,
+  nanny_code, nanny_code_hash, invited_at
+)
+SELECT
+  f.id,
+  COALESCE(NULLIF(btrim(f.nanny_name), ''), 'Nanny'),
+  f.nanny_bio,
+  f.nanny_photo_path,
+  f.nanny_emergency_name,
+  f.nanny_emergency_relationship,
+  f.nanny_emergency_phone,
+  f.nanny_code,
+  f.nanny_code_hash,
+  f.nanny_invited_at
+FROM public.families f
+WHERE COALESCE(NULLIF(btrim(f.nanny_name), ''), f.nanny_code, f.nanny_bio, f.nanny_emergency_name) IS NOT NULL;
+
+UPDATE public.nanny_agreements a
+SET nanny_id = n.id
+FROM public.family_nannies n
+WHERE n.family_id = a.family_id AND a.nanny_id IS NULL;
+
+UPDATE public.document_signatures s
+SET nanny_id = n.id
+FROM public.family_nannies n
+WHERE n.family_id = s.family_id AND s.nanny_id IS NULL AND s.doc_kind = 'agreement';
+
+CREATE INDEX nanny_agreements_nanny_id_idx ON public.nanny_agreements (nanny_id);
+CREATE INDEX document_signatures_nanny_id_idx ON public.document_signatures (nanny_id);

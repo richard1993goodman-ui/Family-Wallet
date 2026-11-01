@@ -1,1 +1,16 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICJ2aXRlc3QiOwppbXBvcnQgeyBjYW5FZGl0UGxheWJvb2sgfSBmcm9tICIuL2tpZHMtcGxheWJvb2sudHlwZXMiOwoKZGVzY3JpYmUoImtpZHMgcGxheWJvb2sgcGVybWlzc2lvbnMiLCAoKSA9PiB7CiAgaXQoImxldHMgcGFyZW50cyBlZGl0IGV2ZXJ5IHNlY3Rpb24iLCAoKSA9PiB7CiAgICBmb3IgKGNvbnN0IGMgb2YgWyJjb21mb3J0IiwgImhhbmRsZSIsICJmcmllbmRzIiwgImFjdGl2aXRpZXMiXSkgZXhwZWN0KGNhbkVkaXRQbGF5Ym9vaygiZmFtaWx5IiwgYykpLnRvQmUodHJ1ZSk7CiAgfSk7CiAgaXQoImxldHMgbmFubmllcyBhZGQgcmFpbnktZGF5IGlkZWFzIG9ubHkiLCAoKSA9PiB7CiAgICBleHBlY3QoY2FuRWRpdFBsYXlib29rKCJuYW5ueSIsICJhY3Rpdml0aWVzIikpLnRvQmUodHJ1ZSk7CiAgICBleHBlY3QoY2FuRWRpdFBsYXlib29rKCJuYW5ueSIsICJmcmllbmRzIikpLnRvQmUoZmFsc2UpOwogICAgZXhwZWN0KGNhbkVkaXRQbGF5Ym9vaygibmFubnkiLCAiaGFuZGxlIikpLnRvQmUoZmFsc2UpOwogIH0pOwogIGl0KCJibG9ja3Mgc2lnbmVkLW91dCB1c2VycyIsICgpID0+IHsKICAgIGV4cGVjdChjYW5FZGl0UGxheWJvb2sobnVsbCwgImFjdGl2aXRpZXMiKSkudG9CZShmYWxzZSk7CiAgfSk7Cn0pOwo=
+import { describe, expect, it } from "vitest";
+import { canEditPlaybook } from "./kids-playbook.types";
+
+describe("kids playbook permissions", () => {
+  it("lets parents edit every section", () => {
+    for (const c of ["comfort", "handle", "friends", "activities"]) expect(canEditPlaybook("family", c)).toBe(true);
+  });
+  it("lets nannies add rainy-day ideas only", () => {
+    expect(canEditPlaybook("nanny", "activities")).toBe(true);
+    expect(canEditPlaybook("nanny", "friends")).toBe(false);
+    expect(canEditPlaybook("nanny", "handle")).toBe(false);
+  });
+  it("blocks signed-out users", () => {
+    expect(canEditPlaybook(null, "activities")).toBe(false);
+  });
+});

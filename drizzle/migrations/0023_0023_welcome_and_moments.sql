@@ -1,1 +1,60 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5mYW1pbHlfbW9tZW50cyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBuYW5ueV9pZCB1dWlkIFJFRkVSRU5DRVMgcHVibGljLmZhbWlseV9uYW5uaWVzKGlkKSBPTiBERUxFVEUgU0VUIE5VTEwsCiAgY2hpbGRfaWQgdXVpZCBSRUZFUkVOQ0VTIHB1YmxpYy5mYW1pbHlfY2hpbGRyZW4oaWQpIE9OIERFTEVURSBTRVQgTlVMTCwKICBraW5kIHRleHQgTk9UIE5VTEwgREVGQVVMVCAncGhvdG8nIENIRUNLIChraW5kIElOICgncGhvdG8nLCAnbWlsZXN0b25lJykpLAogIG1vbWVudF9kYXRlIGRhdGUgTk9UIE5VTEwsCiAgY2FwdGlvbiB0ZXh0LAogIG1pbGVzdG9uZV9sYWJlbCB0ZXh0LAogIHN0b3JhZ2VfcGF0aCB0ZXh0LAogIGFkZGVkX2J5IHRleHQgTk9UIE5VTEwsCiAgYWRkZWRfYnlfbmFtZSB0ZXh0LAogIGNyZWF0ZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLmZhbWlseV9tb21lbnRzIFRPIGF1dGhlbnRpY2F0ZWQ7CkdSQU5UIEFMTCBPTiBwdWJsaWMuZmFtaWx5X21vbWVudHMgVE8gc2VydmljZV9yb2xlOwpBTFRFUiBUQUJMRSBwdWJsaWMuZmFtaWx5X21vbWVudHMgRU5BQkxFIFJPVyBMRVZFTCBTRUNVUklUWTsKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBmYW1pbHkgbW9tZW50cyIKT04gcHVibGljLmZhbWlseV9tb21lbnRzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKQpXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpOwpDUkVBVEUgSU5ERVggZmFtaWx5X21vbWVudHNfZmFtaWx5X2RhdGVfaWR4IE9OIHB1YmxpYy5mYW1pbHlfbW9tZW50cyhmYW1pbHlfaWQsIG1vbWVudF9kYXRlIERFU0MpOwoKQ1JFQVRFIFRBQkxFIHB1YmxpYy53ZWxjb21lX3Byb2dyZXNzICgKICBmYW1pbHlfaWQgdXVpZCBQUklNQVJZIEtFWSBSRUZFUkVOQ0VTIHB1YmxpYy5mYW1pbGllcyhpZCkgT04gREVMRVRFIENBU0NBREUsCiAgc3RlcHMganNvbmIgTk9UIE5VTEwgREVGQVVMVCAne30nOjpqc29uYiwKICBmaW5pc2hlZF9hdCB0aW1lc3RhbXB0eiwKICBjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgdXBkYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CkdSQU5UIFNFTEVDVCwgSU5TRVJULCBVUERBVEUsIERFTEVURSBPTiBwdWJsaWMud2VsY29tZV9wcm9ncmVzcyBUTyBhdXRoZW50aWNhdGVkOwpHUkFOVCBBTEwgT04gcHVibGljLndlbGNvbWVfcHJvZ3Jlc3MgVE8gc2VydmljZV9yb2xlOwpBTFRFUiBUQUJMRSBwdWJsaWMud2VsY29tZV9wcm9ncmVzcyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwpDUkVBVEUgUE9MSUNZICJBZG1pbnMgbWFuYWdlIHdlbGNvbWUgcHJvZ3Jlc3MiCk9OIHB1YmxpYy53ZWxjb21lX3Byb2dyZXNzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKQpXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpOwoKLS0gU2FtcGxlIG1pbGVzdG9uZSBlbnRyaWVzIGZvciB0aGUgZGVtbyB3YWxsZXQgKHBob3RvcyBhcmUgbm90IHNlZWRlZDsgbWlsZXN0b25lcyBvbmx5KS4KRE8gJCQKREVDTEFSRSBmaWQgdXVpZDsKQkVHSU4KICBTRUxFQ1QgaWQgSU5UTyBmaWQgRlJPTSBwdWJsaWMuZmFtaWxpZXMgV0hFUkUgc2x1ZyA9ICdkZW1vJzsKICBJRiBmaWQgSVMgTlVMTCBUSEVOIFJFVFVSTjsgRU5EIElGOwogIElGIEVYSVNUUyAoU0VMRUNUIDEgRlJPTSBwdWJsaWMuZmFtaWx5X21vbWVudHMgV0hFUkUgZmFtaWx5X2lkID0gZmlkKSBUSEVOIFJFVFVSTjsgRU5EIElGOwoKICBJTlNFUlQgSU5UTyBwdWJsaWMuZmFtaWx5X21vbWVudHMgKGZhbWlseV9pZCwgY2hpbGRfaWQsIGtpbmQsIG1vbWVudF9kYXRlLCBjYXB0aW9uLCBtaWxlc3RvbmVfbGFiZWwsIGFkZGVkX2J5LCBhZGRlZF9ieV9uYW1lKQogIFNFTEVDVCBmLmlkLCBjLmlkLCAnbWlsZXN0b25lJywgY3VycmVudF9kYXRlIC0gMSwgJ1RlbiBrZWVweS11cHBpZXMgaW4gYSByb3cgYmVmb3JlIHRlYSDigJQgbmV3IHBlcnNvbmFsIGJlc3QhJywgJ0Zvb3RiYWxsIG1pbGVzdG9uZScsICduYW5ueScsICdKZXNzIENhcnRlcicKICBGUk9NIHB1YmxpYy5mYW1pbGllcyBmIEpPSU4gcHVibGljLmZhbWlseV9jaGlsZHJlbiBjIE9OIGMuZmFtaWx5X2lkID0gZi5pZCBBTkQgYy5uYW1lID0gJ09zY2FyJwogIFdIRVJFIGYuc2x1ZyA9ICdkZW1vJzsKCiAgSU5TRVJUIElOVE8gcHVibGljLmZhbWlseV9tb21lbnRzIChmYW1pbHlfaWQsIGNoaWxkX2lkLCBraW5kLCBtb21lbnRfZGF0ZSwgY2FwdGlvbiwgbWlsZXN0b25lX2xhYmVsLCBhZGRlZF9ieSwgYWRkZWRfYnlfbmFtZSkKICBTRUxFQ1QgZi5pZCwgYy5pZCwgJ21pbGVzdG9uZScsIGN1cnJlbnRfZGF0ZSAtIDQsICdSb2RlIHRoZSB3aG9sZSBoaWxsIG9uIGhpcyBzY29vdGVyIHdpdGhvdXQgc3RvcHBpbmcgb25jZS4nLCAnU2Nvb3RlciBtaWxlc3RvbmUnLCAnZmFtaWx5JywgJ0VtbWEgSGFycmluZ3RvbicKICBGUk9NIHB1YmxpYy5mYW1pbGllcyBmIEpPSU4gcHVibGljLmZhbWlseV9jaGlsZHJlbiBjIE9OIGMuZmFtaWx5X2lkID0gZi5pZCBBTkQgYy5uYW1lID0gJ0xlbycKICBXSEVSRSBmLnNsdWcgPSAnZGVtbyc7CgogIElOU0VSVCBJTlRPIHB1YmxpYy5mYW1pbHlfbW9tZW50cyAoZmFtaWx5X2lkLCBjaGlsZF9pZCwga2luZCwgbW9tZW50X2RhdGUsIGNhcHRpb24sIG1pbGVzdG9uZV9sYWJlbCwgYWRkZWRfYnksIGFkZGVkX2J5X25hbWUpCiAgU0VMRUNUIGYuaWQsIE5VTEwsICdtaWxlc3RvbmUnLCBjdXJyZW50X2RhdGUgLSAyLCAnT25lIGJsYW5rZXQsIHR3byBib3lzLCB6ZXJvIHJhaW4g4oCUIGRlbiBidWlsZGluZyBhdCBpdHMgZmluZXN0LicsICdUZWFtIGVmZm9ydCcsICduYW5ueScsICdKZXNzIENhcnRlcicKICBGUk9NIHB1YmxpYy5mYW1pbGllcyBmIFdIRVJFIGYuc2x1ZyA9ICdkZW1vJzsKRU5EICQkOwo=
+CREATE TABLE public.family_moments (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  nanny_id uuid REFERENCES public.family_nannies(id) ON DELETE SET NULL,
+  child_id uuid REFERENCES public.family_children(id) ON DELETE SET NULL,
+  kind text NOT NULL DEFAULT 'photo' CHECK (kind IN ('photo', 'milestone')),
+  moment_date date NOT NULL,
+  caption text,
+  milestone_label text,
+  storage_path text,
+  added_by text NOT NULL,
+  added_by_name text,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.family_moments TO authenticated;
+GRANT ALL ON public.family_moments TO service_role;
+ALTER TABLE public.family_moments ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage family moments"
+ON public.family_moments FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE INDEX family_moments_family_date_idx ON public.family_moments(family_id, moment_date DESC);
+
+CREATE TABLE public.welcome_progress (
+  family_id uuid PRIMARY KEY REFERENCES public.families(id) ON DELETE CASCADE,
+  steps jsonb NOT NULL DEFAULT '{}'::jsonb,
+  finished_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.welcome_progress TO authenticated;
+GRANT ALL ON public.welcome_progress TO service_role;
+ALTER TABLE public.welcome_progress ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage welcome progress"
+ON public.welcome_progress FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+-- Sample milestone entries for the demo wallet (photos are not seeded; milestones only).
+DO $$
+DECLARE fid uuid;
+BEGIN
+  SELECT id INTO fid FROM public.families WHERE slug = 'demo';
+  IF fid IS NULL THEN RETURN; END IF;
+  IF EXISTS (SELECT 1 FROM public.family_moments WHERE family_id = fid) THEN RETURN; END IF;
+
+  INSERT INTO public.family_moments (family_id, child_id, kind, moment_date, caption, milestone_label, added_by, added_by_name)
+  SELECT f.id, c.id, 'milestone', current_date - 1, 'Ten keepy-uppies in a row before tea — new personal best!', 'Football milestone', 'nanny', 'Jess Carter'
+  FROM public.families f JOIN public.family_children c ON c.family_id = f.id AND c.name = 'Oscar'
+  WHERE f.slug = 'demo';
+
+  INSERT INTO public.family_moments (family_id, child_id, kind, moment_date, caption, milestone_label, added_by, added_by_name)
+  SELECT f.id, c.id, 'milestone', current_date - 4, 'Rode the whole hill on his scooter without stopping once.', 'Scooter milestone', 'family', 'Emma Harrington'
+  FROM public.families f JOIN public.family_children c ON c.family_id = f.id AND c.name = 'Leo'
+  WHERE f.slug = 'demo';
+
+  INSERT INTO public.family_moments (family_id, child_id, kind, moment_date, caption, milestone_label, added_by, added_by_name)
+  SELECT f.id, NULL, 'milestone', current_date - 2, 'One blanket, two boys, zero rain — den building at its finest.', 'Team effort', 'nanny', 'Jess Carter'
+  FROM public.families f WHERE f.slug = 'demo';
+END $$;

@@ -1,1 +1,33 @@
-QUxURVIgVEFCTEUgcHVibGljLmZhbWlsaWVzCiAgQUREIENPTFVNTiBuYW5ueV9iaW8gdGV4dCwKICBBREQgQ09MVU1OIG5hbm55X3Bob3RvX3BhdGggdGV4dCwKICBBREQgQ09MVU1OIG5hbm55X2VtZXJnZW5jeV9uYW1lIHRleHQsCiAgQUREIENPTFVNTiBuYW5ueV9lbWVyZ2VuY3lfcmVsYXRpb25zaGlwIHRleHQsCiAgQUREIENPTFVNTiBuYW5ueV9lbWVyZ2VuY3lfcGhvbmUgdGV4dDsKCkFMVEVSIFRBQkxFIHB1YmxpYy5mYW1pbHlfZG9jdW1lbnRzCiAgQUREIENPTFVNTiB2aXNpYmlsaXR5IHRleHQgbm90IG51bGwgZGVmYXVsdCAnZG9jdW1lbnQnLAogIEFERCBDT0xVTU4gaXNzdWVkX29uIGRhdGUsCiAgQUREIENPTFVNTiByZWZlcmVuY2VfbGFiZWwgdGV4dDsKCkNSRUFURSBUQUJMRSBwdWJsaWMuZmFtaWx5X2NvbnRhY3RzICgKICBpZCB1dWlkIHByaW1hcnkga2V5IGRlZmF1bHQgZ2VuX3JhbmRvbV91dWlkKCksCiAgZmFtaWx5X2lkIHV1aWQgbm90IG51bGwgcmVmZXJlbmNlcyBwdWJsaWMuZmFtaWxpZXMoaWQpIG9uIGRlbGV0ZSBjYXNjYWRlLAogIG5hbWUgdGV4dCBub3QgbnVsbCwKICByZWxhdGlvbnNoaXAgdGV4dCwKICBwaG9uZSB0ZXh0IG5vdCBudWxsLAogIHNvcnRfb3JkZXIgaW50ZWdlciBub3QgbnVsbCBkZWZhdWx0IDAsCiAgY3JlYXRlZF9hdCB0aW1lc3RhbXAgd2l0aCB0aW1lIHpvbmUgbm90IG51bGwgZGVmYXVsdCBub3coKQopOwoKR1JBTlQgU0VMRUNULCBJTlNFUlQsIFVQREFURSwgREVMRVRFIE9OIHB1YmxpYy5mYW1pbHlfY29udGFjdHMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5mYW1pbHlfY29udGFjdHMgVE8gc2VydmljZV9yb2xlOwoKQUxURVIgVEFCTEUgcHVibGljLmZhbWlseV9jb250YWN0cyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwoKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBmYW1pbHkgY29udGFjdHMiCk9OIHB1YmxpYy5mYW1pbHlfY29udGFjdHMKRk9SIEFMTApUTyBhdXRoZW50aWNhdGVkClVTSU5HIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpCldJVEggQ0hFQ0sgKHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nKSk7
+ALTER TABLE public.families
+  ADD COLUMN nanny_bio text,
+  ADD COLUMN nanny_photo_path text,
+  ADD COLUMN nanny_emergency_name text,
+  ADD COLUMN nanny_emergency_relationship text,
+  ADD COLUMN nanny_emergency_phone text;
+
+ALTER TABLE public.family_documents
+  ADD COLUMN visibility text not null default 'document',
+  ADD COLUMN issued_on date,
+  ADD COLUMN reference_label text;
+
+CREATE TABLE public.family_contacts (
+  id uuid primary key default gen_random_uuid(),
+  family_id uuid not null references public.families(id) on delete cascade,
+  name text not null,
+  relationship text,
+  phone text not null,
+  sort_order integer not null default 0,
+  created_at timestamp with time zone not null default now()
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.family_contacts TO authenticated;
+GRANT ALL ON public.family_contacts TO service_role;
+
+ALTER TABLE public.family_contacts ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage family contacts"
+ON public.family_contacts
+FOR ALL
+TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));

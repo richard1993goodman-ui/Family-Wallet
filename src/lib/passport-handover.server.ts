@@ -1,1 +1,299 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgbGlzdE5hbm55Um93cywgc2Vzc2lvbkFjY2VzcyB9IGZyb20gIi4vd2FsbGV0LnNlcnZlciI7CmltcG9ydCB0eXBlIHsgRXhwZW5zZUlucHV0LCBIYW5kb3ZlcklucHV0LCBQYXNzcG9ydElucHV0IH0gZnJvbSAiLi9wYXNzcG9ydC1oYW5kb3Zlci50eXBlcyI7Cgpjb25zdCBNQVhfVEVYVCA9IDEyMDA7CgpmdW5jdGlvbiBjbGVhbih2YWx1ZTogc3RyaW5nIHwgdW5kZWZpbmVkIHwgbnVsbCwgbWF4ID0gTUFYX1RFWFQpIHsKICBjb25zdCB0cmltbWVkID0gKHZhbHVlID8/ICIiKS50cmltKCk7CiAgcmV0dXJuIHRyaW1tZWQgPyB0cmltbWVkLnNsaWNlKDAsIG1heCkgOiBudWxsOwp9CgpmdW5jdGlvbiBjbGVhbkRhdGUodmFsdWU6IHN0cmluZyB8IHVuZGVmaW5lZCB8IG51bGwpIHsKICBjb25zdCB0cmltbWVkID0gKHZhbHVlID8/ICIiKS50cmltKCk7CiAgcmV0dXJuIC9eXGR7NH0tXGR7Mn0tXGR7Mn0kLy50ZXN0KHRyaW1tZWQpID8gdHJpbW1lZCA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKS5zbGljZSgwLCAxMCk7Cn0KCmFzeW5jIGZ1bmN0aW9uIGFjdG9yKHNsdWc6IHN0cmluZywgZmFtaWx5SWQ6IHN0cmluZywgZmFtaWx5TmFtZTogc3RyaW5nKSB7CiAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IHNlc3Npb25BY2Nlc3Moc2x1Zyk7CiAgY29uc3QgbmFubmllcyA9IGF3YWl0IGxpc3ROYW5ueVJvd3MoZmFtaWx5SWQpOwogIGNvbnN0IGFjdGl2ZU5hbm55ID0gc2Vzc2lvbj8ubmFubnlJZCA/IG5hbm5pZXMuZmluZCgobikgPT4gbi5pZCA9PT0gc2Vzc2lvbi5uYW5ueUlkKSA6IG51bGw7CiAgcmV0dXJuIHsKICAgIG5hbm5pZXMsCiAgICBuYW5ueUlkOiBzZXNzaW9uPy5sZXZlbCA9PT0gIm5hbm55IiA/IChhY3RpdmVOYW5ueT8uaWQgPz8gbnVsbCkgOiBudWxsLAogICAgbmFtZTogc2Vzc2lvbj8ubGV2ZWwgPT09ICJuYW5ueSIgPyAoYWN0aXZlTmFubnk/Lm5hbWUgPz8gIk5hbm55IikgOiBmYW1pbHlOYW1lLAogIH07Cn0KCmFzeW5jIGZ1bmN0aW9uIHZhbGlkTmFubnlJZChmYW1pbHlJZDogc3RyaW5nLCByZXF1ZXN0ZWQ6IHN0cmluZyB8IHVuZGVmaW5lZCB8IG51bGwpIHsKICBpZiAoIXJlcXVlc3RlZCkgcmV0dXJuIG51bGw7CiAgY29uc3Qgcm93cyA9IGF3YWl0IGxpc3ROYW5ueVJvd3MoZmFtaWx5SWQpOwogIHJldHVybiByb3dzLnNvbWUoKHJvdykgPT4gcm93LmlkID09PSByZXF1ZXN0ZWQpID8gcmVxdWVzdGVkIDogbnVsbDsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRQYXNzcG9ydChzbHVnOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKCiAgY29uc3QgW3sgZGF0YTogY2hpbGRyZW4gfSwgeyBkYXRhOiBlbnRyaWVzIH1dID0gYXdhaXQgUHJvbWlzZS5hbGwoWwogICAgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgiZmFtaWx5X2NoaWxkcmVuIikKICAgICAgLnNlbGVjdCgibmFtZSIpCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgICAub3JkZXIoInNvcnRfb3JkZXIiLCB7IGFzY2VuZGluZzogdHJ1ZSB9KSwKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oInNwb3J0c19wYXNzcG9ydF9lbnRyaWVzIikKICAgICAgLnNlbGVjdCgKICAgICAgICAiaWQsIGNoaWxkX25hbWUsIGFjdGl2aXR5LCBza2lsbF9hcmVhLCBjb25maWRlbmNlX2xldmVsLCBlZmZvcnRfbGV2ZWwsIG1pbnV0ZXMsIGJhZGdlLCBub3RlcywgbG9nZ2VkX2J5LCBsb2dnZWRfYnlfbmFtZSwgZW50cnlfZGF0ZSwgY3JlYXRlZF9hdCIsCiAgICAgICkKICAgICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAgIC5vcmRlcigiZW50cnlfZGF0ZSIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KQogICAgICAub3JkZXIoImNyZWF0ZWRfYXQiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgICAgLmxpbWl0KDgwKSwKICBdKTsKCiAgY29uc3Qgcm93cyA9IGVudHJpZXMgPz8gW107CiAgY29uc3QgY2hpbGROYW1lcyA9IChjaGlsZHJlbiA/PyBbXSkubWFwKChjaGlsZCkgPT4gY2hpbGQubmFtZSk7CiAgY29uc3QgdG90YWxNaW51dGVzID0gcm93cy5yZWR1Y2UoKHN1bSwgcm93KSA9PiBzdW0gKyBOdW1iZXIocm93Lm1pbnV0ZXMgPz8gMCksIDApOwogIGNvbnN0IGJhZGdlcyA9IG5ldyBTZXQocm93cy5tYXAoKHJvdykgPT4gcm93LmJhZGdlKS5maWx0ZXIoQm9vbGVhbikpOwoKICByZXR1cm4gewogICAgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLAogICAgZmFtaWx5TmFtZTogZmFtaWx5LmZhbWlseV9uYW1lLAogICAgY2hpbGRyZW46IGNoaWxkTmFtZXMsCiAgICBzdGF0czogewogICAgICBlbnRyaWVzOiByb3dzLmxlbmd0aCwKICAgICAgbWludXRlczogdG90YWxNaW51dGVzLAogICAgICBiYWRnZXM6IGJhZGdlcy5zaXplLAogICAgfSwKICAgIGVudHJpZXM6IHJvd3MubWFwKChyb3cpID0+ICh7CiAgICAgIGlkOiByb3cuaWQsCiAgICAgIGNoaWxkTmFtZTogcm93LmNoaWxkX25hbWUsCiAgICAgIGFjdGl2aXR5OiByb3cuYWN0aXZpdHksCiAgICAgIHNraWxsQXJlYTogcm93LnNraWxsX2FyZWEsCiAgICAgIGNvbmZpZGVuY2VMZXZlbDogcm93LmNvbmZpZGVuY2VfbGV2ZWwsCiAgICAgIGVmZm9ydExldmVsOiByb3cuZWZmb3J0X2xldmVsLAogICAgICBtaW51dGVzOiByb3cubWludXRlcywKICAgICAgYmFkZ2U6IHJvdy5iYWRnZSwKICAgICAgbm90ZXM6IHJvdy5ub3RlcywKICAgICAgbG9nZ2VkQnk6IHJvdy5sb2dnZWRfYnksCiAgICAgIGxvZ2dlZEJ5TmFtZTogcm93LmxvZ2dlZF9ieV9uYW1lLAogICAgICBlbnRyeURhdGU6IHJvdy5lbnRyeV9kYXRlLAogICAgICBjcmVhdGVkQXQ6IHJvdy5jcmVhdGVkX2F0LAogICAgfSkpLAogIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBhZGRQYXNzcG9ydEVudHJ5KHNsdWc6IHN0cmluZywgaW5wdXQ6IFBhc3Nwb3J0SW5wdXQpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBzaWduIGluIGFnYWluLiIpOwogIGNvbnN0IGNoaWxkTmFtZSA9IGNsZWFuKGlucHV0LmNoaWxkTmFtZSwgMTIwKTsKICBjb25zdCBhY3Rpdml0eSA9IGNsZWFuKGlucHV0LmFjdGl2aXR5LCAxNjApOwogIGlmICghY2hpbGROYW1lKSB0aHJvdyBuZXcgRXJyb3IoIkNob29zZSB3aGljaCBjaGlsZCB0aGlzIGlzIGZvci4iKTsKICBpZiAoIWFjdGl2aXR5KSB0aHJvdyBuZXcgRXJyb3IoIkFkZCB0aGUgYWN0aXZpdHkgb3Igc2tpbGwuIik7CiAgY29uc3QgYWN0b3JEYXRhID0gYXdhaXQgYWN0b3Ioc2x1ZywgZmFtaWx5LmlkLCBmYW1pbHkuZmFtaWx5X25hbWUpOwogIGNvbnN0IGNvbmZpZGVuY2VMZXZlbCA9IE1hdGgubWluKDUsIE1hdGgubWF4KDEsIE1hdGgucm91bmQoTnVtYmVyKGlucHV0LmNvbmZpZGVuY2VMZXZlbCkgfHwgMykpKTsKICBjb25zdCBlZmZvcnRMZXZlbCA9IE1hdGgubWluKDUsIE1hdGgubWF4KDEsIE1hdGgucm91bmQoTnVtYmVyKGlucHV0LmVmZm9ydExldmVsKSB8fCAzKSkpOwogIGNvbnN0IG1pbnV0ZXMgPSBNYXRoLm1pbig2MDAsIE1hdGgubWF4KDAsIE1hdGgucm91bmQoTnVtYmVyKGlucHV0Lm1pbnV0ZXMpIHx8IDApKSk7CgogIGNvbnN0IHsgZGF0YSwgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJzcG9ydHNfcGFzc3BvcnRfZW50cmllcyIpCiAgICAuaW5zZXJ0KHsKICAgICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICAgIGNoaWxkX25hbWU6IGNoaWxkTmFtZSwKICAgICAgYWN0aXZpdHksCiAgICAgIHNraWxsX2FyZWE6IGNsZWFuKGlucHV0LnNraWxsQXJlYSwgNjApID8/ICJnZW5lcmFsIiwKICAgICAgY29uZmlkZW5jZV9sZXZlbDogY29uZmlkZW5jZUxldmVsLAogICAgICBlZmZvcnRfbGV2ZWw6IGVmZm9ydExldmVsLAogICAgICBtaW51dGVzLAogICAgICBiYWRnZTogY2xlYW4oaW5wdXQuYmFkZ2UsIDgwKSwKICAgICAgbm90ZXM6IGNsZWFuKGlucHV0Lm5vdGVzLCAxMDAwKSwKICAgICAgbG9nZ2VkX2J5OiBmYW1pbHkuYWNjZXNzLAogICAgICBsb2dnZWRfYnlfbmFtZTogYWN0b3JEYXRhLm5hbWUsCiAgICAgIGVudHJ5X2RhdGU6IGNsZWFuRGF0ZShpbnB1dC5lbnRyeURhdGUpLAogICAgfSkKICAgIC5zZWxlY3QoImlkIikKICAgIC5zaW5nbGUoKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICByZXR1cm4geyBpZDogZGF0YS5pZCB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gZGVsZXRlUGFzc3BvcnRFbnRyeShzbHVnOiBzdHJpbmcsIGlkOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5IHx8IGZhbWlseS5hY2Nlc3MgIT09ICJmYW1pbHkiKSB0aHJvdyBuZXcgRXJyb3IoIk9ubHkgYSBwYXJlbnQgY2FuIHJlbW92ZSBwYXNzcG9ydCBlbnRyaWVzLiIpOwogIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJzcG9ydHNfcGFzc3BvcnRfZW50cmllcyIpCiAgICAuZGVsZXRlKCkKICAgIC5lcSgiaWQiLCBpZCkKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRIYW5kb3ZlcihzbHVnOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKICBjb25zdCBuYW5uaWVzID0gYXdhaXQgbGlzdE5hbm55Um93cyhmYW1pbHkuaWQpOwogIGNvbnN0IFt7IGRhdGE6IGhhbmRvdmVycyB9LCB7IGRhdGE6IGV4cGVuc2VzIH1dID0gYXdhaXQgUHJvbWlzZS5hbGwoWwogICAgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgiaGFuZG92ZXJfY2hlY2tsaXN0cyIpCiAgICAgIC5zZWxlY3QoCiAgICAgICAgImlkLCBuYW5ueV9pZCwgaGFuZG92ZXJfZGF0ZSwgaG9tZXdvcmtfc3RhdHVzLCBkaW5uZXJfc3RhdHVzLCB3YXRlcl9zdGF0dXMsIG1vb2QsIGVuZXJneSwgc2Nob29sX2JhZ19yZWFkeSwgcGVfa2l0X3JlYWR5LCByZWFkaW5nX2RvbmUsIHRvbW9ycm93X25vdGVzLCBwYXJlbnRfbm90ZXMsIHN1Ym1pdHRlZF9ieSwgc3VibWl0dGVkX2J5X25hbWUsIGNyZWF0ZWRfYXQiLAogICAgICApCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgICAub3JkZXIoImhhbmRvdmVyX2RhdGUiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgICAgLm9yZGVyKCJjcmVhdGVkX2F0IiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pCiAgICAgIC5saW1pdCg1MCksCiAgICBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJleHBlbnNlX2NsYWltcyIpCiAgICAgIC5zZWxlY3QoCiAgICAgICAgImlkLCBuYW5ueV9pZCwgZXhwZW5zZV9kYXRlLCBpdGVtLCBhbW91bnQsIGNhdGVnb3J5LCBub3Rlcywgc3RhdHVzLCBzdWJtaXR0ZWRfYnksIHN1Ym1pdHRlZF9ieV9uYW1lLCByZXZpZXdlZF9hdCwgY3JlYXRlZF9hdCIsCiAgICAgICkKICAgICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAgIC5vcmRlcigiZXhwZW5zZV9kYXRlIiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pCiAgICAgIC5vcmRlcigiY3JlYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KQogICAgICAubGltaXQoODApLAogIF0pOwoKICBjb25zdCBwZW5kaW5nVG90YWwgPSAoZXhwZW5zZXMgPz8gW10pCiAgICAuZmlsdGVyKChleHBlbnNlKSA9PiBleHBlbnNlLnN0YXR1cyA9PT0gInBlbmRpbmciKQogICAgLnJlZHVjZSgoc3VtLCBleHBlbnNlKSA9PiBzdW0gKyBOdW1iZXIoZXhwZW5zZS5hbW91bnQgPz8gMCksIDApOwoKICByZXR1cm4gewogICAgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLAogICAgZmFtaWx5TmFtZTogZmFtaWx5LmZhbWlseV9uYW1lLAogICAgbmFubmllczogbmFubmllcy5tYXAoKG5hbm55KSA9PiAoeyBpZDogbmFubnkuaWQsIG5hbWU6IG5hbm55Lm5hbWUgfSkpLAogICAgaGFuZG92ZXJzOiAoaGFuZG92ZXJzID8/IFtdKS5tYXAoKHJvdykgPT4gKHsKICAgICAgaWQ6IHJvdy5pZCwKICAgICAgbmFubnlJZDogcm93Lm5hbm55X2lkLAogICAgICBuYW5ueU5hbWU6IG5hbm5pZXMuZmluZCgobmFubnkpID0+IG5hbm55LmlkID09PSByb3cubmFubnlfaWQpPy5uYW1lID8/IHJvdy5zdWJtaXR0ZWRfYnlfbmFtZSA/PyAiTmFubnkiLAogICAgICBoYW5kb3ZlckRhdGU6IHJvdy5oYW5kb3Zlcl9kYXRlLAogICAgICBob21ld29ya1N0YXR1czogcm93LmhvbWV3b3JrX3N0YXR1cywKICAgICAgZGlubmVyU3RhdHVzOiByb3cuZGlubmVyX3N0YXR1cywKICAgICAgd2F0ZXJTdGF0dXM6IHJvdy53YXRlcl9zdGF0dXMsCiAgICAgIG1vb2Q6IHJvdy5tb29kLAogICAgICBlbmVyZ3k6IHJvdy5lbmVyZ3ksCiAgICAgIHNjaG9vbEJhZ1JlYWR5OiByb3cuc2Nob29sX2JhZ19yZWFkeSwKICAgICAgcGVLaXRSZWFkeTogcm93LnBlX2tpdF9yZWFkeSwKICAgICAgcmVhZGluZ0RvbmU6IHJvdy5yZWFkaW5nX2RvbmUsCiAgICAgIHRvbW9ycm93Tm90ZXM6IHJvdy50b21vcnJvd19ub3RlcywKICAgICAgcGFyZW50Tm90ZXM6IHJvdy5wYXJlbnRfbm90ZXMsCiAgICAgIHN1Ym1pdHRlZEJ5OiByb3cuc3VibWl0dGVkX2J5LAogICAgICBzdWJtaXR0ZWRCeU5hbWU6IHJvdy5zdWJtaXR0ZWRfYnlfbmFtZSwKICAgICAgY3JlYXRlZEF0OiByb3cuY3JlYXRlZF9hdCwKICAgIH0pKSwKICAgIGV4cGVuc2VzOiAoZXhwZW5zZXMgPz8gW10pLm1hcCgocm93KSA9PiAoewogICAgICBpZDogcm93LmlkLAogICAgICBuYW5ueUlkOiByb3cubmFubnlfaWQsCiAgICAgIG5hbm55TmFtZTogbmFubmllcy5maW5kKChuYW5ueSkgPT4gbmFubnkuaWQgPT09IHJvdy5uYW5ueV9pZCk/Lm5hbWUgPz8gcm93LnN1Ym1pdHRlZF9ieV9uYW1lID8/ICJOYW5ueSIsCiAgICAgIGV4cGVuc2VEYXRlOiByb3cuZXhwZW5zZV9kYXRlLAogICAgICBpdGVtOiByb3cuaXRlbSwKICAgICAgYW1vdW50OiBOdW1iZXIocm93LmFtb3VudCksCiAgICAgIGNhdGVnb3J5OiByb3cuY2F0ZWdvcnksCiAgICAgIG5vdGVzOiByb3cubm90ZXMsCiAgICAgIHN0YXR1czogcm93LnN0YXR1cywKICAgICAgc3VibWl0dGVkQnk6IHJvdy5zdWJtaXR0ZWRfYnksCiAgICAgIHN1Ym1pdHRlZEJ5TmFtZTogcm93LnN1Ym1pdHRlZF9ieV9uYW1lLAogICAgICByZXZpZXdlZEF0OiByb3cucmV2aWV3ZWRfYXQsCiAgICAgIGNyZWF0ZWRBdDogcm93LmNyZWF0ZWRfYXQsCiAgICB9KSksCiAgICBwZW5kaW5nVG90YWw6IE51bWJlcihwZW5kaW5nVG90YWwudG9GaXhlZCgyKSksCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNhdmVIYW5kb3ZlcihzbHVnOiBzdHJpbmcsIGlucHV0OiBIYW5kb3ZlcklucHV0KSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBjb25zdCBhY3RvckRhdGEgPSBhd2FpdCBhY3RvcihzbHVnLCBmYW1pbHkuaWQsIGZhbWlseS5mYW1pbHlfbmFtZSk7CiAgY29uc3QgbmFubnlJZCA9IGZhbWlseS5hY2Nlc3MgPT09ICJuYW5ueSIgPyBhY3RvckRhdGEubmFubnlJZCA6IGF3YWl0IHZhbGlkTmFubnlJZChmYW1pbHkuaWQsIGlucHV0Lm5hbm55SWQpOwoKICBjb25zdCB7IGRhdGEsIGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgiaGFuZG92ZXJfY2hlY2tsaXN0cyIpCiAgICAuaW5zZXJ0KHsKICAgICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICAgIG5hbm55X2lkOiBuYW5ueUlkLAogICAgICBoYW5kb3Zlcl9kYXRlOiBjbGVhbkRhdGUoaW5wdXQuaGFuZG92ZXJEYXRlKSwKICAgICAgaG9tZXdvcmtfc3RhdHVzOiBjbGVhbihpbnB1dC5ob21ld29ya1N0YXR1cywgMTgwKSwKICAgICAgZGlubmVyX3N0YXR1czogY2xlYW4oaW5wdXQuZGlubmVyU3RhdHVzLCAxODApLAogICAgICB3YXRlcl9zdGF0dXM6IGNsZWFuKGlucHV0LndhdGVyU3RhdHVzLCAxMjApLAogICAgICBtb29kOiBjbGVhbihpbnB1dC5tb29kLCA4MCksCiAgICAgIGVuZXJneTogY2xlYW4oaW5wdXQuZW5lcmd5LCA4MCksCiAgICAgIHNjaG9vbF9iYWdfcmVhZHk6IEJvb2xlYW4oaW5wdXQuc2Nob29sQmFnUmVhZHkpLAogICAgICBwZV9raXRfcmVhZHk6IEJvb2xlYW4oaW5wdXQucGVLaXRSZWFkeSksCiAgICAgIHJlYWRpbmdfZG9uZTogQm9vbGVhbihpbnB1dC5yZWFkaW5nRG9uZSksCiAgICAgIHRvbW9ycm93X25vdGVzOiBjbGVhbihpbnB1dC50b21vcnJvd05vdGVzLCAxMDAwKSwKICAgICAgcGFyZW50X25vdGVzOiBjbGVhbihpbnB1dC5wYXJlbnROb3RlcywgMTAwMCksCiAgICAgIHN1Ym1pdHRlZF9ieTogZmFtaWx5LmFjY2VzcywKICAgICAgc3VibWl0dGVkX2J5X25hbWU6IGFjdG9yRGF0YS5uYW1lLAogICAgICB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgICB9KQogICAgLnNlbGVjdCgiaWQiKQogICAgLnNpbmdsZSgpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogIHJldHVybiB7IGlkOiBkYXRhLmlkIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkZWxldGVIYW5kb3ZlcihzbHVnOiBzdHJpbmcsIGlkOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5IHx8IGZhbWlseS5hY2Nlc3MgIT09ICJmYW1pbHkiKSB0aHJvdyBuZXcgRXJyb3IoIk9ubHkgYSBwYXJlbnQgY2FuIHJlbW92ZSBoYW5kb3ZlcnMuIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImhhbmRvdmVyX2NoZWNrbGlzdHMiKQogICAgLmRlbGV0ZSgpCiAgICAuZXEoImlkIiwgaWQpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCk7CiAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBhZGRFeHBlbnNlKHNsdWc6IHN0cmluZywgaW5wdXQ6IEV4cGVuc2VJbnB1dCkgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHNpZ24gaW4gYWdhaW4uIik7CiAgY29uc3QgaXRlbSA9IGNsZWFuKGlucHV0Lml0ZW0sIDE2MCk7CiAgaWYgKCFpdGVtKSB0aHJvdyBuZXcgRXJyb3IoIkFkZCB3aGF0IHRoZSBleHBlbnNlIHdhcyBmb3IuIik7CiAgY29uc3QgYW1vdW50ID0gTnVtYmVyKGlucHV0LmFtb3VudCk7CiAgaWYgKCFOdW1iZXIuaXNGaW5pdGUoYW1vdW50KSB8fCBhbW91bnQgPD0gMCkgdGhyb3cgbmV3IEVycm9yKCJBZGQgYSB2YWxpZCBhbW91bnQuIik7CiAgY29uc3QgYWN0b3JEYXRhID0gYXdhaXQgYWN0b3Ioc2x1ZywgZmFtaWx5LmlkLCBmYW1pbHkuZmFtaWx5X25hbWUpOwogIGNvbnN0IG5hbm55SWQgPSBmYW1pbHkuYWNjZXNzID09PSAibmFubnkiID8gYWN0b3JEYXRhLm5hbm55SWQgOiBhd2FpdCB2YWxpZE5hbm55SWQoZmFtaWx5LmlkLCBpbnB1dC5uYW5ueUlkKTsKCiAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImV4cGVuc2VfY2xhaW1zIikKICAgIC5pbnNlcnQoewogICAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgICAgbmFubnlfaWQ6IG5hbm55SWQsCiAgICAgIGV4cGVuc2VfZGF0ZTogY2xlYW5EYXRlKGlucHV0LmV4cGVuc2VEYXRlKSwKICAgICAgaXRlbSwKICAgICAgYW1vdW50OiBOdW1iZXIoYW1vdW50LnRvRml4ZWQoMikpLAogICAgICBjYXRlZ29yeTogY2xlYW4oaW5wdXQuY2F0ZWdvcnksIDYwKSA/PyAib3RoZXIiLAogICAgICBub3RlczogY2xlYW4oaW5wdXQubm90ZXMsIDEwMDApLAogICAgICBzdGF0dXM6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gInJlaW1idXJzZWQiIDogInBlbmRpbmciLAogICAgICBzdWJtaXR0ZWRfYnk6IGZhbWlseS5hY2Nlc3MsCiAgICAgIHN1Ym1pdHRlZF9ieV9uYW1lOiBhY3RvckRhdGEubmFtZSwKICAgICAgcmV2aWV3ZWRfYXQ6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gbmV3IERhdGUoKS50b0lTT1N0cmluZygpIDogbnVsbCwKICAgICAgdXBkYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLAogICAgfSkKICAgIC5zZWxlY3QoImlkIikKICAgIC5zaW5nbGUoKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICByZXR1cm4geyBpZDogZGF0YS5pZCB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmV2aWV3RXhwZW5zZShzbHVnOiBzdHJpbmcsIGlkOiBzdHJpbmcsIHN0YXR1czogInJlaW1idXJzZWQiIHwgImRlY2xpbmVkIikgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkgfHwgZmFtaWx5LmFjY2VzcyAhPT0gImZhbWlseSIpIHRocm93IG5ldyBFcnJvcigiT25seSBhIHBhcmVudCBjYW4gdXBkYXRlIGV4cGVuc2VzLiIpOwogIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJleHBlbnNlX2NsYWltcyIpCiAgICAudXBkYXRlKHsgc3RhdHVzLCByZXZpZXdlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLCB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgfSkKICAgIC5lcSgiaWQiLCBpZCkKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGRlbGV0ZUV4cGVuc2Uoc2x1Zzogc3RyaW5nLCBpZDogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSB8fCBmYW1pbHkuYWNjZXNzICE9PSAiZmFtaWx5IikgdGhyb3cgbmV3IEVycm9yKCJPbmx5IGEgcGFyZW50IGNhbiByZW1vdmUgZXhwZW5zZXMuIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImV4cGVuc2VfY2xhaW1zIikKICAgIC5kZWxldGUoKQogICAgLmVxKCJpZCIsIGlkKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwp9Cg==
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { listNannyRows, sessionAccess } from "./wallet.server";
+import type { ExpenseInput, HandoverInput, PassportInput } from "./passport-handover.types";
+
+const MAX_TEXT = 1200;
+
+function clean(value: string | undefined | null, max = MAX_TEXT) {
+  const trimmed = (value ?? "").trim();
+  return trimmed ? trimmed.slice(0, max) : null;
+}
+
+function cleanDate(value: string | undefined | null) {
+  const trimmed = (value ?? "").trim();
+  return /^\d{4}-\d{2}-\d{2}$/.test(trimmed) ? trimmed : new Date().toISOString().slice(0, 10);
+}
+
+async function actor(slug: string, familyId: string, familyName: string) {
+  const session = await sessionAccess(slug);
+  const nannies = await listNannyRows(familyId);
+  const activeNanny = session?.nannyId ? nannies.find((n) => n.id === session.nannyId) : null;
+  return {
+    nannies,
+    nannyId: session?.level === "nanny" ? (activeNanny?.id ?? null) : null,
+    name: session?.level === "nanny" ? (activeNanny?.name ?? "Nanny") : familyName,
+  };
+}
+
+async function validNannyId(familyId: string, requested: string | undefined | null) {
+  if (!requested) return null;
+  const rows = await listNannyRows(familyId);
+  return rows.some((row) => row.id === requested) ? requested : null;
+}
+
+export async function loadPassport(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+
+  const [{ data: children }, { data: entries }] = await Promise.all([
+    supabaseAdmin
+      .from("family_children")
+      .select("name")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true }),
+    supabaseAdmin
+      .from("sports_passport_entries")
+      .select(
+        "id, child_name, activity, skill_area, confidence_level, effort_level, minutes, badge, notes, logged_by, logged_by_name, entry_date, created_at",
+      )
+      .eq("family_id", family.id)
+      .order("entry_date", { ascending: false })
+      .order("created_at", { ascending: false })
+      .limit(80),
+  ]);
+
+  const rows = entries ?? [];
+  const childNames = (children ?? []).map((child) => child.name);
+  const totalMinutes = rows.reduce((sum, row) => sum + Number(row.minutes ?? 0), 0);
+  const badges = new Set(rows.map((row) => row.badge).filter(Boolean));
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    children: childNames,
+    stats: {
+      entries: rows.length,
+      minutes: totalMinutes,
+      badges: badges.size,
+    },
+    entries: rows.map((row) => ({
+      id: row.id,
+      childName: row.child_name,
+      activity: row.activity,
+      skillArea: row.skill_area,
+      confidenceLevel: row.confidence_level,
+      effortLevel: row.effort_level,
+      minutes: row.minutes,
+      badge: row.badge,
+      notes: row.notes,
+      loggedBy: row.logged_by,
+      loggedByName: row.logged_by_name,
+      entryDate: row.entry_date,
+      createdAt: row.created_at,
+    })),
+  };
+}
+
+export async function addPassportEntry(slug: string, input: PassportInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const childName = clean(input.childName, 120);
+  const activity = clean(input.activity, 160);
+  if (!childName) throw new Error("Choose which child this is for.");
+  if (!activity) throw new Error("Add the activity or skill.");
+  const actorData = await actor(slug, family.id, family.family_name);
+  const confidenceLevel = Math.min(5, Math.max(1, Math.round(Number(input.confidenceLevel) || 3)));
+  const effortLevel = Math.min(5, Math.max(1, Math.round(Number(input.effortLevel) || 3)));
+  const minutes = Math.min(600, Math.max(0, Math.round(Number(input.minutes) || 0)));
+
+  const { data, error } = await supabaseAdmin
+    .from("sports_passport_entries")
+    .insert({
+      family_id: family.id,
+      child_name: childName,
+      activity,
+      skill_area: clean(input.skillArea, 60) ?? "general",
+      confidence_level: confidenceLevel,
+      effort_level: effortLevel,
+      minutes,
+      badge: clean(input.badge, 80),
+      notes: clean(input.notes, 1000),
+      logged_by: family.access,
+      logged_by_name: actorData.name,
+      entry_date: cleanDate(input.entryDate),
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  return { id: data.id };
+}
+
+export async function deletePassportEntry(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can remove passport entries.");
+  const { error } = await supabaseAdmin
+    .from("sports_passport_entries")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function loadHandover(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const nannies = await listNannyRows(family.id);
+  const [{ data: handovers }, { data: expenses }] = await Promise.all([
+    supabaseAdmin
+      .from("handover_checklists")
+      .select(
+        "id, nanny_id, handover_date, homework_status, dinner_status, water_status, mood, energy, school_bag_ready, pe_kit_ready, reading_done, tomorrow_notes, parent_notes, submitted_by, submitted_by_name, created_at",
+      )
+      .eq("family_id", family.id)
+      .order("handover_date", { ascending: false })
+      .order("created_at", { ascending: false })
+      .limit(50),
+    supabaseAdmin
+      .from("expense_claims")
+      .select(
+        "id, nanny_id, expense_date, item, amount, category, notes, status, submitted_by, submitted_by_name, reviewed_at, created_at",
+      )
+      .eq("family_id", family.id)
+      .order("expense_date", { ascending: false })
+      .order("created_at", { ascending: false })
+      .limit(80),
+  ]);
+
+  const pendingTotal = (expenses ?? [])
+    .filter((expense) => expense.status === "pending")
+    .reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0);
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    nannies: nannies.map((nanny) => ({ id: nanny.id, name: nanny.name })),
+    handovers: (handovers ?? []).map((row) => ({
+      id: row.id,
+      nannyId: row.nanny_id,
+      nannyName: nannies.find((nanny) => nanny.id === row.nanny_id)?.name ?? row.submitted_by_name ?? "Nanny",
+      handoverDate: row.handover_date,
+      homeworkStatus: row.homework_status,
+      dinnerStatus: row.dinner_status,
+      waterStatus: row.water_status,
+      mood: row.mood,
+      energy: row.energy,
+      schoolBagReady: row.school_bag_ready,
+      peKitReady: row.pe_kit_ready,
+      readingDone: row.reading_done,
+      tomorrowNotes: row.tomorrow_notes,
+      parentNotes: row.parent_notes,
+      submittedBy: row.submitted_by,
+      submittedByName: row.submitted_by_name,
+      createdAt: row.created_at,
+    })),
+    expenses: (expenses ?? []).map((row) => ({
+      id: row.id,
+      nannyId: row.nanny_id,
+      nannyName: nannies.find((nanny) => nanny.id === row.nanny_id)?.name ?? row.submitted_by_name ?? "Nanny",
+      expenseDate: row.expense_date,
+      item: row.item,
+      amount: Number(row.amount),
+      category: row.category,
+      notes: row.notes,
+      status: row.status,
+      submittedBy: row.submitted_by,
+      submittedByName: row.submitted_by_name,
+      reviewedAt: row.reviewed_at,
+      createdAt: row.created_at,
+    })),
+    pendingTotal: Number(pendingTotal.toFixed(2)),
+  };
+}
+
+export async function saveHandover(slug: string, input: HandoverInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const actorData = await actor(slug, family.id, family.family_name);
+  const nannyId = family.access === "nanny" ? actorData.nannyId : await validNannyId(family.id, input.nannyId);
+
+  const { data, error } = await supabaseAdmin
+    .from("handover_checklists")
+    .insert({
+      family_id: family.id,
+      nanny_id: nannyId,
+      handover_date: cleanDate(input.handoverDate),
+      homework_status: clean(input.homeworkStatus, 180),
+      dinner_status: clean(input.dinnerStatus, 180),
+      water_status: clean(input.waterStatus, 120),
+      mood: clean(input.mood, 80),
+      energy: clean(input.energy, 80),
+      school_bag_ready: Boolean(input.schoolBagReady),
+      pe_kit_ready: Boolean(input.peKitReady),
+      reading_done: Boolean(input.readingDone),
+      tomorrow_notes: clean(input.tomorrowNotes, 1000),
+      parent_notes: clean(input.parentNotes, 1000),
+      submitted_by: family.access,
+      submitted_by_name: actorData.name,
+      updated_at: new Date().toISOString(),
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  return { id: data.id };
+}
+
+export async function deleteHandover(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can remove handovers.");
+  const { error } = await supabaseAdmin
+    .from("handover_checklists")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function addExpense(slug: string, input: ExpenseInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const item = clean(input.item, 160);
+  if (!item) throw new Error("Add what the expense was for.");
+  const amount = Number(input.amount);
+  if (!Number.isFinite(amount) || amount <= 0) throw new Error("Add a valid amount.");
+  const actorData = await actor(slug, family.id, family.family_name);
+  const nannyId = family.access === "nanny" ? actorData.nannyId : await validNannyId(family.id, input.nannyId);
+
+  const { data, error } = await supabaseAdmin
+    .from("expense_claims")
+    .insert({
+      family_id: family.id,
+      nanny_id: nannyId,
+      expense_date: cleanDate(input.expenseDate),
+      item,
+      amount: Number(amount.toFixed(2)),
+      category: clean(input.category, 60) ?? "other",
+      notes: clean(input.notes, 1000),
+      status: family.access === "family" ? "reimbursed" : "pending",
+      submitted_by: family.access,
+      submitted_by_name: actorData.name,
+      reviewed_at: family.access === "family" ? new Date().toISOString() : null,
+      updated_at: new Date().toISOString(),
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  return { id: data.id };
+}
+
+export async function reviewExpense(slug: string, id: string, status: "reimbursed" | "declined") {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can update expenses.");
+  const { error } = await supabaseAdmin
+    .from("expense_claims")
+    .update({ status, reviewed_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteExpense(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can remove expenses.");
+  const { error } = await supabaseAdmin
+    .from("expense_claims")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}

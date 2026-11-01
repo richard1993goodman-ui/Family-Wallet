@@ -1,1 +1,39 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCB1c2VOYXZpZ2F0ZSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IG9wZW5EZW1vV2FsbGV0IH0gZnJvbSAiQC9saWIvd2FsbGV0LmZ1bmN0aW9ucyI7CmltcG9ydCB7IHNldERlbW9CcmFuZCB9IGZyb20gIkAvbGliL2RlbW8tYnJhbmQiOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvZGVtbyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiRGVtbyBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgICAgeyBuYW1lOiAiZGVzY3JpcHRpb24iLCBjb250ZW50OiAiRXhwbG9yZSBhIHNhbXBsZSBGYW1pbHkgV2FsbGV0OiBhZ3JlZW1lbnQsIHBsYW5uZXIsIGRhaWx5IGxvZ3MsIHNwb3J0cyBwYXNzcG9ydCBhbmQgbW9yZS4iIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzp0aXRsZSIsIGNvbnRlbnQ6ICJEZW1vIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiU2VlIHdoYXQgYSBwcml2YXRlIEZhbWlseSBXYWxsZXQgbG9va3MgbGlrZSBmb3IgbWVtYmVycy4iIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICAgIHsgbmFtZTogInR3aXR0ZXI6Y2FyZCIsIGNvbnRlbnQ6ICJzdW1tYXJ5IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IERlbW9FbnRyeSwKfSk7CgpmdW5jdGlvbiBEZW1vRW50cnkoKSB7CiAgY29uc3QgbmF2aWdhdGUgPSB1c2VOYXZpZ2F0ZSgpOwogIGNvbnN0IG9wZW4gPSB1c2VTZXJ2ZXJGbihvcGVuRGVtb1dhbGxldCk7CiAgY29uc3QgW2ZhaWxlZCwgc2V0RmFpbGVkXSA9IHVzZVN0YXRlKGZhbHNlKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIG9wZW4oKQogICAgICAudGhlbigocikgPT4gKHIub2sgPyAoc2V0RGVtb0JyYW5kKG51bGwpLCBuYXZpZ2F0ZSh7IHRvOiAiL3cvJHNsdWciLCBwYXJhbXM6IHsgc2x1ZzogImRlbW8iIH0sIHJlcGxhY2U6IHRydWUgfSkpIDogc2V0RmFpbGVkKHRydWUpKSkKICAgICAgLmNhdGNoKCgpID0+IHNldEZhaWxlZCh0cnVlKSk7CiAgfSwgW29wZW4sIG5hdmlnYXRlXSk7CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBtaW4taC1zY3JlZW4gaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGJnLXNhbmQgcHgtNiB0ZXh0LWNlbnRlciI+CiAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICB7ZmFpbGVkID8gIlRoZSBkZW1vIHdhbGxldCBpc24ndCBhdmFpbGFibGUgcmlnaHQgbm93LiBQbGVhc2UgdHJ5IGFnYWluIHNob3J0bHkuIiA6ICJPcGVuaW5nIHRoZSBkZW1vIEZhbWlseSBXYWxsZXTigKYifQogICAgICA8L3A+CiAgICA8L2Rpdj4KICApOwp9Cg==
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useState } from "react";
+import { openDemoWallet } from "@/lib/wallet.functions";
+import { setDemoBrand } from "@/lib/demo-brand";
+
+export const Route = createFileRoute("/demo")({
+  head: () => ({
+    meta: [
+      { title: "Demo The Family Wallet" },
+      { name: "description", content: "Explore a sample Family Wallet: agreement, planner, daily logs, sports passport and more." },
+      { property: "og:title", content: "Demo The Family Wallet" },
+      { property: "og:description", content: "See what a private Family Wallet looks like for members." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: DemoEntry,
+});
+
+function DemoEntry() {
+  const navigate = useNavigate();
+  const open = useServerFn(openDemoWallet);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    open()
+      .then((r) => (r.ok ? (setDemoBrand(null), navigate({ to: "/w/$slug", params: { slug: "demo" }, replace: true })) : setFailed(true)))
+      .catch(() => setFailed(true));
+  }, [open, navigate]);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-sand px-6 text-center">
+      <p className="text-muted-foreground">
+        {failed ? "The demo wallet isn't available right now. Please try again shortly." : "Opening the demo Family Wallet…"}
+      </p>
+    </div>
+  );
+}

@@ -1,1 +1,448 @@
-aW1wb3J0IHsgY3JlYXRlSGFzaCwgdGltaW5nU2FmZUVxdWFsIH0gZnJvbSAibm9kZTpjcnlwdG8iOwppbXBvcnQgeyB1c2VTZXNzaW9uLCBnZXRSZXF1ZXN0IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0L3NlcnZlciI7CgppbXBvcnQgeyBzdXBhYmFzZUFkbWluIH0gZnJvbSAiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciI7Cgp0eXBlIFdhbGxldFNlc3Npb24gPSB7IHVubG9ja2VkPzogc3RyaW5nW10gfTsKCmZ1bmN0aW9uIHNlc3Npb25Db25maWcoKSB7CiAgcmV0dXJuIHsKICAgIHBhc3N3b3JkOiBwcm9jZXNzLmVudlsiV0FMTEVUX1NFU1NJT05fU0VDUkVUIl0hLAogICAgbmFtZTogImZhbWlseS13YWxsZXQiLAogICAgLy8gUmVtZW1iZXIgdGhpcyBkZXZpY2UgZm9yIGEgeWVhciwgcmVmcmVzaGVkIG9uIGV2ZXJ5IHZpc2l0LgogICAgbWF4QWdlOiA2MCAqIDYwICogMjQgKiAzNjUsCiAgICAvLyAibm9uZSIgc28gdGhlIHdhbGxldCBzdGF5cyB1bmxvY2tlZCB3aGVuIHRoZSBhcHAgaXMgdmlld2VkIGluc2lkZSBhbgogICAgLy8gZW1iZWRkZWQgcHJldmlldyBmcmFtZTsgdGhlIGNvb2tpZSBpcyBzdGlsbCBodHRwT25seSBhbmQgaHR0cHMtb25seS4KICAgIGNvb2tpZTogeyBodHRwT25seTogdHJ1ZSwgc2VjdXJlOiB0cnVlLCBzYW1lU2l0ZTogIm5vbmUiIGFzIGNvbnN0LCBwYXRoOiAiLyIgfSwKICB9Owp9CgovKiogUmUtaXNzdWVzIHRoZSBjb29raWUgc28gYW4gYWN0aXZlIGZhbWlseSBrZWVwcyBhIHJvbGxpbmcgMTItbW9udGggc2Vzc2lvbi4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHRvdWNoV2FsbGV0U2Vzc2lvbigpIHsKICB0cnkgewogICAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IHdhbGxldFNlc3Npb24oKTsKICAgIGNvbnN0IHVubG9ja2VkID0gc2Vzc2lvbi5kYXRhLnVubG9ja2VkID8/IFtdOwogICAgaWYgKHVubG9ja2VkLmxlbmd0aCA9PT0gMCkgcmV0dXJuOwogICAgYXdhaXQgc2Vzc2lvbi51cGRhdGUoeyB1bmxvY2tlZCB9KTsKICB9IGNhdGNoIHsKICAgIC8qIGlnbm9yZSAqLwogIH0KfQoKCmV4cG9ydCBmdW5jdGlvbiBub3JtYWxpemVDb2RlKGNvZGU6IHN0cmluZykgewogIHJldHVybiBjb2RlLnRyaW0oKS50b1VwcGVyQ2FzZSgpLnJlcGxhY2UoL1teQS1aMC05XS9nLCAiIik7Cn0KCmV4cG9ydCBmdW5jdGlvbiBoYXNoQ29kZShzbHVnOiBzdHJpbmcsIGNvZGU6IHN0cmluZykgewogIGNvbnN0IHBlcHBlciA9IHByb2Nlc3MuZW52WyJXQUxMRVRfQ09ERV9QRVBQRVIiXSA/PyAiIjsKICByZXR1cm4gY3JlYXRlSGFzaCgic2hhMjU2IikudXBkYXRlKGAke3NsdWd9OiR7bm9ybWFsaXplQ29kZShjb2RlKX06JHtwZXBwZXJ9YCkuZGlnZXN0KCJoZXgiKTsKfQoKZnVuY3Rpb24gZXF1YWxzKGE6IHN0cmluZywgYjogc3RyaW5nKSB7CiAgY29uc3QgYnVmQSA9IEJ1ZmZlci5mcm9tKGEpOwogIGNvbnN0IGJ1ZkIgPSBCdWZmZXIuZnJvbShiKTsKICBpZiAoYnVmQS5sZW5ndGggIT09IGJ1ZkIubGVuZ3RoKSByZXR1cm4gZmFsc2U7CiAgcmV0dXJuIHRpbWluZ1NhZmVFcXVhbChidWZBLCBidWZCKTsKfQoKZXhwb3J0IGZ1bmN0aW9uIGdlbmVyYXRlQWNjZXNzQ29kZSgpIHsKICBjb25zdCBhbHBoYWJldCA9ICJBQkNERUZHSEpLTU5QUVJTVFVWV1hZWjIzNDU2Nzg5IjsKICBsZXQgb3V0ID0gIiI7CiAgY29uc3QgYnl0ZXMgPSBuZXcgVWludDhBcnJheSg2KTsKICBjcnlwdG8uZ2V0UmFuZG9tVmFsdWVzKGJ5dGVzKTsKICBmb3IgKGNvbnN0IGIgb2YgYnl0ZXMpIG91dCArPSBhbHBoYWJldFtiICUgYWxwaGFiZXQubGVuZ3RoXTsKICByZXR1cm4gb3V0Owp9Cgphc3luYyBmdW5jdGlvbiB3YWxsZXRTZXNzaW9uKCkgewogIHJldHVybiB1c2VTZXNzaW9uPFdhbGxldFNlc3Npb24+KHNlc3Npb25Db25maWcoKSk7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBpc1VubG9ja2VkKHNsdWc6IHN0cmluZykgewogIGNvbnN0IHNlc3Npb24gPSBhd2FpdCB3YWxsZXRTZXNzaW9uKCk7CiAgcmV0dXJuIChzZXNzaW9uLmRhdGEudW5sb2NrZWQgPz8gW10pLmluY2x1ZGVzKHNsdWcpOwp9Cgphc3luYyBmdW5jdGlvbiBtYXJrVW5sb2NrZWQoc2x1Zzogc3RyaW5nKSB7CiAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IHdhbGxldFNlc3Npb24oKTsKICBjb25zdCBjdXJyZW50ID0gc2Vzc2lvbi5kYXRhLnVubG9ja2VkID8/IFtdOwogIGlmICghY3VycmVudC5pbmNsdWRlcyhzbHVnKSkgewogICAgYXdhaXQgc2Vzc2lvbi51cGRhdGUoeyB1bmxvY2tlZDogWy4uLmN1cnJlbnQsIHNsdWddIH0pOwogIH0KfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvY2tXYWxsZXQoc2x1Zzogc3RyaW5nKSB7CiAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IHdhbGxldFNlc3Npb24oKTsKICBjb25zdCBjdXJyZW50ID0gc2Vzc2lvbi5kYXRhLnVubG9ja2VkID8/IFtdOwogIGF3YWl0IHNlc3Npb24udXBkYXRlKHsgdW5sb2NrZWQ6IGN1cnJlbnQuZmlsdGVyKChzKSA9PiBzICE9PSBzbHVnKSB9KTsKfQoKZnVuY3Rpb24gY2xpZW50S2V5KCkgewogIHRyeSB7CiAgICBjb25zdCByZXF1ZXN0ID0gZ2V0UmVxdWVzdCgpOwogICAgY29uc3QgZm9yd2FyZGVkID0gcmVxdWVzdC5oZWFkZXJzLmdldCgieC1mb3J3YXJkZWQtZm9yIikgPz8gIiI7CiAgICByZXR1cm4gKGZvcndhcmRlZC5zcGxpdCgiLCIpWzBdIHx8IHJlcXVlc3QuaGVhZGVycy5nZXQoImNmLWNvbm5lY3RpbmctaXAiKSB8fCAidW5rbm93biIpLnRyaW0oKTsKICB9IGNhdGNoIHsKICAgIHJldHVybiAidW5rbm93biI7CiAgfQp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gYXR0ZW1wdFVubG9jayhzbHVnOiBzdHJpbmcsIGNvZGU6IHN0cmluZykgewogIGNvbnN0IGtleSA9IGAke2NsaWVudEtleSgpfXwke3NsdWd9YDsKICBjb25zdCBzaW5jZSA9IG5ldyBEYXRlKERhdGUubm93KCkgLSAxNSAqIDYwICogMTAwMCkudG9JU09TdHJpbmcoKTsKCiAgY29uc3QgeyBjb3VudCB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oIndhbGxldF9hY2Nlc3NfYXR0ZW1wdHMiKQogICAgLnNlbGVjdCgiaWQiLCB7IGNvdW50OiAiZXhhY3QiLCBoZWFkOiB0cnVlIH0pCiAgICAuZXEoImNsaWVudF9rZXkiLCBrZXkpCiAgICAuZXEoInN1Y2NlZWRlZCIsIGZhbHNlKQogICAgLmd0ZSgiYXR0ZW1wdGVkX2F0Iiwgc2luY2UpOwoKICBpZiAoKGNvdW50ID8/IDApID49IDgpIHsKICAgIHJldHVybiB7IG9rOiBmYWxzZSBhcyBjb25zdCwgcmVhc29uOiAicmF0ZV9saW1pdGVkIiBhcyBjb25zdCB9OwogIH0KCiAgY29uc3QgeyBkYXRhOiBmYW1pbHkgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJzbHVnLCBhY2Nlc3NfY29kZV9oYXNoLCBzdGF0dXMiKQogICAgLmVxKCJzbHVnIiwgc2x1ZykKICAgIC5tYXliZVNpbmdsZSgpOwoKICBjb25zdCBzdWNjZXNzID0KICAgICEhZmFtaWx5ICYmIGZhbWlseS5zdGF0dXMgPT09ICJhY3RpdmUiICYmIGVxdWFscyhmYW1pbHkuYWNjZXNzX2NvZGVfaGFzaCwgaGFzaENvZGUoc2x1ZywgY29kZSkpOwoKICBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgid2FsbGV0X2FjY2Vzc19hdHRlbXB0cyIpCiAgICAuaW5zZXJ0KHsgc2x1ZywgY2xpZW50X2tleToga2V5LCBzdWNjZWVkZWQ6IHN1Y2Nlc3MgfSk7CgogIGlmICghc3VjY2VzcykgcmV0dXJuIHsgb2s6IGZhbHNlIGFzIGNvbnN0LCByZWFzb246ICJpbnZhbGlkIiBhcyBjb25zdCB9OwoKICBhd2FpdCBtYXJrVW5sb2NrZWQoc2x1Zyk7CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfQoKZXhwb3J0IGNvbnN0IERFTU9fU0xVRyA9ICJkZW1vIjsKCi8qKiBPbmx5IGV2ZXIgdW5sb2NrcyB0aGUgZGVtbyB3YWxsZXQg4oCUIG5ldmVyIGEgcmVhbCBmYW1pbHkuICovCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBvcGVuRGVtbygpIHsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJzbHVnIikKICAgIC5lcSgic2x1ZyIsIERFTU9fU0xVRykKICAgIC5lcSgic3RhdHVzIiwgImFjdGl2ZSIpCiAgICAubWF5YmVTaW5nbGUoKTsKICBpZiAoIWRhdGEpIHJldHVybiB7IG9rOiBmYWxzZSBhcyBjb25zdCB9OwogIGF3YWl0IG1hcmtVbmxvY2tlZChERU1PX1NMVUcpOwogIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0IH07Cn0KCi8qIC0tLS0tLS0tLS0tLS0tLS0gTmFubnkgaW52aXRhdGlvbiAmIHNpZ24taW4gLS0tLS0tLS0tLS0tLS0tLSAqLwoKLyoqIENvZGVzIGFyZSBoYXNoZWQgYWdhaW5zdCB0aGUgZmFtaWx5IChub3QgdGhlIGluZGl2aWR1YWwpIHNvIG9sZGVyIGludml0ZXMga2VlcCB3b3JraW5nLiAqLwpjb25zdCBuYW5ueUtleSA9IChzbHVnOiBzdHJpbmcpID0+IGBuYW5ueToke3NsdWd9YDsKY29uc3QgbmFubnlTZXNzaW9uS2V5ID0gKHNsdWc6IHN0cmluZywgbmFubnlJZDogc3RyaW5nKSA9PiBgbmFubnk6JHtzbHVnfToke25hbm55SWR9YDsKCmV4cG9ydCB0eXBlIE5hbm55UmVjb3JkID0gewogIGlkOiBzdHJpbmc7CiAgbmFtZTogc3RyaW5nOwogIGJpbzogc3RyaW5nIHwgbnVsbDsKICBwaG90b1BhdGg6IHN0cmluZyB8IG51bGw7CiAgZW1lcmdlbmN5OiBXYWxsZXRDb250YWN0IHwgbnVsbDsKICBjb2RlOiBzdHJpbmcgfCBudWxsOwogIGludml0ZWRBdDogc3RyaW5nIHwgbnVsbDsKfTsKCmFzeW5jIGZ1bmN0aW9uIGZhbWlseVJvd0J5U2x1ZyhzbHVnOiBzdHJpbmcpIHsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJpZCwgZmFtaWx5X25hbWUsIHN0YXR1cyIpCiAgICAuZXEoInNsdWciLCBzbHVnKQogICAgLmVxKCJzdGF0dXMiLCAiYWN0aXZlIikKICAgIC5tYXliZVNpbmdsZSgpOwogIHJldHVybiBkYXRhID8/IG51bGw7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsaXN0TmFubnlSb3dzKGZhbWlseUlkOiBzdHJpbmcpIHsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbHlfbmFubmllcyIpCiAgICAuc2VsZWN0KAogICAgICAiaWQsIG5hbWUsIGJpbywgcGhvdG9fcGF0aCwgZW1lcmdlbmN5X25hbWUsIGVtZXJnZW5jeV9yZWxhdGlvbnNoaXAsIGVtZXJnZW5jeV9waG9uZSwgbmFubnlfY29kZSwgaW52aXRlZF9hdCwgc3RhdHVzIiwKICAgICkKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5SWQpCiAgICAuZXEoInN0YXR1cyIsICJhY3RpdmUiKQogICAgLm9yZGVyKCJzb3J0X29yZGVyIiwgeyBhc2NlbmRpbmc6IHRydWUgfSkKICAgIC5vcmRlcigiY3JlYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiB0cnVlIH0pOwogIHJldHVybiBkYXRhID8/IFtdOwp9CgovKiogV2hpY2ggbmFubnkgKGlmIGFueSkgdGhpcyBkZXZpY2UgaXMgc2lnbmVkIGluIGFzLiAqLwphc3luYyBmdW5jdGlvbiBzZXNzaW9uTmFubnlJZChzbHVnOiBzdHJpbmcsIGZhbWlseUlkOiBzdHJpbmcpOiBQcm9taXNlPHN0cmluZyB8IG51bGw+IHsKICBjb25zdCBzZXNzaW9uID0gYXdhaXQgd2FsbGV0U2Vzc2lvbigpOwogIGNvbnN0IHVubG9ja2VkID0gc2Vzc2lvbi5kYXRhLnVubG9ja2VkID8/IFtdOwogIGNvbnN0IHByZWZpeCA9IGAke25hbm55U2Vzc2lvbktleShzbHVnLCAiIil9YDsKICBjb25zdCBkaXJlY3QgPSB1bmxvY2tlZC5maW5kKChlbnRyeSkgPT4gZW50cnkuc3RhcnRzV2l0aChwcmVmaXgpICYmIGVudHJ5Lmxlbmd0aCA+IHByZWZpeC5sZW5ndGgpOwogIGNvbnN0IHJvd3MgPSBhd2FpdCBsaXN0TmFubnlSb3dzKGZhbWlseUlkKTsKICBpZiAoZGlyZWN0KSB7CiAgICBjb25zdCBpZCA9IGRpcmVjdC5zbGljZShwcmVmaXgubGVuZ3RoKTsKICAgIHJldHVybiByb3dzLnNvbWUoKHIpID0+IHIuaWQgPT09IGlkKSA/IGlkIDogbnVsbDsKICB9CiAgLy8gTGVnYWN5IHNlc3Npb25zIHNpZ25lZCBpbiBiZWZvcmUgZmFtaWxpZXMgY291bGQgaGF2ZSBtb3JlIHRoYW4gb25lIG5hbm55LgogIGlmICh1bmxvY2tlZC5pbmNsdWRlcyhuYW5ueUtleShzbHVnKSkpIHJldHVybiByb3dzWzBdPy5pZCA/PyBudWxsOwogIHJldHVybiBudWxsOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gaXNOYW5ueVVubG9ja2VkKHNsdWc6IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IGZhbWlseVJvd0J5U2x1ZyhzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIGZhbHNlOwogIHJldHVybiAoYXdhaXQgc2Vzc2lvbk5hbm55SWQoc2x1ZywgZmFtaWx5LmlkKSkgIT09IG51bGw7Cn0KCi8qKiAiZmFtaWx5IiA9IHBhcmVudC93YWxsZXQgaG9sZGVyLCAibmFubnkiID0gaW52aXRlZCBuYW5ueSwgbnVsbCA9IG5vIGFjY2Vzcy4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGFjY2Vzc0xldmVsKHNsdWc6IHN0cmluZyk6IFByb21pc2U8ImZhbWlseSIgfCAibmFubnkiIHwgbnVsbD4gewogIGNvbnN0IHNlc3Npb24gPSBhd2FpdCBzZXNzaW9uQWNjZXNzKHNsdWcpOwogIHJldHVybiBzZXNzaW9uPy5sZXZlbCA/PyBudWxsOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gc2Vzc2lvbkFjY2VzcygKICBzbHVnOiBzdHJpbmcsCik6IFByb21pc2U8eyBsZXZlbDogImZhbWlseSIgfCAibmFubnkiOyBuYW5ueUlkOiBzdHJpbmcgfCBudWxsIH0gfCBudWxsPiB7CiAgaWYgKGF3YWl0IGlzVW5sb2NrZWQoc2x1ZykpIHJldHVybiB7IGxldmVsOiAiZmFtaWx5IiwgbmFubnlJZDogbnVsbCB9OwogIGNvbnN0IGZhbWlseSA9IGF3YWl0IGZhbWlseVJvd0J5U2x1ZyhzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgbmFubnlJZCA9IGF3YWl0IHNlc3Npb25OYW5ueUlkKHNsdWcsIGZhbWlseS5pZCk7CiAgcmV0dXJuIG5hbm55SWQgPyB7IGxldmVsOiAibmFubnkiLCBuYW5ueUlkIH0gOiBudWxsOwp9CgovKiogUGFyZW50cyBnZW5lcmF0ZSAob3IgcmVmcmVzaCkgdGhlIGludml0ZSBjb2RlIGZvciBvbmUgb2YgdGhlaXIgbmFubmllcy4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGVuc3VyZU5hbm55SW52aXRlKHNsdWc6IHN0cmluZywgbmFubnlJZDogc3RyaW5nLCByZWdlbmVyYXRlID0gZmFsc2UpIHsKICBpZiAoIShhd2FpdCBpc1VubG9ja2VkKHNsdWcpKSkgcmV0dXJuIG51bGw7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgZmFtaWx5Um93QnlTbHVnKHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKCiAgY29uc3QgeyBkYXRhOiBuYW5ueSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImZhbWlseV9uYW5uaWVzIikKICAgIC5zZWxlY3QoImlkLCBuYW1lLCBuYW5ueV9jb2RlIikKICAgIC5lcSgiaWQiLCBuYW5ueUlkKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAubWF5YmVTaW5nbGUoKTsKICBpZiAoIW5hbm55KSByZXR1cm4gbnVsbDsKCiAgbGV0IGNvZGUgPSBuYW5ueS5uYW5ueV9jb2RlOwogIGlmICghY29kZSB8fCByZWdlbmVyYXRlKSB7CiAgICBjb2RlID0gZ2VuZXJhdGVBY2Nlc3NDb2RlKCk7CiAgICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJmYW1pbHlfbmFubmllcyIpCiAgICAgIC51cGRhdGUoewogICAgICAgIG5hbm55X2NvZGU6IGNvZGUsCiAgICAgICAgbmFubnlfY29kZV9oYXNoOiBoYXNoQ29kZShuYW5ueUtleShzbHVnKSwgY29kZSksCiAgICAgICAgaW52aXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLAogICAgICAgIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwKICAgICAgfSkKICAgICAgLmVxKCJpZCIsIG5hbm55LmlkKTsKICAgIGlmIChlcnJvcikgcmV0dXJuIG51bGw7CiAgfQoKICByZXR1cm4geyBjb2RlLCBzbHVnLCBuYW5ueUlkOiBuYW5ueS5pZCwgbmFubnlOYW1lOiBuYW5ueS5uYW1lIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBhdHRlbXB0TmFubnlVbmxvY2soc2x1Zzogc3RyaW5nLCBjb2RlOiBzdHJpbmcpIHsKICBjb25zdCBrZXkgPSBgJHtjbGllbnRLZXkoKX18bmFubnl8JHtzbHVnfWA7CiAgY29uc3Qgc2luY2UgPSBuZXcgRGF0ZShEYXRlLm5vdygpIC0gMTUgKiA2MCAqIDEwMDApLnRvSVNPU3RyaW5nKCk7CgogIGNvbnN0IHsgY291bnQgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJ3YWxsZXRfYWNjZXNzX2F0dGVtcHRzIikKICAgIC5zZWxlY3QoImlkIiwgeyBjb3VudDogImV4YWN0IiwgaGVhZDogdHJ1ZSB9KQogICAgLmVxKCJjbGllbnRfa2V5Iiwga2V5KQogICAgLmVxKCJzdWNjZWVkZWQiLCBmYWxzZSkKICAgIC5ndGUoImF0dGVtcHRlZF9hdCIsIHNpbmNlKTsKICBpZiAoKGNvdW50ID8/IDApID49IDgpIHJldHVybiB7IG9rOiBmYWxzZSBhcyBjb25zdCwgcmVhc29uOiAicmF0ZV9saW1pdGVkIiBhcyBjb25zdCB9OwoKICBjb25zdCBmYW1pbHkgPSBhd2FpdCBmYW1pbHlSb3dCeVNsdWcoc2x1Zyk7CiAgY29uc3QgYXR0ZW1wdGVkID0gZmFtaWx5ID8gaGFzaENvZGUobmFubnlLZXkoc2x1ZyksIGNvZGUpIDogIiI7CgogIGxldCBtYXRjaGVkOiB7IGlkOiBzdHJpbmcgfSB8IG51bGwgPSBudWxsOwogIGlmIChmYW1pbHkpIHsKICAgIGNvbnN0IHsgZGF0YTogcm93cyB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgiZmFtaWx5X25hbm5pZXMiKQogICAgICAuc2VsZWN0KCJpZCwgbmFubnlfY29kZV9oYXNoIikKICAgICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAgIC5lcSgic3RhdHVzIiwgImFjdGl2ZSIpOwogICAgbWF0Y2hlZCA9CiAgICAgIChyb3dzID8/IFtdKS5maW5kKChyKSA9PiByLm5hbm55X2NvZGVfaGFzaCAmJiBlcXVhbHMoci5uYW5ueV9jb2RlX2hhc2gsIGF0dGVtcHRlZCkpID8/IG51bGw7CiAgfQoKICBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgid2FsbGV0X2FjY2Vzc19hdHRlbXB0cyIpCiAgICAuaW5zZXJ0KHsgc2x1ZzogbmFubnlLZXkoc2x1ZyksIGNsaWVudF9rZXk6IGtleSwgc3VjY2VlZGVkOiAhIW1hdGNoZWQgfSk7CgogIGlmICghbWF0Y2hlZCkgcmV0dXJuIHsgb2s6IGZhbHNlIGFzIGNvbnN0LCByZWFzb246ICJpbnZhbGlkIiBhcyBjb25zdCB9OwoKICBjb25zdCBzZXNzaW9uID0gYXdhaXQgd2FsbGV0U2Vzc2lvbigpOwogIGNvbnN0IGN1cnJlbnQgPSBzZXNzaW9uLmRhdGEudW5sb2NrZWQgPz8gW107CiAgY29uc3QgZW50cnkgPSBuYW5ueVNlc3Npb25LZXkoc2x1ZywgbWF0Y2hlZC5pZCk7CiAgaWYgKCFjdXJyZW50LmluY2x1ZGVzKGVudHJ5KSkgewogICAgYXdhaXQgc2Vzc2lvbi51cGRhdGUoeyB1bmxvY2tlZDogWy4uLmN1cnJlbnQsIGVudHJ5XSB9KTsKICB9CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfQoKZXhwb3J0IHR5cGUgV2FsbGV0Q2hlY2sgPSB7CiAgZG9jVHlwZTogc3RyaW5nOwogIGZpbGVOYW1lOiBzdHJpbmc7CiAgdmlzaWJpbGl0eTogImRvY3VtZW50IiB8ICJiYWRnZSI7CiAgaXNzdWVkT246IHN0cmluZyB8IG51bGw7CiAgcmVmZXJlbmNlTGFiZWw6IHN0cmluZyB8IG51bGw7Cn07CgpleHBvcnQgdHlwZSBXYWxsZXRDb250YWN0ID0geyBuYW1lOiBzdHJpbmc7IHJlbGF0aW9uc2hpcDogc3RyaW5nIHwgbnVsbDsgcGhvbmU6IHN0cmluZyB9OwoKZXhwb3J0IHR5cGUgV2FsbGV0TmFubnkgPSB7CiAgaWQ6IHN0cmluZzsKICBuYW1lOiBzdHJpbmc7CiAgYmlvOiBzdHJpbmcgfCBudWxsOwogIHBob3RvVXJsOiBzdHJpbmcgfCBudWxsOwogIGVtZXJnZW5jeTogV2FsbGV0Q29udGFjdCB8IG51bGw7CiAgaXNZb3U6IGJvb2xlYW47Cn07CgpleHBvcnQgdHlwZSBXYWxsZXREYXRhID0gewogIGFjY2VzczogImZhbWlseSIgfCAibmFubnkiOwogIGZhbWlseU5hbWU6IHN0cmluZzsKICAvKiogUGFydG5lciBhZ2VuY3kgcnVubmluZyB0aGlzIHdhbGxldDsgbnVsbCA9IG93bmVyIGFnZW5jeS4gKi8KICBhZ2VuY3lOYW1lOiBzdHJpbmcgfCBudWxsOwogIHRpZXJCYW5kOiBzdHJpbmc7CiAgbmFubmllczogV2FsbGV0TmFubnlbXTsKICBuYW5ueXRheENvZGU6IHN0cmluZyB8IG51bGw7CiAgc3RhcnREYXRlOiBzdHJpbmcgfCBudWxsOwogIHRlcm1zQWNjZXB0ZWRPbjogc3RyaW5nIHwgbnVsbDsKICBoYXNUZXJtczogYm9vbGVhbjsKICB1cGRhdGVkQXQ6IHN0cmluZzsKICBjb250YWN0czogV2FsbGV0Q29udGFjdFtdOwogIGRvY3VtZW50czogeyBkb2NUeXBlOiBzdHJpbmc7IGZpbGVOYW1lOiBzdHJpbmcgfVtdOwogIGNoZWNrczogV2FsbGV0Q2hlY2tbXTsKfTsKCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkV2FsbGV0KHNsdWc6IHN0cmluZyk6IFByb21pc2U8V2FsbGV0RGF0YSB8IG51bGw+IHsKICBjb25zdCBzZXNzaW9uID0gYXdhaXQgc2Vzc2lvbkFjY2VzcyhzbHVnKTsKICBpZiAoIXNlc3Npb24pIHJldHVybiBudWxsOwogIGF3YWl0IHRvdWNoV2FsbGV0U2Vzc2lvbigpOwogIGNvbnN0IGFjY2VzcyA9IHNlc3Npb24ubGV2ZWw7CgoKICBjb25zdCB7IGRhdGE6IGZhbWlseSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImZhbWlsaWVzIikKICAgIC5zZWxlY3QoImlkLCBmYW1pbHlfbmFtZSwgdGllcl9iYW5kLCBuYW5ueXRheF9jb2RlLCBzdGFydF9kYXRlLCB0ZXJtc19hY2NlcHRlZF9vbiwgc3RhdHVzLCB1cGRhdGVkX2F0LCBwYXJ0bmVyX2FnZW5jeTpwYXJ0bmVyX2FnZW5jaWVzKG5hbWUsIGJyYW5kX25hbWUpIikKICAgIC5lcSgic2x1ZyIsIHNsdWcpCiAgICAubWF5YmVTaW5nbGUoKTsKCiAgaWYgKCFmYW1pbHkgfHwgZmFtaWx5LnN0YXR1cyAhPT0gImFjdGl2ZSIpIHJldHVybiBudWxsOwoKICBjb25zdCBbeyBkYXRhOiBkb2NzIH0sIHsgZGF0YTogY29udGFjdFJvd3MgfSwgbmFubnlSb3dzXSA9IGF3YWl0IFByb21pc2UuYWxsKFsKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oImZhbWlseV9kb2N1bWVudHMiKQogICAgICAuc2VsZWN0KCJkb2NfdHlwZSwgZmlsZV9uYW1lLCB2aXNpYmlsaXR5LCBpc3N1ZWRfb24sIHJlZmVyZW5jZV9sYWJlbCIpCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKSwKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oImZhbWlseV9jb250YWN0cyIpCiAgICAgIC5zZWxlY3QoIm5hbWUsIHJlbGF0aW9uc2hpcCwgcGhvbmUiKQogICAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgICAgLm9yZGVyKCJzb3J0X29yZGVyIiwgeyBhc2NlbmRpbmc6IHRydWUgfSkKICAgICAgLm9yZGVyKCJjcmVhdGVkX2F0IiwgeyBhc2NlbmRpbmc6IHRydWUgfSksCiAgICBsaXN0TmFubnlSb3dzKGZhbWlseS5pZCksCiAgXSk7CgogIGNvbnN0IG5hbm5pZXM6IFdhbGxldE5hbm55W10gPSBhd2FpdCBQcm9taXNlLmFsbCgKICAgIG5hbm55Um93cy5tYXAoYXN5bmMgKHJvdykgPT4gewogICAgICBsZXQgcGhvdG9Vcmw6IHN0cmluZyB8IG51bGwgPSBudWxsOwogICAgICBpZiAocm93LnBob3RvX3BhdGgpIHsKICAgICAgICBjb25zdCB7IGRhdGE6IHNpZ25lZCB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5zdG9yYWdlCiAgICAgICAgICAuZnJvbSgiZmFtaWx5LWRvY3MiKQogICAgICAgICAgLmNyZWF0ZVNpZ25lZFVybChyb3cucGhvdG9fcGF0aCwgMzAwKTsKICAgICAgICBwaG90b1VybCA9IHNpZ25lZD8uc2lnbmVkVXJsID8/IG51bGw7CiAgICAgIH0KICAgICAgcmV0dXJuIHsKICAgICAgICBpZDogcm93LmlkLAogICAgICAgIG5hbWU6IHJvdy5uYW1lLAogICAgICAgIGJpbzogcm93LmJpbywKICAgICAgICBwaG90b1VybCwKICAgICAgICBlbWVyZ2VuY3k6IHJvdy5lbWVyZ2VuY3lfbmFtZQogICAgICAgICAgPyB7CiAgICAgICAgICAgICAgbmFtZTogcm93LmVtZXJnZW5jeV9uYW1lLAogICAgICAgICAgICAgIHJlbGF0aW9uc2hpcDogcm93LmVtZXJnZW5jeV9yZWxhdGlvbnNoaXAsCiAgICAgICAgICAgICAgcGhvbmU6IHJvdy5lbWVyZ2VuY3lfcGhvbmUgPz8gIiIsCiAgICAgICAgICAgIH0KICAgICAgICAgIDogbnVsbCwKICAgICAgICBpc1lvdTogc2Vzc2lvbi5uYW5ueUlkID09PSByb3cuaWQsCiAgICAgIH07CiAgICB9KSwKICApOwoKICBjb25zdCB2aXNpYmxlID0gKGRvY3MgPz8gW10pLmZpbHRlcigoZCkgPT4gZC52aXNpYmlsaXR5ICE9PSAiaGlkZGVuIik7CgogIHJldHVybiB7CiAgICBhY2Nlc3MsCiAgICBmYW1pbHlOYW1lOiBmYW1pbHkuZmFtaWx5X25hbWUsCiAgICBhZ2VuY3lOYW1lOiAoKHApID0+IHA/LmJyYW5kX25hbWU/LnRyaW0oKSB8fCBwPy5uYW1lIHx8IG51bGwpKGZhbWlseS5wYXJ0bmVyX2FnZW5jeSBhcyB7IG5hbWU6IHN0cmluZzsgYnJhbmRfbmFtZTogc3RyaW5nIHwgbnVsbCB9IHwgbnVsbCksCiAgICB0aWVyQmFuZDogYWNjZXNzID09PSAiZmFtaWx5IiA/IGZhbWlseS50aWVyX2JhbmQgOiAiIiwKICAgIG5hbm5pZXMsCiAgICBuYW5ueXRheENvZGU6IGFjY2VzcyA9PT0gImZhbWlseSIgPyBmYW1pbHkubmFubnl0YXhfY29kZSA6IG51bGwsCiAgICBzdGFydERhdGU6IGFjY2VzcyA9PT0gImZhbWlseSIgPyBmYW1pbHkuc3RhcnRfZGF0ZSA6IG51bGwsCiAgICB0ZXJtc0FjY2VwdGVkT246IGFjY2VzcyA9PT0gImZhbWlseSIgPyBmYW1pbHkudGVybXNfYWNjZXB0ZWRfb24gOiBudWxsLAogICAgaGFzVGVybXM6IGFjY2VzcyA9PT0gImZhbWlseSIgPyBCb29sZWFuKGF3YWl0IChhd2FpdCBpbXBvcnQoIi4vYWdlbmN5LXRlcm1zLnNlcnZlciIpKS50ZXJtc0ZvckZhbWlseShmYW1pbHkuaWQpKSA6IGZhbHNlLAogICAgdXBkYXRlZEF0OiBmYW1pbHkudXBkYXRlZF9hdCwKICAgIGNvbnRhY3RzOiAoY29udGFjdFJvd3MgPz8gW10pLm1hcCgoYykgPT4gKHsKICAgICAgbmFtZTogYy5uYW1lLAogICAgICByZWxhdGlvbnNoaXA6IGMucmVsYXRpb25zaGlwLAogICAgICBwaG9uZTogYy5waG9uZSwKICAgIH0pKSwKICAgIGRvY3VtZW50czogKGFjY2VzcyA9PT0gImZhbWlseSIgPyB2aXNpYmxlIDogW10pCiAgICAgIC5maWx0ZXIoKGQpID0+IGQudmlzaWJpbGl0eSA9PT0gImRvY3VtZW50IikKICAgICAgLm1hcCgoZCkgPT4gKHsgZG9jVHlwZTogZC5kb2NfdHlwZSwgZmlsZU5hbWU6IGQuZmlsZV9uYW1lIH0pKSwKICAgIGNoZWNrczogKGFjY2VzcyA9PT0gImZhbWlseSIgPyB2aXNpYmxlIDogW10pCiAgICAgIC5maWx0ZXIoKGQpID0+IFsiZGJzIiwgImlkX2NoZWNrIiwgInJlZmVyZW5jZV8xIiwgInJlZmVyZW5jZV8yIl0uaW5jbHVkZXMoZC5kb2NfdHlwZSkpCiAgICAgIC5tYXAoKGQpID0+ICh7CiAgICAgICAgZG9jVHlwZTogZC5kb2NfdHlwZSwKICAgICAgICBmaWxlTmFtZTogZC5maWxlX25hbWUsCiAgICAgICAgdmlzaWJpbGl0eTogZC52aXNpYmlsaXR5IGFzICJkb2N1bWVudCIgfCAiYmFkZ2UiLAogICAgICAgIGlzc3VlZE9uOiBkLmlzc3VlZF9vbiwKICAgICAgICByZWZlcmVuY2VMYWJlbDogZC5yZWZlcmVuY2VfbGFiZWwsCiAgICAgIH0pKSwKICB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gd2FsbGV0RXhpc3RzKHNsdWc6IHN0cmluZykgewogIGNvbnN0IHsgZGF0YSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImZhbWlsaWVzIikKICAgIC5zZWxlY3QoImZhbWlseV9uYW1lIikKICAgIC5lcSgic2x1ZyIsIHNsdWcpCiAgICAuZXEoInN0YXR1cyIsICJhY3RpdmUiKQogICAgLm1heWJlU2luZ2xlKCk7CiAgcmV0dXJuIGRhdGE/LmZhbWlseV9uYW1lID8/IG51bGw7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkb2N1bWVudFVybChzbHVnOiBzdHJpbmcsIGRvY1R5cGU6IHN0cmluZykgewogIGlmICghKGF3YWl0IGlzVW5sb2NrZWQoc2x1ZykpKSByZXR1cm4gbnVsbDsKCiAgY29uc3QgeyBkYXRhOiBmYW1pbHkgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJpZCIpCiAgICAuZXEoInNsdWciLCBzbHVnKQogICAgLmVxKCJzdGF0dXMiLCAiYWN0aXZlIikKICAgIC5tYXliZVNpbmdsZSgpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKCiAgY29uc3QgeyBkYXRhOiBkb2MgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbHlfZG9jdW1lbnRzIikKICAgIC5zZWxlY3QoInN0b3JhZ2VfcGF0aCwgdmlzaWJpbGl0eSIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgIC5lcSgiZG9jX3R5cGUiLCBkb2NUeXBlKQogICAgLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFkb2MgfHwgZG9jLnZpc2liaWxpdHkgIT09ICJkb2N1bWVudCIpIHJldHVybiBudWxsOwoKICBjb25zdCB7IGRhdGE6IHNpZ25lZCB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5zdG9yYWdlCiAgICAuZnJvbSgiZmFtaWx5LWRvY3MiKQogICAgLmNyZWF0ZVNpZ25lZFVybChkb2Muc3RvcmFnZV9wYXRoLCAzMDApOwoKICByZXR1cm4gc2lnbmVkPy5zaWduZWRVcmwgPz8gbnVsbDsKfQo=
+import { createHash, timingSafeEqual } from "node:crypto";
+import { useSession, getRequest } from "@tanstack/react-start/server";
+
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+
+type WalletSession = { unlocked?: string[] };
+
+function sessionConfig() {
+  return {
+    password: process.env["WALLET_SESSION_SECRET"]!,
+    name: "family-wallet",
+    // Remember this device for a year, refreshed on every visit.
+    maxAge: 60 * 60 * 24 * 365,
+    // "none" so the wallet stays unlocked when the app is viewed inside an
+    // embedded preview frame; the cookie is still httpOnly and https-only.
+    cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
+  };
+}
+
+/** Re-issues the cookie so an active family keeps a rolling 12-month session. */
+export async function touchWalletSession() {
+  try {
+    const session = await walletSession();
+    const unlocked = session.data.unlocked ?? [];
+    if (unlocked.length === 0) return;
+    await session.update({ unlocked });
+  } catch {
+    /* ignore */
+  }
+}
+
+
+export function normalizeCode(code: string) {
+  return code.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+export function hashCode(slug: string, code: string) {
+  const pepper = process.env["WALLET_CODE_PEPPER"] ?? "";
+  return createHash("sha256").update(`${slug}:${normalizeCode(code)}:${pepper}`).digest("hex");
+}
+
+function equals(a: string, b: string) {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
+
+export function generateAccessCode() {
+  const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let out = "";
+  const bytes = new Uint8Array(6);
+  crypto.getRandomValues(bytes);
+  for (const b of bytes) out += alphabet[b % alphabet.length];
+  return out;
+}
+
+async function walletSession() {
+  return useSession<WalletSession>(sessionConfig());
+}
+
+export async function isUnlocked(slug: string) {
+  const session = await walletSession();
+  return (session.data.unlocked ?? []).includes(slug);
+}
+
+async function markUnlocked(slug: string) {
+  const session = await walletSession();
+  const current = session.data.unlocked ?? [];
+  if (!current.includes(slug)) {
+    await session.update({ unlocked: [...current, slug] });
+  }
+}
+
+export async function lockWallet(slug: string) {
+  const session = await walletSession();
+  const current = session.data.unlocked ?? [];
+  await session.update({ unlocked: current.filter((s) => s !== slug) });
+}
+
+function clientKey() {
+  try {
+    const request = getRequest();
+    const forwarded = request.headers.get("x-forwarded-for") ?? "";
+    return (forwarded.split(",")[0] || request.headers.get("cf-connecting-ip") || "unknown").trim();
+  } catch {
+    return "unknown";
+  }
+}
+
+export async function attemptUnlock(slug: string, code: string) {
+  const key = `${clientKey()}|${slug}`;
+  const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+
+  const { count } = await supabaseAdmin
+    .from("wallet_access_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("client_key", key)
+    .eq("succeeded", false)
+    .gte("attempted_at", since);
+
+  if ((count ?? 0) >= 8) {
+    return { ok: false as const, reason: "rate_limited" as const };
+  }
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("slug, access_code_hash, status")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  const success =
+    !!family && family.status === "active" && equals(family.access_code_hash, hashCode(slug, code));
+
+  await supabaseAdmin
+    .from("wallet_access_attempts")
+    .insert({ slug, client_key: key, succeeded: success });
+
+  if (!success) return { ok: false as const, reason: "invalid" as const };
+
+  await markUnlocked(slug);
+  return { ok: true as const };
+}
+
+export const DEMO_SLUG = "demo";
+
+/** Only ever unlocks the demo wallet — never a real family. */
+export async function openDemo() {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("slug")
+    .eq("slug", DEMO_SLUG)
+    .eq("status", "active")
+    .maybeSingle();
+  if (!data) return { ok: false as const };
+  await markUnlocked(DEMO_SLUG);
+  return { ok: true as const };
+}
+
+/* ---------------- Nanny invitation & sign-in ---------------- */
+
+/** Codes are hashed against the family (not the individual) so older invites keep working. */
+const nannyKey = (slug: string) => `nanny:${slug}`;
+const nannySessionKey = (slug: string, nannyId: string) => `nanny:${slug}:${nannyId}`;
+
+export type NannyRecord = {
+  id: string;
+  name: string;
+  bio: string | null;
+  photoPath: string | null;
+  emergency: WalletContact | null;
+  code: string | null;
+  invitedAt: string | null;
+};
+
+async function familyRowBySlug(slug: string) {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, status")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  return data ?? null;
+}
+
+export async function listNannyRows(familyId: string) {
+  const { data } = await supabaseAdmin
+    .from("family_nannies")
+    .select(
+      "id, name, bio, photo_path, emergency_name, emergency_relationship, emergency_phone, nanny_code, invited_at, status",
+    )
+    .eq("family_id", familyId)
+    .eq("status", "active")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  return data ?? [];
+}
+
+/** Which nanny (if any) this device is signed in as. */
+async function sessionNannyId(slug: string, familyId: string): Promise<string | null> {
+  const session = await walletSession();
+  const unlocked = session.data.unlocked ?? [];
+  const prefix = `${nannySessionKey(slug, "")}`;
+  const direct = unlocked.find((entry) => entry.startsWith(prefix) && entry.length > prefix.length);
+  const rows = await listNannyRows(familyId);
+  if (direct) {
+    const id = direct.slice(prefix.length);
+    return rows.some((r) => r.id === id) ? id : null;
+  }
+  // Legacy sessions signed in before families could have more than one nanny.
+  if (unlocked.includes(nannyKey(slug))) return rows[0]?.id ?? null;
+  return null;
+}
+
+export async function isNannyUnlocked(slug: string) {
+  const family = await familyRowBySlug(slug);
+  if (!family) return false;
+  return (await sessionNannyId(slug, family.id)) !== null;
+}
+
+/** "family" = parent/wallet holder, "nanny" = invited nanny, null = no access. */
+export async function accessLevel(slug: string): Promise<"family" | "nanny" | null> {
+  const session = await sessionAccess(slug);
+  return session?.level ?? null;
+}
+
+export async function sessionAccess(
+  slug: string,
+): Promise<{ level: "family" | "nanny"; nannyId: string | null } | null> {
+  if (await isUnlocked(slug)) return { level: "family", nannyId: null };
+  const family = await familyRowBySlug(slug);
+  if (!family) return null;
+  const nannyId = await sessionNannyId(slug, family.id);
+  return nannyId ? { level: "nanny", nannyId } : null;
+}
+
+/** Parents generate (or refresh) the invite code for one of their nannies. */
+export async function ensureNannyInvite(slug: string, nannyId: string, regenerate = false) {
+  if (!(await isUnlocked(slug))) return null;
+  const family = await familyRowBySlug(slug);
+  if (!family) return null;
+
+  const { data: nanny } = await supabaseAdmin
+    .from("family_nannies")
+    .select("id, name, nanny_code")
+    .eq("id", nannyId)
+    .eq("family_id", family.id)
+    .maybeSingle();
+  if (!nanny) return null;
+
+  let code = nanny.nanny_code;
+  if (!code || regenerate) {
+    code = generateAccessCode();
+    const { error } = await supabaseAdmin
+      .from("family_nannies")
+      .update({
+        nanny_code: code,
+        nanny_code_hash: hashCode(nannyKey(slug), code),
+        invited_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", nanny.id);
+    if (error) return null;
+  }
+
+  return { code, slug, nannyId: nanny.id, nannyName: nanny.name };
+}
+
+export async function attemptNannyUnlock(slug: string, code: string) {
+  const key = `${clientKey()}|nanny|${slug}`;
+  const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+
+  const { count } = await supabaseAdmin
+    .from("wallet_access_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("client_key", key)
+    .eq("succeeded", false)
+    .gte("attempted_at", since);
+  if ((count ?? 0) >= 8) return { ok: false as const, reason: "rate_limited" as const };
+
+  const family = await familyRowBySlug(slug);
+  const attempted = family ? hashCode(nannyKey(slug), code) : "";
+
+  let matched: { id: string } | null = null;
+  if (family) {
+    const { data: rows } = await supabaseAdmin
+      .from("family_nannies")
+      .select("id, nanny_code_hash")
+      .eq("family_id", family.id)
+      .eq("status", "active");
+    matched =
+      (rows ?? []).find((r) => r.nanny_code_hash && equals(r.nanny_code_hash, attempted)) ?? null;
+  }
+
+  await supabaseAdmin
+    .from("wallet_access_attempts")
+    .insert({ slug: nannyKey(slug), client_key: key, succeeded: !!matched });
+
+  if (!matched) return { ok: false as const, reason: "invalid" as const };
+
+  const session = await walletSession();
+  const current = session.data.unlocked ?? [];
+  const entry = nannySessionKey(slug, matched.id);
+  if (!current.includes(entry)) {
+    await session.update({ unlocked: [...current, entry] });
+  }
+  return { ok: true as const };
+}
+
+export type WalletCheck = {
+  docType: string;
+  fileName: string;
+  visibility: "document" | "badge";
+  issuedOn: string | null;
+  referenceLabel: string | null;
+};
+
+export type WalletContact = { name: string; relationship: string | null; phone: string };
+
+export type WalletNanny = {
+  id: string;
+  name: string;
+  bio: string | null;
+  photoUrl: string | null;
+  emergency: WalletContact | null;
+  isYou: boolean;
+};
+
+export type WalletData = {
+  access: "family" | "nanny";
+  familyName: string;
+  /** Partner agency running this wallet; null = owner agency. */
+  agencyName: string | null;
+  tierBand: string;
+  nannies: WalletNanny[];
+  nannytaxCode: string | null;
+  startDate: string | null;
+  termsAcceptedOn: string | null;
+  hasTerms: boolean;
+  updatedAt: string;
+  contacts: WalletContact[];
+  documents: { docType: string; fileName: string }[];
+  checks: WalletCheck[];
+};
+
+export async function loadWallet(slug: string): Promise<WalletData | null> {
+  const session = await sessionAccess(slug);
+  if (!session) return null;
+  await touchWalletSession();
+  const access = session.level;
+
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, partner_agency:partner_agencies(name, brand_name)")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (!family || family.status !== "active") return null;
+
+  const [{ data: docs }, { data: contactRows }, nannyRows] = await Promise.all([
+    supabaseAdmin
+      .from("family_documents")
+      .select("doc_type, file_name, visibility, issued_on, reference_label")
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("name, relationship, phone")
+      .eq("family_id", family.id)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    listNannyRows(family.id),
+  ]);
+
+  const nannies: WalletNanny[] = await Promise.all(
+    nannyRows.map(async (row) => {
+      let photoUrl: string | null = null;
+      if (row.photo_path) {
+        const { data: signed } = await supabaseAdmin.storage
+          .from("family-docs")
+          .createSignedUrl(row.photo_path, 300);
+        photoUrl = signed?.signedUrl ?? null;
+      }
+      return {
+        id: row.id,
+        name: row.name,
+        bio: row.bio,
+        photoUrl,
+        emergency: row.emergency_name
+          ? {
+              name: row.emergency_name,
+              relationship: row.emergency_relationship,
+              phone: row.emergency_phone ?? "",
+            }
+          : null,
+        isYou: session.nannyId === row.id,
+      };
+    }),
+  );
+
+  const visible = (docs ?? []).filter((d) => d.visibility !== "hidden");
+
+  return {
+    access,
+    familyName: family.family_name,
+    agencyName: ((p) => p?.brand_name?.trim() || p?.name || null)(family.partner_agency as { name: string; brand_name: string | null } | null),
+    tierBand: access === "family" ? family.tier_band : "",
+    nannies,
+    nannytaxCode: access === "family" ? family.nannytax_code : null,
+    startDate: access === "family" ? family.start_date : null,
+    termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
+    hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
+    updatedAt: family.updated_at,
+    contacts: (contactRows ?? []).map((c) => ({
+      name: c.name,
+      relationship: c.relationship,
+      phone: c.phone,
+    })),
+    documents: (access === "family" ? visible : [])
+      .filter((d) => d.visibility === "document")
+      .map((d) => ({ docType: d.doc_type, fileName: d.file_name })),
+    checks: (access === "family" ? visible : [])
+      .filter((d) => ["dbs", "id_check", "reference_1", "reference_2"].includes(d.doc_type))
+      .map((d) => ({
+        docType: d.doc_type,
+        fileName: d.file_name,
+        visibility: d.visibility as "document" | "badge",
+        issuedOn: d.issued_on,
+        referenceLabel: d.reference_label,
+      })),
+  };
+}
+
+export async function walletExists(slug: string) {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("family_name")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  return data?.family_name ?? null;
+}
+
+export async function documentUrl(slug: string, docType: string) {
+  if (!(await isUnlocked(slug))) return null;
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("id")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  if (!family) return null;
+
+  const { data: doc } = await supabaseAdmin
+    .from("family_documents")
+    .select("storage_path, visibility")
+    .eq("family_id", family.id)
+    .eq("doc_type", docType)
+    .maybeSingle();
+  if (!doc || doc.visibility !== "document") return null;
+
+  const { data: signed } = await supabaseAdmin.storage
+    .from("family-docs")
+    .createSignedUrl(doc.storage_path, 300);
+
+  return signed?.signedUrl ?? null;
+}

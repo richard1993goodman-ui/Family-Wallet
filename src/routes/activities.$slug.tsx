@@ -1,1 +1,13 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IFJlc291cmNlSHViIH0gZnJvbSAiQC9jb21wb25lbnRzL1Jlc291cmNlSHViIjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL2FjdGl2aXRpZXMvJHNsdWciKSh7CiAgaGVhZDogKCkgPT4gKHsgbWV0YTogWwogICAgeyB0aXRsZTogIk5hbm55IEFjdGl2aXR5IEd1aWRlIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgIHsgbmFtZTogImRlc2NyaXB0aW9uIiwgY29udGVudDogIkNyZWF0ZSwgc2F2ZSBhbmQgcGxhbiBhY3Rpdml0aWVzIGluIHlvdXIgcHJpdmF0ZSBGYW1pbHkgV2FsbGV0LiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0aXRsZSIsIGNvbnRlbnQ6ICJOYW5ueSBBY3Rpdml0eSBHdWlkZSDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQ3JlYXRlLCBzYXZlIGFuZCBwbGFuIGZhbWlseSBhY3Rpdml0aWVzLiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sIHsgbmFtZTogInR3aXR0ZXI6Y2FyZCIsIGNvbnRlbnQ6ICJzdW1tYXJ5IiB9LCB7IG5hbWU6ICJyb2JvdHMiLCBjb250ZW50OiAibm9pbmRleCIgfSwKICBdIH0pLAogIGNvbXBvbmVudDogKCkgPT4gPFJlc291cmNlSHViIHNsdWc9e1JvdXRlLnVzZVBhcmFtcygpLnNsdWd9IGtpbmQ9ImFjdGl2aXR5IiAvPiwKfSk7Cg==
+import { createFileRoute } from "@tanstack/react-router";
+import { ResourceHub } from "@/components/ResourceHub";
+
+export const Route = createFileRoute("/activities/$slug")({
+  head: () => ({ meta: [
+    { title: "Nanny Activity Guide — The Family Wallet" },
+    { name: "description", content: "Create, save and plan activities in your private Family Wallet." },
+    { property: "og:title", content: "Nanny Activity Guide — The Family Wallet" },
+    { property: "og:description", content: "Create, save and plan family activities." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
+  ] }),
+  component: () => <ResourceHub slug={Route.useParams().slug} kind="activity" />,
+});

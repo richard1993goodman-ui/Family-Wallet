@@ -1,1 +1,27 @@
-aW1wb3J0IHsgeiB9IGZyb20gInpvZCI7CgpleHBvcnQgY29uc3QgUExBWUJPT0tfQ0FURUdPUklFUyA9IFsKICB7IGlkOiAiY29tZm9ydCIsIGxhYmVsOiAiUXVpcmtzICYgY29tZm9ydCIsIGV4YW1wbGVzOiAiV2hhdCBzb290aGVzIHRoZW0sIGZlYXJzIGFuZCBzZW5zaXRpdml0aWVzLCBjdXJyZW50IG9ic2Vzc2lvbnMiIH0sCiAgeyBpZDogImhhbmRsZSIsIGxhYmVsOiAiSG93IHdlIGhhbmRsZeKApiIsIGV4YW1wbGVzOiAiVGFudHJ1bXMsIHJld2FyZHMsIHNjcmVlbiBhbmQgZ2FtaW5nIHJ1bGVzIOKAlCBzbyBldmVyeW9uZSBzYXlzIHRoZSBzYW1lIHRoaW5nIiB9LAogIHsgaWQ6ICJmcmllbmRzIiwgbGFiZWw6ICJGcmllbmRzICYgcGljay11cHMiLCBleGFtcGxlczogIkJlc3QgZnJpZW5kcywgY2x1YiBwaWNrLXVwIGFycmFuZ2VtZW50cyDigJQgYWRkIHBsYXlkYXRlcyB3aXRoIGFkZHJlc3MgYW5kIGVtZXJnZW5jeSBjb250YWN0IGluIHRoZSBDYWxlbmRhciIgfSwKICB7IGlkOiAiYWN0aXZpdGllcyIsIGxhYmVsOiAiUmFpbnktZGF5IGlkZWFzIiwgZXhhbXBsZXM6ICJIb21lIGFjdGl2aXRpZXMsIGZhdm91cml0ZSByZWNpcGVzIGFuZCBsb2NhbCBzcG90cyB0aGUga2lkcyBsb3ZlIiB9LApdIGFzIGNvbnN0OwpleHBvcnQgdHlwZSBQbGF5Ym9va0NhdGVnb3J5ID0gKHR5cGVvZiBQTEFZQk9PS19DQVRFR09SSUVTKVtudW1iZXJdWyJpZCJdOwpleHBvcnQgY29uc3QgcGxheWJvb2tTbHVnU2NoZW1hID0gei5vYmplY3QoeyBzbHVnOiB6LnN0cmluZygpLnRyaW0oKS5taW4oMSkubWF4KDIwMCkgfSk7CmV4cG9ydCBjb25zdCBwbGF5Ym9va0VudHJ5U2NoZW1hID0gei5vYmplY3QoewogIGlkOiB6LnN0cmluZygpLnV1aWQoKS5vcHRpb25hbCgpLAogIGNhdGVnb3J5OiB6LmVudW0oWyJjb21mb3J0IiwgImhhbmRsZSIsICJmcmllbmRzIiwgImFjdGl2aXRpZXMiXSksCiAgY2hpbGROYW1lOiB6LnN0cmluZygpLnRyaW0oKS5tYXgoNjApLAogIHRpdGxlOiB6LnN0cmluZygpLnRyaW0oKS5taW4oMSwgIkFkZCBhIHRpdGxlLiIpLm1heCgxMDApLAogIG5vdGVzOiB6LnN0cmluZygpLnRyaW0oKS5tYXgoNDAwMCksCn0pOwpleHBvcnQgY29uc3QgcGxheWJvb2tJZFNjaGVtYSA9IHBsYXlib29rU2x1Z1NjaGVtYS5leHRlbmQoeyBpZDogei5zdHJpbmcoKS51dWlkKCkgfSk7CmV4cG9ydCB0eXBlIFBsYXlib29rSW5wdXQgPSB6LmluZmVyPHR5cGVvZiBwbGF5Ym9va0VudHJ5U2NoZW1hPjsKZXhwb3J0IHR5cGUgUGxheWJvb2tSb3cgPSBQbGF5Ym9va0lucHV0ICYgeyBpZDogc3RyaW5nOyBhZGRlZEJ5OiAiZmFtaWx5IiB8ICJuYW5ueSI7IHVwZGF0ZWRBdDogc3RyaW5nIH07CmV4cG9ydCB0eXBlIFBsYXlib29rRGF0YSA9IHsgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7IGVudHJpZXM6IFBsYXlib29rUm93W10gfTsKCi8qKiBQYXJlbnRzIG1hbmFnZSBldmVyeXRoaW5nOyBuYW5uaWVzIG1heSBvbmx5IGFkZCBhbmQgZWRpdCByYWlueS1kYXkgaWRlYXMgKG5ldmVyIHBpY2stdXAgcGVybWlzc2lvbnMgb3IgcnVsZXMpLiAqLwpleHBvcnQgZnVuY3Rpb24gY2FuRWRpdFBsYXlib29rKGFjY2Vzczogc3RyaW5nIHwgbnVsbCwgY2F0ZWdvcnk6IHN0cmluZykgewogIGlmIChhY2Nlc3MgPT09ICJmYW1pbHkiKSByZXR1cm4gdHJ1ZTsKICByZXR1cm4gYWNjZXNzID09PSAibmFubnkiICYmIGNhdGVnb3J5ID09PSAiYWN0aXZpdGllcyI7Cn0K
+import { z } from "zod";
+
+export const PLAYBOOK_CATEGORIES = [
+  { id: "comfort", label: "Quirks & comfort", examples: "What soothes them, fears and sensitivities, current obsessions" },
+  { id: "handle", label: "How we handle…", examples: "Tantrums, rewards, screen and gaming rules — so everyone says the same thing" },
+  { id: "friends", label: "Friends & pick-ups", examples: "Best friends, club pick-up arrangements — add playdates with address and emergency contact in the Calendar" },
+  { id: "activities", label: "Rainy-day ideas", examples: "Home activities, favourite recipes and local spots the kids love" },
+] as const;
+export type PlaybookCategory = (typeof PLAYBOOK_CATEGORIES)[number]["id"];
+export const playbookSlugSchema = z.object({ slug: z.string().trim().min(1).max(200) });
+export const playbookEntrySchema = z.object({
+  id: z.string().uuid().optional(),
+  category: z.enum(["comfort", "handle", "friends", "activities"]),
+  childName: z.string().trim().max(60),
+  title: z.string().trim().min(1, "Add a title.").max(100),
+  notes: z.string().trim().max(4000),
+});
+export const playbookIdSchema = playbookSlugSchema.extend({ id: z.string().uuid() });
+export type PlaybookInput = z.infer<typeof playbookEntrySchema>;
+export type PlaybookRow = PlaybookInput & { id: string; addedBy: "family" | "nanny"; updatedAt: string };
+export type PlaybookData = { access: "family" | "nanny"; entries: PlaybookRow[] };
+
+/** Parents manage everything; nannies may only add and edit rainy-day ideas (never pick-up permissions or rules). */
+export function canEditPlaybook(access: string | null, category: string) {
+  if (access === "family") return true;
+  return access === "nanny" && category === "activities";
+}

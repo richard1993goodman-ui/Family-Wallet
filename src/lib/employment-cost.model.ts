@@ -1,1 +1,34 @@
-ZXhwb3J0IHR5cGUgRW1wbG95bWVudENvc3RJbnB1dCA9IHsKICBob3VybHlSYXRlOiBudW1iZXI7CiAgaG91cnNQZXJXZWVrOiBudW1iZXI7CiAgd29ya2luZ1dlZWtzOiBudW1iZXI7CiAgZW1wbG95ZXJOaVJhdGU6IG51bWJlcjsKICBwZW5zaW9uUmF0ZTogbnVtYmVyOwogIG1vbnRobHlQYXlyb2xsRmVlOiBudW1iZXI7CiAgYW5udWFsRXh0cmFzOiBudW1iZXI7Cn07CgpleHBvcnQgZnVuY3Rpb24gY2FsY3VsYXRlRW1wbG95bWVudENvc3QoaW5wdXQ6IEVtcGxveW1lbnRDb3N0SW5wdXQpIHsKICBjb25zdCBob3VybHlSYXRlID0gTWF0aC5tYXgoMCwgaW5wdXQuaG91cmx5UmF0ZSB8fCAwKTsKICBjb25zdCBob3Vyc1BlcldlZWsgPSBNYXRoLm1heCgwLCBpbnB1dC5ob3Vyc1BlcldlZWsgfHwgMCk7CiAgY29uc3Qgd29ya2luZ1dlZWtzID0gTWF0aC5taW4oNTIsIE1hdGgubWF4KDEsIGlucHV0LndvcmtpbmdXZWVrcyB8fCA1MikpOwogIGNvbnN0IGFubnVhbEhvdXJzID0gaG91cnNQZXJXZWVrICogd29ya2luZ1dlZWtzOwogIGNvbnN0IGdyb3NzUGF5ID0gaG91cmx5UmF0ZSAqIGFubnVhbEhvdXJzOwogIGNvbnN0IGVtcGxveWVyTmkgPSBncm9zc1BheSAqIE1hdGgubWF4KDAsIGlucHV0LmVtcGxveWVyTmlSYXRlIHx8IDApIC8gMTAwOwogIGNvbnN0IHBlbnNpb24gPSBncm9zc1BheSAqIE1hdGgubWF4KDAsIGlucHV0LnBlbnNpb25SYXRlIHx8IDApIC8gMTAwOwogIGNvbnN0IHBheXJvbGwgPSBNYXRoLm1heCgwLCBpbnB1dC5tb250aGx5UGF5cm9sbEZlZSB8fCAwKSAqIDEyOwogIGNvbnN0IGV4dHJhcyA9IE1hdGgubWF4KDAsIGlucHV0LmFubnVhbEV4dHJhcyB8fCAwKTsKICBjb25zdCBhbm51YWxUb3RhbCA9IGdyb3NzUGF5ICsgZW1wbG95ZXJOaSArIHBlbnNpb24gKyBwYXlyb2xsICsgZXh0cmFzOwogIHJldHVybiB7CiAgICBhbm51YWxIb3VycywKICAgIGdyb3NzUGF5LAogICAgZW1wbG95ZXJOaSwKICAgIHBlbnNpb24sCiAgICBwYXlyb2xsLAogICAgZXh0cmFzLAogICAgYW5udWFsVG90YWwsCiAgICBtb250aGx5VG90YWw6IGFubnVhbFRvdGFsIC8gMTIsCiAgICB3ZWVrbHlUb3RhbDogYW5udWFsVG90YWwgLyB3b3JraW5nV2Vla3MsCiAgICBhbGxJbkhvdXJseTogYW5udWFsSG91cnMgPyBhbm51YWxUb3RhbCAvIGFubnVhbEhvdXJzIDogMCwKICB9Owp9
+export type EmploymentCostInput = {
+  hourlyRate: number;
+  hoursPerWeek: number;
+  workingWeeks: number;
+  employerNiRate: number;
+  pensionRate: number;
+  monthlyPayrollFee: number;
+  annualExtras: number;
+};
+
+export function calculateEmploymentCost(input: EmploymentCostInput) {
+  const hourlyRate = Math.max(0, input.hourlyRate || 0);
+  const hoursPerWeek = Math.max(0, input.hoursPerWeek || 0);
+  const workingWeeks = Math.min(52, Math.max(1, input.workingWeeks || 52));
+  const annualHours = hoursPerWeek * workingWeeks;
+  const grossPay = hourlyRate * annualHours;
+  const employerNi = grossPay * Math.max(0, input.employerNiRate || 0) / 100;
+  const pension = grossPay * Math.max(0, input.pensionRate || 0) / 100;
+  const payroll = Math.max(0, input.monthlyPayrollFee || 0) * 12;
+  const extras = Math.max(0, input.annualExtras || 0);
+  const annualTotal = grossPay + employerNi + pension + payroll + extras;
+  return {
+    annualHours,
+    grossPay,
+    employerNi,
+    pension,
+    payroll,
+    extras,
+    annualTotal,
+    monthlyTotal: annualTotal / 12,
+    weeklyTotal: annualTotal / workingWeeks,
+    allInHourly: annualHours ? annualTotal / annualHours : 0,
+  };
+}

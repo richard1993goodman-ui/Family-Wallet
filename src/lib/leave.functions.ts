@@ -1,1 +1,33 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKaW1wb3J0IHR5cGUgeyBMZWF2ZUlucHV0IH0gZnJvbSAiLi9sZWF2ZS50eXBlcyI7CgpleHBvcnQgY29uc3QgZ2V0TGVhdmUgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGxvYWRMZWF2ZSB9ID0gYXdhaXQgaW1wb3J0KCIuL2xlYXZlLnNlcnZlciIpOwogICAgcmV0dXJuIGxvYWRMZWF2ZShkYXRhLnNsdWcpOwogIH0pOwoKZXhwb3J0IGNvbnN0IHJlcXVlc3RMZWF2ZUZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IGxlYXZlOiBMZWF2ZUlucHV0IH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IHJlcXVlc3RMZWF2ZSB9ID0gYXdhaXQgaW1wb3J0KCIuL2xlYXZlLnNlcnZlciIpOwogICAgcmV0dXJuIHJlcXVlc3RMZWF2ZShkYXRhLnNsdWcsIGRhdGEubGVhdmUpOwogIH0pOwoKZXhwb3J0IGNvbnN0IHJldmlld0xlYXZlRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgaWQ6IHN0cmluZzsgc3RhdHVzOiAiYXBwcm92ZWQiIHwgImRlY2xpbmVkIiB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyByZXZpZXdMZWF2ZSB9ID0gYXdhaXQgaW1wb3J0KCIuL2xlYXZlLnNlcnZlciIpOwogICAgYXdhaXQgcmV2aWV3TGVhdmUoZGF0YS5zbHVnLCBkYXRhLmlkLCBkYXRhLnN0YXR1cyk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwoKZXhwb3J0IGNvbnN0IGNhbmNlbExlYXZlRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgaWQ6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBjYW5jZWxMZWF2ZSB9ID0gYXdhaXQgaW1wb3J0KCIuL2xlYXZlLnNlcnZlciIpOwogICAgYXdhaXQgY2FuY2VsTGVhdmUoZGF0YS5zbHVnLCBkYXRhLmlkKTsKICAgIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0IH07CiAgfSk7Cg==
+import { createServerFn } from "@tanstack/react-start";
+
+import type { LeaveInput } from "./leave.types";
+
+export const getLeave = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadLeave } = await import("./leave.server");
+    return loadLeave(data.slug);
+  });
+
+export const requestLeaveFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; leave: LeaveInput }) => data)
+  .handler(async ({ data }) => {
+    const { requestLeave } = await import("./leave.server");
+    return requestLeave(data.slug, data.leave);
+  });
+
+export const reviewLeaveFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string; status: "approved" | "declined" }) => data)
+  .handler(async ({ data }) => {
+    const { reviewLeave } = await import("./leave.server");
+    await reviewLeave(data.slug, data.id, data.status);
+    return { ok: true as const };
+  });
+
+export const cancelLeaveFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { cancelLeave } = await import("./leave.server");
+    await cancelLeave(data.slug, data.id);
+    return { ok: true as const };
+  });

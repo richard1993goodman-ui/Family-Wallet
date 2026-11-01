@@ -1,1 +1,82 @@
-aW1wb3J0IHsgQ2hlY2tDaXJjbGUyLCBDaXJjbGUgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW1wb3J0IHR5cGUgeyBTaWduYXR1cmUgfSBmcm9tICJAL2xpYi9hZ3JlZW1lbnQudHlwZXMiOwppbXBvcnQgeyBmb3JtYXRTaWduZWRBdCB9IGZyb20gIkAvY29tcG9uZW50cy9TaWduQmxvY2siOwoKZXhwb3J0IHR5cGUgU2lnbmluZ1Byb2dyZXNzUHJvcHMgPSB7CiAgc3RhdHVzOiAiZHJhZnQiIHwgImlzc3VlZCI7CiAgdmVyc2lvbjogbnVtYmVyOwogIHNpZ25hdHVyZXM6IFNpZ25hdHVyZVtdOwogIGNvbXBhY3Q/OiBib29sZWFuOwp9OwoKdHlwZSBSb3cgPSB7CiAgcm9sZTogInBhcmVudCIgfCAibmFubnkiOwogIGxhYmVsOiBzdHJpbmc7CiAgc2lnbmF0dXJlOiBTaWduYXR1cmUgfCB1bmRlZmluZWQ7Cn07CgpleHBvcnQgZnVuY3Rpb24gc2lnbmluZ1Jvd3MoCiAgc2lnbmF0dXJlczogU2lnbmF0dXJlW10sCiAgdmVyc2lvbjogbnVtYmVyLAopOiB7IHJvd3M6IFJvd1tdOyBjb21wbGV0ZTogYm9vbGVhbiB9IHsKICBjb25zdCBjdXJyZW50ID0gc2lnbmF0dXJlcy5maWx0ZXIoCiAgICAocykgPT4gcy5kb2NLaW5kID09PSAiYWdyZWVtZW50IiAmJiBzLmRvY1ZlcnNpb24gPT09IFN0cmluZyh2ZXJzaW9uKSwKICApOwogIGNvbnN0IGZpbmQgPSAocm9sZTogUm93WyJyb2xlIl0pID0+IGN1cnJlbnQuZmluZCgocykgPT4gcy5zaWduZXJSb2xlID09PSByb2xlKTsKICBjb25zdCByb3dzOiBSb3dbXSA9IFsKICAgIHsgcm9sZTogInBhcmVudCIsIGxhYmVsOiAiUGFyZW50IC8gZW1wbG95ZXIiLCBzaWduYXR1cmU6IGZpbmQoInBhcmVudCIpIH0sCiAgICB7IHJvbGU6ICJuYW5ueSIsIGxhYmVsOiAiTmFubnkgLyBtYW5ueSIsIHNpZ25hdHVyZTogZmluZCgibmFubnkiKSB9LAogIF07CiAgcmV0dXJuIHsgcm93cywgY29tcGxldGU6IEJvb2xlYW4oZmluZCgicGFyZW50IikgJiYgZmluZCgibmFubnkiKSkgfTsKfQoKZXhwb3J0IGZ1bmN0aW9uIFNpZ25pbmdQcm9ncmVzcyh7IHN0YXR1cywgdmVyc2lvbiwgc2lnbmF0dXJlcywgY29tcGFjdCB9OiBTaWduaW5nUHJvZ3Jlc3NQcm9wcykgewogIGNvbnN0IHsgcm93cywgY29tcGxldGUgfSA9IHNpZ25pbmdSb3dzKHNpZ25hdHVyZXMsIHZlcnNpb24pOwogIGNvbnN0IHJlcXVpcmVkID0gcm93czsKICBjb25zdCBkb25lID0gcmVxdWlyZWQuZmlsdGVyKChyKSA9PiByLnNpZ25hdHVyZSkubGVuZ3RoOwoKICBjb25zdCBhY3Rpb24gPQogICAgc3RhdHVzICE9PSAiaXNzdWVkIgogICAgICA/ICJOb3Qgb3BlbiBmb3Igc2lnbmluZyB5ZXQg4oCUIGZpbmlzaCB0aGUgYWdyZWVtZW50IGFuZCBjaG9vc2Ug4oCcRG9uZSDigJQgcmVhZHkgdG8gc2lnbuKAnS4iCiAgICAgIDogY29tcGxldGUKICAgICAgICA/ICJCb3RoIHNpZ25hdHVyZXMgYXJlIGluLiBZb3VyIHNpZ25lZCBjb3B5IHN0YXlzIGluIHRoZSB3YWxsZXQuIgogICAgICAgIDogZG9uZSA9PT0gMAogICAgICAgICAgPyAiV2FpdGluZyBvbiBib3RoIHNpZ25hdHVyZXMg4oCUIHBhcmVudCBhbmQgbmFubnkuIgogICAgICAgICAgOiBgV2FpdGluZyBvbiB0aGUgJHtyZXF1aXJlZC5maW5kKChyKSA9PiAhci5zaWduYXR1cmUpPy5sYWJlbC50b0xvd2VyQ2FzZSgpfSBzaWduYXR1cmUuYDsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJyb3VuZGVkLXhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01Ij4KICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtYmFzZWxpbmUganVzdGlmeS1iZXR3ZWVuIGdhcC0zIj4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPlNpZ25pbmcgcHJvZ3Jlc3M8L2gyPgogICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAge2RvbmV9IG9mIHtyZXF1aXJlZC5sZW5ndGh9IHNpZ25lZAogICAgICAgIDwvc3Bhbj4KICAgICAgPC9kaXY+CgogICAgICA8dWwgY2xhc3NOYW1lPSJtdC00IHNwYWNlLXktMyI+CiAgICAgICAge3Jvd3MubWFwKChyb3cpID0+ICgKICAgICAgICAgIDxsaSBrZXk9e3Jvdy5yb2xlfSBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTMiPgogICAgICAgICAgICB7cm93LnNpZ25hdHVyZSA/ICgKICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIGNsYXNzTmFtZT0ibXQtMC41IGgtNSB3LTUgZmxleC1zaHJpbmstMCB0ZXh0LXByaW1hcnkiIC8+CiAgICAgICAgICAgICkgOiAoCiAgICAgICAgICAgICAgPENpcmNsZSBjbGFzc05hbWU9Im10LTAuNSBoLTUgdy01IGZsZXgtc2hyaW5rLTAgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kLzUwIiAvPgogICAgICAgICAgICApfQogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtc20iPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj57cm93LmxhYmVsfTwvc3Bhbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgICB7cm93LnNpZ25hdHVyZQogICAgICAgICAgICAgICAgICA/IGAke3Jvdy5zaWduYXR1cmUuc2lnbmVyTmFtZX0gwrcgc2lnbmVkICR7Zm9ybWF0U2lnbmVkQXQocm93LnNpZ25hdHVyZS5zaWduZWRBdCl9YAogICAgICAgICAgICAgICAgICA6ICJOb3Qgc2lnbmVkIHlldCJ9CiAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICA8L2xpPgogICAgICAgICkpfQogICAgICA8L3VsPgoKICAgICAgeyFjb21wYWN0ICYmICgKICAgICAgICA8cCBjbGFzc05hbWU9Im10LTQgcm91bmRlZC1sZyBiZy1tdXRlZCBweC0zIHB5LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPnthY3Rpb259PC9wPgogICAgICApfQogICAgPC9kaXY+CiAgKTsKfQo=
+import { CheckCircle2, Circle } from "lucide-react";
+
+import type { Signature } from "@/lib/agreement.types";
+import { formatSignedAt } from "@/components/SignBlock";
+
+export type SigningProgressProps = {
+  status: "draft" | "issued";
+  version: number;
+  signatures: Signature[];
+  compact?: boolean;
+};
+
+type Row = {
+  role: "parent" | "nanny";
+  label: string;
+  signature: Signature | undefined;
+};
+
+export function signingRows(
+  signatures: Signature[],
+  version: number,
+): { rows: Row[]; complete: boolean } {
+  const current = signatures.filter(
+    (s) => s.docKind === "agreement" && s.docVersion === String(version),
+  );
+  const find = (role: Row["role"]) => current.find((s) => s.signerRole === role);
+  const rows: Row[] = [
+    { role: "parent", label: "Parent / employer", signature: find("parent") },
+    { role: "nanny", label: "Nanny / manny", signature: find("nanny") },
+  ];
+  return { rows, complete: Boolean(find("parent") && find("nanny")) };
+}
+
+export function SigningProgress({ status, version, signatures, compact }: SigningProgressProps) {
+  const { rows, complete } = signingRows(signatures, version);
+  const required = rows;
+  const done = required.filter((r) => r.signature).length;
+
+  const action =
+    status !== "issued"
+      ? "Not open for signing yet — finish the agreement and choose “Done — ready to sign”."
+      : complete
+        ? "Both signatures are in. Your signed copy stays in the wallet."
+        : done === 0
+          ? "Waiting on both signatures — parent and nanny."
+          : `Waiting on the ${required.find((r) => !r.signature)?.label.toLowerCase()} signature.`;
+
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 className="heading-display text-lg text-foreground">Signing progress</h2>
+        <span className="text-sm text-muted-foreground">
+          {done} of {required.length} signed
+        </span>
+      </div>
+
+      <ul className="mt-4 space-y-3">
+        {rows.map((row) => (
+          <li key={row.role} className="flex items-start gap-3">
+            {row.signature ? (
+              <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+            ) : (
+              <Circle className="mt-0.5 h-5 w-5 flex-shrink-0 text-muted-foreground/50" />
+            )}
+            <span className="text-sm">
+              <span className="block font-medium text-foreground">{row.label}</span>
+              <span className="block text-muted-foreground">
+                {row.signature
+                  ? `${row.signature.signerName} · signed ${formatSignedAt(row.signature.signedAt)}`
+                  : "Not signed yet"}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      {!compact && (
+        <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">{action}</p>
+      )}
+    </div>
+  );
+}

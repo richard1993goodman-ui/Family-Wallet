@@ -1,1 +1,120 @@
-aW1wb3J0IHsgdXNlTmF2aWdhdGUgfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtcm91dGVyIjsKaW1wb3J0IHsgdXNlRWZmZWN0LCB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IEFycm93UmlnaHQsIEtleVJvdW5kIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKaW1wb3J0IHsgdW5sb2NrV2FsbGV0IH0gZnJvbSAiQC9saWIvd2FsbGV0LmZ1bmN0aW9ucyI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBJbnB1dCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9pbnB1dCI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKCmZ1bmN0aW9uIHNsdWdGcm9tSW5wdXQoaW5wdXQ6IHN0cmluZykgewogIGNvbnN0IHRyaW1tZWQgPSBpbnB1dC50cmltKCk7CiAgLy8gQWNjZXB0IGEgZnVsbCB3YWxsZXQgbGluayBvciBqdXN0IHRoZSBzaG9ydCBuYW1lIGF0IHRoZSBlbmQuCiAgY29uc3Qgd2l0aG91dFByb3RvY29sID0gdHJpbW1lZC5yZXBsYWNlKC9eaHR0cHM/OlwvXC8vaSwgIiIpOwogIGNvbnN0IHBhcnRzID0gd2l0aG91dFByb3RvY29sLnNwbGl0KC9bLz8jXS8pLmZpbHRlcihCb29sZWFuKTsKICBjb25zdCBsYXN0ID0gcGFydHNbcGFydHMubGVuZ3RoIC0gMV0gPz8gIiI7CiAgcmV0dXJuIGxhc3QudG9Mb3dlckNhc2UoKS5yZXBsYWNlKC9bXmEtejAtOS1dL2csICIiKTsKfQoKZXhwb3J0IGZ1bmN0aW9uIEZhbWlseUxvZ2luKCkgewogIGNvbnN0IG5hdmlnYXRlID0gdXNlTmF2aWdhdGUoKTsKICBjb25zdCB1bmxvY2tGbiA9IHVzZVNlcnZlckZuKHVubG9ja1dhbGxldCk7CiAgY29uc3QgW2xpbmssIHNldExpbmtdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtjb2RlLCBzZXRDb2RlXSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbcmVtZW1iZXIsIHNldFJlbWVtYmVyXSA9IHVzZVN0YXRlKHRydWUpOwogIGNvbnN0IFtidXN5LCBzZXRCdXN5XSA9IHVzZVN0YXRlKGZhbHNlKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGNvbnN0IHNhdmVkID0gd2luZG93LmxvY2FsU3RvcmFnZS5nZXRJdGVtKCJ3YWxsZXQtbGluayIpOwogICAgaWYgKHNhdmVkKSBzZXRMaW5rKHNhdmVkKTsKICAgIGVsc2Ugc2V0UmVtZW1iZXIodHJ1ZSk7CiAgfSwgW10pOwoKICBhc3luYyBmdW5jdGlvbiBvblN1Ym1pdChlOiBSZWFjdC5Gb3JtRXZlbnQpIHsKICAgIGUucHJldmVudERlZmF1bHQoKTsKICAgIGNvbnN0IHNsdWcgPSBzbHVnRnJvbUlucHV0KGxpbmspOwogICAgaWYgKCFzbHVnKSB7CiAgICAgIHRvYXN0LmVycm9yKCJQbGVhc2UgZW50ZXIgeW91ciB3YWxsZXQgbGluay4iKTsKICAgICAgcmV0dXJuOwogICAgfQogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHVubG9ja0ZuKHsgZGF0YTogeyBzbHVnLCBjb2RlIH0gfSk7CiAgICAgIGlmIChyZXN1bHQub2spIHsKICAgICAgICBpZiAocmVtZW1iZXIpIHdpbmRvdy5sb2NhbFN0b3JhZ2Uuc2V0SXRlbSgid2FsbGV0LWxpbmsiLCBzbHVnKTsKICAgICAgICBlbHNlIHdpbmRvdy5sb2NhbFN0b3JhZ2UucmVtb3ZlSXRlbSgid2FsbGV0LWxpbmsiKTsKICAgICAgICBuYXZpZ2F0ZSh7IHRvOiAiL3cvJHNsdWciLCBwYXJhbXM6IHsgc2x1ZyB9IH0pOwogICAgICB9IGVsc2UgewogICAgICAgIHRvYXN0LmVycm9yKAogICAgICAgICAgcmVzdWx0LnJlYXNvbiA9PT0gInJhdGVfbGltaXRlZCIKICAgICAgICAgICAgPyAiVG9vIG1hbnkgdHJpZXMuIFBsZWFzZSB3YWl0IDE1IG1pbnV0ZXMgYW5kIHRyeSBhZ2Fpbi4iCiAgICAgICAgICAgIDogIlRoYXQgY29kZSBkb2Vzbid0IG1hdGNoIHRoYXQgbGluay4gUGxlYXNlIGNoZWNrIGJvdGggYW5kIHRyeSBhZ2Fpbi4iLAogICAgICAgICk7CiAgICAgIH0KICAgIH0gZmluYWxseSB7CiAgICAgIHNldEJ1c3koZmFsc2UpOwogICAgfQogIH0KCgogIHJldHVybiAoCiAgICA8c2VjdGlvbiBjbGFzc05hbWU9InJlbGF0aXZlIG92ZXJmbG93LWhpZGRlbiByb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLWJvcmRlci84MCBiZy1jYXJkLzg1IHAtNSBzaGFkb3cteGwgc2hhZG93LXByaW1hcnkvNSBzbTpwLTciPgogICAgICA8ZGl2IGNsYXNzTmFtZT0icG9pbnRlci1ldmVudHMtbm9uZSBhYnNvbHV0ZSBpbnNldC14LTAgdG9wLTAgaC1weCBiZy1ncmFkaWVudC10by1yIGZyb20tdHJhbnNwYXJlbnQgdmlhLXNlY29uZGFyeSB0by10cmFuc3BhcmVudCIgLz4KICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0zIj4KICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImZsZXggc2l6ZS0xMCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgcm91bmRlZC1sZyBiZy1wcmltYXJ5IHRleHQtcHJpbWFyeS1mb3JlZ3JvdW5kIHNoYWRvdy1tZCBzaGFkb3ctcHJpbWFyeS8xNSI+CiAgICAgICAgICA8S2V5Um91bmQgY2xhc3NOYW1lPSJoLTUgdy01IiAvPgogICAgICAgIDwvc3Bhbj4KICAgICAgICA8ZGl2PgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdXBwZXJjYXNlIHRyYWNraW5nLVswLjE4ZW1dIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+TWVtYmVyIGFjY2VzczwvcD4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LXhsIHRleHQtZm9yZWdyb3VuZCI+T3BlbiB5b3VyIEZhbWlseSBXYWxsZXQ8L2gyPgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgICAgPHAgY2xhc3NOYW1lPSJtdC00IHRleHQtc20gbGVhZGluZy1yZWxheGVkIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgVXNlIHRoZSBwcml2YXRlIGxpbmsgYW5kIGFjY2VzcyBjb2RlIHNlbnQgdG8geW91ciBmYW1pbHkuCiAgICAgIDwvcD4KICAgICAgPGZvcm0gb25TdWJtaXQ9e29uU3VibWl0fSBjbGFzc05hbWU9Im10LTUgc3BhY2UteS00Ij4KICAgICAgICA8ZGl2PgogICAgICAgICAgPExhYmVsIGh0bWxGb3I9IndhbGxldC1saW5rIj5Zb3VyIHdhbGxldCBsaW5rPC9MYWJlbD4KICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICBpZD0id2FsbGV0LWxpbmsiCiAgICAgICAgICAgIHZhbHVlPXtsaW5rfQogICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldExpbmsoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICBwbGFjZWhvbGRlcj0iZS5nLiBzbWl0aC00ZjJhIgogICAgICAgICAgICBhdXRvQ29tcGxldGU9Im9mZiIKICAgICAgICAgICAgcmVxdWlyZWQKICAgICAgICAgICAgY2xhc3NOYW1lPSJtdC0xLjUgaC0xMSBiZy1iYWNrZ3JvdW5kLzcwIgogICAgICAgICAgLz4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2PgogICAgICAgICAgPExhYmVsIGh0bWxGb3I9IndhbGxldC1jb2RlIj5BY2Nlc3MgY29kZTwvTGFiZWw+CiAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgaWQ9IndhbGxldC1jb2RlIgogICAgICAgICAgICB2YWx1ZT17Y29kZX0KICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRDb2RlKGUudGFyZ2V0LnZhbHVlLnRvVXBwZXJDYXNlKCkpfQogICAgICAgICAgICBwbGFjZWhvbGRlcj0iNi1jaGFyYWN0ZXIgY29kZSIKICAgICAgICAgICAgYXV0b0NvbXBsZXRlPSJvZmYiCiAgICAgICAgICAgIG1heExlbmd0aD17OH0KICAgICAgICAgICAgcmVxdWlyZWQKICAgICAgICAgICAgY2xhc3NOYW1lPSJtdC0xLjUgaC0xMSBiZy1iYWNrZ3JvdW5kLzcwIHVwcGVyY2FzZSB0cmFja2luZy13aWRlc3QiCiAgICAgICAgICAvPgogICAgICAgIDwvZGl2PgogICAgICAgIDxsYWJlbCBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTIgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQvOTAiPgogICAgICAgICAgPGlucHV0CiAgICAgICAgICAgIHR5cGU9ImNoZWNrYm94IgogICAgICAgICAgICBjaGVja2VkPXtyZW1lbWJlcn0KICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRSZW1lbWJlcihlLnRhcmdldC5jaGVja2VkKX0KICAgICAgICAgICAgY2xhc3NOYW1lPSJtdC0wLjUgc2l6ZS00IGFjY2VudC1baHNsKHZhcigtLXByaW1hcnkpKV0iCiAgICAgICAgICAvPgogICAgICAgICAgPHNwYW4+CiAgICAgICAgICAgIFJlbWVtYmVyIHRoaXMgZGV2aWNlIOKAlCBzdGF5IHNpZ25lZCBpbiBmb3IgMTIgbW9udGhzIGFuZCBrZWVwIG15IHdhbGxldCBsaW5rIHNhdmVkIGhlcmUuCiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgPC9sYWJlbD4KICAgICAgICA8QnV0dG9uIHR5cGU9InN1Ym1pdCIgc2l6ZT0ibGciIGNsYXNzTmFtZT0idy1mdWxsIiBkaXNhYmxlZD17YnVzeX0+CiAgICAgICAgICB7YnVzeSA/ICJPcGVuaW5n4oCmIiA6ICJPcGVuIG15IHdhbGxldCJ9CiAgICAgICAgICB7IWJ1c3kgJiYgPEFycm93UmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPn0KICAgICAgICA8L0J1dHRvbj4KICAgICAgPC9mb3JtPgogICAgPC9zZWN0aW9uPgogICk7Cn0K
+import { useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowRight, KeyRound } from "lucide-react";
+import { unlockWallet } from "@/lib/wallet.functions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+function slugFromInput(input: string) {
+  const trimmed = input.trim();
+  // Accept a full wallet link or just the short name at the end.
+  const withoutProtocol = trimmed.replace(/^https?:\/\//i, "");
+  const parts = withoutProtocol.split(/[/?#]/).filter(Boolean);
+  const last = parts[parts.length - 1] ?? "";
+  return last.toLowerCase().replace(/[^a-z0-9-]/g, "");
+}
+
+export function FamilyLogin() {
+  const navigate = useNavigate();
+  const unlockFn = useServerFn(unlockWallet);
+  const [link, setLink] = useState("");
+  const [code, setCode] = useState("");
+  const [remember, setRemember] = useState(true);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("wallet-link");
+    if (saved) setLink(saved);
+    else setRemember(true);
+  }, []);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const slug = slugFromInput(link);
+    if (!slug) {
+      toast.error("Please enter your wallet link.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const result = await unlockFn({ data: { slug, code } });
+      if (result.ok) {
+        if (remember) window.localStorage.setItem("wallet-link", slug);
+        else window.localStorage.removeItem("wallet-link");
+        navigate({ to: "/w/$slug", params: { slug } });
+      } else {
+        toast.error(
+          result.reason === "rate_limited"
+            ? "Too many tries. Please wait 15 minutes and try again."
+            : "That code doesn't match that link. Please check both and try again.",
+        );
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+
+  return (
+    <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-5 shadow-xl shadow-primary/5 sm:p-7">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary to-transparent" />
+      <div className="flex items-center gap-3">
+        <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md shadow-primary/15">
+          <KeyRound className="h-5 w-5" />
+        </span>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Member access</p>
+          <h2 className="heading-display text-xl text-foreground">Open your Family Wallet</h2>
+        </div>
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        Use the private link and access code sent to your family.
+      </p>
+      <form onSubmit={onSubmit} className="mt-5 space-y-4">
+        <div>
+          <Label htmlFor="wallet-link">Your wallet link</Label>
+          <Input
+            id="wallet-link"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            placeholder="e.g. smith-4f2a"
+            autoComplete="off"
+            required
+            className="mt-1.5 h-11 bg-background/70"
+          />
+        </div>
+        <div>
+          <Label htmlFor="wallet-code">Access code</Label>
+          <Input
+            id="wallet-code"
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            placeholder="6-character code"
+            autoComplete="off"
+            maxLength={8}
+            required
+            className="mt-1.5 h-11 bg-background/70 uppercase tracking-widest"
+          />
+        </div>
+        <label className="flex items-start gap-2 text-sm text-foreground/90">
+          <input
+            type="checkbox"
+            checked={remember}
+            onChange={(e) => setRemember(e.target.checked)}
+            className="mt-0.5 size-4 accent-[hsl(var(--primary))]"
+          />
+          <span>
+            Remember this device — stay signed in for 12 months and keep my wallet link saved here.
+          </span>
+        </label>
+        <Button type="submit" size="lg" className="w-full" disabled={busy}>
+          {busy ? "Opening…" : "Open my wallet"}
+          {!busy && <ArrowRight className="h-4 w-4" />}
+        </Button>
+      </form>
+    </section>
+  );
+}

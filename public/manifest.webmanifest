@@ -1,1 +1,32 @@
-ewogICJuYW1lIjogIlRoZSBGYW1pbHkgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJGYW1pbHkgV2FsbGV0IiwKICAiZGVzY3JpcHRpb24iOiAiWW91ciBuYW5ueSBhZ3JlZW1lbnQsIG5hbm55IENWLCBtZW1iZXJzaGlwIGRldGFpbHMsIGd1YXJhbnRlZSBhbmQgZXZlcnlkYXkgbmFubnkgdG9vbHMgaW4gb25lIHByaXZhdGUgcGxhY2UuIiwKICAiaWQiOiAiLyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAic2NvcGUiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMTczMjViIiwKICAidGhlbWVfY29sb3IiOiAiIzE3MzI1YiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogIi9pY29ucy9pY29uLTE5Mi5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiL2ljb25zL2ljb24tNTEyLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInB1cnBvc2UiOiAiYW55IgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICIvaWNvbnMvaWNvbi01MTIucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJtYXNrYWJsZSIKICAgIH0KICBdCn0K
+{
+  "name": "The Family Wallet",
+  "short_name": "Family Wallet",
+  "description": "Your nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools in one private place.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17325b",
+  "theme_color": "#17325b",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

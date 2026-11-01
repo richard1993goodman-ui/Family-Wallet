@@ -1,1 +1,45 @@
-ZXhwb3J0IHR5cGUgQ2hlY2tsaXN0SXRlbSA9IHsgaWQ6IHN0cmluZzsgbGFiZWw6IHN0cmluZzsgZG9uZTogYm9vbGVhbiB9OwpleHBvcnQgdHlwZSBUcmF2ZWxOb3RlID0gewogIGlkOiBzdHJpbmc7CiAgY2F0ZWdvcnk6IHN0cmluZzsKICB0ZXh0OiBzdHJpbmc7CiAgYXV0aG9yUm9sZTogImZhbWlseSIgfCAibmFubnkiOwogIGF1dGhvck5hbWU6IHN0cmluZzsKICBjcmVhdGVkQXQ6IHN0cmluZzsKfTsKZXhwb3J0IHR5cGUgVHJpcElucHV0ID0gewogIGlkPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIGRlc3RpbmF0aW9uOiBzdHJpbmc7CiAgc3RhcnREYXRlOiBzdHJpbmc7CiAgZW5kRGF0ZTogc3RyaW5nOwogIGFjY29tbW9kYXRpb24/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAgbG9jYWxFbWVyZ2VuY3k/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAgbmVhcmVzdEhvc3BpdGFsPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIHRpbWVEaWZmZXJlbmNlPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIHRyYXZlbFBheT86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBub3Rlcz86IHN0cmluZyB8IHVuZGVmaW5lZDsKfTsKCmV4cG9ydCBjb25zdCBERUZBVUxUX1RSQVZFTF9DSEVDS0xJU1QgPSBbCiAgIlBhc3Nwb3J0cyBjaGVja2VkICh2YWxpZCA2KyBtb250aHMpIiwKICAiUGFyZW50YWwgY29uc2VudCBsZXR0ZXIgZm9yIHRoZSBuYW5ueSB0cmF2ZWxsaW5nIHdpdGggdGhlIGNoaWxkcmVuIiwKICAiRUhJQy9HSElDIGNhcmRzIGFuZCB0cmF2ZWwgaW5zdXJhbmNlIGRldGFpbHMiLAogICJDaGlsZHJlbidzIG1lZGljYXRpb24sIENhbHBvbCBhbmQgYWxsZXJneSBraXQgcGFja2VkIiwKICAiU3VuIGNyZWFtLCBoYXRzIGFuZCBzd2ltIGtpdCIsCiAgIkNhciBzZWF0cyAvIHRyYXZlbCBidWdneSBhcnJhbmdlZCIsCiAgIk5hbm55J3MgZmxpZ2h0cywgcm9vbSBhbmQgZGF5cyBvZmYgYWdyZWVkIiwKICAiVHJhdmVsIHBheSBvciBkYWlseSByYXRlIGFncmVlZCBpbiB3cml0aW5nIiwKICAiUG9vbCBhbmQgYmVhY2ggc2FmZXR5IHJ1bGVzIGFncmVlZCIsCiAgIkxvY2FsIGVtZXJnZW5jeSBudW1iZXIgYW5kIG5lYXJlc3QgaG9zcGl0YWwgc2F2ZWQiLAogICJDaGFyZ2VycywgYWRhcHRlcnMgYW5kIGVudGVydGFpbm1lbnQgZm9yIHRoZSBqb3VybmV5IiwKICAiQ29waWVzIG9mIHBhc3Nwb3J0cyBzYXZlZCB0byBwaG9uZSIsCl07CgpleHBvcnQgY29uc3QgVFJBVkVMX05PVEVfQ0FURUdPUklFUyA9IFsKICB7IHZhbHVlOiAiZ2VuZXJhbCIsIGxhYmVsOiAiR2VuZXJhbCIgfSwKICB7IHZhbHVlOiAicG9vbCIsIGxhYmVsOiAiUG9vbCAmIGJlYWNoIiB9LAogIHsgdmFsdWU6ICJzbGVlcCIsIGxhYmVsOiAiU2xlZXAgJiBqZXQgbGFnIiB9LAogIHsgdmFsdWU6ICJmb29kIiwgbGFiZWw6ICJGb29kICYgd2F0ZXIiIH0sCiAgeyB2YWx1ZTogImhlYWx0aCIsIGxhYmVsOiAiSGVhbHRoICYgc3VuIiB9LAogIHsgdmFsdWU6ICJvdXRpbmciLCBsYWJlbDogIk91dGluZ3MiIH0sCl07Cg==
+export type ChecklistItem = { id: string; label: string; done: boolean };
+export type TravelNote = {
+  id: string;
+  category: string;
+  text: string;
+  authorRole: "family" | "nanny";
+  authorName: string;
+  createdAt: string;
+};
+export type TripInput = {
+  id?: string | undefined;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  accommodation?: string | undefined;
+  localEmergency?: string | undefined;
+  nearestHospital?: string | undefined;
+  timeDifference?: string | undefined;
+  travelPay?: string | undefined;
+  notes?: string | undefined;
+};
+
+export const DEFAULT_TRAVEL_CHECKLIST = [
+  "Passports checked (valid 6+ months)",
+  "Parental consent letter for the nanny travelling with the children",
+  "EHIC/GHIC cards and travel insurance details",
+  "Children's medication, Calpol and allergy kit packed",
+  "Sun cream, hats and swim kit",
+  "Car seats / travel buggy arranged",
+  "Nanny's flights, room and days off agreed",
+  "Travel pay or daily rate agreed in writing",
+  "Pool and beach safety rules agreed",
+  "Local emergency number and nearest hospital saved",
+  "Chargers, adapters and entertainment for the journey",
+  "Copies of passports saved to phone",
+];
+
+export const TRAVEL_NOTE_CATEGORIES = [
+  { value: "general", label: "General" },
+  { value: "pool", label: "Pool & beach" },
+  { value: "sleep", label: "Sleep & jet lag" },
+  { value: "food", label: "Food & water" },
+  { value: "health", label: "Health & sun" },
+  { value: "outing", label: "Outings" },
+];

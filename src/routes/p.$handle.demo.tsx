@@ -1,1 +1,49 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCB1c2VOYXZpZ2F0ZSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IG9wZW5EZW1vV2FsbGV0IH0gZnJvbSAiQC9saWIvd2FsbGV0LmZ1bmN0aW9ucyI7CmltcG9ydCB7IGdldFBhcnRuZXJCcmFuZCB9IGZyb20gIkAvbGliL3BhcnRuZXItYnJhbmQuZnVuY3Rpb25zIjsKaW1wb3J0IHsgc2V0RGVtb0JyYW5kIH0gZnJvbSAiQC9saWIvZGVtby1icmFuZCI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9wLyRoYW5kbGUvZGVtbyIpKHsKICBsb2FkZXI6ICh7IHBhcmFtcyB9KSA9PiBnZXRQYXJ0bmVyQnJhbmQoeyBkYXRhOiB7IGhhbmRsZTogcGFyYW1zLmhhbmRsZSB9IH0pLAogIGhlYWQ6ICh7IGxvYWRlckRhdGEgfSkgPT4gewogICAgY29uc3QgdGl0bGUgPSBsb2FkZXJEYXRhID8gYERlbW8gJHtsb2FkZXJEYXRhLndhbGxldE5hbWV9YCA6ICJEZW1vIEZhbWlseSBXYWxsZXQiOwogICAgY29uc3QgZGVzY3JpcHRpb24gPSBsb2FkZXJEYXRhCiAgICAgID8gYFNlZSBhIHNhbXBsZSAke2xvYWRlckRhdGEud2FsbGV0TmFtZX06IHBsYW5uZXIsIGFncmVlbWVudCwgZW1lcmdlbmN5IGNhcmQgYW5kIG1vcmUuYAogICAgICA6ICJTZWUgYSBzYW1wbGUgRmFtaWx5IFdhbGxldC4iOwogICAgcmV0dXJuIHsKICAgICAgbWV0YTogWwogICAgICAgIHsgdGl0bGUgfSwKICAgICAgICB7IG5hbWU6ICJkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6IGRlc2NyaXB0aW9uIH0sCiAgICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogdGl0bGUgfSwKICAgICAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiBkZXNjcmlwdGlvbiB9LAogICAgICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICAgICAgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnkiIH0sCiAgICAgIF0sCiAgICB9OwogIH0sCiAgY29tcG9uZW50OiBQYXJ0bmVyRGVtbywKfSk7CgpmdW5jdGlvbiBQYXJ0bmVyRGVtbygpIHsKICBjb25zdCBicmFuZCA9IFJvdXRlLnVzZUxvYWRlckRhdGEoKTsKICBjb25zdCBuYXZpZ2F0ZSA9IHVzZU5hdmlnYXRlKCk7CiAgY29uc3Qgb3BlbiA9IHVzZVNlcnZlckZuKG9wZW5EZW1vV2FsbGV0KTsKICBjb25zdCBbZmFpbGVkLCBzZXRGYWlsZWRdID0gdXNlU3RhdGUoZmFsc2UpOwogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBpZiAoIWJyYW5kKSB7IHNldEZhaWxlZCh0cnVlKTsgcmV0dXJuOyB9CiAgICBvcGVuKCkKICAgICAgLnRoZW4oKHIpID0+IHsKICAgICAgICBpZiAoIXIub2spIHJldHVybiBzZXRGYWlsZWQodHJ1ZSk7CiAgICAgICAgc2V0RGVtb0JyYW5kKGJyYW5kLndhbGxldE5hbWUpOwogICAgICAgIG5hdmlnYXRlKHsgdG86ICIvdy8kc2x1ZyIsIHBhcmFtczogeyBzbHVnOiAiZGVtbyIgfSwgcmVwbGFjZTogdHJ1ZSB9KTsKICAgICAgfSkKICAgICAgLmNhdGNoKCgpID0+IHNldEZhaWxlZCh0cnVlKSk7CiAgfSwgW2JyYW5kLCBvcGVuLCBuYXZpZ2F0ZV0pOwogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBtaW4taC1zY3JlZW4gaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGJnLXNhbmQgcHgtNiB0ZXh0LWNlbnRlciI+CiAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57ZmFpbGVkID8gIlRoaXMgZGVtbyBpc24ndCBhdmFpbGFibGUgcmlnaHQgbm93LiIgOiBgT3BlbmluZyB0aGUgZGVtbyAke2JyYW5kPy53YWxsZXROYW1lID8/ICJGYW1pbHkgV2FsbGV0In3igKZgfTwvcD4KICAgIDwvZGl2PgogICk7Cn0K
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useState } from "react";
+import { openDemoWallet } from "@/lib/wallet.functions";
+import { getPartnerBrand } from "@/lib/partner-brand.functions";
+import { setDemoBrand } from "@/lib/demo-brand";
+
+export const Route = createFileRoute("/p/$handle/demo")({
+  loader: ({ params }) => getPartnerBrand({ data: { handle: params.handle } }),
+  head: ({ loaderData }) => {
+    const title = loaderData ? `Demo ${loaderData.walletName}` : "Demo Family Wallet";
+    const description = loaderData
+      ? `See a sample ${loaderData.walletName}: planner, agreement, emergency card and more.`
+      : "See a sample Family Wallet.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
+      ],
+    };
+  },
+  component: PartnerDemo,
+});
+
+function PartnerDemo() {
+  const brand = Route.useLoaderData();
+  const navigate = useNavigate();
+  const open = useServerFn(openDemoWallet);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    if (!brand) { setFailed(true); return; }
+    open()
+      .then((r) => {
+        if (!r.ok) return setFailed(true);
+        setDemoBrand(brand.walletName);
+        navigate({ to: "/w/$slug", params: { slug: "demo" }, replace: true });
+      })
+      .catch(() => setFailed(true));
+  }, [brand, open, navigate]);
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-sand px-6 text-center">
+      <p className="text-muted-foreground">{failed ? "This demo isn't available right now." : `Opening the demo ${brand?.walletName ?? "Family Wallet"}…`}</p>
+    </div>
+  );
+}

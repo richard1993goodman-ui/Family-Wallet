@@ -1,1 +1,39 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICJ2aXRlc3QiOwppbXBvcnQgeyBjYW5TZWVGYW1pbHksIHBhcnRuZXJDb250ZW50QWxsb3dlZCB9IGZyb20gIi4vc3RhZmYuc2NvcGUiOwoKZGVzY3JpYmUoInBhcnRuZXIgYWdlbmN5IGlzb2xhdGlvbiIsICgpID0+IHsKICBjb25zdCBwYXJ0bmVyID0geyBraW5kOiAicGFydG5lciIgYXMgY29uc3QsIGFnZW5jeUlkOiAiYWdlbmN5LWEiLCBhZ2VuY3lOYW1lOiAiQWdlbmN5IEEiIH07CgogIGl0KCJwYXJ0bmVyIHN0YWZmIHNlZSB0aGVpciBvd24gYWdlbmN5J3MgZmFtaWxpZXMiLCAoKSA9PiB7CiAgICBleHBlY3QoY2FuU2VlRmFtaWx5KHBhcnRuZXIsICJhZ2VuY3ktYSIpKS50b0JlKHRydWUpOwogIH0pOwogIGl0KCJwYXJ0bmVyIHN0YWZmIGNhbm5vdCBzZWUgYW5vdGhlciBhZ2VuY3kncyBmYW1pbGllcyIsICgpID0+IHsKICAgIGV4cGVjdChjYW5TZWVGYW1pbHkocGFydG5lciwgImFnZW5jeS1iIikpLnRvQmUoZmFsc2UpOwogIH0pOwogIGl0KCJwYXJ0bmVyIHN0YWZmIGNhbm5vdCBzZWUgdGhlIG93bmVyJ3Mgb3duIGZhbWlsaWVzIiwgKCkgPT4gewogICAgZXhwZWN0KGNhblNlZUZhbWlseShwYXJ0bmVyLCBudWxsKSkudG9CZShmYWxzZSk7CiAgfSk7CiAgaXQoInRoZSBvd25lciBzZWVzIGV2ZXJ5IGZhbWlseSIsICgpID0+IHsKICAgIGV4cGVjdChjYW5TZWVGYW1pbHkoeyBraW5kOiAib3duZXIiIH0sICJhZ2VuY3ktYiIpKS50b0JlKHRydWUpOwogICAgZXhwZWN0KGNhblNlZUZhbWlseSh7IGtpbmQ6ICJvd25lciIgfSwgbnVsbCkpLnRvQmUodHJ1ZSk7CiAgfSk7Cn0pOwoKZGVzY3JpYmUoInBhcnRuZXIgcHJlbWl1bSBjb250ZW50IHRvb2xzIiwgKCkgPT4gewogIGNvbnN0IG9mZiA9IHsgYWxsb3dfY2hhbGxlbmdlczogZmFsc2UsIGFsbG93X3BlcmtzOiBmYWxzZSwgYWxsb3dfcGxheWJvb2tzOiBmYWxzZSwgc3RhdHVzOiAiYWN0aXZlIiB9OwogIGl0KCJhY3RpdmUgcGFydG5lcnMgY2FuIG1hbmFnZSB0aGVpciBvd24gY2hhbGxlbmdlcyB3aXRob3V0IGFuIG93bmVyIHVubG9jayIsICgpID0+IHsKICAgIGV4cGVjdChwYXJ0bmVyQ29udGVudEFsbG93ZWQob2ZmLCAiY2hhbGxlbmdlcyIpKS50b0JlKHRydWUpOwogIH0pOwogIGl0KCJhY3RpdmUgcGFydG5lcnMgY2FuIG1hbmFnZSB0aGVpciBvd24gcGFyZW50IHBlcmtzIHdpdGhvdXQgYW4gb3duZXIgdW5sb2NrIiwgKCkgPT4gewogICAgZXhwZWN0KHBhcnRuZXJDb250ZW50QWxsb3dlZChvZmYsICJwZXJrcyIpKS50b0JlKHRydWUpOwogIH0pOwogIGl0KCJhY3RpdmUgcGFydG5lcnMgY2FuIG1hbmFnZSB0aGVpciBvd24gcGxheWJvb2tzIHdpdGhvdXQgYW4gb3duZXIgdW5sb2NrIiwgKCkgPT4gewogICAgZXhwZWN0KHBhcnRuZXJDb250ZW50QWxsb3dlZChvZmYsICJwbGF5Ym9va3MiKSkudG9CZSh0cnVlKTsKICB9KTsKICBpdCgiYSBwYXVzZWQgYWdlbmN5IGxvc2VzIGl0cyB0b29scyIsICgpID0+IHsKICAgIGV4cGVjdChwYXJ0bmVyQ29udGVudEFsbG93ZWQoeyAuLi5vZmYsIGFsbG93X2NoYWxsZW5nZXM6IHRydWUsIHN0YXR1czogInBhdXNlZCIgfSwgImNoYWxsZW5nZXMiKSkudG9CZShmYWxzZSk7CiAgfSk7CiAgaXQoImEgbWlzc2luZyBhZ2VuY3kgY2Fubm90IGFjY2VzcyBjb250ZW50IiwgKCkgPT4gewogICAgZXhwZWN0KHBhcnRuZXJDb250ZW50QWxsb3dlZChudWxsLCAicGVya3MiKSkudG9CZShmYWxzZSk7CiAgfSk7Cn0pOwo=
+import { describe, expect, it } from "vitest";
+import { canSeeFamily, partnerContentAllowed } from "./staff.scope";
+
+describe("partner agency isolation", () => {
+  const partner = { kind: "partner" as const, agencyId: "agency-a", agencyName: "Agency A" };
+
+  it("partner staff see their own agency's families", () => {
+    expect(canSeeFamily(partner, "agency-a")).toBe(true);
+  });
+  it("partner staff cannot see another agency's families", () => {
+    expect(canSeeFamily(partner, "agency-b")).toBe(false);
+  });
+  it("partner staff cannot see the owner's own families", () => {
+    expect(canSeeFamily(partner, null)).toBe(false);
+  });
+  it("the owner sees every family", () => {
+    expect(canSeeFamily({ kind: "owner" }, "agency-b")).toBe(true);
+    expect(canSeeFamily({ kind: "owner" }, null)).toBe(true);
+  });
+});
+
+describe("partner premium content tools", () => {
+  const off = { allow_challenges: false, allow_perks: false, allow_playbooks: false, status: "active" };
+  it("active partners can manage their own challenges without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "challenges")).toBe(true);
+  });
+  it("active partners can manage their own parent perks without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "perks")).toBe(true);
+  });
+  it("active partners can manage their own playbooks without an owner unlock", () => {
+    expect(partnerContentAllowed(off, "playbooks")).toBe(true);
+  });
+  it("a paused agency loses its tools", () => {
+    expect(partnerContentAllowed({ ...off, allow_challenges: true, status: "paused" }, "challenges")).toBe(false);
+  });
+  it("a missing agency cannot access content", () => {
+    expect(partnerContentAllowed(null, "perks")).toBe(false);
+  });
+});

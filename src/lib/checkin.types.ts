@@ -1,1 +1,65 @@
-ZXhwb3J0IHR5cGUgQ2hlY2tpbktpbmQgPSAic2l4X21vbnRoIiB8ICJhbm51YWwiIHwgImN1c3RvbSI7CgpleHBvcnQgdHlwZSBDaGVja2luSW5wdXQgPSB7CiAgaWQ/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAga2luZDogQ2hlY2tpbktpbmQ7CiAgbmFubnlJZD86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBhbnN3ZXJzOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+OwogIGNvbXBsZXRlPzogYm9vbGVhbiB8IHVuZGVmaW5lZDsKfTsKCmV4cG9ydCBjb25zdCBDSEVDS0lOX0tJTkRTOiB7IHZhbHVlOiBDaGVja2luS2luZDsgbGFiZWw6IHN0cmluZzsgYmx1cmI6IHN0cmluZyB9W10gPSBbCiAgewogICAgdmFsdWU6ICJzaXhfbW9udGgiLAogICAgbGFiZWw6ICI2LW1vbnRoIGNoZWNrLWluIiwKICAgIGJsdXJiOiAiQSBxdWljayBoYWxmd2F5IGNvbnZlcnNhdGlvbiBhYm91dCBob3cgdGhlIHJvbGUgaXMgZ29pbmcuIiwKICB9LAogIHsKICAgIHZhbHVlOiAiYW5udWFsIiwKICAgIGxhYmVsOiAiMS15ZWFyIHJldmlldyIsCiAgICBibHVyYjogIkEgZnVsbGVyIHllYXJseSByZXZpZXcgY292ZXJpbmcgaG91cnMsIHBheSBhbmQgdGhlIHllYXIgYWhlYWQuIiwKICB9LAogIHsKICAgIHZhbHVlOiAiY3VzdG9tIiwKICAgIGxhYmVsOiAiQ2F0Y2gtdXAiLAogICAgYmx1cmI6ICJBbnkgb3RoZXIgdGltZSB5b3Ugd2FudCB0byB0YWxrIHRoaW5ncyB0aHJvdWdoIHByb3Blcmx5LiIsCiAgfSwKXTsKCmV4cG9ydCBjb25zdCBDSEVDS0lOX1BST01QVFM6IHsga2V5OiBzdHJpbmc7IGxhYmVsOiBzdHJpbmc7IGhpbnQ6IHN0cmluZyB9W10gPSBbCiAgewogICAga2V5OiAiZ29pbmdfd2VsbCIsCiAgICBsYWJlbDogIldoYXQgaXMgZ29pbmcgcmVhbGx5IHdlbGw/IiwKICAgIGhpbnQ6ICJSb3V0aW5lcyB0aGF0IHdvcmssIHdpbnMgd2l0aCB0aGUgY2hpbGRyZW4sIHRoaW5ncyB0byBrZWVwIGRvaW5nLiIsCiAgfSwKICB7CiAgICBrZXk6ICJ0cmlja3kiLAogICAgbGFiZWw6ICJXaGF0IGhhcyBiZWVuIHRyaWNreT8iLAogICAgaGludDogIkhhbmRvdmVycywgdGltaW5ncywgYmVoYXZpb3VyLCBjb21tdW5pY2F0aW9uIOKAlCBhbnl0aGluZyB3b3J0aCBuYW1pbmcgZWFybHkuIiwKICB9LAogIHsKICAgIGtleTogImNoaWxkcmVuIiwKICAgIGxhYmVsOiAiSG93IGFyZSB0aGUgY2hpbGRyZW4gZG9pbmc/IiwKICAgIGhpbnQ6ICJDb25maWRlbmNlLCBhY3Rpdml0eSBsZXZlbHMsIGhvbWV3b3JrLCBmcmllbmRzaGlwcywgc2xlZXAgYW5kIGZvb2QuIiwKICB9LAogIHsKICAgIGtleTogInNjaGVkdWxlIiwKICAgIGxhYmVsOiAiQW55IHNjaGVkdWxlIGNoYW5nZXMgY29taW5nIHVwPyIsCiAgICBoaW50OiAiTmV3IHNjaG9vbCB5ZWFyLCBjbHViIGNoYW5nZXMsIHRlcm0gZGF0ZXMsIGhvbGlkYXlzLCBsYXRlciBmaW5pc2hlcy4iLAogIH0sCiAgewogICAga2V5OiAicGF5IiwKICAgIGxhYmVsOiAiUGF5LCBob3VycyBhbmQgYm9udXMgcmV2aWV3IiwKICAgIGhpbnQ6ICJIb3VybHkgcmF0ZSwgYWdyZWVkIGhvdXJzLCBvdmVydGltZSwgbWlsZWFnZSwgYW55IGJvbnVzIGF0IHJldmlldyB0aW1lLiIsCiAgfSwKICB7CiAgICBrZXk6ICJ0cmFpbmluZyIsCiAgICBsYWJlbDogIlRyYWluaW5nIG9yIHN1cHBvcnQgd2FudGVkIiwKICAgIGhpbnQ6ICJGaXJzdCBhaWQgcmVmcmVzaCwgc2FmZWd1YXJkaW5nLCBjb2FjaGluZyBxdWFsaWZpY2F0aW9ucywgZHJpdmluZy4iLAogIH0sCiAgewogICAga2V5OiAibmV4dCIsCiAgICBsYWJlbDogIkFncmVlZCBhY3Rpb25zIGZvciB0aGUgbmV4dCBmZXcgbW9udGhzIiwKICAgIGhpbnQ6ICJXaG8gaXMgZG9pbmcgd2hhdCwgYW5kIGJ5IHdoZW4uIiwKICB9LApdOwo=
+export type CheckinKind = "six_month" | "annual" | "custom";
+
+export type CheckinInput = {
+  id?: string | undefined;
+  kind: CheckinKind;
+  nannyId?: string | undefined;
+  answers: Record<string, string>;
+  complete?: boolean | undefined;
+};
+
+export const CHECKIN_KINDS: { value: CheckinKind; label: string; blurb: string }[] = [
+  {
+    value: "six_month",
+    label: "6-month check-in",
+    blurb: "A quick halfway conversation about how the role is going.",
+  },
+  {
+    value: "annual",
+    label: "1-year review",
+    blurb: "A fuller yearly review covering hours, pay and the year ahead.",
+  },
+  {
+    value: "custom",
+    label: "Catch-up",
+    blurb: "Any other time you want to talk things through properly.",
+  },
+];
+
+export const CHECKIN_PROMPTS: { key: string; label: string; hint: string }[] = [
+  {
+    key: "going_well",
+    label: "What is going really well?",
+    hint: "Routines that work, wins with the children, things to keep doing.",
+  },
+  {
+    key: "tricky",
+    label: "What has been tricky?",
+    hint: "Handovers, timings, behaviour, communication — anything worth naming early.",
+  },
+  {
+    key: "children",
+    label: "How are the children doing?",
+    hint: "Confidence, activity levels, homework, friendships, sleep and food.",
+  },
+  {
+    key: "schedule",
+    label: "Any schedule changes coming up?",
+    hint: "New school year, club changes, term dates, holidays, later finishes.",
+  },
+  {
+    key: "pay",
+    label: "Pay, hours and bonus review",
+    hint: "Hourly rate, agreed hours, overtime, mileage, any bonus at review time.",
+  },
+  {
+    key: "training",
+    label: "Training or support wanted",
+    hint: "First aid refresh, safeguarding, coaching qualifications, driving.",
+  },
+  {
+    key: "next",
+    label: "Agreed actions for the next few months",
+    hint: "Who is doing what, and by when.",
+  },
+];

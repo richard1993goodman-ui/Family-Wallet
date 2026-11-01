@@ -1,1 +1,52 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5uYW5ueV9hZ3JlZW1lbnRzICgKICBpZCB1dWlkIFBSSU1BUlkgS0VZIERFRkFVTFQgZ2VuX3JhbmRvbV91dWlkKCksCiAgZmFtaWx5X2lkIHV1aWQgTk9UIE5VTEwgUkVGRVJFTkNFUyBwdWJsaWMuZmFtaWxpZXMoaWQpIE9OIERFTEVURSBDQVNDQURFLAogIGVtcGxveWVyX25hbWVzIHRleHQsCiAgbmFubnlfbmFtZSB0ZXh0LAogIHN0YXJ0X2RhdGUgZGF0ZSwKICB3b3JrX3BhdHRlcm4gdGV4dCwKICBob3VycyB0ZXh0LAogIGhvdXJseV9yYXRlIHRleHQsCiAgcGF5X2Jhc2lzIHRleHQsCiAgaG9saWRheSB0ZXh0LAogIG5vdGljZV9wZXJpb2QgdGV4dCwKICBwcm9iYXRpb24gdGV4dCwKICBkdXRpZXMgdGV4dCwKICBwZW5zaW9uIHRleHQsCiAgYWRkaXRpb25hbF90ZXJtcyB0ZXh0LAogIHN0YXR1cyB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ2RyYWZ0JywKICB2ZXJzaW9uIGludGVnZXIgTk9UIE5VTEwgREVGQVVMVCAxLAogIGlzc3VlZF9hdCB0aW1lc3RhbXB0eiwKICB1cGRhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgY3JlYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpLAogIFVOSVFVRSAoZmFtaWx5X2lkKQopOwoKR1JBTlQgU0VMRUNULCBJTlNFUlQsIFVQREFURSwgREVMRVRFIE9OIHB1YmxpYy5uYW5ueV9hZ3JlZW1lbnRzIFRPIGF1dGhlbnRpY2F0ZWQ7CkdSQU5UIEFMTCBPTiBwdWJsaWMubmFubnlfYWdyZWVtZW50cyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy5uYW5ueV9hZ3JlZW1lbnRzIEVOQUJMRSBST1cgTEVWRUwgU0VDVVJJVFk7CkNSRUFURSBQT0xJQ1kgIkFkbWlucyBtYW5hZ2UgbmFubnkgYWdyZWVtZW50cyIgT04gcHVibGljLm5hbm55X2FncmVlbWVudHMKICBGT1IgQUxMIFRPIGF1dGhlbnRpY2F0ZWQKICBVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbic6OmFwcF9yb2xlKSkKICBXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJzo6YXBwX3JvbGUpKTsKCkNSRUFURSBUQUJMRSBwdWJsaWMuZG9jdW1lbnRfc2lnbmF0dXJlcyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBkb2Nfa2luZCB0ZXh0IE5PVCBOVUxMLAogIHNpZ25lcl9yb2xlIHRleHQgTk9UIE5VTEwsCiAgc2lnbmVyX25hbWUgdGV4dCBOT1QgTlVMTCwKICBkb2NfdmVyc2lvbiB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJzEnLAogIGNsaWVudF9rZXkgdGV4dCwKICBzaWduZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwoKQ1JFQVRFIElOREVYIGRvY3VtZW50X3NpZ25hdHVyZXNfZmFtaWx5X2lkeCBPTiBwdWJsaWMuZG9jdW1lbnRfc2lnbmF0dXJlcyAoZmFtaWx5X2lkLCBkb2Nfa2luZCk7CgpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLmRvY3VtZW50X3NpZ25hdHVyZXMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5kb2N1bWVudF9zaWduYXR1cmVzIFRPIHNlcnZpY2Vfcm9sZTsKQUxURVIgVEFCTEUgcHVibGljLmRvY3VtZW50X3NpZ25hdHVyZXMgRU5BQkxFIFJPVyBMRVZFTCBTRUNVUklUWTsKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBkb2N1bWVudCBzaWduYXR1cmVzIiBPTiBwdWJsaWMuZG9jdW1lbnRfc2lnbmF0dXJlcwogIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZAogIFVTSU5HIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJzo6YXBwX3JvbGUpKQogIFdJVEggQ0hFQ0sgKHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nOjphcHBfcm9sZSkpOw==
+CREATE TABLE public.nanny_agreements (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  employer_names text,
+  nanny_name text,
+  start_date date,
+  work_pattern text,
+  hours text,
+  hourly_rate text,
+  pay_basis text,
+  holiday text,
+  notice_period text,
+  probation text,
+  duties text,
+  pension text,
+  additional_terms text,
+  status text NOT NULL DEFAULT 'draft',
+  version integer NOT NULL DEFAULT 1,
+  issued_at timestamptz,
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (family_id)
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.nanny_agreements TO authenticated;
+GRANT ALL ON public.nanny_agreements TO service_role;
+ALTER TABLE public.nanny_agreements ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage nanny agreements" ON public.nanny_agreements
+  FOR ALL TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'::app_role))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
+
+CREATE TABLE public.document_signatures (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  doc_kind text NOT NULL,
+  signer_role text NOT NULL,
+  signer_name text NOT NULL,
+  doc_version text NOT NULL DEFAULT '1',
+  client_key text,
+  signed_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX document_signatures_family_idx ON public.document_signatures (family_id, doc_kind);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.document_signatures TO authenticated;
+GRANT ALL ON public.document_signatures TO service_role;
+ALTER TABLE public.document_signatures ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage document signatures" ON public.document_signatures
+  FOR ALL TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'::app_role))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));

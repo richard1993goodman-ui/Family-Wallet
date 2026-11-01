@@ -1,1 +1,147 @@
-aW1wb3J0IHsgcmVxdWlyZVR3b1N0ZXBDbGllbnQgfSBmcm9tICJAL2xpYi90d28tc3RlcCI7CmltcG9ydCB7IGNyZWF0ZUZpbGVSb3V0ZSwgTGluayB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VRdWVyeSwgdXNlUXVlcnlDbGllbnQgfSBmcm9tICJAdGFuc3RhY2svcmVhY3QtcXVlcnkiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAicmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CmltcG9ydCB7IEFycm93TGVmdCB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBsaXN0U3VwcG9ydFRocmVhZHMsIHJlcGx5VG9UaHJlYWQsIHNldFRocmVhZFN0YXR1cyB9IGZyb20gIkAvbGliL2FkbWluLmZ1bmN0aW9ucyI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBUZXh0YXJlYSB9IGZyb20gIkAvY29tcG9uZW50cy91aS90ZXh0YXJlYSI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9fYXV0aGVudGljYXRlZC9hZG1pbi9zdXBwb3J0IikoewogIGJlZm9yZUxvYWQ6ICgpID0+IHJlcXVpcmVUd29TdGVwQ2xpZW50KCksCiAgaGVhZDogKCkgPT4gKHsKICAgIG1ldGE6IFsKICAgICAgeyB0aXRsZTogIlN1cHBvcnQgaW5ib3gg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IGFkbWluIiB9LAogICAgICB7IG5hbWU6ICJkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJRdWVzdGlvbnMgZnJvbSB5b3VyIGZhbWlsaWVzLCBuZXdlc3QgZmlyc3QuIiB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dGl0bGUiLCBjb250ZW50OiAiU3VwcG9ydCBpbmJveCDigJQgVGhlIEZhbWlseSBXYWxsZXQgYWRtaW4iIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJBbnN3ZXIgZmFtaWx5IHF1ZXN0aW9ucyBmcm9tIG9uZSBwbGFjZS4iIH0sCiAgICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IFN1cHBvcnRJbmJveCwKfSk7CgpmdW5jdGlvbiBTdXBwb3J0SW5ib3goKSB7CiAgY29uc3QgcXVlcnlDbGllbnQgPSB1c2VRdWVyeUNsaWVudCgpOwogIGNvbnN0IGxpc3RGbiA9IHVzZVNlcnZlckZuKGxpc3RTdXBwb3J0VGhyZWFkcyk7CiAgY29uc3QgcmVwbHlGbiA9IHVzZVNlcnZlckZuKHJlcGx5VG9UaHJlYWQpOwogIGNvbnN0IHN0YXR1c0ZuID0gdXNlU2VydmVyRm4oc2V0VGhyZWFkU3RhdHVzKTsKCiAgY29uc3QgW2RyYWZ0cywgc2V0RHJhZnRzXSA9IHVzZVN0YXRlPFJlY29yZDxzdHJpbmcsIHN0cmluZz4+KHt9KTsKCiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7IHF1ZXJ5S2V5OiBbImFkbWluLXN1cHBvcnQiXSwgcXVlcnlGbjogKCkgPT4gbGlzdEZuKCkgfSk7CgogIGFzeW5jIGZ1bmN0aW9uIHJlZnJlc2goKSB7CiAgICBhd2FpdCBxdWVyeUNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbImFkbWluLXN1cHBvcnQiXSB9KTsKICB9CgogIGNvbnN0IHRocmVhZHMgPSBxdWVyeS5kYXRhID8/IFtdOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy1zYW5kIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctM3hsIHB4LTUgcHktMTAiPgogICAgICAgIDxMaW5rCiAgICAgICAgICB0bz0iL2FkbWluIgogICAgICAgICAgY2xhc3NOYW1lPSJpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LWZvcmVncm91bmQiCiAgICAgICAgPgogICAgICAgICAgPEFycm93TGVmdCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IEJhY2sgdG8gZmFtaWxpZXMKICAgICAgICA8L0xpbms+CiAgICAgICAgPGgxIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTQgdGV4dC0zeGwgdGV4dC1wcmltYXJ5Ij5TdXBwb3J0IGluYm94PC9oMT4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAge3RocmVhZHMuZmlsdGVyKCh0KSA9PiB0Lm5lZWRzUmVwbHkpLmxlbmd0aH0gd2FpdGluZyBmb3IgYSByZXBseQogICAgICAgIDwvcD4KCiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTYgc3BhY2UteS0zIj4KICAgICAgICAgIHtxdWVyeS5pc0xvYWRpbmcgJiYgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+TG9hZGluZ+KApjwvcD59CiAgICAgICAgICB7IXF1ZXJ5LmlzTG9hZGluZyAmJiB0aHJlYWRzLmxlbmd0aCA9PT0gMCAmJiAoCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5vIHF1ZXN0aW9ucyB5ZXQuPC9wPgogICAgICAgICAgKX0KICAgICAgICAgIHt0aHJlYWRzLm1hcCgodGhyZWFkKSA9PiAoCiAgICAgICAgICAgIDxkaXYga2V5PXt0aHJlYWQuaWR9IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNSI+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTIiPgogICAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPnt0aHJlYWQuc3ViamVjdH08L3A+CiAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICAgIHt0aHJlYWQuZmFtaWx5TmFtZX0gwrd7IiAifQogICAgICAgICAgICAgICAgICAgIHtuZXcgRGF0ZSh0aHJlYWQudXBkYXRlZF9hdCkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsKICAgICAgICAgICAgICAgICAgICAgIGRheTogIm51bWVyaWMiLAogICAgICAgICAgICAgICAgICAgICAgbW9udGg6ICJzaG9ydCIsCiAgICAgICAgICAgICAgICAgICAgfSl9CiAgICAgICAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAge3RocmVhZC5uZWVkc1JlcGx5ID8gKAogICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InJvdW5kZWQtZnVsbCBiZy1hbWJlci0xMDAgcHgtMi41IHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LWFtYmVyLTkwMCI+CiAgICAgICAgICAgICAgICAgICAgTmVlZHMgcmVwbHkKICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgKSA6ICgKICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJyb3VuZGVkLWZ1bGwgYmctYWNjZW50IHB4LTIuNSBweS0xIHRleHQteHMgdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAgICB7dGhyZWFkLnN0YXR1cyA9PT0gImNsb3NlZCIgPyAiQ2xvc2VkIiA6ICJBbnN3ZXJlZCJ9CiAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICl9CiAgICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIHNwYWNlLXktMiI+CiAgICAgICAgICAgICAgICB7dGhyZWFkLm1lc3NhZ2VzLm1hcCgobWVzc2FnZSkgPT4gKAogICAgICAgICAgICAgICAgICA8ZGl2CiAgICAgICAgICAgICAgICAgICAga2V5PXttZXNzYWdlLmlkfQogICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT17YHJvdW5kZWQtbGcgcC0zIHRleHQtc20gJHsKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2Uuc2VuZGVyID09PSAiYWRtaW4iID8gImJnLWFjY2VudC82MCIgOiAiYmctbXV0ZWQiCiAgICAgICAgICAgICAgICAgICAgfWB9CiAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMTVlbV0gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAgICAgIHttZXNzYWdlLnNlbmRlciA9PT0gImFkbWluIgogICAgICAgICAgICAgICAgICAgICAgICA/ICJZb3UiCiAgICAgICAgICAgICAgICAgICAgICAgIDogbWVzc2FnZS5zZW5kZXIgPT09ICJuYW5ueSIKICAgICAgICAgICAgICAgICAgICAgICAgICA/IGAke3RocmVhZC5mYW1pbHlOYW1lfSBuYW5ueWAKICAgICAgICAgICAgICAgICAgICAgICAgICA6IHRocmVhZC5mYW1pbHlOYW1lfQogICAgICAgICAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgd2hpdGVzcGFjZS1wcmUtbGluZSB0ZXh0LWZvcmVncm91bmQiPnttZXNzYWdlLmJvZHl9PC9wPgogICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgICAgICA8VGV4dGFyZWEKICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMyIKICAgICAgICAgICAgICAgIHJvd3M9ezN9CiAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj0iV3JpdGUgeW91ciByZXBseeKApiIKICAgICAgICAgICAgICAgIHZhbHVlPXtkcmFmdHNbdGhyZWFkLmlkXSA/PyAiIn0KICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0RHJhZnRzKHsgLi4uZHJhZnRzLCBbdGhyZWFkLmlkXTogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBmbGV4IGZsZXgtd3JhcCBnYXAtMyI+CiAgICAgICAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9e2FzeW5jICgpID0+IHsKICAgICAgICAgICAgICAgICAgICBjb25zdCBib2R5ID0gZHJhZnRzW3RocmVhZC5pZF0gPz8gIiI7CiAgICAgICAgICAgICAgICAgICAgaWYgKCFib2R5LnRyaW0oKSkgcmV0dXJuOwogICAgICAgICAgICAgICAgICAgIGF3YWl0IHJlcGx5Rm4oeyBkYXRhOiB7IHRocmVhZElkOiB0aHJlYWQuaWQsIGJvZHkgfSB9KTsKICAgICAgICAgICAgICAgICAgICBzZXREcmFmdHMoeyAuLi5kcmFmdHMsIFt0aHJlYWQuaWRdOiAiIiB9KTsKICAgICAgICAgICAgICAgICAgICB0b2FzdC5zdWNjZXNzKCJSZXBseSBzZW50Iik7CiAgICAgICAgICAgICAgICAgICAgYXdhaXQgcmVmcmVzaCgpOwogICAgICAgICAgICAgICAgICB9fQogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICBTZW5kIHJlcGx5CiAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgIDxCdXR0b24KICAgICAgICAgICAgICAgICAgdmFyaWFudD0ib3V0bGluZSIKICAgICAgICAgICAgICAgICAgb25DbGljaz17YXN5bmMgKCkgPT4gewogICAgICAgICAgICAgICAgICAgIGF3YWl0IHN0YXR1c0ZuKHsKICAgICAgICAgICAgICAgICAgICAgIGRhdGE6IHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhyZWFkSWQ6IHRocmVhZC5pZCwKICAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzOiB0aHJlYWQuc3RhdHVzID09PSAiY2xvc2VkIiA/ICJvcGVuIiA6ICJjbG9zZWQiLAogICAgICAgICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgICAgICB9KTsKICAgICAgICAgICAgICAgICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICAgICAgICAgICAgICAgIH19CiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIHt0aHJlYWQuc3RhdHVzID09PSAiY2xvc2VkIiA/ICJSZW9wZW4iIDogIk1hcmsgYXMgY2xvc2VkIn0KICAgICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICkpfQogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0K
+import { requireTwoStepClient } from "@/lib/two-step";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import { ArrowLeft } from "lucide-react";
+
+import { listSupportThreads, replyToThread, setThreadStatus } from "@/lib/admin.functions";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+
+export const Route = createFileRoute("/_authenticated/admin/support")({
+  beforeLoad: () => requireTwoStepClient(),
+  head: () => ({
+    meta: [
+      { title: "Support inbox — The Family Wallet admin" },
+      { name: "description", content: "Questions from your families, newest first." },
+      { property: "og:title", content: "Support inbox — The Family Wallet admin" },
+      { property: "og:description", content: "Answer family questions from one place." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: SupportInbox,
+});
+
+function SupportInbox() {
+  const queryClient = useQueryClient();
+  const listFn = useServerFn(listSupportThreads);
+  const replyFn = useServerFn(replyToThread);
+  const statusFn = useServerFn(setThreadStatus);
+
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
+
+  const query = useQuery({ queryKey: ["admin-support"], queryFn: () => listFn() });
+
+  async function refresh() {
+    await queryClient.invalidateQueries({ queryKey: ["admin-support"] });
+  }
+
+  const threads = query.data ?? [];
+
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-3xl px-5 py-10">
+        <Link
+          to="/admin"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to families
+        </Link>
+        <h1 className="heading-display mt-4 text-3xl text-primary">Support inbox</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {threads.filter((t) => t.needsReply).length} waiting for a reply
+        </p>
+
+        <div className="mt-6 space-y-3">
+          {query.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
+          {!query.isLoading && threads.length === 0 && (
+            <p className="text-sm text-muted-foreground">No questions yet.</p>
+          )}
+          {threads.map((thread) => (
+            <div key={thread.id} className="rounded-xl border border-border bg-card p-5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="heading-display text-lg text-foreground">{thread.subject}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {thread.familyName} ·{" "}
+                    {new Date(thread.updated_at).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                    })}
+                  </p>
+                </div>
+                {thread.needsReply ? (
+                  <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-900">
+                    Needs reply
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground">
+                    {thread.status === "closed" ? "Closed" : "Answered"}
+                  </span>
+                )}
+              </div>
+
+              <div className="mt-3 space-y-2">
+                {thread.messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`rounded-lg p-3 text-sm ${
+                      message.sender === "admin" ? "bg-accent/60" : "bg-muted"
+                    }`}
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+                      {message.sender === "admin"
+                        ? "You"
+                        : message.sender === "nanny"
+                          ? `${thread.familyName} nanny`
+                          : thread.familyName}
+                    </p>
+                    <p className="mt-1 whitespace-pre-line text-foreground">{message.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <Textarea
+                className="mt-3"
+                rows={3}
+                placeholder="Write your reply…"
+                value={drafts[thread.id] ?? ""}
+                onChange={(e) => setDrafts({ ...drafts, [thread.id]: e.target.value })}
+              />
+              <div className="mt-3 flex flex-wrap gap-3">
+                <Button
+                  onClick={async () => {
+                    const body = drafts[thread.id] ?? "";
+                    if (!body.trim()) return;
+                    await replyFn({ data: { threadId: thread.id, body } });
+                    setDrafts({ ...drafts, [thread.id]: "" });
+                    toast.success("Reply sent");
+                    await refresh();
+                  }}
+                >
+                  Send reply
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    await statusFn({
+                      data: {
+                        threadId: thread.id,
+                        status: thread.status === "closed" ? "open" : "closed",
+                      },
+                    });
+                    await refresh();
+                  }}
+                >
+                  {thread.status === "closed" ? "Reopen" : "Mark as closed"}
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

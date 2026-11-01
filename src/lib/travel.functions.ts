@@ -1,1 +1,44 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKaW1wb3J0IHR5cGUgeyBUcmlwSW5wdXQgfSBmcm9tICIuL3RyYXZlbC50eXBlcyI7CgpleHBvcnQgY29uc3QgZ2V0VHJhdmVsID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkVHJhdmVsIH0gPSBhd2FpdCBpbXBvcnQoIi4vdHJhdmVsLnNlcnZlciIpOwogICAgcmV0dXJuIGxvYWRUcmF2ZWwoZGF0YS5zbHVnKTsKICB9KTsKCmV4cG9ydCBjb25zdCBzYXZlVHJpcEZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IHRyaXA6IFRyaXBJbnB1dCB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBzYXZlVHJpcCB9ID0gYXdhaXQgaW1wb3J0KCIuL3RyYXZlbC5zZXJ2ZXIiKTsKICAgIHJldHVybiBzYXZlVHJpcChkYXRhLnNsdWcsIGRhdGEudHJpcCk7CiAgfSk7CgpleHBvcnQgY29uc3QgdXBkYXRlQ2hlY2tsaXN0Rm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKAogICAgKGRhdGE6IHsKICAgICAgc2x1Zzogc3RyaW5nOwogICAgICB0cmlwSWQ6IHN0cmluZzsKICAgICAgYWN0aW9uOiB7IHR5cGU6ICJ0b2dnbGUiOyBpdGVtSWQ6IHN0cmluZyB9IHwgeyB0eXBlOiAiYWRkIjsgbGFiZWw6IHN0cmluZyB9IHwgeyB0eXBlOiAicmVtb3ZlIjsgaXRlbUlkOiBzdHJpbmcgfTsKICAgIH0pID0+IGRhdGEsCiAgKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyB1cGRhdGVDaGVja2xpc3QgfSA9IGF3YWl0IGltcG9ydCgiLi90cmF2ZWwuc2VydmVyIik7CiAgICByZXR1cm4gdXBkYXRlQ2hlY2tsaXN0KGRhdGEuc2x1ZywgZGF0YS50cmlwSWQsIGRhdGEuYWN0aW9uKTsKICB9KTsKCmV4cG9ydCBjb25zdCBhZGRUcmF2ZWxOb3RlRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgdHJpcElkOiBzdHJpbmc7IGNhdGVnb3J5OiBzdHJpbmc7IHRleHQ6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBhZGRUcmF2ZWxOb3RlIH0gPSBhd2FpdCBpbXBvcnQoIi4vdHJhdmVsLnNlcnZlciIpOwogICAgcmV0dXJuIGFkZFRyYXZlbE5vdGUoZGF0YS5zbHVnLCBkYXRhLnRyaXBJZCwgeyBjYXRlZ29yeTogZGF0YS5jYXRlZ29yeSwgdGV4dDogZGF0YS50ZXh0IH0pOwogIH0pOwoKZXhwb3J0IGNvbnN0IGRlbGV0ZVRyaXBGbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nOyB0cmlwSWQ6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBkZWxldGVUcmlwIH0gPSBhd2FpdCBpbXBvcnQoIi4vdHJhdmVsLnNlcnZlciIpOwogICAgcmV0dXJuIGRlbGV0ZVRyaXAoZGF0YS5zbHVnLCBkYXRhLnRyaXBJZCk7CiAgfSk7Cg==
+import { createServerFn } from "@tanstack/react-start";
+
+import type { TripInput } from "./travel.types";
+
+export const getTravel = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadTravel } = await import("./travel.server");
+    return loadTravel(data.slug);
+  });
+
+export const saveTripFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; trip: TripInput }) => data)
+  .handler(async ({ data }) => {
+    const { saveTrip } = await import("./travel.server");
+    return saveTrip(data.slug, data.trip);
+  });
+
+export const updateChecklistFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    (data: {
+      slug: string;
+      tripId: string;
+      action: { type: "toggle"; itemId: string } | { type: "add"; label: string } | { type: "remove"; itemId: string };
+    }) => data,
+  )
+  .handler(async ({ data }) => {
+    const { updateChecklist } = await import("./travel.server");
+    return updateChecklist(data.slug, data.tripId, data.action);
+  });
+
+export const addTravelNoteFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; tripId: string; category: string; text: string }) => data)
+  .handler(async ({ data }) => {
+    const { addTravelNote } = await import("./travel.server");
+    return addTravelNote(data.slug, data.tripId, { category: data.category, text: data.text });
+  });
+
+export const deleteTripFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; tripId: string }) => data)
+  .handler(async ({ data }) => {
+    const { deleteTrip } = await import("./travel.server");
+    return deleteTrip(data.slug, data.tripId);
+  });

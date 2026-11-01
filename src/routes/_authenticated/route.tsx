@@ -1,1 +1,12 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCBPdXRsZXQsIHJlZGlyZWN0IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHN1cGFiYXNlIH0gZnJvbSAiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50IjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL19hdXRoZW50aWNhdGVkIikoewogIHNzcjogZmFsc2UsCiAgYmVmb3JlTG9hZDogYXN5bmMgKCkgPT4gewogICAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2UuYXV0aC5nZXRVc2VyKCk7CiAgICBpZiAoZXJyb3IgfHwgIWRhdGEudXNlcikgdGhyb3cgcmVkaXJlY3QoeyB0bzogIi9hdXRoIiB9KTsKICAgIHJldHVybiB7IHVzZXI6IGRhdGEudXNlciB9OwogIH0sCiAgY29tcG9uZW50OiAoKSA9PiA8T3V0bGV0IC8+LAp9KTsK
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
+
+export const Route = createFileRoute("/_authenticated")({
+  ssr: false,
+  beforeLoad: async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data.user) throw redirect({ to: "/auth" });
+    return { user: data.user };
+  },
+  component: () => <Outlet />,
+});

@@ -1,1 +1,363 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IENhbWVyYSwgUHJpbnRlciwgU3BhcmtsZXMsIFRyYXNoMiB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKCmltcG9ydCB7IENhcmQsIEZpZWxkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7CiAgYWRkTW9tZW50Rm4sCiAgZGVsZXRlTW9tZW50Rm4sCiAgZ2V0TW9tZW50cywKICBzYXZlTW9tZW50UGhvdG9GbiwKfSBmcm9tICJAL2xpYi9tb21lbnRzLmZ1bmN0aW9ucyI7CmltcG9ydCB0eXBlIHsgTW9tZW50c0RhdGEsIE1vbWVudFJvdyB9IGZyb20gIkAvbGliL21vbWVudHMudHlwZXMiOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvbW9tZW50cy8kc2x1ZyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiUGhvdG8gbW9tZW50cyAmIG1pbGVzdG9uZXMg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7CiAgICAgICAgbmFtZTogImRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiQSBwcml2YXRlIHBob3RvIGRpYXJ5IGFuZCBtaWxlc3RvbmUgam91cm5hbCBmb3IgeW91ciBjaGlsZHJlbiwga2VwdCBpbiB5b3VyIEZhbWlseSBXYWxsZXQuIiwKICAgICAgfSwKICAgICAgewogICAgICAgIHByb3BlcnR5OiAib2c6dGl0bGUiLAogICAgICAgIGNvbnRlbnQ6ICJQaG90byBtb21lbnRzICYgbWlsZXN0b25lcyDigJQgVGhlIEZhbWlseSBXYWxsZXQiLAogICAgICB9LAogICAgICB7CiAgICAgICAgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsCiAgICAgICAgY29udGVudDogIlBob3RvcyBhbmQgbWlsZXN0b25lIHdpbnMgZnJvbSB5b3VyIGRheXMsIHNoYXJlZCBzYWZlbHkgYmV0d2VlbiBmYW1pbHkgYW5kIG5hbm55LiIsCiAgICAgIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICAgIHsgbmFtZTogInR3aXR0ZXI6Y2FyZCIsIGNvbnRlbnQ6ICJzdW1tYXJ5IiB9LAogICAgICB7IG5hbWU6ICJyb2JvdHMiLCBjb250ZW50OiAibm9pbmRleCIgfSwKICAgIF0sCiAgfSksCiAgY29tcG9uZW50OiBNb21lbnRzUGFnZSwKfSk7Cgpjb25zdCB0b2RheSA9ICgpID0+IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKS5zbGljZSgwLCAxMCk7CgpmdW5jdGlvbiBncm91cEJ5RGF0ZShtb21lbnRzOiBNb21lbnRSb3dbXSkgewogIGNvbnN0IGdyb3VwcyA9IG5ldyBNYXA8c3RyaW5nLCBNb21lbnRSb3dbXT4oKTsKICBmb3IgKGNvbnN0IG1vbWVudCBvZiBtb21lbnRzKSB7CiAgICBjb25zdCBsaXN0ID0gZ3JvdXBzLmdldChtb21lbnQubW9tZW50RGF0ZSkgPz8gW107CiAgICBsaXN0LnB1c2gobW9tZW50KTsKICAgIGdyb3Vwcy5zZXQobW9tZW50Lm1vbWVudERhdGUsIGxpc3QpOwogIH0KICByZXR1cm4gWy4uLmdyb3Vwcy5lbnRyaWVzKCldOwp9CgpmdW5jdGlvbiBNb21lbnRzUGFnZSgpIHsKICBjb25zdCB7IHNsdWcgfSA9IFJvdXRlLnVzZVBhcmFtcygpOwogIGNvbnN0IGNsaWVudCA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgbG9hZEZuID0gdXNlU2VydmVyRm4oZ2V0TW9tZW50cyk7CiAgY29uc3QgYWRkRm4gPSB1c2VTZXJ2ZXJGbihhZGRNb21lbnRGbik7CiAgY29uc3QgcGhvdG9GbiA9IHVzZVNlcnZlckZuKHNhdmVNb21lbnRQaG90b0ZuKTsKICBjb25zdCByZW1vdmVGbiA9IHVzZVNlcnZlckZuKGRlbGV0ZU1vbWVudEZuKTsKCiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7IHF1ZXJ5S2V5OiBbIm1vbWVudHMiLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gbG9hZEZuKHsgZGF0YTogeyBzbHVnIH0gfSkgfSk7CgogIGNvbnN0IFtmaWxlLCBzZXRGaWxlXSA9IHVzZVN0YXRlPEZpbGUgfCBudWxsPihudWxsKTsKICBjb25zdCBbbW9tZW50RGF0ZSwgc2V0TW9tZW50RGF0ZV0gPSB1c2VTdGF0ZSh0b2RheSk7CiAgY29uc3QgW2NhcHRpb24sIHNldENhcHRpb25dID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtjaGlsZElkLCBzZXRDaGlsZElkXSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbbWlsZXN0b25lLCBzZXRNaWxlc3RvbmVdID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFttaWxlc3RvbmVMYWJlbCwgc2V0TWlsZXN0b25lTGFiZWxdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtzYXZpbmcsIHNldFNhdmluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGlmIChxdWVyeS5pc0xvYWRpbmcpIHsKICAgIHJldHVybiAoCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IG1pbi1oLXNjcmVlbiBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgYmctc2FuZCB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgTG9hZGluZ+KApgogICAgICA8L2Rpdj4KICAgICk7CiAgfQogIGlmICghcXVlcnkuZGF0YSkgcmV0dXJuIDxMb2NrZWROb3RpY2Ugc2x1Zz17c2x1Z30gLz47CgogIGNvbnN0IGRhdGE6IE1vbWVudHNEYXRhID0gcXVlcnkuZGF0YTsKICBjb25zdCByZWZyZXNoID0gKCkgPT4gY2xpZW50LmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsibW9tZW50cyIsIHNsdWddIH0pOwogIGNvbnN0IGNhbkRlbGV0ZSA9IChtOiBNb21lbnRSb3cpID0+IGRhdGEuYWNjZXNzID09PSAiZmFtaWx5IiB8fCBtLmFkZGVkQnkgPT09IGRhdGEuYWNjZXNzOwoKICBjb25zdCByZWFkRmlsZSA9IChjaG9zZW46IEZpbGUpID0+CiAgICBuZXcgUHJvbWlzZTxzdHJpbmc+KChyZXNvbHZlLCByZWplY3QpID0+IHsKICAgICAgY29uc3QgcmVhZGVyID0gbmV3IEZpbGVSZWFkZXIoKTsKICAgICAgcmVhZGVyLm9ubG9hZCA9ICgpID0+IHJlc29sdmUoU3RyaW5nKHJlYWRlci5yZXN1bHQpLnNwbGl0KCIsIilbMV0gPz8gIiIpOwogICAgICByZWFkZXIub25lcnJvciA9ICgpID0+IHJlamVjdChuZXcgRXJyb3IoIkNvdWxkbid0IHJlYWQgdGhhdCBwaG90byIpKTsKICAgICAgcmVhZGVyLnJlYWRBc0RhdGFVUkwoY2hvc2VuKTsKICAgIH0pOwoKICBjb25zdCBzdWJtaXQgPSBhc3luYyAoKSA9PiB7CiAgICBpZiAoIWZpbGUgJiYgIW1pbGVzdG9uZSkgewogICAgICB0b2FzdC5lcnJvcigiQ2hvb3NlIGEgcGhvdG8sIG9yIHRpY2sgJ1RoaXMgd2FzIGEgbWlsZXN0b25lJyB3aXRoIGEgbGFiZWwuIik7CiAgICAgIHJldHVybjsKICAgIH0KICAgIGlmIChtaWxlc3RvbmUgJiYgIW1pbGVzdG9uZUxhYmVsLnRyaW0oKSkgewogICAgICB0b2FzdC5lcnJvcigiR2l2ZSB0aGUgbWlsZXN0b25lIGEgc2hvcnQgbGFiZWwsIGUuZy4gJ0ZpcnN0IGJpa2UgcmlkZSB3aXRob3V0IHN0YWJpbGlzZXJzJy4iKTsKICAgICAgcmV0dXJuOwogICAgfQogICAgc2V0U2F2aW5nKHRydWUpOwogICAgdHJ5IHsKICAgICAgaWYgKGZpbGUpIHsKICAgICAgICBjb25zdCBiYXNlNjQgPSBhd2FpdCByZWFkRmlsZShmaWxlKTsKICAgICAgICBhd2FpdCBwaG90b0ZuKHsKICAgICAgICAgIGRhdGE6IHsKICAgICAgICAgICAgc2x1ZywKICAgICAgICAgICAgbW9tZW50OiB7CiAgICAgICAgICAgICAga2luZDogInBob3RvIiwKICAgICAgICAgICAgICBtb21lbnREYXRlLAogICAgICAgICAgICAgIGNhcHRpb24sCiAgICAgICAgICAgICAgY2hpbGRJZDogY2hpbGRJZCB8fCB1bmRlZmluZWQsCiAgICAgICAgICAgICAgbWlsZXN0b25lTGFiZWw6IG1pbGVzdG9uZSA/IG1pbGVzdG9uZUxhYmVsIDogdW5kZWZpbmVkLAogICAgICAgICAgICAgIGZpbGVOYW1lOiBmaWxlLm5hbWUsCiAgICAgICAgICAgICAgY29udGVudFR5cGU6IGZpbGUudHlwZSwKICAgICAgICAgICAgICBiYXNlNjQsCiAgICAgICAgICAgIH0sCiAgICAgICAgICB9LAogICAgICAgIH0pOwogICAgICB9IGVsc2UgewogICAgICAgIGF3YWl0IGFkZEZuKHsKICAgICAgICAgIGRhdGE6IHsKICAgICAgICAgICAgc2x1ZywKICAgICAgICAgICAgbW9tZW50OiB7CiAgICAgICAgICAgICAga2luZDogIm1pbGVzdG9uZSIsCiAgICAgICAgICAgICAgbW9tZW50RGF0ZSwKICAgICAgICAgICAgICBjYXB0aW9uLAogICAgICAgICAgICAgIGNoaWxkSWQ6IGNoaWxkSWQgfHwgdW5kZWZpbmVkLAogICAgICAgICAgICAgIG1pbGVzdG9uZUxhYmVsLAogICAgICAgICAgICB9LAogICAgICAgICAgfSwKICAgICAgICB9KTsKICAgICAgfQogICAgICBzZXRGaWxlKG51bGwpOwogICAgICBzZXRDYXB0aW9uKCIiKTsKICAgICAgc2V0TWlsZXN0b25lKGZhbHNlKTsKICAgICAgc2V0TWlsZXN0b25lTGFiZWwoIiIpOwogICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICAgIHRvYXN0LnN1Y2Nlc3MoIkFkZGVkIHRvIHlvdXIgbW9tZW50cyIpOwogICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgdG9hc3QuZXJyb3IoZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiAiVGhhdCBjb3VsZCBub3QgYmUgc2F2ZWQuIik7CiAgICB9IGZpbmFsbHkgewogICAgICBzZXRTYXZpbmcoZmFsc2UpOwogICAgfQogIH07CgogIGNvbnN0IHdlZWtBZ28gPSBuZXcgRGF0ZSgpOwogIHdlZWtBZ28uc2V0VVRDRGF0ZSh3ZWVrQWdvLmdldFVUQ0RhdGUoKSAtIDYpOwogIGNvbnN0IHdlZWtGcm9tID0gd2Vla0Fnby50b0lTT1N0cmluZygpLnNsaWNlKDAsIDEwKTsKICBjb25zdCB3ZWVrTW9tZW50cyA9IGRhdGEubW9tZW50cy5maWx0ZXIoKG0pID0+IG0ubW9tZW50RGF0ZSA+PSB3ZWVrRnJvbSk7CgogIHJldHVybiAoCiAgICA8SHViUGFnZQogICAgICBzbHVnPXtzbHVnfQogICAgICB0aXRsZT0iUGhvdG8gbW9tZW50cyAmIG1pbGVzdG9uZXMiCiAgICAgIGludHJvPSJBIHByaXZhdGUgZGlhcnkgb2YgdGhlIGdvb2Qgc3R1ZmYg4oCUIHBob3RvcyBmcm9tIHRoZSBkYXkgYW5kIG1pbGVzdG9uZSB3aW5zLCBrZXB0IGp1c3QgYmV0d2VlbiBmYW1pbHkgYW5kIG5hbm55LiIKICAgID4KICAgICAgPENhcmQ+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5BZGQgYSBtb21lbnQ8L2gyPgogICAgICAgIDxsYWJlbCBjbGFzc05hbWU9Im10LTMgYmxvY2siPgogICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+UGhvdG8gKG9wdGlvbmFsKTwvc3Bhbj4KICAgICAgICAgIDxpbnB1dAogICAgICAgICAgICB0eXBlPSJmaWxlIgogICAgICAgICAgICBhY2NlcHQ9ImltYWdlLyoiCiAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IGJsb2NrIHctZnVsbCByb3VuZGVkLW1kIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWJhY2tncm91bmQgcC0yIHRleHQtc20iCiAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0RmlsZShlLnRhcmdldC5maWxlcz8uWzBdID8/IG51bGwpfQogICAgICAgICAgLz4KICAgICAgICA8L2xhYmVsPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGdyaWQgZ2FwLTQgc206Z3JpZC1jb2xzLTIiPgogICAgICAgICAgPEZpZWxkIGxhYmVsPSJEYXRlIiB0eXBlPSJkYXRlIiB2YWx1ZT17bW9tZW50RGF0ZX0gb25DaGFuZ2U9e3NldE1vbWVudERhdGV9IC8+CiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPSJibG9jayI+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPkNoaWxkIChvcHRpb25hbCk8L3NwYW4+CiAgICAgICAgICAgIDxzZWxlY3QKICAgICAgICAgICAgICB2YWx1ZT17Y2hpbGRJZH0KICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldENoaWxkSWQoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IHctZnVsbCByb3VuZGVkLW1kIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWJhY2tncm91bmQgcHgtMyBweS0yIHRleHQtc20iCiAgICAgICAgICAgID4KICAgICAgICAgICAgICA8b3B0aW9uIHZhbHVlPSIiPkJvdGggLyBhbGwgb2YgdGhlIGNoaWxkcmVuPC9vcHRpb24+CiAgICAgICAgICAgICAge2RhdGEuY2hpbGRyZW4ubWFwKChjaGlsZCkgPT4gKAogICAgICAgICAgICAgICAgPG9wdGlvbiBrZXk9e2NoaWxkLmlkfSB2YWx1ZT17Y2hpbGQuaWR9PgogICAgICAgICAgICAgICAgICB7Y2hpbGQubmFtZX0KICAgICAgICAgICAgICAgIDwvb3B0aW9uPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L3NlbGVjdD4KICAgICAgICAgIDwvbGFiZWw+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTMiPgogICAgICAgICAgPEZpZWxkCiAgICAgICAgICAgIGxhYmVsPXttaWxlc3RvbmUgPyAiTWlsZXN0b25lIG5vdGUiIDogIkNhcHRpb24ifQogICAgICAgICAgICB0ZXh0YXJlYQogICAgICAgICAgICB2YWx1ZT17Y2FwdGlvbn0KICAgICAgICAgICAgb25DaGFuZ2U9e3NldENhcHRpb259CiAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJXaGF0IGhhcHBlbmVkLCB3aG8gd2FzIHRoZXJlLCB3aHkgaXQgbWF0dGVyZWTigKYiCiAgICAgICAgICAvPgogICAgICAgIDwvZGl2PgogICAgICAgIDxsYWJlbCBjbGFzc05hbWU9Im10LTMgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgPGlucHV0CiAgICAgICAgICAgIHR5cGU9ImNoZWNrYm94IgogICAgICAgICAgICBjaGVja2VkPXttaWxlc3RvbmV9CiAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0TWlsZXN0b25lKGUudGFyZ2V0LmNoZWNrZWQpfQogICAgICAgICAgICBjbGFzc05hbWU9ImgtNCB3LTQiCiAgICAgICAgICAvPgogICAgICAgICAgVGhpcyB3YXMgYSBtaWxlc3RvbmUgKGFkZCBpdCB0byB0aGUgam91cm5hbCkKICAgICAgICA8L2xhYmVsPgogICAgICAgIHttaWxlc3RvbmUgJiYgKAogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTIiPgogICAgICAgICAgICA8RmllbGQKICAgICAgICAgICAgICBsYWJlbD0iTWlsZXN0b25lIGxhYmVsIgogICAgICAgICAgICAgIHZhbHVlPXttaWxlc3RvbmVMYWJlbH0KICAgICAgICAgICAgICBvbkNoYW5nZT17c2V0TWlsZXN0b25lTGFiZWx9CiAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9ImUuZy4gRmlyc3QgYmlrZSByaWRlIHdpdGhvdXQgc3RhYmlsaXNlcnMiCiAgICAgICAgICAgIC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApfQogICAgICAgIDxCdXR0b24gY2xhc3NOYW1lPSJtdC00IiBkaXNhYmxlZD17c2F2aW5nfSBvbkNsaWNrPXtzdWJtaXR9PgogICAgICAgICAgPENhbWVyYSBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IHtmaWxlID8gIlNhdmUgcGhvdG8iIDogIlNhdmUgbWlsZXN0b25lIn0KICAgICAgICA8L0J1dHRvbj4KICAgICAgPC9DYXJkPgoKICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTYiPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIGdhcC0yIj4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LXhsIHRleHQtZm9yZWdyb3VuZCI+V2Vla2x5IHJlY2FwPC9oMj4KICAgICAgICAgIDxCdXR0b24gc2l6ZT0ic20iIHZhcmlhbnQ9Im91dGxpbmUiIG9uQ2xpY2s9eygpID0+IHdpbmRvdy5wcmludCgpfT4KICAgICAgICAgICAgPFByaW50ZXIgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBQcmludAogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgIEV2ZXJ5dGhpbmcgZnJvbSB0aGUgbGFzdCBzZXZlbiBkYXlzIOKAlCBhIGxvdmVseSB0aGluZyB0byBzaGFyZSB3aXRoIGdyYW5kcGFyZW50cyBvciBrZWVwLgogICAgICAgIDwvcD4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyI+CiAgICAgICAgICB7d2Vla01vbWVudHMubGVuZ3RoID09PSAwID8gKAogICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Ob3RoaW5nIGZyb20gdGhpcyB3ZWVrIHlldC48L3A+CiAgICAgICAgICApIDogKAogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj4KICAgICAgICAgICAgICB7d2Vla01vbWVudHMubWFwKChtKSA9PiAoCiAgICAgICAgICAgICAgICA8TW9tZW50TGluZSBrZXk9e20uaWR9IG1vbWVudD17bX0gLz4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICApfQogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KCiAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC04IHRleHQteGwgdGV4dC1mb3JlZ3JvdW5kIj5BbGwgbW9tZW50czwvaDI+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIHNwYWNlLXktNiI+CiAgICAgICAge2RhdGEubW9tZW50cy5sZW5ndGggPT09IDAgJiYgKAogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIE5vIG1vbWVudHMgeWV0IOKAlCBhZGQgdGhlIGZpcnN0IHBob3RvIG9yIG1pbGVzdG9uZSBhYm92ZS4KICAgICAgICAgIDwvcD4KICAgICAgICApfQogICAgICAgIHtncm91cEJ5RGF0ZShkYXRhLm1vbWVudHMpLm1hcCgoW2RhdGUsIGRheU1vbWVudHNdKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleT17ZGF0ZX0+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC14cyBmb250LXNlbWlib2xkIHVwcGVyY2FzZSB0cmFja2luZy1bMC4xNmVtXSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIHtmb3JtYXREYXRlKGRhdGUpfQogICAgICAgICAgICA8L3A+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0yIGdyaWQgZ2FwLTMgc206Z3JpZC1jb2xzLTIiPgogICAgICAgICAgICAgIHtkYXlNb21lbnRzLm1hcCgobSkgPT4gKAogICAgICAgICAgICAgICAgPE1vbWVudENhcmQga2V5PXttLmlkfSBtb21lbnQ9e219IGNhbkRlbGV0ZT17Y2FuRGVsZXRlKG0pfSBvbkRlbGV0ZT17cmVtb3ZlRm59IHNsdWc9e3NsdWd9IHJlZnJlc2g9e3JlZnJlc2h9IC8+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSl9CiAgICAgIDwvZGl2PgogICAgPC9IdWJQYWdlPgogICk7Cn0KCmZ1bmN0aW9uIE1vbWVudENhcmQoewogIG1vbWVudCwKICBjYW5EZWxldGUsCiAgb25EZWxldGUsCiAgc2x1ZywKICByZWZyZXNoLAp9OiB7CiAgbW9tZW50OiBNb21lbnRSb3c7CiAgY2FuRGVsZXRlOiBib29sZWFuOwogIG9uRGVsZXRlOiAoYXJnczogeyBkYXRhOiB7IHNsdWc6IHN0cmluZzsgaWQ6IHN0cmluZyB9IH0pID0+IFByb21pc2U8dW5rbm93bj47CiAgc2x1Zzogc3RyaW5nOwogIHJlZnJlc2g6ICgpID0+IFByb21pc2U8dm9pZD47Cn0pIHsKICBjb25zdCBbYnVzeSwgc2V0QnVzeV0gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGNvbnN0IHJlbW92ZSA9IGFzeW5jICgpID0+IHsKICAgIHNldEJ1c3kodHJ1ZSk7CiAgICB0cnkgewogICAgICBhd2FpdCBvbkRlbGV0ZSh7IGRhdGE6IHsgc2x1ZywgaWQ6IG1vbWVudC5pZCB9IH0pOwogICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICAgIHRvYXN0LnN1Y2Nlc3MoIk1vbWVudCByZW1vdmVkIik7CiAgICB9IGNhdGNoIChlcnJvcikgewogICAgICB0b2FzdC5lcnJvcihlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6ICJUaGF0IGNvdWxkIG5vdCBiZSByZW1vdmVkLiIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0QnVzeShmYWxzZSk7CiAgICB9CiAgfTsKCiAgcmV0dXJuICgKICAgIDxDYXJkPgogICAgICB7bW9tZW50LnBob3RvVXJsICYmICgKICAgICAgICA8aW1nCiAgICAgICAgICBzcmM9e21vbWVudC5waG90b1VybH0KICAgICAgICAgIGFsdD17bW9tZW50LmNhcHRpb24gPz8gIkEgZmFtaWx5IG1vbWVudCJ9CiAgICAgICAgICBjbGFzc05hbWU9Im1iLTMgbWF4LWgtNzIgdy1mdWxsIHJvdW5kZWQtbGcgYm9yZGVyIGJvcmRlci1ib3JkZXIgb2JqZWN0LWNvdmVyIgogICAgICAgIC8+CiAgICAgICl9CiAgICAgIHttb21lbnQubWlsZXN0b25lTGFiZWwgJiYgKAogICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xIHJvdW5kZWQtZnVsbCBiZy1hY2NlbnQgcHgtMi41IHB5LTEgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgPFNwYXJrbGVzIGNsYXNzTmFtZT0iaC0zIHctMyIgLz4ge21vbWVudC5taWxlc3RvbmVMYWJlbH0KICAgICAgICA8L3NwYW4+CiAgICAgICl9CiAgICAgIHttb21lbnQuY2FwdGlvbiAmJiA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQiPnttb21lbnQuY2FwdGlvbn08L3A+fQogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMiBmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTIgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgIDxzcGFuPgogICAgICAgICAge1ttb21lbnQuY2hpbGROYW1lLCBtb21lbnQuYWRkZWRCeU5hbWUgPz8gKG1vbWVudC5hZGRlZEJ5ID09PSAibmFubnkiID8gInlvdXIgbmFubnkiIDogImEgcGFyZW50IildCiAgICAgICAgICAgIC5maWx0ZXIoQm9vbGVhbikKICAgICAgICAgICAgLmpvaW4oIiDCtyAiKX0KICAgICAgICA8L3NwYW4+CiAgICAgICAge2NhbkRlbGV0ZSAmJiAoCiAgICAgICAgICA8YnV0dG9uCiAgICAgICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICAgICAgb25DbGljaz17cmVtb3ZlfQogICAgICAgICAgICBkaXNhYmxlZD17YnVzeX0KICAgICAgICAgICAgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1kZXN0cnVjdGl2ZSBwcmludDpoaWRkZW4iCiAgICAgICAgICAgIGFyaWEtbGFiZWw9IlJlbW92ZSBtb21lbnQiCiAgICAgICAgICA+CiAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgPC9idXR0b24+CiAgICAgICAgKX0KICAgICAgPC9kaXY+CiAgICA8L0NhcmQ+CiAgKTsKfQoKZnVuY3Rpb24gTW9tZW50TGluZSh7IG1vbWVudCB9OiB7IG1vbWVudDogTW9tZW50Um93IH0pIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTMgcm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtMyI+CiAgICAgIHttb21lbnQucGhvdG9VcmwgJiYgKAogICAgICAgIDxpbWcKICAgICAgICAgIHNyYz17bW9tZW50LnBob3RvVXJsfQogICAgICAgICAgYWx0PXttb21lbnQuY2FwdGlvbiA/PyAiQSBmYW1pbHkgbW9tZW50In0KICAgICAgICAgIGNsYXNzTmFtZT0iaC0xNCB3LTE0IGZsZXgtc2hyaW5rLTAgcm91bmRlZC1sZyBib3JkZXIgYm9yZGVyLWJvcmRlciBvYmplY3QtY292ZXIiCiAgICAgICAgLz4KICAgICAgKX0KICAgICAgPGRpdiBjbGFzc05hbWU9Im1pbi13LTAiPgogICAgICAgIHttb21lbnQubWlsZXN0b25lTGFiZWwgJiYgKAogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e21vbWVudC5taWxlc3RvbmVMYWJlbH08L3A+CiAgICAgICAgKX0KICAgICAgICB7bW9tZW50LmNhcHRpb24gJiYgPHAgY2xhc3NOYW1lPSJtdC0wLjUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPnttb21lbnQuY2FwdGlvbn08L3A+fQogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICB7Zm9ybWF0RGF0ZShtb21lbnQubW9tZW50RGF0ZSl9IMK3IHttb21lbnQuY2hpbGROYW1lID8/ICJGYW1pbHkifQogICAgICAgIDwvcD4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApOwp9CgpmdW5jdGlvbiBmb3JtYXREYXRlKHZhbHVlOiBzdHJpbmcpIHsKICByZXR1cm4gbmV3IERhdGUoYCR7dmFsdWV9VDAwOjAwOjAwWmApLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7CiAgICB3ZWVrZGF5OiAic2hvcnQiLAogICAgZGF5OiAibnVtZXJpYyIsCiAgICBtb250aDogInNob3J0IiwKICAgIHRpbWVab25lOiAiVVRDIiwKICB9KTsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Camera, Printer, Sparkles, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import {
+  addMomentFn,
+  deleteMomentFn,
+  getMoments,
+  saveMomentPhotoFn,
+} from "@/lib/moments.functions";
+import type { MomentsData, MomentRow } from "@/lib/moments.types";
+
+export const Route = createFileRoute("/moments/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Photo moments & milestones — The Family Wallet" },
+      {
+        name: "description",
+        content: "A private photo diary and milestone journal for your children, kept in your Family Wallet.",
+      },
+      {
+        property: "og:title",
+        content: "Photo moments & milestones — The Family Wallet",
+      },
+      {
+        property: "og:description",
+        content: "Photos and milestone wins from your days, shared safely between family and nanny.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: MomentsPage,
+});
+
+const today = () => new Date().toISOString().slice(0, 10);
+
+function groupByDate(moments: MomentRow[]) {
+  const groups = new Map<string, MomentRow[]>();
+  for (const moment of moments) {
+    const list = groups.get(moment.momentDate) ?? [];
+    list.push(moment);
+    groups.set(moment.momentDate, list);
+  }
+  return [...groups.entries()];
+}
+
+function MomentsPage() {
+  const { slug } = Route.useParams();
+  const client = useQueryClient();
+  const loadFn = useServerFn(getMoments);
+  const addFn = useServerFn(addMomentFn);
+  const photoFn = useServerFn(saveMomentPhotoFn);
+  const removeFn = useServerFn(deleteMomentFn);
+
+  const query = useQuery({ queryKey: ["moments", slug], queryFn: () => loadFn({ data: { slug } }) });
+
+  const [file, setFile] = useState<File | null>(null);
+  const [momentDate, setMomentDate] = useState(today);
+  const [caption, setCaption] = useState("");
+  const [childId, setChildId] = useState("");
+  const [milestone, setMilestone] = useState(false);
+  const [milestoneLabel, setMilestoneLabel] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  if (query.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading…
+      </div>
+    );
+  }
+  if (!query.data) return <LockedNotice slug={slug} />;
+
+  const data: MomentsData = query.data;
+  const refresh = () => client.invalidateQueries({ queryKey: ["moments", slug] });
+  const canDelete = (m: MomentRow) => data.access === "family" || m.addedBy === data.access;
+
+  const readFile = (chosen: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result).split(",")[1] ?? "");
+      reader.onerror = () => reject(new Error("Couldn't read that photo"));
+      reader.readAsDataURL(chosen);
+    });
+
+  const submit = async () => {
+    if (!file && !milestone) {
+      toast.error("Choose a photo, or tick 'This was a milestone' with a label.");
+      return;
+    }
+    if (milestone && !milestoneLabel.trim()) {
+      toast.error("Give the milestone a short label, e.g. 'First bike ride without stabilisers'.");
+      return;
+    }
+    setSaving(true);
+    try {
+      if (file) {
+        const base64 = await readFile(file);
+        await photoFn({
+          data: {
+            slug,
+            moment: {
+              kind: "photo",
+              momentDate,
+              caption,
+              childId: childId || undefined,
+              milestoneLabel: milestone ? milestoneLabel : undefined,
+              fileName: file.name,
+              contentType: file.type,
+              base64,
+            },
+          },
+        });
+      } else {
+        await addFn({
+          data: {
+            slug,
+            moment: {
+              kind: "milestone",
+              momentDate,
+              caption,
+              childId: childId || undefined,
+              milestoneLabel,
+            },
+          },
+        });
+      }
+      setFile(null);
+      setCaption("");
+      setMilestone(false);
+      setMilestoneLabel("");
+      await refresh();
+      toast.success("Added to your moments");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "That could not be saved.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const weekAgo = new Date();
+  weekAgo.setUTCDate(weekAgo.getUTCDate() - 6);
+  const weekFrom = weekAgo.toISOString().slice(0, 10);
+  const weekMoments = data.moments.filter((m) => m.momentDate >= weekFrom);
+
+  return (
+    <HubPage
+      slug={slug}
+      title="Photo moments & milestones"
+      intro="A private diary of the good stuff — photos from the day and milestone wins, kept just between family and nanny."
+    >
+      <Card>
+        <h2 className="heading-display text-lg text-foreground">Add a moment</h2>
+        <label className="mt-3 block">
+          <span className="text-sm font-medium text-foreground">Photo (optional)</span>
+          <input
+            type="file"
+            accept="image/*"
+            className="mt-1.5 block w-full rounded-md border border-border bg-background p-2 text-sm"
+            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          />
+        </label>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <Field label="Date" type="date" value={momentDate} onChange={setMomentDate} />
+          <label className="block">
+            <span className="text-sm font-medium text-foreground">Child (optional)</span>
+            <select
+              value={childId}
+              onChange={(e) => setChildId(e.target.value)}
+              className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+            >
+              <option value="">Both / all of the children</option>
+              {data.children.map((child) => (
+                <option key={child.id} value={child.id}>
+                  {child.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="mt-3">
+          <Field
+            label={milestone ? "Milestone note" : "Caption"}
+            textarea
+            value={caption}
+            onChange={setCaption}
+            placeholder="What happened, who was there, why it mattered…"
+          />
+        </div>
+        <label className="mt-3 flex items-center gap-2 text-sm text-foreground">
+          <input
+            type="checkbox"
+            checked={milestone}
+            onChange={(e) => setMilestone(e.target.checked)}
+            className="h-4 w-4"
+          />
+          This was a milestone (add it to the journal)
+        </label>
+        {milestone && (
+          <div className="mt-2">
+            <Field
+              label="Milestone label"
+              value={milestoneLabel}
+              onChange={setMilestoneLabel}
+              placeholder="e.g. First bike ride without stabilisers"
+            />
+          </div>
+        )}
+        <Button className="mt-4" disabled={saving} onClick={submit}>
+          <Camera className="h-4 w-4" /> {file ? "Save photo" : "Save milestone"}
+        </Button>
+      </Card>
+
+      <div className="mt-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="heading-display text-xl text-foreground">Weekly recap</h2>
+          <Button size="sm" variant="outline" onClick={() => window.print()}>
+            <Printer className="h-4 w-4" /> Print
+          </Button>
+        </div>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Everything from the last seven days — a lovely thing to share with grandparents or keep.
+        </p>
+        <div className="mt-3">
+          {weekMoments.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Nothing from this week yet.</p>
+          ) : (
+            <div className="space-y-2">
+              {weekMoments.map((m) => (
+                <MomentLine key={m.id} moment={m} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <h2 className="heading-display mt-8 text-xl text-foreground">All moments</h2>
+      <div className="mt-3 space-y-6">
+        {data.moments.length === 0 && (
+          <p className="text-sm text-muted-foreground">
+            No moments yet — add the first photo or milestone above.
+          </p>
+        )}
+        {groupByDate(data.moments).map(([date, dayMoments]) => (
+          <div key={date}>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              {formatDate(date)}
+            </p>
+            <div className="mt-2 grid gap-3 sm:grid-cols-2">
+              {dayMoments.map((m) => (
+                <MomentCard key={m.id} moment={m} canDelete={canDelete(m)} onDelete={removeFn} slug={slug} refresh={refresh} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </HubPage>
+  );
+}
+
+function MomentCard({
+  moment,
+  canDelete,
+  onDelete,
+  slug,
+  refresh,
+}: {
+  moment: MomentRow;
+  canDelete: boolean;
+  onDelete: (args: { data: { slug: string; id: string } }) => Promise<unknown>;
+  slug: string;
+  refresh: () => Promise<void>;
+}) {
+  const [busy, setBusy] = useState(false);
+
+  const remove = async () => {
+    setBusy(true);
+    try {
+      await onDelete({ data: { slug, id: moment.id } });
+      await refresh();
+      toast.success("Moment removed");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "That could not be removed.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <Card>
+      {moment.photoUrl && (
+        <img
+          src={moment.photoUrl}
+          alt={moment.caption ?? "A family moment"}
+          className="mb-3 max-h-72 w-full rounded-lg border border-border object-cover"
+        />
+      )}
+      {moment.milestoneLabel && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-foreground">
+          <Sparkles className="h-3 w-3" /> {moment.milestoneLabel}
+        </span>
+      )}
+      {moment.caption && <p className="mt-2 text-sm text-foreground">{moment.caption}</p>}
+      <div className="mt-2 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+        <span>
+          {[moment.childName, moment.addedByName ?? (moment.addedBy === "nanny" ? "your nanny" : "a parent")]
+            .filter(Boolean)
+            .join(" · ")}
+        </span>
+        {canDelete && (
+          <button
+            type="button"
+            onClick={remove}
+            disabled={busy}
+            className="text-muted-foreground hover:text-destructive print:hidden"
+            aria-label="Remove moment"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+function MomentLine({ moment }: { moment: MomentRow }) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+      {moment.photoUrl && (
+        <img
+          src={moment.photoUrl}
+          alt={moment.caption ?? "A family moment"}
+          className="h-14 w-14 flex-shrink-0 rounded-lg border border-border object-cover"
+        />
+      )}
+      <div className="min-w-0">
+        {moment.milestoneLabel && (
+          <p className="text-sm font-medium text-foreground">{moment.milestoneLabel}</p>
+        )}
+        {moment.caption && <p className="mt-0.5 text-sm text-muted-foreground">{moment.caption}</p>}
+        <p className="mt-1 text-xs text-muted-foreground">
+          {formatDate(moment.momentDate)} · {moment.childName ?? "Family"}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function formatDate(value: string) {
+  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+}

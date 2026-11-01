@@ -1,1 +1,27 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5sZWF2ZV9yZXF1ZXN0cyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBuYW5ueV9pZCB1dWlkIFJFRkVSRU5DRVMgcHVibGljLmZhbWlseV9uYW5uaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBsZWF2ZV90eXBlIHRleHQgTk9UIE5VTEwgREVGQVVMVCAnaG9saWRheScsCiAgc3RhcnRfZGF0ZSBkYXRlIE5PVCBOVUxMLAogIGVuZF9kYXRlIGRhdGUgTk9UIE5VTEwsCiAgZGF5cyBudW1lcmljIE5PVCBOVUxMIERFRkFVTFQgMCwKICBub3RlcyB0ZXh0LAogIHN0YXR1cyB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ3BlbmRpbmcnLAogIHJlcXVlc3RlZF9ieSB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ25hbm55JywKICByZXZpZXdlZF9hdCB0aW1lc3RhbXAgd2l0aCB0aW1lIHpvbmUsCiAgY3JlYXRlZF9hdCB0aW1lc3RhbXAgd2l0aCB0aW1lIHpvbmUgTk9UIE5VTEwgREVGQVVMVCBub3coKSwKICB1cGRhdGVkX2F0IHRpbWVzdGFtcCB3aXRoIHRpbWUgem9uZSBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CgpDUkVBVEUgSU5ERVggbGVhdmVfcmVxdWVzdHNfZmFtaWx5X2lkeCBPTiBwdWJsaWMubGVhdmVfcmVxdWVzdHMgKGZhbWlseV9pZCwgc3RhcnRfZGF0ZSk7CkNSRUFURSBJTkRFWCBsZWF2ZV9yZXF1ZXN0c19uYW5ueV9pZHggT04gcHVibGljLmxlYXZlX3JlcXVlc3RzIChuYW5ueV9pZCk7CgpHUkFOVCBBTEwgT04gcHVibGljLmxlYXZlX3JlcXVlc3RzIFRPIHNlcnZpY2Vfcm9sZTsKCkFMVEVSIFRBQkxFIHB1YmxpYy5sZWF2ZV9yZXF1ZXN0cyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwoKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBsZWF2ZSByZXF1ZXN0cyIKT04gcHVibGljLmxlYXZlX3JlcXVlc3RzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbic6OmFwcF9yb2xlKSkKV0lUSCBDSEVDSyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbic6OmFwcF9yb2xlKSk7
+CREATE TABLE public.leave_requests (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  nanny_id uuid REFERENCES public.family_nannies(id) ON DELETE CASCADE,
+  leave_type text NOT NULL DEFAULT 'holiday',
+  start_date date NOT NULL,
+  end_date date NOT NULL,
+  days numeric NOT NULL DEFAULT 0,
+  notes text,
+  status text NOT NULL DEFAULT 'pending',
+  requested_by text NOT NULL DEFAULT 'nanny',
+  reviewed_at timestamp with time zone,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now()
+);
+
+CREATE INDEX leave_requests_family_idx ON public.leave_requests (family_id, start_date);
+CREATE INDEX leave_requests_nanny_idx ON public.leave_requests (nanny_id);
+
+GRANT ALL ON public.leave_requests TO service_role;
+
+ALTER TABLE public.leave_requests ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage leave requests"
+ON public.leave_requests FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'::app_role))
+WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));

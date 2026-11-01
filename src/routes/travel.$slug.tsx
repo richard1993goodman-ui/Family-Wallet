@@ -1,1 +1,169 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IFBsYW5lLCBQbHVzLCBUcmFzaDIgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CgppbXBvcnQgeyBhZGRUcmF2ZWxOb3RlRm4sIGRlbGV0ZVRyaXBGbiwgZ2V0VHJhdmVsLCBzYXZlVHJpcEZuLCB1cGRhdGVDaGVja2xpc3RGbiB9IGZyb20gIkAvbGliL3RyYXZlbC5mdW5jdGlvbnMiOwppbXBvcnQgeyBUUkFWRUxfTk9URV9DQVRFR09SSUVTLCB0eXBlIFRyaXBJbnB1dCB9IGZyb20gIkAvbGliL3RyYXZlbC50eXBlcyI7CmltcG9ydCB7IENhcmQsIEZpZWxkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHsgVGV4dGFyZWEgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWEiOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvdHJhdmVsLyRzbHVnIikoewogIGhlYWQ6ICgpID0+ICh7CiAgICBtZXRhOiBbCiAgICAgIHsgdGl0bGU6ICJUcmF2ZWwgJiBWaWxsYSBOYW5ueSBQYWNrIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgICAgeyBuYW1lOiAiZGVzY3JpcHRpb24iLCBjb250ZW50OiAiVHJhdmVsIG1vZGUgZm9yIGZhbWlsaWVzIGFicm9hZDogYSBwYWNraW5nIGFuZCBzYWZldHkgY2hlY2tsaXN0LCBsb2NhbCBlbWVyZ2VuY3kgZGV0YWlscyBhbmQgdHJhdmVsIGhhbmRvdmVyIG5vdGVzLiIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIlRyYXZlbCAmIFZpbGxhIE5hbm55IFBhY2sg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQ2hlY2tsaXN0LCBsb2NhbCBlbWVyZ2VuY3kgaW5mbyBhbmQgdHJhdmVsIGhhbmRvdmVycyBmb3IgdHJpcHMgYWJyb2FkLiIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnR5cGUiLCBjb250ZW50OiAid2Vic2l0ZSIgfSwKICAgICAgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnkiIH0sCiAgICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IFRyYXZlbFBhZ2UsCn0pOwoKY29uc3QgZm10ID0gKGQ6IHN0cmluZykgPT4KICBuZXcgRGF0ZShgJHtkLmxlbmd0aCA+IDEwID8gZCA6IGAke2R9VDAwOjAwOjAwWmB9YCkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsgd2Vla2RheTogInNob3J0IiwgZGF5OiAibnVtZXJpYyIsIG1vbnRoOiAic2hvcnQiLCB0aW1lWm9uZTogIlVUQyIgfSk7Cgpjb25zdCBlbXB0eVRyaXA6IFRyaXBJbnB1dCA9IHsgZGVzdGluYXRpb246ICIiLCBzdGFydERhdGU6ICIiLCBlbmREYXRlOiAiIiwgYWNjb21tb2RhdGlvbjogIiIsIGxvY2FsRW1lcmdlbmN5OiAiIiwgbmVhcmVzdEhvc3BpdGFsOiAiIiwgdGltZURpZmZlcmVuY2U6ICIiLCB0cmF2ZWxQYXk6ICIiLCBub3RlczogIiIgfTsKCmZ1bmN0aW9uIFRyYXZlbFBhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBxYyA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgZmV0Y2hUcmF2ZWwgPSB1c2VTZXJ2ZXJGbihnZXRUcmF2ZWwpOwogIGNvbnN0IHNhdmUgPSB1c2VTZXJ2ZXJGbihzYXZlVHJpcEZuKTsKICBjb25zdCBjaGVja2xpc3QgPSB1c2VTZXJ2ZXJGbih1cGRhdGVDaGVja2xpc3RGbik7CiAgY29uc3QgYWRkTm90ZSA9IHVzZVNlcnZlckZuKGFkZFRyYXZlbE5vdGVGbik7CiAgY29uc3QgZGVsID0gdXNlU2VydmVyRm4oZGVsZXRlVHJpcEZuKTsKICBjb25zdCB7IGRhdGEsIGlzTG9hZGluZyB9ID0gdXNlUXVlcnkoeyBxdWVyeUtleTogWyJ0cmF2ZWwiLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gZmV0Y2hUcmF2ZWwoeyBkYXRhOiB7IHNsdWcgfSB9KSB9KTsKCiAgY29uc3QgW2Zvcm0sIHNldEZvcm1dID0gdXNlU3RhdGU8VHJpcElucHV0IHwgbnVsbD4obnVsbCk7CiAgY29uc3QgW3NlbGVjdGVkSWQsIHNldFNlbGVjdGVkSWRdID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7CiAgY29uc3QgW25ld0l0ZW0sIHNldE5ld0l0ZW1dID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtub3RlLCBzZXROb3RlXSA9IHVzZVN0YXRlKHsgY2F0ZWdvcnk6ICJnZW5lcmFsIiwgdGV4dDogIiIgfSk7CiAgY29uc3QgW2J1c3ksIHNldEJ1c3ldID0gdXNlU3RhdGUoZmFsc2UpOwoKICBjb25zdCByZWZyZXNoID0gKCkgPT4gcWMuaW52YWxpZGF0ZVF1ZXJpZXMoeyBxdWVyeUtleTogWyJ0cmF2ZWwiLCBzbHVnXSB9KTsKICBjb25zdCBydW4gPSBhc3luYyAoZm46ICgpID0+IFByb21pc2U8dW5rbm93bj4sIG9rPzogc3RyaW5nKSA9PiB7CiAgICBzZXRCdXN5KHRydWUpOwogICAgdHJ5IHsgYXdhaXQgZm4oKTsgYXdhaXQgcmVmcmVzaCgpOyBpZiAob2spIHRvYXN0LnN1Y2Nlc3Mob2spOyB9CiAgICBjYXRjaCAoZSkgeyB0b2FzdC5lcnJvcihlIGluc3RhbmNlb2YgRXJyb3IgPyBlLm1lc3NhZ2UgOiAiU29tZXRoaW5nIHdlbnQgd3JvbmciKTsgfQogICAgZmluYWxseSB7IHNldEJ1c3koZmFsc2UpOyB9CiAgfTsKCiAgaWYgKGlzTG9hZGluZykgcmV0dXJuIDxIdWJQYWdlIHNsdWc9e3NsdWd9IHRpdGxlPSJUcmF2ZWwgJiBWaWxsYSBOYW5ueSBQYWNrIj48cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Mb2FkaW5n4oCmPC9wPjwvSHViUGFnZT47CiAgaWYgKCFkYXRhKSByZXR1cm4gPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IlRyYXZlbCAmIFZpbGxhIE5hbm55IFBhY2siPjxMb2NrZWROb3RpY2Ugc2x1Zz17c2x1Z30gLz48L0h1YlBhZ2U+OwoKICBjb25zdCBpc1BhcmVudCA9IGRhdGEuYWNjZXNzID09PSAiZmFtaWx5IjsKICBjb25zdCB0cmlwID0gZGF0YS50cmlwcy5maW5kKCh0KSA9PiB0LmlkID09PSBzZWxlY3RlZElkKSA/PyBkYXRhLmFjdGl2ZSA/PyBkYXRhLnVwY29taW5nID8/IGRhdGEudHJpcHNbMF0gPz8gbnVsbDsKICBjb25zdCBzZXRWID0gKGs6IGtleW9mIFRyaXBJbnB1dCkgPT4gKHY6IHN0cmluZykgPT4gc2V0Rm9ybSgoZikgPT4gKHsgLi4uKGYgPz8gZW1wdHlUcmlwKSwgW2tdOiB2IH0pKTsKCiAgcmV0dXJuICgKICAgIDxIdWJQYWdlIHNsdWc9e3NsdWd9IHRpdGxlPSJUcmF2ZWwgJiBWaWxsYSBOYW5ueSBQYWNrIiBpbnRybz0iR29pbmcgYWJyb2FkPyBBZGQgeW91ciB0cmlwIGFuZCB0aGUgd2FsbGV0IHN3aXRjaGVzIHRvIHRyYXZlbCBtb2RlIOKAlCBjaGVja2xpc3QsIGxvY2FsIGVtZXJnZW5jeSBkZXRhaWxzIGFuZCB0cmF2ZWwgaGFuZG92ZXIgbm90ZXMgaW4gb25lIHBsYWNlLiI+CiAgICAgIHtkYXRhLnRyaXBzLmxlbmd0aCA+IDEgJiYgKAogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYi00IGZsZXggZmxleC13cmFwIGdhcC0yIj4KICAgICAgICAgIHtkYXRhLnRyaXBzLm1hcCgodCkgPT4gKAogICAgICAgICAgICA8QnV0dG9uIGtleT17dC5pZH0gc2l6ZT0ic20iIHZhcmlhbnQ9e3RyaXA/LmlkID09PSB0LmlkID8gImRlZmF1bHQiIDogIm91dGxpbmUifSBvbkNsaWNrPXsoKSA9PiBzZXRTZWxlY3RlZElkKHQuaWQpfT57dC5kZXN0aW5hdGlvbn08L0J1dHRvbj4KICAgICAgICAgICkpfQogICAgICAgIDwvZGl2PgogICAgICApfQoKICAgICAge2lzUGFyZW50ICYmICFmb3JtICYmICgKICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWItNSBmbGV4IGdhcC0yIj4KICAgICAgICAgIDxCdXR0b24gb25DbGljaz17KCkgPT4gc2V0Rm9ybSh7IC4uLmVtcHR5VHJpcCB9KX0+PFBsdXMgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBBZGQgYSB0cmlwPC9CdXR0b24+CiAgICAgICAgICB7dHJpcCAmJiA8QnV0dG9uIHZhcmlhbnQ9Im91dGxpbmUiIG9uQ2xpY2s9eygpID0+IHNldEZvcm0oeyBpZDogdHJpcC5pZCwgZGVzdGluYXRpb246IHRyaXAuZGVzdGluYXRpb24sIHN0YXJ0RGF0ZTogdHJpcC5zdGFydERhdGUsIGVuZERhdGU6IHRyaXAuZW5kRGF0ZSwgYWNjb21tb2RhdGlvbjogdHJpcC5hY2NvbW1vZGF0aW9uID8/ICIiLCBsb2NhbEVtZXJnZW5jeTogdHJpcC5sb2NhbEVtZXJnZW5jeSA/PyAiIiwgbmVhcmVzdEhvc3BpdGFsOiB0cmlwLm5lYXJlc3RIb3NwaXRhbCA/PyAiIiwgdGltZURpZmZlcmVuY2U6IHRyaXAudGltZURpZmZlcmVuY2UgPz8gIiIsIHRyYXZlbFBheTogdHJpcC50cmF2ZWxQYXkgPz8gIiIsIG5vdGVzOiB0cmlwLm5vdGVzID8/ICIiIH0pfT5FZGl0IHRyaXAgZGV0YWlsczwvQnV0dG9uPn0KICAgICAgICA8L2Rpdj4KICAgICAgKX0KCiAgICAgIHtmb3JtICYmICgKICAgICAgICA8Q2FyZD4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+e2Zvcm0uaWQgPyAiRWRpdCB0cmlwIiA6ICJOZXcgdHJpcCJ9PC9oMj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGdyaWQgZ2FwLTMgc206Z3JpZC1jb2xzLTIiPgogICAgICAgICAgICA8RmllbGQgbGFiZWw9IkRlc3RpbmF0aW9uIiB2YWx1ZT17Zm9ybS5kZXN0aW5hdGlvbiA/PyAiIn0gb25DaGFuZ2U9e3NldFYoImRlc3RpbmF0aW9uIil9IHBsYWNlaG9sZGVyPSJlLmcuIFZpbGxhIGluIE1hbGxvcmNhIiAvPgogICAgICAgICAgICA8RmllbGQgbGFiZWw9IlRpbWUgZGlmZmVyZW5jZSIgdmFsdWU9e2Zvcm0udGltZURpZmZlcmVuY2UgPz8gIiJ9IG9uQ2hhbmdlPXtzZXRWKCJ0aW1lRGlmZmVyZW5jZSIpfSBwbGFjZWhvbGRlcj0iKzEgaG91ciIgLz4KICAgICAgICAgICAgPEZpZWxkIGxhYmVsPSJMZWF2ZSBkYXRlIiB2YWx1ZT17Zm9ybS5zdGFydERhdGUgPz8gIiJ9IG9uQ2hhbmdlPXtzZXRWKCJzdGFydERhdGUiKX0gdHlwZT0iZGF0ZSIgLz4KICAgICAgICAgICAgPEZpZWxkIGxhYmVsPSJSZXR1cm4gZGF0ZSIgdmFsdWU9e2Zvcm0uZW5kRGF0ZSA/PyAiIn0gb25DaGFuZ2U9e3NldFYoImVuZERhdGUiKX0gdHlwZT0iZGF0ZSIgLz4KICAgICAgICAgICAgPEZpZWxkIGxhYmVsPSJMb2NhbCBlbWVyZ2VuY3kgbnVtYmVyIiB2YWx1ZT17Zm9ybS5sb2NhbEVtZXJnZW5jeSA/PyAiIn0gb25DaGFuZ2U9e3NldFYoImxvY2FsRW1lcmdlbmN5Iil9IHBsYWNlaG9sZGVyPSIxMTIiIC8+CiAgICAgICAgICAgIDxGaWVsZCBsYWJlbD0iTmVhcmVzdCBob3NwaXRhbCAvIGNsaW5pYyIgdmFsdWU9e2Zvcm0ubmVhcmVzdEhvc3BpdGFsID8/ICIifSBvbkNoYW5nZT17c2V0VigibmVhcmVzdEhvc3BpdGFsIil9IC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGdyaWQgZ2FwLTMiPgogICAgICAgICAgICA8RmllbGQgbGFiZWw9IkFjY29tbW9kYXRpb24gYWRkcmVzcyAmIFdpLUZpIiB2YWx1ZT17Zm9ybS5hY2NvbW1vZGF0aW9uID8/ICIifSBvbkNoYW5nZT17c2V0VigiYWNjb21tb2RhdGlvbiIpfSB0ZXh0YXJlYSAvPgogICAgICAgICAgICA8RmllbGQgbGFiZWw9IlRyYXZlbCBwYXksIGRheXMgb2ZmICYgbmFubnkgcm9vbSIgdmFsdWU9e2Zvcm0udHJhdmVsUGF5ID8/ICIifSBvbkNoYW5nZT17c2V0VigidHJhdmVsUGF5Iil9IHRleHRhcmVhIHBsYWNlaG9sZGVyPSJlLmcuIMKjMTgwL2RheSwgMSBkYXkgb2ZmIHBlciB3ZWVrLCBvd24gcm9vbSIgLz4KICAgICAgICAgICAgPEZpZWxkIGxhYmVsPSJOb3RlcyBmb3IgdGhlIG5hbm55IiB2YWx1ZT17Zm9ybS5ub3RlcyA/PyAiIn0gb25DaGFuZ2U9e3NldFYoIm5vdGVzIil9IHRleHRhcmVhIC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC00IGZsZXggZ2FwLTIiPgogICAgICAgICAgICA8QnV0dG9uIGRpc2FibGVkPXtidXN5fSBvbkNsaWNrPXsoKSA9PiBydW4oYXN5bmMgKCkgPT4geyBjb25zdCByID0gYXdhaXQgc2F2ZSh7IGRhdGE6IHsgc2x1ZywgdHJpcDogZm9ybSB9IH0pOyBzZXRTZWxlY3RlZElkKHIuaWQpOyBzZXRGb3JtKG51bGwpOyB9LCAiVHJpcCBzYXZlZCIpfT5TYXZlIHRyaXA8L0J1dHRvbj4KICAgICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJvdXRsaW5lIiBvbkNsaWNrPXsoKSA9PiBzZXRGb3JtKG51bGwpfT5DYW5jZWw8L0J1dHRvbj4KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvQ2FyZD4KICAgICAgKX0KCiAgICAgIHshdHJpcCAmJiAhZm9ybSAmJiA8Q2FyZD48cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57aXNQYXJlbnQgPyAiTm8gdHJpcHMgeWV0LiBBZGQgb25lIHRvIHN3aXRjaCB5b3VyIHdhbGxldCBpbnRvIHRyYXZlbCBtb2RlIHdoaWxlIHlvdSdyZSBhd2F5LiIgOiAiTm8gdHJpcHMgaGF2ZSBiZWVuIGFkZGVkIHlldC4ifTwvcD48L0NhcmQ+fQoKICAgICAge3RyaXAgJiYgIWZvcm0gJiYgKAogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTQiPgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJnLXByaW1hcnkgcC01IHRleHQtcHJpbWFyeS1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiB0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdXBwZXJjYXNlIHRyYWNraW5nLXdpZGVzdCBvcGFjaXR5LTgwIj48UGxhbmUgY2xhc3NOYW1lPSJoLTQgdy00IiAvPnt0cmlwLnN0YXJ0RGF0ZSA8PSBkYXRhLnRvZGF5ICYmIHRyaXAuZW5kRGF0ZSA+PSBkYXRhLnRvZGF5ID8gIlRyYXZlbCBtb2RlIGlzIG9uIiA6IHRyaXAuc3RhcnREYXRlID4gZGF0YS50b2RheSA/ICJVcGNvbWluZyB0cmlwIiA6ICJQYXN0IHRyaXAifTwvcD4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbXQtMSB0ZXh0LTJ4bCI+e3RyaXAuZGVzdGluYXRpb259PC9wPgogICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSBvcGFjaXR5LTkwIj57Zm10KHRyaXAuc3RhcnREYXRlKX0g4oCTIHtmbXQodHJpcC5lbmREYXRlKX17dHJpcC50aW1lRGlmZmVyZW5jZSA/IGAgwrcgJHt0cmlwLnRpbWVEaWZmZXJlbmNlfWAgOiAiIn08L3A+CiAgICAgICAgICA8L2Rpdj4KCiAgICAgICAgICA8Q2FyZD4KICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5BYnJvYWQgZXNzZW50aWFsczwvaDI+CiAgICAgICAgICAgIDxkbCBjbGFzc05hbWU9Im10LTIgc3BhY2UteS0xLjUgdGV4dC1zbSI+CiAgICAgICAgICAgICAge1tbIkxvY2FsIGVtZXJnZW5jeSIsIHRyaXAubG9jYWxFbWVyZ2VuY3ldLCBbIk5lYXJlc3QgaG9zcGl0YWwiLCB0cmlwLm5lYXJlc3RIb3NwaXRhbF0sIFsiQWNjb21tb2RhdGlvbiIsIHRyaXAuYWNjb21tb2RhdGlvbl0sIFsiVHJhdmVsIHBheSAmIGRheXMgb2ZmIiwgdHJpcC50cmF2ZWxQYXldLCBbIk5vdGVzIiwgdHJpcC5ub3Rlc11dLm1hcCgoW2ssIHZdKSA9PiB2ID8gPGRpdiBrZXk9e2t9PjxkdCBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2t9PC9kdD48ZGQgY2xhc3NOYW1lPSJ3aGl0ZXNwYWNlLXByZS1saW5lIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e3Z9PC9kZD48L2Rpdj4gOiBudWxsKX0KICAgICAgICAgICAgPC9kbD4KICAgICAgICAgIDwvQ2FyZD4KCiAgICAgICAgICA8Q2FyZD4KICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5UcmF2ZWwgY2hlY2tsaXN0IDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPnt0cmlwLmNoZWNrbGlzdC5maWx0ZXIoKGkpID0+IGkuZG9uZSkubGVuZ3RofS97dHJpcC5jaGVja2xpc3QubGVuZ3RofTwvc3Bhbj48L2gyPgogICAgICAgICAgICA8dWwgY2xhc3NOYW1lPSJtdC0yIHNwYWNlLXktMS41Ij4KICAgICAgICAgICAgICB7dHJpcC5jaGVja2xpc3QubWFwKChpdGVtKSA9PiAoCiAgICAgICAgICAgICAgICA8bGkga2V5PXtpdGVtLmlkfSBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIHRleHQtc20iPgogICAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT0iY2hlY2tib3giIGNsYXNzTmFtZT0iaC00IHctNCBhY2NlbnQtcHJpbWFyeSIgY2hlY2tlZD17aXRlbS5kb25lfSBkaXNhYmxlZD17YnVzeX0gb25DaGFuZ2U9eygpID0+IHJ1bigoKSA9PiBjaGVja2xpc3QoeyBkYXRhOiB7IHNsdWcsIHRyaXBJZDogdHJpcC5pZCwgYWN0aW9uOiB7IHR5cGU6ICJ0b2dnbGUiLCBpdGVtSWQ6IGl0ZW0uaWQgfSB9IH0pKX0gLz4KICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPXtpdGVtLmRvbmUgPyAidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGxpbmUtdGhyb3VnaCIgOiAiIn0+e2l0ZW0ubGFiZWx9PC9zcGFuPgogICAgICAgICAgICAgICAgICA8YnV0dG9uIGNsYXNzTmFtZT0ibWwtYXV0byB0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1kZXN0cnVjdGl2ZSIgYXJpYS1sYWJlbD0iUmVtb3ZlIGl0ZW0iIG9uQ2xpY2s9eygpID0+IHJ1bigoKSA9PiBjaGVja2xpc3QoeyBkYXRhOiB7IHNsdWcsIHRyaXBJZDogdHJpcC5pZCwgYWN0aW9uOiB7IHR5cGU6ICJyZW1vdmUiLCBpdGVtSWQ6IGl0ZW0uaWQgfSB9IH0pKX0+PFRyYXNoMiBjbGFzc05hbWU9ImgtMy41IHctMy41IiAvPjwvYnV0dG9uPgogICAgICAgICAgICAgICAgPC9saT4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC91bD4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTMgZmxleCBnYXAtMiI+CiAgICAgICAgICAgICAgPElucHV0IHZhbHVlPXtuZXdJdGVtfSBvbkNoYW5nZT17KGUpID0+IHNldE5ld0l0ZW0oZS50YXJnZXQudmFsdWUpfSBwbGFjZWhvbGRlcj0iQWRkIGFuIGl0ZW0iIC8+CiAgICAgICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJvdXRsaW5lIiBkaXNhYmxlZD17IW5ld0l0ZW0udHJpbSgpIHx8IGJ1c3l9IG9uQ2xpY2s9eygpID0+IHJ1bihhc3luYyAoKSA9PiB7IGF3YWl0IGNoZWNrbGlzdCh7IGRhdGE6IHsgc2x1ZywgdHJpcElkOiB0cmlwLmlkLCBhY3Rpb246IHsgdHlwZTogImFkZCIsIGxhYmVsOiBuZXdJdGVtIH0gfSB9KTsgc2V0TmV3SXRlbSgiIik7IH0pfT5BZGQ8L0J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L0NhcmQ+CgogICAgICAgICAgPENhcmQ+CiAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+VHJhdmVsIGhhbmRvdmVyIG5vdGVzPC9oMj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+UG9vbCB0aW1lLCBzdW4gY3JlYW0sIG5hcHMgYW5kIGpldCBsYWcsIHdoYXQgdGhleSBhdGUsIHRvbW9ycm93J3MgcGxhbi48L3A+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGZsZXggZmxleC13cmFwIGdhcC0yIj4KICAgICAgICAgICAgICB7VFJBVkVMX05PVEVfQ0FURUdPUklFUy5tYXAoKGMpID0+ICgKICAgICAgICAgICAgICAgIDxCdXR0b24ga2V5PXtjLnZhbHVlfSBzaXplPSJzbSIgdmFyaWFudD17bm90ZS5jYXRlZ29yeSA9PT0gYy52YWx1ZSA/ICJkZWZhdWx0IiA6ICJvdXRsaW5lIn0gb25DbGljaz17KCkgPT4gc2V0Tm90ZSgobikgPT4gKHsgLi4ubiwgY2F0ZWdvcnk6IGMudmFsdWUgfSkpfT57Yy5sYWJlbH08L0J1dHRvbj4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxUZXh0YXJlYSBjbGFzc05hbWU9Im10LTIiIHJvd3M9ezN9IHZhbHVlPXtub3RlLnRleHR9IG9uQ2hhbmdlPXsoZSkgPT4gc2V0Tm90ZSgobikgPT4gKHsgLi4ubiwgdGV4dDogZS50YXJnZXQudmFsdWUgfSkpfSBwbGFjZWhvbGRlcj0iZS5nLiBCb3RoIGluIHRoZSBwb29sIDEw4oCTMTFhbSB3aXRoIGFybWJhbmRzLCBmYWN0b3IgNTAgcmVhcHBsaWVkIGF0IDEyLCBuYXAgMTozMOKAkzMiIC8+CiAgICAgICAgICAgIDxCdXR0b24gY2xhc3NOYW1lPSJtdC0yIiBkaXNhYmxlZD17IW5vdGUudGV4dC50cmltKCkgfHwgYnVzeX0gb25DbGljaz17KCkgPT4gcnVuKGFzeW5jICgpID0+IHsgYXdhaXQgYWRkTm90ZSh7IGRhdGE6IHsgc2x1ZywgdHJpcElkOiB0cmlwLmlkLCAuLi5ub3RlIH0gfSk7IHNldE5vdGUoKG4pID0+ICh7IC4uLm4sIHRleHQ6ICIiIH0pKTsgfSwgIk5vdGUgYWRkZWQiKX0+QWRkIG5vdGU8L0J1dHRvbj4KICAgICAgICAgICAgPHVsIGNsYXNzTmFtZT0ibXQtNCBzcGFjZS15LTMiPgogICAgICAgICAgICAgIHt0cmlwLmhhbmRvdmVyTm90ZXMubWFwKChuKSA9PiAoCiAgICAgICAgICAgICAgICA8bGkga2V5PXtuLmlkfSBjbGFzc05hbWU9InJvdW5kZWQtbGcgYm9yZGVyIGJvcmRlci1ib3JkZXIgcC0zIHRleHQtc20iPgogICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57VFJBVkVMX05PVEVfQ0FURUdPUklFUy5maW5kKChjKSA9PiBjLnZhbHVlID09PSBuLmNhdGVnb3J5KT8ubGFiZWwgPz8gIkdlbmVyYWwifSDCtyB7bi5hdXRob3JOYW1lfSAoe24uYXV0aG9yUm9sZSA9PT0gIm5hbm55IiA/ICJuYW5ueSIgOiAiZmFtaWx5In0pIMK3IHtuZXcgRGF0ZShuLmNyZWF0ZWRBdCkudG9Mb2NhbGVTdHJpbmcoImVuLUdCIiwgeyBkYXk6ICJudW1lcmljIiwgbW9udGg6ICJzaG9ydCIsIGhvdXI6ICIyLWRpZ2l0IiwgbWludXRlOiAiMi1kaWdpdCIgfSl9PC9wPgogICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgd2hpdGVzcGFjZS1wcmUtbGluZSI+e24udGV4dH08L3A+CiAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L3VsPgogICAgICAgICAgPC9DYXJkPgoKICAgICAgICAgIHtpc1BhcmVudCAmJiAoCiAgICAgICAgICAgIDxCdXR0b24gdmFyaWFudD0iZ2hvc3QiIGNsYXNzTmFtZT0idGV4dC1kZXN0cnVjdGl2ZSIgb25DbGljaz17KCkgPT4geyBpZiAoY29uZmlybSgiRGVsZXRlIHRoaXMgdHJpcD8iKSkgdm9pZCBydW4oYXN5bmMgKCkgPT4geyBhd2FpdCBkZWwoeyBkYXRhOiB7IHNsdWcsIHRyaXBJZDogdHJpcC5pZCB9IH0pOyBzZXRTZWxlY3RlZElkKG51bGwpOyB9LCAiVHJpcCBkZWxldGVkIik7IH19PgogICAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBEZWxldGUgdHJpcAogICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICl9CiAgICAgICAgPC9kaXY+CiAgICAgICl9CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Plane, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { addTravelNoteFn, deleteTripFn, getTravel, saveTripFn, updateChecklistFn } from "@/lib/travel.functions";
+import { TRAVEL_NOTE_CATEGORIES, type TripInput } from "@/lib/travel.types";
+import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+export const Route = createFileRoute("/travel/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Travel & Villa Nanny Pack — The Family Wallet" },
+      { name: "description", content: "Travel mode for families abroad: a packing and safety checklist, local emergency details and travel handover notes." },
+      { property: "og:title", content: "Travel & Villa Nanny Pack — The Family Wallet" },
+      { property: "og:description", content: "Checklist, local emergency info and travel handovers for trips abroad." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: TravelPage,
+});
+
+const fmt = (d: string) =>
+  new Date(`${d.length > 10 ? d : `${d}T00:00:00Z`}`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+
+const emptyTrip: TripInput = { destination: "", startDate: "", endDate: "", accommodation: "", localEmergency: "", nearestHospital: "", timeDifference: "", travelPay: "", notes: "" };
+
+function TravelPage() {
+  const { slug } = Route.useParams();
+  const qc = useQueryClient();
+  const fetchTravel = useServerFn(getTravel);
+  const save = useServerFn(saveTripFn);
+  const checklist = useServerFn(updateChecklistFn);
+  const addNote = useServerFn(addTravelNoteFn);
+  const del = useServerFn(deleteTripFn);
+  const { data, isLoading } = useQuery({ queryKey: ["travel", slug], queryFn: () => fetchTravel({ data: { slug } }) });
+
+  const [form, setForm] = useState<TripInput | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [newItem, setNewItem] = useState("");
+  const [note, setNote] = useState({ category: "general", text: "" });
+  const [busy, setBusy] = useState(false);
+
+  const refresh = () => qc.invalidateQueries({ queryKey: ["travel", slug] });
+  const run = async (fn: () => Promise<unknown>, ok?: string) => {
+    setBusy(true);
+    try { await fn(); await refresh(); if (ok) toast.success(ok); }
+    catch (e) { toast.error(e instanceof Error ? e.message : "Something went wrong"); }
+    finally { setBusy(false); }
+  };
+
+  if (isLoading) return <HubPage slug={slug} title="Travel & Villa Nanny Pack"><p className="text-sm text-muted-foreground">Loading…</p></HubPage>;
+  if (!data) return <HubPage slug={slug} title="Travel & Villa Nanny Pack"><LockedNotice slug={slug} /></HubPage>;
+
+  const isParent = data.access === "family";
+  const trip = data.trips.find((t) => t.id === selectedId) ?? data.active ?? data.upcoming ?? data.trips[0] ?? null;
+  const setV = (k: keyof TripInput) => (v: string) => setForm((f) => ({ ...(f ?? emptyTrip), [k]: v }));
+
+  return (
+    <HubPage slug={slug} title="Travel & Villa Nanny Pack" intro="Going abroad? Add your trip and the wallet switches to travel mode — checklist, local emergency details and travel handover notes in one place.">
+      {data.trips.length > 1 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {data.trips.map((t) => (
+            <Button key={t.id} size="sm" variant={trip?.id === t.id ? "default" : "outline"} onClick={() => setSelectedId(t.id)}>{t.destination}</Button>
+          ))}
+        </div>
+      )}
+
+      {isParent && !form && (
+        <div className="mb-5 flex gap-2">
+          <Button onClick={() => setForm({ ...emptyTrip })}><Plus className="h-4 w-4" /> Add a trip</Button>
+          {trip && <Button variant="outline" onClick={() => setForm({ id: trip.id, destination: trip.destination, startDate: trip.startDate, endDate: trip.endDate, accommodation: trip.accommodation ?? "", localEmergency: trip.localEmergency ?? "", nearestHospital: trip.nearestHospital ?? "", timeDifference: trip.timeDifference ?? "", travelPay: trip.travelPay ?? "", notes: trip.notes ?? "" })}>Edit trip details</Button>}
+        </div>
+      )}
+
+      {form && (
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">{form.id ? "Edit trip" : "New trip"}</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <Field label="Destination" value={form.destination ?? ""} onChange={setV("destination")} placeholder="e.g. Villa in Mallorca" />
+            <Field label="Time difference" value={form.timeDifference ?? ""} onChange={setV("timeDifference")} placeholder="+1 hour" />
+            <Field label="Leave date" value={form.startDate ?? ""} onChange={setV("startDate")} type="date" />
+            <Field label="Return date" value={form.endDate ?? ""} onChange={setV("endDate")} type="date" />
+            <Field label="Local emergency number" value={form.localEmergency ?? ""} onChange={setV("localEmergency")} placeholder="112" />
+            <Field label="Nearest hospital / clinic" value={form.nearestHospital ?? ""} onChange={setV("nearestHospital")} />
+          </div>
+          <div className="mt-3 grid gap-3">
+            <Field label="Accommodation address & Wi-Fi" value={form.accommodation ?? ""} onChange={setV("accommodation")} textarea />
+            <Field label="Travel pay, days off & nanny room" value={form.travelPay ?? ""} onChange={setV("travelPay")} textarea placeholder="e.g. £180/day, 1 day off per week, own room" />
+            <Field label="Notes for the nanny" value={form.notes ?? ""} onChange={setV("notes")} textarea />
+          </div>
+          <div className="mt-4 flex gap-2">
+            <Button disabled={busy} onClick={() => run(async () => { const r = await save({ data: { slug, trip: form } }); setSelectedId(r.id); setForm(null); }, "Trip saved")}>Save trip</Button>
+            <Button variant="outline" onClick={() => setForm(null)}>Cancel</Button>
+          </div>
+        </Card>
+      )}
+
+      {!trip && !form && <Card><p className="text-sm text-muted-foreground">{isParent ? "No trips yet. Add one to switch your wallet into travel mode while you're away." : "No trips have been added yet."}</p></Card>}
+
+      {trip && !form && (
+        <div className="space-y-4">
+          <div className="rounded-2xl bg-primary p-5 text-primary-foreground">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest opacity-80"><Plane className="h-4 w-4" />{trip.startDate <= data.today && trip.endDate >= data.today ? "Travel mode is on" : trip.startDate > data.today ? "Upcoming trip" : "Past trip"}</p>
+            <p className="heading-display mt-1 text-2xl">{trip.destination}</p>
+            <p className="mt-1 text-sm opacity-90">{fmt(trip.startDate)} – {fmt(trip.endDate)}{trip.timeDifference ? ` · ${trip.timeDifference}` : ""}</p>
+          </div>
+
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Abroad essentials</h2>
+            <dl className="mt-2 space-y-1.5 text-sm">
+              {[["Local emergency", trip.localEmergency], ["Nearest hospital", trip.nearestHospital], ["Accommodation", trip.accommodation], ["Travel pay & days off", trip.travelPay], ["Notes", trip.notes]].map(([k, v]) => v ? <div key={k}><dt className="font-medium text-foreground">{k}</dt><dd className="whitespace-pre-line text-muted-foreground">{v}</dd></div> : null)}
+            </dl>
+          </Card>
+
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Travel checklist <span className="text-sm text-muted-foreground">{trip.checklist.filter((i) => i.done).length}/{trip.checklist.length}</span></h2>
+            <ul className="mt-2 space-y-1.5">
+              {trip.checklist.map((item) => (
+                <li key={item.id} className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" className="h-4 w-4 accent-primary" checked={item.done} disabled={busy} onChange={() => run(() => checklist({ data: { slug, tripId: trip.id, action: { type: "toggle", itemId: item.id } } }))} />
+                  <span className={item.done ? "text-muted-foreground line-through" : ""}>{item.label}</span>
+                  <button className="ml-auto text-muted-foreground hover:text-destructive" aria-label="Remove item" onClick={() => run(() => checklist({ data: { slug, tripId: trip.id, action: { type: "remove", itemId: item.id } } }))}><Trash2 className="h-3.5 w-3.5" /></button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex gap-2">
+              <Input value={newItem} onChange={(e) => setNewItem(e.target.value)} placeholder="Add an item" />
+              <Button variant="outline" disabled={!newItem.trim() || busy} onClick={() => run(async () => { await checklist({ data: { slug, tripId: trip.id, action: { type: "add", label: newItem } } }); setNewItem(""); })}>Add</Button>
+            </div>
+          </Card>
+
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Travel handover notes</h2>
+            <p className="text-sm text-muted-foreground">Pool time, sun cream, naps and jet lag, what they ate, tomorrow's plan.</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {TRAVEL_NOTE_CATEGORIES.map((c) => (
+                <Button key={c.value} size="sm" variant={note.category === c.value ? "default" : "outline"} onClick={() => setNote((n) => ({ ...n, category: c.value }))}>{c.label}</Button>
+              ))}
+            </div>
+            <Textarea className="mt-2" rows={3} value={note.text} onChange={(e) => setNote((n) => ({ ...n, text: e.target.value }))} placeholder="e.g. Both in the pool 10–11am with armbands, factor 50 reapplied at 12, nap 1:30–3" />
+            <Button className="mt-2" disabled={!note.text.trim() || busy} onClick={() => run(async () => { await addNote({ data: { slug, tripId: trip.id, ...note } }); setNote((n) => ({ ...n, text: "" })); }, "Note added")}>Add note</Button>
+            <ul className="mt-4 space-y-3">
+              {trip.handoverNotes.map((n) => (
+                <li key={n.id} className="rounded-lg border border-border p-3 text-sm">
+                  <p className="text-xs text-muted-foreground">{TRAVEL_NOTE_CATEGORIES.find((c) => c.value === n.category)?.label ?? "General"} · {n.authorName} ({n.authorRole === "nanny" ? "nanny" : "family"}) · {new Date(n.createdAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
+                  <p className="mt-1 whitespace-pre-line">{n.text}</p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+
+          {isParent && (
+            <Button variant="ghost" className="text-destructive" onClick={() => { if (confirm("Delete this trip?")) void run(async () => { await del({ data: { slug, tripId: trip.id } }); setSelectedId(null); }, "Trip deleted"); }}>
+              <Trash2 className="h-4 w-4" /> Delete trip
+            </Button>
+          )}
+        </div>
+      )}
+    </HubPage>
+  );
+}

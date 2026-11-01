@@ -1,1 +1,19 @@
-QUxURVIgVEFCTEUgcHVibGljLm5hbm55X2FncmVlbWVudHMKICBBREQgQ09MVU1OIElGIE5PVCBFWElTVFMgYWdyZWVtZW50X2RhdGEganNvbmIgTk9UIE5VTEwgREVGQVVMVCAne30nOjpqc29uYjsKClVQREFURSBwdWJsaWMubmFubnlfYWdyZWVtZW50cwpTRVQgYWdyZWVtZW50X2RhdGEgPSBqc29uYl9zdHJpcF9udWxscyhqc29uYl9idWlsZF9vYmplY3QoCiAgJ2VtcGxveWVyTmFtZScsIGVtcGxveWVyX25hbWVzLAogICduYW5ueU5hbWUnLCBuYW5ueV9uYW1lLAogICdzdGFydERhdGUnLCBDQVNFIFdIRU4gc3RhcnRfZGF0ZSBJUyBOVUxMIFRIRU4gTlVMTCBFTFNFIHRvX2NoYXIoc3RhcnRfZGF0ZSwgJ1lZWVktTU0tREQnKSBFTkQsCiAgJ2hvdXJseVJhdGUnLCBob3VybHlfcmF0ZSwKICAncGF5bWVudEZyZXF1ZW5jeScsIHBheV9iYXNpcywKICAncHJvYmF0aW9uUGVyaW9kJywgcHJvYmF0aW9uLAogICdzdGFuZGFyZE5vdGljZScsIG5vdGljZV9wZXJpb2QsCiAgJ2hvbGlkYXlBbGxvd2FuY2UnLCBob2xpZGF5LAogICdwZW5zaW9uJywgcGVuc2lvbiwKICAnb3RoZXJEdXRpZXNDbGF1c2UnLCBkdXRpZXMsCiAgJ292ZXJ0aW1lUG9saWN5Jywgd29ya19wYXR0ZXJuLAogICdsZWdhY3lOb3RlcycsIGFkZGl0aW9uYWxfdGVybXMKKSkKV0hFUkUgYWdyZWVtZW50X2RhdGEgPSAne30nOjpqc29uYjs=
+ALTER TABLE public.nanny_agreements
+  ADD COLUMN IF NOT EXISTS agreement_data jsonb NOT NULL DEFAULT '{}'::jsonb;
+
+UPDATE public.nanny_agreements
+SET agreement_data = jsonb_strip_nulls(jsonb_build_object(
+  'employerName', employer_names,
+  'nannyName', nanny_name,
+  'startDate', CASE WHEN start_date IS NULL THEN NULL ELSE to_char(start_date, 'YYYY-MM-DD') END,
+  'hourlyRate', hourly_rate,
+  'paymentFrequency', pay_basis,
+  'probationPeriod', probation,
+  'standardNotice', notice_period,
+  'holidayAllowance', holiday,
+  'pension', pension,
+  'otherDutiesClause', duties,
+  'overtimePolicy', work_pattern,
+  'legacyNotes', additional_terms
+))
+WHERE agreement_data = '{}'::jsonb;

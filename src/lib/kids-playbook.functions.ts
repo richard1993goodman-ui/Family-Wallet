@@ -1,1 +1,16 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyBwbGF5Ym9va0VudHJ5U2NoZW1hLCBwbGF5Ym9va0lkU2NoZW1hLCBwbGF5Ym9va1NsdWdTY2hlbWEgfSBmcm9tICIuL2tpZHMtcGxheWJvb2sudHlwZXMiOwoKZXhwb3J0IGNvbnN0IGdldEtpZHNQbGF5Ym9vayA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiR0VUIiB9KS5pbnB1dFZhbGlkYXRvcihwbGF5Ym9va1NsdWdTY2hlbWEpLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgY29uc3QgeyBsb2FkS2lkc1BsYXlib29rIH0gPSBhd2FpdCBpbXBvcnQoIi4va2lkcy1wbGF5Ym9vay5zZXJ2ZXIiKTsKICByZXR1cm4gbG9hZEtpZHNQbGF5Ym9vayhkYXRhLnNsdWcpOwp9KTsKZXhwb3J0IGNvbnN0IHNhdmVLaWRzUGxheWJvb2tGbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IocGxheWJvb2tTbHVnU2NoZW1hLmV4dGVuZCh7IGVudHJ5OiBwbGF5Ym9va0VudHJ5U2NoZW1hIH0pKS5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBzYXZlS2lkc1BsYXlib29rIH0gPSBhd2FpdCBpbXBvcnQoIi4va2lkcy1wbGF5Ym9vay5zZXJ2ZXIiKTsKICAgIHJldHVybiBzYXZlS2lkc1BsYXlib29rKGRhdGEuc2x1ZywgZGF0YS5lbnRyeSk7CiAgfSk7CmV4cG9ydCBjb25zdCBkZWxldGVLaWRzUGxheWJvb2tGbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkuaW5wdXRWYWxpZGF0b3IocGxheWJvb2tJZFNjaGVtYSkuaGFuZGxlcihhc3luYyAoeyBkYXRhIH0pID0+IHsKICBjb25zdCB7IGRlbGV0ZUtpZHNQbGF5Ym9vayB9ID0gYXdhaXQgaW1wb3J0KCIuL2tpZHMtcGxheWJvb2suc2VydmVyIik7CiAgcmV0dXJuIGRlbGV0ZUtpZHNQbGF5Ym9vayhkYXRhLnNsdWcsIGRhdGEuaWQpOwp9KTsK
+import { createServerFn } from "@tanstack/react-start";
+import { playbookEntrySchema, playbookIdSchema, playbookSlugSchema } from "./kids-playbook.types";
+
+export const getKidsPlaybook = createServerFn({ method: "GET" }).inputValidator(playbookSlugSchema).handler(async ({ data }) => {
+  const { loadKidsPlaybook } = await import("./kids-playbook.server");
+  return loadKidsPlaybook(data.slug);
+});
+export const saveKidsPlaybookFn = createServerFn({ method: "POST" })
+  .inputValidator(playbookSlugSchema.extend({ entry: playbookEntrySchema })).handler(async ({ data }) => {
+    const { saveKidsPlaybook } = await import("./kids-playbook.server");
+    return saveKidsPlaybook(data.slug, data.entry);
+  });
+export const deleteKidsPlaybookFn = createServerFn({ method: "POST" }).inputValidator(playbookIdSchema).handler(async ({ data }) => {
+  const { deleteKidsPlaybook } = await import("./kids-playbook.server");
+  return deleteKidsPlaybook(data.slug, data.id);
+});

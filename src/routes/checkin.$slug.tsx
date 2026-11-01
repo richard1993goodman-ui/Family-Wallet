@@ -1,1 +1,294 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgQ2FsZW5kYXJDaGVjaywgUGhvbmVDYWxsLCBTYXZlLCBUcmFzaDIgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CgppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKaW1wb3J0IHsgVGV4dGFyZWEgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWEiOwppbXBvcnQgeyBDYXJkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsKICBkZWxldGVDaGVja2luRm4sCiAgZ2V0Q2hlY2tpbnMsCiAgcmVxdWVzdFJldmlld0NhbGxGbiwKICBzYXZlQ2hlY2tpbkZuLAp9IGZyb20gIkAvbGliL2NoZWNraW4uZnVuY3Rpb25zIjsKaW1wb3J0IHsgQ0hFQ0tJTl9LSU5EUywgQ0hFQ0tJTl9QUk9NUFRTLCB0eXBlIENoZWNraW5LaW5kIH0gZnJvbSAiQC9saWIvY2hlY2tpbi50eXBlcyI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9jaGVja2luLyRzbHVnIikoewogIGhlYWQ6ICgpID0+ICh7CiAgICBtZXRhOiBbCiAgICAgIHsgdGl0bGU6ICJSZXZpZXdzICYgY2hlY2staW5zIHwgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBuYW1lOiAiZGVzY3JpcHRpb24iLAogICAgICAgIGNvbnRlbnQ6CiAgICAgICAgICAiU3RydWN0dXJlZCA2LW1vbnRoIGFuZCB5ZWFybHkgY2hlY2staW4gcHJvbXB0cyBmb3IgZmFtaWxpZXMgYW5kIG5hbm5pZXMsIHBsdXMgdGhlIG9wdGlvbiBvZiBhIG5ldXRyYWwgcmV2aWV3IGNhbGwuIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIlJldmlld3MgJiBjaGVjay1pbnMiIH0sCiAgICAgIHsKICAgICAgICBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiVGFsayB0aHJvdWdoIHdoYXQgaXMgd29ya2luZywgc2NoZWR1bGUgY2hhbmdlcyBhbmQgcGF5IOKAlCBiZWZvcmUgc21hbGwgdGhpbmdzIGdyb3cuIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnR5cGUiLCBjb250ZW50OiAid2Vic2l0ZSIgfSwKICAgICAgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnkiIH0sCiAgICBdLAogIH0pLAogIGNvbXBvbmVudDogQ2hlY2tpblBhZ2UsCn0pOwoKZnVuY3Rpb24gQ2hlY2tpblBhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBsb2FkRm4gPSB1c2VTZXJ2ZXJGbihnZXRDaGVja2lucyk7CiAgY29uc3Qgc2F2ZUZuID0gdXNlU2VydmVyRm4oc2F2ZUNoZWNraW5Gbik7CiAgY29uc3QgcmVtb3ZlRm4gPSB1c2VTZXJ2ZXJGbihkZWxldGVDaGVja2luRm4pOwogIGNvbnN0IGNhbGxGbiA9IHVzZVNlcnZlckZuKHJlcXVlc3RSZXZpZXdDYWxsRm4pOwoKICBjb25zdCBxdWVyeSA9IHVzZVF1ZXJ5KHsKICAgIHF1ZXJ5S2V5OiBbImNoZWNraW4iLCBzbHVnXSwKICAgIHF1ZXJ5Rm46ICgpID0+IGxvYWRGbih7IGRhdGE6IHsgc2x1ZyB9IH0pLAogIH0pOwogIGNvbnN0IGRhdGEgPSBxdWVyeS5kYXRhOwoKICBjb25zdCBba2luZCwgc2V0S2luZF0gPSB1c2VTdGF0ZTxDaGVja2luS2luZD4oInNpeF9tb250aCIpOwogIGNvbnN0IFtuYW5ueUlkLCBzZXROYW5ueUlkXSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbZWRpdGluZ0lkLCBzZXRFZGl0aW5nSWRdID0gdXNlU3RhdGU8c3RyaW5nIHwgdW5kZWZpbmVkPih1bmRlZmluZWQpOwogIGNvbnN0IFthbnN3ZXJzLCBzZXRBbnN3ZXJzXSA9IHVzZVN0YXRlPFJlY29yZDxzdHJpbmcsIHN0cmluZz4+KHt9KTsKICBjb25zdCBbY2FsbE5vdGVzLCBzZXRDYWxsTm90ZXNdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtzYXZpbmcsIHNldFNhdmluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGlmIChxdWVyeS5pc0xvYWRpbmcpIHJldHVybiBudWxsOwogIGlmICghZGF0YSkgcmV0dXJuIDxMb2NrZWROb3RpY2Ugc2x1Zz17c2x1Z30gLz47CgogIGNvbnN0IGR1ZSA9CiAgICBkYXRhLm1vbnRoc1NpbmNlU3RhcnQgPT09IG51bGwKICAgICAgPyBudWxsCiAgICAgIDogZGF0YS5tb250aHNTaW5jZVN0YXJ0ID49IDEyCiAgICAgICAgPyAiWW91IGFyZSBwYXN0IGEgeWVhciB0b2dldGhlciDigJQgYSBmdWxsIHJldmlldyBpcyBkdWUuIgogICAgICAgIDogZGF0YS5tb250aHNTaW5jZVN0YXJ0ID49IDYKICAgICAgICAgID8gIllvdSBhcmUgb3ZlciBzaXggbW9udGhzIGluIOKAlCBhIGhhbGZ3YXkgY2hlY2staW4gaXMgZHVlLiIKICAgICAgICAgIDogYEFib3V0ICR7TWF0aC5tYXgoMCwgNiAtIGRhdGEubW9udGhzU2luY2VTdGFydCl9IG1vbnRoJHs2IC0gZGF0YS5tb250aHNTaW5jZVN0YXJ0ID09PSAxID8gIiIgOiAicyJ9IHVudGlsIHlvdXIgZmlyc3QgY2hlY2staW4uYDsKCiAgY29uc3Qgc2F2ZSA9IGFzeW5jIChjb21wbGV0ZTogYm9vbGVhbikgPT4gewogICAgc2V0U2F2aW5nKHRydWUpOwogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzdWx0ID0gYXdhaXQgc2F2ZUZuKHsKICAgICAgICBkYXRhOiB7CiAgICAgICAgICBzbHVnLAogICAgICAgICAgY2hlY2tpbjogewogICAgICAgICAgICBpZDogZWRpdGluZ0lkLAogICAgICAgICAgICBraW5kLAogICAgICAgICAgICBuYW5ueUlkOiBuYW5ueUlkIHx8IHVuZGVmaW5lZCwKICAgICAgICAgICAgYW5zd2VycywKICAgICAgICAgICAgY29tcGxldGUsCiAgICAgICAgICB9LAogICAgICAgIH0sCiAgICAgIH0pOwogICAgICBzZXRFZGl0aW5nSWQocmVzdWx0LmlkKTsKICAgICAgaWYgKGNvbXBsZXRlKSB7CiAgICAgICAgc2V0RWRpdGluZ0lkKHVuZGVmaW5lZCk7CiAgICAgICAgc2V0QW5zd2Vycyh7fSk7CiAgICAgIH0KICAgICAgYXdhaXQgcXVlcnkucmVmZXRjaCgpOwogICAgICB0b2FzdC5zdWNjZXNzKGNvbXBsZXRlID8gIkNoZWNrLWluIHNhdmVkIHRvIHlvdXIgd2FsbGV0IiA6ICJEcmFmdCBzYXZlZCIpOwogICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgdG9hc3QuZXJyb3IoZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiAiQ291bGQgbm90IHNhdmUgdGhlIGNoZWNrLWluIik7CiAgICB9IGZpbmFsbHkgewogICAgICBzZXRTYXZpbmcoZmFsc2UpOwogICAgfQogIH07CgogIGNvbnN0IHJlcXVlc3RDYWxsID0gYXN5bmMgKCkgPT4gewogICAgc2V0U2F2aW5nKHRydWUpOwogICAgdHJ5IHsKICAgICAgYXdhaXQgY2FsbEZuKHsKICAgICAgICBkYXRhOiB7IHNsdWcsIGNoZWNraW5JZDogZWRpdGluZ0lkLCBraW5kLCBub3RlczogY2FsbE5vdGVzIHx8IHVuZGVmaW5lZCB9LAogICAgICB9KTsKICAgICAgc2V0Q2FsbE5vdGVzKCIiKTsKICAgICAgYXdhaXQgcXVlcnkucmVmZXRjaCgpOwogICAgICB0b2FzdC5zdWNjZXNzKCJSZXZpZXcgY2FsbCByZXF1ZXN0ZWQg4oCUIHdlJ2xsIGJlIGluIHRvdWNoIHRvIGFycmFuZ2UgYSB0aW1lIik7CiAgICB9IGNhdGNoIChlcnJvcikgewogICAgICB0b2FzdC5lcnJvcihlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6ICJDb3VsZCBub3Qgc2VuZCB0aGUgcmVxdWVzdCIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0U2F2aW5nKGZhbHNlKTsKICAgIH0KICB9OwoKICByZXR1cm4gKAogICAgPEh1YlBhZ2UKICAgICAgc2x1Zz17c2x1Z30KICAgICAgdGl0bGU9IlJldmlld3MgJiBjaGVjay1pbnMiCiAgICAgIGludHJvPSJBIGd1aWRlZCBjb252ZXJzYXRpb24gZm9yIGZhbWlsaWVzIGFuZCBuYW5uaWVzIOKAlCB3aGF0IGlzIGdvaW5nIHdlbGwsIHdoYXQgaXMgY2hhbmdpbmcsIGFuZCBwYXkgb3IgYm9udXMgcmV2aWV3cy4gRWl0aGVyIG9mIHlvdSBjYW4gYWxzbyBhc2sgZm9yIGEgbmV1dHJhbCByZXZpZXcgY2FsbC4iCiAgICA+CiAgICAgIHtkdWUgJiYgKAogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYi02IHJvdW5kZWQteGwgYm9yZGVyIGJvcmRlci1wcmltYXJ5LzQwIGJnLWFjY2VudCBwLTQiPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIDxDYWxlbmRhckNoZWNrIGNsYXNzTmFtZT0ibXItMS41IGlubGluZSBoLTQgdy00IHRleHQtcHJpbWFyeSIgLz4KICAgICAgICAgICAge2R1ZX0KICAgICAgICAgIDwvcD4KICAgICAgICAgIHtkYXRhLnN0YXJ0RGF0ZSAmJiAoCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgUGxhY2VtZW50IHN0YXJ0ZWR7IiAifQogICAgICAgICAgICAgIHtuZXcgRGF0ZShgJHtkYXRhLnN0YXJ0RGF0ZX1UMDA6MDA6MDBaYCkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsKICAgICAgICAgICAgICAgIGRheTogIm51bWVyaWMiLAogICAgICAgICAgICAgICAgbW9udGg6ICJsb25nIiwKICAgICAgICAgICAgICAgIHllYXI6ICJudW1lcmljIiwKICAgICAgICAgICAgICAgIHRpbWVab25lOiAiVVRDIiwKICAgICAgICAgICAgICB9KX0KICAgICAgICAgICAgICAuCiAgICAgICAgICAgIDwvcD4KICAgICAgICAgICl9CiAgICAgICAgPC9kaXY+CiAgICAgICl9CgogICAgICA8Q2FyZD4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPlN0YXJ0IGEgY2hlY2staW48L2gyPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGdyaWQgZ2FwLTIgc206Z3JpZC1jb2xzLTMiPgogICAgICAgICAge0NIRUNLSU5fS0lORFMubWFwKChvcHRpb24pID0+ICgKICAgICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICAgIGtleT17b3B0aW9uLnZhbHVlfQogICAgICAgICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRLaW5kKG9wdGlvbi52YWx1ZSl9CiAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgcm91bmRlZC14bCBib3JkZXIgcC0zIHRleHQtbGVmdCAkewogICAgICAgICAgICAgICAga2luZCA9PT0gb3B0aW9uLnZhbHVlID8gImJvcmRlci1wcmltYXJ5IGJnLWFjY2VudCIgOiAiYm9yZGVyLWJvcmRlciBiZy1jYXJkIgogICAgICAgICAgICAgIH1gfQogICAgICAgICAgICA+CiAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJibG9jayB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e29wdGlvbi5sYWJlbH08L3NwYW4+CiAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJtdC0xIGJsb2NrIHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57b3B0aW9uLmJsdXJifTwvc3Bhbj4KICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICApKX0KICAgICAgICA8L2Rpdj4KCiAgICAgICAge2RhdGEubmFubmllcy5sZW5ndGggPiAxICYmICgKICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9Im10LTQgYmxvY2siPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj5XaGljaCBuYW5ueTwvc3Bhbj4KICAgICAgICAgICAgPHNlbGVjdAogICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IHctZnVsbCByb3VuZGVkLW1kIGJvcmRlciBib3JkZXItaW5wdXQgYmctYmFja2dyb3VuZCBweC0zIHB5LTIgdGV4dC1zbSIKICAgICAgICAgICAgICB2YWx1ZT17bmFubnlJZH0KICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldE5hbm55SWQoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICA+CiAgICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT0iIj5FdmVyeW9uZTwvb3B0aW9uPgogICAgICAgICAgICAgIHtkYXRhLm5hbm5pZXMubWFwKChuKSA9PiAoCiAgICAgICAgICAgICAgICA8b3B0aW9uIGtleT17bi5pZH0gdmFsdWU9e24uaWR9PgogICAgICAgICAgICAgICAgICB7bi5uYW1lfQogICAgICAgICAgICAgICAgPC9vcHRpb24+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvc2VsZWN0PgogICAgICAgICAgPC9sYWJlbD4KICAgICAgICApfQoKICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNSBzcGFjZS15LTUiPgogICAgICAgICAge0NIRUNLSU5fUFJPTVBUUy5tYXAoKHByb21wdCkgPT4gKAogICAgICAgICAgICA8bGFiZWwga2V5PXtwcm9tcHQua2V5fSBjbGFzc05hbWU9ImJsb2NrIj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj57cHJvbXB0LmxhYmVsfTwvc3Bhbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9Im10LTAuNSBibG9jayB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e3Byb21wdC5oaW50fTwvc3Bhbj4KICAgICAgICAgICAgICA8VGV4dGFyZWEKICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IgogICAgICAgICAgICAgICAgcm93cz17M30KICAgICAgICAgICAgICAgIHZhbHVlPXthbnN3ZXJzW3Byb21wdC5rZXldID8/ICIifQogICAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PgogICAgICAgICAgICAgICAgICBzZXRBbnN3ZXJzKChwcmV2KSA9PiAoeyAuLi5wcmV2LCBbcHJvbXB0LmtleV06IGUudGFyZ2V0LnZhbHVlIH0pKQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDwvbGFiZWw+CiAgICAgICAgICApKX0KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTUgZmxleCBmbGV4LXdyYXAgZ2FwLTMiPgogICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJvdXRsaW5lIiBkaXNhYmxlZD17c2F2aW5nfSBvbkNsaWNrPXsoKSA9PiBzYXZlKGZhbHNlKX0+CiAgICAgICAgICAgIDxTYXZlIGNsYXNzTmFtZT0iaC00IHctNCIgLz4gU2F2ZSBkcmFmdAogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICA8QnV0dG9uIGRpc2FibGVkPXtzYXZpbmd9IG9uQ2xpY2s9eygpID0+IHNhdmUodHJ1ZSl9PgogICAgICAgICAgICA8Q2FsZW5kYXJDaGVjayBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IFNhdmUgdG8gd2FsbGV0CiAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9DYXJkPgoKICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTggdGV4dC14bCB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgIEFzayBmb3IgYSBuZXV0cmFsIHJldmlldyBjYWxsCiAgICAgIDwvaDI+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIj4KICAgICAgICA8Q2FyZD4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICBFaXRoZXIgdGhlIGZhbWlseSBvciB0aGUgbmFubnkgY2FuIGFzayBmb3IgYSBuZXV0cmFsIHJldmlldyBjYWxsIOKAlCBhIGdvb2Qgd2F5IHRvIHNtb290aAogICAgICAgICAgICBzb21ldGhpbmcgb3V0IGVhcmx5IHJhdGhlciB0aGFuIGxldHRpbmcgaXQgYnVpbGQuCiAgICAgICAgICA8L3A+CiAgICAgICAgICA8VGV4dGFyZWEKICAgICAgICAgICAgY2xhc3NOYW1lPSJtdC0zIgogICAgICAgICAgICByb3dzPXszfQogICAgICAgICAgICB2YWx1ZT17Y2FsbE5vdGVzfQogICAgICAgICAgICBwbGFjZWhvbGRlcj0iV2hhdCB3b3VsZCB5b3UgbGlrZSB0byB0YWxrIGFib3V0PyIKICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRDYWxsTm90ZXMoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgLz4KICAgICAgICAgIDxCdXR0b24gY2xhc3NOYW1lPSJtdC00IiB2YXJpYW50PSJvdXRsaW5lIiBkaXNhYmxlZD17c2F2aW5nfSBvbkNsaWNrPXtyZXF1ZXN0Q2FsbH0+CiAgICAgICAgICAgIDxQaG9uZUNhbGwgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBSZXF1ZXN0IGEgcmV2aWV3IGNhbGwKICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgIDwvQ2FyZD4KICAgICAgPC9kaXY+CgogICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbXQtOCB0ZXh0LXhsIHRleHQtZm9yZWdyb3VuZCI+WW91ciBjaGVjay1pbnM8L2gyPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBzcGFjZS15LTMiPgogICAgICAgIHtkYXRhLmNoZWNraW5zLmxlbmd0aCA9PT0gMCAmJiAoCiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5ObyBjaGVjay1pbnMgc2F2ZWQgeWV0LjwvcD4KICAgICAgICApfQogICAgICAgIHtkYXRhLmNoZWNraW5zLm1hcCgoZW50cnkpID0+ICgKICAgICAgICAgIDxDYXJkIGtleT17ZW50cnkuaWR9PgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LXdyYXAgaXRlbXMtc3RhcnQganVzdGlmeS1iZXR3ZWVuIGdhcC0zIj4KICAgICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICB7Q0hFQ0tJTl9LSU5EUy5maW5kKChrKSA9PiBrLnZhbHVlID09PSBlbnRyeS5raW5kKT8ubGFiZWwgPz8gIkNoZWNrLWluIn0KICAgICAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgICAgIHtuZXcgRGF0ZShlbnRyeS5jcmVhdGVkQXQpLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7CiAgICAgICAgICAgICAgICAgICAgZGF5OiAibnVtZXJpYyIsCiAgICAgICAgICAgICAgICAgICAgbW9udGg6ICJzaG9ydCIsCiAgICAgICAgICAgICAgICAgICAgeWVhcjogIm51bWVyaWMiLAogICAgICAgICAgICAgICAgICB9KX17IiAifQogICAgICAgICAgICAgICAgICDCtyBzYXZlZCBieSB7ZW50cnkuYXV0aG9yID09PSAibmFubnkiID8gInRoZSBuYW5ueSIgOiAidGhlIGZhbWlseSJ9CiAgICAgICAgICAgICAgICAgIHtlbnRyeS5jYWxsUmVxdWVzdGVkID8gIiDCtyBjYWxsIHJlcXVlc3RlZCIgOiAiIn0KICAgICAgICAgICAgICAgICAge2VudHJ5LnN0YXR1cyA9PT0gImRyYWZ0IiA/ICIgwrcgZHJhZnQiIDogIiJ9CiAgICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZ2FwLTIiPgogICAgICAgICAgICAgICAgPEJ1dHRvbgogICAgICAgICAgICAgICAgICBzaXplPSJzbSIKICAgICAgICAgICAgICAgICAgdmFyaWFudD0iZ2hvc3QiCiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHsKICAgICAgICAgICAgICAgICAgICBzZXRLaW5kKGVudHJ5LmtpbmQpOwogICAgICAgICAgICAgICAgICAgIHNldEFuc3dlcnMoZW50cnkuYW5zd2Vycyk7CiAgICAgICAgICAgICAgICAgICAgc2V0RWRpdGluZ0lkKGVudHJ5LmlkKTsKICAgICAgICAgICAgICAgICAgICBzZXROYW5ueUlkKGVudHJ5Lm5hbm55SWQgPz8gIiIpOwogICAgICAgICAgICAgICAgICAgIHdpbmRvdy5zY3JvbGxUbyh7IHRvcDogMCwgYmVoYXZpb3I6ICJzbW9vdGgiIH0pOwogICAgICAgICAgICAgICAgICB9fQogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICBPcGVuCiAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgIDxCdXR0b24KICAgICAgICAgICAgICAgICAgc2l6ZT0ic20iCiAgICAgICAgICAgICAgICAgIHZhcmlhbnQ9Imdob3N0IgogICAgICAgICAgICAgICAgICBvbkNsaWNrPXthc3luYyAoKSA9PiB7CiAgICAgICAgICAgICAgICAgICAgYXdhaXQgcmVtb3ZlRm4oeyBkYXRhOiB7IHNsdWcsIGlkOiBlbnRyeS5pZCB9IH0pOwogICAgICAgICAgICAgICAgICAgIGF3YWl0IHF1ZXJ5LnJlZmV0Y2goKTsKICAgICAgICAgICAgICAgICAgICB0b2FzdC5zdWNjZXNzKCJDaGVjay1pbiByZW1vdmVkIik7CiAgICAgICAgICAgICAgICAgIH19CiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICB7T2JqZWN0LmtleXMoZW50cnkuYW5zd2VycykubGVuZ3RoID4gMCAmJiAoCiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTMgc3BhY2UteS0yIGJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtMyI+CiAgICAgICAgICAgICAgICB7Q0hFQ0tJTl9QUk9NUFRTLmZpbHRlcigocCkgPT4gZW50cnkuYW5zd2Vyc1twLmtleV0pLm1hcCgocCkgPT4gKAogICAgICAgICAgICAgICAgICA8ZGl2IGtleT17cC5rZXl9PgogICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPntwLmxhYmVsfTwvcD4KICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57ZW50cnkuYW5zd2Vyc1twLmtleV19PC9wPgogICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICApfQogICAgICAgICAgPC9DYXJkPgogICAgICAgICkpfQogICAgICA8L2Rpdj4KICAgIDwvSHViUGFnZT4KICApOwp9Cg==
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { CalendarCheck, PhoneCall, Save, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import {
+  deleteCheckinFn,
+  getCheckins,
+  requestReviewCallFn,
+  saveCheckinFn,
+} from "@/lib/checkin.functions";
+import { CHECKIN_KINDS, CHECKIN_PROMPTS, type CheckinKind } from "@/lib/checkin.types";
+
+export const Route = createFileRoute("/checkin/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Reviews & check-ins | The Family Wallet" },
+      {
+        name: "description",
+        content:
+          "Structured 6-month and yearly check-in prompts for families and nannies, plus the option of a neutral review call.",
+      },
+      { property: "og:title", content: "Reviews & check-ins" },
+      {
+        property: "og:description",
+        content: "Talk through what is working, schedule changes and pay — before small things grow.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: CheckinPage,
+});
+
+function CheckinPage() {
+  const { slug } = Route.useParams();
+  const loadFn = useServerFn(getCheckins);
+  const saveFn = useServerFn(saveCheckinFn);
+  const removeFn = useServerFn(deleteCheckinFn);
+  const callFn = useServerFn(requestReviewCallFn);
+
+  const query = useQuery({
+    queryKey: ["checkin", slug],
+    queryFn: () => loadFn({ data: { slug } }),
+  });
+  const data = query.data;
+
+  const [kind, setKind] = useState<CheckinKind>("six_month");
+  const [nannyId, setNannyId] = useState("");
+  const [editingId, setEditingId] = useState<string | undefined>(undefined);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [callNotes, setCallNotes] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  if (query.isLoading) return null;
+  if (!data) return <LockedNotice slug={slug} />;
+
+  const due =
+    data.monthsSinceStart === null
+      ? null
+      : data.monthsSinceStart >= 12
+        ? "You are past a year together — a full review is due."
+        : data.monthsSinceStart >= 6
+          ? "You are over six months in — a halfway check-in is due."
+          : `About ${Math.max(0, 6 - data.monthsSinceStart)} month${6 - data.monthsSinceStart === 1 ? "" : "s"} until your first check-in.`;
+
+  const save = async (complete: boolean) => {
+    setSaving(true);
+    try {
+      const result = await saveFn({
+        data: {
+          slug,
+          checkin: {
+            id: editingId,
+            kind,
+            nannyId: nannyId || undefined,
+            answers,
+            complete,
+          },
+        },
+      });
+      setEditingId(result.id);
+      if (complete) {
+        setEditingId(undefined);
+        setAnswers({});
+      }
+      await query.refetch();
+      toast.success(complete ? "Check-in saved to your wallet" : "Draft saved");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not save the check-in");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const requestCall = async () => {
+    setSaving(true);
+    try {
+      await callFn({
+        data: { slug, checkinId: editingId, kind, notes: callNotes || undefined },
+      });
+      setCallNotes("");
+      await query.refetch();
+      toast.success("Review call requested — we'll be in touch to arrange a time");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not send the request");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <HubPage
+      slug={slug}
+      title="Reviews & check-ins"
+      intro="A guided conversation for families and nannies — what is going well, what is changing, and pay or bonus reviews. Either of you can also ask for a neutral review call."
+    >
+      {due && (
+        <div className="mb-6 rounded-xl border border-primary/40 bg-accent p-4">
+          <p className="text-sm font-medium text-foreground">
+            <CalendarCheck className="mr-1.5 inline h-4 w-4 text-primary" />
+            {due}
+          </p>
+          {data.startDate && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Placement started{" "}
+              {new Date(`${data.startDate}T00:00:00Z`).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                timeZone: "UTC",
+              })}
+              .
+            </p>
+          )}
+        </div>
+      )}
+
+      <Card>
+        <h2 className="heading-display text-lg text-foreground">Start a check-in</h2>
+        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          {CHECKIN_KINDS.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => setKind(option.value)}
+              className={`rounded-xl border p-3 text-left ${
+                kind === option.value ? "border-primary bg-accent" : "border-border bg-card"
+              }`}
+            >
+              <span className="block text-sm font-medium text-foreground">{option.label}</span>
+              <span className="mt-1 block text-xs text-muted-foreground">{option.blurb}</span>
+            </button>
+          ))}
+        </div>
+
+        {data.nannies.length > 1 && (
+          <label className="mt-4 block">
+            <span className="text-sm font-medium text-foreground">Which nanny</span>
+            <select
+              className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              value={nannyId}
+              onChange={(e) => setNannyId(e.target.value)}
+            >
+              <option value="">Everyone</option>
+              {data.nannies.map((n) => (
+                <option key={n.id} value={n.id}>
+                  {n.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+
+        <div className="mt-5 space-y-5">
+          {CHECKIN_PROMPTS.map((prompt) => (
+            <label key={prompt.key} className="block">
+              <span className="text-sm font-medium text-foreground">{prompt.label}</span>
+              <span className="mt-0.5 block text-xs text-muted-foreground">{prompt.hint}</span>
+              <Textarea
+                className="mt-1.5"
+                rows={3}
+                value={answers[prompt.key] ?? ""}
+                onChange={(e) =>
+                  setAnswers((prev) => ({ ...prev, [prompt.key]: e.target.value }))
+                }
+              />
+            </label>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Button variant="outline" disabled={saving} onClick={() => save(false)}>
+            <Save className="h-4 w-4" /> Save draft
+          </Button>
+          <Button disabled={saving} onClick={() => save(true)}>
+            <CalendarCheck className="h-4 w-4" /> Save to wallet
+          </Button>
+        </div>
+      </Card>
+
+      <h2 className="heading-display mt-8 text-xl text-foreground">
+        Ask for a neutral review call
+      </h2>
+      <div className="mt-3">
+        <Card>
+          <p className="text-sm text-muted-foreground">
+            Either the family or the nanny can ask for a neutral review call — a good way to smooth
+            something out early rather than letting it build.
+          </p>
+          <Textarea
+            className="mt-3"
+            rows={3}
+            value={callNotes}
+            placeholder="What would you like to talk about?"
+            onChange={(e) => setCallNotes(e.target.value)}
+          />
+          <Button className="mt-4" variant="outline" disabled={saving} onClick={requestCall}>
+            <PhoneCall className="h-4 w-4" /> Request a review call
+          </Button>
+        </Card>
+      </div>
+
+      <h2 className="heading-display mt-8 text-xl text-foreground">Your check-ins</h2>
+      <div className="mt-3 space-y-3">
+        {data.checkins.length === 0 && (
+          <p className="text-sm text-muted-foreground">No check-ins saved yet.</p>
+        )}
+        {data.checkins.map((entry) => (
+          <Card key={entry.id}>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="font-medium text-foreground">
+                  {CHECKIN_KINDS.find((k) => k.value === entry.kind)?.label ?? "Check-in"}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {new Date(entry.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}{" "}
+                  · saved by {entry.author === "nanny" ? "the nanny" : "the family"}
+                  {entry.callRequested ? " · call requested" : ""}
+                  {entry.status === "draft" ? " · draft" : ""}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    setKind(entry.kind);
+                    setAnswers(entry.answers);
+                    setEditingId(entry.id);
+                    setNannyId(entry.nannyId ?? "");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  Open
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={async () => {
+                    await removeFn({ data: { slug, id: entry.id } });
+                    await query.refetch();
+                    toast.success("Check-in removed");
+                  }}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            {Object.keys(entry.answers).length > 0 && (
+              <div className="mt-3 space-y-2 border-t border-border pt-3">
+                {CHECKIN_PROMPTS.filter((p) => entry.answers[p.key]).map((p) => (
+                  <div key={p.key}>
+                    <p className="text-sm font-medium text-foreground">{p.label}</p>
+                    <p className="text-sm text-muted-foreground">{entry.answers[p.key]}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Card>
+        ))}
+      </div>
+    </HubPage>
+  );
+}

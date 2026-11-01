@@ -1,1 +1,74 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKCmZ1bmN0aW9uIGlzbyhkOiBEYXRlKSB7CiAgcmV0dXJuIGQudG9JU09TdHJpbmcoKS5zbGljZSgwLCAxMCk7Cn0KCi8qKiBNb25kYXktdG8tU3VuZGF5IHdlZWsgY29udGFpbmluZyBgYW5jaG9yYCAoVVRDKS4gKi8KZXhwb3J0IGZ1bmN0aW9uIHdlZWtSYW5nZShhbmNob3I/OiBzdHJpbmcpIHsKICBjb25zdCBiYXNlID0gYW5jaG9yICYmIC9eXGR7NH0tXGR7Mn0tXGR7Mn0kLy50ZXN0KGFuY2hvcikgPyBuZXcgRGF0ZShgJHthbmNob3J9VDAwOjAwOjAwWmApIDogbmV3IERhdGUoKTsKICBjb25zdCBkYXkgPSAoYmFzZS5nZXRVVENEYXkoKSArIDYpICUgNzsKICBjb25zdCBzdGFydCA9IG5ldyBEYXRlKERhdGUuVVRDKGJhc2UuZ2V0VVRDRnVsbFllYXIoKSwgYmFzZS5nZXRVVENNb250aCgpLCBiYXNlLmdldFVUQ0RhdGUoKSAtIGRheSkpOwogIGNvbnN0IGVuZCA9IG5ldyBEYXRlKHN0YXJ0LmdldFRpbWUoKSArIDYgKiA4NjQwMDAwMCk7CiAgcmV0dXJuIHsgc3RhcnQ6IGlzbyhzdGFydCksIGVuZDogaXNvKGVuZCkgfTsKfQoKZnVuY3Rpb24gdG9NaW51dGVzKHQ6IHN0cmluZykgewogIGNvbnN0IFtoLCBtXSA9IHQuc3BsaXQoIjoiKS5tYXAoTnVtYmVyKTsKICByZXR1cm4gKGggPz8gMCkgKiA2MCArIChtID8/IDApOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbG9hZFdlZWtseVJlcG9ydChzbHVnOiBzdHJpbmcsIGFuY2hvcj86IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHJldHVybiBudWxsOwogIGNvbnN0IHsgc3RhcnQsIGVuZCB9ID0gd2Vla1JhbmdlKGFuY2hvcik7CiAgY29uc3QgZmlkID0gZmFtaWx5LmlkOwoKICBjb25zdCBbaGFuZG92ZXJzLCBleHBlbnNlcywgc2hpZnRzLCBwbGFubmVyLCBwYXNzcG9ydCwgbWVkcywgbG9ncywgbGVhdmVdID0gYXdhaXQgUHJvbWlzZS5hbGwoWwogICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJoYW5kb3Zlcl9jaGVja2xpc3RzIikuc2VsZWN0KCJoYW5kb3Zlcl9kYXRlLCBob21ld29ya19zdGF0dXMsIGRpbm5lcl9zdGF0dXMsIG1vb2QsIGVuZXJneSwgcmVhZGluZ19kb25lLCB0b21vcnJvd19ub3Rlcywgc3VibWl0dGVkX2J5X25hbWUiKS5lcSgiZmFtaWx5X2lkIiwgZmlkKS5ndGUoImhhbmRvdmVyX2RhdGUiLCBzdGFydCkubHRlKCJoYW5kb3Zlcl9kYXRlIiwgZW5kKS5vcmRlcigiaGFuZG92ZXJfZGF0ZSIpLAogICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJleHBlbnNlX2NsYWltcyIpLnNlbGVjdCgiZXhwZW5zZV9kYXRlLCBpdGVtLCBhbW91bnQsIHN0YXR1cyIpLmVxKCJmYW1pbHlfaWQiLCBmaWQpLmd0ZSgiZXhwZW5zZV9kYXRlIiwgc3RhcnQpLmx0ZSgiZXhwZW5zZV9kYXRlIiwgZW5kKS5vcmRlcigiZXhwZW5zZV9kYXRlIiksCiAgICBzdXBhYmFzZUFkbWluLmZyb20oInRpbWVzaGVldF9zaGlmdHMiKS5zZWxlY3QoInNoaWZ0X2RhdGUsIHN0YXJ0X3RpbWUsIGVuZF90aW1lLCBicmVha19taW51dGVzLCBpc19vdmVybmlnaHQsIGhvdXJseV9yYXRlLCBzdGF0dXMsIHNoaWZ0X3R5cGUiKS5lcSgiZmFtaWx5X2lkIiwgZmlkKS5ndGUoInNoaWZ0X2RhdGUiLCBzdGFydCkubHRlKCJzaGlmdF9kYXRlIiwgZW5kKS5vcmRlcigic2hpZnRfZGF0ZSIpLAogICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJwbGFubmVyX2VudHJpZXMiKS5zZWxlY3QoImVudHJ5X2RhdGUsIHRpbWVfbGFiZWwsIHRpdGxlLCBjaGlsZF9uYW1lLCBlbnRyeV90eXBlLCBzdGF0dXMiKS5lcSgiZmFtaWx5X2lkIiwgZmlkKS5ndGUoImVudHJ5X2RhdGUiLCBzdGFydCkubHRlKCJlbnRyeV9kYXRlIiwgZW5kKS5vcmRlcigiZW50cnlfZGF0ZSIpLAogICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJzcG9ydHNfcGFzc3BvcnRfZW50cmllcyIpLnNlbGVjdCgiZW50cnlfZGF0ZSwgY2hpbGRfbmFtZSwgYWN0aXZpdHksIG1pbnV0ZXMsIGJhZGdlLCBjb25maWRlbmNlX2xldmVsIikuZXEoImZhbWlseV9pZCIsIGZpZCkuZ3RlKCJlbnRyeV9kYXRlIiwgc3RhcnQpLmx0ZSgiZW50cnlfZGF0ZSIsIGVuZCkub3JkZXIoImVudHJ5X2RhdGUiKSwKICAgIHN1cGFiYXNlQWRtaW4uZnJvbSgibWVkaWNhdGlvbl9kb3NlcyIpLnNlbGVjdCgiZ2l2ZW5fYXQsIGNoaWxkX25hbWUsIG1lZGljaW5lLCBkb3NlLCBnaXZlbl9ieV9uYW1lIikuZXEoImZhbWlseV9pZCIsIGZpZCkuZ3RlKCJnaXZlbl9hdCIsIGAke3N0YXJ0fVQwMDowMDowMFpgKS5sdGUoImdpdmVuX2F0IiwgYCR7ZW5kfVQyMzo1OTo1OVpgKS5vcmRlcigiZ2l2ZW5fYXQiKSwKICAgIHN1cGFiYXNlQWRtaW4uZnJvbSgiZGFpbHlfbG9ncyIpLnNlbGVjdCgibG9nX2RhdGUsIGFjdGl2aXRpZXMsIG1vb2QsIG5vdGVzIikuZXEoImZhbWlseV9pZCIsIGZpZCkuZ3RlKCJsb2dfZGF0ZSIsIHN0YXJ0KS5sdGUoImxvZ19kYXRlIiwgZW5kKS5vcmRlcigibG9nX2RhdGUiKSwKICAgIHN1cGFiYXNlQWRtaW4uZnJvbSgibGVhdmVfcmVxdWVzdHMiKS5zZWxlY3QoImxlYXZlX3R5cGUsIHN0YXJ0X2RhdGUsIGVuZF9kYXRlLCBkYXlzLCBzdGF0dXMiKS5lcSgiZmFtaWx5X2lkIiwgZmlkKS5sdGUoInN0YXJ0X2RhdGUiLCBlbmQpLmd0ZSgiZW5kX2RhdGUiLCBzdGFydCksCiAgXSk7CgogIGNvbnN0IHNoaWZ0Um93cyA9IChzaGlmdHMuZGF0YSA/PyBbXSkubWFwKChzKSA9PiB7CiAgICBsZXQgbWlucyA9IHRvTWludXRlcyhzLmVuZF90aW1lKSAtIHRvTWludXRlcyhzLnN0YXJ0X3RpbWUpOwogICAgaWYgKG1pbnMgPCAwIHx8IHMuaXNfb3Zlcm5pZ2h0KSBtaW5zICs9IG1pbnMgPCAwID8gMTQ0MCA6IDA7CiAgICBtaW5zID0gTWF0aC5tYXgoMCwgbWlucyAtIE51bWJlcihzLmJyZWFrX21pbnV0ZXMgPz8gMCkpOwogICAgcmV0dXJuIHsgLi4ucywgaG91cnM6IG1pbnMgLyA2MCwgcGF5OiAobWlucyAvIDYwKSAqIE51bWJlcihzLmhvdXJseV9yYXRlID8/IDApIH07CiAgfSk7CiAgY29uc3QgcGFzc3BvcnRSb3dzID0gcGFzc3BvcnQuZGF0YSA/PyBbXTsKICBjb25zdCBleHBlbnNlUm93cyA9IGV4cGVuc2VzLmRhdGEgPz8gW107CgogIHJldHVybiB7CiAgICBhY2Nlc3M6IGZhbWlseS5hY2Nlc3MsCiAgICBmYW1pbHlOYW1lOiBmYW1pbHkuZmFtaWx5X25hbWUsCiAgICB3ZWVrOiB7IHN0YXJ0LCBlbmQgfSwKICAgIHN0YXRzOiB7CiAgICAgIGhvdXJzOiBzaGlmdFJvd3MuZmlsdGVyKChzKSA9PiBzLnNoaWZ0X3R5cGUgIT09ICJiYWJ5c2l0dGluZyIpLnJlZHVjZSgoYSwgcykgPT4gYSArIHMuaG91cnMsIDApLAogICAgICBhcHByb3ZlZFBheTogc2hpZnRSb3dzLmZpbHRlcigocykgPT4gcy5zdGF0dXMgPT09ICJhcHByb3ZlZCIgJiYgcy5zaGlmdF90eXBlICE9PSAiYmFieXNpdHRpbmciKS5yZWR1Y2UoKGEsIHMpID0+IGEgKyBzLnBheSwgMCksCiAgICAgIHBlbmRpbmdTaGlmdHM6IHNoaWZ0Um93cy5maWx0ZXIoKHMpID0+IHMuc3RhdHVzICE9PSAiYXBwcm92ZWQiKS5sZW5ndGgsCiAgICAgIGJhYnlzaXR0aW5nSG91cnM6IHNoaWZ0Um93cy5maWx0ZXIoKHMpID0+IHMuc2hpZnRfdHlwZSA9PT0gImJhYnlzaXR0aW5nIikucmVkdWNlKChhLCBzKSA9PiBhICsgcy5ob3VycywgMCksCiAgICAgIGJhYnlzaXR0aW5nUGF5OiBzaGlmdFJvd3MuZmlsdGVyKChzKSA9PiBzLnNoaWZ0X3R5cGUgPT09ICJiYWJ5c2l0dGluZyIgJiYgcy5zdGF0dXMgPT09ICJhcHByb3ZlZCIpLnJlZHVjZSgoYSwgcykgPT4gYSArIHMucGF5LCAwKSwKICAgICAgYWN0aXZlTWludXRlczogcGFzc3BvcnRSb3dzLnJlZHVjZSgoYSwgcCkgPT4gYSArIE51bWJlcihwLm1pbnV0ZXMgPz8gMCksIDApLAogICAgICBiYWRnZXM6IHBhc3Nwb3J0Um93cy5maWx0ZXIoKHApID0+IHAuYmFkZ2UpLmxlbmd0aCwKICAgICAgaGFuZG92ZXJzOiAoaGFuZG92ZXJzLmRhdGEgPz8gW10pLmxlbmd0aCwKICAgICAgZXhwZW5zZXNUb3RhbDogZXhwZW5zZVJvd3MucmVkdWNlKChhLCBlKSA9PiBhICsgTnVtYmVyKGUuYW1vdW50ID8/IDApLCAwKSwKICAgICAgZXhwZW5zZXNQZW5kaW5nOiBleHBlbnNlUm93cy5maWx0ZXIoKGUpID0+IGUuc3RhdHVzID09PSAicGVuZGluZyIpLnJlZHVjZSgoYSwgZSkgPT4gYSArIE51bWJlcihlLmFtb3VudCA/PyAwKSwgMCksCiAgICAgIGRvc2VzOiAobWVkcy5kYXRhID8/IFtdKS5sZW5ndGgsCiAgICB9LAogICAgc2hpZnRzOiBzaGlmdFJvd3MsCiAgICBoYW5kb3ZlcnM6IGhhbmRvdmVycy5kYXRhID8/IFtdLAogICAgZXhwZW5zZXM6IGV4cGVuc2VSb3dzLAogICAgcGxhbm5lcjogcGxhbm5lci5kYXRhID8/IFtdLAogICAgcGFzc3BvcnQ6IHBhc3Nwb3J0Um93cywKICAgIG1lZGljYXRpb246IG1lZHMuZGF0YSA/PyBbXSwKICAgIGxvZ3M6IGxvZ3MuZGF0YSA/PyBbXSwKICAgIGxlYXZlOiBsZWF2ZS5kYXRhID8/IFtdLAogIH07Cn0K
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+
+function iso(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
+/** Monday-to-Sunday week containing `anchor` (UTC). */
+export function weekRange(anchor?: string) {
+  const base = anchor && /^\d{4}-\d{2}-\d{2}$/.test(anchor) ? new Date(`${anchor}T00:00:00Z`) : new Date();
+  const day = (base.getUTCDay() + 6) % 7;
+  const start = new Date(Date.UTC(base.getUTCFullYear(), base.getUTCMonth(), base.getUTCDate() - day));
+  const end = new Date(start.getTime() + 6 * 86400000);
+  return { start: iso(start), end: iso(end) };
+}
+
+function toMinutes(t: string) {
+  const [h, m] = t.split(":").map(Number);
+  return (h ?? 0) * 60 + (m ?? 0);
+}
+
+export async function loadWeeklyReport(slug: string, anchor?: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const { start, end } = weekRange(anchor);
+  const fid = family.id;
+
+  const [handovers, expenses, shifts, planner, passport, meds, logs, leave] = await Promise.all([
+    supabaseAdmin.from("handover_checklists").select("handover_date, homework_status, dinner_status, mood, energy, reading_done, tomorrow_notes, submitted_by_name").eq("family_id", fid).gte("handover_date", start).lte("handover_date", end).order("handover_date"),
+    supabaseAdmin.from("expense_claims").select("expense_date, item, amount, status").eq("family_id", fid).gte("expense_date", start).lte("expense_date", end).order("expense_date"),
+    supabaseAdmin.from("timesheet_shifts").select("shift_date, start_time, end_time, break_minutes, is_overnight, hourly_rate, status, shift_type").eq("family_id", fid).gte("shift_date", start).lte("shift_date", end).order("shift_date"),
+    supabaseAdmin.from("planner_entries").select("entry_date, time_label, title, child_name, entry_type, status").eq("family_id", fid).gte("entry_date", start).lte("entry_date", end).order("entry_date"),
+    supabaseAdmin.from("sports_passport_entries").select("entry_date, child_name, activity, minutes, badge, confidence_level").eq("family_id", fid).gte("entry_date", start).lte("entry_date", end).order("entry_date"),
+    supabaseAdmin.from("medication_doses").select("given_at, child_name, medicine, dose, given_by_name").eq("family_id", fid).gte("given_at", `${start}T00:00:00Z`).lte("given_at", `${end}T23:59:59Z`).order("given_at"),
+    supabaseAdmin.from("daily_logs").select("log_date, activities, mood, notes").eq("family_id", fid).gte("log_date", start).lte("log_date", end).order("log_date"),
+    supabaseAdmin.from("leave_requests").select("leave_type, start_date, end_date, days, status").eq("family_id", fid).lte("start_date", end).gte("end_date", start),
+  ]);
+
+  const shiftRows = (shifts.data ?? []).map((s) => {
+    let mins = toMinutes(s.end_time) - toMinutes(s.start_time);
+    if (mins < 0 || s.is_overnight) mins += mins < 0 ? 1440 : 0;
+    mins = Math.max(0, mins - Number(s.break_minutes ?? 0));
+    return { ...s, hours: mins / 60, pay: (mins / 60) * Number(s.hourly_rate ?? 0) };
+  });
+  const passportRows = passport.data ?? [];
+  const expenseRows = expenses.data ?? [];
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    week: { start, end },
+    stats: {
+      hours: shiftRows.filter((s) => s.shift_type !== "babysitting").reduce((a, s) => a + s.hours, 0),
+      approvedPay: shiftRows.filter((s) => s.status === "approved" && s.shift_type !== "babysitting").reduce((a, s) => a + s.pay, 0),
+      pendingShifts: shiftRows.filter((s) => s.status !== "approved").length,
+      babysittingHours: shiftRows.filter((s) => s.shift_type === "babysitting").reduce((a, s) => a + s.hours, 0),
+      babysittingPay: shiftRows.filter((s) => s.shift_type === "babysitting" && s.status === "approved").reduce((a, s) => a + s.pay, 0),
+      activeMinutes: passportRows.reduce((a, p) => a + Number(p.minutes ?? 0), 0),
+      badges: passportRows.filter((p) => p.badge).length,
+      handovers: (handovers.data ?? []).length,
+      expensesTotal: expenseRows.reduce((a, e) => a + Number(e.amount ?? 0), 0),
+      expensesPending: expenseRows.filter((e) => e.status === "pending").reduce((a, e) => a + Number(e.amount ?? 0), 0),
+      doses: (meds.data ?? []).length,
+    },
+    shifts: shiftRows,
+    handovers: handovers.data ?? [],
+    expenses: expenseRows,
+    planner: planner.data ?? [],
+    passport: passportRows,
+    medication: meds.data ?? [],
+    logs: logs.data ?? [],
+    leave: leave.data ?? [],
+  };
+}

@@ -1,1 +1,331 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCBMaW5rLCB1c2VOYXZpZ2F0ZSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VFZmZlY3QsIHVzZVN0YXRlIH0gZnJvbSAicmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsKICBBcnJvd1JpZ2h0LAogIEZpbGVUZXh0LAogIElkQ2FyZCwKICBDYWxjdWxhdG9yLAogIFNoaWVsZCwKICBTcGFya2xlcywKICBLZXlSb3VuZCwKICBMaWZlQnVveSwKICBTaXJlbiwKICBQaWxsLAogIFBsYW5lLAogIENhbGVuZGFyQ2hlY2ssCiAgVXNlcnMsCiAgQ2FsZW5kYXJEYXlzLAogIE5vdGVib29rUGVuLAogIE1lc3NhZ2VzU3F1YXJlLAogIEdyYWR1YXRpb25DYXAsCiAgQXdhcmQsCiAgQ2xpcGJvYXJkQ2hlY2ssCiAgRHVtYmJlbGwsCiAgUmVjZWlwdFRleHQsCiAgVXRlbnNpbHNDcm9zc2VkLAogIEJhZGdlUGVyY2VudCwKICBHaWZ0LAogIExpYnJhcnksCiAgSGFuZHNoYWtlLAogIExhbmRtYXJrLAogIExvY2tLZXlob2xlLAogIFNtYXJ0cGhvbmUsCiAgQ2hldnJvbkRvd24sCiAgSGVhcnQsCiAgSGVhcnRIYW5kc2hha2UsCiAgV2FsbGV0LAp9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBGYW1pbHlMb2dpbiB9IGZyb20gIkAvY29tcG9uZW50cy9GYW1pbHlMb2dpbiI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBJbnB1dCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9pbnB1dCI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiLyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBuYW1lOiAiZGVzY3JpcHRpb24iLAogICAgICAgIGNvbnRlbnQ6CiAgICAgICAgICAiRXZlcnkgZmFtaWx5IGdldHMgYSBwcml2YXRlIHdhbGxldCBob2xkaW5nIHRoZWlyIG5hbm55IGFncmVlbWVudCwgbmFubnkgQ1YsIHJvdXRpbmVzIGFuZCBldmVyeWRheSBuYW5ueSB0b29scy4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dGl0bGUiLCBjb250ZW50OiAiVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OgogICAgICAgICAgIllvdXIgbmFubnkgYWdyZWVtZW50LCBuYW5ueSBDViwgcm91dGluZXMgYW5kIG5hbm55IHRvb2xzLCBhbGwgaW4gb25lIHByaXZhdGUgbGluay4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dHlwZSIsIGNvbnRlbnQ6ICJ3ZWJzaXRlIiB9LAogICAgICB7IG5hbWU6ICJ0d2l0dGVyOmNhcmQiLCBjb250ZW50OiAic3VtbWFyeV9sYXJnZV9pbWFnZSIgfSwKICAgIF0sCiAgfSksCiAgY29tcG9uZW50OiBJbmRleCwKfSk7Cgpjb25zdCBiZW5lZml0R3JvdXBzID0gWwogIHsKICAgIGljb246IENhbGVuZGFyRGF5cywKICAgIHRpdGxlOiAiVG9kYXkgJiBwbGFubmluZyIsCiAgICBzdW1tYXJ5OiAiS2VlcCBldmVyeSBoYW5kb3Zlciwgc2hpZnQgYW5kIGZhbWlseSB1cGRhdGUgaW4gb25lIGNhbG0gZGFpbHkgdmlldy4iLAogICAgZmVhdHVyZWQ6IFsiV2Vla2x5IHBsYW5uZXIiLCAiRGFpbHkgbG9nIiwgIkZyaWRheSByZXBvcnQiXSwKICAgIGl0ZW1zOiBbCiAgICAgICJXZWVrbHkgcGxhbm5lciDigJQgd2hhdCdzIG9uIGVhY2ggZGF5LCBNb25kYXkgdG8gU3VuZGF5IiwKICAgICAgIkRhaWx5IGxvZyDigJQgaG93IGVhY2ggZGF5IHdlbnQiLAogICAgICAiRW5kLW9mLWRheSBoYW5kb3ZlciDigJQgaG9tZXdvcmssIGRpbm5lciwgbW9vZCBhbmQgdG9tb3Jyb3cncyBraXQiLAogICAgICAiRXhwZW5zZXMgdHJhY2tlciDigJQgcGV0dHkgY2FzaCBhbmQgcmVpbWJ1cnNlbWVudCBub3RlcyIsCiAgICAgICJGcmlkYXkgV2Vla2x5IFJlcG9ydCDigJQgYSBwb2xpc2hlZCByZWNhcCBvZiB0aGUgd2VlaywgcmVhZHkgdG8gcHJpbnQiLAogICAgICAiVGltZXNoZWV0IGNhbGN1bGF0b3IiLAogICAgICAiVHJhdmVsICYgVmlsbGEgTmFubnkgUGFjayDigJQgdHJhdmVsIG1vZGUgd2l0aCBjaGVja2xpc3QgYW5kIGhvbGlkYXkgaGFuZG92ZXIgbm90ZXMiLAogICAgXSwKICB9LAogIHsKICAgIGljb246IFNpcmVuLAogICAgdGl0bGU6ICJGYW1pbHkgJiBzYWZldHkiLAogICAgc3VtbWFyeTogIlRoZSBlc3NlbnRpYWwgcGVvcGxlLCBkZXRhaWxzIGFuZCBzYWZlZ3VhcmRzIHlvdXIgbmFubnkgbmVlZHMgYXQgYSBnbGFuY2UuIiwKICAgIGZlYXR1cmVkOiBbIkVtZXJnZW5jeSBjYXJkIiwgIkNoaWxkcmVuJ3MgcHJvZmlsZXMiLCAiU2FmZXR5IHJlY29yZHMiXSwKICAgIGl0ZW1zOiBbCiAgICAgICJFbWVyZ2VuY3kgY2FyZCDigJQga2V5IGNvbnRhY3RzIGFuZCBpbnN0cnVjdGlvbnMgYXQgYSBnbGFuY2UiLAogICAgICAiSG91c2UgTWFudWFsICYgQ29kZXMg4oCUIFdpRmksIGFsYXJtIGFuZCBsb2NrYm94IGNvZGVzLCB1dGlsaXRpZXMsIGhvdXNlIHJ1bGVzLCBiaW4gZGF5cyBhbmQgYXBwbGlhbmNlcyIsCiAgICAgICJLaWRzJyBQbGF5Ym9vayDigJQgcXVpcmtzIGFuZCBjb21mb3J0cywgaG93IHdlIGhhbmRsZSBiaWcgbW9tZW50cywgZnJpZW5kcyBhbmQgcmFpbnktZGF5IGlkZWFzIiwKICAgICAgIllvdXIgbmFubnkncyBDViwgcHJvZmlsZSBhbmQgcmVmZXJlbmNlcyIsCiAgICAgICJDaGVja3MgJiBjcmVkZW50aWFscyDigJQgREJTLCBJRCBhbmQgcmlnaHQgdG8gd29yayIsCiAgICAgICJLbm93IG15IGZhbWlseSDigJQgY2hpbGRyZW4ncyBwcm9maWxlcyBhbmQgdGhlIG5hbm55IHF1aWNrIGd1aWRlIiwKICAgICAgIk1lZGljYXRpb24gbG9nIOKAlCB0aW1lc3RhbXBlZCBkb3NlcyBzbyBub2JvZHkgZG91YmxlLWRvc2VzIiwKICAgICAgIlBob3RvIG1vbWVudHMgJiBtaWxlc3RvbmVzIOKAlCBhIHByaXZhdGUgcGhvdG8gZGlhcnkgYW5kIG1pbGVzdG9uZSBqb3VybmFsIGZvciB5b3VyIGNoaWxkcmVuIiwKICAgICAgIkZpcnN0IDQ4IGhvdXJzIOKAlCBhZ3JlZSByb3V0aW5lcywgcGlja3VwcyBhbmQgZXhwZWN0YXRpb25zIHRvZ2V0aGVyIHdpdGggYSBzaGFyZWQgcGFyZW50IGFuZCBuYW5ueSBjaGVja2xpc3QiLAogICAgICAiSW5zdXJhbmNlICYgc2FmZWd1YXJkaW5nIHJlY29yZCDigJQgY2xlYXIgY2hlY2ssIHRyYWluaW5nIGFuZCBjb3ZlciBzdGF0dXMiLAogICAgXSwKICB9LAogIHsKICAgIGljb246IEZpbGVUZXh0LAogICAgdGl0bGU6ICJBZ3JlZW1lbnQgJiBlbXBsb3ltZW50IiwKICAgIHN1bW1hcnk6ICJZb3VyIHdvcmtpbmcgYXJyYW5nZW1lbnQsIHBheSB0b29scyBhbmQga2V5IGRvY3VtZW50cyBzdGF5IHRvZ2V0aGVyLiIsCiAgICBmZWF0dXJlZDogWyJOYW5ueSBhZ3JlZW1lbnQiLCAiRW1wbG95bWVudCBjb3N0cyIsICJOYW5ueXRheCBzdXBwb3J0Il0sCiAgICBpdGVtczogWwogICAgICAiWW91ciBuYW5ueSBhZ3JlZW1lbnQiLAogICAgICAiTWFuYWdlZCBOYW5ueXRheCBzZXR1cCDigJQgYSBndWlkZWQgaW50cm9kdWN0aW9uIGFuZCB2aXNpYmxlIG5leHQgc3RlcHMiLAogICAgICAiQWxsLWluIGVtcGxveW1lbnQgY29zdCBjYWxjdWxhdG9yIOKAlCBwYXksIE5JLCBwZW5zaW9uIGFuZCBwYXlyb2xsIGVzdGltYXRlcyIsCiAgICAgICJZb3VyIE5hbm55dGF4IHJlZmVycmFsIGNvZGUiLAogICAgICAiQWdlbmN5IHRlcm1zIGFuZCBjb25kaXRpb25zIiwKICAgICAgIlJldmlld3MgJiBjaGVjay1pbnMg4oCUIDYtbW9udGggYW5kIHllYXJseSBjb252ZXJzYXRpb24gZ3VpZGVzIiwKICAgIF0sCiAgfSwKICB7CiAgICBpY29uOiBIZWFydEhhbmRzaGFrZSwKICAgIHRpdGxlOiAiU3VwcG9ydCAmIGV4dHJhcyIsCiAgICBzdW1tYXJ5OiAiVHJ1c3RlZCBpZGVhcywgdGhvdWdodGZ1bCBleHRyYXMgYW5kIGV2ZXJ5dGhpbmcgdGhhdCBtYWtlcyBmYW1pbHkgbGlmZSBlYXNpZXIuIiwKICAgIGZlYXR1cmVkOiBbIk1lc3NhZ2VzIiwgIkZhbWlseSBwZXJrcyIsICJUcmFpbmluZyBodWIiXSwKICAgIGl0ZW1zOiBbCiAgICAgICJNZXNzYWdlcyDigJQgdG9waWMgY29udmVyc2F0aW9ucyBiZXR3ZWVuIGZhbWlseSBhbmQgbmFubnksIGtlcHQgaW4gdGhlIHdhbGxldCIsCiAgICAgICJQcml2YXRlIG5hbm55IGN1cmF0aW9uIOKAlCBwZXJzb25hbGx5IHNlbGVjdGVkIHByb2ZpbGVzLCBuZXZlciBhIHB1YmxpYyBjYXRhbG9ndWUiLAogICAgICAiRmFtaWx5IHBlcmtzICYgTG9uZG9uIFBhcnRuZXIgQ29uY2llcmdlIOKAlCBwcml2YXRlIG9mZmVycyBhbmQgdHJ1c3RlZCByZWNvbW1lbmRhdGlvbnMiLAogICAgICAiQWdlbmN5IE1hdGVyaWFscyDigJQgYXVkaW9ib29rcywgZGlnaXRhbCBib29rcywgYWN0aXZpdHkgYW5kIGZhbWlseSBndWlkZXMiLAogICAgICAiQWN0aXZlIEtpZHMgU3BvcnRzIFBhc3Nwb3J0IOKAlCBza2lsbHMsIGNoYWxsZW5nZXMgYW5kIGNvbmZpZGVuY2Ugd2lucyIsCiAgICAgICJOYW5ueSB0cmFpbmluZyBodWIg4oCUIHNhZmVndWFyZGluZywgcm91dGluZXMgYW5kIGVtZXJnZW5jaWVzIiwKICAgICAgIk5hbm55IHRyYWluaW5nIGNlcnRpZmljYXRlIOKAlCBrZXB0IGluIHRoZSB3YWxsZXQgb25jZSBwYXNzZWQiLAogICAgICAiTmFubnkgRnVlbCDigJQgY29va2luZyBhbmQgbWVhbCBpZGVhcyIsCiAgICAgICJOYW5ueSBhY3Rpdml0eSBndWlkZSIsCiAgICBdLAogIH0sCl07Cgpjb25zdCBoZWFkbGluZUJlbmVmaXRzID0gWwogIHsgaWNvbjogQ2FsZW5kYXJEYXlzLCB0aXRsZTogIkV2ZXJ5b25lIHNlZXMgdGhlIHNhbWUgd2VlayIsIGRldGFpbDogIlNoaWZ0cywgc2Nob29sIHJ1bnMgYW5kIGNsdWJzIGluIG9uZSBzaGFyZWQgcGxhbm5lci4iIH0sCiAgeyBpY29uOiBQaWxsLCB0aXRsZTogIk5vIGRvdWJsZS1kb3Npbmcgd2l0aCB0aGUgbWVkaWNhdGlvbiBsb2ciLCBkZXRhaWw6ICJFdmVyeSBkb3NlIHRpbWVkIGFuZCBzaWduZWQsIHNvIG5vYm9keSBoYXMgdG8gdGV4dCB0byBjaGVjay4iIH0sCiAgeyBpY29uOiBSZWNlaXB0VGV4dCwgdGl0bGU6ICJBIEZyaWRheSByZXBvcnQgcmVhZHkgdG8gcHJpbnQiLCBkZXRhaWw6ICJIb3VycywgYWN0aXZpdGllcywgaGFuZG92ZXJzIGFuZCBleHBlbnNlcywgc3VtbWVkIHVwIGZvciB5b3UuIiB9LAogIHsgaWNvbjogU2lyZW4sIHRpdGxlOiAiRW1lcmdlbmN5IGRldGFpbHMgYWx3YXlzIHRvIGhhbmQiLCBkZXRhaWw6ICJLZXkgY29udGFjdHMsIGFsbGVyZ2llcyBhbmQgaW5zdHJ1Y3Rpb25zIGluIG9uZSB0YXAuIiB9LAogIHsgaWNvbjogRmlsZVRleHQsIHRpdGxlOiAiWW91ciBuYW5ueSBhZ3JlZW1lbnQsIHNpZ25lZCBhbmQgZmlsZWQiLCBkZXRhaWw6ICJCdWlsZCBpdCwgc2lnbiBpdCB0b2dldGhlciBhbmQga2VlcCBpdCBzYWZlLiIgfSwKICB7IGljb246IExpZmVCdW95LCB0aXRsZTogIlBldHR5IGNhc2ggdGhhdCBhbHdheXMgYWRkcyB1cCIsIGRldGFpbDogIlRvcC11cHMgYW5kIHJlY2VpcHRzIGxvZ2dlZCwgc28gZXZlcnlvbmUga25vd3Mgd2hhdCdzIGxlZnQuIiB9LAogIHsgaWNvbjogS2V5Um91bmQsIHRpdGxlOiAiTm8gbW9yZSDigJh3aGF04oCZcyB0aGUgV2lGaSBwYXNzd29yZD/igJkiLCBkZXRhaWw6ICJIb3VzZSBNYW51YWwgJiBDb2RlcyBrZWVwcyBhY2Nlc3MgZGV0YWlscyBhbmQgaG91c2Vob2xkIGVzc2VudGlhbHMgdG9nZXRoZXIsIHdpdGggY29kZXMgaGlkZGVuIHVudGlsIHJldmVhbGVkLiIgfSwKICB7IGljb246IEhlYXJ0LCB0aXRsZTogIkV2ZXJ5b25lIG9uIHRoZSBzYW1lIHBhZ2Ugd2l0aCB0aGUga2lkcyIsIGRldGFpbDogIlRoZSBLaWRzJyBQbGF5Ym9vayBzaGFyZXMgd2hhdCBzb290aGVzIGVhY2ggY2hpbGQsIHRoZSBob3VzZSBydWxlcyB5b3UgYWdyZWUgb24sIGZyaWVuZHMgYW5kIHJhaW55LWRheSBpZGVhcy4iIH0sCl07CgoKZnVuY3Rpb24gSW5kZXgoKSB7CiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJtaW4taC1zY3JlZW4gb3ZlcmZsb3ctaGlkZGVuIGJnLXNhbmQiPgogICAgICA8aGVhZGVyIGNsYXNzTmFtZT0iYm9yZGVyLWIgYm9yZGVyLWJvcmRlci83MCBiZy1iYWNrZ3JvdW5kLzc1Ij4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXgtYXV0byBmbGV4IG1heC13LTZ4bCBpdGVtcy1jZW50ZXIgZ2FwLTMgcHgtNSBweS00IHNtOnB4LTgiPgogICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJmbGV4IHNpemUtMTAgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbGcgYmctcHJpbWFyeSB0ZXh0LXByaW1hcnktZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIDxXYWxsZXQgY2xhc3NOYW1lPSJoLTUgdy01IiBhcmlhLWhpZGRlbj0idHJ1ZSIgLz4KICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtaW4tdy0wIj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0cnVuY2F0ZSB0ZXh0LXNtIGZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIj5UaGUgRmFtaWx5IFdhbGxldDwvcD4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+WW91ciBjaGlsZGNhcmUsIHNhZmVseSBpbiBvbmUgcGxhY2U8L3A+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0ibWwtYXV0byBoaWRkZW4gaXRlbXMtY2VudGVyIGdhcC0yIHRleHQteHMgZm9udC1tZWRpdW0gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIHNtOmZsZXgiPgogICAgICAgICAgICA8TG9ja0tleWhvbGUgY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSB0ZXh0LXByaW1hcnkiIC8+IFByaXZhdGUgJmFtcDsgc2VjdXJlCiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvaGVhZGVyPgoKICAgICAgPG1haW4+CiAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTZ4bCBweC01IHBiLTEyIHB0LTEwIHNtOnB4LTggc206cHQtMTQiPgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC13LTN4bCBhbmltYXRlLWluIGZhZGUtaW4gc2xpZGUtaW4tZnJvbS1ib3R0b20tMiBkdXJhdGlvbi01MDAiPgogICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMmVtXSB0ZXh0LXByaW1hcnkiPllvdXIgY2hpbGRjYXJlLCBiZWF1dGlmdWxseSBvcmdhbmlzZWQ8L3A+CiAgICAgICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0zIHRleHQtNHhsIGxlYWRpbmctdGlnaHQgdGV4dC1wcmltYXJ5IHNtOnRleHQtNXhsIj4KICAgICAgICAgICAgICBUaGUgRmFtaWx5IFdhbGxldAogICAgICAgICAgICA8L2gxPgogICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTQgbWF4LXctMnhsIHRleHQtYmFzZSBsZWFkaW5nLXJlbGF4ZWQgdGV4dC1mb3JlZ3JvdW5kLzgwIHNtOnRleHQtbGciPgogICAgICAgICAgICAgIFlvdXIgZmFtaWx5IGFuZCB5b3VyIG5ldyBuYW5ueSwgYmVhdXRpZnVsbHkgb3JnYW5pc2VkLiBSb3V0aW5lcywgZXNzZW50aWFsIGRvY3VtZW50cywKICAgICAgICAgICAgICBkYWlseSBub3RlcyBhbmQgbWVzc2FnZXMsIHRvZ2V0aGVyIGluIG9uZSBwcml2YXRlIHBsYWNlLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICA8L2Rpdj4KCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtOCBncmlkIGl0ZW1zLXN0YXJ0IGdhcC02IGxnOmdyaWQtY29scy1bbWlubWF4KDAsMC45NWZyKV9taW5tYXgoMCwxLjA1ZnIpXSI+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhbmltYXRlLWluIGZhZGUtaW4gc2xpZGUtaW4tZnJvbS1ib3R0b20tMyBkdXJhdGlvbi01MDAiPgogICAgICAgICAgICAgIDxGYW1pbHlMb2dpbiAvPgoKICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCByb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLXNlY29uZGFyeS83MCBiZy1iYWNrZ3JvdW5kLzcwIHAtNSBzbTpwLTYiPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTMiPgogICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImZsZXggc2l6ZS0xMCBmbGV4LW5vbmUgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbGcgYmctc2Vjb25kYXJ5IHRleHQtc2Vjb25kYXJ5LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICAgIDxTbWFydHBob25lIGNsYXNzTmFtZT0iaC01IHctNSIgLz4KICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC14cyBmb250LXNlbWlib2xkIHVwcGVyY2FzZSB0cmFja2luZy1bMC4xNmVtXSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5ldyB0byB0aGUgd2FsbGV0PzwvcD4KICAgICAgICAgICAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbXQtMSB0ZXh0LXhsIHRleHQtZm9yZWdyb3VuZCI+RXhwbG9yZSB0aGUgZGVtbzwvaDI+CiAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC1zbSBsZWFkaW5nLXJlbGF4ZWQgdGV4dC1mb3JlZ3JvdW5kLzc1Ij4KICAgICAgICAgICAgICAgICAgU3RlcCBpbnNpZGUgYSBjb21wbGV0ZSBzYW1wbGUgRmFtaWx5IFdhbGxldCB3aXRoIG5vIGxvZ2luLiBOb3RoaW5nIGluIHRoZSBkZW1vIGlzIGxpdmUuCiAgICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgICA8QnV0dG9uIGFzQ2hpbGQgdmFyaWFudD0ib3V0bGluZSIgc2l6ZT0ibGciIGNsYXNzTmFtZT0ibXQtNCB3LWZ1bGwgYm9yZGVyLXByaW1hcnkvMzAgYmctY2FyZC83MCI+CiAgICAgICAgICAgICAgICAgIDxMaW5rIHRvPSIvZGVtbyI+CiAgICAgICAgICAgICAgICAgICAgVmlldyB0aGUgZGVtbyB3YWxsZXQgPEFycm93UmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgICA8L0xpbms+CiAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgIDxMaW5rIHRvPSIvY2FsY3VsYXRvciIgY2xhc3NOYW1lPSJtdC0zIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGdhcC0xIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1wcmltYXJ5IGhvdmVyOnVuZGVybGluZSI+CiAgICAgICAgICAgICAgICAgIFdoYXQgd2lsbCBhIG5hbm55IHJlYWxseSBjb3N0PyBUcnkgdGhlIGNhbGN1bGF0b3IgPEFycm93UmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgPC9MaW5rPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxUb2RheVByZXZpZXcgLz4KICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICA8c2VjdGlvbiBjbGFzc05hbWU9ImFuaW1hdGUtaW4gZmFkZS1pbiBzbGlkZS1pbi1mcm9tLWJvdHRvbS00IGR1cmF0aW9uLTcwMCBsZzpweC0yIj4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMmVtXSB0ZXh0LXByaW1hcnkiPkluc2lkZSB5b3VyIEZhbWlseSBXYWxsZXQ8L3A+CiAgICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTIgdGV4dC0zeGwgbGVhZGluZy10aWdodCB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgRXZlcnl0aGluZyBhcm91bmQgeW91ciBuYW5ueSwgaW4gb25lIHBsYWNlCiAgICAgICAgICAgICAgPC9oMj4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC1zbSBsZWFkaW5nLXJlbGF4ZWQgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgIEEgcHJhY3RpY2FsIGRhaWx5IGhvbWUgZm9yIHBhcmVudHMgYW5kIG5hbm5pZXMsIHdpdGggZXZlcnl0aGluZyBpbiBvbmUgcHJpdmF0ZSBwbGFjZS4KICAgICAgICAgICAgICA8L3A+CgogICAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9Im10LTYgZ3JpZCBnYXAtMyBzbTpncmlkLWNvbHMtMiI+CiAgICAgICAgICAgICAgICB7aGVhZGxpbmVCZW5lZml0cy5tYXAoKHsgaWNvbjogSWNvbiwgdGl0bGUsIGRldGFpbCB9KSA9PiAoCiAgICAgICAgICAgICAgICAgIDxsaSBrZXk9e3RpdGxlfSBjbGFzc05hbWU9ImZsZXggZ2FwLTMgcm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlci84MCBiZy1jYXJkLzc1IHAtNCBzaGFkb3ctc20iPgogICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iZmxleCBzaXplLTkgZmxleC1ub25lIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciByb3VuZGVkLWxnIGJnLXByaW1hcnkvMTAgdGV4dC1wcmltYXJ5Ij4KICAgICAgICAgICAgICAgICAgICAgIDxJY29uIGNsYXNzTmFtZT0iaC00LjUgdy00LjUiIC8+CiAgICAgICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICAgICAgICA8aDMgY2xhc3NOYW1lPSJmb250LXNlbWlib2xkIGxlYWRpbmctc251ZyB0ZXh0LWZvcmVncm91bmQiPnt0aXRsZX08L2gzPgogICAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gbGVhZGluZy1yZWxheGVkIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e2RldGFpbH08L3A+CiAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICAgIDwvbGk+CiAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICA8L3NlY3Rpb24+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L3NlY3Rpb24+CgogICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0iYm9yZGVyLXkgYm9yZGVyLWJvcmRlci83MCBiZy1iYWNrZ3JvdW5kLzY1Ij4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTZ4bCBweC01IHB5LTEwIHNtOnB4LTgiPgogICAgICAgICAgICA8ZGV0YWlscyBjbGFzc05hbWU9Imdyb3VwIHJvdW5kZWQtMnhsIGJnLWNhcmQgc2hhZG93LXNtLzc1Ij4KICAgICAgICAgICAgICA8c3VtbWFyeSBjbGFzc05hbWU9ImZsZXggY3Vyc29yLXBvaW50ZXIgbGlzdC1ub25lIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTQgcC01IHNtOnB4LTYiPgogICAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQteGwgdGV4dC1mb3JlZ3JvdW5kIj5TZWUgZXZlcnl0aGluZyBpbmNsdWRlZDwvaDI+CiAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+QWxsIHRoZSB0b29scyBhbmQgc3VwcG9ydCBpbmNsdWRlZCBpbiB5b3VyIEZhbWlseSBXYWxsZXQuPC9wPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8Q2hldnJvbkRvd24gY2xhc3NOYW1lPSJoLTUgdy01IGZsZXgtbm9uZSB0ZXh0LXByaW1hcnkgdHJhbnNpdGlvbi10cmFuc2Zvcm0gZ3JvdXAtb3Blbjpyb3RhdGUtMTgwIiAvPgogICAgICAgICAgICAgIDwvc3VtbWFyeT4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBnYXAtNyBib3JkZXItdCBib3JkZXItYm9yZGVyIHB4LTUgcHktNiBzbTpncmlkLWNvbHMtMiBzbTpweC02Ij4KICAgICAgICAgICAgICAgIHtiZW5lZml0R3JvdXBzLm1hcCgoeyBpY29uOiBJY29uLCB0aXRsZSwgaXRlbXMgfSkgPT4gKAogICAgICAgICAgICAgICAgICA8ZGl2IGtleT17dGl0bGV9PgogICAgICAgICAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIGZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAgICAgIDxJY29uIGNsYXNzTmFtZT0iaC00IHctNCB0ZXh0LXByaW1hcnkiIC8+IHt0aXRsZX0KICAgICAgICAgICAgICAgICAgICA8L2gzPgogICAgICAgICAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9Im10LTMgc3BhY2UteS0yLjUiPgogICAgICAgICAgICAgICAgICAgICAge2l0ZW1zLm1hcCgoaXRlbSkgPT4gKAogICAgICAgICAgICAgICAgICAgICAgICA8bGkga2V5PXtpdGVtfSBjbGFzc05hbWU9ImZsZXggZ2FwLTIuNSB0ZXh0LXNtIGxlYWRpbmctcmVsYXhlZCB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0ibXQtMiBzaXplLTEuNSBmbGV4LW5vbmUgcm91bmRlZC1mdWxsIGJnLXNlY29uZGFyeSIgLz4KICAgICAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj57aXRlbX08L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvbGk+CiAgICAgICAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2RldGFpbHM+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L3NlY3Rpb24+CgogICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0ibXgtYXV0byBncmlkIG1heC13LTZ4bCBnYXAtNiBweC01IHB5LTEwIHNtOnB4LTggbWQ6Z3JpZC1jb2xzLTIiPgogICAgICAgICAgPGRpdj4KICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQteGwgdGV4dC1mb3JlZ3JvdW5kIj5PcGVuaW5nIHlvdXIgd2FsbGV0PC9oMj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gbGVhZGluZy1yZWxheGVkIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgV2Ugc2VuZCB5b3VyIHBlcnNvbmFsIHdhbGxldCBsaW5rIGFuZCBzaG9ydCBhY2Nlc3MgY29kZS4gRW50ZXIgdGhlbSBvbmNlIGFuZCBjaG9vc2UKICAgICAgICAgICAgICDigJxSZW1lbWJlciB0aGlzIGRldmljZeKAnSB0byBzdGF5IHNpZ25lZCBpbiBmb3IgMTIgbW9udGhzLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtZDpib3JkZXItbCBtZDpib3JkZXItYm9yZGVyIG1kOnBsLTYiPgogICAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC14bCB0ZXh0LWZvcmVncm91bmQiPk5lZWQgeW91ciBkZXRhaWxzIGFnYWluPzwvaDI+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXNtIGxlYWRpbmctcmVsYXhlZCB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIENvbnRhY3QgeW91ciBhZ2VuY3kgYW5kIHRoZXkgd2lsbCByZXNlbmQgeW91ciBsaW5rIGFuZCBjb2RlLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L3NlY3Rpb24+CgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJwYi0xMCB0ZXh0LWNlbnRlciI+CiAgICAgICAgICA8TGluawogICAgICAgICAgICB0bz0iL2FkbWluIgogICAgICAgICAgICBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIHVuZGVybGluZSB1bmRlcmxpbmUtb2Zmc2V0LTQgaG92ZXI6dGV4dC1mb3JlZ3JvdW5kIgogICAgICAgICAgPgogICAgICAgICAgICBBZ2VuY3kgc2lnbiBpbgogICAgICAgICAgPC9MaW5rPgogICAgICAgIDwvZGl2PgogICAgICA8L21haW4+CiAgICA8L2Rpdj4KICApOwp9Cgpjb25zdCBQUkVWSUVXX0RBWVMgPSBbIk1vbiIsICJUdWUiLCAiV2VkIiwgIlRodSIsICJGcmkiLCAiU2F0IiwgIlN1biJdOwpjb25zdCBQUkVWSUVXX0lURU1TID0gWwogIHsgdGltZTogIjM6MzBwbSIsIHRleHQ6ICJTY2hvb2wgcGljay11cCDigJQgSmVzcyAobmFubnkgc2hpZnQgMzozMOKAkzhwbSkiIH0sCiAgeyB0aW1lOiAiNDozMHBtIiwgdGV4dDogIkZvb3RiYWxsIHRyYWluaW5nLCBicmluZyBzaGluIHBhZHMiIH0sCiAgeyB0aW1lOiAiNjowMHBtIiwgdGV4dDogIkRpbm5lciBmcm9tIE5hbm55IEZ1ZWwg4oCUIGNoaWNrZW4gdHJheWJha2UiIH0sCl07CmNvbnN0IFBSRVZJRVdfSURFQVMgPSBbIjFrbSBmYW1pbHkgcnVuIiwgIlBhcmsgY3JpY2tldCIsICJSZWFkaW5nIGRlbiJdOwoKZnVuY3Rpb24gVG9kYXlQcmV2aWV3KCkgewogIGNvbnN0IFt0b2RheSwgc2V0VG9kYXldID0gdXNlU3RhdGU8bnVtYmVyIHwgbnVsbD4obnVsbCk7CiAgdXNlRWZmZWN0KCgpID0+IHsgc2V0VG9kYXkoKG5ldyBEYXRlKCkuZ2V0RGF5KCkgKyA2KSAlIDcpOyB9LCBbXSk7CiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJtdC00IHJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQvODAgcC01IHNtOnAtNiIgYXJpYS1sYWJlbD0iU2FtcGxlIGNhbGVuZGFyIHByZXZpZXciPgogICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMTZlbV0gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5TYW1wbGUgcHJldmlldzwvcD4KICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTEgdGV4dC14bCB0ZXh0LWZvcmVncm91bmQiPlRvZGF5IGF0IHRoZSBIYXJyaW5ndG9ucyc8L2gyPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBncmlkIGdyaWQtY29scy03IGdhcC0xIHRleHQtY2VudGVyIj4KICAgICAgICB7UFJFVklFV19EQVlTLm1hcCgoZCwgaSkgPT4gKAogICAgICAgICAgPGRpdiBrZXk9e2R9IGNsYXNzTmFtZT17YHJvdW5kZWQtbGcgcHktMiB0ZXh0LXhzIGZvbnQtbWVkaXVtICR7aSA9PT0gdG9kYXkgPyAiYmctcHJpbWFyeSB0ZXh0LXByaW1hcnktZm9yZWdyb3VuZCIgOiBpIDwgNSA/ICJiZy1zZWNvbmRhcnkvNjAgdGV4dC1zZWNvbmRhcnktZm9yZWdyb3VuZCIgOiAidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIn1gfT4KICAgICAgICAgICAge2R9CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApKX0KICAgICAgPC9kaXY+CiAgICAgIDx1bCBjbGFzc05hbWU9Im10LTQgc3BhY2UteS0yIj4KICAgICAgICB7UFJFVklFV19JVEVNUy5tYXAoKGl0KSA9PiAoCiAgICAgICAgICA8bGkga2V5PXtpdC50aW1lfSBjbGFzc05hbWU9ImZsZXggZ2FwLTMgdGV4dC1zbSI+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idy0xNCBmbGV4LW5vbmUgZm9udC1zZW1pYm9sZCB0ZXh0LXByaW1hcnkiPntpdC50aW1lfTwvc3Bhbj4KICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LWZvcmVncm91bmQvODAiPntpdC50ZXh0fTwvc3Bhbj4KICAgICAgICAgIDwvbGk+CiAgICAgICAgKSl9CiAgICAgIDwvdWw+CiAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNCB0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdXBwZXJjYXNlIHRyYWNraW5nLVswLjE2ZW1dIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+U3VnZ2VzdGVkIGFjdGl2aXRpZXM8L3A+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0yIGZsZXggZmxleC13cmFwIGdhcC0yIj4KICAgICAgICB7UFJFVklFV19JREVBUy5tYXAoKGEpID0+ICgKICAgICAgICAgIDxzcGFuIGtleT17YX0gY2xhc3NOYW1lPSJyb3VuZGVkLWZ1bGwgYmctYWNjZW50IHB4LTMgcHktMSB0ZXh0LXhzIGZvbnQtbWVkaXVtIHRleHQtYWNjZW50LWZvcmVncm91bmQiPnthfTwvc3Bhbj4KICAgICAgICApKX0KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApOwp9Cg==
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import {
+  ArrowRight,
+  FileText,
+  IdCard,
+  Calculator,
+  Shield,
+  Sparkles,
+  KeyRound,
+  LifeBuoy,
+  Siren,
+  Pill,
+  Plane,
+  CalendarCheck,
+  Users,
+  CalendarDays,
+  NotebookPen,
+  MessagesSquare,
+  GraduationCap,
+  Award,
+  ClipboardCheck,
+  Dumbbell,
+  ReceiptText,
+  UtensilsCrossed,
+  BadgePercent,
+  Gift,
+  Library,
+  Handshake,
+  Landmark,
+  LockKeyhole,
+  Smartphone,
+  ChevronDown,
+  Heart,
+  HeartHandshake,
+  Wallet,
+} from "lucide-react";
+
+import { FamilyLogin } from "@/components/FamilyLogin";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "The Family Wallet" },
+      {
+        name: "description",
+        content:
+          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
+      },
+      { property: "og:title", content: "The Family Wallet" },
+      {
+        property: "og:description",
+        content:
+          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Index,
+});
+
+const benefitGroups = [
+  {
+    icon: CalendarDays,
+    title: "Today & planning",
+    summary: "Keep every handover, shift and family update in one calm daily view.",
+    featured: ["Weekly planner", "Daily log", "Friday report"],
+    items: [
+      "Weekly planner — what's on each day, Monday to Sunday",
+      "Daily log — how each day went",
+      "End-of-day handover — homework, dinner, mood and tomorrow's kit",
+      "Expenses tracker — petty cash and reimbursement notes",
+      "Friday Weekly Report — a polished recap of the week, ready to print",
+      "Timesheet calculator",
+      "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes",
+    ],
+  },
+  {
+    icon: Siren,
+    title: "Family & safety",
+    summary: "The essential people, details and safeguards your nanny needs at a glance.",
+    featured: ["Emergency card", "Children's profiles", "Safety records"],
+    items: [
+      "Emergency card — key contacts and instructions at a glance",
+      "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
+      "Kids' Playbook — quirks and comforts, how we handle big moments, friends and rainy-day ideas",
+      "Your nanny's CV, profile and references",
+      "Checks & credentials — DBS, ID and right to work",
+      "Know my family — children's profiles and the nanny quick guide",
+      "Medication log — timestamped doses so nobody double-doses",
+      "Photo moments & milestones — a private photo diary and milestone journal for your children",
+      "First 48 hours — agree routines, pickups and expectations together with a shared parent and nanny checklist",
+      "Insurance & safeguarding record — clear check, training and cover status",
+    ],
+  },
+  {
+    icon: FileText,
+    title: "Agreement & employment",
+    summary: "Your working arrangement, pay tools and key documents stay together.",
+    featured: ["Nanny agreement", "Employment costs", "Nannytax support"],
+    items: [
+      "Your nanny agreement",
+      "Managed Nannytax setup — a guided introduction and visible next steps",
+      "All-in employment cost calculator — pay, NI, pension and payroll estimates",
+      "Your Nannytax referral code",
+      "Agency terms and conditions",
+      "Reviews & check-ins — 6-month and yearly conversation guides",
+    ],
+  },
+  {
+    icon: HeartHandshake,
+    title: "Support & extras",
+    summary: "Trusted ideas, thoughtful extras and everything that makes family life easier.",
+    featured: ["Messages", "Family perks", "Training hub"],
+    items: [
+      "Messages — topic conversations between family and nanny, kept in the wallet",
+      "Private nanny curation — personally selected profiles, never a public catalogue",
+      "Family perks & London Partner Concierge — private offers and trusted recommendations",
+      "Agency Materials — audiobooks, digital books, activity and family guides",
+      "Active Kids Sports Passport — skills, challenges and confidence wins",
+      "Nanny training hub — safeguarding, routines and emergencies",
+      "Nanny training certificate — kept in the wallet once passed",
+      "Nanny Fuel — cooking and meal ideas",
+      "Nanny activity guide",
+    ],
+  },
+];
+
+const headlineBenefits = [
+  { icon: CalendarDays, title: "Everyone sees the same week", detail: "Shifts, school runs and clubs in one shared planner." },
+  { icon: Pill, title: "No double-dosing with the medication log", detail: "Every dose timed and signed, so nobody has to text to check." },
+  { icon: ReceiptText, title: "A Friday report ready to print", detail: "Hours, activities, handovers and expenses, summed up for you." },
+  { icon: Siren, title: "Emergency details always to hand", detail: "Key contacts, allergies and instructions in one tap." },
+  { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
+  { icon: LifeBuoy, title: "Petty cash that always adds up", detail: "Top-ups and receipts logged, so everyone knows what's left." },
+  { icon: KeyRound, title: "No more ‘what’s the WiFi password?’", detail: "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed." },
+  { icon: Heart, title: "Everyone on the same page with the kids", detail: "The Kids' Playbook shares what soothes each child, the house rules you agree on, friends and rainy-day ideas." },
+];
+
+
+function Index() {
+  return (
+    <div className="min-h-screen overflow-hidden bg-sand">
+      <header className="border-b border-border/70 bg-background/75">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
+          <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <Wallet className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
+            <p className="text-xs text-muted-foreground">Your childcare, safely in one place</p>
+          </div>
+          <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
+            <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
+          </span>
+        </div>
+      </header>
+
+      <main>
+        <section className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:px-8 sm:pt-14">
+          <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
+            <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">
+              The Family Wallet
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+              Your family and your new nanny, beautifully organised. Routines, essential documents,
+              daily notes and messages, together in one private place.
+            </p>
+          </div>
+
+          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
+              <FamilyLogin />
+
+              <div className="mt-4 rounded-2xl border border-secondary/70 bg-background/70 p-5 sm:p-6">
+                <div className="flex items-start gap-3">
+                  <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
+                    <Smartphone className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
+                    <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/75">
+                  Step inside a complete sample Family Wallet with no login. Nothing in the demo is live.
+                </p>
+                <Button asChild variant="outline" size="lg" className="mt-4 w-full border-primary/30 bg-card/70">
+                  <Link to="/demo">
+                    View the demo wallet <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Link to="/calculator" className="mt-3 flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline">
+                  What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <TodayPreview />
+            </div>
+
+            <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your Family Wallet</p>
+              <h2 className="heading-display mt-2 text-3xl leading-tight text-foreground">
+                Everything around your nanny, in one place
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                A practical daily home for parents and nannies, with everything in one private place.
+              </p>
+
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {headlineBenefits.map(({ icon: Icon, title, detail }) => (
+                  <li key={title} className="flex gap-3 rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm">
+                    <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-4.5 w-4.5" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold leading-snug text-foreground">{title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{detail}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section className="border-y border-border/70 bg-background/65">
+          <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+            <details className="group rounded-2xl bg-card shadow-sm/75">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
+                <div>
+                  <h2 className="heading-display text-xl text-foreground">See everything included</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Wallet.</p>
+                </div>
+                <ChevronDown className="h-5 w-5 flex-none text-primary transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="grid gap-7 border-t border-border px-5 py-6 sm:grid-cols-2 sm:px-6">
+                {benefitGroups.map(({ icon: Icon, title, items }) => (
+                  <div key={title}>
+                    <h3 className="flex items-center gap-2 font-semibold text-foreground">
+                      <Icon className="h-4 w-4 text-primary" /> {title}
+                    </h3>
+                    <ul className="mt-3 space-y-2.5">
+                      {items.map((item) => (
+                        <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground">
+                          <span className="mt-2 size-1.5 flex-none rounded-full bg-secondary" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-6xl gap-6 px-5 py-10 sm:px-8 md:grid-cols-2">
+          <div>
+            <h2 className="heading-display text-xl text-foreground">Opening your wallet</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              We send your personal wallet link and short access code. Enter them once and choose
+              “Remember this device” to stay signed in for 12 months.
+            </p>
+          </div>
+          <div className="md:border-l md:border-border md:pl-6">
+            <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Contact your agency and they will resend your link and code.
+            </p>
+          </div>
+        </section>
+
+        <div className="pb-10 text-center">
+          <Link
+            to="/admin"
+            className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            Agency sign in
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+const PREVIEW_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PREVIEW_ITEMS = [
+  { time: "3:30pm", text: "School pick-up — Jess (nanny shift 3:30–8pm)" },
+  { time: "4:30pm", text: "Football training, bring shin pads" },
+  { time: "6:00pm", text: "Dinner from Nanny Fuel — chicken traybake" },
+];
+const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
+
+function TodayPreview() {
+  const [today, setToday] = useState<number | null>(null);
+  useEffect(() => { setToday((new Date().getDay() + 6) % 7); }, []);
+  return (
+    <div className="mt-4 rounded-2xl border border-border bg-card/80 p-5 sm:p-6" aria-label="Sample calendar preview">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Sample preview</p>
+      <h2 className="heading-display mt-1 text-xl text-foreground">Today at the Harringtons'</h2>
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center">
+        {PREVIEW_DAYS.map((d, i) => (
+          <div key={d} className={`rounded-lg py-2 text-xs font-medium ${i === today ? "bg-primary text-primary-foreground" : i < 5 ? "bg-secondary/60 text-secondary-foreground" : "text-muted-foreground"}`}>
+            {d}
+          </div>
+        ))}
+      </div>
+      <ul className="mt-4 space-y-2">
+        {PREVIEW_ITEMS.map((it) => (
+          <li key={it.time} className="flex gap-3 text-sm">
+            <span className="w-14 flex-none font-semibold text-primary">{it.time}</span>
+            <span className="text-foreground/80">{it.text}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Suggested activities</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {PREVIEW_IDEAS.map((a) => (
+          <span key={a} className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">{a}</span>
+        ))}
+      </div>
+    </div>
+  );
+}

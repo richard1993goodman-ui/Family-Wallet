@@ -1,1 +1,131 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyByZXF1aXJlU3VwYWJhc2VBdXRoIH0gZnJvbSAiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvYXV0aC1taWRkbGV3YXJlIjsKaW1wb3J0IHsgcmVxdWlyZU93bmVyIH0gZnJvbSAiLi9zdGFmZi5zY29wZSI7CgovLyBPd25lci1vbmx5IG1hbmFnZW1lbnQgb2YgcGFydG5lciBhZ2VuY2llcyBhbmQgdGhlIHN0YWZmIGVtYWlscyBhbGxvd2VkIGludG8gZWFjaC4KCmV4cG9ydCBjb25zdCBsaXN0UGFydG5lckFnZW5jaWVzID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKQogIC5oYW5kbGVyKGFzeW5jICh7IGNvbnRleHQgfSkgPT4gewogICAgYXdhaXQgcmVxdWlyZU93bmVyKGNvbnRleHQpOwogICAgY29uc3QgeyBzdXBhYmFzZUFkbWluIH0gPSBhd2FpdCBpbXBvcnQoIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiKTsKICAgIGNvbnN0IFt7IGRhdGE6IGFnZW5jaWVzLCBlcnJvciB9LCB7IGRhdGE6IHN0YWZmIH0sIHsgZGF0YTogZmFtaWxpZXMgfV0gPSBhd2FpdCBQcm9taXNlLmFsbChbCiAgICAgIHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9hZ2VuY2llcyIpLnNlbGVjdCgiKiIpLm9yZGVyKCJjcmVhdGVkX2F0IiwgeyBhc2NlbmRpbmc6IHRydWUgfSksCiAgICAgIHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9hZ2VuY3lfc3RhZmYiKS5zZWxlY3QoImlkLCBhZ2VuY3lfaWQsIGVtYWlsLCB1c2VyX2lkIikub3JkZXIoImNyZWF0ZWRfYXQiKSwKICAgICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJmYW1pbGllcyIpLnNlbGVjdCgicGFydG5lcl9hZ2VuY3lfaWQsIHN0YXR1cyIpLm5vdCgicGFydG5lcl9hZ2VuY3lfaWQiLCAiaXMiLCBudWxsKSwKICAgIF0pOwogICAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7CiAgICByZXR1cm4gKGFnZW5jaWVzID8/IFtdKS5tYXAoKGEpID0+ICh7CiAgICAgIC4uLmEsCiAgICAgIHN0YWZmOiAoc3RhZmYgPz8gW10pLmZpbHRlcigocykgPT4gcy5hZ2VuY3lfaWQgPT09IGEuaWQpLm1hcCgocykgPT4gKHsgaWQ6IHMuaWQsIGVtYWlsOiBzLmVtYWlsLCBqb2luZWQ6ICEhcy51c2VyX2lkIH0pKSwKICAgICAgYWN0aXZlRmFtaWxpZXM6IChmYW1pbGllcyA/PyBbXSkuZmlsdGVyKChmKSA9PiBmLnBhcnRuZXJfYWdlbmN5X2lkID09PSBhLmlkICYmIGYuc3RhdHVzID09PSAiYWN0aXZlIikubGVuZ3RoLAogICAgfSkpOwogIH0pOwoKZXhwb3J0IGNvbnN0IHNhdmVQYXJ0bmVyQWdlbmN5ID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5taWRkbGV3YXJlKFtyZXF1aXJlU3VwYWJhc2VBdXRoXSkKICAuaW5wdXRWYWxpZGF0b3IoKGQ6IHsgaWQ/OiBzdHJpbmc7IG5hbWU6IHN0cmluZzsgY29udGFjdEVtYWlsOiBzdHJpbmc7IGNvbnRhY3RQaG9uZTogc3RyaW5nOyBzdGF0dXM6IHN0cmluZzsgYnJhbmROYW1lPzogc3RyaW5nOyBpbnRyb1ByaWNpbmc/OiBib29sZWFuOyBzaG9ydE5hbWU/OiBzdHJpbmc7IGFsbG93Q2hhbGxlbmdlcz86IGJvb2xlYW47IGFsbG93UGVya3M/OiBib29sZWFuOyBhbGxvd1BsYXlib29rcz86IGJvb2xlYW4gfSkgPT4gZCkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhLCBjb250ZXh0IH0pID0+IHsKICAgIGF3YWl0IHJlcXVpcmVPd25lcihjb250ZXh0KTsKICAgIGNvbnN0IG5hbWUgPSBkYXRhLm5hbWUudHJpbSgpLnNsaWNlKDAsIDEyMCk7CiAgICBpZiAoIW5hbWUpIHRocm93IG5ldyBFcnJvcigiQWdlbmN5IG5hbWUgaXMgcmVxdWlyZWQiKTsKICAgIGNvbnN0IHJvdyA9IHsKICAgICAgbmFtZSwKICAgICAgY29udGFjdF9lbWFpbDogZGF0YS5jb250YWN0RW1haWwudHJpbSgpIHx8IG51bGwsCiAgICAgIGNvbnRhY3RfcGhvbmU6IGRhdGEuY29udGFjdFBob25lLnRyaW0oKSB8fCBudWxsLAogICAgICBzdGF0dXM6IGRhdGEuc3RhdHVzID09PSAicGF1c2VkIiA/ICJwYXVzZWQiIDogImFjdGl2ZSIsCiAgICAgIGJyYW5kX25hbWU6IGRhdGEuYnJhbmROYW1lPy50cmltKCkuc2xpY2UoMCwgMTIwKSB8fCBudWxsLAogICAgICBpbnRyb19wcmljaW5nOiAhIWRhdGEuaW50cm9QcmljaW5nLAogICAgICBzaG9ydF9uYW1lOiBkYXRhLnNob3J0TmFtZT8udHJpbSgpLnRvTG93ZXJDYXNlKCkucmVwbGFjZSgvW15hLXowLTktXS9nLCAiIikuc2xpY2UoMCwgNDApIHx8IG51bGwsCiAgICAgIGFsbG93X2NoYWxsZW5nZXM6IHRydWUsCiAgICAgIGFsbG93X3BlcmtzOiB0cnVlLAogICAgICBhbGxvd19wbGF5Ym9va3M6IHRydWUsCiAgICAgIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwKICAgIH07CiAgICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogICAgaWYgKGRhdGEuaWQpIHsKICAgICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwYXJ0bmVyX2FnZW5jaWVzIikudXBkYXRlKHJvdykuZXEoImlkIiwgZGF0YS5pZCk7CiAgICAgIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLmNvZGUgPT09ICIyMzUwNSIgPyAiVGhhdCB3ZWIgYWRkcmVzcyBpcyBhbHJlYWR5IHRha2VuIiA6IGVycm9yLm1lc3NhZ2UpOwogICAgICByZXR1cm4geyBpZDogZGF0YS5pZCB9OwogICAgfQogICAgY29uc3QgeyBkYXRhOiBpbnNlcnRlZCwgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9hZ2VuY2llcyIpLmluc2VydChyb3cpLnNlbGVjdCgiaWQiKS5zaW5nbGUoKTsKICAgIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogICAgcmV0dXJuIHsgaWQ6IGluc2VydGVkLmlkIH07CiAgfSk7CgpleHBvcnQgY29uc3QgYWRkQWdlbmN5U3RhZmYgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKQogIC5pbnB1dFZhbGlkYXRvcigoZDogeyBhZ2VuY3lJZDogc3RyaW5nOyBlbWFpbDogc3RyaW5nIH0pID0+IGQpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSwgY29udGV4dCB9KSA9PiB7CiAgICBhd2FpdCByZXF1aXJlT3duZXIoY29udGV4dCk7CiAgICBjb25zdCBlbWFpbCA9IGRhdGEuZW1haWwudHJpbSgpLnRvTG93ZXJDYXNlKCk7CiAgICBpZiAoIS9eW15cc0BdK0BbXlxzQF0rXC5bXlxzQF0rJC8udGVzdChlbWFpbCkpIHRocm93IG5ldyBFcnJvcigiRW50ZXIgYSB2YWxpZCBlbWFpbCIpOwogICAgY29uc3QgeyBzdXBhYmFzZUFkbWluIH0gPSBhd2FpdCBpbXBvcnQoIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiKTsKICAgIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9hZ2VuY3lfc3RhZmYiKS5pbnNlcnQoeyBhZ2VuY3lfaWQ6IGRhdGEuYWdlbmN5SWQsIGVtYWlsIH0pOwogICAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IuY29kZSA9PT0gIjIzNTA1IiA/ICJUaGF0IGVtYWlsIGlzIGFscmVhZHkgbGlua2VkIHRvIGFuIGFnZW5jeSIgOiBlcnJvci5tZXNzYWdlKTsKICAgIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0IH07CiAgfSk7CgpleHBvcnQgY29uc3QgcmVtb3ZlQWdlbmN5U3RhZmYgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKQogIC5pbnB1dFZhbGlkYXRvcigoZDogeyBpZDogc3RyaW5nIH0pID0+IGQpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSwgY29udGV4dCB9KSA9PiB7CiAgICBhd2FpdCByZXF1aXJlT3duZXIoY29udGV4dCk7CiAgICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwYXJ0bmVyX2FnZW5jeV9zdGFmZiIpLmRlbGV0ZSgpLmVxKCJpZCIsIGRhdGEuaWQpOwogICAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwoKZXhwb3J0IGNvbnN0IGRlbGV0ZVBhcnRuZXJBZ2VuY3kgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKQogIC5pbnB1dFZhbGlkYXRvcigoZDogeyBpZDogc3RyaW5nIH0pID0+IGQpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSwgY29udGV4dCB9KSA9PiB7CiAgICBhd2FpdCByZXF1aXJlT3duZXIoY29udGV4dCk7CiAgICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogICAgY29uc3QgeyBjb3VudCB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgiZmFtaWxpZXMiKQogICAgICAuc2VsZWN0KCJpZCIsIHsgY291bnQ6ICJleGFjdCIsIGhlYWQ6IHRydWUgfSkKICAgICAgLmVxKCJwYXJ0bmVyX2FnZW5jeV9pZCIsIGRhdGEuaWQpOwogICAgaWYgKChjb3VudCA/PyAwKSA+IDApIHsKICAgICAgdGhyb3cgbmV3IEVycm9yKGBUaGlzIGFnZW5jeSBzdGlsbCBoYXMgJHtjb3VudH0gJHtjb3VudCA9PT0gMSA/ICJmYW1pbHkiIDogImZhbWlsaWVzIn0uIERlbGV0ZSBvciBtb3ZlIHRoZW0gZmlyc3QuYCk7CiAgICB9CiAgICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInBhcnRuZXJfYWdlbmNpZXMiKS5kZWxldGUoKS5lcSgiaWQiLCBkYXRhLmlkKTsKICAgIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogICAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKICB9KTsKCi8vIE93bmVyLW9ubHkgZXhwb3J0IG9mIGV2ZXJ5IHJlY29yZCBoZWxkIGZvciBvbmUgcGFydG5lciBhZ2VuY3kgKHN1cHBvcnRzIHRoZSAzMC1kYXkgZXhpdCBleHBvcnQpLgpjb25zdCBFWFBPUlRfVEFCTEVTID0gWwogICJmYW1pbHlfY2hpbGRyZW4iLCAiZmFtaWx5X2NvbnRhY3RzIiwgImZhbWlseV9wcm9maWxlIiwgImZhbWlseV9uYW5uaWVzIiwgIm5hbm55X2FncmVlbWVudHMiLAogICJkb2N1bWVudF9zaWduYXR1cmVzIiwgImZhbWlseV9kb2N1bWVudHMiLCAibmFubnlfc2FmZXR5X2RvY3VtZW50cyIsICJ0aW1lc2hlZXRfc2hpZnRzIiwgImxlYXZlX3JlcXVlc3RzIiwKICAiZXhwZW5zZV9jbGFpbXMiLCAibWVkaWNhdGlvbl9kb3NlcyIsICJoYW5kb3Zlcl9jaGVja2xpc3RzIiwgImRhaWx5X2xvZ3MiLCAicGxhbm5lcl9lbnRyaWVzIiwKICAidHJhaW5pbmdfYXR0ZW1wdHMiLCAicmV2aWV3X2NoZWNraW5zIiwgInNwb3J0c19wYXNzcG9ydF9lbnRyaWVzIiwgInRyYXZlbF90cmlwcyIsICJmYW1pbHlfbW9tZW50cyIsCl0gYXMgY29uc3Q7CgpleHBvcnQgY29uc3QgZXhwb3J0QWdlbmN5UmVjb3JkcyA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkKICAubWlkZGxld2FyZShbcmVxdWlyZVN1cGFiYXNlQXV0aF0pCiAgLmlucHV0VmFsaWRhdG9yKChkOiB7IGlkOiBzdHJpbmcgfSkgPT4gZCkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhLCBjb250ZXh0IH0pID0+IHsKICAgIGF3YWl0IHJlcXVpcmVPd25lcihjb250ZXh0KTsKICAgIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgICBjb25zdCB7IGRhdGE6IGFnZW5jeSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwYXJ0bmVyX2FnZW5jaWVzIikuc2VsZWN0KCIqIikuZXEoImlkIiwgZGF0YS5pZCkubWF5YmVTaW5nbGUoKTsKICAgIGlmICghYWdlbmN5KSB0aHJvdyBuZXcgRXJyb3IoIkFnZW5jeSBub3QgZm91bmQiKTsKICAgIGNvbnN0IHsgZGF0YTogZmFtaWxpZXMgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oImZhbWlsaWVzIikKICAgICAgLnNlbGVjdCgiaWQsIHNsdWcsIGZhbWlseV9uYW1lLCBjb250YWN0X2VtYWlsLCBjb250YWN0X3Bob25lLCB0aWVyX2JhbmQsIG5hbm55X25hbWUsIHN0YXJ0X2RhdGUsIHN0YXR1cywgbm90ZXMsIGNyZWF0ZWRfYXQsIHVwZGF0ZWRfYXQiKQogICAgICAuZXEoInBhcnRuZXJfYWdlbmN5X2lkIiwgZGF0YS5pZCk7CiAgICBjb25zdCBpZHMgPSAoZmFtaWxpZXMgPz8gW10pLm1hcCgoZikgPT4gZi5pZCk7CiAgICBjb25zdCByZWNvcmRzOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duW10+ID0ge307CiAgICBmb3IgKGNvbnN0IHQgb2YgRVhQT1JUX1RBQkxFUykgewogICAgICBpZiAoIWlkcy5sZW5ndGgpIHsgcmVjb3Jkc1t0XSA9IFtdOyBjb250aW51ZTsgfQogICAgICAvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgQHR5cGVzY3JpcHQtZXNsaW50L25vLWV4cGxpY2l0LWFueQogICAgICBjb25zdCB7IGRhdGE6IHJvd3MgfSA9IGF3YWl0IChzdXBhYmFzZUFkbWluLmZyb20odCBhcyBhbnkpIGFzIGFueSkuc2VsZWN0KCIqIikuaW4oImZhbWlseV9pZCIsIGlkcyk7CiAgICAgIHJlY29yZHNbdF0gPSAocm93cyA/PyBbXSkubWFwKChyOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPikgPT4gewogICAgICAgIGNvbnN0IHsgbmFubnlfY29kZSwgbmFubnlfY29kZV9oYXNoLCAuLi5yZXN0IH0gPSByOwogICAgICAgIHZvaWQgbmFubnlfY29kZTsgdm9pZCBuYW5ueV9jb2RlX2hhc2g7CiAgICAgICAgcmV0dXJuIHJlc3Q7CiAgICAgIH0pOwogICAgfQogICAgcmV0dXJuIEpTT04uc3RyaW5naWZ5KHsgZXhwb3J0ZWRBdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLCBhZ2VuY3ksIGZhbWlsaWVzOiBmYW1pbGllcyA/PyBbXSwgcmVjb3JkcyB9LCBudWxsLCAyKTsKICB9KTsK
+import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireOwner } from "./staff.scope";
+
+// Owner-only management of partner agencies and the staff emails allowed into each.
+
+export const listPartnerAgencies = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const [{ data: agencies, error }, { data: staff }, { data: families }] = await Promise.all([
+      supabaseAdmin.from("partner_agencies").select("*").order("created_at", { ascending: true }),
+      supabaseAdmin.from("partner_agency_staff").select("id, agency_id, email, user_id").order("created_at"),
+      supabaseAdmin.from("families").select("partner_agency_id, status").not("partner_agency_id", "is", null),
+    ]);
+    if (error) throw new Error(error.message);
+    return (agencies ?? []).map((a) => ({
+      ...a,
+      staff: (staff ?? []).filter((s) => s.agency_id === a.id).map((s) => ({ id: s.id, email: s.email, joined: !!s.user_id })),
+      activeFamilies: (families ?? []).filter((f) => f.partner_agency_id === a.id && f.status === "active").length,
+    }));
+  });
+
+export const savePartnerAgency = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string; allowChallenges?: boolean; allowPerks?: boolean; allowPlaybooks?: boolean }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const name = data.name.trim().slice(0, 120);
+    if (!name) throw new Error("Agency name is required");
+    const row = {
+      name,
+      contact_email: data.contactEmail.trim() || null,
+      contact_phone: data.contactPhone.trim() || null,
+      status: data.status === "paused" ? "paused" : "active",
+      brand_name: data.brandName?.trim().slice(0, 120) || null,
+      intro_pricing: !!data.introPricing,
+      short_name: data.shortName?.trim().toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) || null,
+      allow_challenges: true,
+      allow_perks: true,
+      allow_playbooks: true,
+      updated_at: new Date().toISOString(),
+    };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    if (data.id) {
+      const { error } = await supabaseAdmin.from("partner_agencies").update(row).eq("id", data.id);
+      if (error) throw new Error(error.code === "23505" ? "That web address is already taken" : error.message);
+      return { id: data.id };
+    }
+    const { data: inserted, error } = await supabaseAdmin.from("partner_agencies").insert(row).select("id").single();
+    if (error) throw new Error(error.message);
+    return { id: inserted.id };
+  });
+
+export const addAgencyStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { agencyId: string; email: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const email = data.email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Enter a valid email");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partner_agency_staff").insert({ agency_id: data.agencyId, email });
+    if (error) throw new Error(error.code === "23505" ? "That email is already linked to an agency" : error.message);
+    return { ok: true as const };
+  });
+
+export const removeAgencyStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partner_agency_staff").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const deletePartnerAgency = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { count } = await supabaseAdmin
+      .from("families")
+      .select("id", { count: "exact", head: true })
+      .eq("partner_agency_id", data.id);
+    if ((count ?? 0) > 0) {
+      throw new Error(`This agency still has ${count} ${count === 1 ? "family" : "families"}. Delete or move them first.`);
+    }
+    const { error } = await supabaseAdmin.from("partner_agencies").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+// Owner-only export of every record held for one partner agency (supports the 30-day exit export).
+const EXPORT_TABLES = [
+  "family_children", "family_contacts", "family_profile", "family_nannies", "nanny_agreements",
+  "document_signatures", "family_documents", "nanny_safety_documents", "timesheet_shifts", "leave_requests",
+  "expense_claims", "medication_doses", "handover_checklists", "daily_logs", "planner_entries",
+  "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments",
+] as const;
+
+export const exportAgencyRecords = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: agency } = await supabaseAdmin.from("partner_agencies").select("*").eq("id", data.id).maybeSingle();
+    if (!agency) throw new Error("Agency not found");
+    const { data: families } = await supabaseAdmin
+      .from("families")
+      .select("id, slug, family_name, contact_email, contact_phone, tier_band, nanny_name, start_date, status, notes, created_at, updated_at")
+      .eq("partner_agency_id", data.id);
+    const ids = (families ?? []).map((f) => f.id);
+    const records: Record<string, unknown[]> = {};
+    for (const t of EXPORT_TABLES) {
+      if (!ids.length) { records[t] = []; continue; }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: rows } = await (supabaseAdmin.from(t as any) as any).select("*").in("family_id", ids);
+      records[t] = (rows ?? []).map((r: Record<string, unknown>) => {
+        const { nanny_code, nanny_code_hash, ...rest } = r;
+        void nanny_code; void nanny_code_hash;
+        return rest;
+      });
+    }
+    return JSON.stringify({ exportedAt: new Date().toISOString(), agency, families: families ?? [], records }, null, 2);
+  });

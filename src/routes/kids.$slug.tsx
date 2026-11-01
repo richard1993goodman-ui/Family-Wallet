@@ -1,1 +1,97 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHF1ZXJ5T3B0aW9ucywgdXNlUXVlcnlDbGllbnQsIHVzZVN1c3BlbnNlUXVlcnkgfSBmcm9tICJAdGFuc3RhY2svcmVhY3QtcXVlcnkiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAicmVhY3QiOwppbXBvcnQgeyBQZW5jaWwsIFBsdXMsIFNhdmUsIFRyYXNoMiB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgSHViUGFnZSwgTG9ja2VkTm90aWNlIH0gZnJvbSAiQC9jb21wb25lbnRzL2h1Yi11aSI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBJbnB1dCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9pbnB1dCI7CmltcG9ydCB7IFRleHRhcmVhIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RleHRhcmVhIjsKaW1wb3J0IHsgTGFiZWwgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvbGFiZWwiOwppbXBvcnQgeyBEaWFsb2csIERpYWxvZ0NvbnRlbnQsIERpYWxvZ0hlYWRlciwgRGlhbG9nVGl0bGUgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvZGlhbG9nIjsKaW1wb3J0IHsgZGVsZXRlS2lkc1BsYXlib29rRm4sIGdldEtpZHNQbGF5Ym9vaywgc2F2ZUtpZHNQbGF5Ym9va0ZuIH0gZnJvbSAiQC9saWIva2lkcy1wbGF5Ym9vay5mdW5jdGlvbnMiOwppbXBvcnQgeyBjYW5FZGl0UGxheWJvb2ssIFBMQVlCT09LX0NBVEVHT1JJRVMsIHBsYXlib29rRW50cnlTY2hlbWEsIHR5cGUgUGxheWJvb2tJbnB1dCB9IGZyb20gIkAvbGliL2tpZHMtcGxheWJvb2sudHlwZXMiOwoKY29uc3QgcGxheWJvb2tRdWVyeSA9IChzbHVnOiBzdHJpbmcpID0+IHF1ZXJ5T3B0aW9ucyh7IHF1ZXJ5S2V5OiBbImtpZHMtcGxheWJvb2siLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gZ2V0S2lkc1BsYXlib29rKHsgZGF0YTogeyBzbHVnIH0gfSkgfSk7CmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL2tpZHMvJHNsdWciKSh7CiAgaGVhZDogKCkgPT4gKHsgbWV0YTogWwogICAgeyB0aXRsZTogIktpZHMnIFBsYXlib29rIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgIHsgbmFtZTogImRlc2NyaXB0aW9uIiwgY29udGVudDogIkVhY2ggY2hpbGQncyBjb21mb3J0cyBhbmQgcXVpcmtzLCBob3cgeW91IGhhbmRsZSBiaWcgbW9tZW50cywgZnJpZW5kcywgcGxheWRhdGVzIGFuZCByYWlueS1kYXkgaWRlYXMuIiB9LAogICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIktpZHMnIFBsYXlib29rIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJLZWVwIHBhcmVudHMgYW5kIG5hbm55IGluIHN5bmMgb24gZXZlcnl0aGluZyB0aGF0IG1hdHRlcnMgdG8gdGhlIGtpZHMuIiB9LAogICAgeyBwcm9wZXJ0eTogIm9nOnR5cGUiLCBjb250ZW50OiAid2Vic2l0ZSIgfSwgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnkiIH0sIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogIF0gfSksCiAgbG9hZGVyOiAoeyBjb250ZXh0LCBwYXJhbXMgfSkgPT4gY29udGV4dC5xdWVyeUNsaWVudC5lbnN1cmVRdWVyeURhdGEocGxheWJvb2tRdWVyeShwYXJhbXMuc2x1ZykpLAogIGNvbXBvbmVudDogS2lkc1BsYXlib29rUGFnZSwKfSk7CgpmdW5jdGlvbiBLaWRzUGxheWJvb2tQYWdlKCkgewogIGNvbnN0IHsgc2x1ZyB9ID0gUm91dGUudXNlUGFyYW1zKCk7CiAgY29uc3QgeyBkYXRhIH0gPSB1c2VTdXNwZW5zZVF1ZXJ5KHBsYXlib29rUXVlcnkoc2x1ZykpOwogIGNvbnN0IFtlZGl0aW5nLCBzZXRFZGl0aW5nXSA9IHVzZVN0YXRlPFBsYXlib29rSW5wdXQgfCBudWxsPihudWxsKTsKICBjb25zdCBjbGllbnQgPSB1c2VRdWVyeUNsaWVudCgpOwogIGNvbnN0IGRlbGV0ZUZuID0gdXNlU2VydmVyRm4oZGVsZXRlS2lkc1BsYXlib29rRm4pOwogIGNvbnN0IHJlZnJlc2ggPSBhc3luYyAoKSA9PiB7IGF3YWl0IGNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbImtpZHMtcGxheWJvb2siLCBzbHVnXSB9KTsgfTsKICBpZiAoIWRhdGEpIHJldHVybiA8TG9ja2VkTm90aWNlIHNsdWc9e3NsdWd9IC8+OwogIGNvbnN0IGlzUGFyZW50ID0gZGF0YS5hY2Nlc3MgPT09ICJmYW1pbHkiOwogIHJldHVybiA8SHViUGFnZSBzbHVnPXtzbHVnfSB0aXRsZT0iS2lkcycgUGxheWJvb2siPgogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlbiBnYXAtMyBib3JkZXItYiBib3JkZXItYm9yZGVyIHBiLTUiPgogICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57aXNQYXJlbnQgPyAiU28geW91ciBuYW5ueSBrbm93cyB0aGUga2lkcyBsaWtlIHlvdSBkby4iIDogIkV2ZXJ5dGhpbmcgdGhlIGZhbWlseSB3YW50cyB5b3UgdG8ga25vdyBhYm91dCB0aGUga2lkcy4gWW91IGNhbiBhZGQgcmFpbnktZGF5IGlkZWFzLiJ9PC9wPgogICAgICA8QnV0dG9uIG9uQ2xpY2s9eygpID0+IHNldEVkaXRpbmcoeyBjYXRlZ29yeTogaXNQYXJlbnQgPyAiY29tZm9ydCIgOiAiYWN0aXZpdGllcyIsIGNoaWxkTmFtZTogIiIsIHRpdGxlOiAiIiwgbm90ZXM6ICIiIH0pfT48UGx1cyBjbGFzc05hbWU9InNpemUtNCIgLz4gQWRkPC9CdXR0b24+CiAgICA8L2Rpdj4KICAgIHtQTEFZQk9PS19DQVRFR09SSUVTLm1hcChjYXRlZ29yeSA9PiB7CiAgICAgIGNvbnN0IGVudHJpZXMgPSBkYXRhLmVudHJpZXMuZmlsdGVyKGUgPT4gZS5jYXRlZ29yeSA9PT0gY2F0ZWdvcnkuaWQpOwogICAgICByZXR1cm4gPHNlY3Rpb24ga2V5PXtjYXRlZ29yeS5pZH0gY2xhc3NOYW1lPSJtdC03Ij4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJ0ZXh0LWxnIGZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIj57Y2F0ZWdvcnkubGFiZWx9PC9oMj4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntjYXRlZ29yeS5leGFtcGxlc308L3A+CiAgICAgICAge2VudHJpZXMubGVuZ3RoID09PSAwID8gPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Ob3RoaW5nIGFkZGVkIHlldC48L3A+IDoKICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGdyaWQgZ2FwLTMgc206Z3JpZC1jb2xzLTIiPntlbnRyaWVzLm1hcChlbnRyeSA9PiB7CiAgICAgICAgICAgIGNvbnN0IGNhbkVkaXQgPSBjYW5FZGl0UGxheWJvb2soZGF0YS5hY2Nlc3MsIGVudHJ5LmNhdGVnb3J5KTsKICAgICAgICAgICAgcmV0dXJuIDxhcnRpY2xlIGtleT17ZW50cnkuaWR9IGNsYXNzTmFtZT0icm91bmRlZC1sZyBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNCI+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTIiPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1pbi13LTAgZmxleC0xIj4KICAgICAgICAgICAgICAgICAge2VudHJ5LmNoaWxkTmFtZSAmJiA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctd2lkZSB0ZXh0LXByaW1hcnkiPntlbnRyeS5jaGlsZE5hbWV9PC9wPn0KICAgICAgICAgICAgICAgICAgPGgzIGNsYXNzTmFtZT0iYnJlYWstd29yZHMgZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQiPntlbnRyeS50aXRsZX08L2gzPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICB7Y2FuRWRpdCAmJiA8PgogICAgICAgICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Imdob3N0IiBzaXplPSJpY29uIiBhcmlhLWxhYmVsPXtgRWRpdCAke2VudHJ5LnRpdGxlfWB9IG9uQ2xpY2s9eygpID0+IHNldEVkaXRpbmcoZW50cnkpfT48UGVuY2lsIGNsYXNzTmFtZT0ic2l6ZS00IiAvPjwvQnV0dG9uPgogICAgICAgICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Imdob3N0IiBzaXplPSJpY29uIiBhcmlhLWxhYmVsPXtgUmVtb3ZlICR7ZW50cnkudGl0bGV9YH0gb25DbGljaz17YXN5bmMgKCkgPT4gewogICAgICAgICAgICAgICAgICAgIGlmICghd2luZG93LmNvbmZpcm0oIlJlbW92ZSB0aGlzPyIpKSByZXR1cm47CiAgICAgICAgICAgICAgICAgICAgdHJ5IHsgYXdhaXQgZGVsZXRlRm4oeyBkYXRhOiB7IHNsdWcsIGlkOiBlbnRyeS5pZCB9IH0pOyBhd2FpdCByZWZyZXNoKCk7IH0gY2F0Y2ggeyB0b2FzdC5lcnJvcigiQ291bGRuJ3QgcmVtb3ZlIHRoYXQuIik7IH0KICAgICAgICAgICAgICAgICAgfX0+PFRyYXNoMiBjbGFzc05hbWU9InNpemUtNCIgLz48L0J1dHRvbj4KICAgICAgICAgICAgICAgIDwvPn0KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICB7ZW50cnkubm90ZXMgJiYgPHAgY2xhc3NOYW1lPSJtdC0yIHdoaXRlc3BhY2UtcHJlLXdyYXAgYnJlYWstd29yZHMgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntlbnRyeS5ub3Rlc308L3A+fQogICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+QWRkZWQgYnkge2VudHJ5LmFkZGVkQnkgPT09ICJuYW5ueSIgPyAibmFubnkiIDogInBhcmVudCJ9PC9wPgogICAgICAgICAgICA8L2FydGljbGU+OwogICAgICAgICAgfSl9PC9kaXY+fQogICAgICA8L3NlY3Rpb24+OwogICAgfSl9CiAgICB7ZWRpdGluZyAmJiA8RWRpdG9yIGtleT17ZWRpdGluZy5pZCA/PyAibmV3In0gc2x1Zz17c2x1Z30gaW5pdGlhbD17ZWRpdGluZ30gaXNQYXJlbnQ9e2lzUGFyZW50fSBvbkNsb3NlPXsoKSA9PiBzZXRFZGl0aW5nKG51bGwpfSBvblNhdmVkPXtyZWZyZXNofSAvPn0KICA8L0h1YlBhZ2U+Owp9CgpmdW5jdGlvbiBFZGl0b3IoeyBzbHVnLCBpbml0aWFsLCBpc1BhcmVudCwgb25DbG9zZSwgb25TYXZlZCB9OiB7IHNsdWc6IHN0cmluZzsgaW5pdGlhbDogUGxheWJvb2tJbnB1dDsgaXNQYXJlbnQ6IGJvb2xlYW47IG9uQ2xvc2U6ICgpID0+IHZvaWQ7IG9uU2F2ZWQ6ICgpID0+IFByb21pc2U8dm9pZD4gfSkgewogIGNvbnN0IFtlbnRyeSwgc2V0RW50cnldID0gdXNlU3RhdGU8UGxheWJvb2tJbnB1dD4oeyBpZDogaW5pdGlhbC5pZCwgY2F0ZWdvcnk6IGluaXRpYWwuY2F0ZWdvcnksIGNoaWxkTmFtZTogaW5pdGlhbC5jaGlsZE5hbWUsIHRpdGxlOiBpbml0aWFsLnRpdGxlLCBub3RlczogaW5pdGlhbC5ub3RlcyB9KTsKICBjb25zdCBbc2F2aW5nLCBzZXRTYXZpbmddID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IHNhdmVGbiA9IHVzZVNlcnZlckZuKHNhdmVLaWRzUGxheWJvb2tGbik7CiAgY29uc3Qgb3B0aW9ucyA9IFBMQVlCT09LX0NBVEVHT1JJRVMuZmlsdGVyKGMgPT4gaXNQYXJlbnQgfHwgYy5pZCA9PT0gImFjdGl2aXRpZXMiKTsKICBhc3luYyBmdW5jdGlvbiBzdWJtaXQoZTogUmVhY3QuRm9ybUV2ZW50KSB7CiAgICBlLnByZXZlbnREZWZhdWx0KCk7CiAgICBjb25zdCBwYXJzZWQgPSBwbGF5Ym9va0VudHJ5U2NoZW1hLnNhZmVQYXJzZShlbnRyeSk7CiAgICBpZiAoIXBhcnNlZC5zdWNjZXNzKSB7IHRvYXN0LmVycm9yKHBhcnNlZC5lcnJvci5pc3N1ZXNbMF0/Lm1lc3NhZ2UgPz8gIkNoZWNrIHlvdXIgZGV0YWlscy4iKTsgcmV0dXJuOyB9CiAgICBzZXRTYXZpbmcodHJ1ZSk7CiAgICB0cnkgeyBhd2FpdCBzYXZlRm4oeyBkYXRhOiB7IHNsdWcsIGVudHJ5OiBwYXJzZWQuZGF0YSB9IH0pOyBhd2FpdCBvblNhdmVkKCk7IG9uQ2xvc2UoKTsgdG9hc3Quc3VjY2VzcygiU2F2ZWQuIik7IH0KICAgIGNhdGNoIHsgdG9hc3QuZXJyb3IoIkNvdWxkbid0IHNhdmUuIFBsZWFzZSB0cnkgYWdhaW4uIik7IH0gZmluYWxseSB7IHNldFNhdmluZyhmYWxzZSk7IH0KICB9CiAgcmV0dXJuIDxEaWFsb2cgb3BlbiBvbk9wZW5DaGFuZ2U9e29wZW4gPT4geyBpZiAoIW9wZW4gJiYgIXNhdmluZykgb25DbG9zZSgpOyB9fT48RGlhbG9nQ29udGVudCBjbGFzc05hbWU9Im1heC1oLVs4NWR2aF0gb3ZlcmZsb3cteS1hdXRvIj48RGlhbG9nSGVhZGVyPjxEaWFsb2dUaXRsZT57aW5pdGlhbC5pZCA/ICJFZGl0IiA6ICJBZGQgdG8gdGhlIHBsYXlib29rIn08L0RpYWxvZ1RpdGxlPjwvRGlhbG9nSGVhZGVyPgogICAgPGZvcm0gb25TdWJtaXQ9e3N1Ym1pdH0gY2xhc3NOYW1lPSJzcGFjZS15LTQiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj48TGFiZWwgaHRtbEZvcj0ia3AtY2F0Ij5TZWN0aW9uPC9MYWJlbD48c2VsZWN0IGlkPSJrcC1jYXQiIGNsYXNzTmFtZT0iaC0xMCB3LWZ1bGwgcm91bmRlZC1tZCBib3JkZXIgYm9yZGVyLWlucHV0IGJnLWJhY2tncm91bmQgcHgtMyB0ZXh0LXNtIHRleHQtZm9yZWdyb3VuZCIgdmFsdWU9e2VudHJ5LmNhdGVnb3J5fSBvbkNoYW5nZT17ZSA9PiBzZXRFbnRyeSh7IC4uLmVudHJ5LCBjYXRlZ29yeTogZS50YXJnZXQudmFsdWUgYXMgUGxheWJvb2tJbnB1dFsiY2F0ZWdvcnkiXSB9KX0+e29wdGlvbnMubWFwKGMgPT4gPG9wdGlvbiBrZXk9e2MuaWR9IHZhbHVlPXtjLmlkfT57Yy5sYWJlbH08L29wdGlvbj4pfTwvc2VsZWN0PjwvZGl2PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj48TGFiZWwgaHRtbEZvcj0ia3AtY2hpbGQiPkNoaWxkIChsZWF2ZSBibGFuayBpZiBpdCBhcHBsaWVzIHRvIGV2ZXJ5b25lKTwvTGFiZWw+PElucHV0IGlkPSJrcC1jaGlsZCIgbWF4TGVuZ3RoPXs2MH0gdmFsdWU9e2VudHJ5LmNoaWxkTmFtZX0gb25DaGFuZ2U9e2UgPT4gc2V0RW50cnkoeyAuLi5lbnRyeSwgY2hpbGROYW1lOiBlLnRhcmdldC52YWx1ZSB9KX0gLz48L2Rpdj4KICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMiI+PExhYmVsIGh0bWxGb3I9ImtwLXRpdGxlIj5UaXRsZTwvTGFiZWw+PElucHV0IGlkPSJrcC10aXRsZSIgcmVxdWlyZWQgbWF4TGVuZ3RoPXsxMDB9IHBsYWNlaG9sZGVyPSJDYWxtcyBkb3duIHdpdGgsIFNjcmVlbiBydWxlcywgTGVvJ3MgbXVt4oCmIiB2YWx1ZT17ZW50cnkudGl0bGV9IG9uQ2hhbmdlPXtlID0+IHNldEVudHJ5KHsgLi4uZW50cnksIHRpdGxlOiBlLnRhcmdldC52YWx1ZSB9KX0gLz48L2Rpdj4KICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMiI+PExhYmVsIGh0bWxGb3I9ImtwLW5vdGVzIj5EZXRhaWxzPC9MYWJlbD48VGV4dGFyZWEgaWQ9ImtwLW5vdGVzIiBtYXhMZW5ndGg9ezQwMDB9IHJvd3M9ezR9IHZhbHVlPXtlbnRyeS5ub3Rlc30gb25DaGFuZ2U9e2UgPT4gc2V0RW50cnkoeyAuLi5lbnRyeSwgbm90ZXM6IGUudGFyZ2V0LnZhbHVlIH0pfSAvPjwvZGl2PgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBqdXN0aWZ5LWVuZCBnYXAtMiI+PEJ1dHRvbiB0eXBlPSJidXR0b24iIHZhcmlhbnQ9Im91dGxpbmUiIGRpc2FibGVkPXtzYXZpbmd9IG9uQ2xpY2s9e29uQ2xvc2V9PkNhbmNlbDwvQnV0dG9uPjxCdXR0b24gdHlwZT0ic3VibWl0IiBkaXNhYmxlZD17c2F2aW5nfT48U2F2ZSBjbGFzc05hbWU9InNpemUtNCIgLz57c2F2aW5nID8gIlNhdmluZ+KApiIgOiAiU2F2ZSJ9PC9CdXR0b24+PC9kaXY+CiAgICA8L2Zvcm0+CiAgPC9EaWFsb2dDb250ZW50PjwvRGlhbG9nPjsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Pencil, Plus, Save, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { deleteKidsPlaybookFn, getKidsPlaybook, saveKidsPlaybookFn } from "@/lib/kids-playbook.functions";
+import { canEditPlaybook, PLAYBOOK_CATEGORIES, playbookEntrySchema, type PlaybookInput } from "@/lib/kids-playbook.types";
+
+const playbookQuery = (slug: string) => queryOptions({ queryKey: ["kids-playbook", slug], queryFn: () => getKidsPlaybook({ data: { slug } }) });
+export const Route = createFileRoute("/kids/$slug")({
+  head: () => ({ meta: [
+    { title: "Kids' Playbook — The Family Wallet" },
+    { name: "description", content: "Each child's comforts and quirks, how you handle big moments, friends, playdates and rainy-day ideas." },
+    { property: "og:title", content: "Kids' Playbook — The Family Wallet" },
+    { property: "og:description", content: "Keep parents and nanny in sync on everything that matters to the kids." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
+  ] }),
+  loader: ({ context, params }) => context.queryClient.ensureQueryData(playbookQuery(params.slug)),
+  component: KidsPlaybookPage,
+});
+
+function KidsPlaybookPage() {
+  const { slug } = Route.useParams();
+  const { data } = useSuspenseQuery(playbookQuery(slug));
+  const [editing, setEditing] = useState<PlaybookInput | null>(null);
+  const client = useQueryClient();
+  const deleteFn = useServerFn(deleteKidsPlaybookFn);
+  const refresh = async () => { await client.invalidateQueries({ queryKey: ["kids-playbook", slug] }); };
+  if (!data) return <LockedNotice slug={slug} />;
+  const isParent = data.access === "family";
+  return <HubPage slug={slug} title="Kids' Playbook">
+    <div className="flex items-center justify-between gap-3 border-b border-border pb-5">
+      <p className="text-sm text-muted-foreground">{isParent ? "So your nanny knows the kids like you do." : "Everything the family wants you to know about the kids. You can add rainy-day ideas."}</p>
+      <Button onClick={() => setEditing({ category: isParent ? "comfort" : "activities", childName: "", title: "", notes: "" })}><Plus className="size-4" /> Add</Button>
+    </div>
+    {PLAYBOOK_CATEGORIES.map(category => {
+      const entries = data.entries.filter(e => e.category === category.id);
+      return <section key={category.id} className="mt-7">
+        <h2 className="text-lg font-semibold text-foreground">{category.label}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{category.examples}</p>
+        {entries.length === 0 ? <p className="mt-2 text-sm text-muted-foreground">Nothing added yet.</p> :
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">{entries.map(entry => {
+            const canEdit = canEditPlaybook(data.access, entry.category);
+            return <article key={entry.id} className="rounded-lg border border-border bg-card p-4">
+              <div className="flex items-start gap-2">
+                <div className="min-w-0 flex-1">
+                  {entry.childName && <p className="text-xs font-semibold uppercase tracking-wide text-primary">{entry.childName}</p>}
+                  <h3 className="break-words font-semibold text-foreground">{entry.title}</h3>
+                </div>
+                {canEdit && <>
+                  <Button variant="ghost" size="icon" aria-label={`Edit ${entry.title}`} onClick={() => setEditing(entry)}><Pencil className="size-4" /></Button>
+                  <Button variant="ghost" size="icon" aria-label={`Remove ${entry.title}`} onClick={async () => {
+                    if (!window.confirm("Remove this?")) return;
+                    try { await deleteFn({ data: { slug, id: entry.id } }); await refresh(); } catch { toast.error("Couldn't remove that."); }
+                  }}><Trash2 className="size-4" /></Button>
+                </>}
+              </div>
+              {entry.notes && <p className="mt-2 whitespace-pre-wrap break-words text-sm text-muted-foreground">{entry.notes}</p>}
+              <p className="mt-2 text-xs text-muted-foreground">Added by {entry.addedBy === "nanny" ? "nanny" : "parent"}</p>
+            </article>;
+          })}</div>}
+      </section>;
+    })}
+    {editing && <Editor key={editing.id ?? "new"} slug={slug} initial={editing} isParent={isParent} onClose={() => setEditing(null)} onSaved={refresh} />}
+  </HubPage>;
+}
+
+function Editor({ slug, initial, isParent, onClose, onSaved }: { slug: string; initial: PlaybookInput; isParent: boolean; onClose: () => void; onSaved: () => Promise<void> }) {
+  const [entry, setEntry] = useState<PlaybookInput>({ id: initial.id, category: initial.category, childName: initial.childName, title: initial.title, notes: initial.notes });
+  const [saving, setSaving] = useState(false);
+  const saveFn = useServerFn(saveKidsPlaybookFn);
+  const options = PLAYBOOK_CATEGORIES.filter(c => isParent || c.id === "activities");
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    const parsed = playbookEntrySchema.safeParse(entry);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Check your details."); return; }
+    setSaving(true);
+    try { await saveFn({ data: { slug, entry: parsed.data } }); await onSaved(); onClose(); toast.success("Saved."); }
+    catch { toast.error("Couldn't save. Please try again."); } finally { setSaving(false); }
+  }
+  return <Dialog open onOpenChange={open => { if (!open && !saving) onClose(); }}><DialogContent className="max-h-[85dvh] overflow-y-auto"><DialogHeader><DialogTitle>{initial.id ? "Edit" : "Add to the playbook"}</DialogTitle></DialogHeader>
+    <form onSubmit={submit} className="space-y-4">
+      <div className="space-y-2"><Label htmlFor="kp-cat">Section</Label><select id="kp-cat" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground" value={entry.category} onChange={e => setEntry({ ...entry, category: e.target.value as PlaybookInput["category"] })}>{options.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}</select></div>
+      <div className="space-y-2"><Label htmlFor="kp-child">Child (leave blank if it applies to everyone)</Label><Input id="kp-child" maxLength={60} value={entry.childName} onChange={e => setEntry({ ...entry, childName: e.target.value })} /></div>
+      <div className="space-y-2"><Label htmlFor="kp-title">Title</Label><Input id="kp-title" required maxLength={100} placeholder="Calms down with, Screen rules, Leo's mum…" value={entry.title} onChange={e => setEntry({ ...entry, title: e.target.value })} /></div>
+      <div className="space-y-2"><Label htmlFor="kp-notes">Details</Label><Textarea id="kp-notes" maxLength={4000} rows={4} value={entry.notes} onChange={e => setEntry({ ...entry, notes: e.target.value })} /></div>
+      <div className="flex justify-end gap-2"><Button type="button" variant="outline" disabled={saving} onClick={onClose}>Cancel</Button><Button type="submit" disabled={saving}><Save className="size-4" />{saving ? "Saving…" : "Save"}</Button></div>
+    </form>
+  </DialogContent></Dialog>;
+}

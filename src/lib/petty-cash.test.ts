@@ -1,1 +1,18 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICJ2aXRlc3QiOwppbXBvcnQgeyBwZXR0eUNhc2hCYWxhbmNlIH0gZnJvbSAiLi9wZXR0eS1jYXNoLnR5cGVzIjsKCmRlc2NyaWJlKCJwZXR0eSBjYXNoIGJhbGFuY2UiLCAoKSA9PiB7CiAgaXQoInN1YnRyYWN0cyBuYW5ueSBzcGVuZGluZyBmcm9tIHRoZSBmYW1pbHkncyBmbG9hdCIsICgpID0+IHsKICAgIGV4cGVjdCgKICAgICAgcGV0dHlDYXNoQmFsYW5jZShbCiAgICAgICAgeyBraW5kOiAidG9wdXAiLCBhbW91bnQ6IDEwMCB9LAogICAgICAgIHsga2luZDogInNwZW5kIiwgYW1vdW50OiAxMi40IH0sCiAgICAgICAgeyBraW5kOiAic3BlbmQiLCBhbW91bnQ6IDggfSwKICAgICAgICB7IGtpbmQ6ICJzcGVuZCIsIGFtb3VudDogMjEuNSB9LAogICAgICBdKSwKICAgICkudG9CZSg1OC4xKTsKICB9KTsKICBpdCgiZ29lcyBuZWdhdGl2ZSB3aGVuIHRoZSBuYW5ueSBpcyBvd2VkIG1vbmV5IiwgKCkgPT4gewogICAgZXhwZWN0KHBldHR5Q2FzaEJhbGFuY2UoW3sga2luZDogInRvcHVwIiwgYW1vdW50OiAxMCB9LCB7IGtpbmQ6ICJzcGVuZCIsIGFtb3VudDogMTUuNSB9XSkpLnRvQmUoLTUuNSk7CiAgfSk7Cn0pOwo=
+import { describe, expect, it } from "vitest";
+import { pettyCashBalance } from "./petty-cash.types";
+
+describe("petty cash balance", () => {
+  it("subtracts nanny spending from the family's float", () => {
+    expect(
+      pettyCashBalance([
+        { kind: "topup", amount: 100 },
+        { kind: "spend", amount: 12.4 },
+        { kind: "spend", amount: 8 },
+        { kind: "spend", amount: 21.5 },
+      ]),
+    ).toBe(58.1);
+  });
+  it("goes negative when the nanny is owed money", () => {
+    expect(pettyCashBalance([{ kind: "topup", amount: 10 }, { kind: "spend", amount: 15.5 }])).toBe(-5.5);
+  });
+});

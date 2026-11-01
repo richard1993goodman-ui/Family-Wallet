@@ -1,1 +1,21 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICJ2aXRlc3QiOwppbXBvcnQgeyBjYW5NYW5hZ2VNYW51YWwsIG1hbnVhbFN1bW1hcnksIG1hbnVhbEVudHJ5U2NoZW1hIH0gZnJvbSAiLi9ob3VzZS1tYW51YWwudHlwZXMiOwoKZGVzY3JpYmUoImhvdXNlIG1hbnVhbCBwcml2YWN5IiwgKCkgPT4gewogIGl0KCJhbGxvd3MgZmFtaWx5IG1hbmFnZW1lbnQgYnV0IG5vdCBuYW5ueSBvciBzaWduZWQtb3V0IG1hbmFnZW1lbnQiLCAoKSA9PiB7CiAgICBleHBlY3QoY2FuTWFuYWdlTWFudWFsKCJmYW1pbHkiKSkudG9CZSh0cnVlKTsKICAgIGV4cGVjdChjYW5NYW5hZ2VNYW51YWwoIm5hbm55IikpLnRvQmUoZmFsc2UpOwogICAgZXhwZWN0KGNhbk1hbmFnZU1hbnVhbChudWxsKSkudG9CZShmYWxzZSk7CiAgfSk7CiAgaXQoIm5ldmVyIGluY2x1ZGVzIHRoZSBzZWNyZXQgdmFsdWUgaW4gc3VtbWFyaWVzIiwgKCkgPT4gewogICAgY29uc3QgaW5wdXQgPSB7IGlkOiAiZW50cnkiLCBjYXRlZ29yeTogImFjY2VzcyIsIHRpdGxlOiAiVGVzdCBsb2NrIiwgbm90ZXM6ICJUZXN0IG5vdGVzIiwgaGFzX3NlY3JldDogdHJ1ZSwgdXBkYXRlZF9hdDogIjIwMjYtMTAtMjkiLCBzZWNyZXRfdmFsdWU6ICJmaWN0aW9uYWwtdGVzdC12YWx1ZSIgfTsKICAgIGNvbnN0IHN1bW1hcnkgPSBtYW51YWxTdW1tYXJ5KGlucHV0KTsKICAgIGV4cGVjdChzdW1tYXJ5Lmhhc1NlY3JldCkudG9CZSh0cnVlKTsKICAgIGV4cGVjdChzdW1tYXJ5KS5ub3QudG9IYXZlUHJvcGVydHkoInNlY3JldF92YWx1ZSIpOwogICAgZXhwZWN0KEpTT04uc3RyaW5naWZ5KHN1bW1hcnkpKS5ub3QudG9Db250YWluKCJmaWN0aW9uYWwtdGVzdC12YWx1ZSIpOwogIH0pOwogIGl0KCJwcmVzZXJ2ZXMgYW4gZXhpc3RpbmcgY29kZSB3aGVuIGVkaXRpbmcgd2l0aG91dCBhIHJlcGxhY2VtZW50IiwgKCkgPT4gewogICAgY29uc3QgZW50cnkgPSBtYW51YWxFbnRyeVNjaGVtYS5wYXJzZSh7IGNhdGVnb3J5OiAiYWNjZXNzIiwgdGl0bGU6ICJXaUZpIiwgbm90ZXM6ICJOZXR3b3JrIG5hbWUiIH0pOwogICAgZXhwZWN0KGVudHJ5LnNlY3JldFZhbHVlKS50b0JlVW5kZWZpbmVkKCk7CiAgfSk7Cn0pOw==
+import { describe, expect, it } from "vitest";
+import { canManageManual, manualSummary, manualEntrySchema } from "./house-manual.types";
+
+describe("house manual privacy", () => {
+  it("allows family management but not nanny or signed-out management", () => {
+    expect(canManageManual("family")).toBe(true);
+    expect(canManageManual("nanny")).toBe(false);
+    expect(canManageManual(null)).toBe(false);
+  });
+  it("never includes the secret value in summaries", () => {
+    const input = { id: "entry", category: "access", title: "Test lock", notes: "Test notes", has_secret: true, updated_at: "2026-10-29", secret_value: "fictional-test-value" };
+    const summary = manualSummary(input);
+    expect(summary.hasSecret).toBe(true);
+    expect(summary).not.toHaveProperty("secret_value");
+    expect(JSON.stringify(summary)).not.toContain("fictional-test-value");
+  });
+  it("preserves an existing code when editing without a replacement", () => {
+    const entry = manualEntrySchema.parse({ category: "access", title: "WiFi", notes: "Network name" });
+    expect(entry.secretValue).toBeUndefined();
+  });
+});
