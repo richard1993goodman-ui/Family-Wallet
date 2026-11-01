@@ -1,47 +1,42 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
-  FileText,
-  IdCard,
   Calculator,
-  Shield,
-  Sparkles,
+  Check,
+  Clock,
+  FileText,
   KeyRound,
   LifeBuoy,
-  Siren,
-  Pill,
-  Plane,
-  CalendarCheck,
-  Users,
-  CalendarDays,
-  NotebookPen,
-  MessagesSquare,
-  GraduationCap,
-  Award,
-  ClipboardCheck,
-  Dumbbell,
-  ReceiptText,
-  UtensilsCrossed,
-  BadgePercent,
-  Gift,
-  Library,
-  Handshake,
-  Landmark,
   LockKeyhole,
+  Mail,
+  Menu,
+  Pill,
+  PlayCircle,
+  ReceiptText,
+  ShieldCheck,
+  Siren,
   Smartphone,
-  ChevronDown,
+  CalendarDays,
   Heart,
   HeartHandshake,
   Wallet,
 } from "lucide-react";
 
 import { FamilyLogin } from "@/components/FamilyLogin";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -133,199 +128,471 @@ const benefitGroups = [
 ];
 
 const headlineBenefits = [
-  { icon: CalendarDays, title: "Everyone sees the same week", detail: "Shifts, school runs and clubs in one shared planner." },
-  { icon: Pill, title: "No double-dosing with the medication log", detail: "Every dose timed and signed, so nobody has to text to check." },
-  { icon: ReceiptText, title: "A Friday report ready to print", detail: "Hours, activities, handovers and expenses, summed up for you." },
-  { icon: Siren, title: "Emergency details always to hand", detail: "Key contacts, allergies and instructions in one tap." },
-  { icon: FileText, title: "Your nanny agreement, signed and filed", detail: "Build it, sign it together and keep it safe." },
-  { icon: LifeBuoy, title: "Petty cash that always adds up", detail: "Top-ups and receipts logged, so everyone knows what's left." },
-  { icon: KeyRound, title: "No more ‘what’s the WiFi password?’", detail: "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed." },
-  { icon: Heart, title: "Everyone on the same page with the kids", detail: "The Kids' Playbook shares what soothes each child, the house rules you agree on, friends and rainy-day ideas." },
+  {
+    icon: CalendarDays,
+    title: "Everyone sees the same week",
+    detail: "Shifts, school runs and clubs in one shared planner.",
+  },
+  {
+    icon: Pill,
+    title: "No double-dosing with the medication log",
+    detail: "Every dose timed and signed, so nobody has to text to check.",
+  },
+  {
+    icon: ReceiptText,
+    title: "A Friday report ready to print",
+    detail: "Hours, activities, handovers and expenses, summed up for you.",
+  },
+  {
+    icon: Siren,
+    title: "Emergency details always to hand",
+    detail: "Key contacts, allergies and instructions in one tap.",
+  },
+  {
+    icon: FileText,
+    title: "Your nanny agreement, signed and filed",
+    detail: "Build it, sign it together and keep it safe.",
+  },
+  {
+    icon: LifeBuoy,
+    title: "Petty cash that always adds up",
+    detail: "Top-ups and receipts logged, so everyone knows what's left.",
+  },
+  {
+    icon: KeyRound,
+    title: "No more ‘what’s the WiFi password?’",
+    detail:
+      "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed.",
+  },
+  {
+    icon: Heart,
+    title: "Everyone on the same page with the kids",
+    detail:
+      "The Kids' Playbook shares what soothes each child, the house rules you agree on, friends and rainy-day ideas.",
+  },
 ];
 
+const display = "font-serif tracking-tight";
+
+const navLinks = [
+  { href: "#features", label: "Features" },
+  { href: "#included", label: "What's included" },
+] as const;
+
+function splitItem(item: string) {
+  const [name, ...rest] = item.split(" — ");
+  const detail = rest.join(" — ");
+  return { name, detail: detail ? detail[0]!.toUpperCase() + detail.slice(1) : undefined };
+}
+
+function Logo() {
+  return (
+    <Link to="/" className="flex min-w-0 items-center gap-2.5">
+      <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary text-primary-foreground">
+        <Wallet className="h-4.5 w-4.5" aria-hidden="true" />
+      </span>
+      <span className={cn(display, "truncate text-lg font-semibold text-foreground")}>
+        The Family Wallet
+      </span>
+    </Link>
+  );
+}
+
+function SiteHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <Logo />
+        <nav className="hidden items-center gap-1 md:flex">
+          {navLinks.map((n) => (
+            <Button key={n.href} variant="ghost" size="sm" asChild>
+              <a href={n.href}>{n.label}</a>
+            </Button>
+          ))}
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/demo">Demo</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/calculator">Cost calculator</Link>
+          </Button>
+        </nav>
+        <div className="flex items-center gap-2">
+          <span className="mr-1 hidden items-center gap-1.5 text-xs font-medium text-muted-foreground lg:flex">
+            <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
+          </span>
+          <Button size="sm" className="hidden sm:inline-flex" asChild>
+            <a href="#sign-in">Open my wallet</a>
+          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <SheetHeader>
+                <SheetTitle className={display}>The Family Wallet</SheetTitle>
+              </SheetHeader>
+              <div className="mt-6 flex flex-col gap-1">
+                {navLinks.map((n) => (
+                  <Button key={n.href} variant="ghost" className="justify-start" asChild>
+                    <a href={n.href}>{n.label}</a>
+                  </Button>
+                ))}
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/demo">Demo wallet</Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/calculator">Cost calculator</Link>
+                </Button>
+                <Separator className="my-3" />
+                <Button asChild>
+                  <a href="#sign-in">Open my wallet</a>
+                </Button>
+                <Button variant="outline" className="mt-2" asChild>
+                  <Link to="/admin">Agency sign in</Link>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  body,
+}: {
+  eyebrow: string;
+  title: string;
+  body?: string;
+}) {
+  return (
+    <div className="mx-auto max-w-2xl text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>
+      <h2 className={cn(display, "mt-3 text-3xl font-semibold text-foreground sm:text-4xl")}>
+        {title}
+      </h2>
+      {body && <p className="mt-4 text-pretty text-muted-foreground">{body}</p>}
+    </div>
+  );
+}
+
+function ItemList({ items }: { items: string[] }) {
+  return (
+    <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+      {items.map((raw) => {
+        const { name, detail } = splitItem(raw);
+        return (
+          <li key={raw} className="flex gap-3">
+            <span className="mt-0.5 flex size-5 flex-none items-center justify-center rounded-full bg-secondary/25 text-primary">
+              <Check className="h-3 w-3" strokeWidth={3} />
+            </span>
+            <div className="text-sm leading-relaxed">
+              <p className="font-medium text-foreground">{name}</p>
+              {detail && <p className="text-muted-foreground">{detail}</p>}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 function Index() {
   return (
-    <div className="min-h-screen overflow-hidden bg-sand">
-      <header className="border-b border-border/70 bg-background/75">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Wallet className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-foreground">The Family Wallet</p>
-            <p className="text-xs text-muted-foreground">Your childcare, safely in one place</p>
-          </div>
-          <span className="ml-auto hidden items-center gap-2 text-xs font-medium text-muted-foreground sm:flex">
-            <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
-          </span>
-        </div>
-      </header>
+    <div className="min-h-screen overflow-x-clip bg-sand">
+      <SiteHeader />
 
       <main>
-        <section className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:px-8 sm:pt-14">
-          <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-2 duration-500">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
-            <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">
-              The Family Wallet
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-              Your family and your new nanny, beautifully organised. Routines, essential documents,
-              daily notes and messages, together in one private place.
-            </p>
-          </div>
-
-          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-            <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-              <FamilyLogin />
-
-              <div className="mt-4 rounded-2xl border border-secondary/70 bg-background/70 p-5 sm:p-6">
-                <div className="flex items-start gap-3">
-                  <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
-                    <Smartphone className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
-                    <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/75">
-                  Step inside a complete sample Family Wallet with no login. Nothing in the demo is live.
-                </p>
-                <Button asChild variant="outline" size="lg" className="mt-4 w-full border-primary/30 bg-card/70">
+        {/* Hero + sign-in */}
+        <section className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-[560px] bg-[radial-gradient(60%_60%_at_15%_0%,color-mix(in_oklch,var(--secondary)_22%,transparent),transparent),radial-gradient(50%_50%_at_90%_10%,color-mix(in_oklch,var(--primary)_12%,transparent),transparent)]"
+          />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-12 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 lg:pb-28 lg:pt-20">
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+              <Badge
+                variant="outline"
+                className="gap-1.5 rounded-full bg-card px-3 py-1 font-medium"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Your childcare, safely in
+                one place
+              </Badge>
+              <h1
+                className={cn(
+                  display,
+                  "mt-6 text-4xl font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-6xl dark:text-foreground",
+                )}
+              >
+                Your family and your new nanny,{" "}
+                <span className="text-[oklch(0.56_0.12_68)] dark:text-primary">
+                  beautifully organised.
+                </span>
+              </h1>
+              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+                Routines, essential documents, daily notes and messages, together in one private
+                place.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button size="lg" variant="outline" className="h-11 bg-card" asChild>
                   <Link to="/demo">
-                    View the demo wallet <ArrowRight className="h-4 w-4" />
+                    <PlayCircle className="h-4 w-4" /> Explore the demo
                   </Link>
                 </Button>
-                <Link to="/calculator" className="mt-3 flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline">
-                  What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
-                </Link>
+                <Button size="lg" variant="ghost" className="h-11" asChild>
+                  <Link to="/calculator">
+                    <Calculator className="h-4 w-4" /> What will a nanny really cost?
+                  </Link>
+                </Button>
               </div>
-              <TodayPreview />
-            </div>
-
-            <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:px-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Inside your Family Wallet</p>
-              <h2 className="heading-display mt-2 text-3xl leading-tight text-foreground">
-                Everything around your nanny, in one place
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                A practical daily home for parents and nannies, with everything in one private place.
+              <p className="mt-4 text-sm text-muted-foreground">
+                New to the wallet? Step inside a complete sample Family Wallet with no login.
+                Nothing in the demo is live.
               </p>
+            </div>
+            <FamilyLogin
+              className="animate-in fade-in slide-in-from-bottom-3 duration-500"
+              footer={
+                <p className="text-center text-xs text-muted-foreground">
+                  Lost your details?{" "}
+                  <a
+                    href="#help"
+                    className="font-medium text-foreground underline-offset-4 hover:underline"
+                  >
+                    Ask your agency
+                  </a>{" "}
+                  ·{" "}
+                  <Link to="/admin" className="underline-offset-4 hover:underline">
+                    Agency sign in
+                  </Link>
+                </p>
+              }
+            />
+          </div>
+        </section>
 
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+        {/* Preview + headline benefits */}
+        <section
+          id="features"
+          className="scroll-mt-16 border-y border-border/70 bg-background/65 py-20 lg:py-28"
+        >
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            <SectionHeading
+              eyebrow="Inside your Family Wallet"
+              title="Everything around your nanny, in one place"
+              body="A practical daily home for parents and nannies, with everything in one private place."
+            />
+            <div className="mt-14 grid gap-6 lg:grid-cols-3">
+              <TodayPreview className="lg:sticky lg:top-24 lg:self-start" />
+              <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
                 {headlineBenefits.map(({ icon: Icon, title, detail }) => (
-                  <li key={title} className="flex gap-3 rounded-xl border border-border/80 bg-card/75 p-4 shadow-sm">
-                    <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <Icon className="h-4.5 w-4.5" />
-                    </span>
-                    <div>
-                      <h3 className="font-semibold leading-snug text-foreground">{title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{detail}</p>
-                    </div>
+                  <li key={title}>
+                    <Card className="h-full rounded-2xl shadow-sm transition-shadow hover:shadow-md">
+                      <CardHeader className="space-y-3 p-5 pb-2">
+                        <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                          <Icon className="h-4.5 w-4.5" />
+                        </span>
+                        <CardTitle className="font-sans text-base leading-snug">{title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-5 pt-0">
+                        <CardDescription className="leading-relaxed">{detail}</CardDescription>
+                      </CardContent>
+                    </Card>
                   </li>
                 ))}
               </ul>
-            </section>
+            </div>
           </div>
         </section>
 
-        <section className="border-y border-border/70 bg-background/65">
-          <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-            <details className="group rounded-2xl bg-card shadow-sm/75">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:px-6">
-                <div>
-                  <h2 className="heading-display text-xl text-foreground">See everything included</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">All the tools and support included in your Family Wallet.</p>
-                </div>
-                <ChevronDown className="h-5 w-5 flex-none text-primary transition-transform group-open:rotate-180" />
-              </summary>
-              <div className="grid gap-7 border-t border-border px-5 py-6 sm:grid-cols-2 sm:px-6">
-                {benefitGroups.map(({ icon: Icon, title, items }) => (
-                  <div key={title}>
-                    <h3 className="flex items-center gap-2 font-semibold text-foreground">
-                      <Icon className="h-4 w-4 text-primary" /> {title}
-                    </h3>
-                    <ul className="mt-3 space-y-2.5">
-                      {items.map((item) => (
-                        <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground">
-                          <span className="mt-2 size-1.5 flex-none rounded-full bg-secondary" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        {/* Everything included */}
+        <section id="included" className="scroll-mt-16 py-20 lg:py-28">
+          <div className="mx-auto max-w-5xl px-5 sm:px-8">
+            <SectionHeading
+              eyebrow="The full toolkit"
+              title="See everything included"
+              body="All the tools and support included in your Family Wallet."
+            />
+
+            <Tabs defaultValue={benefitGroups[0]!.title} className="mt-12 hidden md:block">
+              <TabsList className="grid h-auto w-full grid-cols-4 rounded-xl p-1">
+                {benefitGroups.map(({ icon: Icon, title }) => (
+                  <TabsTrigger key={title} value={title} className="h-10 gap-2 rounded-lg">
+                    <Icon className="h-4 w-4" /> {title}
+                  </TabsTrigger>
                 ))}
+              </TabsList>
+              {benefitGroups.map(({ title, summary, items }) => (
+                <TabsContent key={title} value={title} className="mt-6">
+                  <Card className="rounded-2xl shadow-sm">
+                    <CardContent className="p-6 sm:p-8">
+                      <p className="mb-6 text-sm text-muted-foreground">{summary}</p>
+                      <ItemList items={items} />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              ))}
+            </Tabs>
+
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue={benefitGroups[0]!.title}
+              className="mt-10 rounded-2xl border bg-card px-4 md:hidden"
+            >
+              {benefitGroups.map(({ icon: Icon, title, items }) => (
+                <AccordionItem key={title} value={title} className="last:border-b-0">
+                  <AccordionTrigger className="hover:no-underline">
+                    <span className="flex items-center gap-2.5">
+                      <Icon className="h-4 w-4 text-primary" /> {title}
+                      <Badge variant="secondary" className="ml-1">
+                        {items.length}
+                      </Badge>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ItemList items={items} />
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Help */}
+        <section id="help" className="scroll-mt-16 px-5 pb-20 sm:px-8 lg:pb-28">
+          <div className="mx-auto grid max-w-6xl gap-8 rounded-3xl bg-primary p-8 text-primary-foreground sm:p-12 lg:grid-cols-2 lg:gap-12 dark:bg-card dark:text-card-foreground">
+            <div className="flex gap-4">
+              <span className="flex size-11 flex-none items-center justify-center rounded-xl bg-white/10">
+                <Smartphone className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className={cn(display, "text-2xl font-semibold")}>Opening your wallet</h2>
+                <p className="mt-2 text-pretty leading-relaxed opacity-75">
+                  We send your personal wallet link and short access code. Enter them once and
+                  choose “Remember this device” to stay signed in for 12 months.
+                </p>
+                <Button
+                  className="mt-5 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  asChild
+                >
+                  <a href="#sign-in">
+                    Open my wallet <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
               </div>
-            </details>
+            </div>
+            <div className="flex gap-4">
+              <span className="flex size-11 flex-none items-center justify-center rounded-xl bg-white/10">
+                <Mail className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className={cn(display, "text-2xl font-semibold")}>Need your details again?</h2>
+                <p className="mt-2 text-pretty leading-relaxed opacity-75">
+                  Contact your agency and they will resend your link and code.
+                </p>
+                <Button
+                  variant="outline"
+                  className="mt-5 border-white/25 bg-transparent text-inherit hover:bg-white/10 hover:text-inherit"
+                  asChild
+                >
+                  <Link to="/admin">Agency sign in</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
-
-        <section className="mx-auto grid max-w-6xl gap-6 px-5 py-10 sm:px-8 md:grid-cols-2">
-          <div>
-            <h2 className="heading-display text-xl text-foreground">Opening your wallet</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              We send your personal wallet link and short access code. Enter them once and choose
-              “Remember this device” to stay signed in for 12 months.
-            </p>
-          </div>
-          <div className="md:border-l md:border-border md:pl-6">
-            <h2 className="heading-display text-xl text-foreground">Need your details again?</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Contact your agency and they will resend your link and code.
-            </p>
-          </div>
-        </section>
-
-        <div className="pb-10 text-center">
-          <Link
-            to="/admin"
-            className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-          >
-            Agency sign in
-          </Link>
-        </div>
       </main>
+
+      <footer className="border-t border-border/70">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-muted-foreground sm:flex-row sm:px-8">
+          <Logo />
+          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+            <Link to="/demo" className="hover:text-foreground">
+              Demo wallet
+            </Link>
+            <Link to="/calculator" className="hover:text-foreground">
+              Cost calculator
+            </Link>
+            <Link to="/admin" className="hover:text-foreground">
+              Agency sign in
+            </Link>
+          </nav>
+          <p>© {new Date().getFullYear()} The Family Wallet</p>
+        </div>
+      </footer>
     </div>
   );
 }
 
 const PREVIEW_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const PREVIEW_ITEMS = [
-  { time: "3:30pm", text: "School pick-up — Jess (nanny shift 3:30–8pm)" },
-  { time: "4:30pm", text: "Football training, bring shin pads" },
-  { time: "6:00pm", text: "Dinner from Nanny Fuel — chicken traybake" },
+  { time: "3:30pm", title: "School pick-up", note: "Jess (nanny shift 3:30–8pm)" },
+  { time: "4:30pm", title: "Football training", note: "Bring shin pads" },
+  { time: "6:00pm", title: "Dinner from Nanny Fuel", note: "Chicken traybake" },
 ];
 const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
 
-function TodayPreview() {
+function TodayPreview({ className }: { className?: string }) {
   const [today, setToday] = useState<number | null>(null);
-  useEffect(() => { setToday((new Date().getDay() + 6) % 7); }, []);
+  useEffect(() => {
+    setToday((new Date().getDay() + 6) % 7);
+  }, []);
   return (
-    <div className="mt-4 rounded-2xl border border-border bg-card/80 p-5 sm:p-6" aria-label="Sample calendar preview">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Sample preview</p>
-      <h2 className="heading-display mt-1 text-xl text-foreground">Today at the Harringtons'</h2>
-      <div className="mt-4 grid grid-cols-7 gap-1 text-center">
-        {PREVIEW_DAYS.map((d, i) => (
-          <div key={d} className={`rounded-lg py-2 text-xs font-medium ${i === today ? "bg-primary text-primary-foreground" : i < 5 ? "bg-secondary/60 text-secondary-foreground" : "text-muted-foreground"}`}>
-            {d}
+    <Card className={cn("rounded-2xl shadow-sm", className)} aria-label="Sample calendar preview">
+      <CardHeader className="p-6 pb-4">
+        <Badge variant="secondary" className="w-fit">
+          Sample preview
+        </Badge>
+        <CardTitle className={cn(display, "pt-1 text-xl")}>Today at the Harringtons'</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-5 p-6 pt-0">
+        <div className="grid grid-cols-7 gap-1 rounded-lg bg-muted p-1" aria-hidden>
+          {PREVIEW_DAYS.map((d, i) => (
+            <span
+              key={d}
+              className={cn(
+                "rounded-md py-1.5 text-center text-xs font-medium text-muted-foreground",
+                i === today && "bg-primary text-primary-foreground shadow-sm",
+              )}
+            >
+              {d}
+            </span>
+          ))}
+        </div>
+        <ol className="relative space-y-4 border-l border-border pl-5">
+          {PREVIEW_ITEMS.map((it) => (
+            <li key={it.time} className="relative">
+              <span className="absolute -left-[25px] top-1.5 size-2.5 rounded-full border-2 border-card bg-secondary ring-1 ring-secondary" />
+              <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                <Clock className="h-3 w-3" /> {it.time}
+              </p>
+              <p className="text-sm font-medium text-foreground">{it.title}</p>
+              <p className="text-sm text-muted-foreground">{it.note}</p>
+            </li>
+          ))}
+        </ol>
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            Suggested activities
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {PREVIEW_IDEAS.map((a) => (
+              <span
+                key={a}
+                className="rounded-full border bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
+              >
+                {a}
+              </span>
+            ))}
           </div>
-        ))}
-      </div>
-      <ul className="mt-4 space-y-2">
-        {PREVIEW_ITEMS.map((it) => (
-          <li key={it.time} className="flex gap-3 text-sm">
-            <span className="w-14 flex-none font-semibold text-primary">{it.time}</span>
-            <span className="text-foreground/80">{it.text}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Suggested activities</p>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {PREVIEW_IDEAS.map((a) => (
-          <span key={a} className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">{a}</span>
-        ))}
-      </div>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
