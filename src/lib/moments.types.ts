@@ -1,1 +1,36 @@
-ZXhwb3J0IHR5cGUgTW9tZW50S2luZCA9ICJwaG90byIgfCAibWlsZXN0b25lIjsKCmV4cG9ydCB0eXBlIE1vbWVudElucHV0ID0gewogIGtpbmQ6IE1vbWVudEtpbmQ7CiAgbW9tZW50RGF0ZTogc3RyaW5nOwogIGNhcHRpb24/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAgY2hpbGRJZD86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBtaWxlc3RvbmVMYWJlbD86IHN0cmluZyB8IHVuZGVmaW5lZDsKfTsKCmV4cG9ydCB0eXBlIE1vbWVudFBob3RvSW5wdXQgPSBNb21lbnRJbnB1dCAmIHsKICBmaWxlTmFtZTogc3RyaW5nOwogIGNvbnRlbnRUeXBlOiBzdHJpbmc7CiAgYmFzZTY0OiBzdHJpbmc7Cn07CgpleHBvcnQgdHlwZSBNb21lbnRSb3cgPSB7CiAgaWQ6IHN0cmluZzsKICBraW5kOiBzdHJpbmc7CiAgbW9tZW50RGF0ZTogc3RyaW5nOwogIGNhcHRpb246IHN0cmluZyB8IG51bGw7CiAgbWlsZXN0b25lTGFiZWw6IHN0cmluZyB8IG51bGw7CiAgY2hpbGRJZDogc3RyaW5nIHwgbnVsbDsKICBjaGlsZE5hbWU6IHN0cmluZyB8IG51bGw7CiAgcGhvdG9Vcmw6IHN0cmluZyB8IG51bGw7CiAgYWRkZWRCeTogc3RyaW5nOwogIGFkZGVkQnlOYW1lOiBzdHJpbmcgfCBudWxsOwogIGNyZWF0ZWRBdDogc3RyaW5nOwp9OwoKZXhwb3J0IHR5cGUgTW9tZW50c0RhdGEgPSB7CiAgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7CiAgZmFtaWx5TmFtZTogc3RyaW5nOwogIGNoaWxkcmVuOiB7IGlkOiBzdHJpbmc7IG5hbWU6IHN0cmluZyB9W107CiAgbW9tZW50czogTW9tZW50Um93W107Cn07Cg==
+export type MomentKind = "photo" | "milestone";
+
+export type MomentInput = {
+  kind: MomentKind;
+  momentDate: string;
+  caption?: string | undefined;
+  childId?: string | undefined;
+  milestoneLabel?: string | undefined;
+};
+
+export type MomentPhotoInput = MomentInput & {
+  fileName: string;
+  contentType: string;
+  base64: string;
+};
+
+export type MomentRow = {
+  id: string;
+  kind: string;
+  momentDate: string;
+  caption: string | null;
+  milestoneLabel: string | null;
+  childId: string | null;
+  childName: string | null;
+  photoUrl: string | null;
+  addedBy: string;
+  addedByName: string | null;
+  createdAt: string;
+};
+
+export type MomentsData = {
+  access: "family" | "nanny";
+  familyName: string;
+  children: { id: string; name: string }[];
+  moments: MomentRow[];
+};

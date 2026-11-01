@@ -1,1 +1,85 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgd2FsbGV0Q29udGVudEFnZW5jeSB9IGZyb20gIi4vc3RhZmYuc2NvcGUiOwoKZXhwb3J0IHR5cGUgUGxheWJvb2tTZWN0aW9uID0geyBoZWFkaW5nOiBzdHJpbmc7IGJvZHk6IHN0cmluZyB9OwoKZnVuY3Rpb24gc2VjdGlvbnModmFsdWU6IHVua25vd24pOiBQbGF5Ym9va1NlY3Rpb25bXSB7CiAgaWYgKCFBcnJheS5pc0FycmF5KHZhbHVlKSkgcmV0dXJuIFtdOwogIHJldHVybiB2YWx1ZS5mbGF0TWFwKChpdGVtKSA9PiB7CiAgICBpZiAoIWl0ZW0gfHwgdHlwZW9mIGl0ZW0gIT09ICJvYmplY3QiKSByZXR1cm4gW107CiAgICBjb25zdCByb3cgPSBpdGVtIGFzIFJlY29yZDxzdHJpbmcsIHVua25vd24+OwogICAgcmV0dXJuIHR5cGVvZiByb3dbImhlYWRpbmciXSA9PT0gInN0cmluZyIgJiYgdHlwZW9mIHJvd1siYm9keSJdID09PSAic3RyaW5nIgogICAgICA/IFt7IGhlYWRpbmc6IHJvd1siaGVhZGluZyJdLCBib2R5OiByb3dbImJvZHkiXSB9XQogICAgICA6IFtdOwogIH0pOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbG9hZFBhcnRuZXJQZXJrcyhzbHVnOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKICBjb25zdCBhZ2VuY3kgPSBhd2FpdCB3YWxsZXRDb250ZW50QWdlbmN5KGZhbWlseS5pZCwgInBlcmtzIik7CiAgaWYgKGFnZW5jeSA9PT0gZmFsc2UpIHJldHVybiB7IGFjY2VzczogZmFtaWx5LmFjY2VzcywgcGVya3M6IFtdIH07CiAgbGV0IHBlcmtRdWVyeSA9IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJwYXJ0bmVyX3BlcmtzIikKICAgIC5zZWxlY3QoImlkLCB0aXRsZSwgcGFydG5lcl9uYW1lLCBjYXRlZ29yeSwgYXJlYSwgb2ZmZXJfdGV4dCwgZGVzY3JpcHRpb24sIHJlZGVtcHRpb25faW5zdHJ1Y3Rpb25zLCBvZmZlcl9jb2RlLCB3ZWJzaXRlX3VybCwgY29udGFjdF90ZXh0LCBleHBpcmVzX29uIikKICAgIC5lcSgiaXNfcHVibGlzaGVkIiwgdHJ1ZSkKICAgIC5vcihgZXhwaXJlc19vbi5pcy5udWxsLGV4cGlyZXNfb24uZ3RlLiR7bmV3IERhdGUoKS50b0lTT1N0cmluZygpLnNsaWNlKDAsIDEwKX1gKQogICAgLm9yZGVyKCJzb3J0X29yZGVyIiwgeyBhc2NlbmRpbmc6IHRydWUgfSkKICAgIC5vcmRlcigiY3JlYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KTsKICBwZXJrUXVlcnkgPSBhZ2VuY3kgPyBwZXJrUXVlcnkuZXEoImFnZW5jeV9pZCIsIGFnZW5jeSkgOiBwZXJrUXVlcnkuaXMoImFnZW5jeV9pZCIsIG51bGwpOwogIGNvbnN0IHsgZGF0YSwgZXJyb3IgfSA9IGF3YWl0IHBlcmtRdWVyeTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICByZXR1cm4gewogICAgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLAogICAgcGVya3M6IChkYXRhID8/IFtdKS5tYXAoKHBlcmspID0+ICh7CiAgICAgIC4uLnBlcmssCiAgICAgIG9mZmVyX2NvZGU6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gcGVyay5vZmZlcl9jb2RlIDogbnVsbCwKICAgICAgcmVkZW1wdGlvbl9pbnN0cnVjdGlvbnM6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gcGVyay5yZWRlbXB0aW9uX2luc3RydWN0aW9ucyA6IG51bGwsCiAgICB9KSksCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRQbGF5Ym9va3Moc2x1Zzogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgYWdlbmN5ID0gYXdhaXQgd2FsbGV0Q29udGVudEFnZW5jeShmYW1pbHkuaWQsICJwbGF5Ym9va3MiKTsKICBpZiAoYWdlbmN5ID09PSBmYWxzZSkgcmV0dXJuIHsgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLCBwbGF5Ym9va3M6IFtdIH07CiAgY29uc3QgeyBkYXRhOiByZWNpcGllbnRSb3dzIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgicGxheWJvb2tfcmVjaXBpZW50cyIpCiAgICAuc2VsZWN0KCJwbGF5Ym9va19pZCIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCk7CiAgY29uc3Qgc2VsZWN0ZWRJZHMgPSAocmVjaXBpZW50Um93cyA/PyBbXSkubWFwKChyb3cpID0+IHJvdy5wbGF5Ym9va19pZCk7CiAgbGV0IHF1ZXJ5ID0gc3VwYWJhc2VBZG1pbgogICAgLmZyb20oInNlYXNvbmFsX3BsYXlib29rcyIpCiAgICAuc2VsZWN0KCJpZCwgdGl0bGUsIHNlYXNvbiwgdG9waWMsIGludHJvZHVjdGlvbiwgYWdlX2d1aWRhbmNlLCBzZWN0aW9ucywgY292ZXJfaW1hZ2VfdXJsLCByZXNvdXJjZV91cmwsIGF1ZGllbmNlLCBpc19mZWF0dXJlZCwgcHVibGlzaGVkX2F0IikKICAgIC5lcSgiaXNfcHVibGlzaGVkIiwgdHJ1ZSkKICAgIC5vcmRlcigiaXNfZmVhdHVyZWQiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgIC5vcmRlcigicHVibGlzaGVkX2F0IiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pOwogIGlmIChzZWxlY3RlZElkcy5sZW5ndGgpIHF1ZXJ5ID0gcXVlcnkub3IoYGF1ZGllbmNlLmVxLmFsbCxpZC5pbi4oJHtzZWxlY3RlZElkcy5qb2luKCIsIil9KWApOwogIGVsc2UgcXVlcnkgPSBxdWVyeS5lcSgiYXVkaWVuY2UiLCAiYWxsIik7CiAgcXVlcnkgPSBhZ2VuY3kgPyBxdWVyeS5lcSgiYWdlbmN5X2lkIiwgYWdlbmN5KSA6IHF1ZXJ5LmlzKCJhZ2VuY3lfaWQiLCBudWxsKTsKICBjb25zdCBbeyBkYXRhLCBlcnJvciB9LCB7IGRhdGE6IHJlYWRzIH1dID0gYXdhaXQgUHJvbWlzZS5hbGwoWwogICAgcXVlcnksCiAgICBzdXBhYmFzZUFkbWluLmZyb20oInBsYXlib29rX3JlYWRzIikuc2VsZWN0KCJwbGF5Ym9va19pZCwgcmVhZGVyX3JvbGUsIHJlYWRfYXQiKS5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKS5lcSgicmVhZGVyX3JvbGUiLCBmYW1pbHkuYWNjZXNzKSwKICBdKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICBjb25zdCByZWFkTWFwID0gbmV3IE1hcCgocmVhZHMgPz8gW10pLm1hcCgocm93KSA9PiBbcm93LnBsYXlib29rX2lkLCByb3cucmVhZF9hdF0pKTsKICByZXR1cm4gewogICAgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLAogICAgcGxheWJvb2tzOiAoZGF0YSA/PyBbXSkubWFwKChwbGF5Ym9vaykgPT4gKHsgLi4ucGxheWJvb2ssIHNlY3Rpb25zOiBzZWN0aW9ucyhwbGF5Ym9vay5zZWN0aW9ucyksIHJlYWRBdDogcmVhZE1hcC5nZXQocGxheWJvb2suaWQpID8/IG51bGwgfSkpLAogIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiByZWNvcmRQbGF5Ym9va1JlYWQoc2x1Zzogc3RyaW5nLCBwbGF5Ym9va0lkOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSB0aHJvdyBuZXcgRXJyb3IoIkxvY2tlZCIpOwogIGNvbnN0IGFnZW5jeSA9IGF3YWl0IHdhbGxldENvbnRlbnRBZ2VuY3koZmFtaWx5LmlkLCAicGxheWJvb2tzIik7CiAgY29uc3QgeyBkYXRhOiBwYiB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJzZWFzb25hbF9wbGF5Ym9va3MiKS5zZWxlY3QoImFnZW5jeV9pZCIpLmVxKCJpZCIsIHBsYXlib29rSWQpLm1heWJlU2luZ2xlKCk7CiAgaWYgKGFnZW5jeSA9PT0gZmFsc2UgfHwgIXBiIHx8IChwYi5hZ2VuY3lfaWQgPz8gbnVsbCkgIT09IGFnZW5jeSkgdGhyb3cgbmV3IEVycm9yKCJOb3QgZm91bmQiKTsKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInBsYXlib29rX3JlYWRzIikudXBzZXJ0KAogICAgeyBwbGF5Ym9va19pZDogcGxheWJvb2tJZCwgZmFtaWx5X2lkOiBmYW1pbHkuaWQsIHJlYWRlcl9yb2xlOiBmYW1pbHkuYWNjZXNzLCByZWFkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgfSwKICAgIHsgb25Db25mbGljdDogInBsYXlib29rX2lkLGZhbWlseV9pZCxyZWFkZXJfcm9sZSIgfSwKICApOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwp9
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { walletContentAgency } from "./staff.scope";
+
+export type PlaybookSection = { heading: string; body: string };
+
+function sections(value: unknown): PlaybookSection[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = item as Record<string, unknown>;
+    return typeof row["heading"] === "string" && typeof row["body"] === "string"
+      ? [{ heading: row["heading"], body: row["body"] }]
+      : [];
+  });
+}
+
+export async function loadPartnerPerks(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const agency = await walletContentAgency(family.id, "perks");
+  if (agency === false) return { access: family.access, perks: [] };
+  let perkQuery = supabaseAdmin
+    .from("partner_perks")
+    .select("id, title, partner_name, category, area, offer_text, description, redemption_instructions, offer_code, website_url, contact_text, expires_on")
+    .eq("is_published", true)
+    .or(`expires_on.is.null,expires_on.gte.${new Date().toISOString().slice(0, 10)}`)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false });
+  perkQuery = agency ? perkQuery.eq("agency_id", agency) : perkQuery.is("agency_id", null);
+  const { data, error } = await perkQuery;
+  if (error) throw new Error(error.message);
+  return {
+    access: family.access,
+    perks: (data ?? []).map((perk) => ({
+      ...perk,
+      offer_code: family.access === "family" ? perk.offer_code : null,
+      redemption_instructions: family.access === "family" ? perk.redemption_instructions : null,
+    })),
+  };
+}
+
+export async function loadPlaybooks(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const agency = await walletContentAgency(family.id, "playbooks");
+  if (agency === false) return { access: family.access, playbooks: [] };
+  const { data: recipientRows } = await supabaseAdmin
+    .from("playbook_recipients")
+    .select("playbook_id")
+    .eq("family_id", family.id);
+  const selectedIds = (recipientRows ?? []).map((row) => row.playbook_id);
+  let query = supabaseAdmin
+    .from("seasonal_playbooks")
+    .select("id, title, season, topic, introduction, age_guidance, sections, cover_image_url, resource_url, audience, is_featured, published_at")
+    .eq("is_published", true)
+    .order("is_featured", { ascending: false })
+    .order("published_at", { ascending: false });
+  if (selectedIds.length) query = query.or(`audience.eq.all,id.in.(${selectedIds.join(",")})`);
+  else query = query.eq("audience", "all");
+  query = agency ? query.eq("agency_id", agency) : query.is("agency_id", null);
+  const [{ data, error }, { data: reads }] = await Promise.all([
+    query,
+    supabaseAdmin.from("playbook_reads").select("playbook_id, reader_role, read_at").eq("family_id", family.id).eq("reader_role", family.access),
+  ]);
+  if (error) throw new Error(error.message);
+  const readMap = new Map((reads ?? []).map((row) => [row.playbook_id, row.read_at]));
+  return {
+    access: family.access,
+    playbooks: (data ?? []).map((playbook) => ({ ...playbook, sections: sections(playbook.sections), readAt: readMap.get(playbook.id) ?? null })),
+  };
+}
+
+export async function recordPlaybookRead(slug: string, playbookId: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Locked");
+  const agency = await walletContentAgency(family.id, "playbooks");
+  const { data: pb } = await supabaseAdmin.from("seasonal_playbooks").select("agency_id").eq("id", playbookId).maybeSingle();
+  if (agency === false || !pb || (pb.agency_id ?? null) !== agency) throw new Error("Not found");
+  const { error } = await supabaseAdmin.from("playbook_reads").upsert(
+    { playbook_id: playbookId, family_id: family.id, reader_role: family.access, read_at: new Date().toISOString() },
+    { onConflict: "playbook_id,family_id,reader_role" },
+  );
+  if (error) throw new Error(error.message);
+}

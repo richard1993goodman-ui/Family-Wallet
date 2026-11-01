@@ -1,1 +1,184 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgV0VMQ09NRV9TVEVQUywgRklSU1RfNDhfU1RFUFMsIGNhbkNvbmZpcm1GaXJzdDQ4LCBmaXJzdDQ4RG9uZSwgdmFsaWRhdGVGaXJzdDQ4SW5wdXQsIHR5cGUgRmlyc3Q0OElucHV0LCB0eXBlIFdlbGNvbWVTdGVwSWQgfSBmcm9tICIuL3dlbGNvbWUudHlwZXMiOwppbXBvcnQgeyBsaXN0TmFubnlSb3dzLCBzZXNzaW9uQWNjZXNzIH0gZnJvbSAiLi93YWxsZXQuc2VydmVyIjsKCmV4cG9ydCB0eXBlIFdlbGNvbWVTdGVwID0gewogIGlkOiBXZWxjb21lU3RlcElkOwogIGxhYmVsOiBzdHJpbmc7CiAgZGVzY3JpcHRpb246IHN0cmluZzsKICBocmVmOiBzdHJpbmc7CiAgZG9uZTogYm9vbGVhbjsKICBtYW51YWw6IGJvb2xlYW47Cn07CgpleHBvcnQgdHlwZSBXZWxjb21lUHJvZ3Jlc3MgPSB7CiAgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7CiAgZmFtaWx5TmFtZTogc3RyaW5nOwogIHN0ZXBzOiBXZWxjb21lU3RlcFtdOwogIGRvbmVDb3VudDogbnVtYmVyOwogIHRvdGFsOiBudW1iZXI7CiAgY29tcGxldGVkOiBib29sZWFuOwogIGZpbmlzaGVkQXQ6IHN0cmluZyB8IG51bGw7Cn07Cgp0eXBlIFByb2dyZXNzUm93ID0gewogIHN0ZXBzOiBSZWNvcmQ8c3RyaW5nLCBib29sZWFuPjsKICBmaW5pc2hlZF9hdDogc3RyaW5nIHwgbnVsbDsKfTsKCmFzeW5jIGZ1bmN0aW9uIGxvYWRQcm9ncmVzc1JvdyhmYW1pbHlJZDogc3RyaW5nKTogUHJvbWlzZTxQcm9ncmVzc1JvdyB8IG51bGw+IHsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJ3ZWxjb21lX3Byb2dyZXNzIikKICAgIC5zZWxlY3QoInN0ZXBzLCBmaW5pc2hlZF9hdCIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseUlkKQogICAgLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFkYXRhKSByZXR1cm4gbnVsbDsKICByZXR1cm4gewogICAgc3RlcHM6IChkYXRhLnN0ZXBzID8/IHt9KSBhcyBSZWNvcmQ8c3RyaW5nLCBib29sZWFuPiwKICAgIGZpbmlzaGVkX2F0OiBkYXRhLmZpbmlzaGVkX2F0ID8/IG51bGwsCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRXZWxjb21lKHNsdWc6IHN0cmluZyk6IFByb21pc2U8V2VsY29tZVByb2dyZXNzIHwgbnVsbD4gewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHJldHVybiBudWxsOwoKICBjb25zdCBbCiAgICB7IGRhdGE6IGFncmVlbWVudHMgfSwKICAgIHsgZGF0YTogbmFubmllcyB9LAogICAgeyBjb3VudDogY29udGFjdENvdW50IH0sCiAgICB7IGNvdW50OiBjaGlsZENvdW50IH0sCiAgICB7IGNvdW50OiBwbGFubmVyQ291bnQgfSwKICAgIHsgY291bnQ6IGxvZ0NvdW50IH0sCiAgICB7IGRhdGE6IHByb2ZpbGUgfSwKICAgIHByb2dyZXNzLAogIF0gPSBhd2FpdCBQcm9taXNlLmFsbChbCiAgICBzdXBhYmFzZUFkbWluLmZyb20oIm5hbm55X2FncmVlbWVudHMiKS5zZWxlY3QoImlkIikuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCksCiAgICBzdXBhYmFzZUFkbWluLmZyb20oImZhbWlseV9uYW5uaWVzIikuc2VsZWN0KCJuYW5ueV9jb2RlX2hhc2giKS5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKSwKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oImZhbWlseV9jb250YWN0cyIpCiAgICAgIC5zZWxlY3QoImlkIiwgeyBjb3VudDogImV4YWN0IiwgaGVhZDogdHJ1ZSB9KQogICAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCksCiAgICBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJmYW1pbHlfY2hpbGRyZW4iKQogICAgICAuc2VsZWN0KCJpZCIsIHsgY291bnQ6ICJleGFjdCIsIGhlYWQ6IHRydWUgfSkKICAgICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpLAogICAgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgicGxhbm5lcl9lbnRyaWVzIikKICAgICAgLnNlbGVjdCgiaWQiLCB7IGNvdW50OiAiZXhhY3QiLCBoZWFkOiB0cnVlIH0pCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKSwKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oImRhaWx5X2xvZ3MiKQogICAgICAuc2VsZWN0KCJpZCIsIHsgY291bnQ6ICJleGFjdCIsIGhlYWQ6IHRydWUgfSkKICAgICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpLAogICAgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgiZmFtaWx5X3Byb2ZpbGUiKQogICAgICAuc2VsZWN0KCJpZCIpCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgICAubWF5YmVTaW5nbGUoKSwKICAgIGxvYWRQcm9ncmVzc1JvdyhmYW1pbHkuaWQpLAogIF0pOwoKICBjb25zdCBhdXRvOiBSZWNvcmQ8V2VsY29tZVN0ZXBJZCwgYm9vbGVhbj4gPSB7CiAgICBhZ3JlZW1lbnQ6IChhZ3JlZW1lbnRzPy5sZW5ndGggPz8gMCkgPiAwLAogICAgZW1lcmdlbmN5OiBCb29sZWFuKHByb2ZpbGUpLAogICAgY29udGFjdHM6IChjb250YWN0Q291bnQgPz8gMCkgPiAwLAogICAgY2hpbGRyZW46IChjaGlsZENvdW50ID8/IDApID4gMCwKICAgIHBsYW5uZXI6IChwbGFubmVyQ291bnQgPz8gMCkgPiAwLAogICAgbmFubnk6IChuYW5uaWVzID8/IFtdKS5zb21lKChuKSA9PiBCb29sZWFuKG4ubmFubnlfY29kZV9oYXNoKSksCiAgICBkYWlseUxvZzogKGxvZ0NvdW50ID8/IDApID4gMCwKICB9OwogIGNvbnN0IG1hbnVhbCA9IHByb2dyZXNzPy5zdGVwcyA/PyB7fTsKCiAgY29uc3Qgc3RlcHM6IFdlbGNvbWVTdGVwW10gPSBXRUxDT01FX1NURVBTLm1hcCgoc3RlcCkgPT4gKHsKICAgIC4uLnN0ZXAsCiAgICBkb25lOiBhdXRvW3N0ZXAuaWRdIHx8IG1hbnVhbFtzdGVwLmlkXSA9PT0gdHJ1ZSwKICAgIG1hbnVhbDogbWFudWFsW3N0ZXAuaWRdID09PSB0cnVlICYmICFhdXRvW3N0ZXAuaWRdLAogIH0pKTsKICBjb25zdCBkb25lQ291bnQgPSBzdGVwcy5maWx0ZXIoKHMpID0+IHMuZG9uZSkubGVuZ3RoOwoKICByZXR1cm4gewogICAgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLAogICAgZmFtaWx5TmFtZTogZmFtaWx5LmZhbWlseV9uYW1lLAogICAgc3RlcHMsCiAgICBkb25lQ291bnQsCiAgICB0b3RhbDogc3RlcHMubGVuZ3RoLAogICAgY29tcGxldGVkOiBkb25lQ291bnQgPT09IHN0ZXBzLmxlbmd0aCwKICAgIGZpbmlzaGVkQXQ6IHByb2dyZXNzPy5maW5pc2hlZF9hdCA/PyBudWxsLAogIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBzZXRXZWxjb21lU3RlcChzbHVnOiBzdHJpbmcsIHN0ZXBJZDogV2VsY29tZVN0ZXBJZCwgZG9uZTogYm9vbGVhbikgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkgfHwgZmFtaWx5LmFjY2VzcyAhPT0gImZhbWlseSIpIHRocm93IG5ldyBFcnJvcigiT25seSBhIHBhcmVudCBjYW4gdXBkYXRlIHNldHVwLiIpOwogIGlmICghV0VMQ09NRV9TVEVQUy5zb21lKChzKSA9PiBzLmlkID09PSBzdGVwSWQpKSB0aHJvdyBuZXcgRXJyb3IoIlVua25vd24gc3RlcC4iKTsKCiAgY29uc3QgZXhpc3RpbmcgPSBhd2FpdCBsb2FkUHJvZ3Jlc3NSb3coZmFtaWx5LmlkKTsKICBjb25zdCBzdGVwcyA9IHsgLi4uKGV4aXN0aW5nPy5zdGVwcyA/PyB7fSksIFtzdGVwSWRdOiBkb25lIH07CiAgYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oIndlbGNvbWVfcHJvZ3Jlc3MiKQogICAgLnVwc2VydCgKICAgICAgeyBmYW1pbHlfaWQ6IGZhbWlseS5pZCwgc3RlcHMsIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSB9LAogICAgICB7IG9uQ29uZmxpY3Q6ICJmYW1pbHlfaWQiIH0sCiAgICApOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gZmluaXNoV2VsY29tZShzbHVnOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5IHx8IGZhbWlseS5hY2Nlc3MgIT09ICJmYW1pbHkiKSB0aHJvdyBuZXcgRXJyb3IoIk9ubHkgYSBwYXJlbnQgY2FuIGZpbmlzaCBzZXR1cC4iKTsKICBjb25zdCBleGlzdGluZyA9IGF3YWl0IGxvYWRQcm9ncmVzc1JvdyhmYW1pbHkuaWQpOwogIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgid2VsY29tZV9wcm9ncmVzcyIpLnVwc2VydCgKICAgIHsKICAgICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICAgIHN0ZXBzOiBleGlzdGluZz8uc3RlcHMgPz8ge30sCiAgICAgIGZpbmlzaGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgICAgIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwKICAgIH0sCiAgICB7IG9uQ29uZmxpY3Q6ICJmYW1pbHlfaWQiIH0sCiAgKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRGaXJzdDQ4KHNsdWc6IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHJldHVybiBudWxsOwogIGNvbnN0IHNlc3Npb24gPSBhd2FpdCBzZXNzaW9uQWNjZXNzKHNsdWcpOwogIGlmICghc2Vzc2lvbikgcmV0dXJuIG51bGw7CiAgY29uc3QgbmFubmllcyA9IChhd2FpdCBsaXN0TmFubnlSb3dzKGZhbWlseS5pZCkpLmZpbHRlcigobmFubnkpID0+CiAgICBjYW5Db25maXJtRmlyc3Q0OChzZXNzaW9uLmxldmVsLCBzZXNzaW9uLm5hbm55SWQsIG5hbm55LmlkKSwKICApOwogIGNvbnN0IHsgZGF0YTogcm93cywgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgid2VsY29tZV9jaGVja2lucyIpCiAgICAuc2VsZWN0KCJuYW5ueV9pZCwgc3RlcF9pZCwgY29uZmlybWVkX2J5LCBjb25maXJtZWRfYXQsIG5vdGUiKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKCJUaGUgY2hlY2tsaXN0IGNvdWxkIG5vdCBiZSBsb2FkZWQuIFBsZWFzZSB0cnkgYWdhaW4uIik7CiAgcmV0dXJuIHsKICAgIGFjY2Vzczogc2Vzc2lvbi5sZXZlbCwKICAgIG5hbm5pZXM6IG5hbm5pZXMubWFwKChuYW5ueSkgPT4gewogICAgICBjb25zdCBzdGVwcyA9IEZJUlNUXzQ4X1NURVBTLm1hcCgoc3RlcCkgPT4gewogICAgICAgIGNvbnN0IHBhcmVudCA9IHJvd3M/LmZpbmQoKHJvdykgPT4gcm93Lm5hbm55X2lkID09PSBuYW5ueS5pZCAmJiByb3cuc3RlcF9pZCA9PT0gc3RlcC5pZCAmJiByb3cuY29uZmlybWVkX2J5ID09PSAiZmFtaWx5Iik7CiAgICAgICAgY29uc3QgY2FyZXIgPSByb3dzPy5maW5kKChyb3cpID0+IHJvdy5uYW5ueV9pZCA9PT0gbmFubnkuaWQgJiYgcm93LnN0ZXBfaWQgPT09IHN0ZXAuaWQgJiYgcm93LmNvbmZpcm1lZF9ieSA9PT0gIm5hbm55Iik7CiAgICAgICAgcmV0dXJuIHsgLi4uc3RlcCwgcGFyZW50Q29uZmlybWVkOiBwYXJlbnQ/LmNvbmZpcm1lZF9hdCA/PyBudWxsLCBuYW5ueUNvbmZpcm1lZDogY2FyZXI/LmNvbmZpcm1lZF9hdCA/PyBudWxsLCBwYXJlbnROb3RlOiBwYXJlbnQ/Lm5vdGUgPz8gIiIsIG5hbm55Tm90ZTogY2FyZXI/Lm5vdGUgPz8gIiIsIGRvbmU6IGZpcnN0NDhEb25lKHBhcmVudD8uY29uZmlybWVkX2F0ID8/IG51bGwsIGNhcmVyPy5jb25maXJtZWRfYXQgPz8gbnVsbCkgfTsKICAgICAgfSk7CiAgICAgIHJldHVybiB7IGlkOiBuYW5ueS5pZCwgbmFtZTogbmFubnkubmFtZSwgc3RlcHMsIGRvbmVDb3VudDogc3RlcHMuZmlsdGVyKChzdGVwKSA9PiBzdGVwLmRvbmUpLmxlbmd0aCwgdG90YWw6IHN0ZXBzLmxlbmd0aCB9OwogICAgfSksCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNhdmVGaXJzdDQ4KGlucHV0OiBGaXJzdDQ4SW5wdXQpIHsKICBjb25zdCBkYXRhID0gdmFsaWRhdGVGaXJzdDQ4SW5wdXQoaW5wdXQpOwogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoZGF0YS5zbHVnKTsKICBjb25zdCBzZXNzaW9uID0gYXdhaXQgc2Vzc2lvbkFjY2VzcyhkYXRhLnNsdWcpOwogIGlmICghZmFtaWx5IHx8ICFzZXNzaW9uIHx8ICFjYW5Db25maXJtRmlyc3Q0OChzZXNzaW9uLmxldmVsLCBzZXNzaW9uLm5hbm55SWQsIGRhdGEubmFubnlJZCkpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHNpZ24gaW4gdG8geW91ciBvd24gY2hlY2tsaXN0LiIpOwogIGNvbnN0IG5hbm5pZXMgPSBhd2FpdCBsaXN0TmFubnlSb3dzKGZhbWlseS5pZCk7CiAgaWYgKCFuYW5uaWVzLnNvbWUoKG5hbm55KSA9PiBuYW5ueS5pZCA9PT0gZGF0YS5uYW5ueUlkKSkgdGhyb3cgbmV3IEVycm9yKCJUaGlzIG5hbm55IGlzIG5vdCBhY3RpdmUgaW4geW91ciBmYW1pbHkuIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJ3ZWxjb21lX2NoZWNraW5zIikudXBzZXJ0KHsKICAgIGZhbWlseV9pZDogZmFtaWx5LmlkLAogICAgbmFubnlfaWQ6IGRhdGEubmFubnlJZCwKICAgIHN0ZXBfaWQ6IGRhdGEuc3RlcElkLAogICAgY29uZmlybWVkX2J5OiBzZXNzaW9uLmxldmVsLAogICAgY29uZmlybWVkX2F0OiBkYXRhLmNvbmZpcm1lZCA/IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSA6IG51bGwsCiAgICBub3RlOiBkYXRhLm5vdGUsCiAgICB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgfSwgeyBvbkNvbmZsaWN0OiAiZmFtaWx5X2lkLG5hbm55X2lkLHN0ZXBfaWQsY29uZmlybWVkX2J5IiB9KTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcigiWW91ciB1cGRhdGUgY291bGQgbm90IGJlIHNhdmVkLiBQbGVhc2UgdHJ5IGFnYWluLiIpOwp9Cg==
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { WELCOME_STEPS, FIRST_48_STEPS, canConfirmFirst48, first48Done, validateFirst48Input, type First48Input, type WelcomeStepId } from "./welcome.types";
+import { listNannyRows, sessionAccess } from "./wallet.server";
+
+export type WelcomeStep = {
+  id: WelcomeStepId;
+  label: string;
+  description: string;
+  href: string;
+  done: boolean;
+  manual: boolean;
+};
+
+export type WelcomeProgress = {
+  access: "family" | "nanny";
+  familyName: string;
+  steps: WelcomeStep[];
+  doneCount: number;
+  total: number;
+  completed: boolean;
+  finishedAt: string | null;
+};
+
+type ProgressRow = {
+  steps: Record<string, boolean>;
+  finished_at: string | null;
+};
+
+async function loadProgressRow(familyId: string): Promise<ProgressRow | null> {
+  const { data } = await supabaseAdmin
+    .from("welcome_progress")
+    .select("steps, finished_at")
+    .eq("family_id", familyId)
+    .maybeSingle();
+  if (!data) return null;
+  return {
+    steps: (data.steps ?? {}) as Record<string, boolean>,
+    finished_at: data.finished_at ?? null,
+  };
+}
+
+export async function loadWelcome(slug: string): Promise<WelcomeProgress | null> {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+
+  const [
+    { data: agreements },
+    { data: nannies },
+    { count: contactCount },
+    { count: childCount },
+    { count: plannerCount },
+    { count: logCount },
+    { data: profile },
+    progress,
+  ] = await Promise.all([
+    supabaseAdmin.from("nanny_agreements").select("id").eq("family_id", family.id),
+    supabaseAdmin.from("family_nannies").select("nanny_code_hash").eq("family_id", family.id),
+    supabaseAdmin
+      .from("family_contacts")
+      .select("id", { count: "exact", head: true })
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("family_children")
+      .select("id", { count: "exact", head: true })
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("planner_entries")
+      .select("id", { count: "exact", head: true })
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("daily_logs")
+      .select("id", { count: "exact", head: true })
+      .eq("family_id", family.id),
+    supabaseAdmin
+      .from("family_profile")
+      .select("id")
+      .eq("family_id", family.id)
+      .maybeSingle(),
+    loadProgressRow(family.id),
+  ]);
+
+  const auto: Record<WelcomeStepId, boolean> = {
+    agreement: (agreements?.length ?? 0) > 0,
+    emergency: Boolean(profile),
+    contacts: (contactCount ?? 0) > 0,
+    children: (childCount ?? 0) > 0,
+    planner: (plannerCount ?? 0) > 0,
+    nanny: (nannies ?? []).some((n) => Boolean(n.nanny_code_hash)),
+    dailyLog: (logCount ?? 0) > 0,
+  };
+  const manual = progress?.steps ?? {};
+
+  const steps: WelcomeStep[] = WELCOME_STEPS.map((step) => ({
+    ...step,
+    done: auto[step.id] || manual[step.id] === true,
+    manual: manual[step.id] === true && !auto[step.id],
+  }));
+  const doneCount = steps.filter((s) => s.done).length;
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    steps,
+    doneCount,
+    total: steps.length,
+    completed: doneCount === steps.length,
+    finishedAt: progress?.finished_at ?? null,
+  };
+}
+
+export async function setWelcomeStep(slug: string, stepId: WelcomeStepId, done: boolean) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can update setup.");
+  if (!WELCOME_STEPS.some((s) => s.id === stepId)) throw new Error("Unknown step.");
+
+  const existing = await loadProgressRow(family.id);
+  const steps = { ...(existing?.steps ?? {}), [stepId]: done };
+  await supabaseAdmin
+    .from("welcome_progress")
+    .upsert(
+      { family_id: family.id, steps, updated_at: new Date().toISOString() },
+      { onConflict: "family_id" },
+    );
+}
+
+export async function finishWelcome(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can finish setup.");
+  const existing = await loadProgressRow(family.id);
+  await supabaseAdmin.from("welcome_progress").upsert(
+    {
+      family_id: family.id,
+      steps: existing?.steps ?? {},
+      finished_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "family_id" },
+  );
+}
+
+export async function loadFirst48(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const session = await sessionAccess(slug);
+  if (!session) return null;
+  const nannies = (await listNannyRows(family.id)).filter((nanny) =>
+    canConfirmFirst48(session.level, session.nannyId, nanny.id),
+  );
+  const { data: rows, error } = await supabaseAdmin.from("welcome_checkins")
+    .select("nanny_id, step_id, confirmed_by, confirmed_at, note")
+    .eq("family_id", family.id);
+  if (error) throw new Error("The checklist could not be loaded. Please try again.");
+  return {
+    access: session.level,
+    nannies: nannies.map((nanny) => {
+      const steps = FIRST_48_STEPS.map((step) => {
+        const parent = rows?.find((row) => row.nanny_id === nanny.id && row.step_id === step.id && row.confirmed_by === "family");
+        const carer = rows?.find((row) => row.nanny_id === nanny.id && row.step_id === step.id && row.confirmed_by === "nanny");
+        return { ...step, parentConfirmed: parent?.confirmed_at ?? null, nannyConfirmed: carer?.confirmed_at ?? null, parentNote: parent?.note ?? "", nannyNote: carer?.note ?? "", done: first48Done(parent?.confirmed_at ?? null, carer?.confirmed_at ?? null) };
+      });
+      return { id: nanny.id, name: nanny.name, steps, doneCount: steps.filter((step) => step.done).length, total: steps.length };
+    }),
+  };
+}
+
+export async function saveFirst48(input: First48Input) {
+  const data = validateFirst48Input(input);
+  const family = await requireSharedFamily(data.slug);
+  const session = await sessionAccess(data.slug);
+  if (!family || !session || !canConfirmFirst48(session.level, session.nannyId, data.nannyId)) throw new Error("Please sign in to your own checklist.");
+  const nannies = await listNannyRows(family.id);
+  if (!nannies.some((nanny) => nanny.id === data.nannyId)) throw new Error("This nanny is not active in your family.");
+  const { error } = await supabaseAdmin.from("welcome_checkins").upsert({
+    family_id: family.id,
+    nanny_id: data.nannyId,
+    step_id: data.stepId,
+    confirmed_by: session.level,
+    confirmed_at: data.confirmed ? new Date().toISOString() : null,
+    note: data.note,
+    updated_at: new Date().toISOString(),
+  }, { onConflict: "family_id,nanny_id,step_id,confirmed_by" });
+  if (error) throw new Error("Your update could not be saved. Please try again.");
+}

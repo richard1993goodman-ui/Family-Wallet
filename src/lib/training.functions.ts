@@ -1,1 +1,22 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKZXhwb3J0IGNvbnN0IGdldFRyYWluaW5nID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkVHJhaW5pbmcgfSA9IGF3YWl0IGltcG9ydCgiLi90cmFpbmluZy5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkVHJhaW5pbmcoZGF0YS5zbHVnKTsKICB9KTsKCmV4cG9ydCBjb25zdCBzdWJtaXRUcmFpbmluZ0ZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IGxlYXJuZXJOYW1lOiBzdHJpbmc7IGFuc3dlcnM6IFJlY29yZDxzdHJpbmcsIG51bWJlcj4gfSkgPT4gZGF0YSkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhIH0pID0+IHsKICAgIGNvbnN0IHsgc3VibWl0VHJhaW5pbmcgfSA9IGF3YWl0IGltcG9ydCgiLi90cmFpbmluZy5zZXJ2ZXIiKTsKICAgIHJldHVybiBzdWJtaXRUcmFpbmluZyhkYXRhLnNsdWcsIGRhdGEubGVhcm5lck5hbWUsIGRhdGEuYW5zd2Vycyk7CiAgfSk7CgpleHBvcnQgY29uc3QgZ2V0Q2VydGlmaWNhdGUgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nOyBpZDogc3RyaW5nIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGxvYWRDZXJ0aWZpY2F0ZSB9ID0gYXdhaXQgaW1wb3J0KCIuL3RyYWluaW5nLnNlcnZlciIpOwogICAgcmV0dXJuIGxvYWRDZXJ0aWZpY2F0ZShkYXRhLnNsdWcsIGRhdGEuaWQpOwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+export const getTraining = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadTraining } = await import("./training.server");
+    return loadTraining(data.slug);
+  });
+
+export const submitTrainingFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; learnerName: string; answers: Record<string, number> }) => data)
+  .handler(async ({ data }) => {
+    const { submitTraining } = await import("./training.server");
+    return submitTraining(data.slug, data.learnerName, data.answers);
+  });
+
+export const getCertificate = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadCertificate } = await import("./training.server");
+    return loadCertificate(data.slug, data.id);
+  });

@@ -1,1 +1,8 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCByZWRpcmVjdCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwoKLy8gQ292ZXIgcmVxdWVzdHMgd2VyZSBhbiBhZ2VuY3kgc2VydmljZSBhbmQgaGF2ZSBiZWVuIHJlbW92ZWQgZnJvbSB0aGUgd2FsbGV0LgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9jb3Zlci8kc2x1ZyIpKHsKICBiZWZvcmVMb2FkOiAoeyBwYXJhbXMgfSkgPT4gewogICAgdGhyb3cgcmVkaXJlY3QoeyB0bzogIi93LyRzbHVnIiwgcGFyYW1zOiB7IHNsdWc6IHBhcmFtcy5zbHVnIH0gfSk7CiAgfSwKfSk7Cg==
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+// Cover requests were an agency service and have been removed from the wallet.
+export const Route = createFileRoute("/cover/$slug")({
+  beforeLoad: ({ params }) => {
+    throw redirect({ to: "/w/$slug", params: { slug: params.slug } });
+  },
+});

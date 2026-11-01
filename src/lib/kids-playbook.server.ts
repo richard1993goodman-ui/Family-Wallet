@@ -1,1 +1,50 @@
-aW1wb3J0IHsgc2V0UmVzcG9uc2VIZWFkZXIgfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQvc2VydmVyIjsKaW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgY2FuRWRpdFBsYXlib29rLCBwbGF5Ym9va0VudHJ5U2NoZW1hLCB0eXBlIFBsYXlib29rRGF0YSwgdHlwZSBQbGF5Ym9va0lucHV0LCB0eXBlIFBsYXlib29rUm93IH0gZnJvbSAiLi9raWRzLXBsYXlib29rLnR5cGVzIjsKCmNvbnN0IFRBQkxFID0gImtpZHNfcGxheWJvb2tfZW50cmllcyI7Cgphc3luYyBmdW5jdGlvbiBmYW1pbHkoc2x1Zzogc3RyaW5nKSB7CiAgc2V0UmVzcG9uc2VIZWFkZXIoIkNhY2hlLUNvbnRyb2wiLCAibm8tc3RvcmUiKTsKICBjb25zdCBmID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWYpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHVubG9jayB5b3VyIHdhbGxldC4iKTsKICByZXR1cm4gZjsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRLaWRzUGxheWJvb2soc2x1Zzogc3RyaW5nKTogUHJvbWlzZTxQbGF5Ym9va0RhdGEgfCBudWxsPiB7CiAgc2V0UmVzcG9uc2VIZWFkZXIoIkNhY2hlLUNvbnRyb2wiLCAibm8tc3RvcmUiKTsKICBjb25zdCBmID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWYpIHJldHVybiBudWxsOwogIGNvbnN0IHsgZGF0YSwgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbShUQUJMRSkKICAgIC5zZWxlY3QoImlkLCBjYXRlZ29yeSwgY2hpbGRfbmFtZSwgdGl0bGUsIG5vdGVzLCBhZGRlZF9ieSwgdXBkYXRlZF9hdCIpLmVxKCJmYW1pbHlfaWQiLCBmLmlkKS5vcmRlcigiY2hpbGRfbmFtZSIpLm9yZGVyKCJ0aXRsZSIpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKCJDb3VsZG4ndCBsb2FkIHRoZSBraWRzJyBwbGF5Ym9vay4iKTsKICBjb25zdCBlbnRyaWVzOiBQbGF5Ym9va1Jvd1tdID0gKGRhdGEgPz8gW10pLm1hcChyID0+ICh7IGlkOiByLmlkLCBjYXRlZ29yeTogci5jYXRlZ29yeSBhcyBQbGF5Ym9va1Jvd1siY2F0ZWdvcnkiXSwgY2hpbGROYW1lOiByLmNoaWxkX25hbWUsIHRpdGxlOiByLnRpdGxlLCBub3Rlczogci5ub3RlcywgYWRkZWRCeTogci5hZGRlZF9ieSBhcyBQbGF5Ym9va1Jvd1siYWRkZWRCeSJdLCB1cGRhdGVkQXQ6IHIudXBkYXRlZF9hdCB9KSk7CiAgcmV0dXJuIHsgYWNjZXNzOiBmLmFjY2VzcywgZW50cmllcyB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gc2F2ZUtpZHNQbGF5Ym9vayhzbHVnOiBzdHJpbmcsIGlucHV0OiBQbGF5Ym9va0lucHV0KSB7CiAgY29uc3QgZiA9IGF3YWl0IGZhbWlseShzbHVnKTsKICBjb25zdCBlbnRyeSA9IHBsYXlib29rRW50cnlTY2hlbWEucGFyc2UoaW5wdXQpOwogIGlmICghY2FuRWRpdFBsYXlib29rKGYuYWNjZXNzLCBlbnRyeS5jYXRlZ29yeSkpIHRocm93IG5ldyBFcnJvcigiT25seSBwYXJlbnRzIG9yIGd1YXJkaWFucyBjYW4gY2hhbmdlIHRoaXMgc2VjdGlvbi4iKTsKICBjb25zdCB2YWx1ZXMgPSB7IGNhdGVnb3J5OiBlbnRyeS5jYXRlZ29yeSwgY2hpbGRfbmFtZTogZW50cnkuY2hpbGROYW1lLCB0aXRsZTogZW50cnkudGl0bGUsIG5vdGVzOiBlbnRyeS5ub3RlcywgdXBkYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpIH07CiAgaWYgKGVudHJ5LmlkKSB7CiAgICBjb25zdCB7IGRhdGE6IGV4aXN0aW5nIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oVEFCTEUpLnNlbGVjdCgiY2F0ZWdvcnkiKS5lcSgiaWQiLCBlbnRyeS5pZCkuZXEoImZhbWlseV9pZCIsIGYuaWQpLm1heWJlU2luZ2xlKCk7CiAgICBpZiAoIWV4aXN0aW5nIHx8ICFjYW5FZGl0UGxheWJvb2soZi5hY2Nlc3MsIGV4aXN0aW5nLmNhdGVnb3J5KSkgdGhyb3cgbmV3IEVycm9yKCJPbmx5IHBhcmVudHMgb3IgZ3VhcmRpYW5zIGNhbiBjaGFuZ2UgdGhpcyBzZWN0aW9uLiIpOwogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKFRBQkxFKS51cGRhdGUodmFsdWVzKS5lcSgiaWQiLCBlbnRyeS5pZCkuZXEoImZhbWlseV9pZCIsIGYuaWQpOwogICAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoIkNvdWxkbid0IHNhdmUgdGhhdC4iKTsKICB9IGVsc2UgewogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKFRBQkxFKS5pbnNlcnQoeyAuLi52YWx1ZXMsIGZhbWlseV9pZDogZi5pZCwgYWRkZWRfYnk6IGYuYWNjZXNzIH0pOwogICAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoIkNvdWxkbid0IHNhdmUgdGhhdC4iKTsKICB9CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGRlbGV0ZUtpZHNQbGF5Ym9vayhzbHVnOiBzdHJpbmcsIGlkOiBzdHJpbmcpIHsKICBjb25zdCBmID0gYXdhaXQgZmFtaWx5KHNsdWcpOwogIGNvbnN0IHsgZGF0YTogZXhpc3RpbmcgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbShUQUJMRSkuc2VsZWN0KCJjYXRlZ29yeSIpLmVxKCJpZCIsIGlkKS5lcSgiZmFtaWx5X2lkIiwgZi5pZCkubWF5YmVTaW5nbGUoKTsKICBpZiAoIWV4aXN0aW5nIHx8ICFjYW5FZGl0UGxheWJvb2soZi5hY2Nlc3MsIGV4aXN0aW5nLmNhdGVnb3J5KSkgdGhyb3cgbmV3IEVycm9yKCJPbmx5IHBhcmVudHMgb3IgZ3VhcmRpYW5zIGNhbiBjaGFuZ2UgdGhpcyBzZWN0aW9uLiIpOwogIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbShUQUJMRSkuZGVsZXRlKCkuZXEoImlkIiwgaWQpLmVxKCJmYW1pbHlfaWQiLCBmLmlkKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcigiQ291bGRuJ3QgcmVtb3ZlIHRoYXQuIik7CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfQo=
+import { setResponseHeader } from "@tanstack/react-start/server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { canEditPlaybook, playbookEntrySchema, type PlaybookData, type PlaybookInput, type PlaybookRow } from "./kids-playbook.types";
+
+const TABLE = "kids_playbook_entries";
+
+async function family(slug: string) {
+  setResponseHeader("Cache-Control", "no-store");
+  const f = await requireSharedFamily(slug);
+  if (!f) throw new Error("Please unlock your wallet.");
+  return f;
+}
+
+export async function loadKidsPlaybook(slug: string): Promise<PlaybookData | null> {
+  setResponseHeader("Cache-Control", "no-store");
+  const f = await requireSharedFamily(slug);
+  if (!f) return null;
+  const { data, error } = await supabaseAdmin.from(TABLE)
+    .select("id, category, child_name, title, notes, added_by, updated_at").eq("family_id", f.id).order("child_name").order("title");
+  if (error) throw new Error("Couldn't load the kids' playbook.");
+  const entries: PlaybookRow[] = (data ?? []).map(r => ({ id: r.id, category: r.category as PlaybookRow["category"], childName: r.child_name, title: r.title, notes: r.notes, addedBy: r.added_by as PlaybookRow["addedBy"], updatedAt: r.updated_at }));
+  return { access: f.access, entries };
+}
+
+export async function saveKidsPlaybook(slug: string, input: PlaybookInput) {
+  const f = await family(slug);
+  const entry = playbookEntrySchema.parse(input);
+  if (!canEditPlaybook(f.access, entry.category)) throw new Error("Only parents or guardians can change this section.");
+  const values = { category: entry.category, child_name: entry.childName, title: entry.title, notes: entry.notes, updated_at: new Date().toISOString() };
+  if (entry.id) {
+    const { data: existing } = await supabaseAdmin.from(TABLE).select("category").eq("id", entry.id).eq("family_id", f.id).maybeSingle();
+    if (!existing || !canEditPlaybook(f.access, existing.category)) throw new Error("Only parents or guardians can change this section.");
+    const { error } = await supabaseAdmin.from(TABLE).update(values).eq("id", entry.id).eq("family_id", f.id);
+    if (error) throw new Error("Couldn't save that.");
+  } else {
+    const { error } = await supabaseAdmin.from(TABLE).insert({ ...values, family_id: f.id, added_by: f.access });
+    if (error) throw new Error("Couldn't save that.");
+  }
+  return { ok: true as const };
+}
+
+export async function deleteKidsPlaybook(slug: string, id: string) {
+  const f = await family(slug);
+  const { data: existing } = await supabaseAdmin.from(TABLE).select("category").eq("id", id).eq("family_id", f.id).maybeSingle();
+  if (!existing || !canEditPlaybook(f.access, existing.category)) throw new Error("Only parents or guardians can change this section.");
+  const { error } = await supabaseAdmin.from(TABLE).delete().eq("id", id).eq("family_id", f.id);
+  if (error) throw new Error("Couldn't remove that.");
+  return { ok: true as const };
+}

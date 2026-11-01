@@ -1,1 +1,8 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKZXhwb3J0IGNvbnN0IGdldFdlZWtseVJlcG9ydCA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiR0VUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IGFuY2hvcj86IHN0cmluZyB8IHVuZGVmaW5lZCB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkV2Vla2x5UmVwb3J0IH0gPSBhd2FpdCBpbXBvcnQoIi4vd2Vla2x5LXJlcG9ydC5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkV2Vla2x5UmVwb3J0KGRhdGEuc2x1ZywgZGF0YS5hbmNob3IpOwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+export const getWeeklyReport = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string; anchor?: string | undefined }) => data)
+  .handler(async ({ data }) => {
+    const { loadWeeklyReport } = await import("./weekly-report.server");
+    return loadWeeklyReport(data.slug, data.anchor);
+  });

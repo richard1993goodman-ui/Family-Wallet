@@ -1,1 +1,172 @@
-aW1wb3J0IHsgdXNlUXVlcnksIHVzZVF1ZXJ5Q2xpZW50IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyBUcm9waHksIFRyYXNoMiB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgewogIGNyZWF0ZUNoYWxsZW5nZSwKICBkZWxldGVDaGFsbGVuZ2UsCiAgbGlzdENoYWxsZW5nZXNBZG1pbiwKICBzZXRDaGFsbGVuZ2VBY3RpdmUsCn0gZnJvbSAiQC9saWIvY2hhbGxlbmdlcy5mdW5jdGlvbnMiOwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKaW1wb3J0IHsgSW5wdXQgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvaW5wdXQiOwppbXBvcnQgeyBMYWJlbCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9sYWJlbCI7CmltcG9ydCB7IFRleHRhcmVhIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RleHRhcmVhIjsKCnR5cGUgRmFtID0geyBpZDogc3RyaW5nOyBmYW1pbHlfbmFtZTogc3RyaW5nIH07CgpleHBvcnQgZnVuY3Rpb24gQ2hhbGxlbmdlc1BhbmVsKHsgZmFtaWxpZXMgfTogeyBmYW1pbGllczogRmFtW10gfSkgewogIGNvbnN0IHFjID0gdXNlUXVlcnlDbGllbnQoKTsKICBjb25zdCBsaXN0Rm4gPSB1c2VTZXJ2ZXJGbihsaXN0Q2hhbGxlbmdlc0FkbWluKTsKICBjb25zdCBjcmVhdGVGbiA9IHVzZVNlcnZlckZuKGNyZWF0ZUNoYWxsZW5nZSk7CiAgY29uc3QgYWN0aXZlRm4gPSB1c2VTZXJ2ZXJGbihzZXRDaGFsbGVuZ2VBY3RpdmUpOwogIGNvbnN0IGRlbEZuID0gdXNlU2VydmVyRm4oZGVsZXRlQ2hhbGxlbmdlKTsKICBjb25zdCBsaXN0ID0gdXNlUXVlcnkoeyBxdWVyeUtleTogWyJhZG1pbi1jaGFsbGVuZ2VzIl0sIHF1ZXJ5Rm46ICgpID0+IGxpc3RGbigpIH0pOwoKICBjb25zdCBbb3Blbiwgc2V0T3Blbl0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3RpdGxlLCBzZXRUaXRsZV0gPSB1c2VTdGF0ZSgiIik7CiAgY29uc3QgW2Rlc2NyaXB0aW9uLCBzZXREZXNjcmlwdGlvbl0gPSB1c2VTdGF0ZSgiIik7CiAgY29uc3QgW2R1ZURhdGUsIHNldER1ZURhdGVdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFthdWRpZW5jZSwgc2V0QXVkaWVuY2VdID0gdXNlU3RhdGU8ImFsbCIgfCAic2VsZWN0ZWQiPigiYWxsIik7CiAgY29uc3QgW3BpY2tlZCwgc2V0UGlja2VkXSA9IHVzZVN0YXRlPHN0cmluZ1tdPihbXSk7CiAgY29uc3QgW2J1c3ksIHNldEJ1c3ldID0gdXNlU3RhdGUoZmFsc2UpOwoKICBjb25zdCByZWZyZXNoID0gKCkgPT4gcWMuaW52YWxpZGF0ZVF1ZXJpZXMoeyBxdWVyeUtleTogWyJhZG1pbi1jaGFsbGVuZ2VzIl0gfSk7CgogIGFzeW5jIGZ1bmN0aW9uIG9uU2VuZChlOiBSZWFjdC5Gb3JtRXZlbnQpIHsKICAgIGUucHJldmVudERlZmF1bHQoKTsKICAgIHNldEJ1c3kodHJ1ZSk7CiAgICB0cnkgewogICAgICBhd2FpdCBjcmVhdGVGbih7IGRhdGE6IHsgdGl0bGUsIGRlc2NyaXB0aW9uLCBkdWVEYXRlLCBhdWRpZW5jZSwgZmFtaWx5SWRzOiBwaWNrZWQgfSB9KTsKICAgICAgdG9hc3Quc3VjY2VzcyhhdWRpZW5jZSA9PT0gImFsbCIgPyAiU2VudCB0byBhbGwgd2FsbGV0cyIgOiBgU2VudCB0byAke3BpY2tlZC5sZW5ndGh9IHdhbGxldChzKWApOwogICAgICBzZXRUaXRsZSgiIik7CiAgICAgIHNldERlc2NyaXB0aW9uKCIiKTsKICAgICAgc2V0RHVlRGF0ZSgiIik7CiAgICAgIHNldFBpY2tlZChbXSk7CiAgICAgIHNldE9wZW4oZmFsc2UpOwogICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgdG9hc3QuZXJyb3IoZXJyIGluc3RhbmNlb2YgRXJyb3IgPyBlcnIubWVzc2FnZSA6ICJDb3VsZCBub3Qgc2VuZCIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0QnVzeShmYWxzZSk7CiAgICB9CiAgfQoKICBjb25zdCBuYW1lT2YgPSAoaWQ6IHN0cmluZykgPT4gZmFtaWxpZXMuZmluZCgoZikgPT4gZi5pZCA9PT0gaWQpPy5mYW1pbHlfbmFtZSA/PyAiRmFtaWx5IjsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJtdC04IHJvdW5kZWQteGwgYm9yZGVyIGJvcmRlci1ib3JkZXIgYmctY2FyZCBwLTUiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIGdhcC0zIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIiPgogICAgICAgICAgPFRyb3BoeSBjbGFzc05hbWU9ImgtNSB3LTUgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5LaWRzIGNoYWxsZW5nZXM8L2gyPgogICAgICAgIDwvZGl2PgogICAgICAgIDxCdXR0b24gc2l6ZT0ic20iIHZhcmlhbnQ9e29wZW4gPyAib3V0bGluZSIgOiAiZGVmYXVsdCJ9IG9uQ2xpY2s9eygpID0+IHNldE9wZW4oIW9wZW4pfT4KICAgICAgICAgIHtvcGVuID8gIkNsb3NlIiA6ICJTZXQgYSBjaGFsbGVuZ2UifQogICAgICAgIDwvQnV0dG9uPgogICAgICA8L2Rpdj4KICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICBMaXZlIGNoYWxsZW5nZXMganVtcCB0byB0aGUgdG9wIG9mIGVhY2ggY2hvc2VuIHdhbGxldCBmb3IgdGhlIG5hbm55IHRvIGNvbXBsZXRlIHdpdGggdGhlIGtpZHMuCiAgICAgIDwvcD4KCiAgICAgIHtvcGVuICYmICgKICAgICAgICA8Zm9ybSBvblN1Ym1pdD17b25TZW5kfSBjbGFzc05hbWU9Im10LTQgc3BhY2UteS0zIj4KICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgIDxMYWJlbCBodG1sRm9yPSJjaC10aXRsZSI+Q2hhbGxlbmdlPC9MYWJlbD4KICAgICAgICAgICAgPElucHV0IGlkPSJjaC10aXRsZSIgY2xhc3NOYW1lPSJtdC0xIiB2YWx1ZT17dGl0bGV9IG9uQ2hhbmdlPXsoZSkgPT4gc2V0VGl0bGUoZS50YXJnZXQudmFsdWUpfSBwbGFjZWhvbGRlcj0iZS5nLiA1MCBrZWVweS11cHBpZXMgdGhpcyB3ZWVrIiByZXF1aXJlZCAvPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8ZGl2PgogICAgICAgICAgICA8TGFiZWwgaHRtbEZvcj0iY2gtZGVzYyI+RGV0YWlscyAob3B0aW9uYWwpPC9MYWJlbD4KICAgICAgICAgICAgPFRleHRhcmVhIGlkPSJjaC1kZXNjIiBjbGFzc05hbWU9Im10LTEiIHZhbHVlPXtkZXNjcmlwdGlvbn0gb25DaGFuZ2U9eyhlKSA9PiBzZXREZXNjcmlwdGlvbihlLnRhcmdldC52YWx1ZSl9IHBsYWNlaG9sZGVyPSJIb3cgdG8gZG8gaXQsIHNhZmV0eSB0aXBzLCB3aGF0IGNvdW50cyIgLz4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPGRpdj4KICAgICAgICAgICAgPExhYmVsIGh0bWxGb3I9ImNoLWR1ZSI+RmluaXNoIGJ5IChvcHRpb25hbCk8L0xhYmVsPgogICAgICAgICAgICA8SW5wdXQgaWQ9ImNoLWR1ZSIgdHlwZT0iZGF0ZSIgY2xhc3NOYW1lPSJtdC0xIG1heC13LXhzIiB2YWx1ZT17ZHVlRGF0ZX0gb25DaGFuZ2U9eyhlKSA9PiBzZXREdWVEYXRlKGUudGFyZ2V0LnZhbHVlKX0gLz4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGdhcC0yIj4KICAgICAgICAgICAgeyhbImFsbCIsICJzZWxlY3RlZCJdIGFzIGNvbnN0KS5tYXAoKGEpID0+ICgKICAgICAgICAgICAgICA8YnV0dG9uCiAgICAgICAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICAgICAgICBrZXk9e2F9CiAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRBdWRpZW5jZShhKX0KICAgICAgICAgICAgICAgIGNsYXNzTmFtZT17YHJvdW5kZWQtZnVsbCBib3JkZXIgcHgtMyBweS0xIHRleHQtc20gJHthdWRpZW5jZSA9PT0gYSA/ICJib3JkZXItcHJpbWFyeSBiZy1wcmltYXJ5IHRleHQtcHJpbWFyeS1mb3JlZ3JvdW5kIiA6ICJib3JkZXItYm9yZGVyIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCJ9YH0KICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICB7YSA9PT0gImFsbCIgPyBgQWxsIGFjdGl2ZSB3YWxsZXRzICgke2ZhbWlsaWVzLmxlbmd0aH0pYCA6ICJDaG9vc2UgZmFtaWxpZXMifQogICAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICApKX0KICAgICAgICAgIDwvZGl2PgogICAgICAgICAge2F1ZGllbmNlID09PSAic2VsZWN0ZWQiICYmICgKICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC1oLTU2IHNwYWNlLXktMSBvdmVyZmxvdy1hdXRvIHJvdW5kZWQtbWQgYm9yZGVyIGJvcmRlci1ib3JkZXIgcC0zIj4KICAgICAgICAgICAgICB7ZmFtaWxpZXMubGVuZ3RoID09PSAwICYmIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5vIGFjdGl2ZSBmYW1pbGllcy48L3A+fQogICAgICAgICAgICAgIHtmYW1pbGllcy5tYXAoKGYpID0+ICgKICAgICAgICAgICAgICAgIDxsYWJlbCBrZXk9e2YuaWR9IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIgdGV4dC1zbSI+CiAgICAgICAgICAgICAgICAgIDxpbnB1dAogICAgICAgICAgICAgICAgICAgIHR5cGU9ImNoZWNrYm94IgogICAgICAgICAgICAgICAgICAgIGNoZWNrZWQ9e3BpY2tlZC5pbmNsdWRlcyhmLmlkKX0KICAgICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+CiAgICAgICAgICAgICAgICAgICAgICBzZXRQaWNrZWQoZS50YXJnZXQuY2hlY2tlZCA/IFsuLi5waWNrZWQsIGYuaWRdIDogcGlja2VkLmZpbHRlcigoeCkgPT4geCAhPT0gZi5pZCkpCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICB7Zi5mYW1pbHlfbmFtZX0KICAgICAgICAgICAgICAgIDwvbGFiZWw+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgKX0KICAgICAgICAgIDxCdXR0b24gdHlwZT0ic3VibWl0IiBkaXNhYmxlZD17YnVzeX0+CiAgICAgICAgICAgIHtidXN5ID8gIlNlbmRpbmfigKYiIDogYXVkaWVuY2UgPT09ICJhbGwiID8gIlNlbmQgdG8gYWxsIHdhbGxldHMiIDogYFNlbmQgdG8gJHtwaWNrZWQubGVuZ3RofSBzZWxlY3RlZGB9CiAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICA8L2Zvcm0+CiAgICAgICl9CgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBzcGFjZS15LTIiPgogICAgICAgIHtsaXN0LmRhdGE/Lmxlbmd0aCA9PT0gMCAmJiA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5ObyBjaGFsbGVuZ2VzIHlldC48L3A+fQogICAgICAgIHtsaXN0LmRhdGE/Lm1hcCgoYykgPT4gewogICAgICAgICAgY29uc3QgdG90YWwgPSBjLmF1ZGllbmNlID09PSAiYWxsIiA/IGZhbWlsaWVzLmxlbmd0aCA6IGMucmVjaXBpZW50SWRzLmxlbmd0aDsKICAgICAgICAgIHJldHVybiAoCiAgICAgICAgICAgIDxkaXYga2V5PXtjLmlkfSBjbGFzc05hbWU9InJvdW5kZWQtbGcgYm9yZGVyIGJvcmRlci1ib3JkZXIgcC0zIj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBqdXN0aWZ5LWJldHdlZW4gZ2FwLTMiPgogICAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICAgIHtjLnRpdGxlfQogICAgICAgICAgICAgICAgICAgIHshYy5pc19hY3RpdmUgJiYgPHNwYW4gY2xhc3NOYW1lPSJtbC0yIHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4oZW5kZWQpPC9zcGFuPn0KICAgICAgICAgICAgICAgICAgPC9wPgogICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAgICB7Yy5hdWRpZW5jZSA9PT0gImFsbCIgPyAiQWxsIHdhbGxldHMiIDogYy5yZWNpcGllbnRJZHMubWFwKG5hbWVPZikuam9pbigiLCAiKX0KICAgICAgICAgICAgICAgICAgICB7IiDCtyAifQogICAgICAgICAgICAgICAgICAgIHtjLmNvbXBsZXRlZElkcy5sZW5ndGh9L3t0b3RhbH0gY29tcGxldGVkCiAgICAgICAgICAgICAgICAgICAge2MuZHVlX2RhdGUgPyBgIMK3IGJ5ICR7bmV3IERhdGUoYy5kdWVfZGF0ZSkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIpfWAgOiAiIn0KICAgICAgICAgICAgICAgICAgPC9wPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBzaHJpbmstMCBpdGVtcy1jZW50ZXIgZ2FwLTIiPgogICAgICAgICAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgICAgICAgICAgc2l6ZT0ic20iCiAgICAgICAgICAgICAgICAgICAgdmFyaWFudD0ib3V0bGluZSIKICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXthc3luYyAoKSA9PiB7CiAgICAgICAgICAgICAgICAgICAgICBhd2FpdCBhY3RpdmVGbih7IGRhdGE6IHsgaWQ6IGMuaWQsIGFjdGl2ZTogIWMuaXNfYWN0aXZlIH0gfSk7CiAgICAgICAgICAgICAgICAgICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICAgICAgICAgICAgICAgICAgfX0KICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgIHtjLmlzX2FjdGl2ZSA/ICJFbmQiIDogIlJlc3RhcnQifQogICAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICAgICAgICAgIGFyaWEtbGFiZWw9IkRlbGV0ZSBjaGFsbGVuZ2UiCiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1kZXN0cnVjdGl2ZSIKICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXthc3luYyAoKSA9PiB7CiAgICAgICAgICAgICAgICAgICAgICBpZiAoIXdpbmRvdy5jb25maXJtKCJEZWxldGUgdGhpcyBjaGFsbGVuZ2UgZnJvbSBhbGwgd2FsbGV0cz8iKSkgcmV0dXJuOwogICAgICAgICAgICAgICAgICAgICAgYXdhaXQgZGVsRm4oeyBkYXRhOiB7IGlkOiBjLmlkIH0gfSk7CiAgICAgICAgICAgICAgICAgICAgICBhd2FpdCByZWZyZXNoKCk7CiAgICAgICAgICAgICAgICAgICAgfX0KICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgIDxUcmFzaDIgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICk7CiAgICAgICAgfSl9CiAgICAgIDwvZGl2PgogICAgPC9kaXY+CiAgKTsKfQo=
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Trophy, Trash2 } from "lucide-react";
+
+import {
+  createChallenge,
+  deleteChallenge,
+  listChallengesAdmin,
+  setChallengeActive,
+} from "@/lib/challenges.functions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+
+type Fam = { id: string; family_name: string };
+
+export function ChallengesPanel({ families }: { families: Fam[] }) {
+  const qc = useQueryClient();
+  const listFn = useServerFn(listChallengesAdmin);
+  const createFn = useServerFn(createChallenge);
+  const activeFn = useServerFn(setChallengeActive);
+  const delFn = useServerFn(deleteChallenge);
+  const list = useQuery({ queryKey: ["admin-challenges"], queryFn: () => listFn() });
+
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [audience, setAudience] = useState<"all" | "selected">("all");
+  const [picked, setPicked] = useState<string[]>([]);
+  const [busy, setBusy] = useState(false);
+
+  const refresh = () => qc.invalidateQueries({ queryKey: ["admin-challenges"] });
+
+  async function onSend(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      await createFn({ data: { title, description, dueDate, audience, familyIds: picked } });
+      toast.success(audience === "all" ? "Sent to all wallets" : `Sent to ${picked.length} wallet(s)`);
+      setTitle("");
+      setDescription("");
+      setDueDate("");
+      setPicked([]);
+      setOpen(false);
+      await refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not send");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const nameOf = (id: string) => families.find((f) => f.id === id)?.family_name ?? "Family";
+
+  return (
+    <div className="mt-8 rounded-xl border border-border bg-card p-5">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Trophy className="h-5 w-5 text-primary" />
+          <h2 className="heading-display text-lg text-foreground">Kids challenges</h2>
+        </div>
+        <Button size="sm" variant={open ? "outline" : "default"} onClick={() => setOpen(!open)}>
+          {open ? "Close" : "Set a challenge"}
+        </Button>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Live challenges jump to the top of each chosen wallet for the nanny to complete with the kids.
+      </p>
+
+      {open && (
+        <form onSubmit={onSend} className="mt-4 space-y-3">
+          <div>
+            <Label htmlFor="ch-title">Challenge</Label>
+            <Input id="ch-title" className="mt-1" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. 50 keepy-uppies this week" required />
+          </div>
+          <div>
+            <Label htmlFor="ch-desc">Details (optional)</Label>
+            <Textarea id="ch-desc" className="mt-1" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="How to do it, safety tips, what counts" />
+          </div>
+          <div>
+            <Label htmlFor="ch-due">Finish by (optional)</Label>
+            <Input id="ch-due" type="date" className="mt-1 max-w-xs" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {(["all", "selected"] as const).map((a) => (
+              <button
+                type="button"
+                key={a}
+                onClick={() => setAudience(a)}
+                className={`rounded-full border px-3 py-1 text-sm ${audience === a ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground"}`}
+              >
+                {a === "all" ? `All active wallets (${families.length})` : "Choose families"}
+              </button>
+            ))}
+          </div>
+          {audience === "selected" && (
+            <div className="max-h-56 space-y-1 overflow-auto rounded-md border border-border p-3">
+              {families.length === 0 && <p className="text-sm text-muted-foreground">No active families.</p>}
+              {families.map((f) => (
+                <label key={f.id} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={picked.includes(f.id)}
+                    onChange={(e) =>
+                      setPicked(e.target.checked ? [...picked, f.id] : picked.filter((x) => x !== f.id))
+                    }
+                  />
+                  {f.family_name}
+                </label>
+              ))}
+            </div>
+          )}
+          <Button type="submit" disabled={busy}>
+            {busy ? "Sending…" : audience === "all" ? "Send to all wallets" : `Send to ${picked.length} selected`}
+          </Button>
+        </form>
+      )}
+
+      <div className="mt-4 space-y-2">
+        {list.data?.length === 0 && <p className="text-sm text-muted-foreground">No challenges yet.</p>}
+        {list.data?.map((c) => {
+          const total = c.audience === "all" ? families.length : c.recipientIds.length;
+          return (
+            <div key={c.id} className="rounded-lg border border-border p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-medium text-foreground">
+                    {c.title}
+                    {!c.is_active && <span className="ml-2 text-xs text-muted-foreground">(ended)</span>}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {c.audience === "all" ? "All wallets" : c.recipientIds.map(nameOf).join(", ")}
+                    {" · "}
+                    {c.completedIds.length}/{total} completed
+                    {c.due_date ? ` · by ${new Date(c.due_date).toLocaleDateString("en-GB")}` : ""}
+                  </p>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      await activeFn({ data: { id: c.id, active: !c.is_active } });
+                      await refresh();
+                    }}
+                  >
+                    {c.is_active ? "End" : "Restart"}
+                  </Button>
+                  <button
+                    aria-label="Delete challenge"
+                    className="text-muted-foreground hover:text-destructive"
+                    onClick={async () => {
+                      if (!window.confirm("Delete this challenge from all wallets?")) return;
+                      await delFn({ data: { id: c.id } });
+                      await refresh();
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

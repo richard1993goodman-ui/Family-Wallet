@@ -1,1 +1,107 @@
-aW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IEJhZGdlQ2hlY2sgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHR5cGUgeyBTaWduYXR1cmUgfSBmcm9tICJAL2xpYi9hZ3JlZW1lbnQudHlwZXMiOwoKY29uc3QgUk9MRV9MQUJFTFM6IFJlY29yZDxTaWduYXR1cmVbInNpZ25lclJvbGUiXSwgc3RyaW5nPiA9IHsKICBwYXJlbnQ6ICJQYXJlbnQgLyBlbXBsb3llciIsCiAgbmFubnk6ICJOYW5ueSAvIG1hbm55IiwKICBhZ2VuY3k6ICJBZ2VuY3kiLAp9OwoKZXhwb3J0IGZ1bmN0aW9uIGZvcm1hdFNpZ25lZEF0KHZhbHVlOiBzdHJpbmcpIHsKICByZXR1cm4gbmV3IERhdGUodmFsdWUpLnRvTG9jYWxlU3RyaW5nKCJlbi1HQiIsIHsKICAgIGRheTogIm51bWVyaWMiLAogICAgbW9udGg6ICJsb25nIiwKICAgIHllYXI6ICJudW1lcmljIiwKICAgIGhvdXI6ICIyLWRpZ2l0IiwKICAgIG1pbnV0ZTogIjItZGlnaXQiLAogIH0pOwp9CgpleHBvcnQgZnVuY3Rpb24gU2lnbmF0dXJlTGlzdCh7IHNpZ25hdHVyZXMgfTogeyBzaWduYXR1cmVzOiBTaWduYXR1cmVbXSB9KSB7CiAgaWYgKHNpZ25hdHVyZXMubGVuZ3RoID09PSAwKSB7CiAgICByZXR1cm4gPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+Tm8gc2lnbmF0dXJlcyByZWNvcmRlZCB5ZXQuPC9wPjsKICB9CiAgcmV0dXJuICgKICAgIDx1bCBjbGFzc05hbWU9InNwYWNlLXktMyI+CiAgICAgIHtzaWduYXR1cmVzLm1hcCgocywgaSkgPT4gKAogICAgICAgIDxsaSBrZXk9e2l9IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBnYXAtMyI+CiAgICAgICAgICA8QmFkZ2VDaGVjayBjbGFzc05hbWU9Im10LTAuNSBoLTUgdy01IGZsZXgtc2hyaW5rLTAgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIj4KICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJibG9jayBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgIHtzLnNpZ25lck5hbWV9eyIgIn0KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImZvbnQtbm9ybWFsIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgICDigJQge1JPTEVfTEFCRUxTW3Muc2lnbmVyUm9sZV19CiAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICBTaWduZWQge2Zvcm1hdFNpZ25lZEF0KHMuc2lnbmVkQXQpfSDCtyB2ZXJzaW9uIHtzLmRvY1ZlcnNpb259CiAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDwvc3Bhbj4KICAgICAgICA8L2xpPgogICAgICApKX0KICAgIDwvdWw+CiAgKTsKfQoKZXhwb3J0IGZ1bmN0aW9uIFNpZ25Gb3JtKHsKICByb2xlLAogIHN0YXRlbWVudCwKICBvblNpZ24sCiAgZGlzYWJsZWQsCn06IHsKICByb2xlOiAicGFyZW50IiB8ICJuYW5ueSI7CiAgc3RhdGVtZW50OiBzdHJpbmc7CiAgb25TaWduOiAobmFtZTogc3RyaW5nLCByb2xlOiAicGFyZW50IiB8ICJuYW5ueSIpID0+IFByb21pc2U8dm9pZD47CiAgZGlzYWJsZWQ/OiBib29sZWFuOwp9KSB7CiAgY29uc3QgW25hbWUsIHNldE5hbWVdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFthZ3JlZWQsIHNldEFncmVlZF0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW2J1c3ksIHNldEJ1c3ldID0gdXNlU3RhdGUoZmFsc2UpOwoKICByZXR1cm4gKAogICAgPGZvcm0KICAgICAgY2xhc3NOYW1lPSJzcGFjZS15LTMiCiAgICAgIG9uU3VibWl0PXthc3luYyAoZSkgPT4gewogICAgICAgIGUucHJldmVudERlZmF1bHQoKTsKICAgICAgICBzZXRCdXN5KHRydWUpOwogICAgICAgIHRyeSB7CiAgICAgICAgICBhd2FpdCBvblNpZ24obmFtZSwgcm9sZSk7CiAgICAgICAgICBzZXROYW1lKCIiKTsKICAgICAgICAgIHNldEFncmVlZChmYWxzZSk7CiAgICAgICAgfSBmaW5hbGx5IHsKICAgICAgICAgIHNldEJ1c3koZmFsc2UpOwogICAgICAgIH0KICAgICAgfX0KICAgID4KICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iYmxvY2siPgogICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAge3JvbGUgPT09ICJwYXJlbnQiID8gIlBhcmVudCAvIGVtcGxveWVyIGZ1bGwgbmFtZSIgOiAiTmFubnkgLyBtYW5ueSBmdWxsIG5hbWUifQogICAgICAgIDwvc3Bhbj4KICAgICAgICA8SW5wdXQKICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IgogICAgICAgICAgdmFsdWU9e25hbWV9CiAgICAgICAgICBwbGFjZWhvbGRlcj0iVHlwZSB5b3VyIGZ1bGwgbmFtZSIKICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0TmFtZShlLnRhcmdldC52YWx1ZSl9CiAgICAgICAgICBkaXNhYmxlZD17ZGlzYWJsZWR9CiAgICAgICAgLz4KICAgICAgPC9sYWJlbD4KICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBnYXAtMi41IHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICA8aW5wdXQKICAgICAgICAgIHR5cGU9ImNoZWNrYm94IgogICAgICAgICAgY2xhc3NOYW1lPSJtdC0xIgogICAgICAgICAgY2hlY2tlZD17YWdyZWVkfQogICAgICAgICAgZGlzYWJsZWQ9e2Rpc2FibGVkfQogICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXRBZ3JlZWQoZS50YXJnZXQuY2hlY2tlZCl9CiAgICAgICAgLz4KICAgICAgICA8c3Bhbj57c3RhdGVtZW50fTwvc3Bhbj4KICAgICAgPC9sYWJlbD4KICAgICAgPEJ1dHRvbiB0eXBlPSJzdWJtaXQiIGRpc2FibGVkPXtkaXNhYmxlZCB8fCBidXN5IHx8ICFhZ3JlZWQgfHwgbmFtZS50cmltKCkubGVuZ3RoIDwgM30+CiAgICAgICAge2J1c3kgPyAiU2lnbmluZ+KApiIgOiAiU2lnbiBub3cifQogICAgICA8L0J1dHRvbj4KICAgIDwvZm9ybT4KICApOwp9Cg==
+import { useState } from "react";
+import { BadgeCheck } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { Signature } from "@/lib/agreement.types";
+
+const ROLE_LABELS: Record<Signature["signerRole"], string> = {
+  parent: "Parent / employer",
+  nanny: "Nanny / manny",
+  agency: "Agency",
+};
+
+export function formatSignedAt(value: string) {
+  return new Date(value).toLocaleString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+export function SignatureList({ signatures }: { signatures: Signature[] }) {
+  if (signatures.length === 0) {
+    return <p className="text-sm text-muted-foreground">No signatures recorded yet.</p>;
+  }
+  return (
+    <ul className="space-y-3">
+      {signatures.map((s, i) => (
+        <li key={i} className="flex items-start gap-3">
+          <BadgeCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+          <span className="text-sm">
+            <span className="block font-medium text-foreground">
+              {s.signerName}{" "}
+              <span className="font-normal text-muted-foreground">
+                — {ROLE_LABELS[s.signerRole]}
+              </span>
+            </span>
+            <span className="block text-muted-foreground">
+              Signed {formatSignedAt(s.signedAt)} · version {s.docVersion}
+            </span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function SignForm({
+  role,
+  statement,
+  onSign,
+  disabled,
+}: {
+  role: "parent" | "nanny";
+  statement: string;
+  onSign: (name: string, role: "parent" | "nanny") => Promise<void>;
+  disabled?: boolean;
+}) {
+  const [name, setName] = useState("");
+  const [agreed, setAgreed] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  return (
+    <form
+      className="space-y-3"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setBusy(true);
+        try {
+          await onSign(name, role);
+          setName("");
+          setAgreed(false);
+        } finally {
+          setBusy(false);
+        }
+      }}
+    >
+      <label className="block">
+        <span className="text-sm font-medium text-foreground">
+          {role === "parent" ? "Parent / employer full name" : "Nanny / manny full name"}
+        </span>
+        <Input
+          className="mt-1.5"
+          value={name}
+          placeholder="Type your full name"
+          onChange={(e) => setName(e.target.value)}
+          disabled={disabled}
+        />
+      </label>
+      <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
+        <input
+          type="checkbox"
+          className="mt-1"
+          checked={agreed}
+          disabled={disabled}
+          onChange={(e) => setAgreed(e.target.checked)}
+        />
+        <span>{statement}</span>
+      </label>
+      <Button type="submit" disabled={disabled || busy || !agreed || name.trim().length < 3}>
+        {busy ? "Signing…" : "Sign now"}
+      </Button>
+    </form>
+  );
+}

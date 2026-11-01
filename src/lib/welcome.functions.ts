@@ -1,1 +1,41 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKaW1wb3J0IHsgdmFsaWRhdGVGaXJzdDQ4SW5wdXQsIHR5cGUgRmlyc3Q0OElucHV0LCB0eXBlIFdlbGNvbWVTdGVwSWQgfSBmcm9tICIuL3dlbGNvbWUudHlwZXMiOwoKZXhwb3J0IGNvbnN0IGdldFdlbGNvbWUgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGxvYWRXZWxjb21lIH0gPSBhd2FpdCBpbXBvcnQoIi4vd2VsY29tZS5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkV2VsY29tZShkYXRhLnNsdWcpOwogIH0pOwoKZXhwb3J0IGNvbnN0IHNldFdlbGNvbWVTdGVwRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgc3RlcElkOiBXZWxjb21lU3RlcElkOyBkb25lOiBib29sZWFuIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IHNldFdlbGNvbWVTdGVwIH0gPSBhd2FpdCBpbXBvcnQoIi4vd2VsY29tZS5zZXJ2ZXIiKTsKICAgIGF3YWl0IHNldFdlbGNvbWVTdGVwKGRhdGEuc2x1ZywgZGF0YS5zdGVwSWQsIGRhdGEuZG9uZSk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwoKZXhwb3J0IGNvbnN0IGZpbmlzaFdlbGNvbWVGbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGZpbmlzaFdlbGNvbWUgfSA9IGF3YWl0IGltcG9ydCgiLi93ZWxjb21lLnNlcnZlciIpOwogICAgYXdhaXQgZmluaXNoV2VsY29tZShkYXRhLnNsdWcpOwogICAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKICB9KTsKCmV4cG9ydCBjb25zdCBnZXRGaXJzdDQ4ID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkRmlyc3Q0OCB9ID0gYXdhaXQgaW1wb3J0KCIuL3dlbGNvbWUuc2VydmVyIik7CiAgICByZXR1cm4gbG9hZEZpcnN0NDgoZGF0YS5zbHVnKTsKICB9KTsKCmV4cG9ydCBjb25zdCBzYXZlRmlyc3Q0OEZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcih2YWxpZGF0ZUZpcnN0NDhJbnB1dCkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhIH06IHsgZGF0YTogRmlyc3Q0OElucHV0IH0pID0+IHsKICAgIGNvbnN0IHsgc2F2ZUZpcnN0NDggfSA9IGF3YWl0IGltcG9ydCgiLi93ZWxjb21lLnNlcnZlciIpOwogICAgYXdhaXQgc2F2ZUZpcnN0NDgoZGF0YSk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+import { validateFirst48Input, type First48Input, type WelcomeStepId } from "./welcome.types";
+
+export const getWelcome = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadWelcome } = await import("./welcome.server");
+    return loadWelcome(data.slug);
+  });
+
+export const setWelcomeStepFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; stepId: WelcomeStepId; done: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { setWelcomeStep } = await import("./welcome.server");
+    await setWelcomeStep(data.slug, data.stepId, data.done);
+    return { ok: true as const };
+  });
+
+export const finishWelcomeFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { finishWelcome } = await import("./welcome.server");
+    await finishWelcome(data.slug);
+    return { ok: true as const };
+  });
+
+export const getFirst48 = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadFirst48 } = await import("./welcome.server");
+    return loadFirst48(data.slug);
+  });
+
+export const saveFirst48Fn = createServerFn({ method: "POST" })
+  .inputValidator(validateFirst48Input)
+  .handler(async ({ data }: { data: First48Input }) => {
+    const { saveFirst48 } = await import("./welcome.server");
+    await saveFirst48(data);
+    return { ok: true as const };
+  });

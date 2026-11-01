@@ -1,1 +1,150 @@
-aW1wb3J0IHsgUkFURV9CQVNJU19MQUJFTFMsIHR5cGUgQWdyZWVtZW50RGF0YSwgdHlwZSBSYXRlQmFzaXMgfSBmcm9tICJAL2xpYi9hZ3JlZW1lbnQubW9kZWwiOwppbXBvcnQgeyBXb3JraW5nRGF5c0VkaXRvciB9IGZyb20gIkAvY29tcG9uZW50cy9BZ3JlZW1lbnRCdWlsZGVyIjsKaW1wb3J0IHsgSW5wdXQgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvaW5wdXQiOwppbXBvcnQgeyBUZXh0YXJlYSB9IGZyb20gIkAvY29tcG9uZW50cy91aS90ZXh0YXJlYSI7CgovKiogVGhlIHNob3J0IGZvcm0gdXNlZCBmb3IgdGhlIHNpbXBsZSB3cml0dGVuIHN0YXRlbWVudDoganVzdCB0aGUga2V5IGZhY3RzLiAqLwpleHBvcnQgZnVuY3Rpb24gU3RhdGVtZW50QnVpbGRlcih7CiAgZGF0YSwKICBvbkNoYW5nZSwKfTogewogIGRhdGE6IEFncmVlbWVudERhdGE7CiAgb25DaGFuZ2U6IChkYXRhOiBBZ3JlZW1lbnREYXRhKSA9PiB2b2lkOwp9KSB7CiAgY29uc3Qgc2V0ID0gKHBhdGNoOiBQYXJ0aWFsPEFncmVlbWVudERhdGE+KSA9PiBvbkNoYW5nZSh7IC4uLmRhdGEsIC4uLnBhdGNoIH0pOwoKICBjb25zdCBmaWVsZCA9IChsYWJlbDogc3RyaW5nLCBub2RlOiBSZWFjdC5SZWFjdE5vZGUsIGhpbnQ/OiBzdHJpbmcpID0+ICgKICAgIDxsYWJlbCBjbGFzc05hbWU9ImJsb2NrIj4KICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2xhYmVsfTwvc3Bhbj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTEuNSI+e25vZGV9PC9kaXY+CiAgICAgIHtoaW50ICYmIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e2hpbnR9PC9wPn0KICAgIDwvbGFiZWw+CiAgKTsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTUiPgogICAgICA8c2VjdGlvbiBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01IHNoYWRvdy1zbSI+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5UaGUgYmFzaWNzPC9oMj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBncmlkIGdhcC00IHNtOmdyaWQtY29scy0yIj4KICAgICAgICAgIHtmaWVsZCgKICAgICAgICAgICAgIllvdXIgbmFtZSAodGhlIGVtcGxveWVyKSIsCiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIHZhbHVlPXtkYXRhLmVtcGxveWVyTmFtZX0KICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldCh7IGVtcGxveWVyTmFtZTogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgIC8+LAogICAgICAgICAgKX0KICAgICAgICAgIHtmaWVsZCgKICAgICAgICAgICAgIllvdXIgbmFubnkncyBuYW1lIiwKICAgICAgICAgICAgPElucHV0IHZhbHVlPXtkYXRhLm5hbm55TmFtZX0gb25DaGFuZ2U9eyhlKSA9PiBzZXQoeyBuYW5ueU5hbWU6IGUudGFyZ2V0LnZhbHVlIH0pfSAvPiwKICAgICAgICAgICl9CiAgICAgICAgICB7ZmllbGQoCiAgICAgICAgICAgICJKb2IgdGl0bGUiLAogICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICB2YWx1ZT17ZGF0YS5qb2JUaXRsZX0KICAgICAgICAgICAgICBwbGFjZWhvbGRlcj0iQWZ0ZXItc2Nob29sIG5hbm55IgogICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0KHsgam9iVGl0bGU6IGUudGFyZ2V0LnZhbHVlIH0pfQogICAgICAgICAgICAvPiwKICAgICAgICAgICl9CiAgICAgICAgICB7ZmllbGQoCiAgICAgICAgICAgICJXaGVyZSB0aGV5IHdpbGwgd29yayIsCiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIHZhbHVlPXtkYXRhLndvcmtBZGRyZXNzfQogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJZb3VyIGhvbWUgYWRkcmVzcyIKICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldCh7IHdvcmtBZGRyZXNzOiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAgICAgLz4sCiAgICAgICAgICApfQogICAgICAgICAge2ZpZWxkKAogICAgICAgICAgICAiU3RhcnQgZGF0ZSIsCiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIHR5cGU9ImRhdGUiCiAgICAgICAgICAgICAgdmFsdWU9e2RhdGEuc3RhcnREYXRlfQogICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0KHsgc3RhcnREYXRlOiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAgICAgLz4sCiAgICAgICAgICApfQogICAgICAgICAge2ZpZWxkKAogICAgICAgICAgICAiTm90aWNlIHBlcmlvZCIsCiAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgIHZhbHVlPXtkYXRhLnN0YW5kYXJkTm90aWNlfQogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSI0IHdlZWtzIgogICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0KHsgc3RhbmRhcmROb3RpY2U6IGUudGFyZ2V0LnZhbHVlIH0pfQogICAgICAgICAgICAvPiwKICAgICAgICAgICl9CiAgICAgICAgPC9kaXY+CiAgICAgIDwvc2VjdGlvbj4KCiAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0icm91bmRlZC0yeGwgYm9yZGVyIGJvcmRlci1ib3JkZXIgYmctY2FyZCBwLTUgc2hhZG93LXNtIj4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPkRheXMgYW5kIGhvdXJzPC9oMj4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgVGljayB0aGUgZGF5cyB5b3VyIG5hbm55IHdvcmtzIGFuZCBzZXQgdGhlIHRpbWVzLgogICAgICAgIDwvcD4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCI+CiAgICAgICAgICA8V29ya2luZ0RheXNFZGl0b3IgZGF5cz17ZGF0YS53b3JraW5nRGF5c30gb25DaGFuZ2U9eyhkYXlzKSA9PiBzZXQoeyB3b3JraW5nRGF5czogZGF5cyB9KX0gLz4KICAgICAgICA8L2Rpdj4KICAgICAgPC9zZWN0aW9uPgoKICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJyb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNSBzaGFkb3ctc20iPgogICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+UGF5PC9oMj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBncmlkIGdhcC00IHNtOmdyaWQtY29scy0yIj4KICAgICAgICAgIHtmaWVsZCgKICAgICAgICAgICAgIkhvdXJseSByYXRlICjCoykiLAogICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICB2YWx1ZT17ZGF0YS5ob3VybHlSYXRlfQogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSIxNiIKICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldCh7IGhvdXJseVJhdGU6IGUudGFyZ2V0LnZhbHVlIH0pfQogICAgICAgICAgICAvPiwKICAgICAgICAgICl9CiAgICAgICAgICB7ZmllbGQoCiAgICAgICAgICAgICJHcm9zcyBvciBuZXQiLAogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBnYXAtMiI+CiAgICAgICAgICAgICAgeyhPYmplY3Qua2V5cyhSQVRFX0JBU0lTX0xBQkVMUykgYXMgUmF0ZUJhc2lzW10pLm1hcCgoYmFzaXMpID0+ICgKICAgICAgICAgICAgICAgIDxidXR0b24KICAgICAgICAgICAgICAgICAga2V5PXtiYXNpc30KICAgICAgICAgICAgICAgICAgdHlwZT0iYnV0dG9uIgogICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXQoeyByYXRlQmFzaXM6IGJhc2lzIH0pfQogICAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2Byb3VuZGVkLWxnIGJvcmRlciBweC0zIHB5LTIgdGV4dC1zbSAkewogICAgICAgICAgICAgICAgICAgIGRhdGEucmF0ZUJhc2lzID09PSBiYXNpcwogICAgICAgICAgICAgICAgICAgICAgPyAiYm9yZGVyLXByaW1hcnkgYmctcHJpbWFyeS8xMCB0ZXh0LWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICAgICAgICA6ICJib3JkZXItYm9yZGVyIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCIKICAgICAgICAgICAgICAgICAgfWB9CiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIHtSQVRFX0JBU0lTX0xBQkVMU1tiYXNpc119CiAgICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC9kaXY+LAogICAgICAgICAgKX0KICAgICAgICAgIHtmaWVsZCgKICAgICAgICAgICAgIkhvdyBvZnRlbiB0aGV5J3JlIHBhaWQiLAogICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICB2YWx1ZT17ZGF0YS5wYXltZW50RnJlcXVlbmN5fQogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJNb250aGx5IgogICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gc2V0KHsgcGF5bWVudEZyZXF1ZW5jeTogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgIC8+LAogICAgICAgICAgKX0KICAgICAgICAgIHtmaWVsZCgKICAgICAgICAgICAgIkhvbGlkYXkiLAogICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICB2YWx1ZT17ZGF0YS5ob2xpZGF5QWxsb3dhbmNlfQogICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJMZWF2ZSBibGFuayBhbmQgd2UnbGwgd29yayBvdXQgdGhlIHN0YXR1dG9yeSBhbW91bnQiCiAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXQoeyBob2xpZGF5QWxsb3dhbmNlOiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAgICAgLz4sCiAgICAgICAgICApfQogICAgICAgIDwvZGl2PgogICAgICA8L3NlY3Rpb24+CgogICAgICA8c2VjdGlvbiBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01IHNoYWRvdy1zbSI+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5UaGUgc3RhdGVtZW50PC9oMj4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgVGhpcyBpcyB0aGUgd29yZGluZyB5b3VyIG5hbm55IHdpbGwgcmVhZCBhbmQgc2lnbi4gV3JpdGUgaXQgeW91cnNlbGYsIG9yIHVzZSB0aGUgZHJhZnQKICAgICAgICAgIGJ1dHRvbiBhYm92ZSBhbmQgZWRpdCBpdCBoZXJlLgogICAgICAgIDwvcD4KICAgICAgICA8VGV4dGFyZWEKICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMyIKICAgICAgICAgIHJvd3M9ezE0fQogICAgICAgICAgdmFsdWU9e2RhdGEuc3RhdGVtZW50Qm9keX0KICAgICAgICAgIHBsYWNlaG9sZGVyPSJZb3VyIHdyaXR0ZW4gc3RhdGVtZW50IHdpbGwgYXBwZWFyIGhlcmUuIgogICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXQoeyBzdGF0ZW1lbnRCb2R5OiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAvPgogICAgICA8L3NlY3Rpb24+CiAgICA8L2Rpdj4KICApOwp9Cg==
+import { RATE_BASIS_LABELS, type AgreementData, type RateBasis } from "@/lib/agreement.model";
+import { WorkingDaysEditor } from "@/components/AgreementBuilder";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+/** The short form used for the simple written statement: just the key facts. */
+export function StatementBuilder({
+  data,
+  onChange,
+}: {
+  data: AgreementData;
+  onChange: (data: AgreementData) => void;
+}) {
+  const set = (patch: Partial<AgreementData>) => onChange({ ...data, ...patch });
+
+  const field = (label: string, node: React.ReactNode, hint?: string) => (
+    <label className="block">
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      <div className="mt-1.5">{node}</div>
+      {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
+    </label>
+  );
+
+  return (
+    <div className="space-y-5">
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="heading-display text-lg text-foreground">The basics</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {field(
+            "Your name (the employer)",
+            <Input
+              value={data.employerName}
+              onChange={(e) => set({ employerName: e.target.value })}
+            />,
+          )}
+          {field(
+            "Your nanny's name",
+            <Input value={data.nannyName} onChange={(e) => set({ nannyName: e.target.value })} />,
+          )}
+          {field(
+            "Job title",
+            <Input
+              value={data.jobTitle}
+              placeholder="After-school nanny"
+              onChange={(e) => set({ jobTitle: e.target.value })}
+            />,
+          )}
+          {field(
+            "Where they will work",
+            <Input
+              value={data.workAddress}
+              placeholder="Your home address"
+              onChange={(e) => set({ workAddress: e.target.value })}
+            />,
+          )}
+          {field(
+            "Start date",
+            <Input
+              type="date"
+              value={data.startDate}
+              onChange={(e) => set({ startDate: e.target.value })}
+            />,
+          )}
+          {field(
+            "Notice period",
+            <Input
+              value={data.standardNotice}
+              placeholder="4 weeks"
+              onChange={(e) => set({ standardNotice: e.target.value })}
+            />,
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="heading-display text-lg text-foreground">Days and hours</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Tick the days your nanny works and set the times.
+        </p>
+        <div className="mt-4">
+          <WorkingDaysEditor days={data.workingDays} onChange={(days) => set({ workingDays: days })} />
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="heading-display text-lg text-foreground">Pay</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {field(
+            "Hourly rate (£)",
+            <Input
+              value={data.hourlyRate}
+              placeholder="16"
+              onChange={(e) => set({ hourlyRate: e.target.value })}
+            />,
+          )}
+          {field(
+            "Gross or net",
+            <div className="flex gap-2">
+              {(Object.keys(RATE_BASIS_LABELS) as RateBasis[]).map((basis) => (
+                <button
+                  key={basis}
+                  type="button"
+                  onClick={() => set({ rateBasis: basis })}
+                  className={`rounded-lg border px-3 py-2 text-sm ${
+                    data.rateBasis === basis
+                      ? "border-primary bg-primary/10 text-foreground"
+                      : "border-border text-muted-foreground"
+                  }`}
+                >
+                  {RATE_BASIS_LABELS[basis]}
+                </button>
+              ))}
+            </div>,
+          )}
+          {field(
+            "How often they're paid",
+            <Input
+              value={data.paymentFrequency}
+              placeholder="Monthly"
+              onChange={(e) => set({ paymentFrequency: e.target.value })}
+            />,
+          )}
+          {field(
+            "Holiday",
+            <Input
+              value={data.holidayAllowance}
+              placeholder="Leave blank and we'll work out the statutory amount"
+              onChange={(e) => set({ holidayAllowance: e.target.value })}
+            />,
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="heading-display text-lg text-foreground">The statement</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          This is the wording your nanny will read and sign. Write it yourself, or use the draft
+          button above and edit it here.
+        </p>
+        <Textarea
+          className="mt-3"
+          rows={14}
+          value={data.statementBody}
+          placeholder="Your written statement will appear here."
+          onChange={(e) => set({ statementBody: e.target.value })}
+        />
+      </section>
+    </div>
+  );
+}

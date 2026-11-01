@@ -1,1 +1,84 @@
-aW1wb3J0IHsgdXNlUXVlcnksIHVzZVF1ZXJ5Q2xpZW50IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyBUcm9waHksIENoZWNrQ2lyY2xlMiB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBjb21wbGV0ZUNoYWxsZW5nZSwgZ2V0V2FsbGV0Q2hhbGxlbmdlcyB9IGZyb20gIkAvbGliL2NoYWxsZW5nZXMuZnVuY3Rpb25zIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IFRleHRhcmVhIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3RleHRhcmVhIjsKCmV4cG9ydCBmdW5jdGlvbiBXYWxsZXRDaGFsbGVuZ2VzKHsgc2x1ZyB9OiB7IHNsdWc6IHN0cmluZyB9KSB7CiAgY29uc3QgcWMgPSB1c2VRdWVyeUNsaWVudCgpOwogIGNvbnN0IGdldEZuID0gdXNlU2VydmVyRm4oZ2V0V2FsbGV0Q2hhbGxlbmdlcyk7CiAgY29uc3QgZG9uZUZuID0gdXNlU2VydmVyRm4oY29tcGxldGVDaGFsbGVuZ2UpOwogIGNvbnN0IHEgPSB1c2VRdWVyeSh7IHF1ZXJ5S2V5OiBbIndhbGxldC1jaGFsbGVuZ2VzIiwgc2x1Z10sIHF1ZXJ5Rm46ICgpID0+IGdldEZuKHsgZGF0YTogeyBzbHVnIH0gfSkgfSk7CiAgY29uc3QgW29wZW5JZCwgc2V0T3BlbklkXSA9IHVzZVN0YXRlPHN0cmluZyB8IG51bGw+KG51bGwpOwogIGNvbnN0IFtub3RlLCBzZXROb3RlXSA9IHVzZVN0YXRlKCIiKTsKCiAgY29uc3QgaXRlbXMgPSBxLmRhdGEgPz8gW107CiAgaWYgKGl0ZW1zLmxlbmd0aCA9PT0gMCkgcmV0dXJuIG51bGw7CiAgY29uc3Qgb3BlbiA9IGl0ZW1zLmZpbHRlcigoYykgPT4gIWMuY29tcGxldGVkQXQpOwogIGNvbnN0IGRvbmUgPSBpdGVtcy5maWx0ZXIoKGMpID0+IGMuY29tcGxldGVkQXQpOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im10LTQgcm91bmRlZC14bCBib3JkZXItMiBib3JkZXItcHJpbWFyeSBiZy1jYXJkIHAtNSI+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiI+CiAgICAgICAgPFRyb3BoeSBjbGFzc05hbWU9ImgtNSB3LTUgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC14cyBmb250LXNlbWlib2xkIHVwcGVyY2FzZSB0cmFja2luZy1bMC4xOGVtXSB0ZXh0LXByaW1hcnkiPgogICAgICAgICAgQWdlbmN5IGNoYWxsZW5nZQogICAgICAgIDwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIHNwYWNlLXktMyI+CiAgICAgICAge29wZW4ubWFwKChjKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleT17Yy5pZH0+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj57Yy50aXRsZX08L3A+CiAgICAgICAgICAgIHtjLmRlc2NyaXB0aW9uICYmIDxwIGNsYXNzTmFtZT0ibXQtMSB3aGl0ZXNwYWNlLXByZS1saW5lIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57Yy5kZXNjcmlwdGlvbn08L3A+fQogICAgICAgICAgICB7Yy5kdWVEYXRlICYmICgKICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgRmluaXNoIGJ5IHtuZXcgRGF0ZShjLmR1ZURhdGUpLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7IHdlZWtkYXk6ICJzaG9ydCIsIGRheTogIm51bWVyaWMiLCBtb250aDogInNob3J0IiB9KX0KICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICl9CiAgICAgICAgICAgIHtvcGVuSWQgPT09IGMuaWQgPyAoCiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTIgc3BhY2UteS0yIj4KICAgICAgICAgICAgICAgIDxUZXh0YXJlYSB2YWx1ZT17bm90ZX0gb25DaGFuZ2U9eyhlKSA9PiBzZXROb3RlKGUudGFyZ2V0LnZhbHVlKX0gcGxhY2Vob2xkZXI9IkhvdyBkaWQgdGhlIGtpZHMgZ2V0IG9uPyAob3B0aW9uYWwpIiAvPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZ2FwLTIiPgogICAgICAgICAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgICAgICAgICAgc2l6ZT0ic20iCiAgICAgICAgICAgICAgICAgICAgb25DbGljaz17YXN5bmMgKCkgPT4gewogICAgICAgICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICAgICAgYXdhaXQgZG9uZUZuKHsgZGF0YTogeyBzbHVnLCBjaGFsbGVuZ2VJZDogYy5pZCwgbm90ZSB9IH0pOwogICAgICAgICAgICAgICAgICAgICAgICBzZXRPcGVuSWQobnVsbCk7CiAgICAgICAgICAgICAgICAgICAgICAgIHNldE5vdGUoIiIpOwogICAgICAgICAgICAgICAgICAgICAgICB0b2FzdC5zdWNjZXNzKCJDaGFsbGVuZ2UgY29tcGxldGUg4oCUIGdyZWF0IHdvcmshIik7CiAgICAgICAgICAgICAgICAgICAgICAgIGF3YWl0IHFjLmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsid2FsbGV0LWNoYWxsZW5nZXMiLCBzbHVnXSB9KTsKICAgICAgICAgICAgICAgICAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgICAgICAgICAgICAgICAgICB0b2FzdC5lcnJvcihlcnIgaW5zdGFuY2VvZiBFcnJvciA/IGVyci5tZXNzYWdlIDogIkNvdWxkIG5vdCBzYXZlIik7CiAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfX0KICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgIFNhdmUgYXMgZG9uZQogICAgICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgICAgICAgPEJ1dHRvbiBzaXplPSJzbSIgdmFyaWFudD0ib3V0bGluZSIgb25DbGljaz17KCkgPT4gc2V0T3BlbklkKG51bGwpfT5DYW5jZWw8L0J1dHRvbj4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICApIDogKAogICAgICAgICAgICAgIDxCdXR0b24gc2l6ZT0ic20iIGNsYXNzTmFtZT0ibXQtMiIgb25DbGljaz17KCkgPT4geyBzZXRPcGVuSWQoYy5pZCk7IHNldE5vdGUoIiIpOyB9fT4KICAgICAgICAgICAgICAgIE1hcmsgYXMgZG9uZQogICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICApfQogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSl9CiAgICAgICAge2RvbmUubWFwKChjKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleT17Yy5pZH0gY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC0yIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBjbGFzc05hbWU9Im10LTAuNSBoLTQgdy00IGZsZXgtc2hyaW5rLTAgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgICAgICA8c3Bhbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2MudGl0bGV9PC9zcGFuPiDigJQgZG9uZSBieSB0aGUge2MuY29tcGxldGVkQnl9CiAgICAgICAgICAgICAge2Mubm90ZSA/IGA6IOKAnCR7Yy5ub3RlfeKAnWAgOiAiIn0KICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSl9CiAgICAgIDwvZGl2PgogICAgPC9kaXY+CiAgKTsKfQo=
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Trophy, CheckCircle2 } from "lucide-react";
+
+import { completeChallenge, getWalletChallenges } from "@/lib/challenges.functions";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+
+export function WalletChallenges({ slug }: { slug: string }) {
+  const qc = useQueryClient();
+  const getFn = useServerFn(getWalletChallenges);
+  const doneFn = useServerFn(completeChallenge);
+  const q = useQuery({ queryKey: ["wallet-challenges", slug], queryFn: () => getFn({ data: { slug } }) });
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [note, setNote] = useState("");
+
+  const items = q.data ?? [];
+  if (items.length === 0) return null;
+  const open = items.filter((c) => !c.completedAt);
+  const done = items.filter((c) => c.completedAt);
+
+  return (
+    <div className="mt-4 rounded-xl border-2 border-primary bg-card p-5">
+      <div className="flex items-center gap-2">
+        <Trophy className="h-5 w-5 text-primary" />
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+          Agency challenge
+        </p>
+      </div>
+      <div className="mt-3 space-y-3">
+        {open.map((c) => (
+          <div key={c.id}>
+            <p className="heading-display text-lg text-foreground">{c.title}</p>
+            {c.description && <p className="mt-1 whitespace-pre-line text-sm text-muted-foreground">{c.description}</p>}
+            {c.dueDate && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                Finish by {new Date(c.dueDate).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" })}
+              </p>
+            )}
+            {openId === c.id ? (
+              <div className="mt-2 space-y-2">
+                <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="How did the kids get on? (optional)" />
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        await doneFn({ data: { slug, challengeId: c.id, note } });
+                        setOpenId(null);
+                        setNote("");
+                        toast.success("Challenge complete — great work!");
+                        await qc.invalidateQueries({ queryKey: ["wallet-challenges", slug] });
+                      } catch (err) {
+                        toast.error(err instanceof Error ? err.message : "Could not save");
+                      }
+                    }}
+                  >
+                    Save as done
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => setOpenId(null)}>Cancel</Button>
+                </div>
+              </div>
+            ) : (
+              <Button size="sm" className="mt-2" onClick={() => { setOpenId(c.id); setNote(""); }}>
+                Mark as done
+              </Button>
+            )}
+          </div>
+        ))}
+        {done.map((c) => (
+          <div key={c.id} className="flex items-start gap-2 text-sm text-muted-foreground">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+            <span>
+              <span className="font-medium text-foreground">{c.title}</span> — done by the {c.completedBy}
+              {c.note ? `: “${c.note}”` : ""}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -1,1 +1,630 @@
-aW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IFBsdXMsIFRyYXNoMiwgWCB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgewogIENPTlRSQUNUX1RZUEVfTEFCRUxTLAogIFJBVEVfQkFTSVNfTEFCRUxTLAogIERFRkFVTFRfV0VFS1NfUEVSX1lFQVIsCiAgY2FsY3VsYXRlSG9saWRheSwKICBkZWZhdWx0RHV0aWVzLAogIGlzVGVybVRpbWUsCiAgd29ya2luZ0RheUhvdXJzLAogIHR5cGUgQWdyZWVtZW50RGF0YSwKICB0eXBlIENvbnRyYWN0VHlwZSwKICB0eXBlIE5hbm55RHV0eSwKICB0eXBlIFdvcmtpbmdEYXksCn0gZnJvbSAiQC9saWIvYWdyZWVtZW50Lm1vZGVsIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKaW1wb3J0IHsgVGV4dGFyZWEgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWEiOwppbXBvcnQgeyBDaGVja2JveCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jaGVja2JveCI7Cgp0eXBlIFVwZGF0ZSA9IChwYXRjaDogUGFydGlhbDxBZ3JlZW1lbnREYXRhPikgPT4gdm9pZDsKCmZ1bmN0aW9uIFNlY3Rpb24oeyB0aXRsZSwgY2hpbGRyZW4gfTogeyB0aXRsZTogc3RyaW5nOyBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlIH0pIHsKICByZXR1cm4gKAogICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJyb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNSBzaGFkb3ctc20iPgogICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPnt0aXRsZX08L2gyPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBzcGFjZS15LTQiPntjaGlsZHJlbn08L2Rpdj4KICAgIDwvc2VjdGlvbj4KICApOwp9CgpmdW5jdGlvbiBMYWJlbGxlZCh7CiAgbGFiZWwsCiAgaGludCwKICBjaGlsZHJlbiwKfTogewogIGxhYmVsOiBzdHJpbmc7CiAgaGludD86IHN0cmluZzsKICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlOwp9KSB7CiAgcmV0dXJuICgKICAgIDxsYWJlbCBjbGFzc05hbWU9ImJsb2NrIj4KICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2xhYmVsfTwvc3Bhbj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTEuNSI+e2NoaWxkcmVufTwvZGl2PgogICAgICB7aGludCAmJiA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntoaW50fTwvcD59CiAgICA8L2xhYmVsPgogICk7Cn0KCmZ1bmN0aW9uIFRleHQoewogIHZhbHVlLAogIG9uQ2hhbmdlLAogIHBsYWNlaG9sZGVyLAogIHR5cGUsCn06IHsKICB2YWx1ZTogc3RyaW5nOwogIG9uQ2hhbmdlOiAodjogc3RyaW5nKSA9PiB2b2lkOwogIHBsYWNlaG9sZGVyPzogc3RyaW5nOwogIHR5cGU/OiBzdHJpbmc7Cn0pIHsKICByZXR1cm4gKAogICAgPElucHV0CiAgICAgIHR5cGU9e3R5cGUgPz8gInRleHQifQogICAgICB2YWx1ZT17dmFsdWV9CiAgICAgIHBsYWNlaG9sZGVyPXtwbGFjZWhvbGRlciA/PyAiIn0KICAgICAgb25DaGFuZ2U9eyhlKSA9PiBvbkNoYW5nZShlLnRhcmdldC52YWx1ZSl9CiAgICAvPgogICk7Cn0KCmZ1bmN0aW9uIEFyZWEoewogIHZhbHVlLAogIG9uQ2hhbmdlLAogIHBsYWNlaG9sZGVyLAogIHJvd3MsCn06IHsKICB2YWx1ZTogc3RyaW5nOwogIG9uQ2hhbmdlOiAodjogc3RyaW5nKSA9PiB2b2lkOwogIHBsYWNlaG9sZGVyPzogc3RyaW5nOwogIHJvd3M/OiBudW1iZXI7Cn0pIHsKICByZXR1cm4gKAogICAgPFRleHRhcmVhCiAgICAgIHJvd3M9e3Jvd3MgPz8gM30KICAgICAgdmFsdWU9e3ZhbHVlfQogICAgICBwbGFjZWhvbGRlcj17cGxhY2Vob2xkZXIgPz8gIiJ9CiAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gb25DaGFuZ2UoZS50YXJnZXQudmFsdWUpfQogICAgLz4KICApOwp9CgpleHBvcnQgZnVuY3Rpb24gV29ya2luZ0RheXNFZGl0b3IoewogIGRheXMsCiAgb25DaGFuZ2UsCn06IHsKICBkYXlzOiBXb3JraW5nRGF5W107CiAgb25DaGFuZ2U6IChkYXlzOiBXb3JraW5nRGF5W10pID0+IHZvaWQ7Cn0pIHsKICBjb25zdCBzZXQgPSAoaW5kZXg6IG51bWJlciwgcGF0Y2g6IFBhcnRpYWw8V29ya2luZ0RheT4pID0+IHsKICAgIGNvbnN0IG5leHQgPSBkYXlzLm1hcCgoZCwgaSkgPT4gKGkgPT09IGluZGV4ID8geyAuLi5kLCAuLi5wYXRjaCB9IDogZCkpOwogICAgb25DaGFuZ2UobmV4dCk7CiAgfTsKCiAgY29uc3QgdG9nZ2xlU3BsaXQgPSAoaW5kZXg6IG51bWJlcikgPT4gewogICAgY29uc3Qgc2VsZWN0ZWREYXkgPSBkYXlzW2luZGV4XTsKICAgIGlmICghc2VsZWN0ZWREYXkpIHJldHVybjsKICAgIGNvbnN0IGRheSA9IHsgLi4uc2VsZWN0ZWREYXkgfTsKICAgIGlmIChkYXkuc3RhcnRUaW1lMiAhPT0gdW5kZWZpbmVkKSB7CiAgICAgIGRlbGV0ZSBkYXkuc3RhcnRUaW1lMjsKICAgICAgZGVsZXRlIGRheS5lbmRUaW1lMjsKICAgIH0gZWxzZSB7CiAgICAgIGRheS5zdGFydFRpbWUyID0gIjE1OjAwIjsKICAgICAgZGF5LmVuZFRpbWUyID0gIjE5OjAwIjsKICAgIH0KICAgIG9uQ2hhbmdlKGRheXMubWFwKChkLCBpKSA9PiAoaSA9PT0gaW5kZXggPyBkYXkgOiBkKSkpOwogIH07CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yLjUiPgogICAgICB7ZGF5cy5tYXAoKGRheSwgaW5kZXgpID0+ICgKICAgICAgICA8ZGl2CiAgICAgICAgICBrZXk9e2RheS5kYXl9CiAgICAgICAgICBjbGFzc05hbWU9e2Byb3VuZGVkLXhsIGJvcmRlciBwLTMgJHsKICAgICAgICAgICAgZGF5LmVuYWJsZWQgPyAiYm9yZGVyLXByaW1hcnkvMjUgYmctcHJpbWFyeS81IiA6ICJib3JkZXItdHJhbnNwYXJlbnQgYmctbXV0ZWQvNTAiCiAgICAgICAgICB9YH0KICAgICAgICA+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LXdyYXAgaXRlbXMtY2VudGVyIGdhcC0zIj4KICAgICAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iZmxleCBtaW4tdy1bMTIwcHhdIGN1cnNvci1wb2ludGVyIGl0ZW1zLWNlbnRlciBnYXAtMi41Ij4KICAgICAgICAgICAgICA8Q2hlY2tib3gKICAgICAgICAgICAgICAgIGNoZWNrZWQ9e2RheS5lbmFibGVkfQogICAgICAgICAgICAgICAgb25DaGVja2VkQ2hhbmdlPXsoY2hlY2tlZCkgPT4gc2V0KGluZGV4LCB7IGVuYWJsZWQ6IGNoZWNrZWQgPT09IHRydWUgfSl9CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8c3BhbgogICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgdGV4dC1zbSBmb250LW1lZGl1bSAke2RheS5lbmFibGVkID8gInRleHQtZm9yZWdyb3VuZCIgOiAidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIn1gfQogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIHtkYXkuZGF5fQogICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgPC9sYWJlbD4KICAgICAgICAgICAge2RheS5lbmFibGVkICYmICgKICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LTEgZmxleC13cmFwIGl0ZW1zLWNlbnRlciBnYXAtMiI+CiAgICAgICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICAgICAgdHlwZT0idGltZSIKICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ3LWF1dG8gZmxleC0xIgogICAgICAgICAgICAgICAgICB2YWx1ZT17ZGF5LnN0YXJ0VGltZX0KICAgICAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXQoaW5kZXgsIHsgc3RhcnRUaW1lOiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+4oCTPC9zcGFuPgogICAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICAgIHR5cGU9InRpbWUiCiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0idy1hdXRvIGZsZXgtMSIKICAgICAgICAgICAgICAgICAgdmFsdWU9e2RheS5lbmRUaW1lfQogICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldChpbmRleCwgeyBlbmRUaW1lOiBlLnRhcmdldC52YWx1ZSB9KX0KICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgICAge3dvcmtpbmdEYXlIb3VycyhkYXkpLnRvRml4ZWQoMSl9aAogICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHRvZ2dsZVNwbGl0KGluZGV4KX0KICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEgdGV4dC14cyBmb250LW1lZGl1bSB0ZXh0LXByaW1hcnkgaG92ZXI6dW5kZXJsaW5lIgogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICB7ZGF5LnN0YXJ0VGltZTIgIT09IHVuZGVmaW5lZCA/ICgKICAgICAgICAgICAgICAgICAgICA8PgogICAgICAgICAgICAgICAgICAgICAgPFggY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSIgLz4gUmVtb3ZlIHNlY29uZCBibG9jawogICAgICAgICAgICAgICAgICAgIDwvPgogICAgICAgICAgICAgICAgICApIDogKAogICAgICAgICAgICAgICAgICAgIDw+CiAgICAgICAgICAgICAgICAgICAgICA8UGx1cyBjbGFzc05hbWU9ImgtMy41IHctMy41IiAvPiBTcGxpdCBzaGlmdAogICAgICAgICAgICAgICAgICAgIDwvPgogICAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICl9CiAgICAgICAgICA8L2Rpdj4KCiAgICAgICAgICB7ZGF5LmVuYWJsZWQgJiYgZGF5LnN0YXJ0VGltZTIgIT09IHVuZGVmaW5lZCAmJiAoCiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0yLjUgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIgcGwtWzEzMnB4XSBtYXgtc206cGwtMCI+CiAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICB0eXBlPSJ0aW1lIgogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ3LWF1dG8gZmxleC0xIgogICAgICAgICAgICAgICAgdmFsdWU9e2RheS5zdGFydFRpbWUyID8/ICIifQogICAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXQoaW5kZXgsIHsgc3RhcnRUaW1lMjogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+4oCTPC9zcGFuPgogICAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgICAgdHlwZT0idGltZSIKICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0idy1hdXRvIGZsZXgtMSIKICAgICAgICAgICAgICAgIHZhbHVlPXtkYXkuZW5kVGltZTIgPz8gIiJ9CiAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldChpbmRleCwgeyBlbmRUaW1lMjogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICApfQogICAgICAgIDwvZGl2PgogICAgICApKX0KICAgIDwvZGl2PgogICk7Cn0KCmZ1bmN0aW9uIER1dHlFZGl0b3IoewogIGR1dGllcywKICBvbkNoYW5nZSwKfTogewogIGR1dGllczogTmFubnlEdXR5W107CiAgb25DaGFuZ2U6IChkdXRpZXM6IE5hbm55RHV0eVtdKSA9PiB2b2lkOwp9KSB7CiAgY29uc3QgW2V4cGFuZGVkLCBzZXRFeHBhbmRlZF0gPSB1c2VTdGF0ZTxzdHJpbmcgfCBudWxsPihudWxsKTsKICBjb25zdCBzdGFuZGFyZElkcyA9IG5ldyBTZXQoZGVmYXVsdER1dGllcy5tYXAoKGQpID0+IGQuaWQpKTsKCiAgY29uc3Qgc2V0ID0gKGlkOiBzdHJpbmcsIHBhdGNoOiBQYXJ0aWFsPE5hbm55RHV0eT4pID0+CiAgICBvbkNoYW5nZShkdXRpZXMubWFwKChkKSA9PiAoZC5pZCA9PT0gaWQgPyB7IC4uLmQsIC4uLnBhdGNoIH0gOiBkKSkpOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMiI+CiAgICAgIHtkdXRpZXMubWFwKChkdXR5KSA9PiB7CiAgICAgICAgY29uc3QgaXNDdXN0b20gPSAhc3RhbmRhcmRJZHMuaGFzKGR1dHkuaWQpOwogICAgICAgIGNvbnN0IG9wZW4gPSBleHBhbmRlZCA9PT0gZHV0eS5pZDsKICAgICAgICByZXR1cm4gKAogICAgICAgICAgPGRpdiBrZXk9e2R1dHkuaWR9IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1iYWNrZ3JvdW5kIj4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTMgcC0zIj4KICAgICAgICAgICAgICA8Q2hlY2tib3gKICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMC41IgogICAgICAgICAgICAgICAgY2hlY2tlZD17ZHV0eS5lbmFibGVkfQogICAgICAgICAgICAgICAgb25DaGVja2VkQ2hhbmdlPXsoY2hlY2tlZCkgPT4gc2V0KGR1dHkuaWQsIHsgZW5hYmxlZDogY2hlY2tlZCA9PT0gdHJ1ZSB9KX0KICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgIDxidXR0b24KICAgICAgICAgICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldEV4cGFuZGVkKG9wZW4gPyBudWxsIDogZHV0eS5pZCl9CiAgICAgICAgICAgICAgICBjbGFzc05hbWU9ImZsZXgtMSB0ZXh0LWxlZnQgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQiCiAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAge2R1dHkubGFiZWwgfHwgIkN1c3RvbSBkdXR5In0KICAgICAgICAgICAgICAgIHtkdXR5LmRldGFpbHMudHJpbSgpICYmICgKICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJibG9jayB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e2R1dHkuZGV0YWlsc308L3NwYW4+CiAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICAgIHtpc0N1c3RvbSAmJiAoCiAgICAgICAgICAgICAgICA8YnV0dG9uCiAgICAgICAgICAgICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICAgICAgICAgICAgYXJpYS1sYWJlbD0iUmVtb3ZlIGR1dHkiCiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IG9uQ2hhbmdlKGR1dGllcy5maWx0ZXIoKGQpID0+IGQuaWQgIT09IGR1dHkuaWQpKX0KICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1kZXN0cnVjdGl2ZSIKICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgPFRyYXNoMiBjbGFzc05hbWU9ImgtNCB3LTQiIC8+CiAgICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgICApfQogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAge29wZW4gJiYgKAogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTIgcHgtMyBwYi0zIj4KICAgICAgICAgICAgICAgIHtpc0N1c3RvbSAmJiAoCiAgICAgICAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgICAgICAgIHZhbHVlPXtkdXR5LmxhYmVsfQogICAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJEZXNjcmliZSB0aGlzIGR1dHkiCiAgICAgICAgICAgICAgICAgICAgb25DaGFuZ2U9eyhlKSA9PiBzZXQoZHV0eS5pZCwgeyBsYWJlbDogZS50YXJnZXQudmFsdWUgfSl9CiAgICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgICAgPFRleHRhcmVhCiAgICAgICAgICAgICAgICAgIHJvd3M9ezJ9CiAgICAgICAgICAgICAgICAgIHZhbHVlPXtkdXR5LmRldGFpbHN9CiAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJBZGQgc3BlY2lmaWMgZGV0YWlscyBmb3IgdGhpcyBkdXR54oCmIgogICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldChkdXR5LmlkLCB7IGRldGFpbHM6IGUudGFyZ2V0LnZhbHVlIH0pfQogICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgKX0KICAgICAgICAgIDwvZGl2PgogICAgICAgICk7CiAgICAgIH0pfQogICAgICA8QnV0dG9uCiAgICAgICAgdHlwZT0iYnV0dG9uIgogICAgICAgIHZhcmlhbnQ9Im91dGxpbmUiCiAgICAgICAgY2xhc3NOYW1lPSJ3LWZ1bGwiCiAgICAgICAgb25DbGljaz17KCkgPT4KICAgICAgICAgIG9uQ2hhbmdlKFsKICAgICAgICAgICAgLi4uZHV0aWVzLAogICAgICAgICAgICB7IGlkOiBgY3VzdG9tLSR7RGF0ZS5ub3coKX1gLCBsYWJlbDogIiIsIGRldGFpbHM6ICIiLCBlbmFibGVkOiB0cnVlIH0sCiAgICAgICAgICBdKQogICAgICAgIH0KICAgICAgPgogICAgICAgIDxQbHVzIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPiBBZGQgY3VzdG9tIGR1dHkKICAgICAgPC9CdXR0b24+CiAgICA8L2Rpdj4KICApOwp9CgpleHBvcnQgZnVuY3Rpb24gQWdyZWVtZW50QnVpbGRlcih7CiAgZGF0YSwKICBvbkNoYW5nZSwKfTogewogIGRhdGE6IEFncmVlbWVudERhdGE7CiAgb25DaGFuZ2U6IChkYXRhOiBBZ3JlZW1lbnREYXRhKSA9PiB2b2lkOwp9KSB7CiAgY29uc3QgdXBkYXRlOiBVcGRhdGUgPSAocGF0Y2gpID0+IG9uQ2hhbmdlKHsgLi4uZGF0YSwgLi4ucGF0Y2ggfSk7CiAgY29uc3QgaG9saWRheSA9IGNhbGN1bGF0ZUhvbGlkYXkoZGF0YS53b3JraW5nRGF5cywgZGF0YS5jb250cmFjdFR5cGUsIGRhdGEud2Vla3NQZXJZZWFyKTsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTUiPgogICAgICA8U2VjdGlvbiB0aXRsZT0iUGFydGllcyI+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJFbXBsb3llciBuYW1lKHMpIj4KICAgICAgICAgIDxUZXh0CiAgICAgICAgICAgIHZhbHVlPXtkYXRhLmVtcGxveWVyTmFtZX0KICAgICAgICAgICAgb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBlbXBsb3llck5hbWU6IHYgfSl9CiAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJGdWxsIG5hbWUgb2YgdGhlIGVtcGxveWVyIgogICAgICAgICAgLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iRW1wbG95ZXIgYWRkcmVzcyI+CiAgICAgICAgICA8VGV4dAogICAgICAgICAgICB2YWx1ZT17ZGF0YS5lbXBsb3llckFkZHJlc3N9CiAgICAgICAgICAgIG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgZW1wbG95ZXJBZGRyZXNzOiB2IH0pfQogICAgICAgICAgICBwbGFjZWhvbGRlcj0iSG9tZSBhZGRyZXNzIgogICAgICAgICAgLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iTmFubnkgLyBtYW5ueSBuYW1lIj4KICAgICAgICAgIDxUZXh0IHZhbHVlPXtkYXRhLm5hbm55TmFtZX0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBuYW5ueU5hbWU6IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IldvcmsgYWRkcmVzcyI+CiAgICAgICAgICA8VGV4dAogICAgICAgICAgICB2YWx1ZT17ZGF0YS53b3JrQWRkcmVzc30KICAgICAgICAgICAgb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyB3b3JrQWRkcmVzczogdiB9KX0KICAgICAgICAgICAgcGxhY2Vob2xkZXI9IldoZXJlIHRoZSBuYW5ueSB3aWxsIHdvcmsiCiAgICAgICAgICAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgIDwvU2VjdGlvbj4KCiAgICAgIDxTZWN0aW9uIHRpdGxlPSJFbXBsb3ltZW50Ij4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IkpvYiB0aXRsZSI+CiAgICAgICAgICA8VGV4dCB2YWx1ZT17ZGF0YS5qb2JUaXRsZX0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBqb2JUaXRsZTogdiB9KX0gLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iU3RhcnQgZGF0ZSI+CiAgICAgICAgICA8VGV4dCB0eXBlPSJkYXRlIiB2YWx1ZT17ZGF0YS5zdGFydERhdGV9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgc3RhcnREYXRlOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIuNSI+CiAgICAgICAgICA8Q2hlY2tib3gKICAgICAgICAgICAgY2hlY2tlZD17ZGF0YS5pc0ZpeGVkVGVybX0KICAgICAgICAgICAgb25DaGVja2VkQ2hhbmdlPXsoY2hlY2tlZCkgPT4gdXBkYXRlKHsgaXNGaXhlZFRlcm06IGNoZWNrZWQgPT09IHRydWUgfSl9CiAgICAgICAgICAvPgogICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIEZpeGVkLXBlcmlvZCBjb250cmFjdCAoaGFzIGFuIGVuZCBkYXRlKQogICAgICAgICAgPC9zcGFuPgogICAgICAgIDwvbGFiZWw+CiAgICAgICAge2RhdGEuaXNGaXhlZFRlcm0gJiYgKAogICAgICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktNCByb3VuZGVkLXhsIGJnLW11dGVkLzUwIHAtNCI+CiAgICAgICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iRW5kIGRhdGUiPgogICAgICAgICAgICAgIDxUZXh0IHR5cGU9ImRhdGUiIHZhbHVlPXtkYXRhLmVuZERhdGV9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgZW5kRGF0ZTogdiB9KX0gLz4KICAgICAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJSZWFzb24gZm9yIHRoZSBmaXhlZCBwZXJpb2QiPgogICAgICAgICAgICAgIDxUZXh0CiAgICAgICAgICAgICAgICB2YWx1ZT17ZGF0YS5maXhlZFRlcm1SZWFzb259CiAgICAgICAgICAgICAgICBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IGZpeGVkVGVybVJlYXNvbjogdiB9KX0KICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJlLmcuIGNoaWxkY2FyZSBjb3ZlciBkdXJpbmcgYSB3b3JrIGFzc2lnbm1lbnQiCiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICAgIDwvZGl2PgogICAgICAgICl9CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJQcm9iYXRpb24gcGVyaW9kIj4KICAgICAgICAgIDxUZXh0CiAgICAgICAgICAgIHZhbHVlPXtkYXRhLnByb2JhdGlvblBlcmlvZH0KICAgICAgICAgICAgb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBwcm9iYXRpb25QZXJpb2Q6IHYgfSl9CiAgICAgICAgICAgIHBsYWNlaG9sZGVyPSJlLmcuIDMgbW9udGhzIgogICAgICAgICAgLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iT3ZlcnRpbWUgcG9saWN5Ij4KICAgICAgICAgIDxBcmVhIHZhbHVlPXtkYXRhLm92ZXJ0aW1lUG9saWN5fSBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IG92ZXJ0aW1lUG9saWN5OiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgIDwvU2VjdGlvbj4KCiAgICAgIDxTZWN0aW9uIHRpdGxlPSJEdXRpZXMiPgogICAgICAgIDxEdXR5RWRpdG9yIGR1dGllcz17ZGF0YS5kdXRpZXN9IG9uQ2hhbmdlPXsoZHV0aWVzKSA9PiB1cGRhdGUoeyBkdXRpZXMgfSl9IC8+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJPdGhlciBkdXRpZXMgY2xhdXNlIj4KICAgICAgICAgIDxBcmVhIHZhbHVlPXtkYXRhLm90aGVyRHV0aWVzQ2xhdXNlfSBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IG90aGVyRHV0aWVzQ2xhdXNlOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgIDwvU2VjdGlvbj4KCiAgICAgIDxTZWN0aW9uIHRpdGxlPSJXb3JraW5nIHBhdHRlcm4iPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iQ29udHJhY3QgdHlwZSI+CiAgICAgICAgICA8c2VsZWN0CiAgICAgICAgICAgIGNsYXNzTmFtZT0iaC0xMCB3LWZ1bGwgcm91bmRlZC1tZCBib3JkZXIgYm9yZGVyLWlucHV0IGJnLWJhY2tncm91bmQgcHgtMyB0ZXh0LXNtIgogICAgICAgICAgICB2YWx1ZT17ZGF0YS5jb250cmFjdFR5cGV9CiAgICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gewogICAgICAgICAgICAgIGNvbnN0IGNvbnRyYWN0VHlwZSA9IGUudGFyZ2V0LnZhbHVlIGFzIENvbnRyYWN0VHlwZTsKICAgICAgICAgICAgICB1cGRhdGUoewogICAgICAgICAgICAgICAgY29udHJhY3RUeXBlLAogICAgICAgICAgICAgICAgd2Vla3NQZXJZZWFyOiBTdHJpbmcoREVGQVVMVF9XRUVLU19QRVJfWUVBUltjb250cmFjdFR5cGVdKSwKICAgICAgICAgICAgICB9KTsKICAgICAgICAgICAgfX0KICAgICAgICAgID4KICAgICAgICAgICAgeyhPYmplY3Qua2V5cyhDT05UUkFDVF9UWVBFX0xBQkVMUykgYXMgQ29udHJhY3RUeXBlW10pLm1hcCgodHlwZSkgPT4gKAogICAgICAgICAgICAgIDxvcHRpb24ga2V5PXt0eXBlfSB2YWx1ZT17dHlwZX0+CiAgICAgICAgICAgICAgICB7Q09OVFJBQ1RfVFlQRV9MQUJFTFNbdHlwZV19CiAgICAgICAgICAgICAgPC9vcHRpb24+CiAgICAgICAgICAgICkpfQogICAgICAgICAgPC9zZWxlY3Q+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQKICAgICAgICAgIGxhYmVsPSJXZWVrcyB3b3JrZWQgcGVyIHllYXIiCiAgICAgICAgICBoaW50PXsKICAgICAgICAgICAgaXNUZXJtVGltZShkYXRhLmNvbnRyYWN0VHlwZSkKICAgICAgICAgICAgICA/ICJUZXJtLXRpbWUgY29udHJhY3RzIGFyZSB1c3VhbGx5IDM2IHdlZWtzLiBDaGFuZ2UgaXQgdG8gbWF0Y2ggdGhpcyBmYW1pbHkncyBzY2hvb2wgeWVhci4iCiAgICAgICAgICAgICAgOiAiVXN1YWxseSA1MiBmb3IgYSB5ZWFyLXJvdW5kIGNvbnRyYWN0LiIKICAgICAgICAgIH0KICAgICAgICA+CiAgICAgICAgICA8VGV4dCB2YWx1ZT17ZGF0YS53ZWVrc1BlclllYXJ9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgd2Vla3NQZXJZZWFyOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMyByb3VuZGVkLXhsIGJnLW11dGVkLzUwIHAtNCI+CiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC0yLjUiPgogICAgICAgICAgICA8Q2hlY2tib3gKICAgICAgICAgICAgICBjbGFzc05hbWU9Im10LTAuNSIKICAgICAgICAgICAgICBjaGVja2VkPXtkYXRhLmluY2x1ZGVXb3JraW5nUGF0dGVybkNsYXVzZX0KICAgICAgICAgICAgICBvbkNoZWNrZWRDaGFuZ2U9eyhjaGVja2VkKSA9PiB1cGRhdGUoeyBpbmNsdWRlV29ya2luZ1BhdHRlcm5DbGF1c2U6IGNoZWNrZWQgPT09IHRydWUgfSl9CiAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDxzcGFuPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgSW5jbHVkZSB0aGUgd29ya2luZy1wYXR0ZXJuIGNsYXVzZSBpbiB0aGUgYWdyZWVtZW50CiAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgVHVybiB0aGlzIG9mZiB0byByZW1vdmUgY2xhdXNlIDEuNiBmcm9tIHRoZSBwcmludGFibGUgYWdyZWVtZW50LgogICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgPC9sYWJlbD4KICAgICAgICAgIHtpc1Rlcm1UaW1lKGRhdGEuY29udHJhY3RUeXBlKSAmJiAoCiAgICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9ImZsZXggaXRlbXMtc3RhcnQgZ2FwLTIuNSI+CiAgICAgICAgICAgICAgPENoZWNrYm94CiAgICAgICAgICAgICAgICBjbGFzc05hbWU9Im10LTAuNSIKICAgICAgICAgICAgICAgIGNoZWNrZWQ9e2RhdGEuYWxsb3dTY2hvb2xIb2xpZGF5V29ya30KICAgICAgICAgICAgICAgIG9uQ2hlY2tlZENoYW5nZT17KGNoZWNrZWQpID0+IHVwZGF0ZSh7IGFsbG93U2Nob29sSG9saWRheVdvcms6IGNoZWNrZWQgPT09IHRydWUgfSl9CiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8c3Bhbj4KICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICBUaGUgbmFubnkgbWF5IGJlIG9mZmVyZWQgc2Nob29sLWhvbGlkYXkgd29yayBpZiBuZWVkZWQgYW5kIGF2YWlsYWJsZQogICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJibG9jayB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAgICAgIEFkZHMgd29yZGluZyB0aGF0IGhvbGlkYXkgd29yayBpcyBvcHRpb25hbCwgYWdyZWVkIGluIGFkdmFuY2UgYW5kIHBhaWQgc2VwYXJhdGVseS4KICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDwvbGFiZWw+CiAgICAgICAgICApfQogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXY+CiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj5Xb3JraW5nIGRheXM8L3A+CiAgICAgICAgICA8cCBjbGFzc05hbWU9Im1iLTIgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICBUaWNrIGVhY2ggZGF5IGFuZCBzZXQgdGhlIGhvdXJzLiBVc2Ug4oCcU3BsaXQgc2hpZnTigJ0gZm9yIGEgbW9ybmluZyBhbmQgYW4gYWZ0ZXItc2Nob29sCiAgICAgICAgICAgIGJsb2NrLgogICAgICAgICAgPC9wPgogICAgICAgICAgPFdvcmtpbmdEYXlzRWRpdG9yCiAgICAgICAgICAgIGRheXM9e2RhdGEud29ya2luZ0RheXN9CiAgICAgICAgICAgIG9uQ2hhbmdlPXsod29ya2luZ0RheXMpID0+IHVwZGF0ZSh7IHdvcmtpbmdEYXlzIH0pfQogICAgICAgICAgLz4KICAgICAgICA8L2Rpdj4KICAgICAgPC9TZWN0aW9uPgoKICAgICAgPFNlY3Rpb24gdGl0bGU9IkhvbGlkYXkgKHByby1yYXRhKSI+CiAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBnYXAtMi41IHJvdW5kZWQteGwgYmctbXV0ZWQvNTAgcC00Ij4KICAgICAgICAgIDxDaGVja2JveAogICAgICAgICAgICBjbGFzc05hbWU9Im10LTAuNSIKICAgICAgICAgICAgY2hlY2tlZD17ZGF0YS5pbmNsdWRlSG9saWRheUVudGl0bGVtZW50fQogICAgICAgICAgICBvbkNoZWNrZWRDaGFuZ2U9eyhjaGVja2VkKSA9PiB1cGRhdGUoeyBpbmNsdWRlSG9saWRheUVudGl0bGVtZW50OiBjaGVja2VkID09PSB0cnVlIH0pfQogICAgICAgICAgLz4KICAgICAgICAgIDxzcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICBJbmNsdWRlIHRoZSBob2xpZGF5IGVudGl0bGVtZW50IHNlY3Rpb24gaW4gdGhlIGFncmVlbWVudAogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIFR1cm4gdGhpcyBvZmYgdG8gcmVtb3ZlIHNlY3Rpb24gMyBmcm9tIHRoZSBwcmludGFibGUgYWdyZWVtZW50LgogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgPC9sYWJlbD4KICAgICAgICB7ZGF0YS5pbmNsdWRlSG9saWRheUVudGl0bGVtZW50ICYmIGhvbGlkYXkud29ya2luZ0RheXNQZXJXZWVrID4gMCA/ICgKICAgICAgICAgIDw+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJncmlkIGdyaWQtY29scy0zIGdhcC0zIj4KICAgICAgICAgICAgICB7WwogICAgICAgICAgICAgICAgeyB2YWx1ZTogaG9saWRheS50b3RhbFdlZWtzRW50aXRsZW1lbnQsIGxhYmVsOiAiV2Vla3MiIH0sCiAgICAgICAgICAgICAgICB7IHZhbHVlOiBob2xpZGF5LnRvdGFsRGF5c0VudGl0bGVtZW50LCBsYWJlbDogIkRheXMiIH0sCiAgICAgICAgICAgICAgICB7IHZhbHVlOiBob2xpZGF5LnRvdGFsSG91cnNFbnRpdGxlbWVudCwgbGFiZWw6ICJIb3VycyIgfSwKICAgICAgICAgICAgICBdLm1hcCgoY2VsbCkgPT4gKAogICAgICAgICAgICAgICAgPGRpdiBrZXk9e2NlbGwubGFiZWx9IGNsYXNzTmFtZT0icm91bmRlZC14bCBiZy1wcmltYXJ5LzEwIHAtNCB0ZXh0LWNlbnRlciI+CiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC0yeGwgdGV4dC1wcmltYXJ5Ij57Y2VsbC52YWx1ZX08L2Rpdj4KICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57Y2VsbC5sYWJlbH08L2Rpdj4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgICAge2hvbGlkYXkud29ya2luZ0RheXNQZXJXZWVrfSBkYXlzIGEgd2VlayAoe2hvbGlkYXkud2Vla2x5SG91cnMudG9GaXhlZCgxKX0gaG91cnMpIG92ZXJ7IiAifQogICAgICAgICAgICAgIHtob2xpZGF5LndlZWtzV29ya2VkUGVyWWVhcn0gd2Vla3MgcGVyIHllYXIuIFVLIHN0YXR1dG9yeSBlbnRpdGxlbWVudCBpcyA1LjYgd2Vla3MgZm9yCiAgICAgICAgICAgICAgYSBmdWxsIHllYXIKICAgICAgICAgICAgICB7aXNUZXJtVGltZShkYXRhLmNvbnRyYWN0VHlwZSkKICAgICAgICAgICAgICAgID8gYCwgcHJvLXJhdGVkIGhlcmUgYXMgNS42IMOXICR7aG9saWRheS53ZWVrc1dvcmtlZFBlclllYXJ9IMO3IDQ2LjQuYAogICAgICAgICAgICAgICAgOiAiLiJ9CiAgICAgICAgICAgIDwvcD4KICAgICAgICAgIDwvPgogICAgICAgICkgOiBkYXRhLmluY2x1ZGVIb2xpZGF5RW50aXRsZW1lbnQgPyAoCiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgVGljayBhdCBsZWFzdCBvbmUgd29ya2luZyBkYXkgdG8gY2FsY3VsYXRlIHRoZSBob2xpZGF5IGVudGl0bGVtZW50LgogICAgICAgICAgPC9wPgogICAgICAgICkgOiAoCiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgVGhlIGhvbGlkYXkgZW50aXRsZW1lbnQgc2VjdGlvbiB3aWxsIGJlIGxlZnQgb3V0IG9mIHRoZSBwcmludGFibGUgYWdyZWVtZW50LgogICAgICAgICAgPC9wPgogICAgICAgICl9CiAgICAgICAgPExhYmVsbGVkCiAgICAgICAgICBsYWJlbD0iSG9saWRheSB3b3JkaW5nIChvdmVycmlkZSkiCiAgICAgICAgICBoaW50PSJJZiBmaWxsZWQgaW4sIHRoaXMgYXBwZWFycyBpbnN0ZWFkIG9mIHRoZSBjYWxjdWxhdGVkIGhvbGlkYXkgd29yZGluZy4iCiAgICAgICAgPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEuaG9saWRheUFsbG93YW5jZX0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBob2xpZGF5QWxsb3dhbmNlOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgICAge2RhdGEuaW5jbHVkZUhvbGlkYXlFbnRpdGxlbWVudCAmJiAoCiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC0yLjUgcm91bmRlZC14bCBiZy1tdXRlZC81MCBwLTQiPgogICAgICAgICAgICA8Q2hlY2tib3gKICAgICAgICAgICAgICBjbGFzc05hbWU9Im10LTAuNSIKICAgICAgICAgICAgICBjaGVja2VkPXtkYXRhLnJvbGxlZFVwSG9saWRheVBheX0KICAgICAgICAgICAgICBvbkNoZWNrZWRDaGFuZ2U9eyhjaGVja2VkKSA9PiB1cGRhdGUoeyByb2xsZWRVcEhvbGlkYXlQYXk6IGNoZWNrZWQgPT09IHRydWUgfSl9CiAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDxzcGFuPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgUm9sbCBob2xpZGF5IHBheSB1cCBpbnRvIGVhY2ggcGF5c2xpcAogICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgIEZvciB0ZXJtLXRpbWUgYW5kIHBhcnQteWVhciBuYW5uaWVzOiBob2xpZGF5IHBheSBpcyBwYWlkIGF0IDEyLjA3JSB3aXRoIGVhY2gKICAgICAgICAgICAgICAgIHBheXNsaXAgaW5zdGVhZCBvZiBiZWluZyBwYWlkIHdoZW4gaG9saWRheSBpcyB0YWtlbi4KICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDwvbGFiZWw+CiAgICAgICAgKX0KICAgICAgPC9TZWN0aW9uPgoKICAgICAgPFNlY3Rpb24gdGl0bGU9IlBheSI+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJIb3VybHkgcmF0ZSAowqMpIj4KICAgICAgICAgIDxUZXh0CiAgICAgICAgICAgIHZhbHVlPXtkYXRhLmhvdXJseVJhdGV9CiAgICAgICAgICAgIG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgaG91cmx5UmF0ZTogdiB9KX0KICAgICAgICAgICAgcGxhY2Vob2xkZXI9ImUuZy4gMTUuMDAiCiAgICAgICAgICAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgICAgPExhYmVsbGVkCiAgICAgICAgICBsYWJlbD0iSXMgdGhhdCByYXRlIGdyb3NzIG9yIG5ldD8iCiAgICAgICAgICBoaW50PSJHcm9zcyBpcyBiZWZvcmUgdGF4IGFuZCBOYXRpb25hbCBJbnN1cmFuY2UuIE5ldCBpcyB0YWtlLWhvbWUgcGF5LiIKICAgICAgICA+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBnYXAtMiI+CiAgICAgICAgICAgIHsoWyJncm9zcyIsICJuZXQiXSBhcyBjb25zdCkubWFwKChiYXNpcykgPT4gKAogICAgICAgICAgICAgIDxidXR0b24KICAgICAgICAgICAgICAgIGtleT17YmFzaXN9CiAgICAgICAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB1cGRhdGUoeyByYXRlQmFzaXM6IGJhc2lzIH0pfQogICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgcm91bmRlZC1mdWxsIGJvcmRlciBweC00IHB5LTIgdGV4dC1zbSB0cmFuc2l0aW9uICR7CiAgICAgICAgICAgICAgICAgIGRhdGEucmF0ZUJhc2lzID09PSBiYXNpcwogICAgICAgICAgICAgICAgICAgID8gImJvcmRlci1wcmltYXJ5IGJnLXByaW1hcnkgdGV4dC1wcmltYXJ5LWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICAgICAgOiAiYm9yZGVyLWJvcmRlciBiZy1iYWNrZ3JvdW5kIHRleHQtZm9yZWdyb3VuZCBob3ZlcjpiZy1tdXRlZCIKICAgICAgICAgICAgICAgIH1gfQogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIHtSQVRFX0JBU0lTX0xBQkVMU1tiYXNpc119CiAgICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICAgICkpfQogICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC0yLjUgcm91bmRlZC14bCBiZy1tdXRlZC81MCBwLTQiPgogICAgICAgICAgPENoZWNrYm94CiAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMC41IgogICAgICAgICAgICBjaGVja2VkPXtkYXRhLmluY2x1ZGVUYXhSZXNwb25zaWJpbGl0eUNsYXVzZX0KICAgICAgICAgICAgb25DaGVja2VkQ2hhbmdlPXsoY2hlY2tlZCkgPT4KICAgICAgICAgICAgICB1cGRhdGUoeyBpbmNsdWRlVGF4UmVzcG9uc2liaWxpdHlDbGF1c2U6IGNoZWNrZWQgPT09IHRydWUgfSkKICAgICAgICAgICAgfQogICAgICAgICAgLz4KICAgICAgICAgIDxzcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICBJbmNsdWRlIHRheCwgTmF0aW9uYWwgSW5zdXJhbmNlIGFuZCBwZW5zaW9uIHJlc3BvbnNpYmlsaXR5IHdvcmRpbmcKICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICBUdXJuIHRoaXMgb2ZmIHRvIHJlbW92ZSB0aGUgUEFZRS9ITVJDIHNlbnRlbmNlIGZyb20gY2xhdXNlIDIuMS4KICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgPC9zcGFuPgogICAgICAgIDwvbGFiZWw+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJQYXltZW50IGZyZXF1ZW5jeSI+CiAgICAgICAgICA8VGV4dCB2YWx1ZT17ZGF0YS5wYXltZW50RnJlcXVlbmN5fSBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IHBheW1lbnRGcmVxdWVuY3k6IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IlBheW1lbnQgbWV0aG9kIj4KICAgICAgICAgIDxUZXh0IHZhbHVlPXtkYXRhLnBheW1lbnRNZXRob2R9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgcGF5bWVudE1ldGhvZDogdiB9KX0gLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iQmVuZWZpdHMiPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEuYmVuZWZpdHN9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgYmVuZWZpdHM6IHYgfSl9IHJvd3M9ezJ9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQKICAgICAgICAgIGxhYmVsPSJNaWxlYWdlIC8gZXhwZW5zZSByYXRlIChwZW5jZSBwZXIgbWlsZSkiCiAgICAgICAgICBoaW50PSJMZWF2ZSBibGFuayB0byBsZWF2ZSBleHBlbnNlcyBvdXQgb2YgdGhlIGNvbnRyYWN0LiIKICAgICAgICA+CiAgICAgICAgICA8VGV4dAogICAgICAgICAgICB2YWx1ZT17ZGF0YS5leHBlbnNlUmF0ZX0KICAgICAgICAgICAgb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBleHBlbnNlUmF0ZTogdiB9KX0KICAgICAgICAgICAgcGxhY2Vob2xkZXI9IjQ1IgogICAgICAgICAgLz4KICAgICAgICA8L0xhYmVsbGVkPgogICAgICAgIDxMYWJlbGxlZCBsYWJlbD0iUGVuc2lvbiIgaGludD0iTGVhdmUgYmxhbmsgdG8gbGVhdmUgdGhlIHBlbnNpb24gY2xhdXNlIG91dC4iPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEucGVuc2lvbn0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBwZW5zaW9uOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgIDwvU2VjdGlvbj4KCiAgICAgIDxTZWN0aW9uIHRpdGxlPSJTaWNrbmVzcyAmIG5vdGljZSI+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJTaWNrbmVzcyBwb2xpY3kiPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEuc2lja25lc3NQb2xpY3l9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgc2lja25lc3NQb2xpY3k6IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9Ik5vdGljZSBkdXJpbmcgcHJvYmF0aW9uIj4KICAgICAgICAgIDxUZXh0IHZhbHVlPXtkYXRhLnByb2JhdGlvbk5vdGljZX0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBwcm9iYXRpb25Ob3RpY2U6IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9Ik5vdGljZSB0aGVyZWFmdGVyIj4KICAgICAgICAgIDxUZXh0IHZhbHVlPXtkYXRhLnN0YW5kYXJkTm90aWNlfSBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IHN0YW5kYXJkTm90aWNlOiB2IH0pfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJHYXJkZW4gbGVhdmUiPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEuZ2FyZGVuTGVhdmV9IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgZ2FyZGVuTGVhdmU6IHYgfSl9IHJvd3M9ezJ9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgPC9TZWN0aW9uPgoKICAgICAgPFNlY3Rpb24gdGl0bGU9IkxlZ2FsICYgY29tcGxpYW5jZSI+CiAgICAgICAgPExhYmVsbGVkIGxhYmVsPSJHcmlldmFuY2UgcHJvY2VkdXJlIj4KICAgICAgICAgIDxBcmVhIHZhbHVlPXtkYXRhLmdyaWV2YW5jZVByb2NlZHVyZX0gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyBncmlldmFuY2VQcm9jZWR1cmU6IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IkRpc2NpcGxpbmFyeSBwcm9jZWR1cmUiPgogICAgICAgICAgPEFyZWEKICAgICAgICAgICAgdmFsdWU9e2RhdGEuZGlzY2lwbGluYXJ5UHJvY2VkdXJlfQogICAgICAgICAgICBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IGRpc2NpcGxpbmFyeVByb2NlZHVyZTogdiB9KX0KICAgICAgICAgIC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IkRhdGEgcHJvdGVjdGlvbiAoR0RQUikiPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEuZGF0YVByb3RlY3Rpb259IG9uQ2hhbmdlPXsodikgPT4gdXBkYXRlKHsgZGF0YVByb3RlY3Rpb246IHYgfSl9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IkRCUyBjaGVjayI+CiAgICAgICAgICA8QXJlYSB2YWx1ZT17ZGF0YS5kYnNDaGVja2VkfSBvbkNoYW5nZT17KHYpID0+IHVwZGF0ZSh7IGRic0NoZWNrZWQ6IHYgfSl9IHJvd3M9ezJ9IC8+CiAgICAgICAgPC9MYWJlbGxlZD4KICAgICAgICA8TGFiZWxsZWQgbGFiZWw9IlJlZmVyZW5jZXMiPgogICAgICAgICAgPEFyZWEgdmFsdWU9e2RhdGEucmVmZXJlbmNlc30gb25DaGFuZ2U9eyh2KSA9PiB1cGRhdGUoeyByZWZlcmVuY2VzOiB2IH0pfSByb3dzPXsyfSAvPgogICAgICAgIDwvTGFiZWxsZWQ+CiAgICAgIDwvU2VjdGlvbj4KICAgIDwvZGl2PgogICk7Cn0K
+import { useState } from "react";
+import { Plus, Trash2, X } from "lucide-react";
+
+import {
+  CONTRACT_TYPE_LABELS,
+  RATE_BASIS_LABELS,
+  DEFAULT_WEEKS_PER_YEAR,
+  calculateHoliday,
+  defaultDuties,
+  isTermTime,
+  workingDayHours,
+  type AgreementData,
+  type ContractType,
+  type NannyDuty,
+  type WorkingDay,
+} from "@/lib/agreement.model";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+
+type Update = (patch: Partial<AgreementData>) => void;
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+      <h2 className="heading-display text-lg text-foreground">{title}</h2>
+      <div className="mt-4 space-y-4">{children}</div>
+    </section>
+  );
+}
+
+function Labelled({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      <div className="mt-1.5">{children}</div>
+      {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
+    </label>
+  );
+}
+
+function Text({
+  value,
+  onChange,
+  placeholder,
+  type,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <Input
+      type={type ?? "text"}
+      value={value}
+      placeholder={placeholder ?? ""}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
+}
+
+function Area({
+  value,
+  onChange,
+  placeholder,
+  rows,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  rows?: number;
+}) {
+  return (
+    <Textarea
+      rows={rows ?? 3}
+      value={value}
+      placeholder={placeholder ?? ""}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
+}
+
+export function WorkingDaysEditor({
+  days,
+  onChange,
+}: {
+  days: WorkingDay[];
+  onChange: (days: WorkingDay[]) => void;
+}) {
+  const set = (index: number, patch: Partial<WorkingDay>) => {
+    const next = days.map((d, i) => (i === index ? { ...d, ...patch } : d));
+    onChange(next);
+  };
+
+  const toggleSplit = (index: number) => {
+    const selectedDay = days[index];
+    if (!selectedDay) return;
+    const day = { ...selectedDay };
+    if (day.startTime2 !== undefined) {
+      delete day.startTime2;
+      delete day.endTime2;
+    } else {
+      day.startTime2 = "15:00";
+      day.endTime2 = "19:00";
+    }
+    onChange(days.map((d, i) => (i === index ? day : d)));
+  };
+
+  return (
+    <div className="space-y-2.5">
+      {days.map((day, index) => (
+        <div
+          key={day.day}
+          className={`rounded-xl border p-3 ${
+            day.enabled ? "border-primary/25 bg-primary/5" : "border-transparent bg-muted/50"
+          }`}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex min-w-[120px] cursor-pointer items-center gap-2.5">
+              <Checkbox
+                checked={day.enabled}
+                onCheckedChange={(checked) => set(index, { enabled: checked === true })}
+              />
+              <span
+                className={`text-sm font-medium ${day.enabled ? "text-foreground" : "text-muted-foreground"}`}
+              >
+                {day.day}
+              </span>
+            </label>
+            {day.enabled && (
+              <div className="flex flex-1 flex-wrap items-center gap-2">
+                <Input
+                  type="time"
+                  className="w-auto flex-1"
+                  value={day.startTime}
+                  onChange={(e) => set(index, { startTime: e.target.value })}
+                />
+                <span className="text-muted-foreground">–</span>
+                <Input
+                  type="time"
+                  className="w-auto flex-1"
+                  value={day.endTime}
+                  onChange={(e) => set(index, { endTime: e.target.value })}
+                />
+                <span className="text-xs text-muted-foreground">
+                  {workingDayHours(day).toFixed(1)}h
+                </span>
+                <button
+                  type="button"
+                  onClick={() => toggleSplit(index)}
+                  className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                >
+                  {day.startTime2 !== undefined ? (
+                    <>
+                      <X className="h-3.5 w-3.5" /> Remove second block
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="h-3.5 w-3.5" /> Split shift
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {day.enabled && day.startTime2 !== undefined && (
+            <div className="mt-2.5 flex items-center gap-2 pl-[132px] max-sm:pl-0">
+              <Input
+                type="time"
+                className="w-auto flex-1"
+                value={day.startTime2 ?? ""}
+                onChange={(e) => set(index, { startTime2: e.target.value })}
+              />
+              <span className="text-muted-foreground">–</span>
+              <Input
+                type="time"
+                className="w-auto flex-1"
+                value={day.endTime2 ?? ""}
+                onChange={(e) => set(index, { endTime2: e.target.value })}
+              />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DutyEditor({
+  duties,
+  onChange,
+}: {
+  duties: NannyDuty[];
+  onChange: (duties: NannyDuty[]) => void;
+}) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const standardIds = new Set(defaultDuties.map((d) => d.id));
+
+  const set = (id: string, patch: Partial<NannyDuty>) =>
+    onChange(duties.map((d) => (d.id === id ? { ...d, ...patch } : d)));
+
+  return (
+    <div className="space-y-2">
+      {duties.map((duty) => {
+        const isCustom = !standardIds.has(duty.id);
+        const open = expanded === duty.id;
+        return (
+          <div key={duty.id} className="rounded-xl border border-border bg-background">
+            <div className="flex items-start gap-3 p-3">
+              <Checkbox
+                className="mt-0.5"
+                checked={duty.enabled}
+                onCheckedChange={(checked) => set(duty.id, { enabled: checked === true })}
+              />
+              <button
+                type="button"
+                onClick={() => setExpanded(open ? null : duty.id)}
+                className="flex-1 text-left text-sm text-foreground"
+              >
+                {duty.label || "Custom duty"}
+                {duty.details.trim() && (
+                  <span className="block text-xs text-muted-foreground">{duty.details}</span>
+                )}
+              </button>
+              {isCustom && (
+                <button
+                  type="button"
+                  aria-label="Remove duty"
+                  onClick={() => onChange(duties.filter((d) => d.id !== duty.id))}
+                  className="text-muted-foreground hover:text-destructive"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            {open && (
+              <div className="space-y-2 px-3 pb-3">
+                {isCustom && (
+                  <Input
+                    value={duty.label}
+                    placeholder="Describe this duty"
+                    onChange={(e) => set(duty.id, { label: e.target.value })}
+                  />
+                )}
+                <Textarea
+                  rows={2}
+                  value={duty.details}
+                  placeholder="Add specific details for this duty…"
+                  onChange={(e) => set(duty.id, { details: e.target.value })}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full"
+        onClick={() =>
+          onChange([
+            ...duties,
+            { id: `custom-${Date.now()}`, label: "", details: "", enabled: true },
+          ])
+        }
+      >
+        <Plus className="mr-2 h-4 w-4" /> Add custom duty
+      </Button>
+    </div>
+  );
+}
+
+export function AgreementBuilder({
+  data,
+  onChange,
+}: {
+  data: AgreementData;
+  onChange: (data: AgreementData) => void;
+}) {
+  const update: Update = (patch) => onChange({ ...data, ...patch });
+  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear);
+
+  return (
+    <div className="space-y-5">
+      <Section title="Parties">
+        <Labelled label="Employer name(s)">
+          <Text
+            value={data.employerName}
+            onChange={(v) => update({ employerName: v })}
+            placeholder="Full name of the employer"
+          />
+        </Labelled>
+        <Labelled label="Employer address">
+          <Text
+            value={data.employerAddress}
+            onChange={(v) => update({ employerAddress: v })}
+            placeholder="Home address"
+          />
+        </Labelled>
+        <Labelled label="Nanny / manny name">
+          <Text value={data.nannyName} onChange={(v) => update({ nannyName: v })} />
+        </Labelled>
+        <Labelled label="Work address">
+          <Text
+            value={data.workAddress}
+            onChange={(v) => update({ workAddress: v })}
+            placeholder="Where the nanny will work"
+          />
+        </Labelled>
+      </Section>
+
+      <Section title="Employment">
+        <Labelled label="Job title">
+          <Text value={data.jobTitle} onChange={(v) => update({ jobTitle: v })} />
+        </Labelled>
+        <Labelled label="Start date">
+          <Text type="date" value={data.startDate} onChange={(v) => update({ startDate: v })} />
+        </Labelled>
+        <label className="flex items-center gap-2.5">
+          <Checkbox
+            checked={data.isFixedTerm}
+            onCheckedChange={(checked) => update({ isFixedTerm: checked === true })}
+          />
+          <span className="text-sm font-medium text-foreground">
+            Fixed-period contract (has an end date)
+          </span>
+        </label>
+        {data.isFixedTerm && (
+          <div className="space-y-4 rounded-xl bg-muted/50 p-4">
+            <Labelled label="End date">
+              <Text type="date" value={data.endDate} onChange={(v) => update({ endDate: v })} />
+            </Labelled>
+            <Labelled label="Reason for the fixed period">
+              <Text
+                value={data.fixedTermReason}
+                onChange={(v) => update({ fixedTermReason: v })}
+                placeholder="e.g. childcare cover during a work assignment"
+              />
+            </Labelled>
+          </div>
+        )}
+        <Labelled label="Probation period">
+          <Text
+            value={data.probationPeriod}
+            onChange={(v) => update({ probationPeriod: v })}
+            placeholder="e.g. 3 months"
+          />
+        </Labelled>
+        <Labelled label="Overtime policy">
+          <Area value={data.overtimePolicy} onChange={(v) => update({ overtimePolicy: v })} />
+        </Labelled>
+      </Section>
+
+      <Section title="Duties">
+        <DutyEditor duties={data.duties} onChange={(duties) => update({ duties })} />
+        <Labelled label="Other duties clause">
+          <Area value={data.otherDutiesClause} onChange={(v) => update({ otherDutiesClause: v })} />
+        </Labelled>
+      </Section>
+
+      <Section title="Working pattern">
+        <Labelled label="Contract type">
+          <select
+            className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+            value={data.contractType}
+            onChange={(e) => {
+              const contractType = e.target.value as ContractType;
+              update({
+                contractType,
+                weeksPerYear: String(DEFAULT_WEEKS_PER_YEAR[contractType]),
+              });
+            }}
+          >
+            {(Object.keys(CONTRACT_TYPE_LABELS) as ContractType[]).map((type) => (
+              <option key={type} value={type}>
+                {CONTRACT_TYPE_LABELS[type]}
+              </option>
+            ))}
+          </select>
+        </Labelled>
+        <Labelled
+          label="Weeks worked per year"
+          hint={
+            isTermTime(data.contractType)
+              ? "Term-time contracts are usually 36 weeks. Change it to match this family's school year."
+              : "Usually 52 for a year-round contract."
+          }
+        >
+          <Text value={data.weeksPerYear} onChange={(v) => update({ weeksPerYear: v })} />
+        </Labelled>
+        <div className="space-y-3 rounded-xl bg-muted/50 p-4">
+          <label className="flex items-start gap-2.5">
+            <Checkbox
+              className="mt-0.5"
+              checked={data.includeWorkingPatternClause}
+              onCheckedChange={(checked) => update({ includeWorkingPatternClause: checked === true })}
+            />
+            <span>
+              <span className="block text-sm font-medium text-foreground">
+                Include the working-pattern clause in the agreement
+              </span>
+              <span className="block text-xs text-muted-foreground">
+                Turn this off to remove clause 1.6 from the printable agreement.
+              </span>
+            </span>
+          </label>
+          {isTermTime(data.contractType) && (
+            <label className="flex items-start gap-2.5">
+              <Checkbox
+                className="mt-0.5"
+                checked={data.allowSchoolHolidayWork}
+                onCheckedChange={(checked) => update({ allowSchoolHolidayWork: checked === true })}
+              />
+              <span>
+                <span className="block text-sm font-medium text-foreground">
+                  The nanny may be offered school-holiday work if needed and available
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  Adds wording that holiday work is optional, agreed in advance and paid separately.
+                </span>
+              </span>
+            </label>
+          )}
+        </div>
+        <div>
+          <p className="text-sm font-medium text-foreground">Working days</p>
+          <p className="mb-2 text-xs text-muted-foreground">
+            Tick each day and set the hours. Use “Split shift” for a morning and an after-school
+            block.
+          </p>
+          <WorkingDaysEditor
+            days={data.workingDays}
+            onChange={(workingDays) => update({ workingDays })}
+          />
+        </div>
+      </Section>
+
+      <Section title="Holiday (pro-rata)">
+        <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+          <Checkbox
+            className="mt-0.5"
+            checked={data.includeHolidayEntitlement}
+            onCheckedChange={(checked) => update({ includeHolidayEntitlement: checked === true })}
+          />
+          <span>
+            <span className="block text-sm font-medium text-foreground">
+              Include the holiday entitlement section in the agreement
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Turn this off to remove section 3 from the printable agreement.
+            </span>
+          </span>
+        </label>
+        {data.includeHolidayEntitlement && holiday.workingDaysPerWeek > 0 ? (
+          <>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { value: holiday.totalWeeksEntitlement, label: "Weeks" },
+                { value: holiday.totalDaysEntitlement, label: "Days" },
+                { value: holiday.totalHoursEntitlement, label: "Hours" },
+              ].map((cell) => (
+                <div key={cell.label} className="rounded-xl bg-primary/10 p-4 text-center">
+                  <div className="heading-display text-2xl text-primary">{cell.value}</div>
+                  <div className="text-xs text-muted-foreground">{cell.label}</div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {holiday.workingDaysPerWeek} days a week ({holiday.weeklyHours.toFixed(1)} hours) over{" "}
+              {holiday.weeksWorkedPerYear} weeks per year. UK statutory entitlement is 5.6 weeks for
+              a full year
+              {isTermTime(data.contractType)
+                ? `, pro-rated here as 5.6 × ${holiday.weeksWorkedPerYear} ÷ 46.4.`
+                : "."}
+            </p>
+          </>
+        ) : data.includeHolidayEntitlement ? (
+          <p className="text-sm text-muted-foreground">
+            Tick at least one working day to calculate the holiday entitlement.
+          </p>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            The holiday entitlement section will be left out of the printable agreement.
+          </p>
+        )}
+        <Labelled
+          label="Holiday wording (override)"
+          hint="If filled in, this appears instead of the calculated holiday wording."
+        >
+          <Area value={data.holidayAllowance} onChange={(v) => update({ holidayAllowance: v })} />
+        </Labelled>
+        {data.includeHolidayEntitlement && (
+          <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+            <Checkbox
+              className="mt-0.5"
+              checked={data.rolledUpHolidayPay}
+              onCheckedChange={(checked) => update({ rolledUpHolidayPay: checked === true })}
+            />
+            <span>
+              <span className="block text-sm font-medium text-foreground">
+                Roll holiday pay up into each payslip
+              </span>
+              <span className="block text-xs text-muted-foreground">
+                For term-time and part-year nannies: holiday pay is paid at 12.07% with each
+                payslip instead of being paid when holiday is taken.
+              </span>
+            </span>
+          </label>
+        )}
+      </Section>
+
+      <Section title="Pay">
+        <Labelled label="Hourly rate (£)">
+          <Text
+            value={data.hourlyRate}
+            onChange={(v) => update({ hourlyRate: v })}
+            placeholder="e.g. 15.00"
+          />
+        </Labelled>
+        <Labelled
+          label="Is that rate gross or net?"
+          hint="Gross is before tax and National Insurance. Net is take-home pay."
+        >
+          <div className="flex gap-2">
+            {(["gross", "net"] as const).map((basis) => (
+              <button
+                key={basis}
+                type="button"
+                onClick={() => update({ rateBasis: basis })}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  data.rateBasis === basis
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-background text-foreground hover:bg-muted"
+                }`}
+              >
+                {RATE_BASIS_LABELS[basis]}
+              </button>
+            ))}
+          </div>
+        </Labelled>
+        <label className="flex items-start gap-2.5 rounded-xl bg-muted/50 p-4">
+          <Checkbox
+            className="mt-0.5"
+            checked={data.includeTaxResponsibilityClause}
+            onCheckedChange={(checked) =>
+              update({ includeTaxResponsibilityClause: checked === true })
+            }
+          />
+          <span>
+            <span className="block text-sm font-medium text-foreground">
+              Include tax, National Insurance and pension responsibility wording
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Turn this off to remove the PAYE/HMRC sentence from clause 2.1.
+            </span>
+          </span>
+        </label>
+        <Labelled label="Payment frequency">
+          <Text value={data.paymentFrequency} onChange={(v) => update({ paymentFrequency: v })} />
+        </Labelled>
+        <Labelled label="Payment method">
+          <Text value={data.paymentMethod} onChange={(v) => update({ paymentMethod: v })} />
+        </Labelled>
+        <Labelled label="Benefits">
+          <Area value={data.benefits} onChange={(v) => update({ benefits: v })} rows={2} />
+        </Labelled>
+        <Labelled
+          label="Mileage / expense rate (pence per mile)"
+          hint="Leave blank to leave expenses out of the contract."
+        >
+          <Text
+            value={data.expenseRate}
+            onChange={(v) => update({ expenseRate: v })}
+            placeholder="45"
+          />
+        </Labelled>
+        <Labelled label="Pension" hint="Leave blank to leave the pension clause out.">
+          <Area value={data.pension} onChange={(v) => update({ pension: v })} />
+        </Labelled>
+      </Section>
+
+      <Section title="Sickness & notice">
+        <Labelled label="Sickness policy">
+          <Area value={data.sicknessPolicy} onChange={(v) => update({ sicknessPolicy: v })} />
+        </Labelled>
+        <Labelled label="Notice during probation">
+          <Text value={data.probationNotice} onChange={(v) => update({ probationNotice: v })} />
+        </Labelled>
+        <Labelled label="Notice thereafter">
+          <Text value={data.standardNotice} onChange={(v) => update({ standardNotice: v })} />
+        </Labelled>
+        <Labelled label="Garden leave">
+          <Area value={data.gardenLeave} onChange={(v) => update({ gardenLeave: v })} rows={2} />
+        </Labelled>
+      </Section>
+
+      <Section title="Legal & compliance">
+        <Labelled label="Grievance procedure">
+          <Area value={data.grievanceProcedure} onChange={(v) => update({ grievanceProcedure: v })} />
+        </Labelled>
+        <Labelled label="Disciplinary procedure">
+          <Area
+            value={data.disciplinaryProcedure}
+            onChange={(v) => update({ disciplinaryProcedure: v })}
+          />
+        </Labelled>
+        <Labelled label="Data protection (GDPR)">
+          <Area value={data.dataProtection} onChange={(v) => update({ dataProtection: v })} />
+        </Labelled>
+        <Labelled label="DBS check">
+          <Area value={data.dbsChecked} onChange={(v) => update({ dbsChecked: v })} rows={2} />
+        </Labelled>
+        <Labelled label="References">
+          <Area value={data.references} onChange={(v) => update({ references: v })} rows={2} />
+        </Labelled>
+      </Section>
+    </div>
+  );
+}

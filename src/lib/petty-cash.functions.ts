@@ -1,1 +1,26 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKaW1wb3J0IHR5cGUgeyBQZXR0eUNhc2hJbnB1dCB9IGZyb20gIi4vcGV0dHktY2FzaC50eXBlcyI7CgpleHBvcnQgY29uc3QgZ2V0UGV0dHlDYXNoID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkUGV0dHlDYXNoIH0gPSBhd2FpdCBpbXBvcnQoIi4vcGV0dHktY2FzaC5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkUGV0dHlDYXNoKGRhdGEuc2x1Zyk7CiAgfSk7CgpleHBvcnQgY29uc3QgYWRkUGV0dHlDYXNoRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgZW50cnk6IFBldHR5Q2FzaElucHV0IH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGFkZFBldHR5Q2FzaCB9ID0gYXdhaXQgaW1wb3J0KCIuL3BldHR5LWNhc2guc2VydmVyIik7CiAgICBhd2FpdCBhZGRQZXR0eUNhc2goZGF0YS5zbHVnLCBkYXRhLmVudHJ5KTsKICAgIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0IH07CiAgfSk7CgpleHBvcnQgY29uc3QgZGVsZXRlUGV0dHlDYXNoRm4gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZzsgaWQ6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBkZWxldGVQZXR0eUNhc2ggfSA9IGF3YWl0IGltcG9ydCgiLi9wZXR0eS1jYXNoLnNlcnZlciIpOwogICAgYXdhaXQgZGVsZXRlUGV0dHlDYXNoKGRhdGEuc2x1ZywgZGF0YS5pZCk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+import type { PettyCashInput } from "./petty-cash.types";
+
+export const getPettyCash = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadPettyCash } = await import("./petty-cash.server");
+    return loadPettyCash(data.slug);
+  });
+
+export const addPettyCashFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; entry: PettyCashInput }) => data)
+  .handler(async ({ data }) => {
+    const { addPettyCash } = await import("./petty-cash.server");
+    await addPettyCash(data.slug, data.entry);
+    return { ok: true as const };
+  });
+
+export const deletePettyCashFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deletePettyCash } = await import("./petty-cash.server");
+    await deletePettyCash(data.slug, data.id);
+    return { ok: true as const };
+  });

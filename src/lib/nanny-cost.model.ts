@@ -1,1 +1,91 @@
-Ly8gVUsgaG91c2Vob2xkIGVtcGxveWVyIHBsYW5uaW5nIGVzdGltYXRlcyAoMjAyNi8yNyByYXRlcykuIE5vdCBwYXlyb2xsIGFkdmljZS4KZXhwb3J0IGNvbnN0IFRBWCA9IHsKICBwZXJzb25hbEFsbG93YW5jZTogMTI1NzAsCiAgYmFzaWNSYXRlTGltaXQ6IDUwMjcwLAogIGJhc2ljUmF0ZTogMC4yLAogIGhpZ2hlclJhdGU6IDAuNCwKICBlbXBsb3llZU5pTWFpbjogMC4wOCwKICBlbXBsb3llZU5pVXBwZXI6IDAuMDIsCiAgZW1wbG95ZXJOaVJhdGU6IDAuMTUsCiAgZW1wbG95ZXJOaVRocmVzaG9sZDogNTAwMCwKICBwZW5zaW9uVHJpZ2dlcjogMTAwMDAsCiAgcGVuc2lvbkxvd2VyOiA2MjQwLAogIHBlbnNpb25VcHBlcjogNTAyNzAsCiAgZW1wbG95ZXJQZW5zaW9uOiAwLjAzLAogIGVtcGxveWVlUGVuc2lvbjogMC4wNSwKICByb2xsZWRVcEhvbGlkYXk6IDAuMTIwNywKICB2YXQ6IDAuMiwKfTsKCmV4cG9ydCBjb25zdCBNRU1CRVJTSElQX0JZX0RBWVM6IFJlY29yZDxudW1iZXIsIHsgbmFtZTogc3RyaW5nOyBtb250aGx5OiBudW1iZXIgfT4gPSB7CiAgMTogeyBuYW1lOiAiQnJvbnplIiwgbW9udGhseTogNTAgfSwKICAyOiB7IG5hbWU6ICJTaWx2ZXIiLCBtb250aGx5OiA3MCB9LAogIDM6IHsgbmFtZTogIlNpbHZlciIsIG1vbnRobHk6IDgwIH0sCiAgNDogeyBuYW1lOiAiR29sZCIsIG1vbnRobHk6IDEwMCB9LAogIDU6IHsgbmFtZTogIkdvbGQiLCBtb250aGx5OiAxMjAgfSwKICA2OiB7IG5hbWU6ICJQbGF0aW51bSIsIG1vbnRobHk6IDE0MCB9LAogIDc6IHsgbmFtZTogIlBsYXRpbnVtIiwgbW9udGhseTogMTQwIH0sCn07CgpleHBvcnQgdHlwZSBDb3N0SW5wdXQgPSB7CiAgcmF0ZTogbnVtYmVyOwogIGJhc2lzOiAibmV0IiB8ICJncm9zcyI7CiAgaG91cnNQZXJEYXk6IG51bWJlcjsKICBkYXlzUGVyV2VlazogbnVtYmVyOwogIHBhdHRlcm46ICJ5ZWFyLXJvdW5kIiB8ICJ0ZXJtLXRpbWUiOwogIHRlcm1XZWVrczogbnVtYmVyOwogIGluY2x1ZGVNZW1iZXJzaGlwOiBib29sZWFuOwogIHBheXJvbGxNb250aGx5OiBudW1iZXI7Cn07CgpmdW5jdGlvbiBkZWR1Y3Rpb25zKGdyb3NzOiBudW1iZXIpIHsKICBjb25zdCB0YXhhYmxlID0gTWF0aC5tYXgoMCwgZ3Jvc3MgLSBUQVgucGVyc29uYWxBbGxvd2FuY2UpOwogIGNvbnN0IGJhc2ljQmFuZCA9IFRBWC5iYXNpY1JhdGVMaW1pdCAtIFRBWC5wZXJzb25hbEFsbG93YW5jZTsKICBjb25zdCBpbmNvbWVUYXggPSBNYXRoLm1pbih0YXhhYmxlLCBiYXNpY0JhbmQpICogVEFYLmJhc2ljUmF0ZSArIE1hdGgubWF4KDAsIHRheGFibGUgLSBiYXNpY0JhbmQpICogVEFYLmhpZ2hlclJhdGU7CiAgY29uc3QgbmlNYWluID0gTWF0aC5tYXgoMCwgTWF0aC5taW4oZ3Jvc3MsIFRBWC5iYXNpY1JhdGVMaW1pdCkgLSBUQVgucGVyc29uYWxBbGxvd2FuY2UpOwogIGNvbnN0IGVtcGxveWVlTmkgPSBuaU1haW4gKiBUQVguZW1wbG95ZWVOaU1haW4gKyBNYXRoLm1heCgwLCBncm9zcyAtIFRBWC5iYXNpY1JhdGVMaW1pdCkgKiBUQVguZW1wbG95ZWVOaVVwcGVyOwogIGNvbnN0IGVucm9sbGVkID0gZ3Jvc3MgPj0gVEFYLnBlbnNpb25UcmlnZ2VyOwogIGNvbnN0IHF1YWxpZnlpbmcgPSBlbnJvbGxlZCA/IE1hdGgubWF4KDAsIE1hdGgubWluKGdyb3NzLCBUQVgucGVuc2lvblVwcGVyKSAtIFRBWC5wZW5zaW9uTG93ZXIpIDogMDsKICByZXR1cm4geyBpbmNvbWVUYXgsIGVtcGxveWVlTmksIGVtcGxveWVlUGVuc2lvbjogcXVhbGlmeWluZyAqIFRBWC5lbXBsb3llZVBlbnNpb24sIGVtcGxveWVyUGVuc2lvbjogcXVhbGlmeWluZyAqIFRBWC5lbXBsb3llclBlbnNpb24gfTsKfQoKZXhwb3J0IGZ1bmN0aW9uIG5ldEZyb21Hcm9zcyhncm9zczogbnVtYmVyKSB7CiAgY29uc3QgZCA9IGRlZHVjdGlvbnMoZ3Jvc3MpOwogIHJldHVybiBncm9zcyAtIGQuaW5jb21lVGF4IC0gZC5lbXBsb3llZU5pIC0gZC5lbXBsb3llZVBlbnNpb247Cn0KCi8qKiBBbm51YWwgZ3Jvc3MgdGhhdCB5aWVsZHMgdGhlIHRhcmdldCBhbm51YWwgdGFrZS1ob21lIHBheS4gKi8KZXhwb3J0IGZ1bmN0aW9uIGdyb3NzRnJvbU5ldChuZXQ6IG51bWJlcikgewogIGxldCBsbyA9IG5ldCwgaGkgPSBuZXQgKiAyICsgMTAwMDsKICBmb3IgKGxldCBpID0gMDsgaSA8IDYwOyBpKyspIHsKICAgIGNvbnN0IG1pZCA9IChsbyArIGhpKSAvIDI7CiAgICBpZiAobmV0RnJvbUdyb3NzKG1pZCkgPCBuZXQpIGxvID0gbWlkOyBlbHNlIGhpID0gbWlkOwogIH0KICByZXR1cm4gTWF0aC5yb3VuZChoaSAqIDEwMCkgLyAxMDA7Cn0KCmV4cG9ydCBmdW5jdGlvbiBjYWxjdWxhdGVOYW5ueUNvc3QoaW5wdXQ6IENvc3RJbnB1dCkgewogIGNvbnN0IGRheXMgPSBNYXRoLm1pbig3LCBNYXRoLm1heCgxLCBNYXRoLnJvdW5kKGlucHV0LmRheXNQZXJXZWVrIHx8IDEpKSk7CiAgY29uc3Qgd2Vla2x5SG91cnMgPSBNYXRoLm1heCgwLCBpbnB1dC5ob3Vyc1BlckRheSB8fCAwKSAqIGRheXM7CiAgY29uc3QgdGVybVRpbWUgPSBpbnB1dC5wYXR0ZXJuID09PSAidGVybS10aW1lIjsKICBjb25zdCB3ZWVrcyA9IHRlcm1UaW1lID8gTWF0aC5taW4oNTIsIE1hdGgubWF4KDEsIGlucHV0LnRlcm1XZWVrcyB8fCAzOCkpIDogNTI7CiAgY29uc3QgaG9saWRheVVwbGlmdCA9IHRlcm1UaW1lID8gMSArIFRBWC5yb2xsZWRVcEhvbGlkYXkgOiAxOwogIGNvbnN0IGFubnVhbFJhdGVQYXkgPSBNYXRoLm1heCgwLCBpbnB1dC5yYXRlIHx8IDApICogd2Vla2x5SG91cnMgKiB3ZWVrcyAqIGhvbGlkYXlVcGxpZnQ7CiAgY29uc3QgZ3Jvc3NQYXkgPSBpbnB1dC5iYXNpcyA9PT0gImdyb3NzIiA/IGFubnVhbFJhdGVQYXkgOiBncm9zc0Zyb21OZXQoYW5udWFsUmF0ZVBheSk7CiAgY29uc3QgZCA9IGRlZHVjdGlvbnMoZ3Jvc3NQYXkpOwogIGNvbnN0IG5ldFBheSA9IGdyb3NzUGF5IC0gZC5pbmNvbWVUYXggLSBkLmVtcGxveWVlTmkgLSBkLmVtcGxveWVlUGVuc2lvbjsKICBjb25zdCBlbXBsb3llck5pID0gTWF0aC5tYXgoMCwgZ3Jvc3NQYXkgLSBUQVguZW1wbG95ZXJOaVRocmVzaG9sZCkgKiBUQVguZW1wbG95ZXJOaVJhdGU7CiAgY29uc3QgdGllciA9IE1FTUJFUlNISVBfQllfREFZU1tkYXlzXSE7CiAgY29uc3QgbWVtYmVyc2hpcCA9IGlucHV0LmluY2x1ZGVNZW1iZXJzaGlwID8gdGllci5tb250aGx5ICogKDEgKyBUQVgudmF0KSAqIDEyIDogMDsKICBjb25zdCBwYXlyb2xsID0gTWF0aC5tYXgoMCwgaW5wdXQucGF5cm9sbE1vbnRobHkgfHwgMCkgKiAxMjsKICBjb25zdCBhbm51YWxUb3RhbCA9IGdyb3NzUGF5ICsgZW1wbG95ZXJOaSArIGQuZW1wbG95ZXJQZW5zaW9uICsgbWVtYmVyc2hpcCArIHBheXJvbGw7CiAgY29uc3QgYW5udWFsSG91cnMgPSB3ZWVrbHlIb3VycyAqIHdlZWtzOwogIHJldHVybiB7CiAgICBkYXlzLCB3ZWVrbHlIb3Vycywgd2Vla3MsIHRpZXIsCiAgICBncm9zc1BheSwgbmV0UGF5LCBpbmNvbWVUYXg6IGQuaW5jb21lVGF4LCBlbXBsb3llZU5pOiBkLmVtcGxveWVlTmksIGVtcGxveWVlUGVuc2lvbjogZC5lbXBsb3llZVBlbnNpb24sCiAgICBlbXBsb3llck5pLCBlbXBsb3llclBlbnNpb246IGQuZW1wbG95ZXJQZW5zaW9uLCBtZW1iZXJzaGlwLCBwYXlyb2xsLAogICAgYW5udWFsVG90YWwsIG1vbnRobHlUb3RhbDogYW5udWFsVG90YWwgLyAxMiwgd2Vla2x5VG90YWw6IGFubnVhbFRvdGFsIC8gNTIsCiAgICBhbGxJbkhvdXJseTogYW5udWFsSG91cnMgPyBhbm51YWxUb3RhbCAvIGFubnVhbEhvdXJzIDogMCwKICAgIGdyb3NzSG91cmx5OiBhbm51YWxIb3VycyA/IGdyb3NzUGF5IC8gKGFubnVhbEhvdXJzICogaG9saWRheVVwbGlmdCkgOiAwLAogIH07Cn0K
+// UK household employer planning estimates (2026/27 rates). Not payroll advice.
+export const TAX = {
+  personalAllowance: 12570,
+  basicRateLimit: 50270,
+  basicRate: 0.2,
+  higherRate: 0.4,
+  employeeNiMain: 0.08,
+  employeeNiUpper: 0.02,
+  employerNiRate: 0.15,
+  employerNiThreshold: 5000,
+  pensionTrigger: 10000,
+  pensionLower: 6240,
+  pensionUpper: 50270,
+  employerPension: 0.03,
+  employeePension: 0.05,
+  rolledUpHoliday: 0.1207,
+  vat: 0.2,
+};
+
+export const MEMBERSHIP_BY_DAYS: Record<number, { name: string; monthly: number }> = {
+  1: { name: "Bronze", monthly: 50 },
+  2: { name: "Silver", monthly: 70 },
+  3: { name: "Silver", monthly: 80 },
+  4: { name: "Gold", monthly: 100 },
+  5: { name: "Gold", monthly: 120 },
+  6: { name: "Platinum", monthly: 140 },
+  7: { name: "Platinum", monthly: 140 },
+};
+
+export type CostInput = {
+  rate: number;
+  basis: "net" | "gross";
+  hoursPerDay: number;
+  daysPerWeek: number;
+  pattern: "year-round" | "term-time";
+  termWeeks: number;
+  includeMembership: boolean;
+  payrollMonthly: number;
+};
+
+function deductions(gross: number) {
+  const taxable = Math.max(0, gross - TAX.personalAllowance);
+  const basicBand = TAX.basicRateLimit - TAX.personalAllowance;
+  const incomeTax = Math.min(taxable, basicBand) * TAX.basicRate + Math.max(0, taxable - basicBand) * TAX.higherRate;
+  const niMain = Math.max(0, Math.min(gross, TAX.basicRateLimit) - TAX.personalAllowance);
+  const employeeNi = niMain * TAX.employeeNiMain + Math.max(0, gross - TAX.basicRateLimit) * TAX.employeeNiUpper;
+  const enrolled = gross >= TAX.pensionTrigger;
+  const qualifying = enrolled ? Math.max(0, Math.min(gross, TAX.pensionUpper) - TAX.pensionLower) : 0;
+  return { incomeTax, employeeNi, employeePension: qualifying * TAX.employeePension, employerPension: qualifying * TAX.employerPension };
+}
+
+export function netFromGross(gross: number) {
+  const d = deductions(gross);
+  return gross - d.incomeTax - d.employeeNi - d.employeePension;
+}
+
+/** Annual gross that yields the target annual take-home pay. */
+export function grossFromNet(net: number) {
+  let lo = net, hi = net * 2 + 1000;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    if (netFromGross(mid) < net) lo = mid; else hi = mid;
+  }
+  return Math.round(hi * 100) / 100;
+}
+
+export function calculateNannyCost(input: CostInput) {
+  const days = Math.min(7, Math.max(1, Math.round(input.daysPerWeek || 1)));
+  const weeklyHours = Math.max(0, input.hoursPerDay || 0) * days;
+  const termTime = input.pattern === "term-time";
+  const weeks = termTime ? Math.min(52, Math.max(1, input.termWeeks || 38)) : 52;
+  const holidayUplift = termTime ? 1 + TAX.rolledUpHoliday : 1;
+  const annualRatePay = Math.max(0, input.rate || 0) * weeklyHours * weeks * holidayUplift;
+  const grossPay = input.basis === "gross" ? annualRatePay : grossFromNet(annualRatePay);
+  const d = deductions(grossPay);
+  const netPay = grossPay - d.incomeTax - d.employeeNi - d.employeePension;
+  const employerNi = Math.max(0, grossPay - TAX.employerNiThreshold) * TAX.employerNiRate;
+  const tier = MEMBERSHIP_BY_DAYS[days]!;
+  const membership = input.includeMembership ? tier.monthly * (1 + TAX.vat) * 12 : 0;
+  const payroll = Math.max(0, input.payrollMonthly || 0) * 12;
+  const annualTotal = grossPay + employerNi + d.employerPension + membership + payroll;
+  const annualHours = weeklyHours * weeks;
+  return {
+    days, weeklyHours, weeks, tier,
+    grossPay, netPay, incomeTax: d.incomeTax, employeeNi: d.employeeNi, employeePension: d.employeePension,
+    employerNi, employerPension: d.employerPension, membership, payroll,
+    annualTotal, monthlyTotal: annualTotal / 12, weeklyTotal: annualTotal / 52,
+    allInHourly: annualHours ? annualTotal / annualHours : 0,
+    grossHourly: annualHours ? grossPay / (annualHours * holidayUplift) : 0,
+  };
+}

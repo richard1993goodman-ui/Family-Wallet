@@ -1,1 +1,30 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5jb3Zlcl9yZXF1ZXN0cyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBjb3Zlcl90eXBlIHRleHQgTk9UIE5VTEwgREVGQVVMVCAnZW1lcmdlbmN5JywKICBzdGFydF9kYXRlIGRhdGUgTk9UIE5VTEwsCiAgZW5kX2RhdGUgZGF0ZSwKICBzdGFydF90aW1lIHRleHQsCiAgZW5kX3RpbWUgdGV4dCwKICBjaGlsZHJlbiB0ZXh0LAogIGxvY2F0aW9uIHRleHQsCiAgbm90ZXMgdGV4dCwKICBzdGF0dXMgdGV4dCBOT1QgTlVMTCBERUZBVUxUICduZXcnLAogIHJlcXVlc3RlZF9ieSB0ZXh0IE5PVCBOVUxMIERFRkFVTFQgJ2ZhbWlseScsCiAgdGhyZWFkX2lkIHV1aWQgUkVGRVJFTkNFUyBwdWJsaWMuc3VwcG9ydF90aHJlYWRzKGlkKSBPTiBERUxFVEUgU0VUIE5VTEwsCiAgY3JlYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpLAogIHVwZGF0ZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwoKQ1JFQVRFIElOREVYIGNvdmVyX3JlcXVlc3RzX2ZhbWlseV9pZHggT04gcHVibGljLmNvdmVyX3JlcXVlc3RzIChmYW1pbHlfaWQsIHN0YXJ0X2RhdGUgREVTQyk7CgpHUkFOVCBBTEwgT04gcHVibGljLmNvdmVyX3JlcXVlc3RzIFRPIHNlcnZpY2Vfcm9sZTsKCkFMVEVSIFRBQkxFIHB1YmxpYy5jb3Zlcl9yZXF1ZXN0cyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwoKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBjb3ZlciByZXF1ZXN0cyIKT04gcHVibGljLmNvdmVyX3JlcXVlc3RzCkZPUiBBTEwKVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbic6OmFwcF9yb2xlKSkKV0lUSCBDSEVDSyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbic6OmFwcF9yb2xlKSk7
+CREATE TABLE public.cover_requests (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  cover_type text NOT NULL DEFAULT 'emergency',
+  start_date date NOT NULL,
+  end_date date,
+  start_time text,
+  end_time text,
+  children text,
+  location text,
+  notes text,
+  status text NOT NULL DEFAULT 'new',
+  requested_by text NOT NULL DEFAULT 'family',
+  thread_id uuid REFERENCES public.support_threads(id) ON DELETE SET NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX cover_requests_family_idx ON public.cover_requests (family_id, start_date DESC);
+
+GRANT ALL ON public.cover_requests TO service_role;
+
+ALTER TABLE public.cover_requests ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage cover requests"
+ON public.cover_requests
+FOR ALL
+TO authenticated
+USING (public.has_role(auth.uid(), 'admin'::app_role))
+WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));

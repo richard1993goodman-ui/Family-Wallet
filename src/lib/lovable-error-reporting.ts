@@ -1,1 +1,59 @@
-dHlwZSBMb3ZhYmxlRXJyb3JPcHRpb25zID0gewogIG1lY2hhbmlzbT86ICJtYW51YWwiIHwgIm9uZXJyb3IiIHwgInVuaGFuZGxlZHJlamVjdGlvbiIgfCAicmVhY3RfZXJyb3JfYm91bmRhcnkiOwogIGhhbmRsZWQ/OiBib29sZWFuOwogIHNldmVyaXR5PzogImVycm9yIiB8ICJ3YXJuaW5nIiB8ICJpbmZvIjsKfTsKCnR5cGUgTG92YWJsZUV2ZW50cyA9IHsKICB0cmFjaz86IChldmVudDogc3RyaW5nLCBwcm9wZXJ0aWVzPzogUmVjb3JkPHN0cmluZywgdW5rbm93bj4pID0+IHN0cmluZyB8IG51bGw7CiAgY2FwdHVyZUV4Y2VwdGlvbj86ICgKICAgIGVycm9yOiB1bmtub3duLAogICAgY29udGV4dD86IFJlY29yZDxzdHJpbmcsIHVua25vd24+LAogICAgb3B0aW9ucz86IExvdmFibGVFcnJvck9wdGlvbnMsCiAgKSA9PiB2b2lkOwp9OwoKZGVjbGFyZSBnbG9iYWwgewogIGludGVyZmFjZSBXaW5kb3cgewogICAgX19sb3ZhYmxlRXZlbnRzPzogTG92YWJsZUV2ZW50czsKICAgIF9fbG92YWJsZVJlcG9ydFJ1bnRpbWVFcnJvcj86IChwYXlsb2FkOiB7CiAgICAgIG1lc3NhZ2U6IHN0cmluZzsKICAgICAgc3RhY2s/OiBzdHJpbmc7CiAgICAgIGZpbGVuYW1lPzogc3RyaW5nOwogICAgfSkgPT4gdm9pZDsKICB9Cn0KCmV4cG9ydCBmdW5jdGlvbiByZXBvcnRMb3ZhYmxlRXJyb3IoZXJyb3I6IHVua25vd24sIGNvbnRleHQ6IFJlY29yZDxzdHJpbmcsIHVua25vd24+ID0ge30pIHsKICBpZiAodHlwZW9mIHdpbmRvdyA9PT0gInVuZGVmaW5lZCIpIHJldHVybjsKICB3aW5kb3cuX19sb3ZhYmxlRXZlbnRzPy5jYXB0dXJlRXhjZXB0aW9uPy4oCiAgICBlcnJvciwKICAgIHsKICAgICAgc291cmNlOiAicmVhY3RfZXJyb3JfYm91bmRhcnkiLAogICAgICByb3V0ZTogd2luZG93LmxvY2F0aW9uLnBhdGhuYW1lLAogICAgICAuLi5jb250ZXh0LAogICAgfSwKICAgIHsKICAgICAgbWVjaGFuaXNtOiAicmVhY3RfZXJyb3JfYm91bmRhcnkiLAogICAgICBoYW5kbGVkOiBmYWxzZSwKICAgICAgc2V2ZXJpdHk6ICJlcnJvciIsCiAgICB9LAogICk7CiAgLy8gUHJvZCBSZWFjdCBkb2VzIG5vdCByZXRocm93IGJvdW5kYXJ5LWNhdWdodCBlcnJvcnMgdG8gd2luZG93Lm9uZXJyb3IsIHNvIHRoZQogIC8vIGVkaXRvcidzIHRlbGVtZXRyeSBuZXZlciBzZWVzIHRoZW0uIEZvcndhcmQgdG8gbG92YWJsZS5qcydzIHJlcG9ydGluZyBob29rLAogIC8vIHdoaWNoIGlzIHByZXNlbnQgb25seSBpbnNpZGUgdGhlIGVkaXRvciBwcmV2aWV3LgogIC8vIExvYWRlcnMgYW5kIHNlcnZlciBmbnMgY29tbW9ubHkgdGhyb3cgYSByYXcgUmVzcG9uc2U7IFN0cmluZyhpdCkgaXMgdGhlCiAgLy8gb3BhcXVlICJbb2JqZWN0IFJlc3BvbnNlXSIsIHNvIHB1bGwgb3V0IHRoZSBzdGF0dXMgYW5kIFVSTCBpbnN0ZWFkLgogIGNvbnN0IG1lc3NhZ2UgPQogICAgZXJyb3IgaW5zdGFuY2VvZiBSZXNwb25zZQogICAgICA/IGBSZXNwb25zZSAke2Vycm9yLnN0YXR1c30ke2Vycm9yLnVybCA/IGAgYXQgJHtlcnJvci51cmx9YCA6ICIifWAKICAgICAgOiBlcnJvciBpbnN0YW5jZW9mIEVycm9yCiAgICAgICAgPyBlcnJvci5tZXNzYWdlCiAgICAgICAgOiBTdHJpbmcoZXJyb3IpOwogIGNvbnN0IHN0YWNrID0gZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLnN0YWNrIDogdW5kZWZpbmVkOwogIHdpbmRvdy5fX2xvdmFibGVSZXBvcnRSdW50aW1lRXJyb3I/Lih7CiAgICBtZXNzYWdlLAogICAgLi4uKHN0YWNrICE9PSB1bmRlZmluZWQgJiYgeyBzdGFjayB9KSwKICAgIGZpbGVuYW1lOiB3aW5kb3cubG9jYXRpb24ucGF0aG5hbWUsCiAgfSk7Cn0K
+type LovableErrorOptions = {
+  mechanism?: "manual" | "onerror" | "unhandledrejection" | "react_error_boundary";
+  handled?: boolean;
+  severity?: "error" | "warning" | "info";
+};
+
+type LovableEvents = {
+  track?: (event: string, properties?: Record<string, unknown>) => string | null;
+  captureException?: (
+    error: unknown,
+    context?: Record<string, unknown>,
+    options?: LovableErrorOptions,
+  ) => void;
+};
+
+declare global {
+  interface Window {
+    __lovableEvents?: LovableEvents;
+    __lovableReportRuntimeError?: (payload: {
+      message: string;
+      stack?: string;
+      filename?: string;
+    }) => void;
+  }
+}
+
+export function reportLovableError(error: unknown, context: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+  window.__lovableEvents?.captureException?.(
+    error,
+    {
+      source: "react_error_boundary",
+      route: window.location.pathname,
+      ...context,
+    },
+    {
+      mechanism: "react_error_boundary",
+      handled: false,
+      severity: "error",
+    },
+  );
+  // Prod React does not rethrow boundary-caught errors to window.onerror, so the
+  // editor's telemetry never sees them. Forward to lovable.js's reporting hook,
+  // which is present only inside the editor preview.
+  // Loaders and server fns commonly throw a raw Response; String(it) is the
+  // opaque "[object Response]", so pull out the status and URL instead.
+  const message =
+    error instanceof Response
+      ? `Response ${error.status}${error.url ? ` at ${error.url}` : ""}`
+      : error instanceof Error
+        ? error.message
+        : String(error);
+  const stack = error instanceof Error ? error.stack : undefined;
+  window.__lovableReportRuntimeError?.({
+    message,
+    ...(stack !== undefined && { stack }),
+    filename: window.location.pathname,
+  });
+}

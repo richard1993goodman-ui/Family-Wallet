@@ -1,1 +1,216 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyBjYWxjdWxhdGVIb2xpZGF5LCBub3JtYWxpemVBZ3JlZW1lbnQsIHR5cGUgV29ya2luZ0RheSB9IGZyb20gIi4vYWdyZWVtZW50Lm1vZGVsIjsKaW1wb3J0IHsgcmVxdWlyZVNoYXJlZEZhbWlseSB9IGZyb20gIi4vZmFtaWx5LnNlcnZlciI7CmltcG9ydCB7IGxpc3ROYW5ueVJvd3MgfSBmcm9tICIuL3dhbGxldC5zZXJ2ZXIiOwoKZXhwb3J0IHR5cGUgTGVhdmVUeXBlID0gImhvbGlkYXkiIHwgInNpY2siIHwgInVucGFpZCIgfCAib3RoZXIiOwpleHBvcnQgdHlwZSBMZWF2ZVN0YXR1cyA9ICJwZW5kaW5nIiB8ICJhcHByb3ZlZCIgfCAiZGVjbGluZWQiOwoKZXhwb3J0IHR5cGUgTGVhdmVJbnB1dCA9IHsKICBuYW5ueUlkOiBzdHJpbmc7CiAgbGVhdmVUeXBlOiBMZWF2ZVR5cGU7CiAgc3RhcnREYXRlOiBzdHJpbmc7CiAgZW5kRGF0ZTogc3RyaW5nOwogIG5vdGVzPzogc3RyaW5nOwp9OwoKY29uc3QgREFZX05BTUVTID0gWyJTdW5kYXkiLCAiTW9uZGF5IiwgIlR1ZXNkYXkiLCAiV2VkbmVzZGF5IiwgIlRodXJzZGF5IiwgIkZyaWRheSIsICJTYXR1cmRheSJdOwoKLyoqIFRoZSBVSyBsZWF2ZSB5ZWFyIHdlIHRyYWNrIHJ1bnMgMSBBcHJpbCB0byAzMSBNYXJjaC4gKi8KZXhwb3J0IGZ1bmN0aW9uIGxlYXZlWWVhckJvdW5kcyhyZWZlcmVuY2UgPSBuZXcgRGF0ZSgpKSB7CiAgY29uc3QgeWVhciA9IHJlZmVyZW5jZS5nZXRVVENNb250aCgpID49IDMgPyByZWZlcmVuY2UuZ2V0VVRDRnVsbFllYXIoKSA6IHJlZmVyZW5jZS5nZXRVVENGdWxsWWVhcigpIC0gMTsKICByZXR1cm4gewogICAgc3RhcnQ6IGAke3llYXJ9LTA0LTAxYCwKICAgIGVuZDogYCR7eWVhciArIDF9LTAzLTMxYCwKICAgIGxhYmVsOiBgMSBBcHIgJHt5ZWFyfSDigJMgMzEgTWFyICR7eWVhciArIDF9YCwKICB9Owp9CgovKiogSG93IG1hbnkgb2YgdGhlIG5hbm55J3MgYWdyZWVkIHdvcmtpbmcgZGF5cyBmYWxsIGluc2lkZSB0aGUgcmVxdWVzdGVkIGRhdGVzLiAqLwpleHBvcnQgZnVuY3Rpb24gY291bnRMZWF2ZURheXMoc3RhcnREYXRlOiBzdHJpbmcsIGVuZERhdGU6IHN0cmluZywgd29ya2luZ0RheXM6IFdvcmtpbmdEYXlbXSkgewogIGNvbnN0IHN0YXJ0ID0gbmV3IERhdGUoYCR7c3RhcnREYXRlfVQwMDowMDowMFpgKTsKICBjb25zdCBlbmQgPSBuZXcgRGF0ZShgJHtlbmREYXRlfVQwMDowMDowMFpgKTsKICBpZiAoTnVtYmVyLmlzTmFOKHN0YXJ0LmdldFRpbWUoKSkgfHwgTnVtYmVyLmlzTmFOKGVuZC5nZXRUaW1lKCkpIHx8IGVuZCA8IHN0YXJ0KSByZXR1cm4gMDsKICBjb25zdCBlbmFibGVkID0gbmV3IFNldCgKICAgIHdvcmtpbmdEYXlzLmZpbHRlcigoZCkgPT4gZC5lbmFibGVkKS5tYXAoKGQpID0+IGQuZGF5LnRvTG93ZXJDYXNlKCkpLAogICk7CiAgbGV0IGRheXMgPSAwOwogIGNvbnN0IGN1cnNvciA9IG5ldyBEYXRlKHN0YXJ0KTsKICBsZXQgZ3VhcmQgPSAwOwogIHdoaWxlIChjdXJzb3IgPD0gZW5kICYmIGd1YXJkIDwgNDAwKSB7CiAgICBjb25zdCBuYW1lID0gREFZX05BTUVTW2N1cnNvci5nZXRVVENEYXkoKV0hLnRvTG93ZXJDYXNlKCk7CiAgICBpZiAoZW5hYmxlZC5zaXplID09PSAwID8gY3Vyc29yLmdldFVUQ0RheSgpICE9PSAwICYmIGN1cnNvci5nZXRVVENEYXkoKSAhPT0gNiA6IGVuYWJsZWQuaGFzKG5hbWUpKSB7CiAgICAgIGRheXMgKz0gMTsKICAgIH0KICAgIGN1cnNvci5zZXRVVENEYXRlKGN1cnNvci5nZXRVVENEYXRlKCkgKyAxKTsKICAgIGd1YXJkICs9IDE7CiAgfQogIHJldHVybiBkYXlzOwp9Cgphc3luYyBmdW5jdGlvbiBzY2hlZHVsZXNXaXRoRW50aXRsZW1lbnQoZmFtaWx5SWQ6IHN0cmluZykgewogIGNvbnN0IFtyb3dzLCB7IGRhdGE6IGFncmVlbWVudHMgfV0gPSBhd2FpdCBQcm9taXNlLmFsbChbCiAgICBsaXN0TmFubnlSb3dzKGZhbWlseUlkKSwKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oIm5hbm55X2FncmVlbWVudHMiKQogICAgICAuc2VsZWN0KCJuYW5ueV9pZCwgYWdyZWVtZW50X2RhdGEiKQogICAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseUlkKSwKICBdKTsKICByZXR1cm4gcm93cy5tYXAoKHJvdykgPT4gewogICAgY29uc3QgYWdyZWVtZW50Um93ID0gKGFncmVlbWVudHMgPz8gW10pLmZpbmQoKGEpID0+IGEubmFubnlfaWQgPT09IHJvdy5pZCk7CiAgICBjb25zdCBhZ3JlZW1lbnQgPSBhZ3JlZW1lbnRSb3cgPyBub3JtYWxpemVBZ3JlZW1lbnQoYWdyZWVtZW50Um93LmFncmVlbWVudF9kYXRhKSA6IG51bGw7CiAgICBjb25zdCB3b3JraW5nRGF5cyA9IGFncmVlbWVudD8ud29ya2luZ0RheXMgPz8gW107CiAgICBjb25zdCBob2xpZGF5ID0gYWdyZWVtZW50CiAgICAgID8gY2FsY3VsYXRlSG9saWRheSh3b3JraW5nRGF5cywgYWdyZWVtZW50LmNvbnRyYWN0VHlwZSwgYWdyZWVtZW50LndlZWtzUGVyWWVhcikKICAgICAgOiBudWxsOwogICAgcmV0dXJuIHsKICAgICAgbmFubnlJZDogcm93LmlkLAogICAgICBuYW5ueU5hbWU6IHJvdy5uYW1lLAogICAgICB3b3JraW5nRGF5cywKICAgICAgaGFzQWdyZWVtZW50OiBCb29sZWFuKGFncmVlbWVudCksCiAgICAgIGVudGl0bGVtZW50RGF5czogaG9saWRheT8udG90YWxEYXlzRW50aXRsZW1lbnQgPz8gMCwKICAgICAgZW50aXRsZW1lbnRXZWVrczogaG9saWRheT8udG90YWxXZWVrc0VudGl0bGVtZW50ID8/IDAsCiAgICAgIHdvcmtpbmdEYXlzUGVyV2VlazogaG9saWRheT8ud29ya2luZ0RheXNQZXJXZWVrID8/IDAsCiAgICAgIGNvbnRyYWN0VHlwZTogaG9saWRheT8uY29udHJhY3RUeXBlID8/ICJ5ZWFyLXJvdW5kIiwKICAgIH07CiAgfSk7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkTGVhdmUoc2x1Zzogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeWVhciA9IGxlYXZlWWVhckJvdW5kcygpOwoKICBjb25zdCBbbmFubmllcywgeyBkYXRhOiByZXF1ZXN0cyB9XSA9IGF3YWl0IFByb21pc2UuYWxsKFsKICAgIHNjaGVkdWxlc1dpdGhFbnRpdGxlbWVudChmYW1pbHkuaWQpLAogICAgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgibGVhdmVfcmVxdWVzdHMiKQogICAgICAuc2VsZWN0KCJpZCwgbmFubnlfaWQsIGxlYXZlX3R5cGUsIHN0YXJ0X2RhdGUsIGVuZF9kYXRlLCBkYXlzLCBub3Rlcywgc3RhdHVzLCByZXF1ZXN0ZWRfYnksIGNyZWF0ZWRfYXQiKQogICAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgICAgLmd0ZSgic3RhcnRfZGF0ZSIsIHllYXIuc3RhcnQpCiAgICAgIC5sdGUoInN0YXJ0X2RhdGUiLCB5ZWFyLmVuZCkKICAgICAgLm9yZGVyKCJzdGFydF9kYXRlIiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pLAogIF0pOwoKICBjb25zdCByb3dzID0gcmVxdWVzdHMgPz8gW107CgogIHJldHVybiB7CiAgICBhY2Nlc3M6IGZhbWlseS5hY2Nlc3MsCiAgICBmYW1pbHlOYW1lOiBmYW1pbHkuZmFtaWx5X25hbWUsCiAgICBsZWF2ZVllYXI6IHllYXIsCiAgICBuYW5uaWVzOiBuYW5uaWVzLm1hcCgobikgPT4gewogICAgICBjb25zdCBtaW5lID0gcm93cy5maWx0ZXIoKHIpID0+IHIubmFubnlfaWQgPT09IG4ubmFubnlJZCk7CiAgICAgIGNvbnN0IHRha2VuID0gbWluZQogICAgICAgIC5maWx0ZXIoKHIpID0+IHIuc3RhdHVzID09PSAiYXBwcm92ZWQiICYmIHIubGVhdmVfdHlwZSA9PT0gImhvbGlkYXkiKQogICAgICAgIC5yZWR1Y2UoKHN1bSwgcikgPT4gc3VtICsgTnVtYmVyKHIuZGF5cyksIDApOwogICAgICBjb25zdCBwZW5kaW5nID0gbWluZQogICAgICAgIC5maWx0ZXIoKHIpID0+IHIuc3RhdHVzID09PSAicGVuZGluZyIgJiYgci5sZWF2ZV90eXBlID09PSAiaG9saWRheSIpCiAgICAgICAgLnJlZHVjZSgoc3VtLCByKSA9PiBzdW0gKyBOdW1iZXIoci5kYXlzKSwgMCk7CiAgICAgIGNvbnN0IHNpY2tEYXlzID0gbWluZQogICAgICAgIC5maWx0ZXIoKHIpID0+IHIuc3RhdHVzID09PSAiYXBwcm92ZWQiICYmIHIubGVhdmVfdHlwZSA9PT0gInNpY2siKQogICAgICAgIC5yZWR1Y2UoKHN1bSwgcikgPT4gc3VtICsgTnVtYmVyKHIuZGF5cyksIDApOwogICAgICByZXR1cm4gewogICAgICAgIC4uLm4sCiAgICAgICAgdGFrZW5EYXlzOiBOdW1iZXIodGFrZW4udG9GaXhlZCgxKSksCiAgICAgICAgcGVuZGluZ0RheXM6IE51bWJlcihwZW5kaW5nLnRvRml4ZWQoMSkpLAogICAgICAgIHNpY2tEYXlzOiBOdW1iZXIoc2lja0RheXMudG9GaXhlZCgxKSksCiAgICAgICAgcmVtYWluaW5nRGF5czogTnVtYmVyKChuLmVudGl0bGVtZW50RGF5cyAtIHRha2VuKS50b0ZpeGVkKDEpKSwKICAgICAgfTsKICAgIH0pLAogICAgcmVxdWVzdHM6IHJvd3MubWFwKChyKSA9PiAoewogICAgICBpZDogci5pZCwKICAgICAgbmFubnlJZDogci5uYW5ueV9pZCwKICAgICAgbmFubnlOYW1lOiBuYW5uaWVzLmZpbmQoKG4pID0+IG4ubmFubnlJZCA9PT0gci5uYW5ueV9pZCk/Lm5hbm55TmFtZSA/PyAiTmFubnkiLAogICAgICBsZWF2ZVR5cGU6IHIubGVhdmVfdHlwZSBhcyBMZWF2ZVR5cGUsCiAgICAgIHN0YXJ0RGF0ZTogci5zdGFydF9kYXRlLAogICAgICBlbmREYXRlOiByLmVuZF9kYXRlLAogICAgICBkYXlzOiBOdW1iZXIoci5kYXlzKSwKICAgICAgbm90ZXM6IHIubm90ZXMsCiAgICAgIHN0YXR1czogci5zdGF0dXMgYXMgTGVhdmVTdGF0dXMsCiAgICAgIHJlcXVlc3RlZEJ5OiByLnJlcXVlc3RlZF9ieSwKICAgIH0pKSwKICB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmVxdWVzdExlYXZlKHNsdWc6IHN0cmluZywgaW5wdXQ6IExlYXZlSW5wdXQpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBzaWduIGluIGFnYWluLiIpOwogIGNvbnN0IG5hbm5pZXMgPSBhd2FpdCBzY2hlZHVsZXNXaXRoRW50aXRsZW1lbnQoZmFtaWx5LmlkKTsKICBjb25zdCBuYW5ueSA9IG5hbm5pZXMuZmluZCgobikgPT4gbi5uYW5ueUlkID09PSBpbnB1dC5uYW5ueUlkKTsKICBpZiAoIW5hbm55KSB0aHJvdyBuZXcgRXJyb3IoIkNob29zZSB3aGljaCBuYW5ueSB0aGlzIGxlYXZlIGlzIGZvci4iKTsKCiAgY29uc3QgZGF5cyA9IGNvdW50TGVhdmVEYXlzKGlucHV0LnN0YXJ0RGF0ZSwgaW5wdXQuZW5kRGF0ZSwgbmFubnkud29ya2luZ0RheXMpOwogIGlmIChkYXlzID09PSAwKSB0aHJvdyBuZXcgRXJyb3IoIlRob3NlIGRhdGVzIGRvIG5vdCBpbmNsdWRlIGFueSBhZ3JlZWQgd29ya2luZyBkYXlzLiIpOwoKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oImxlYXZlX3JlcXVlc3RzIikuaW5zZXJ0KHsKICAgIGZhbWlseV9pZDogZmFtaWx5LmlkLAogICAgbmFubnlfaWQ6IG5hbm55Lm5hbm55SWQsCiAgICBsZWF2ZV90eXBlOiBpbnB1dC5sZWF2ZVR5cGUsCiAgICBzdGFydF9kYXRlOiBpbnB1dC5zdGFydERhdGUsCiAgICBlbmRfZGF0ZTogaW5wdXQuZW5kRGF0ZSwKICAgIGRheXMsCiAgICBub3RlczogaW5wdXQubm90ZXM/LnRyaW0oKS5zbGljZSgwLCAxMDAwKSB8fCBudWxsLAogICAgcmVxdWVzdGVkX2J5OiBmYW1pbHkuYWNjZXNzLAogICAgLy8gQSBwYXJlbnQgYm9va2luZyBsZWF2ZSBmb3IgdGhlaXIgbmFubnkgaXMgYWxyZWFkeSBhZ3JlZWQuCiAgICBzdGF0dXM6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gImFwcHJvdmVkIiA6ICJwZW5kaW5nIiwKICAgIHJldmlld2VkX2F0OiBmYW1pbHkuYWNjZXNzID09PSAiZmFtaWx5IiA/IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSA6IG51bGwsCiAgfSk7CiAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7CiAgaWYgKGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiKSBhd2FpdCBhZGRMZWF2ZVRvUGxhbm5lcihmYW1pbHkuaWQsIG5hbm55Lm5hbm55TmFtZSwgaW5wdXQsIGRheXMpOwogIHJldHVybiB7IGRheXMsIGF1dG9BcHByb3ZlZDogZmFtaWx5LmFjY2VzcyA9PT0gImZhbWlseSIgfTsKfQoKYXN5bmMgZnVuY3Rpb24gYWRkTGVhdmVUb1BsYW5uZXIoCiAgZmFtaWx5SWQ6IHN0cmluZywKICBuYW5ueU5hbWU6IHN0cmluZywKICBpbnB1dDogTGVhdmVJbnB1dCwKICBkYXlzOiBudW1iZXIsCikgewogIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGxhbm5lcl9lbnRyaWVzIikuaW5zZXJ0KHsKICAgIGZhbWlseV9pZDogZmFtaWx5SWQsCiAgICBlbnRyeV9kYXRlOiBpbnB1dC5zdGFydERhdGUsCiAgICB0aXRsZTogYCR7bmFubnlOYW1lfSBvbiAke2lucHV0LmxlYXZlVHlwZSA9PT0gInNpY2siID8gInNpY2sgbGVhdmUiIDogImxlYXZlIn1gLAogICAgZW50cnlfdHlwZTogImxlYXZlIiwKICAgIGFkZGVkX2J5OiAiZmFtaWx5IiwKICAgIG5vdGVzOiBgJHtkYXlzfSBkYXkke2RheXMgPT09IDEgPyAiIiA6ICJzIn0gdG8gJHtpbnB1dC5lbmREYXRlfWAsCiAgfSk7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiByZXZpZXdMZWF2ZShzbHVnOiBzdHJpbmcsIGlkOiBzdHJpbmcsIHN0YXR1czogImFwcHJvdmVkIiB8ICJkZWNsaW5lZCIpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5IHx8IGZhbWlseS5hY2Nlc3MgIT09ICJmYW1pbHkiKSB0aHJvdyBuZXcgRXJyb3IoIk9ubHkgYSBwYXJlbnQgY2FuIGFwcHJvdmUgbGVhdmUuIik7CiAgY29uc3QgeyBkYXRhOiByb3csIGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgibGVhdmVfcmVxdWVzdHMiKQogICAgLnVwZGF0ZSh7IHN0YXR1cywgcmV2aWV3ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwgdXBkYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpIH0pCiAgICAuZXEoImlkIiwgaWQpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgIC5zZWxlY3QoIm5hbm55X2lkLCBsZWF2ZV90eXBlLCBzdGFydF9kYXRlLCBlbmRfZGF0ZSwgZGF5cyIpCiAgICAubWF5YmVTaW5nbGUoKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICBpZiAocm93ICYmIHN0YXR1cyA9PT0gImFwcHJvdmVkIikgewogICAgY29uc3QgbmFubmllcyA9IGF3YWl0IHNjaGVkdWxlc1dpdGhFbnRpdGxlbWVudChmYW1pbHkuaWQpOwogICAgY29uc3QgbmFtZSA9IG5hbm5pZXMuZmluZCgobikgPT4gbi5uYW5ueUlkID09PSByb3cubmFubnlfaWQpPy5uYW5ueU5hbWUgPz8gIk5hbm55IjsKICAgIGF3YWl0IGFkZExlYXZlVG9QbGFubmVyKAogICAgICBmYW1pbHkuaWQsCiAgICAgIG5hbWUsCiAgICAgIHsKICAgICAgICBuYW5ueUlkOiByb3cubmFubnlfaWQgPz8gIiIsCiAgICAgICAgbGVhdmVUeXBlOiByb3cubGVhdmVfdHlwZSBhcyBMZWF2ZVR5cGUsCiAgICAgICAgc3RhcnREYXRlOiByb3cuc3RhcnRfZGF0ZSwKICAgICAgICBlbmREYXRlOiByb3cuZW5kX2RhdGUsCiAgICAgIH0sCiAgICAgIE51bWJlcihyb3cuZGF5cyksCiAgICApOwogIH0KfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGNhbmNlbExlYXZlKHNsdWc6IHN0cmluZywgaWQ6IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHNpZ24gaW4gYWdhaW4uIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImxlYXZlX3JlcXVlc3RzIikKICAgIC5kZWxldGUoKQogICAgLmVxKCJpZCIsIGlkKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwp9Cg==
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { calculateHoliday, normalizeAgreement, type WorkingDay } from "./agreement.model";
+import { requireSharedFamily } from "./family.server";
+import { listNannyRows } from "./wallet.server";
+
+export type LeaveType = "holiday" | "sick" | "unpaid" | "other";
+export type LeaveStatus = "pending" | "approved" | "declined";
+
+export type LeaveInput = {
+  nannyId: string;
+  leaveType: LeaveType;
+  startDate: string;
+  endDate: string;
+  notes?: string;
+};
+
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/** The UK leave year we track runs 1 April to 31 March. */
+export function leaveYearBounds(reference = new Date()) {
+  const year = reference.getUTCMonth() >= 3 ? reference.getUTCFullYear() : reference.getUTCFullYear() - 1;
+  return {
+    start: `${year}-04-01`,
+    end: `${year + 1}-03-31`,
+    label: `1 Apr ${year} – 31 Mar ${year + 1}`,
+  };
+}
+
+/** How many of the nanny's agreed working days fall inside the requested dates. */
+export function countLeaveDays(startDate: string, endDate: string, workingDays: WorkingDay[]) {
+  const start = new Date(`${startDate}T00:00:00Z`);
+  const end = new Date(`${endDate}T00:00:00Z`);
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end < start) return 0;
+  const enabled = new Set(
+    workingDays.filter((d) => d.enabled).map((d) => d.day.toLowerCase()),
+  );
+  let days = 0;
+  const cursor = new Date(start);
+  let guard = 0;
+  while (cursor <= end && guard < 400) {
+    const name = DAY_NAMES[cursor.getUTCDay()]!.toLowerCase();
+    if (enabled.size === 0 ? cursor.getUTCDay() !== 0 && cursor.getUTCDay() !== 6 : enabled.has(name)) {
+      days += 1;
+    }
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+    guard += 1;
+  }
+  return days;
+}
+
+async function schedulesWithEntitlement(familyId: string) {
+  const [rows, { data: agreements }] = await Promise.all([
+    listNannyRows(familyId),
+    supabaseAdmin
+      .from("nanny_agreements")
+      .select("nanny_id, agreement_data")
+      .eq("family_id", familyId),
+  ]);
+  return rows.map((row) => {
+    const agreementRow = (agreements ?? []).find((a) => a.nanny_id === row.id);
+    const agreement = agreementRow ? normalizeAgreement(agreementRow.agreement_data) : null;
+    const workingDays = agreement?.workingDays ?? [];
+    const holiday = agreement
+      ? calculateHoliday(workingDays, agreement.contractType, agreement.weeksPerYear)
+      : null;
+    return {
+      nannyId: row.id,
+      nannyName: row.name,
+      workingDays,
+      hasAgreement: Boolean(agreement),
+      entitlementDays: holiday?.totalDaysEntitlement ?? 0,
+      entitlementWeeks: holiday?.totalWeeksEntitlement ?? 0,
+      workingDaysPerWeek: holiday?.workingDaysPerWeek ?? 0,
+      contractType: holiday?.contractType ?? "year-round",
+    };
+  });
+}
+
+export async function loadLeave(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const year = leaveYearBounds();
+
+  const [nannies, { data: requests }] = await Promise.all([
+    schedulesWithEntitlement(family.id),
+    supabaseAdmin
+      .from("leave_requests")
+      .select("id, nanny_id, leave_type, start_date, end_date, days, notes, status, requested_by, created_at")
+      .eq("family_id", family.id)
+      .gte("start_date", year.start)
+      .lte("start_date", year.end)
+      .order("start_date", { ascending: false }),
+  ]);
+
+  const rows = requests ?? [];
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    leaveYear: year,
+    nannies: nannies.map((n) => {
+      const mine = rows.filter((r) => r.nanny_id === n.nannyId);
+      const taken = mine
+        .filter((r) => r.status === "approved" && r.leave_type === "holiday")
+        .reduce((sum, r) => sum + Number(r.days), 0);
+      const pending = mine
+        .filter((r) => r.status === "pending" && r.leave_type === "holiday")
+        .reduce((sum, r) => sum + Number(r.days), 0);
+      const sickDays = mine
+        .filter((r) => r.status === "approved" && r.leave_type === "sick")
+        .reduce((sum, r) => sum + Number(r.days), 0);
+      return {
+        ...n,
+        takenDays: Number(taken.toFixed(1)),
+        pendingDays: Number(pending.toFixed(1)),
+        sickDays: Number(sickDays.toFixed(1)),
+        remainingDays: Number((n.entitlementDays - taken).toFixed(1)),
+      };
+    }),
+    requests: rows.map((r) => ({
+      id: r.id,
+      nannyId: r.nanny_id,
+      nannyName: nannies.find((n) => n.nannyId === r.nanny_id)?.nannyName ?? "Nanny",
+      leaveType: r.leave_type as LeaveType,
+      startDate: r.start_date,
+      endDate: r.end_date,
+      days: Number(r.days),
+      notes: r.notes,
+      status: r.status as LeaveStatus,
+      requestedBy: r.requested_by,
+    })),
+  };
+}
+
+export async function requestLeave(slug: string, input: LeaveInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const nannies = await schedulesWithEntitlement(family.id);
+  const nanny = nannies.find((n) => n.nannyId === input.nannyId);
+  if (!nanny) throw new Error("Choose which nanny this leave is for.");
+
+  const days = countLeaveDays(input.startDate, input.endDate, nanny.workingDays);
+  if (days === 0) throw new Error("Those dates do not include any agreed working days.");
+
+  const { error } = await supabaseAdmin.from("leave_requests").insert({
+    family_id: family.id,
+    nanny_id: nanny.nannyId,
+    leave_type: input.leaveType,
+    start_date: input.startDate,
+    end_date: input.endDate,
+    days,
+    notes: input.notes?.trim().slice(0, 1000) || null,
+    requested_by: family.access,
+    // A parent booking leave for their nanny is already agreed.
+    status: family.access === "family" ? "approved" : "pending",
+    reviewed_at: family.access === "family" ? new Date().toISOString() : null,
+  });
+  if (error) throw new Error(error.message);
+  if (family.access === "family") await addLeaveToPlanner(family.id, nanny.nannyName, input, days);
+  return { days, autoApproved: family.access === "family" };
+}
+
+async function addLeaveToPlanner(
+  familyId: string,
+  nannyName: string,
+  input: LeaveInput,
+  days: number,
+) {
+  await supabaseAdmin.from("planner_entries").insert({
+    family_id: familyId,
+    entry_date: input.startDate,
+    title: `${nannyName} on ${input.leaveType === "sick" ? "sick leave" : "leave"}`,
+    entry_type: "leave",
+    added_by: "family",
+    notes: `${days} day${days === 1 ? "" : "s"} to ${input.endDate}`,
+  });
+}
+
+export async function reviewLeave(slug: string, id: string, status: "approved" | "declined") {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can approve leave.");
+  const { data: row, error } = await supabaseAdmin
+    .from("leave_requests")
+    .update({ status, reviewed_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("family_id", family.id)
+    .select("nanny_id, leave_type, start_date, end_date, days")
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (row && status === "approved") {
+    const nannies = await schedulesWithEntitlement(family.id);
+    const name = nannies.find((n) => n.nannyId === row.nanny_id)?.nannyName ?? "Nanny";
+    await addLeaveToPlanner(
+      family.id,
+      name,
+      {
+        nannyId: row.nanny_id ?? "",
+        leaveType: row.leave_type as LeaveType,
+        startDate: row.start_date,
+        endDate: row.end_date,
+      },
+      Number(row.days),
+    );
+  }
+}
+
+export async function cancelLeave(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const { error } = await supabaseAdmin
+    .from("leave_requests")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}

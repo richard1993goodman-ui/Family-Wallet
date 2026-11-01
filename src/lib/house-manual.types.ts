@@ -1,1 +1,24 @@
-aW1wb3J0IHsgeiB9IGZyb20gInpvZCI7CgpleHBvcnQgY29uc3QgTUFOVUFMX0NBVEVHT1JJRVMgPSBbCiAgeyBpZDogImFjY2VzcyIsIGxhYmVsOiAiQWNjZXNzLCBjb2RlcyAmIGtleXMiLCBleGFtcGxlczogIldpRmksIGFsYXJtLCBsb2NrYm94LCBnYXRlIGFuZCBzY2hvb2wgcGljay11cCBwYXNzd29yZHMiIH0sCiAgeyBpZDogImVtZXJnZW5jaWVzIiwgbGFiZWw6ICJFbWVyZ2VuY2llcyAmIHV0aWxpdGllcyIsIGV4YW1wbGVzOiAiU3RvcGNvY2ssIGZ1c2UgYm9hcmQsIHNwYXJlIGtleXMgYW5kIGVtZXJnZW5jeSBlcXVpcG1lbnQiIH0sCiAgeyBpZDogInJ1bGVzIiwgbGFiZWw6ICJIb3VzZSBydWxlcyAmIGtpdGNoZW4iLCBleGFtcGxlczogIkZvb2QsIHZpc2l0b3JzLCBzY3JlZW4gdGltZSBhbmQgcGhvdG8gcGVybWlzc2lvbnMiIH0sCiAgeyBpZDogImFwcGxpYW5jZXMiLCBsYWJlbDogIkJpbiBkYXlzICYgYXBwbGlhbmNlcyIsIGV4YW1wbGVzOiAiUmVjeWNsaW5nIGRheXMsIHdhc2hpbmcgbWFjaGluZSBhbmQgaGVhdGluZyBpbnN0cnVjdGlvbnMiIH0sCl0gYXMgY29uc3Q7CmV4cG9ydCBjb25zdCBtYW51YWxTbHVnU2NoZW1hID0gei5vYmplY3QoeyBzbHVnOiB6LnN0cmluZygpLnRyaW0oKS5taW4oMSkubWF4KDIwMCkgfSk7CmV4cG9ydCBjb25zdCBtYW51YWxFbnRyeVNjaGVtYSA9IHoub2JqZWN0KHsKICBpZDogei5zdHJpbmcoKS51dWlkKCkub3B0aW9uYWwoKSwKICBjYXRlZ29yeTogei5lbnVtKFsiYWNjZXNzIiwgImVtZXJnZW5jaWVzIiwgInJ1bGVzIiwgImFwcGxpYW5jZXMiXSksCiAgdGl0bGU6IHouc3RyaW5nKCkudHJpbSgpLm1pbigxLCAiQWRkIGEgdGl0bGUuIikubWF4KDEwMCksCiAgbm90ZXM6IHouc3RyaW5nKCkudHJpbSgpLm1heCg0MDAwKSwKICBzZWNyZXRWYWx1ZTogei5zdHJpbmcoKS5tYXgoNTAwKS5vcHRpb25hbCgpLAp9KTsKZXhwb3J0IGNvbnN0IG1hbnVhbElkU2NoZW1hID0gbWFudWFsU2x1Z1NjaGVtYS5leHRlbmQoeyBpZDogei5zdHJpbmcoKS51dWlkKCkgfSk7CmV4cG9ydCB0eXBlIE1hbnVhbElucHV0ID0gei5pbmZlcjx0eXBlb2YgbWFudWFsRW50cnlTY2hlbWE+OwpleHBvcnQgdHlwZSBNYW51YWxSb3cgPSB7IGlkOiBzdHJpbmc7IGNhdGVnb3J5OiBNYW51YWxJbnB1dFsiY2F0ZWdvcnkiXTsgdGl0bGU6IHN0cmluZzsgbm90ZXM6IHN0cmluZzsgaGFzU2VjcmV0OiBib29sZWFuOyB1cGRhdGVkQXQ6IHN0cmluZyB9OwpleHBvcnQgdHlwZSBNYW51YWxEYXRhID0geyBhY2Nlc3M6ICJmYW1pbHkiIHwgIm5hbm55IjsgZW50cmllczogTWFudWFsUm93W10gfTsKZXhwb3J0IGZ1bmN0aW9uIGNhbk1hbmFnZU1hbnVhbChhY2Nlc3M6IHN0cmluZyB8IG51bGwpIHsgcmV0dXJuIGFjY2VzcyA9PT0gImZhbWlseSI7IH0KZXhwb3J0IGZ1bmN0aW9uIG1hbnVhbFN1bW1hcnkocm93OiB7IGlkOiBzdHJpbmc7IGNhdGVnb3J5OiBzdHJpbmc7IHRpdGxlOiBzdHJpbmc7IG5vdGVzOiBzdHJpbmc7IGhhc19zZWNyZXQ6IGJvb2xlYW4gfCBudWxsOyB1cGRhdGVkX2F0OiBzdHJpbmcgfSk6IE1hbnVhbFJvdyB7CiAgcmV0dXJuIHsgaWQ6IHJvdy5pZCwgY2F0ZWdvcnk6IHJvdy5jYXRlZ29yeSBhcyBNYW51YWxSb3dbImNhdGVnb3J5Il0sIHRpdGxlOiByb3cudGl0bGUsIG5vdGVzOiByb3cubm90ZXMsIGhhc1NlY3JldDogcm93Lmhhc19zZWNyZXQgPT09IHRydWUsIHVwZGF0ZWRBdDogcm93LnVwZGF0ZWRfYXQgfTsKfQ==
+import { z } from "zod";
+
+export const MANUAL_CATEGORIES = [
+  { id: "access", label: "Access, codes & keys", examples: "WiFi, alarm, lockbox, gate and school pick-up passwords" },
+  { id: "emergencies", label: "Emergencies & utilities", examples: "Stopcock, fuse board, spare keys and emergency equipment" },
+  { id: "rules", label: "House rules & kitchen", examples: "Food, visitors, screen time and photo permissions" },
+  { id: "appliances", label: "Bin days & appliances", examples: "Recycling days, washing machine and heating instructions" },
+] as const;
+export const manualSlugSchema = z.object({ slug: z.string().trim().min(1).max(200) });
+export const manualEntrySchema = z.object({
+  id: z.string().uuid().optional(),
+  category: z.enum(["access", "emergencies", "rules", "appliances"]),
+  title: z.string().trim().min(1, "Add a title.").max(100),
+  notes: z.string().trim().max(4000),
+  secretValue: z.string().max(500).optional(),
+});
+export const manualIdSchema = manualSlugSchema.extend({ id: z.string().uuid() });
+export type ManualInput = z.infer<typeof manualEntrySchema>;
+export type ManualRow = { id: string; category: ManualInput["category"]; title: string; notes: string; hasSecret: boolean; updatedAt: string };
+export type ManualData = { access: "family" | "nanny"; entries: ManualRow[] };
+export function canManageManual(access: string | null) { return access === "family"; }
+export function manualSummary(row: { id: string; category: string; title: string; notes: string; has_secret: boolean | null; updated_at: string }): ManualRow {
+  return { id: row.id, category: row.category as ManualRow["category"], title: row.title, notes: row.notes, hasSecret: row.has_secret === true, updatedAt: row.updated_at };
+}

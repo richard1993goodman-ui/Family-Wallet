@@ -1,1 +1,23 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy50cmF2ZWxfdHJpcHMgKAogIGlkIHV1aWQgUFJJTUFSWSBLRVkgREVGQVVMVCBnZW5fcmFuZG9tX3V1aWQoKSwKICBmYW1pbHlfaWQgdXVpZCBOT1QgTlVMTCBSRUZFUkVOQ0VTIHB1YmxpYy5mYW1pbGllcyhpZCkgT04gREVMRVRFIENBU0NBREUsCiAgZGVzdGluYXRpb24gdGV4dCBOT1QgTlVMTCwKICBzdGFydF9kYXRlIGRhdGUgTk9UIE5VTEwsCiAgZW5kX2RhdGUgZGF0ZSBOT1QgTlVMTCwKICBhY2NvbW1vZGF0aW9uIHRleHQsCiAgbG9jYWxfZW1lcmdlbmN5IHRleHQsCiAgbmVhcmVzdF9ob3NwaXRhbCB0ZXh0LAogIHRpbWVfZGlmZmVyZW5jZSB0ZXh0LAogIHRyYXZlbF9wYXkgdGV4dCwKICBub3RlcyB0ZXh0LAogIGNoZWNrbGlzdCBqc29uYiBOT1QgTlVMTCBERUZBVUxUICdbXSc6Ompzb25iLAogIGhhbmRvdmVyX25vdGVzIGpzb25iIE5PVCBOVUxMIERFRkFVTFQgJ1tdJzo6anNvbmIsCiAgY3JlYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpLAogIHVwZGF0ZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwpDUkVBVEUgSU5ERVggdHJhdmVsX3RyaXBzX2ZhbWlseV9pZHggT04gcHVibGljLnRyYXZlbF90cmlwcyhmYW1pbHlfaWQsIHN0YXJ0X2RhdGUpOwpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLnRyYXZlbF90cmlwcyBUTyBhdXRoZW50aWNhdGVkOwpHUkFOVCBBTEwgT04gcHVibGljLnRyYXZlbF90cmlwcyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy50cmF2ZWxfdHJpcHMgRU5BQkxFIFJPVyBMRVZFTCBTRUNVUklUWTsKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSB0cmF2ZWwgdHJpcHMiIE9OIHB1YmxpYy50cmF2ZWxfdHJpcHMgRk9SIEFMTCBUTyBhdXRoZW50aWNhdGVkCiAgVVNJTkcgKHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nKSkgV0lUSCBDSEVDSyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKTs=
+CREATE TABLE public.travel_trips (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  destination text NOT NULL,
+  start_date date NOT NULL,
+  end_date date NOT NULL,
+  accommodation text,
+  local_emergency text,
+  nearest_hospital text,
+  time_difference text,
+  travel_pay text,
+  notes text,
+  checklist jsonb NOT NULL DEFAULT '[]'::jsonb,
+  handover_notes jsonb NOT NULL DEFAULT '[]'::jsonb,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX travel_trips_family_idx ON public.travel_trips(family_id, start_date);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.travel_trips TO authenticated;
+GRANT ALL ON public.travel_trips TO service_role;
+ALTER TABLE public.travel_trips ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage travel trips" ON public.travel_trips FOR ALL TO authenticated
+  USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));

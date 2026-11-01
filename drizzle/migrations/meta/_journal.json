@@ -1,1 +1,251 @@
-ewogICJ2ZXJzaW9uIjogIjciLAogICJkaWFsZWN0IjogInBvc3RncmVzcWwiLAogICJlbnRyaWVzIjogWwogICAgewogICAgICAiaWR4IjogMCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTczNDYxMjc4MiwKICAgICAgInRhZyI6ICIwMDAwX2NyZWF0ZV9mYW1pbHlfd2FsbGV0IiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDEsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3ODk3MzQ2NTk5MzksCiAgICAgICJ0YWciOiAiMDAwMV9hZGRfYWNjZXNzX2NvZGVfY29sdW1uIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDIsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3ODk3MzY5OTM5NjIsCiAgICAgICJ0YWciOiAiMDAwMl9hZGRfbmFubnlfY2hlY2tzX2FuZF9jb250YWN0cyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAzLAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzg5NzM3NzY1NTgxLAogICAgICAidGFnIjogIjAwMDNfYWRkX25hbm55dGF4X2NvZGUiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogNCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTg0MDc1OTk3MSwKICAgICAgInRhZyI6ICIwMDA0X2ZhbWlseV9odWIiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogNSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTg0NDY1Nzc0OCwKICAgICAgInRhZyI6ICIwMDA1X2NyZWF0ZV90cmFpbmluZ19hdHRlbXB0cyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiA2LAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzg5ODQ1NjE1ODExLAogICAgICAidGFnIjogIjAwMDZfYWdyZWVtZW50X2FuZF9zaWduYXR1cmVzIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDcsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3ODk4NDY5MDM0NzksCiAgICAgICJ0YWciOiAiMDAwN19hZ3JlZW1lbnRfZnVsbF9idWlsZGVyIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDgsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3ODk4NDg5MDI1NTQsCiAgICAgICJ0YWciOiAiMDAwOF9uYW5ueV9pbnZpdGVfY29kZXMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogOSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTg1MTE4OTM4MiwKICAgICAgInRhZyI6ICIwMDA5X3NoYXJlZF9jYWxlbmRhcl9yZXNvdXJjZXNfdGltZXNoZWV0cyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxMCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTg4Nzk1NjkyMCwKICAgICAgInRhZyI6ICIwMDEwX2FkZF9uYW5ueV9zdXBwb3J0X3VucmVhZCIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxMSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTg4ODg2MzkxNSwKICAgICAgInRhZyI6ICIwMDExX2FkZF9mYW1pbHlfbmFubmllcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxMiwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTkwNjIxNjk0NSwKICAgICAgInRhZyI6ICIwMDEyX2NyZWF0ZV9sZWF2ZV9yZXF1ZXN0cyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxMywKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTkwNjcwNDUwMSwKICAgICAgInRhZyI6ICIwMDEzX2NyZWF0ZV9jb3Zlcl9yZXF1ZXN0cyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxNCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc4OTkwNzExNDQyMywKICAgICAgInRhZyI6ICIwMDE0X2NyZWF0ZV9tZWRpY2F0aW9uX2FuZF9jaGVja2lucyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxNSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MDAyMTkzNjgyMCwKICAgICAgInRhZyI6ICIwMDE1X2NyZWF0ZV9wYXNzcG9ydF9oYW5kb3Zlcl9leHBlbnNlcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxNiwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MDAyMjAyMDY1NywKICAgICAgInRhZyI6ICIwMDE2X2dyYW50X21lbWJlcnNoaXBfdG9vbF90YWJsZXMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMTcsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTAyNzM5OTIwNjMsCiAgICAgICJ0YWciOiAiMDAxN19hZ2VuY3lfY2hhbGxlbmdlcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxOCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MDYxNzE5MTMwMywKICAgICAgInRhZyI6ICIwMDE4X3RyYXZlbF90cmlwcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAxOSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MDYxNzc0MTcyNywKICAgICAgInRhZyI6ICIwMDE5X2FkZF92aXBfcGVya3NfYW5kX3NlYXNvbmFsX3BsYXlib29rcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAyMCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MDYxODQwOTQyNiwKICAgICAgInRhZyI6ICIwMDIwX2FkZF9mYW1pbHlfY29uY2llcmdlX3NlcnZpY2VzIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDIxLAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzkwNjE4NDM1NDY3LAogICAgICAidGFnIjogIjAwMjFfYWRkX25hbm55X3NhZmV0eV9kb2N1bWVudHMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMjIsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTA3MTA0Mzk4OTIsCiAgICAgICJ0YWciOiAiMDAyMl9zZWVkX2RlbW9fZmFtaWx5IiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDIzLAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzkwODU4NDczODYzLAogICAgICAidGFnIjogIjAwMjNfMDAyM193ZWxjb21lX2FuZF9tb21lbnRzIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDI0LAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzkyNjk3OTUyOTczLAogICAgICAidGFnIjogIjAwMjRfZmFtaWx5X2ludHJvX2ZlZSIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAyNSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MzA5OTM2MTY3NiwKICAgICAgInRhZyI6ICIwMDI1X2ZpcnN0XzQ4X2hvdXJzX2NoZWNrbGlzdCIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAyNiwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MzE5OTU2MjI4NiwKICAgICAgInRhZyI6ICIwMDI2X3BhcnRuZXJfYWdlbmNpZXMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMjcsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTMyODUwMTI3NDAsCiAgICAgICJ0YWciOiAiMDAyN19hZ2VuY3lfZmVlc19hbmRfY29udGVudCIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAyOCwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MzI4ODQ2NTQzNiwKICAgICAgInRhZyI6ICIwMDI4X2FnZW5jeV90ZXJtcyIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJpZHgiOiAyOSwKICAgICAgInZlcnNpb24iOiAiNyIsCiAgICAgICJ3aGVuIjogMTc5MzI4OTc5MTkwNiwKICAgICAgInRhZyI6ICIwMDI5X3BldHR5X2Nhc2giLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMzAsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTMyODk4NzE4OTEsCiAgICAgICJ0YWciOiAiMDAzMF9ob3VzZWhvbGRfbWVzc2FnZXMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMzEsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTMyOTA0ODYyNjAsCiAgICAgICJ0YWciOiAiMDAzMV9iYWJ5c2l0dGluZ19zaGlmdF90eXBlIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDMyLAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzkzMjkzMjM5Nzc4LAogICAgICAidGFnIjogIjAwMzJfaG91c2VfbWFudWFsX2VudHJpZXMiLAogICAgICAiYnJlYWtwb2ludHMiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiaWR4IjogMzMsCiAgICAgICJ2ZXJzaW9uIjogIjciLAogICAgICAid2hlbiI6IDE3OTMyOTMyNjY5NDUsCiAgICAgICJ0YWciOiAiMDAzM19ob3VzZV9tYW51YWxfc2VjcmV0X3ByZXNlbmNlIiwKICAgICAgImJyZWFrcG9pbnRzIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImlkeCI6IDM0LAogICAgICAidmVyc2lvbiI6ICI3IiwKICAgICAgIndoZW4iOiAxNzkzMjk1MDYzNjMyLAogICAgICAidGFnIjogIjAwMzRfa2lkc19wbGF5Ym9vayIsCiAgICAgICJicmVha3BvaW50cyI6IHRydWUKICAgIH0KICBdCn0K
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789734612782,
+      "tag": "0000_create_family_wallet",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789734659939,
+      "tag": "0001_add_access_code_column",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789736993962,
+      "tag": "0002_add_nanny_checks_and_contacts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789737765581,
+      "tag": "0003_add_nannytax_code",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789840759971,
+      "tag": "0004_family_hub",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789844657748,
+      "tag": "0005_create_training_attempts",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789845615811,
+      "tag": "0006_agreement_and_signatures",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789846903479,
+      "tag": "0007_agreement_full_builder",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789848902554,
+      "tag": "0008_nanny_invite_codes",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789851189382,
+      "tag": "0009_shared_calendar_resources_timesheets",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789887956920,
+      "tag": "0010_add_nanny_support_unread",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789888863915,
+      "tag": "0011_add_family_nannies",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1789906216945,
+      "tag": "0012_create_leave_requests",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789906704501,
+      "tag": "0013_create_cover_requests",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1789907114423,
+      "tag": "0014_create_medication_and_checkins",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1790021936820,
+      "tag": "0015_create_passport_handover_expenses",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1790022020657,
+      "tag": "0016_grant_membership_tool_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1790273992063,
+      "tag": "0017_agency_challenges",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1790617191303,
+      "tag": "0018_travel_trips",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1790617741727,
+      "tag": "0019_add_vip_perks_and_seasonal_playbooks",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1790618409426,
+      "tag": "0020_add_family_concierge_services",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1790618435467,
+      "tag": "0021_add_nanny_safety_documents",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1790710439892,
+      "tag": "0022_seed_demo_family",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1790858473863,
+      "tag": "0023_0023_welcome_and_moments",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1792697952973,
+      "tag": "0024_family_intro_fee",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793099361676,
+      "tag": "0025_first_48_hours_checklist",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1793199562286,
+      "tag": "0026_partner_agencies",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1793285012740,
+      "tag": "0027_agency_fees_and_content",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1793288465436,
+      "tag": "0028_agency_terms",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1793289791906,
+      "tag": "0029_petty_cash",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1793289871891,
+      "tag": "0030_household_messages",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1793290486260,
+      "tag": "0031_babysitting_shift_type",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1793293239778,
+      "tag": "0032_house_manual_entries",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1793293266945,
+      "tag": "0033_house_manual_secret_presence",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1793295063632,
+      "tag": "0034_kids_playbook",
+      "breakpoints": true
+    }
+  ]
+}

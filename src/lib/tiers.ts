@@ -1,1 +1,50 @@
-ZXhwb3J0IHR5cGUgVGllckJhbmQgPSAiMSIgfCAiMiIgfCAiMyIgfCAiNCIgfCAiNSIgfCAiNi03IjsKCmV4cG9ydCBjb25zdCBUSUVSX0JBTkRTOiB7CiAgdmFsdWU6IFRpZXJCYW5kOwogIGRheXM6IHN0cmluZzsKICBwcmljZTogc3RyaW5nOwogIG5hbWU6IHN0cmluZzsKfVtdID0gWwogIHsgdmFsdWU6ICIxIiwgZGF5czogIjEgZGF5IHBlciB3ZWVrIiwgcHJpY2U6ICLCozUwICsgVkFUIC8gbW9udGgiLCBuYW1lOiAiQnJvbnplIiB9LAogIHsgdmFsdWU6ICIyIiwgZGF5czogIjIgZGF5cyBwZXIgd2VlayIsIHByaWNlOiAiwqM3MCArIFZBVCAvIG1vbnRoIiwgbmFtZTogIlNpbHZlciIgfSwKICB7IHZhbHVlOiAiMyIsIGRheXM6ICIzIGRheXMgcGVyIHdlZWsiLCBwcmljZTogIsKjODAgKyBWQVQgLyBtb250aCIsIG5hbWU6ICJTaWx2ZXIiIH0sCiAgeyB2YWx1ZTogIjQiLCBkYXlzOiAiNCBkYXlzIHBlciB3ZWVrIiwgcHJpY2U6ICLCozEwMCArIFZBVCAvIG1vbnRoIiwgbmFtZTogIkdvbGQiIH0sCiAgeyB2YWx1ZTogIjUiLCBkYXlzOiAiNSBkYXlzIHBlciB3ZWVrIiwgcHJpY2U6ICLCozEyMCArIFZBVCAvIG1vbnRoIiwgbmFtZTogIkdvbGQiIH0sCiAgeyB2YWx1ZTogIjYtNyIsIGRheXM6ICI24oCTNyBkYXlzIHBlciB3ZWVrIiwgcHJpY2U6ICLCozE0MCArIFZBVCAvIG1vbnRoIiwgbmFtZTogIlBsYXRpbnVtIiB9LApdOwoKZXhwb3J0IGZ1bmN0aW9uIHRpZXJGb3IoYmFuZDogc3RyaW5nKSB7CiAgcmV0dXJuIFRJRVJfQkFORFMuZmluZCgodCkgPT4gdC52YWx1ZSA9PT0gYmFuZCkgPz8gVElFUl9CQU5EU1syXSE7Cn0KCmV4cG9ydCBjb25zdCBFWFRSQV9GRUVTID0gWwogIHsgbGFiZWw6ICJBZCBob2MgLyBlbWVyZ2VuY3kg4oCUIDHigJM0IGhvdXJzIiwgdmFsdWU6ICLCozE1ICsgVkFUIC8gZGF5IiB9LAogIHsgbGFiZWw6ICJBZCBob2MgLyBlbWVyZ2VuY3kg4oCUIDQrIGhvdXJzIiwgdmFsdWU6ICLCozIwICsgVkFUIC8gZGF5IiB9LAogIHsgbGFiZWw6ICJIb2xpZGF5IG9yIGxvbmdlciBib29raW5ncyDigJQgb3ZlciAxIHdlZWsiLCB2YWx1ZTogIsKjMTUwICsgVkFUIC8gd2VlayIgfSwKICB7CiAgICBsYWJlbDogIlBsYWNlbWVudCBmZWUg4oCUIG92ZXIgMjAgaG91cnMvd2VlayBNb27igJNGcmkiLAogICAgdmFsdWU6ICIxMCUgKyBWQVQgb2YgYW5udWFsIG5hbm55IHBheSIsCiAgfSwKXTsKCmV4cG9ydCBjb25zdCBUT09MX0xJTktTID0gWwogIHsKICAgIHRpdGxlOiAiVGltZXNoZWV0IGNhbGN1bGF0b3IiLAogICAgZGVzY3JpcHRpb246ICJMb2cgeW91ciBuYW5ueSdzIGhvdXJzIGFuZCByYXRlLCB0aGVuIHNoYXJlIG9yIGRvd25sb2FkIHRoZSBpbnZvaWNlLiIsCiAgICBocmVmOiAiaHR0cHM6Ly9uYW5ueS10aW1lLXBheS5sb3ZhYmxlLmFwcCIsCiAgfSwKICB7CiAgICB0aXRsZTogIk5hbm55IEZ1ZWwiLAogICAgZGVzY3JpcHRpb246ICJNZWFsLCBzbmFjayBhbmQgYmFraW5nIGlkZWFzIHRvIGtlZXAgZXZlcnlvbmUgZ29pbmcgYWZ0ZXIgc2Nob29sLiIsCiAgICBocmVmOiAiaHR0cHM6Ly9uYW5ueS1ub3VyaXNoLWd1aWRlLmxvdmFibGUuYXBwIiwKICB9LAogIHsKICAgIHRpdGxlOiAiTmFubnkgYWN0aXZpdHkgZ3VpZGUiLAogICAgZGVzY3JpcHRpb246ICJBZ2UtYXBwcm9wcmlhdGUgaW5kb29yIGFuZCBvdXRkb29yIGFjdGl2aXR5IGlkZWFzIGluIHNlY29uZHMuIiwKICAgIGhyZWY6ICJodHRwczovL25hbm55Z3VpZGUubG92YWJsZS5hcHAiLAogIH0sCl07CgoKZXhwb3J0IGNvbnN0IFRFUk1TX1ZFUlNJT04gPSAiMjAyNi4xIjsK
+export type TierBand = "1" | "2" | "3" | "4" | "5" | "6-7";
+
+export const TIER_BANDS: {
+  value: TierBand;
+  days: string;
+  price: string;
+  name: string;
+}[] = [
+  { value: "1", days: "1 day per week", price: "£50 + VAT / month", name: "Bronze" },
+  { value: "2", days: "2 days per week", price: "£70 + VAT / month", name: "Silver" },
+  { value: "3", days: "3 days per week", price: "£80 + VAT / month", name: "Silver" },
+  { value: "4", days: "4 days per week", price: "£100 + VAT / month", name: "Gold" },
+  { value: "5", days: "5 days per week", price: "£120 + VAT / month", name: "Gold" },
+  { value: "6-7", days: "6–7 days per week", price: "£140 + VAT / month", name: "Platinum" },
+];
+
+export function tierFor(band: string) {
+  return TIER_BANDS.find((t) => t.value === band) ?? TIER_BANDS[2]!;
+}
+
+export const EXTRA_FEES = [
+  { label: "Ad hoc / emergency — 1–4 hours", value: "£15 + VAT / day" },
+  { label: "Ad hoc / emergency — 4+ hours", value: "£20 + VAT / day" },
+  { label: "Holiday or longer bookings — over 1 week", value: "£150 + VAT / week" },
+  {
+    label: "Placement fee — over 20 hours/week Mon–Fri",
+    value: "10% + VAT of annual nanny pay",
+  },
+];
+
+export const TOOL_LINKS = [
+  {
+    title: "Timesheet calculator",
+    description: "Log your nanny's hours and rate, then share or download the invoice.",
+    href: "https://nanny-time-pay.lovable.app",
+  },
+  {
+    title: "Nanny Fuel",
+    description: "Meal, snack and baking ideas to keep everyone going after school.",
+    href: "https://nanny-nourish-guide.lovable.app",
+  },
+  {
+    title: "Nanny activity guide",
+    description: "Age-appropriate indoor and outdoor activity ideas in seconds.",
+    href: "https://nannyguide.lovable.app",
+  },
+];
+
+
+export const TERMS_VERSION = "2026.1";

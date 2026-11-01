@@ -1,1 +1,140 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgbGlzdE5hbm55Um93cywgc2Vzc2lvbkFjY2VzcyB9IGZyb20gIi4vd2FsbGV0LnNlcnZlciI7CmltcG9ydCB7IERFRkFVTFRfVFJBVkVMX0NIRUNLTElTVCwgdHlwZSBDaGVja2xpc3RJdGVtLCB0eXBlIFRyYXZlbE5vdGUsIHR5cGUgVHJpcElucHV0IH0gZnJvbSAiLi90cmF2ZWwudHlwZXMiOwoKY29uc3QgY2xlYW4gPSAodjogc3RyaW5nIHwgdW5kZWZpbmVkIHwgbnVsbCwgbWF4ID0gMTAwMCkgPT4gewogIGNvbnN0IHQgPSAodiA/PyAiIikudHJpbSgpOwogIHJldHVybiB0ID8gdC5zbGljZSgwLCBtYXgpIDogbnVsbDsKfTsKY29uc3QgaXNEYXRlID0gKHY6IHN0cmluZykgPT4gL15cZHs0fS1cZHsyfS1cZHsyfSQvLnRlc3Qodik7CmNvbnN0IHJpZCA9ICgpID0+IGNyeXB0by5yYW5kb21VVUlEKCk7Cgphc3luYyBmdW5jdGlvbiBhdXRob3Ioc2x1Zzogc3RyaW5nLCBmYW1pbHlJZDogc3RyaW5nLCBmYW1pbHlOYW1lOiBzdHJpbmcpIHsKICBjb25zdCBzID0gYXdhaXQgc2Vzc2lvbkFjY2VzcyhzbHVnKTsKICBpZiAocz8ubGV2ZWwgPT09ICJuYW5ueSIpIHsKICAgIGNvbnN0IG4gPSAoYXdhaXQgbGlzdE5hbm55Um93cyhmYW1pbHlJZCkpLmZpbmQoKHIpID0+IHIuaWQgPT09IHMubmFubnlJZCk7CiAgICByZXR1cm4geyByb2xlOiAibmFubnkiIGFzIGNvbnN0LCBuYW1lOiBuPy5uYW1lID8/ICJOYW5ueSIgfTsKICB9CiAgcmV0dXJuIHsgcm9sZTogImZhbWlseSIgYXMgY29uc3QsIG5hbWU6IGZhbWlseU5hbWUgfTsKfQoKZnVuY3Rpb24gbWFwVHJpcCh0OiB7CiAgaWQ6IHN0cmluZzsgZGVzdGluYXRpb246IHN0cmluZzsgc3RhcnRfZGF0ZTogc3RyaW5nOyBlbmRfZGF0ZTogc3RyaW5nOyBhY2NvbW1vZGF0aW9uOiBzdHJpbmcgfCBudWxsOwogIGxvY2FsX2VtZXJnZW5jeTogc3RyaW5nIHwgbnVsbDsgbmVhcmVzdF9ob3NwaXRhbDogc3RyaW5nIHwgbnVsbDsgdGltZV9kaWZmZXJlbmNlOiBzdHJpbmcgfCBudWxsOwogIHRyYXZlbF9wYXk6IHN0cmluZyB8IG51bGw7IG5vdGVzOiBzdHJpbmcgfCBudWxsOyBjaGVja2xpc3Q6IHVua25vd247IGhhbmRvdmVyX25vdGVzOiB1bmtub3duOwp9KSB7CiAgcmV0dXJuIHsKICAgIGlkOiB0LmlkLAogICAgZGVzdGluYXRpb246IHQuZGVzdGluYXRpb24sCiAgICBzdGFydERhdGU6IHQuc3RhcnRfZGF0ZSwKICAgIGVuZERhdGU6IHQuZW5kX2RhdGUsCiAgICBhY2NvbW1vZGF0aW9uOiB0LmFjY29tbW9kYXRpb24sCiAgICBsb2NhbEVtZXJnZW5jeTogdC5sb2NhbF9lbWVyZ2VuY3ksCiAgICBuZWFyZXN0SG9zcGl0YWw6IHQubmVhcmVzdF9ob3NwaXRhbCwKICAgIHRpbWVEaWZmZXJlbmNlOiB0LnRpbWVfZGlmZmVyZW5jZSwKICAgIHRyYXZlbFBheTogdC50cmF2ZWxfcGF5LAogICAgbm90ZXM6IHQubm90ZXMsCiAgICBjaGVja2xpc3Q6IChBcnJheS5pc0FycmF5KHQuY2hlY2tsaXN0KSA/IHQuY2hlY2tsaXN0IDogW10pIGFzIENoZWNrbGlzdEl0ZW1bXSwKICAgIGhhbmRvdmVyTm90ZXM6IChBcnJheS5pc0FycmF5KHQuaGFuZG92ZXJfbm90ZXMpID8gdC5oYW5kb3Zlcl9ub3RlcyA6IFtdKSBhcyBUcmF2ZWxOb3RlW10sCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRUcmF2ZWwoc2x1Zzogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgidHJhdmVsX3RyaXBzIikKICAgIC5zZWxlY3QoIioiKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAub3JkZXIoInN0YXJ0X2RhdGUiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgIC5saW1pdCgyMCk7CiAgY29uc3QgdG9kYXkgPSBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkuc2xpY2UoMCwgMTApOwogIGNvbnN0IHRyaXBzID0gKGRhdGEgPz8gW10pLm1hcChtYXBUcmlwKTsKICBjb25zdCBhY3RpdmUgPSB0cmlwcy5maW5kKCh0KSA9PiB0LnN0YXJ0RGF0ZSA8PSB0b2RheSAmJiB0LmVuZERhdGUgPj0gdG9kYXkpID8/IG51bGw7CiAgY29uc3QgdXBjb21pbmcgPSBbLi4udHJpcHNdLnJldmVyc2UoKS5maW5kKCh0KSA9PiB0LnN0YXJ0RGF0ZSA+IHRvZGF5KSA/PyBudWxsOwogIHJldHVybiB7IGFjY2VzczogZmFtaWx5LmFjY2VzcywgZmFtaWx5TmFtZTogZmFtaWx5LmZhbWlseV9uYW1lLCB0b2RheSwgdHJpcHMsIGFjdGl2ZSwgdXBjb21pbmcgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNhdmVUcmlwKHNsdWc6IHN0cmluZywgaW5wdXQ6IFRyaXBJbnB1dCkgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkgfHwgZmFtaWx5LmFjY2VzcyAhPT0gImZhbWlseSIpIHRocm93IG5ldyBFcnJvcigiT25seSBwYXJlbnRzIGNhbiBzZXQgdXAgYSB0cmlwLiIpOwogIGNvbnN0IGRlc3RpbmF0aW9uID0gY2xlYW4oaW5wdXQuZGVzdGluYXRpb24sIDEyMCk7CiAgaWYgKCFkZXN0aW5hdGlvbiB8fCAhaXNEYXRlKGlucHV0LnN0YXJ0RGF0ZSkgfHwgIWlzRGF0ZShpbnB1dC5lbmREYXRlKSB8fCBpbnB1dC5lbmREYXRlIDwgaW5wdXQuc3RhcnREYXRlKQogICAgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2UgYWRkIGEgZGVzdGluYXRpb24gYW5kIHZhbGlkIGRhdGVzLiIpOwogIGNvbnN0IHJvdyA9IHsKICAgIGRlc3RpbmF0aW9uLAogICAgc3RhcnRfZGF0ZTogaW5wdXQuc3RhcnREYXRlLAogICAgZW5kX2RhdGU6IGlucHV0LmVuZERhdGUsCiAgICBhY2NvbW1vZGF0aW9uOiBjbGVhbihpbnB1dC5hY2NvbW1vZGF0aW9uKSwKICAgIGxvY2FsX2VtZXJnZW5jeTogY2xlYW4oaW5wdXQubG9jYWxFbWVyZ2VuY3ksIDIwMCksCiAgICBuZWFyZXN0X2hvc3BpdGFsOiBjbGVhbihpbnB1dC5uZWFyZXN0SG9zcGl0YWwpLAogICAgdGltZV9kaWZmZXJlbmNlOiBjbGVhbihpbnB1dC50aW1lRGlmZmVyZW5jZSwgNjApLAogICAgdHJhdmVsX3BheTogY2xlYW4oaW5wdXQudHJhdmVsUGF5LCA0MDApLAogICAgbm90ZXM6IGNsZWFuKGlucHV0Lm5vdGVzLCAyMDAwKSwKICAgIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSwKICB9OwogIGlmIChpbnB1dC5pZCkgewogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJ0cmF2ZWxfdHJpcHMiKS51cGRhdGUocm93KS5lcSgiaWQiLCBpbnB1dC5pZCkuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCk7CiAgICBpZiAoZXJyb3IpIHRocm93IGVycm9yOwogICAgcmV0dXJuIHsgaWQ6IGlucHV0LmlkIH07CiAgfQogIGNvbnN0IGNoZWNrbGlzdCA9IERFRkFVTFRfVFJBVkVMX0NIRUNLTElTVC5tYXAoKGxhYmVsKSA9PiAoeyBpZDogcmlkKCksIGxhYmVsLCBkb25lOiBmYWxzZSB9KSk7CiAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oInRyYXZlbF90cmlwcyIpCiAgICAuaW5zZXJ0KHsgLi4ucm93LCBmYW1pbHlfaWQ6IGZhbWlseS5pZCwgY2hlY2tsaXN0IH0pCiAgICAuc2VsZWN0KCJpZCIpCiAgICAuc2luZ2xlKCk7CiAgaWYgKGVycm9yKSB0aHJvdyBlcnJvcjsKICByZXR1cm4geyBpZDogZGF0YS5pZCB9Owp9Cgphc3luYyBmdW5jdGlvbiBnZXRUcmlwKHNsdWc6IHN0cmluZywgdHJpcElkOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSB0aHJvdyBuZXcgRXJyb3IoIldhbGxldCBsb2NrZWQuIik7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInRyYXZlbF90cmlwcyIpLnNlbGVjdCgiKiIpLmVxKCJpZCIsIHRyaXBJZCkuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkubWF5YmVTaW5nbGUoKTsKICBpZiAoIWRhdGEpIHRocm93IG5ldyBFcnJvcigiVHJpcCBub3QgZm91bmQuIik7CiAgcmV0dXJuIHsgZmFtaWx5LCB0cmlwOiBtYXBUcmlwKGRhdGEpIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiB1cGRhdGVDaGVja2xpc3QoCiAgc2x1Zzogc3RyaW5nLAogIHRyaXBJZDogc3RyaW5nLAogIGFjdGlvbjogeyB0eXBlOiAidG9nZ2xlIjsgaXRlbUlkOiBzdHJpbmcgfSB8IHsgdHlwZTogImFkZCI7IGxhYmVsOiBzdHJpbmcgfSB8IHsgdHlwZTogInJlbW92ZSI7IGl0ZW1JZDogc3RyaW5nIH0sCikgewogIGNvbnN0IHsgdHJpcCB9ID0gYXdhaXQgZ2V0VHJpcChzbHVnLCB0cmlwSWQpOwogIGxldCBsaXN0ID0gdHJpcC5jaGVja2xpc3Q7CiAgaWYgKGFjdGlvbi50eXBlID09PSAidG9nZ2xlIikgbGlzdCA9IGxpc3QubWFwKChpKSA9PiAoaS5pZCA9PT0gYWN0aW9uLml0ZW1JZCA/IHsgLi4uaSwgZG9uZTogIWkuZG9uZSB9IDogaSkpOwogIGlmIChhY3Rpb24udHlwZSA9PT0gInJlbW92ZSIpIGxpc3QgPSBsaXN0LmZpbHRlcigoaSkgPT4gaS5pZCAhPT0gYWN0aW9uLml0ZW1JZCk7CiAgaWYgKGFjdGlvbi50eXBlID09PSAiYWRkIikgewogICAgY29uc3QgbGFiZWwgPSBjbGVhbihhY3Rpb24ubGFiZWwsIDE2MCk7CiAgICBpZiAobGFiZWwpIGxpc3QgPSBbLi4ubGlzdCwgeyBpZDogcmlkKCksIGxhYmVsLCBkb25lOiBmYWxzZSB9XS5zbGljZSgwLCA4MCk7CiAgfQogIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgidHJhdmVsX3RyaXBzIikudXBkYXRlKHsgY2hlY2tsaXN0OiBsaXN0LCB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgfSkuZXEoImlkIiwgdHJpcElkKTsKICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gYWRkVHJhdmVsTm90ZShzbHVnOiBzdHJpbmcsIHRyaXBJZDogc3RyaW5nLCBpbnB1dDogeyBjYXRlZ29yeTogc3RyaW5nOyB0ZXh0OiBzdHJpbmcgfSkgewogIGNvbnN0IHsgZmFtaWx5LCB0cmlwIH0gPSBhd2FpdCBnZXRUcmlwKHNsdWcsIHRyaXBJZCk7CiAgY29uc3QgdGV4dCA9IGNsZWFuKGlucHV0LnRleHQsIDEyMDApOwogIGlmICghdGV4dCkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugd3JpdGUgYSBub3RlLiIpOwogIGNvbnN0IHdobyA9IGF3YWl0IGF1dGhvcihzbHVnLCBmYW1pbHkuaWQsIGZhbWlseS5mYW1pbHlfbmFtZSk7CiAgY29uc3Qgbm90ZTogVHJhdmVsTm90ZSA9IHsKICAgIGlkOiByaWQoKSwKICAgIGNhdGVnb3J5OiBjbGVhbihpbnB1dC5jYXRlZ29yeSwgNDApID8/ICJnZW5lcmFsIiwKICAgIHRleHQsCiAgICBhdXRob3JSb2xlOiB3aG8ucm9sZSwKICAgIGF1dGhvck5hbWU6IHdoby5uYW1lLAogICAgY3JlYXRlZEF0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgfTsKICBjb25zdCBub3RlcyA9IFtub3RlLCAuLi50cmlwLmhhbmRvdmVyTm90ZXNdLnNsaWNlKDAsIDIwMCk7CiAgYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJ0cmF2ZWxfdHJpcHMiKS51cGRhdGUoeyBoYW5kb3Zlcl9ub3Rlczogbm90ZXMsIHVwZGF0ZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSB9KS5lcSgiaWQiLCB0cmlwSWQpOwogIHJldHVybiBub3RlOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gZGVsZXRlVHJpcChzbHVnOiBzdHJpbmcsIHRyaXBJZDogc3RyaW5nKSB7CiAgY29uc3QgeyBmYW1pbHkgfSA9IGF3YWl0IGdldFRyaXAoc2x1ZywgdHJpcElkKTsKICBpZiAoZmFtaWx5LmFjY2VzcyAhPT0gImZhbWlseSIpIHRocm93IG5ldyBFcnJvcigiT25seSBwYXJlbnRzIGNhbiBkZWxldGUgYSB0cmlwLiIpOwogIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgidHJhdmVsX3RyaXBzIikuZGVsZXRlKCkuZXEoImlkIiwgdHJpcElkKS5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKTsKICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9Owp9Cg==
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { listNannyRows, sessionAccess } from "./wallet.server";
+import { DEFAULT_TRAVEL_CHECKLIST, type ChecklistItem, type TravelNote, type TripInput } from "./travel.types";
+
+const clean = (v: string | undefined | null, max = 1000) => {
+  const t = (v ?? "").trim();
+  return t ? t.slice(0, max) : null;
+};
+const isDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const rid = () => crypto.randomUUID();
+
+async function author(slug: string, familyId: string, familyName: string) {
+  const s = await sessionAccess(slug);
+  if (s?.level === "nanny") {
+    const n = (await listNannyRows(familyId)).find((r) => r.id === s.nannyId);
+    return { role: "nanny" as const, name: n?.name ?? "Nanny" };
+  }
+  return { role: "family" as const, name: familyName };
+}
+
+function mapTrip(t: {
+  id: string; destination: string; start_date: string; end_date: string; accommodation: string | null;
+  local_emergency: string | null; nearest_hospital: string | null; time_difference: string | null;
+  travel_pay: string | null; notes: string | null; checklist: unknown; handover_notes: unknown;
+}) {
+  return {
+    id: t.id,
+    destination: t.destination,
+    startDate: t.start_date,
+    endDate: t.end_date,
+    accommodation: t.accommodation,
+    localEmergency: t.local_emergency,
+    nearestHospital: t.nearest_hospital,
+    timeDifference: t.time_difference,
+    travelPay: t.travel_pay,
+    notes: t.notes,
+    checklist: (Array.isArray(t.checklist) ? t.checklist : []) as ChecklistItem[],
+    handoverNotes: (Array.isArray(t.handover_notes) ? t.handover_notes : []) as TravelNote[],
+  };
+}
+
+export async function loadTravel(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin
+    .from("travel_trips")
+    .select("*")
+    .eq("family_id", family.id)
+    .order("start_date", { ascending: false })
+    .limit(20);
+  const today = new Date().toISOString().slice(0, 10);
+  const trips = (data ?? []).map(mapTrip);
+  const active = trips.find((t) => t.startDate <= today && t.endDate >= today) ?? null;
+  const upcoming = [...trips].reverse().find((t) => t.startDate > today) ?? null;
+  return { access: family.access, familyName: family.family_name, today, trips, active, upcoming };
+}
+
+export async function saveTrip(slug: string, input: TripInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only parents can set up a trip.");
+  const destination = clean(input.destination, 120);
+  if (!destination || !isDate(input.startDate) || !isDate(input.endDate) || input.endDate < input.startDate)
+    throw new Error("Please add a destination and valid dates.");
+  const row = {
+    destination,
+    start_date: input.startDate,
+    end_date: input.endDate,
+    accommodation: clean(input.accommodation),
+    local_emergency: clean(input.localEmergency, 200),
+    nearest_hospital: clean(input.nearestHospital),
+    time_difference: clean(input.timeDifference, 60),
+    travel_pay: clean(input.travelPay, 400),
+    notes: clean(input.notes, 2000),
+    updated_at: new Date().toISOString(),
+  };
+  if (input.id) {
+    const { error } = await supabaseAdmin.from("travel_trips").update(row).eq("id", input.id).eq("family_id", family.id);
+    if (error) throw error;
+    return { id: input.id };
+  }
+  const checklist = DEFAULT_TRAVEL_CHECKLIST.map((label) => ({ id: rid(), label, done: false }));
+  const { data, error } = await supabaseAdmin
+    .from("travel_trips")
+    .insert({ ...row, family_id: family.id, checklist })
+    .select("id")
+    .single();
+  if (error) throw error;
+  return { id: data.id };
+}
+
+async function getTrip(slug: string, tripId: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Wallet locked.");
+  const { data } = await supabaseAdmin.from("travel_trips").select("*").eq("id", tripId).eq("family_id", family.id).maybeSingle();
+  if (!data) throw new Error("Trip not found.");
+  return { family, trip: mapTrip(data) };
+}
+
+export async function updateChecklist(
+  slug: string,
+  tripId: string,
+  action: { type: "toggle"; itemId: string } | { type: "add"; label: string } | { type: "remove"; itemId: string },
+) {
+  const { trip } = await getTrip(slug, tripId);
+  let list = trip.checklist;
+  if (action.type === "toggle") list = list.map((i) => (i.id === action.itemId ? { ...i, done: !i.done } : i));
+  if (action.type === "remove") list = list.filter((i) => i.id !== action.itemId);
+  if (action.type === "add") {
+    const label = clean(action.label, 160);
+    if (label) list = [...list, { id: rid(), label, done: false }].slice(0, 80);
+  }
+  await supabaseAdmin.from("travel_trips").update({ checklist: list, updated_at: new Date().toISOString() }).eq("id", tripId);
+  return { ok: true as const };
+}
+
+export async function addTravelNote(slug: string, tripId: string, input: { category: string; text: string }) {
+  const { family, trip } = await getTrip(slug, tripId);
+  const text = clean(input.text, 1200);
+  if (!text) throw new Error("Please write a note.");
+  const who = await author(slug, family.id, family.family_name);
+  const note: TravelNote = {
+    id: rid(),
+    category: clean(input.category, 40) ?? "general",
+    text,
+    authorRole: who.role,
+    authorName: who.name,
+    createdAt: new Date().toISOString(),
+  };
+  const notes = [note, ...trip.handoverNotes].slice(0, 200);
+  await supabaseAdmin.from("travel_trips").update({ handover_notes: notes, updated_at: new Date().toISOString() }).eq("id", tripId);
+  return note;
+}
+
+export async function deleteTrip(slug: string, tripId: string) {
+  const { family } = await getTrip(slug, tripId);
+  if (family.access !== "family") throw new Error("Only parents can delete a trip.");
+  await supabaseAdmin.from("travel_trips").delete().eq("id", tripId).eq("family_id", family.id);
+  return { ok: true as const };
+}

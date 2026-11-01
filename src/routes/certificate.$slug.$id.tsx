@@ -1,1 +1,118 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCBMaW5rIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyBBcnJvd0xlZnQsIEF3YXJkIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKCmltcG9ydCB7IGdldENlcnRpZmljYXRlIH0gZnJvbSAiQC9saWIvdHJhaW5pbmcuZnVuY3Rpb25zIjsKaW1wb3J0IHsgQmFja1RvV2FsbGV0IH0gZnJvbSAiQC9jb21wb25lbnRzL2h1Yi11aSI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvY2VydGlmaWNhdGUvJHNsdWcvJGlkIikoewogIGhlYWQ6ICgpID0+ICh7CiAgICBtZXRhOiBbCiAgICAgIHsgdGl0bGU6ICJUcmFpbmluZyBDZXJ0aWZpY2F0ZSDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBuYW1lOiAiZGVzY3JpcHRpb24iLAogICAgICAgIGNvbnRlbnQ6CiAgICAgICAgICAiQSBjb21wbGV0aW9uIGNlcnRpZmljYXRlIGZvciB0aGUgYWZ0ZXItc2Nob29sIG5hbm55IHRyYWluaW5nLCBzdG9yZWQgaW4geW91ciBGYW1pbHkgV2FsbGV0LiIsCiAgICAgIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzp0aXRsZSIsIGNvbnRlbnQ6ICJUcmFpbmluZyBDZXJ0aWZpY2F0ZSDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiUHJvb2Ygb2YgY29tcGxldGVkIGFmdGVyLXNjaG9vbCBuYW5ueSB0cmFpbmluZy4iLAogICAgICB9LAogICAgICB7IG5hbWU6ICJyb2JvdHMiLCBjb250ZW50OiAibm9pbmRleCIgfSwKICAgIF0sCiAgfSksCiAgY29tcG9uZW50OiBDZXJ0aWZpY2F0ZVBhZ2UsCn0pOwoKZnVuY3Rpb24gQ2VydGlmaWNhdGVQYWdlKCkgewogIGNvbnN0IHsgc2x1ZywgaWQgfSA9IFJvdXRlLnVzZVBhcmFtcygpOwogIGNvbnN0IGxvYWRGbiA9IHVzZVNlcnZlckZuKGdldENlcnRpZmljYXRlKTsKCiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7CiAgICBxdWVyeUtleTogWyJjZXJ0aWZpY2F0ZSIsIHNsdWcsIGlkXSwKICAgIHF1ZXJ5Rm46ICgpID0+IGxvYWRGbih7IGRhdGE6IHsgc2x1ZywgaWQgfSB9KSwKICB9KTsKCiAgaWYgKHF1ZXJ5LmlzTG9hZGluZykgewogICAgcmV0dXJuICgKICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1zYW5kIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICBMb2FkaW5n4oCmCiAgICAgIDwvZGl2PgogICAgKTsKICB9CgogIGlmICghcXVlcnkuZGF0YSkgewogICAgcmV0dXJuICgKICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1zYW5kIHB4LTUgdGV4dC1jZW50ZXIiPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYXgtdy1zbSI+CiAgICAgICAgICA8aDEgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC0yeGwgdGV4dC1wcmltYXJ5Ij5DZXJ0aWZpY2F0ZSBub3QgYXZhaWxhYmxlPC9oMT4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMyB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIFVubG9jayB5b3VyIHdhbGxldCBmaXJzdCwgb3IgY29tcGxldGUgdGhlIHRyYWluaW5nIHRvIGVhcm4gYSBjZXJ0aWZpY2F0ZS4KICAgICAgICAgIDwvcD4KICAgICAgICAgIDxMaW5rCiAgICAgICAgICAgIHRvPSIvdHJhaW5pbmcvJHNsdWciCiAgICAgICAgICAgIHBhcmFtcz17eyBzbHVnIH19CiAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtNCBpbmxpbmUtYmxvY2sgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LXByaW1hcnkgaG92ZXI6dW5kZXJsaW5lIgogICAgICAgICAgPgogICAgICAgICAgICBHbyB0byB0aGUgdHJhaW5pbmcgaHViCiAgICAgICAgICA8L0xpbms+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvZGl2PgogICAgKTsKICB9CgogIGNvbnN0IGNlcnQgPSBxdWVyeS5kYXRhOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy1zYW5kIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctMnhsIHB4LTUgcHktOCI+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTMgcHJpbnQ6aGlkZGVuIj4KICAgICAgICAgIDxMaW5rCiAgICAgICAgICAgIHRvPSIvdHJhaW5pbmcvJHNsdWciCiAgICAgICAgICAgIHBhcmFtcz17eyBzbHVnIH19CiAgICAgICAgICAgIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1mb3JlZ3JvdW5kIgogICAgICAgICAgPgogICAgICAgICAgICA8QXJyb3dMZWZ0IGNsYXNzTmFtZT0iaC00IHctNCIgLz4gQmFjayB0byB0cmFpbmluZwogICAgICAgICAgPC9MaW5rPgogICAgICAgICAgPEJ1dHRvbiB2YXJpYW50PSJvdXRsaW5lIiBzaXplPSJzbSIgb25DbGljaz17KCkgPT4gd2luZG93LnByaW50KCl9PgogICAgICAgICAgICBQcmludCBvciBzYXZlIGFzIFBERgogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgPC9kaXY+CgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC02IHJvdW5kZWQteGwgYm9yZGVyLTIgYm9yZGVyLXByaW1hcnkvMzAgYmctY2FyZCBwLTkgdGV4dC1jZW50ZXIiPgogICAgICAgICAgPEF3YXJkIGNsYXNzTmFtZT0ibXgtYXV0byBoLTEwIHctMTAgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC00IHRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMjRlbV0gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgVGhlIEZhbWlseSBXYWxsZXQKICAgICAgICAgIDwvcD4KICAgICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0zIHRleHQtM3hsIHRleHQtcHJpbWFyeSI+Q2VydGlmaWNhdGUgb2YgY29tcGxldGlvbjwvaDE+CiAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTYgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPlRoaXMgY2VydGlmaWVzIHRoYXQ8L3A+CiAgICAgICAgICA8cCBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0xIHRleHQtMnhsIHRleHQtZm9yZWdyb3VuZCI+e2NlcnQubGVhcm5lcl9uYW1lfTwvcD4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIGhhcyBzdWNjZXNzZnVsbHkgY29tcGxldGVkIHRoZSBBZnRlci1TY2hvb2wgTmFubnkgVHJhaW5pbmcg4oCUIGNvdmVyaW5nIHRoZSBkYWlseSByb3V0aW5lLAogICAgICAgICAgICBzYWZlZ3VhcmRpbmcgY2hpbGRyZW4sIGVtZXJnZW5jaWVzIGFuZCBmaXJzdCBhaWQsIGZvb2QgYW5kIHdlbGxiZWluZywgYW5kIHByb2Zlc3Npb25hbAogICAgICAgICAgICBjb25kdWN0LgogICAgICAgICAgPC9wPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC01IHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgU2NvcmU6IHtjZXJ0LnNjb3JlfSBvdXQgb2Yge2NlcnQudG90YWx9CiAgICAgICAgICA8L3A+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNyBib3JkZXItdCBib3JkZXItYm9yZGVyIHB0LTUgdGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICA8cD4KICAgICAgICAgICAgICBBd2FyZGVkeyIgIn0KICAgICAgICAgICAgICB7bmV3IERhdGUoY2VydC5jb21wbGV0ZWRfYXQpLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7CiAgICAgICAgICAgICAgICBkYXk6ICJudW1lcmljIiwKICAgICAgICAgICAgICAgIG1vbnRoOiAibG9uZyIsCiAgICAgICAgICAgICAgICB5ZWFyOiAibnVtZXJpYyIsCiAgICAgICAgICAgICAgfSl9eyIgIn0KICAgICAgICAgICAgICDCtyBGYW1pbHk6IHtjZXJ0LmZhbWlseU5hbWV9CiAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIj5DZXJ0aWZpY2F0ZSByZWZlcmVuY2Uge2NlcnQuY2VydGlmaWNhdGVfcmVmfTwvcD4KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDxCYWNrVG9XYWxsZXQgc2x1Zz17c2x1Z30gLz4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApOwp9Cg==
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowLeft, Award } from "lucide-react";
+
+import { getCertificate } from "@/lib/training.functions";
+import { BackToWallet } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/certificate/$slug/$id")({
+  head: () => ({
+    meta: [
+      { title: "Training Certificate — The Family Wallet" },
+      {
+        name: "description",
+        content:
+          "A completion certificate for the after-school nanny training, stored in your Family Wallet.",
+      },
+      { property: "og:title", content: "Training Certificate — The Family Wallet" },
+      {
+        property: "og:description",
+        content: "Proof of completed after-school nanny training.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: CertificatePage,
+});
+
+function CertificatePage() {
+  const { slug, id } = Route.useParams();
+  const loadFn = useServerFn(getCertificate);
+
+  const query = useQuery({
+    queryKey: ["certificate", slug, id],
+    queryFn: () => loadFn({ data: { slug, id } }),
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading…
+      </div>
+    );
+  }
+
+  if (!query.data) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand px-5 text-center">
+        <div className="max-w-sm">
+          <h1 className="heading-display text-2xl text-primary">Certificate not available</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Unlock your wallet first, or complete the training to earn a certificate.
+          </p>
+          <Link
+            to="/training/$slug"
+            params={{ slug }}
+            className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+          >
+            Go to the training hub
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const cert = query.data;
+
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-2xl px-5 py-8">
+        <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
+          <Link
+            to="/training/$slug"
+            params={{ slug }}
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to training
+          </Link>
+          <Button variant="outline" size="sm" onClick={() => window.print()}>
+            Print or save as PDF
+          </Button>
+        </div>
+
+        <div className="mt-6 rounded-xl border-2 border-primary/30 bg-card p-9 text-center">
+          <Award className="mx-auto h-10 w-10 text-primary" />
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+            The Family Wallet
+          </p>
+          <h1 className="heading-display mt-3 text-3xl text-primary">Certificate of completion</h1>
+          <p className="mt-6 text-sm text-muted-foreground">This certifies that</p>
+          <p className="heading-display mt-1 text-2xl text-foreground">{cert.learner_name}</p>
+          <p className="mt-5 text-sm text-muted-foreground">
+            has successfully completed the After-School Nanny Training — covering the daily routine,
+            safeguarding children, emergencies and first aid, food and wellbeing, and professional
+            conduct.
+          </p>
+          <p className="mt-5 text-sm font-medium text-foreground">
+            Score: {cert.score} out of {cert.total}
+          </p>
+          <div className="mt-7 border-t border-border pt-5 text-xs text-muted-foreground">
+            <p>
+              Awarded{" "}
+              {new Date(cert.completed_at).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}{" "}
+              · Family: {cert.familyName}
+            </p>
+            <p className="mt-1">Certificate reference {cert.certificate_ref}</p>
+          </div>
+        </div>
+        <BackToWallet slug={slug} />
+      </div>
+    </div>
+  );
+}

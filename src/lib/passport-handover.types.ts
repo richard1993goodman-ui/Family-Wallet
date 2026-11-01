@@ -1,1 +1,63 @@
-ZXhwb3J0IHR5cGUgUGFzc3BvcnRJbnB1dCA9IHsKICBjaGlsZE5hbWU6IHN0cmluZzsKICBhY3Rpdml0eTogc3RyaW5nOwogIHNraWxsQXJlYTogc3RyaW5nOwogIGNvbmZpZGVuY2VMZXZlbDogbnVtYmVyOwogIGVmZm9ydExldmVsOiBudW1iZXI7CiAgbWludXRlczogbnVtYmVyOwogIGJhZGdlPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIG5vdGVzPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIGVudHJ5RGF0ZTogc3RyaW5nOwp9OwoKZXhwb3J0IHR5cGUgSGFuZG92ZXJJbnB1dCA9IHsKICBuYW5ueUlkPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIGhhbmRvdmVyRGF0ZTogc3RyaW5nOwogIGhvbWV3b3JrU3RhdHVzPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIGRpbm5lclN0YXR1cz86IHN0cmluZyB8IHVuZGVmaW5lZDsKICB3YXRlclN0YXR1cz86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBtb29kPzogc3RyaW5nIHwgdW5kZWZpbmVkOwogIGVuZXJneT86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBzY2hvb2xCYWdSZWFkeTogYm9vbGVhbjsKICBwZUtpdFJlYWR5OiBib29sZWFuOwogIHJlYWRpbmdEb25lOiBib29sZWFuOwogIHRvbW9ycm93Tm90ZXM/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAgcGFyZW50Tm90ZXM/OiBzdHJpbmcgfCB1bmRlZmluZWQ7Cn07CgpleHBvcnQgdHlwZSBFeHBlbnNlSW5wdXQgPSB7CiAgbmFubnlJZD86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBleHBlbnNlRGF0ZTogc3RyaW5nOwogIGl0ZW06IHN0cmluZzsKICBhbW91bnQ6IG51bWJlcjsKICBjYXRlZ29yeTogc3RyaW5nOwogIG5vdGVzPzogc3RyaW5nIHwgdW5kZWZpbmVkOwp9OwoKZXhwb3J0IGNvbnN0IFNLSUxMX0FSRUFTID0gWwogIHsgdmFsdWU6ICJmb290YmFsbCIsIGxhYmVsOiAiRm9vdGJhbGwiIH0sCiAgeyB2YWx1ZTogInRlbm5pcyIsIGxhYmVsOiAiVGVubmlzIiB9LAogIHsgdmFsdWU6ICJzd2ltbWluZyIsIGxhYmVsOiAiU3dpbW1pbmciIH0sCiAgeyB2YWx1ZTogImN5Y2xpbmciLCBsYWJlbDogIkN5Y2xpbmciIH0sCiAgeyB2YWx1ZTogImZpdG5lc3MiLCBsYWJlbDogIkZpdG5lc3MiIH0sCiAgeyB2YWx1ZTogIm91dGRvb3IiLCBsYWJlbDogIk91dGRvb3IgYWR2ZW50dXJlIiB9LAogIHsgdmFsdWU6ICJjb25maWRlbmNlIiwgbGFiZWw6ICJDb25maWRlbmNlIiB9LAogIHsgdmFsdWU6ICJnZW5lcmFsIiwgbGFiZWw6ICJHZW5lcmFsIiB9LApdIGFzIGNvbnN0OwoKZXhwb3J0IGNvbnN0IEJBREdFUyA9IFsKICAiRmlyc3QgdHJ5IiwKICAiQ29uZmlkZW5jZSBib29zdCIsCiAgIlRlYW0gcGxheWVyIiwKICAiTmV3IHNraWxsIiwKICAiU2NyZWVuLWZyZWUgd2luIiwKICAiUGVyc29uYWwgYmVzdCIsCl0gYXMgY29uc3Q7CgpleHBvcnQgY29uc3QgRVhQRU5TRV9DQVRFR09SSUVTID0gWwogIHsgdmFsdWU6ICJ0cmFuc3BvcnQiLCBsYWJlbDogIlRyYW5zcG9ydCIgfSwKICB7IHZhbHVlOiAiZm9vZCIsIGxhYmVsOiAiRm9vZC9zbmFja3MiIH0sCiAgeyB2YWx1ZTogImFjdGl2aXR5IiwgbGFiZWw6ICJBY3Rpdml0eSIgfSwKICB7IHZhbHVlOiAia2l0IiwgbGFiZWw6ICJLaXQvc3VwcGxpZXMiIH0sCiAgeyB2YWx1ZTogIm90aGVyIiwgbGFiZWw6ICJPdGhlciIgfSwKXSBhcyBjb25zdDsK
+export type PassportInput = {
+  childName: string;
+  activity: string;
+  skillArea: string;
+  confidenceLevel: number;
+  effortLevel: number;
+  minutes: number;
+  badge?: string | undefined;
+  notes?: string | undefined;
+  entryDate: string;
+};
+
+export type HandoverInput = {
+  nannyId?: string | undefined;
+  handoverDate: string;
+  homeworkStatus?: string | undefined;
+  dinnerStatus?: string | undefined;
+  waterStatus?: string | undefined;
+  mood?: string | undefined;
+  energy?: string | undefined;
+  schoolBagReady: boolean;
+  peKitReady: boolean;
+  readingDone: boolean;
+  tomorrowNotes?: string | undefined;
+  parentNotes?: string | undefined;
+};
+
+export type ExpenseInput = {
+  nannyId?: string | undefined;
+  expenseDate: string;
+  item: string;
+  amount: number;
+  category: string;
+  notes?: string | undefined;
+};
+
+export const SKILL_AREAS = [
+  { value: "football", label: "Football" },
+  { value: "tennis", label: "Tennis" },
+  { value: "swimming", label: "Swimming" },
+  { value: "cycling", label: "Cycling" },
+  { value: "fitness", label: "Fitness" },
+  { value: "outdoor", label: "Outdoor adventure" },
+  { value: "confidence", label: "Confidence" },
+  { value: "general", label: "General" },
+] as const;
+
+export const BADGES = [
+  "First try",
+  "Confidence boost",
+  "Team player",
+  "New skill",
+  "Screen-free win",
+  "Personal best",
+] as const;
+
+export const EXPENSE_CATEGORIES = [
+  { value: "transport", label: "Transport" },
+  { value: "food", label: "Food/snacks" },
+  { value: "activity", label: "Activity" },
+  { value: "kit", label: "Kit/supplies" },
+  { value: "other", label: "Other" },
+] as const;

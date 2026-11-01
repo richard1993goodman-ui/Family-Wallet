@@ -1,1 +1,30 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyBjcmVhdGVDbGllbnQgfSBmcm9tICJAc3VwYWJhc2Uvc3VwYWJhc2UtanMiOwoKZXhwb3J0IHR5cGUgUGFydG5lckJyYW5kID0geyBoYW5kbGU6IHN0cmluZzsgd2FsbGV0TmFtZTogc3RyaW5nOyBhZ2VuY3lOYW1lOiBzdHJpbmcgfTsKCi8qKiBQdWJsaWM6IHJldHVybnMgb25seSB0aGUgZGlzcGxheSBuYW1lIG9mIGFuIGFjdGl2ZSBwYXJ0bmVyIGFnZW5jeSBmb3IgaXRzIGJyYW5kZWQgcGFnZXMuICovCmV4cG9ydCBjb25zdCBnZXRQYXJ0bmVyQnJhbmQgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGQ6IHsgaGFuZGxlOiBzdHJpbmcgfSkgPT4gKHsgaGFuZGxlOiBTdHJpbmcoZC5oYW5kbGUgPz8gIiIpLnRvTG93ZXJDYXNlKCkucmVwbGFjZSgvW15hLXowLTktXS9nLCAiIikuc2xpY2UoMCwgNDApIH0pKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSk6IFByb21pc2U8UGFydG5lckJyYW5kIHwgbnVsbD4gPT4gewogICAgaWYgKCFkYXRhLmhhbmRsZSkgcmV0dXJuIG51bGw7CiAgICBjb25zdCBrZXkgPSBwcm9jZXNzLmVudlsiU1VQQUJBU0VfUFVCTElTSEFCTEVfS0VZIl0hOwogICAgY29uc3QgY2xpZW50ID0gY3JlYXRlQ2xpZW50KHByb2Nlc3MuZW52WyJTVVBBQkFTRV9VUkwiXSEsIGtleSwgewogICAgICBhdXRoOiB7IHBlcnNpc3RTZXNzaW9uOiBmYWxzZSwgYXV0b1JlZnJlc2hUb2tlbjogZmFsc2UgfSwKICAgICAgZ2xvYmFsOiB7CiAgICAgICAgZmV0Y2g6IChpbnB1dCwgaW5pdCkgPT4gewogICAgICAgICAgY29uc3QgaCA9IG5ldyBIZWFkZXJzKGluaXQ/LmhlYWRlcnMpOwogICAgICAgICAgaWYgKGtleS5zdGFydHNXaXRoKCJzYl8iKSAmJiBoLmdldCgiQXV0aG9yaXphdGlvbiIpID09PSBgQmVhcmVyICR7a2V5fWApIGguZGVsZXRlKCJBdXRob3JpemF0aW9uIik7CiAgICAgICAgICBoLnNldCgiYXBpa2V5Iiwga2V5KTsKICAgICAgICAgIHJldHVybiBmZXRjaChpbnB1dCwgeyAuLi5pbml0LCBoZWFkZXJzOiBoIH0pOwogICAgICAgIH0sCiAgICAgIH0sCiAgICB9KTsKICAgIGNvbnN0IHsgZGF0YTogcm93cywgZXJyb3IgfSA9IGF3YWl0IGNsaWVudC5ycGMoImdldF9wYXJ0bmVyX2JyYW5kIiBhcyBuZXZlciwgeyBfaGFuZGxlOiBkYXRhLmhhbmRsZSB9IGFzIG5ldmVyKTsKICAgIGlmIChlcnJvcikgewogICAgICBjb25zb2xlLmVycm9yKCJnZXRfcGFydG5lcl9icmFuZCBmYWlsZWQiLCBlcnJvci5tZXNzYWdlKTsKICAgICAgcmV0dXJuIG51bGw7CiAgICB9CiAgICBjb25zdCByb3cgPSAocm93cyBhcyB1bmtub3duIGFzIHsgaGFuZGxlOiBzdHJpbmc7IHdhbGxldF9uYW1lOiBzdHJpbmc7IGFnZW5jeV9uYW1lOiBzdHJpbmcgfVtdIHwgbnVsbCk/LlswXTsKICAgIHJldHVybiByb3cgPyB7IGhhbmRsZTogcm93LmhhbmRsZSwgd2FsbGV0TmFtZTogcm93LndhbGxldF9uYW1lLCBhZ2VuY3lOYW1lOiByb3cuYWdlbmN5X25hbWUgfSA6IG51bGw7CiAgfSk7Cg==
+import { createServerFn } from "@tanstack/react-start";
+import { createClient } from "@supabase/supabase-js";
+
+export type PartnerBrand = { handle: string; walletName: string; agencyName: string };
+
+/** Public: returns only the display name of an active partner agency for its branded pages. */
+export const getPartnerBrand = createServerFn({ method: "GET" })
+  .inputValidator((d: { handle: string }) => ({ handle: String(d.handle ?? "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) }))
+  .handler(async ({ data }): Promise<PartnerBrand | null> => {
+    if (!data.handle) return null;
+    const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
+    const client = createClient(process.env["SUPABASE_URL"]!, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        fetch: (input, init) => {
+          const h = new Headers(init?.headers);
+          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
+          h.set("apikey", key);
+          return fetch(input, { ...init, headers: h });
+        },
+      },
+    });
+    const { data: rows, error } = await client.rpc("get_partner_brand" as never, { _handle: data.handle } as never);
+    if (error) {
+      console.error("get_partner_brand failed", error.message);
+      return null;
+    }
+    const row = (rows as unknown as { handle: string; wallet_name: string; agency_name: string }[] | null)?.[0];
+    return row ? { handle: row.handle, walletName: row.wallet_name, agencyName: row.agency_name } : null;
+  });

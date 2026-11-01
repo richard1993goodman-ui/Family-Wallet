@@ -1,1 +1,129 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlLCBMaW5rIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAicmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CmltcG9ydCB7IEFycm93TGVmdCwgQ29weSB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBJbnB1dCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9pbnB1dCI7CmltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjsKaW1wb3J0IHsgY2FsY3VsYXRlTmFubnlDb3N0LCB0eXBlIENvc3RJbnB1dCB9IGZyb20gIkAvbGliL25hbm55LWNvc3QubW9kZWwiOwoKY29uc3QgVElUTEUgPSAiTmFubnkgQ29zdCBDYWxjdWxhdG9yIOKAlCBUaGUgRmFtaWx5IFdhbGxldCI7CmNvbnN0IERFU0MgPSAiV29yayBvdXQgdGhlIHRydWUgbW9udGhseSBjb3N0IG9mIGEgbmFubnkgaW4gTG9uZG9uOiB0YWtlLWhvbWUgb3IgZ3Jvc3MgcGF5LCBlbXBsb3llciBOSSwgcGVuc2lvbiBhbmQgcGF5cm9sbC4iOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvY2FsY3VsYXRvciIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiBUSVRMRSB9LAogICAgICB7IG5hbWU6ICJkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6IERFU0MgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogVElUTEUgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwgY29udGVudDogREVTQyB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dHlwZSIsIGNvbnRlbnQ6ICJ3ZWJzaXRlIiB9LAogICAgICB7IG5hbWU6ICJ0d2l0dGVyOmNhcmQiLCBjb250ZW50OiAic3VtbWFyeSIgfSwKICAgIF0sCiAgfSksCiAgY29tcG9uZW50OiBDYWxjdWxhdG9yUGFnZSwKfSk7Cgpjb25zdCBnYnAgPSAodjogbnVtYmVyKSA9PiBuZXcgSW50bC5OdW1iZXJGb3JtYXQoImVuLUdCIiwgeyBzdHlsZTogImN1cnJlbmN5IiwgY3VycmVuY3k6ICJHQlAiLCBtYXhpbXVtRnJhY3Rpb25EaWdpdHM6IDAgfSkuZm9ybWF0KHYpOwpjb25zdCBnYnAyID0gKHY6IG51bWJlcikgPT4gbmV3IEludGwuTnVtYmVyRm9ybWF0KCJlbi1HQiIsIHsgc3R5bGU6ICJjdXJyZW5jeSIsIGN1cnJlbmN5OiAiR0JQIiB9KS5mb3JtYXQodik7CgoKZnVuY3Rpb24gU2VnbWVudGVkPFQgZXh0ZW5kcyBzdHJpbmc+KHsgdmFsdWUsIG9wdGlvbnMsIG9uQ2hhbmdlIH06IHsgdmFsdWU6IFQ7IG9wdGlvbnM6IHsgdmFsdWU6IFQ7IGxhYmVsOiBzdHJpbmcgfVtdOyBvbkNoYW5nZTogKHY6IFQpID0+IHZvaWQgfSkgewogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBncmlkLWNvbHMtMiBnYXAtMSByb3VuZGVkLXhsIGJnLW11dGVkIHAtMSI+CiAgICAgIHtvcHRpb25zLm1hcCgobykgPT4gKAogICAgICAgIDxidXR0b24ga2V5PXtvLnZhbHVlfSB0eXBlPSJidXR0b24iIG9uQ2xpY2s9eygpID0+IG9uQ2hhbmdlKG8udmFsdWUpfQogICAgICAgICAgY2xhc3NOYW1lPXtgcm91bmRlZC1sZyBweC0zIHB5LTIgdGV4dC1zbSBmb250LW1lZGl1bSB0cmFuc2l0aW9uICR7dmFsdWUgPT09IG8udmFsdWUgPyAiYmctY2FyZCB0ZXh0LWZvcmVncm91bmQgc2hhZG93LXNtIiA6ICJ0ZXh0LW11dGVkLWZvcmVncm91bmQifWB9PgogICAgICAgICAge28ubGFiZWx9CiAgICAgICAgPC9idXR0b24+CiAgICAgICkpfQogICAgPC9kaXY+CiAgKTsKfQoKZnVuY3Rpb24gQ2FsY3VsYXRvclBhZ2UoKSB7CiAgY29uc3QgW2lucHV0LCBzZXRJbnB1dF0gPSB1c2VTdGF0ZTxDb3N0SW5wdXQ+KHsgcmF0ZTogMTUsIGJhc2lzOiAibmV0IiwgaG91cnNQZXJEYXk6IDMuNSwgZGF5c1BlcldlZWs6IDMsIHBhdHRlcm46ICJ0ZXJtLXRpbWUiLCB0ZXJtV2Vla3M6IDM4LCBpbmNsdWRlTWVtYmVyc2hpcDogZmFsc2UsIHBheXJvbGxNb250aGx5OiAwIH0pOwogIGNvbnN0IHNldCA9IDxLIGV4dGVuZHMga2V5b2YgQ29zdElucHV0PihrOiBLLCB2OiBDb3N0SW5wdXRbS10pID0+IHNldElucHV0KChvKSA9PiAoeyAuLi5vLCBba106IHYgfSkpOwogIGNvbnN0IG51bSA9IChrOiBrZXlvZiBDb3N0SW5wdXQpID0+IChlOiBSZWFjdC5DaGFuZ2VFdmVudDxIVE1MSW5wdXRFbGVtZW50PikgPT4gc2V0KGssIE51bWJlcihlLnRhcmdldC52YWx1ZSkgYXMgbmV2ZXIpOwogIGNvbnN0IHIgPSBjYWxjdWxhdGVOYW5ueUNvc3QoaW5wdXQpOwoKICBjb25zdCBzdW1tYXJ5ID0gWwogICAgIlRoZSBGYW1pbHkgV2FsbGV0IOKAlCBuYW5ueSBjb3N0IGVzdGltYXRlIiwKICAgIGAke3IuZGF5c30gZGF5JHtyLmRheXMgPiAxID8gInMiIDogIiJ9IMOXICR7aW5wdXQuaG91cnNQZXJEYXl9IGhycyAoJHtyLndlZWtseUhvdXJzfSBocnMvd2VlayksICR7aW5wdXQucGF0dGVybiA9PT0gInRlcm0tdGltZSIgPyBgdGVybS10aW1lLCAke3Iud2Vla3N9IHdlZWtzYCA6ICJ5ZWFyLXJvdW5kIn1gLAogICAgYMKjJHtpbnB1dC5yYXRlfS9ociAke2lucHV0LmJhc2lzfWAsCiAgICBgTmFubnkgdGFrZS1ob21lOiAke2dicChyLm5ldFBheSl9L3lyIMK3IEdyb3NzOiAke2dicChyLmdyb3NzUGF5KX0veXJgLAogICAgYEVtcGxveWVyIE5JOiAke2dicChyLmVtcGxveWVyTmkpfSDCtyBQZW5zaW9uOiAke2dicChyLmVtcGxveWVyUGVuc2lvbil9YCwKICAgIGlucHV0LmluY2x1ZGVNZW1iZXJzaGlwID8gYCR7ci50aWVyLm5hbWV9IG1lbWJlcnNoaXA6IMKjJHtyLnRpZXIubW9udGhseX0gKyBWQVQvbW9udGhgIDogIiIsCiAgICBgRXN0aW1hdGVkIGFsbC1pbjogJHtnYnAoci5tb250aGx5VG90YWwpfS9tb250aCAoJHtnYnAyKHIuYWxsSW5Ib3VybHkpfS9ocilgLAogIF0uZmlsdGVyKEJvb2xlYW4pLmpvaW4oIlxuIik7CgoKICBjb25zdCByb3dzOiBbc3RyaW5nLCBudW1iZXJdW10gPSBbCiAgICBbIk5hbm55IHRha2UtaG9tZSBwYXkiLCByLm5ldFBheV0sCiAgICBbIkluY29tZSB0YXggKHZpYSBwYXlyb2xsKSIsIHIuaW5jb21lVGF4XSwKICAgIFsiTmFubnkncyBOSSAodmlhIHBheXJvbGwpIiwgci5lbXBsb3llZU5pXSwKICAgIFsiTmFubnkncyBwZW5zaW9uICh2aWEgcGF5cm9sbCkiLCByLmVtcGxveWVlUGVuc2lvbl0sCiAgICBbIkdyb3NzIHBheSIsIHIuZ3Jvc3NQYXldLAogICAgWyJFbXBsb3llciBOSSIsIHIuZW1wbG95ZXJOaV0sCiAgICBbIkVtcGxveWVyIHBlbnNpb24gKDMlKSIsIHIuZW1wbG95ZXJQZW5zaW9uXSwKICAgIC4uLihpbnB1dC5pbmNsdWRlTWVtYmVyc2hpcCA/IFtbYCR7ci50aWVyLm5hbWV9IG1lbWJlcnNoaXAgaW5jLiBWQVRgLCByLm1lbWJlcnNoaXBdIGFzIFtzdHJpbmcsIG51bWJlcl1dIDogW10pLAogICAgLi4uKHIucGF5cm9sbCA/IFtbIlBheXJvbGwgc2VydmljZSIsIHIucGF5cm9sbF0gYXMgW3N0cmluZywgbnVtYmVyXV0gOiBbXSksCiAgXTsKCiAgcmV0dXJuICgKICAgIDxtYWluIGNsYXNzTmFtZT0ibWluLWgtc2NyZWVuIGJnLWJhY2tncm91bmQgcHgtNCBweS04IHNtOnB5LTEyIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctM3hsIj4KICAgICAgICA8TGluayB0bz0iLyIgY2xhc3NOYW1lPSJpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEgdGV4dC1zbSB0ZXh0LXByaW1hcnkiPjxBcnJvd0xlZnQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBIb21lPC9MaW5rPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNiB0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdXBwZXJjYXNlIHRyYWNraW5nLVswLjJlbV0gdGV4dC1wcmltYXJ5Ij5QbGFuIHlvdXIgYnVkZ2V0PC9wPgogICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0yIHRleHQtM3hsIHRleHQtZm9yZWdyb3VuZCBzbTp0ZXh0LTR4bCI+V2hhdCB3aWxsIGEgbmFubnkgcmVhbGx5IGNvc3Q/PC9oMT4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5FbnRlciB0aGUgcmF0ZSB5b3UndmUgZGlzY3Vzc2VkIOKAlCB0YWtlLWhvbWUgb3IgZ3Jvc3Mg4oCUIGFuZCBzZWUgeW91ciBmdWxsIG1vbnRobHkgb3V0bGF5LCBpbmNsdWRpbmcgdGF4IGFuZCBwZW5zaW9uLjwvcD4KCiAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtdC04IGdyaWQgZ2FwLTUgcm91bmRlZC0yeGwgYm9yZGVyIGJvcmRlci1ib3JkZXIgYmctY2FyZCBwLTUgc2hhZG93LXNtIHNtOmdyaWQtY29scy0yIHNtOnAtNiI+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic206Y29sLXNwYW4tMiBzcGFjZS15LTIiPgogICAgICAgICAgICA8TGFiZWw+SG91cmx5IHJhdGUgaXPigKY8L0xhYmVsPgogICAgICAgICAgICA8U2VnbWVudGVkIHZhbHVlPXtpbnB1dC5iYXNpc30gb25DaGFuZ2U9eyh2KSA9PiBzZXQoImJhc2lzIiwgdil9IG9wdGlvbnM9e1t7IHZhbHVlOiAibmV0IiwgbGFiZWw6ICJUYWtlLWhvbWUgKG5ldCkiIH0sIHsgdmFsdWU6ICJncm9zcyIsIGxhYmVsOiAiR3Jvc3MiIH1dfSAvPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj48TGFiZWwgaHRtbEZvcj0icmF0ZSI+SG91cmx5IHJhdGUgKMKjKTwvTGFiZWw+PElucHV0IGlkPSJyYXRlIiB0eXBlPSJudW1iZXIiIHN0ZXA9IjAuNSIgbWluPSIwIiB2YWx1ZT17aW5wdXQucmF0ZSB8fCAiIn0gb25DaGFuZ2U9e251bSgicmF0ZSIpfSAvPjwvZGl2PgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMiI+PExhYmVsIGh0bWxGb3I9ImhvdXJzIj5Ib3VycyBwZXIgZGF5PC9MYWJlbD48SW5wdXQgaWQ9ImhvdXJzIiB0eXBlPSJudW1iZXIiIHN0ZXA9IjAuNSIgbWluPSIwIiB2YWx1ZT17aW5wdXQuaG91cnNQZXJEYXkgfHwgIiJ9IG9uQ2hhbmdlPXtudW0oImhvdXJzUGVyRGF5Iil9IC8+PC9kaXY+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj48TGFiZWwgaHRtbEZvcj0iZGF5cyI+RGF5cyBwZXIgd2VlazwvTGFiZWw+PElucHV0IGlkPSJkYXlzIiB0eXBlPSJudW1iZXIiIG1pbj0iMSIgbWF4PSI3IiB2YWx1ZT17aW5wdXQuZGF5c1BlcldlZWsgfHwgIiJ9IG9uQ2hhbmdlPXtudW0oImRheXNQZXJXZWVrIil9IC8+PC9kaXY+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj4KICAgICAgICAgICAgPExhYmVsPldvcmtpbmcgcGF0dGVybjwvTGFiZWw+CiAgICAgICAgICAgIDxTZWdtZW50ZWQgdmFsdWU9e2lucHV0LnBhdHRlcm59IG9uQ2hhbmdlPXsodikgPT4gc2V0KCJwYXR0ZXJuIiwgdil9IG9wdGlvbnM9e1t7IHZhbHVlOiAidGVybS10aW1lIiwgbGFiZWw6ICJUZXJtLXRpbWUiIH0sIHsgdmFsdWU6ICJ5ZWFyLXJvdW5kIiwgbGFiZWw6ICJZZWFyLXJvdW5kIiB9XX0gLz4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAge2lucHV0LnBhdHRlcm4gPT09ICJ0ZXJtLXRpbWUiICYmICgKICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InNwYWNlLXktMiI+PExhYmVsIGh0bWxGb3I9IndlZWtzIj5XZWVrcyB3b3JrZWQgcGVyIHllYXI8L0xhYmVsPjxJbnB1dCBpZD0id2Vla3MiIHR5cGU9Im51bWJlciIgbWluPSIxIiBtYXg9IjUyIiB2YWx1ZT17aW5wdXQudGVybVdlZWtzIHx8ICIifSBvbkNoYW5nZT17bnVtKCJ0ZXJtV2Vla3MiKX0gLz48L2Rpdj4KICAgICAgICAgICl9CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0yIj48TGFiZWwgaHRtbEZvcj0icGF5cm9sbCI+UGF5cm9sbCBzZXJ2aWNlIHBlciBtb250aCAowqMsIG9wdGlvbmFsKTwvTGFiZWw+PElucHV0IGlkPSJwYXlyb2xsIiB0eXBlPSJudW1iZXIiIG1pbj0iMCIgdmFsdWU9e2lucHV0LnBheXJvbGxNb250aGx5IHx8ICIifSBvbkNoYW5nZT17bnVtKCJwYXlyb2xsTW9udGhseSIpfSAvPjwvZGl2PgogICAgICAgIDwvc2VjdGlvbj4KCiAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtdC01IGdyaWQgZ2FwLTMgc206Z3JpZC1jb2xzLTMiPgogICAgICAgICAge1tbIlBlciBtb250aCIsIGdicChyLm1vbnRobHlUb3RhbCksIHRydWVdLCBbIlBlciB3ZWVrIChhdmcpIiwgZ2JwKHIud2Vla2x5VG90YWwpLCBmYWxzZV0sIFsiQWxsLWluIHBlciBob3VyIiwgZ2JwMihyLmFsbEluSG91cmx5KSwgZmFsc2VdXS5tYXAoKFtsLCB2LCBzXSkgPT4gKAogICAgICAgICAgICA8ZGl2IGtleT17U3RyaW5nKGwpfSBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01IHNoYWRvdy1zbSI+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIGZvbnQtc2VtaWJvbGQgdXBwZXJjYXNlIHRyYWNraW5nLVswLjE2ZW1dIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e2x9PC9wPgogICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT17YGhlYWRpbmctZGlzcGxheSBtdC0yIHRleHQtM3hsICR7cyA/ICJ0ZXh0LXByaW1hcnkiIDogInRleHQtZm9yZWdyb3VuZCJ9YH0+e3Z9PC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICkpfQogICAgICAgIDwvc2VjdGlvbj4KCiAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtdC01IHJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01IHNoYWRvdy1zbSBzbTpwLTYiPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj5ZZWFybHkgYnJlYWtkb3duPC9oMj4KICAgICAgICAgIHtpbnB1dC5iYXNpcyA9PT0gIm5ldCIgJiYgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj7Co3tpbnB1dC5yYXRlfS9ociB0YWtlLWhvbWUg4omIIHtnYnAyKHIuZ3Jvc3NIb3VybHkpfS9ociBncm9zcy48L3A+fQogICAgICAgICAge2lucHV0LnBhdHRlcm4gPT09ICJ0ZXJtLXRpbWUiICYmIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+SW5jbHVkZXMgMTIuMDclIHJvbGxlZC11cCBob2xpZGF5IHBheSBmb3IgdGVybS10aW1lIHdvcmsuPC9wPn0KICAgICAgICAgIDxkbCBjbGFzc05hbWU9Im10LTQgZGl2aWRlLXkgZGl2aWRlLWJvcmRlciB0ZXh0LXNtIj4KICAgICAgICAgICAge3Jvd3MubWFwKChbbCwgdl0pID0+ICg8ZGl2IGtleT17bH0gY2xhc3NOYW1lPSJmbGV4IGp1c3RpZnktYmV0d2VlbiBnYXAtNCBweS0yIj48ZHQgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQiPntsfTwvZHQ+PGRkIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj57Z2JwKHYpfTwvZGQ+PC9kaXY+KSl9CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGp1c3RpZnktYmV0d2VlbiBnYXAtNCBwdC0zIHRleHQtYmFzZSI+PGR0IGNsYXNzTmFtZT0iZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQiPlRvdGFsIHllYXJseSBjb3N0IHRvIHlvdTwvZHQ+PGRkIGNsYXNzTmFtZT0iZm9udC1zZW1pYm9sZCB0ZXh0LXByaW1hcnkiPntnYnAoci5hbm51YWxUb3RhbCl9PC9kZD48L2Rpdj4KICAgICAgICAgIDwvZGw+CiAgICAgICAgPC9zZWN0aW9uPgoKICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNSI+CiAgICAgICAgICA8QnV0dG9uIHNpemU9ImxnIiB2YXJpYW50PSJvdXRsaW5lIiBjbGFzc05hbWU9InctZnVsbCIgb25DbGljaz17YXN5bmMgKCkgPT4geyBhd2FpdCBuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dChzdW1tYXJ5KTsgdG9hc3Quc3VjY2VzcygiU3VtbWFyeSBjb3BpZWQg4oCUIHBhc3RlIGl0IGludG8geW91ciBub3RlcyBvciBjaGF0Iik7IH19PjxDb3B5IGNsYXNzTmFtZT0iaC00IHctNCIgLz4gQ29weSBzdW1tYXJ5PC9CdXR0b24+CiAgICAgICAgPC9kaXY+CgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNiB0ZXh0LXhzIGxlYWRpbmctcmVsYXhlZCB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgUGxhbm5pbmcgZXN0aW1hdGUgdXNpbmcgMjAyNi8yNyBVSyByYXRlcyBmb3IgYSBzaW5nbGUgam9iIHdpdGggYSBzdGFuZGFyZCB0YXggY29kZS4gUGVuc2lvbiBhc3N1bWVzIGF1dG8tZW5yb2xtZW50IGF0IDMlIGVtcGxveWVyIC8gNSUgZW1wbG95ZWUgd2hlbiBwYXkgaXMgb3ZlciDCozEwLDAwMC4gWW91ciBuYW5ueSBpcyBlbXBsb3llZCBieSB5b3VyIGhvdXNlaG9sZCwgYW5kIHBheXJvbGwgaXMgcnVuIGJ5IGEgc3BlY2lhbGlzdCBwcm92aWRlciDigJQgd2UgcmVjb21tZW5kIE5hbm55dGF4LiBDb25maXJtIGZpbmFsIGZpZ3VyZXMgd2l0aCB5b3VyIHBheXJvbGwgcHJvdmlkZXIuCiAgICAgICAgPC9wPgoKICAgICAgPC9kaXY+CiAgICA8L21haW4+CiAgKTsKfQo=
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import { ArrowLeft, Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { calculateNannyCost, type CostInput } from "@/lib/nanny-cost.model";
+
+const TITLE = "Nanny Cost Calculator — The Family Wallet";
+const DESC = "Work out the true monthly cost of a nanny in London: take-home or gross pay, employer NI, pension and payroll.";
+
+export const Route = createFileRoute("/calculator")({
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: CalculatorPage,
+});
+
+const gbp = (v: number) => new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }).format(v);
+const gbp2 = (v: number) => new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(v);
+
+
+function Segmented<T extends string>({ value, options, onChange }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
+  return (
+    <div className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1">
+      {options.map((o) => (
+        <button key={o.value} type="button" onClick={() => onChange(o.value)}
+          className={`rounded-lg px-3 py-2 text-sm font-medium transition ${value === o.value ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function CalculatorPage() {
+  const [input, setInput] = useState<CostInput>({ rate: 15, basis: "net", hoursPerDay: 3.5, daysPerWeek: 3, pattern: "term-time", termWeeks: 38, includeMembership: false, payrollMonthly: 0 });
+  const set = <K extends keyof CostInput>(k: K, v: CostInput[K]) => setInput((o) => ({ ...o, [k]: v }));
+  const num = (k: keyof CostInput) => (e: React.ChangeEvent<HTMLInputElement>) => set(k, Number(e.target.value) as never);
+  const r = calculateNannyCost(input);
+
+  const summary = [
+    "The Family Wallet — nanny cost estimate",
+    `${r.days} day${r.days > 1 ? "s" : ""} × ${input.hoursPerDay} hrs (${r.weeklyHours} hrs/week), ${input.pattern === "term-time" ? `term-time, ${r.weeks} weeks` : "year-round"}`,
+    `£${input.rate}/hr ${input.basis}`,
+    `Nanny take-home: ${gbp(r.netPay)}/yr · Gross: ${gbp(r.grossPay)}/yr`,
+    `Employer NI: ${gbp(r.employerNi)} · Pension: ${gbp(r.employerPension)}`,
+    input.includeMembership ? `${r.tier.name} membership: £${r.tier.monthly} + VAT/month` : "",
+    `Estimated all-in: ${gbp(r.monthlyTotal)}/month (${gbp2(r.allInHourly)}/hr)`,
+  ].filter(Boolean).join("\n");
+
+
+  const rows: [string, number][] = [
+    ["Nanny take-home pay", r.netPay],
+    ["Income tax (via payroll)", r.incomeTax],
+    ["Nanny's NI (via payroll)", r.employeeNi],
+    ["Nanny's pension (via payroll)", r.employeePension],
+    ["Gross pay", r.grossPay],
+    ["Employer NI", r.employerNi],
+    ["Employer pension (3%)", r.employerPension],
+    ...(input.includeMembership ? [[`${r.tier.name} membership inc. VAT`, r.membership] as [string, number]] : []),
+    ...(r.payroll ? [["Payroll service", r.payroll] as [string, number]] : []),
+  ];
+
+  return (
+    <main className="min-h-screen bg-background px-4 py-8 sm:py-12">
+      <div className="mx-auto max-w-3xl">
+        <Link to="/" className="inline-flex items-center gap-1 text-sm text-primary"><ArrowLeft className="h-4 w-4" /> Home</Link>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Plan your budget</p>
+        <h1 className="heading-display mt-2 text-3xl text-foreground sm:text-4xl">What will a nanny really cost?</h1>
+        <p className="mt-3 text-muted-foreground">Enter the rate you've discussed — take-home or gross — and see your full monthly outlay, including tax and pension.</p>
+
+        <section className="mt-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm sm:grid-cols-2 sm:p-6">
+          <div className="sm:col-span-2 space-y-2">
+            <Label>Hourly rate is…</Label>
+            <Segmented value={input.basis} onChange={(v) => set("basis", v)} options={[{ value: "net", label: "Take-home (net)" }, { value: "gross", label: "Gross" }]} />
+          </div>
+          <div className="space-y-2"><Label htmlFor="rate">Hourly rate (£)</Label><Input id="rate" type="number" step="0.5" min="0" value={input.rate || ""} onChange={num("rate")} /></div>
+          <div className="space-y-2"><Label htmlFor="hours">Hours per day</Label><Input id="hours" type="number" step="0.5" min="0" value={input.hoursPerDay || ""} onChange={num("hoursPerDay")} /></div>
+          <div className="space-y-2"><Label htmlFor="days">Days per week</Label><Input id="days" type="number" min="1" max="7" value={input.daysPerWeek || ""} onChange={num("daysPerWeek")} /></div>
+          <div className="space-y-2">
+            <Label>Working pattern</Label>
+            <Segmented value={input.pattern} onChange={(v) => set("pattern", v)} options={[{ value: "term-time", label: "Term-time" }, { value: "year-round", label: "Year-round" }]} />
+          </div>
+          {input.pattern === "term-time" && (
+            <div className="space-y-2"><Label htmlFor="weeks">Weeks worked per year</Label><Input id="weeks" type="number" min="1" max="52" value={input.termWeeks || ""} onChange={num("termWeeks")} /></div>
+          )}
+          <div className="space-y-2"><Label htmlFor="payroll">Payroll service per month (£, optional)</Label><Input id="payroll" type="number" min="0" value={input.payrollMonthly || ""} onChange={num("payrollMonthly")} /></div>
+        </section>
+
+        <section className="mt-5 grid gap-3 sm:grid-cols-3">
+          {[["Per month", gbp(r.monthlyTotal), true], ["Per week (avg)", gbp(r.weeklyTotal), false], ["All-in per hour", gbp2(r.allInHourly), false]].map(([l, v, s]) => (
+            <div key={String(l)} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{l}</p>
+              <p className={`heading-display mt-2 text-3xl ${s ? "text-primary" : "text-foreground"}`}>{v}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-5 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+          <h2 className="font-medium text-foreground">Yearly breakdown</h2>
+          {input.basis === "net" && <p className="mt-1 text-sm text-muted-foreground">£{input.rate}/hr take-home ≈ {gbp2(r.grossHourly)}/hr gross.</p>}
+          {input.pattern === "term-time" && <p className="mt-1 text-sm text-muted-foreground">Includes 12.07% rolled-up holiday pay for term-time work.</p>}
+          <dl className="mt-4 divide-y divide-border text-sm">
+            {rows.map(([l, v]) => (<div key={l} className="flex justify-between gap-4 py-2"><dt className="text-muted-foreground">{l}</dt><dd className="font-medium text-foreground">{gbp(v)}</dd></div>))}
+            <div className="flex justify-between gap-4 pt-3 text-base"><dt className="font-semibold text-foreground">Total yearly cost to you</dt><dd className="font-semibold text-primary">{gbp(r.annualTotal)}</dd></div>
+          </dl>
+        </section>
+
+        <div className="mt-5">
+          <Button size="lg" variant="outline" className="w-full" onClick={async () => { await navigator.clipboard.writeText(summary); toast.success("Summary copied — paste it into your notes or chat"); }}><Copy className="h-4 w-4" /> Copy summary</Button>
+        </div>
+
+        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
+          Planning estimate using 2026/27 UK rates for a single job with a standard tax code. Pension assumes auto-enrolment at 3% employer / 5% employee when pay is over £10,000. Your nanny is employed by your household, and payroll is run by a specialist provider — we recommend Nannytax. Confirm final figures with your payroll provider.
+        </p>
+
+      </div>
+    </main>
+  );
+}

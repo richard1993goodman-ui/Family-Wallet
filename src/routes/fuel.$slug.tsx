@@ -1,1 +1,13 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IFJlc291cmNlSHViIH0gZnJvbSAiQC9jb21wb25lbnRzL1Jlc291cmNlSHViIjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL2Z1ZWwvJHNsdWciKSh7CiAgaGVhZDogKCkgPT4gKHsgbWV0YTogWwogICAgeyB0aXRsZTogIk5hbm55IEZ1ZWwg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgeyBuYW1lOiAiZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQ3JlYXRlLCBzYXZlIGFuZCBwbGFuIGZhbWlseSBtZWFscyBpbiB5b3VyIHByaXZhdGUgd2FsbGV0LiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0aXRsZSIsIGNvbnRlbnQ6ICJOYW5ueSBGdWVsIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJDcmVhdGUsIHNhdmUgYW5kIHBsYW4gZmFtaWx5IG1lYWxzLiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sIHsgbmFtZTogInR3aXR0ZXI6Y2FyZCIsIGNvbnRlbnQ6ICJzdW1tYXJ5IiB9LCB7IG5hbWU6ICJyb2JvdHMiLCBjb250ZW50OiAibm9pbmRleCIgfSwKICBdIH0pLAogIGNvbXBvbmVudDogKCkgPT4gPFJlc291cmNlSHViIHNsdWc9e1JvdXRlLnVzZVBhcmFtcygpLnNsdWd9IGtpbmQ9Im1lYWwiIC8+LAp9KTsK
+import { createFileRoute } from "@tanstack/react-router";
+import { ResourceHub } from "@/components/ResourceHub";
+
+export const Route = createFileRoute("/fuel/$slug")({
+  head: () => ({ meta: [
+    { title: "Nanny Fuel — The Family Wallet" },
+    { name: "description", content: "Create, save and plan family meals in your private wallet." },
+    { property: "og:title", content: "Nanny Fuel — The Family Wallet" },
+    { property: "og:description", content: "Create, save and plan family meals." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
+  ] }),
+  component: () => <ResourceHub slug={Route.useParams().slug} kind="meal" />,
+});

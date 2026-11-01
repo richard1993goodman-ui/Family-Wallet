@@ -1,1 +1,66 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgQ29weSwgRXh0ZXJuYWxMaW5rLCBHaWZ0LCBNYXBQaW4gfSBmcm9tICJsdWNpZGUtcmVhY3QiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CgppbXBvcnQgeyBDYXJkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IGdldFBlcmtzIH0gZnJvbSAiQC9saWIvcHJlbWl1bS1jb250ZW50LmZ1bmN0aW9ucyI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9wZXJrcy8kc2x1ZyIpKHsKICBoZWFkOiAoKSA9PiAoeyBtZXRhOiBbCiAgICB7IHRpdGxlOiAiRmFtaWx5IHBlcmtzIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgIHsgbmFtZTogImRlc2NyaXB0aW9uIiwgY29udGVudDogIlByaXZhdGUgTG9uZG9uIHBhcnRuZXIgb2ZmZXJzIGFuZCBmYW1pbHkgY29uY2llcmdlIHJlY29tbWVuZGF0aW9ucyBmb3IgeW91ciBmYW1pbHkuIiB9LAogICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkZhbWlseSBwZXJrcyDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiUHJpdmF0ZSBMb25kb24gcGFydG5lciBvZmZlcnMgYW5kIGZhbWlseSBjb25jaWVyZ2UgcmVjb21tZW5kYXRpb25zLiIgfSwKICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICB7IG5hbWU6ICJ0d2l0dGVyOmNhcmQiLCBjb250ZW50OiAic3VtbWFyeSIgfSwKICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogIF0gfSksCiAgY29tcG9uZW50OiBQZXJrc1BhZ2UsCn0pOwoKZnVuY3Rpb24gUGVya3NQYWdlKCkgewogIGNvbnN0IHsgc2x1ZyB9ID0gUm91dGUudXNlUGFyYW1zKCk7CiAgY29uc3QgZmV0Y2hQZXJrcyA9IHVzZVNlcnZlckZuKGdldFBlcmtzKTsKICBjb25zdCB7IGRhdGEsIGlzTG9hZGluZyB9ID0gdXNlUXVlcnkoeyBxdWVyeUtleTogWyJwYXJ0bmVyLXBlcmtzIiwgc2x1Z10sIHF1ZXJ5Rm46ICgpID0+IGZldGNoUGVya3MoeyBkYXRhOiB7IHNsdWcgfSB9KSB9KTsKICBjb25zdCBbY2F0ZWdvcnksIHNldENhdGVnb3J5XSA9IHVzZVN0YXRlKCJBbGwiKTsKICBpZiAoaXNMb2FkaW5nKSByZXR1cm4gPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IkZhbWlseSBwZXJrcyI+PHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+TG9hZGluZyB5b3VyIG9mZmVyc+KApjwvcD48L0h1YlBhZ2U+OwogIGlmICghZGF0YSkgcmV0dXJuIDxIdWJQYWdlIHNsdWc9e3NsdWd9IHRpdGxlPSJGYW1pbHkgcGVya3MiPjxMb2NrZWROb3RpY2Ugc2x1Zz17c2x1Z30gLz48L0h1YlBhZ2U+OwogIGNvbnN0IGNhdGVnb3JpZXMgPSBbIkFsbCIsIC4uLkFycmF5LmZyb20obmV3IFNldChkYXRhLnBlcmtzLm1hcCgocGVyaykgPT4gcGVyay5jYXRlZ29yeSkpKV07CiAgY29uc3Qgc2hvd24gPSBkYXRhLnBlcmtzLmZpbHRlcigocGVyaykgPT4gY2F0ZWdvcnkgPT09ICJBbGwiIHx8IHBlcmsuY2F0ZWdvcnkgPT09IGNhdGVnb3J5KTsKICByZXR1cm4gKAogICAgPEh1YlBhZ2Ugc2x1Zz17c2x1Z30gdGl0bGU9IkZhbWlseSBwZXJrcyAmIExvbmRvbiBDb25jaWVyZ2UiIGludHJvPSJBIHByaXZhdGUgZWRpdCBvZiB0cnVzdGVkIExvbmRvbiBwYXJ0bmVycywgcHJpb3JpdHkgYWNjZXNzIGFuZCBtZW1iZXItb25seSBvZmZlcnMgc2VsZWN0ZWQgZm9yIGJ1c3kgZmFtaWxpZXMuIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im1iLTUgZmxleCBmbGV4LXdyYXAgZ2FwLTIiPgogICAgICAgIHtjYXRlZ29yaWVzLm1hcCgoaXRlbSkgPT4gPEJ1dHRvbiBrZXk9e2l0ZW19IHNpemU9InNtIiB2YXJpYW50PXtjYXRlZ29yeSA9PT0gaXRlbSA/ICJkZWZhdWx0IiA6ICJvdXRsaW5lIn0gb25DbGljaz17KCkgPT4gc2V0Q2F0ZWdvcnkoaXRlbSl9PntpdGVtfTwvQnV0dG9uPil9CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS00Ij4KICAgICAgICB7c2hvd24ubGVuZ3RoID09PSAwICYmIDxDYXJkPjxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPkZyZXNoIG1lbWJlciBwZXJrcyBhcmUgYmVpbmcgY3VyYXRlZC4gUGxlYXNlIGNoZWNrIGJhY2sgc29vbi48L3A+PC9DYXJkPn0KICAgICAgICB7c2hvd24ubWFwKChwZXJrKSA9PiAoCiAgICAgICAgICA8Q2FyZCBrZXk9e3BlcmsuaWR9PgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBqdXN0aWZ5LWJldHdlZW4gZ2FwLTQiPgogICAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMThlbV0gdGV4dC1wcmltYXJ5Ij57cGVyay5jYXRlZ29yeX08L3A+CiAgICAgICAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbXQtMSB0ZXh0LXhsIHRleHQtZm9yZWdyb3VuZCI+e3BlcmsudGl0bGV9PC9oMj4KICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSBmb250LW1lZGl1bSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntwZXJrLnBhcnRuZXJfbmFtZX08L3A+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPEdpZnQgY2xhc3NOYW1lPSJoLTYgdy02IHNocmluay0wIHRleHQtcHJpbWFyeSIgLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNCByb3VuZGVkLWxnIGJnLWFjY2VudC8zNSBwLTMgZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj57cGVyay5vZmZlcl90ZXh0fTwvcD4KICAgICAgICAgICAge3BlcmsuZGVzY3JpcHRpb24gJiYgPHAgY2xhc3NOYW1lPSJtdC0zIHdoaXRlc3BhY2UtcHJlLWxpbmUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntwZXJrLmRlc2NyaXB0aW9ufTwvcD59CiAgICAgICAgICAgIHtwZXJrLmFyZWEgJiYgPHAgY2xhc3NOYW1lPSJtdC0zIGZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPjxNYXBQaW4gY2xhc3NOYW1lPSJoLTQgdy00IiAvPntwZXJrLmFyZWF9PC9wPn0KICAgICAgICAgICAge3Blcmsub2ZmZXJfY29kZSAmJiA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBmbGV4IGZsZXgtd3JhcCBpdGVtcy1jZW50ZXIgZ2FwLTIiPjxjb2RlIGNsYXNzTmFtZT0icm91bmRlZC1tZCBiZy1tdXRlZCBweC0zIHB5LTIgZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQiPntwZXJrLm9mZmVyX2NvZGV9PC9jb2RlPjxCdXR0b24gc2l6ZT0ic20iIHZhcmlhbnQ9Im91dGxpbmUiIG9uQ2xpY2s9eygpID0+IHsgdm9pZCBuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dChwZXJrLm9mZmVyX2NvZGUgPz8gIiIpOyB0b2FzdC5zdWNjZXNzKCJNZW1iZXIgY29kZSBjb3BpZWQiKTsgfX0+PENvcHkgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBDb3B5PC9CdXR0b24+PC9kaXY+fQogICAgICAgICAgICB7cGVyay5yZWRlbXB0aW9uX2luc3RydWN0aW9ucyAmJiA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC1zbSI+PHNwYW4gY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPkhvdyB0byBjbGFpbTogPC9zcGFuPjxzcGFuIGNsYXNzTmFtZT0idGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57cGVyay5yZWRlbXB0aW9uX2luc3RydWN0aW9uc308L3NwYW4+PC9wPn0KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTQgZmxleCBmbGV4LXdyYXAgaXRlbXMtY2VudGVyIGdhcC0zIj4KICAgICAgICAgICAgICB7cGVyay53ZWJzaXRlX3VybCAmJiA8QnV0dG9uIGFzQ2hpbGQ+PGEgaHJlZj17cGVyay53ZWJzaXRlX3VybH0gdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+VmlzaXQgcGFydG5lciA8RXh0ZXJuYWxMaW5rIGNsYXNzTmFtZT0iaC00IHctNCIgLz48L2E+PC9CdXR0b24+fQogICAgICAgICAgICAgIHtwZXJrLmNvbnRhY3RfdGV4dCAmJiA8c3BhbiBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57cGVyay5jb250YWN0X3RleHR9PC9zcGFuPn0KICAgICAgICAgICAgICB7cGVyay5leHBpcmVzX29uICYmIDxzcGFuIGNsYXNzTmFtZT0idGV4dC14cyB0ZXh0LW11dGVkLWZvcmVncm91bmQiPlZhbGlkIHVudGlsIHtuZXcgRGF0ZShgJHtwZXJrLmV4cGlyZXNfb259VDAwOjAwOjAwWmApLnRvTG9jYWxlRGF0ZVN0cmluZygiZW4tR0IiLCB7IGRheTogIm51bWVyaWMiLCBtb250aDogImxvbmciLCB5ZWFyOiAibnVtZXJpYyIsIHRpbWVab25lOiAiVVRDIiB9KX08L3NwYW4+fQogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICApKX0KICAgICAgPC9kaXY+CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQ==
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Copy, ExternalLink, Gift, MapPin } from "lucide-react";
+import { toast } from "sonner";
+
+import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { getPerks } from "@/lib/premium-content.functions";
+
+export const Route = createFileRoute("/perks/$slug")({
+  head: () => ({ meta: [
+    { title: "Family perks — The Family Wallet" },
+    { name: "description", content: "Private London partner offers and family concierge recommendations for your family." },
+    { property: "og:title", content: "Family perks — The Family Wallet" },
+    { property: "og:description", content: "Private London partner offers and family concierge recommendations." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] }),
+  component: PerksPage,
+});
+
+function PerksPage() {
+  const { slug } = Route.useParams();
+  const fetchPerks = useServerFn(getPerks);
+  const { data, isLoading } = useQuery({ queryKey: ["partner-perks", slug], queryFn: () => fetchPerks({ data: { slug } }) });
+  const [category, setCategory] = useState("All");
+  if (isLoading) return <HubPage slug={slug} title="Family perks"><p className="text-sm text-muted-foreground">Loading your offers…</p></HubPage>;
+  if (!data) return <HubPage slug={slug} title="Family perks"><LockedNotice slug={slug} /></HubPage>;
+  const categories = ["All", ...Array.from(new Set(data.perks.map((perk) => perk.category)))];
+  const shown = data.perks.filter((perk) => category === "All" || perk.category === category);
+  return (
+    <HubPage slug={slug} title="Family perks & London Concierge" intro="A private edit of trusted London partners, priority access and member-only offers selected for busy families.">
+      <div className="mb-5 flex flex-wrap gap-2">
+        {categories.map((item) => <Button key={item} size="sm" variant={category === item ? "default" : "outline"} onClick={() => setCategory(item)}>{item}</Button>)}
+      </div>
+      <div className="space-y-4">
+        {shown.length === 0 && <Card><p className="text-sm text-muted-foreground">Fresh member perks are being curated. Please check back soon.</p></Card>}
+        {shown.map((perk) => (
+          <Card key={perk.id}>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{perk.category}</p>
+                <h2 className="heading-display mt-1 text-xl text-foreground">{perk.title}</h2>
+                <p className="mt-1 font-medium text-muted-foreground">{perk.partner_name}</p>
+              </div>
+              <Gift className="h-6 w-6 shrink-0 text-primary" />
+            </div>
+            <p className="mt-4 rounded-lg bg-accent/35 p-3 font-medium text-foreground">{perk.offer_text}</p>
+            {perk.description && <p className="mt-3 whitespace-pre-line text-sm text-muted-foreground">{perk.description}</p>}
+            {perk.area && <p className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground"><MapPin className="h-4 w-4" />{perk.area}</p>}
+            {perk.offer_code && <div className="mt-4 flex flex-wrap items-center gap-2"><code className="rounded-md bg-muted px-3 py-2 font-semibold text-foreground">{perk.offer_code}</code><Button size="sm" variant="outline" onClick={() => { void navigator.clipboard.writeText(perk.offer_code ?? ""); toast.success("Member code copied"); }}><Copy className="h-4 w-4" /> Copy</Button></div>}
+            {perk.redemption_instructions && <p className="mt-3 text-sm"><span className="font-medium text-foreground">How to claim: </span><span className="text-muted-foreground">{perk.redemption_instructions}</span></p>}
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              {perk.website_url && <Button asChild><a href={perk.website_url} target="_blank" rel="noopener noreferrer">Visit partner <ExternalLink className="h-4 w-4" /></a></Button>}
+              {perk.contact_text && <span className="text-sm text-muted-foreground">{perk.contact_text}</span>}
+              {perk.expires_on && <span className="text-xs text-muted-foreground">Valid until {new Date(`${perk.expires_on}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</span>}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </HubPage>
+  );
+}

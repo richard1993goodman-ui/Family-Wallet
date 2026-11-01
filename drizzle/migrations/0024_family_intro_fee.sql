@@ -1,1 +1,1 @@
-QUxURVIgVEFCTEUgcHVibGljLmZhbWlsaWVzIEFERCBDT0xVTU4gaW50cm9fZmVlX3BlcmNlbnQgbnVtZXJpYzs=
+ALTER TABLE public.families ADD COLUMN intro_fee_percent numeric;

@@ -1,1 +1,91 @@
-aW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IExpbmsgfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtcm91dGVyIjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IENoZWNrQ2lyY2xlMiwgQ2hldnJvblJpZ2h0LCBNZXNzYWdlQ2lyY2xlIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjsKaW1wb3J0IHsgQ2hlY2tib3ggfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvY2hlY2tib3giOwppbXBvcnQgeyBUZXh0YXJlYSB9IGZyb20gIkAvY29tcG9uZW50cy91aS90ZXh0YXJlYSI7CmltcG9ydCB7IFByb2dyZXNzIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3Byb2dyZXNzIjsKaW1wb3J0IHsgZ2V0Rmlyc3Q0OCwgc2F2ZUZpcnN0NDhGbiB9IGZyb20gIkAvbGliL3dlbGNvbWUuZnVuY3Rpb25zIjsKaW1wb3J0IHsgRklSU1RfNDhfUEhBU0VTIH0gZnJvbSAiQC9saWIvd2VsY29tZS50eXBlcyI7Cgp0eXBlIENoZWNrbGlzdERhdGEgPSBOb25OdWxsYWJsZTxBd2FpdGVkPFJldHVyblR5cGU8dHlwZW9mIGdldEZpcnN0NDg+Pj47CnR5cGUgQ2hlY2tsaXN0U3RlcCA9IENoZWNrbGlzdERhdGFbIm5hbm5pZXMiXVtudW1iZXJdWyJzdGVwcyJdW251bWJlcl07CgpleHBvcnQgZnVuY3Rpb24gRmlyc3Q0OENoZWNrbGlzdCh7IHNsdWcsIGRhdGEgfTogeyBzbHVnOiBzdHJpbmc7IGRhdGE6IENoZWNrbGlzdERhdGEgfSkgewogIGNvbnN0IFtzZWxlY3RlZCwgc2V0U2VsZWN0ZWRdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IG5hbm55ID0gZGF0YS5uYW5uaWVzLmZpbmQoKHBlcnNvbikgPT4gcGVyc29uLmlkID09PSBzZWxlY3RlZCkgPz8gZGF0YS5uYW5uaWVzWzBdOwogIGlmICghbmFubnkpIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iaW9zLWdyb3VwIHAtNSI+CiAgICAgIDxwIGNsYXNzTmFtZT0iZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj5Zb3VyIGZpcnN0IHR3byBkYXlzIHN0YXJ0IGhlcmU8L3A+CiAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+QWRkIHlvdXIgbmFubnkgdG8gb3BlbiB0aGVpciBzZXR0bGluZy1pbiBjaGVja2xpc3QuPC9wPgogICAgICA8QnV0dG9uIGFzQ2hpbGQgY2xhc3NOYW1lPSJtdC00Ij48TGluayB0bz0iL25hbm5pZXMvJHNsdWciIHBhcmFtcz17eyBzbHVnIH19PkFkZCB5b3VyIG5hbm55IDxDaGV2cm9uUmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPjwvTGluaz48L0J1dHRvbj4KICAgIDwvZGl2PgogICk7CiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIHtkYXRhLm5hbm5pZXMubGVuZ3RoID4gMSAmJiA8bGFiZWwgY2xhc3NOYW1lPSJtYi01IGJsb2NrIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj5DaGVja2xpc3QgZm9yCiAgICAgICAgPHNlbGVjdCBhcmlhLWxhYmVsPSJDaGVja2xpc3QgZm9yIiBjbGFzc05hbWU9Im10LTIgYmxvY2sgaC0xMSB3LWZ1bGwgcm91bmRlZC1tZCBib3JkZXIgYm9yZGVyLWlucHV0IGJnLWJhY2tncm91bmQgcHgtMyIgdmFsdWU9e25hbm55LmlkfSBvbkNoYW5nZT17KGV2ZW50KSA9PiBzZXRTZWxlY3RlZChldmVudC50YXJnZXQudmFsdWUpfT4KICAgICAgICAgIHtkYXRhLm5hbm5pZXMubWFwKChwZXJzb24pID0+IDxvcHRpb24ga2V5PXtwZXJzb24uaWR9IHZhbHVlPXtwZXJzb24uaWR9PntwZXJzb24ubmFtZX08L29wdGlvbj4pfQogICAgICAgIDwvc2VsZWN0PgogICAgICA8L2xhYmVsPn0KICAgICAgPGRpdiBjbGFzc05hbWU9ImJvcmRlci1iIGJvcmRlci1ib3JkZXIgcGItNiI+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlbiBnYXAtNCI+CiAgICAgICAgICA8ZGl2PjxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPlNldHRsaW5nIGluIHdpdGgge25hbm55Lm5hbWV9PC9wPjxoMiBjbGFzc05hbWU9Im10LTEgdGV4dC14bCBmb250LXNlbWlib2xkIHRleHQtZm9yZWdyb3VuZCI+e25hbm55LmRvbmVDb3VudCA9PT0gbmFubnkudG90YWwgPyAiQSBjb25maWRlbnQgc3RhcnQsIHRvZ2V0aGVyIiA6IGAke25hbm55LmRvbmVDb3VudH0gb2YgJHtuYW5ueS50b3RhbH0gYWdyZWVkIHRvZ2V0aGVyYH08L2gyPjwvZGl2PgogICAgICAgICAge25hbm55LmRvbmVDb3VudCA9PT0gbmFubnkudG90YWwgJiYgPENoZWNrQ2lyY2xlMiBjbGFzc05hbWU9ImgtNyB3LTcgc2hyaW5rLTAgdGV4dC1wcmltYXJ5IiAvPn0KICAgICAgICA8L2Rpdj4KICAgICAgICA8UHJvZ3Jlc3MgY2xhc3NOYW1lPSJtdC00IiB2YWx1ZT17MTAwICogbmFubnkuZG9uZUNvdW50IC8gbmFubnkudG90YWx9IGFyaWEtbGFiZWw9IkFncmVlZCBjaGVja2xpc3QgcHJvZ3Jlc3MiIC8+CiAgICAgIDwvZGl2PgogICAgICB7RklSU1RfNDhfUEhBU0VTLm1hcCgocGhhc2UpID0+IDxzZWN0aW9uIGtleT17cGhhc2UuaWR9IGNsYXNzTmFtZT0ibXQtNyI+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0iaW9zLXNlY3Rpb24tdGl0bGUiPntwaGFzZS5sYWJlbH08L2gyPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJpb3MtZ3JvdXAgbXQtMiBkaXZpZGUteSBkaXZpZGUtYm9yZGVyIj4KICAgICAgICAgIHtuYW5ueS5zdGVwcy5maWx0ZXIoKHN0ZXApID0+IHN0ZXAucGhhc2UgPT09IHBoYXNlLmlkKS5tYXAoKHN0ZXApID0+IDxDaGVja2xpc3RJdGVtIGtleT17YCR7bmFubnkuaWR9OiR7c3RlcC5pZH1gfSBzbHVnPXtzbHVnfSBuYW5ueUlkPXtuYW5ueS5pZH0gYWNjZXNzPXtkYXRhLmFjY2Vzc30gc3RlcD17c3RlcH0gLz4pfQogICAgICAgIDwvZGl2PgogICAgICA8L3NlY3Rpb24+KX0KICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTcgZmxleCBpdGVtcy1zdGFydCBnYXAtMyBib3JkZXItdCBib3JkZXItYm9yZGVyIHB0LTUiPgogICAgICAgIDxNZXNzYWdlQ2lyY2xlIGNsYXNzTmFtZT0ibXQtMC41IGgtNSB3LTUgc2hyaW5rLTAgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgIDxkaXY+PHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPlNvbWV0aGluZyBzdGlsbCBmZWVscyB1bmNsZWFyPzwvcD48QnV0dG9uIGFzQ2hpbGQgdmFyaWFudD0ibGluayIgY2xhc3NOYW1lPSJoLWF1dG8gcC0wIj48TGluayB0bz0iL21lc3NhZ2VzLyRzbHVnIiBwYXJhbXM9e3sgc2x1ZyB9fT5NZXNzYWdlIGVhY2ggb3RoZXIgPENoZXZyb25SaWdodCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+PC9MaW5rPjwvQnV0dG9uPjwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0KCmZ1bmN0aW9uIENoZWNrbGlzdEl0ZW0oeyBzbHVnLCBuYW5ueUlkLCBhY2Nlc3MsIHN0ZXAgfTogeyBzbHVnOiBzdHJpbmc7IG5hbm55SWQ6IHN0cmluZzsgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7IHN0ZXA6IENoZWNrbGlzdFN0ZXAgfSkgewogIGNvbnN0IG93bkNvbmZpcm1lZCA9IGFjY2VzcyA9PT0gImZhbWlseSIgPyBzdGVwLnBhcmVudENvbmZpcm1lZCA6IHN0ZXAubmFubnlDb25maXJtZWQ7CiAgY29uc3Qgb3duTm90ZSA9IGFjY2VzcyA9PT0gImZhbWlseSIgPyBzdGVwLnBhcmVudE5vdGUgOiBzdGVwLm5hbm55Tm90ZTsKICBjb25zdCBbbm90ZSwgc2V0Tm90ZV0gPSB1c2VTdGF0ZShvd25Ob3RlKTsKICBjb25zdCBbYnVzeSwgc2V0QnVzeV0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3Qgc2F2ZSA9IHVzZVNlcnZlckZuKHNhdmVGaXJzdDQ4Rm4pOwogIGNvbnN0IGNsaWVudCA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgYXN5bmMgZnVuY3Rpb24gdXBkYXRlKGNvbmZpcm1lZDogYm9vbGVhbikgewogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IHNhdmUoeyBkYXRhOiB7IHNsdWcsIG5hbm55SWQsIHN0ZXBJZDogc3RlcC5pZCwgY29uZmlybWVkLCBub3RlIH0gfSk7CiAgICAgIGF3YWl0IGNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbImZpcnN0NDgiLCBzbHVnXSB9KTsKICAgICAgdG9hc3Quc3VjY2VzcygiQ2hlY2tsaXN0IHVwZGF0ZWQiKTsKICAgIH0gY2F0Y2ggKGVycm9yKSB7IHRvYXN0LmVycm9yKGVycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvci5tZXNzYWdlIDogIllvdXIgdXBkYXRlIGNvdWxkIG5vdCBiZSBzYXZlZC4iKTsgfQogICAgZmluYWxseSB7IHNldEJ1c3koZmFsc2UpOyB9CiAgfQogIGNvbnN0IGRhdGVMYWJlbCA9IChkYXRlOiBzdHJpbmcgfCBudWxsKSA9PiBkYXRlID8gbmV3IERhdGUoZGF0ZSkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsgZGF5OiAibnVtZXJpYyIsIG1vbnRoOiAic2hvcnQiLCB0aW1lWm9uZTogIkV1cm9wZS9Mb25kb24iIH0pIDogIk5vdCB5ZXQiOwogIHJldHVybiA8YXJ0aWNsZSBjbGFzc05hbWU9InAtNSI+CiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1zdGFydCBnYXAtMyI+CiAgICAgIDxDaGVja2JveCBpZD17YCR7bmFubnlJZH0tJHtzdGVwLmlkfWB9IGNsYXNzTmFtZT0ibXQtMSIgYXJpYS1sYWJlbD17YEkgY29uZmlybTogJHtzdGVwLmxhYmVsfWB9IGNoZWNrZWQ9e0Jvb2xlYW4ob3duQ29uZmlybWVkKX0gZGlzYWJsZWQ9e2J1c3l9IG9uQ2hlY2tlZENoYW5nZT17KGNoZWNrZWQpID0+IHVwZGF0ZShjaGVja2VkID09PSB0cnVlKX0gLz4KICAgICAgPGRpdiBjbGFzc05hbWU9Im1pbi13LTAgZmxleC0xIj48bGFiZWwgaHRtbEZvcj17YCR7bmFubnlJZH0tJHtzdGVwLmlkfWB9IGNsYXNzTmFtZT0iZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQiPntzdGVwLmxhYmVsfTwvbGFiZWw+PHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gbGVhZGluZy1yZWxheGVkIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+e3N0ZXAuZGVzY3JpcHRpb259PC9wPjwvZGl2PgogICAgICB7c3RlcC5kb25lICYmIDxDaGVja0NpcmNsZTIgYXJpYS1sYWJlbD0iQWdyZWVkIHRvZ2V0aGVyIiBjbGFzc05hbWU9Im10LTAuNSBoLTUgdy01IHNocmluay0wIHRleHQtcHJpbWFyeSIgLz59CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIGZsZXggZmxleC13cmFwIGdhcC14LTUgZ2FwLXktMSBwbC03IHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgPHNwYW4+UGFyZW50IMK3IHtkYXRlTGFiZWwoc3RlcC5wYXJlbnRDb25maXJtZWQpfTwvc3Bhbj48c3Bhbj5OYW5ueSDCtyB7ZGF0ZUxhYmVsKHN0ZXAubmFubnlDb25maXJtZWQpfTwvc3Bhbj4KICAgIDwvZGl2PgogICAgPGRldGFpbHMgY2xhc3NOYW1lPSJtdC0zIHBsLTciPgogICAgICA8c3VtbWFyeSBjbGFzc05hbWU9ImN1cnNvci1wb2ludGVyIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1wcmltYXJ5Ij5Ob3RlcyAmYW1wOyBkZXRhaWxze3N0ZXAucGFyZW50Tm90ZSB8fCBzdGVwLm5hbm55Tm90ZSA/ICIgwrcgTm90ZXMgYWRkZWQiIDogIiJ9PC9zdW1tYXJ5PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBzcGFjZS15LTMiPgogICAgICAgIHtzdGVwLnBhcmVudE5vdGUgJiYgPHAgY2xhc3NOYW1lPSJ3aGl0ZXNwYWNlLXByZS13cmFwIGJyZWFrLXdvcmRzIHRleHQtc20gdGV4dC1mb3JlZ3JvdW5kIj48c3BhbiBjbGFzc05hbWU9ImZvbnQtc2VtaWJvbGQiPlBhcmVudDogPC9zcGFuPntzdGVwLnBhcmVudE5vdGV9PC9wPn0KICAgICAgICB7c3RlcC5uYW5ueU5vdGUgJiYgPHAgY2xhc3NOYW1lPSJ3aGl0ZXNwYWNlLXByZS13cmFwIGJyZWFrLXdvcmRzIHRleHQtc20gdGV4dC1mb3JlZ3JvdW5kIj48c3BhbiBjbGFzc05hbWU9ImZvbnQtc2VtaWJvbGQiPk5hbm55OiA8L3NwYW4+e3N0ZXAubmFubnlOb3RlfTwvcD59CiAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT0iYmxvY2sgdGV4dC1zbSB0ZXh0LWZvcmVncm91bmQiPllvdXIge2FjY2VzcyA9PT0gImZhbWlseSIgPyAicGFyZW50IiA6ICJuYW5ueSJ9IG5vdGU8VGV4dGFyZWEgYXJpYS1sYWJlbD17YFlvdXIgbm90ZTogJHtzdGVwLmxhYmVsfWB9IGNsYXNzTmFtZT0ibXQtMiIgdmFsdWU9e25vdGV9IHJvd3M9ezN9IG1heExlbmd0aD17MjAwMH0gb25DaGFuZ2U9eyhldmVudCkgPT4gc2V0Tm90ZShldmVudC50YXJnZXQudmFsdWUpfSAvPjwvbGFiZWw+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGdhcC0yIj48QnV0dG9uIHNpemU9InNtIiB2YXJpYW50PSJvdXRsaW5lIiBkaXNhYmxlZD17YnVzeSB8fCBub3RlID09PSBvd25Ob3RlfSBvbkNsaWNrPXsoKSA9PiB1cGRhdGUoQm9vbGVhbihvd25Db25maXJtZWQpKX0+U2F2ZSBub3RlPC9CdXR0b24+PEJ1dHRvbiBhc0NoaWxkIHZhcmlhbnQ9Imdob3N0IiBzaXplPSJzbSI+PExpbmsgdG89e3N0ZXAuaHJlZn0gcGFyYW1zPXt7IHNsdWcgfX0+UmVsYXRlZCBkZXRhaWxzIDxDaGV2cm9uUmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPjwvTGluaz48L0J1dHRvbj48L2Rpdj4KICAgICAgPC9kaXY+CiAgICA8L2RldGFpbHM+CiAgPC9hcnRpY2xlPjsKfQ==
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useQueryClient } from "@tanstack/react-query";
+import { CheckCircle2, ChevronRight, MessageCircle } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
+import { getFirst48, saveFirst48Fn } from "@/lib/welcome.functions";
+import { FIRST_48_PHASES } from "@/lib/welcome.types";
+
+type ChecklistData = NonNullable<Awaited<ReturnType<typeof getFirst48>>>;
+type ChecklistStep = ChecklistData["nannies"][number]["steps"][number];
+
+export function First48Checklist({ slug, data }: { slug: string; data: ChecklistData }) {
+  const [selected, setSelected] = useState("");
+  const nanny = data.nannies.find((person) => person.id === selected) ?? data.nannies[0];
+  if (!nanny) return (
+    <div className="ios-group p-5">
+      <p className="font-medium text-foreground">Your first two days start here</p>
+      <p className="mt-2 text-sm text-muted-foreground">Add your nanny to open their settling-in checklist.</p>
+      <Button asChild className="mt-4"><Link to="/nannies/$slug" params={{ slug }}>Add your nanny <ChevronRight className="h-4 w-4" /></Link></Button>
+    </div>
+  );
+  return (
+    <div>
+      {data.nannies.length > 1 && <label className="mb-5 block text-sm font-medium text-foreground">Checklist for
+        <select aria-label="Checklist for" className="mt-2 block h-11 w-full rounded-md border border-input bg-background px-3" value={nanny.id} onChange={(event) => setSelected(event.target.value)}>
+          {data.nannies.map((person) => <option key={person.id} value={person.id}>{person.name}</option>)}
+        </select>
+      </label>}
+      <div className="border-b border-border pb-6">
+        <div className="flex items-center justify-between gap-4">
+          <div><p className="text-sm text-muted-foreground">Settling in with {nanny.name}</p><h2 className="mt-1 text-xl font-semibold text-foreground">{nanny.doneCount === nanny.total ? "A confident start, together" : `${nanny.doneCount} of ${nanny.total} agreed together`}</h2></div>
+          {nanny.doneCount === nanny.total && <CheckCircle2 className="h-7 w-7 shrink-0 text-primary" />}
+        </div>
+        <Progress className="mt-4" value={100 * nanny.doneCount / nanny.total} aria-label="Agreed checklist progress" />
+      </div>
+      {FIRST_48_PHASES.map((phase) => <section key={phase.id} className="mt-7">
+        <h2 className="ios-section-title">{phase.label}</h2>
+        <div className="ios-group mt-2 divide-y divide-border">
+          {nanny.steps.filter((step) => step.phase === phase.id).map((step) => <ChecklistItem key={`${nanny.id}:${step.id}`} slug={slug} nannyId={nanny.id} access={data.access} step={step} />)}
+        </div>
+      </section>)}
+      <div className="mt-7 flex items-start gap-3 border-t border-border pt-5">
+        <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <div><p className="font-medium text-foreground">Something still feels unclear?</p><Button asChild variant="link" className="h-auto p-0"><Link to="/messages/$slug" params={{ slug }}>Message each other <ChevronRight className="h-4 w-4" /></Link></Button></div>
+      </div>
+    </div>
+  );
+}
+
+function ChecklistItem({ slug, nannyId, access, step }: { slug: string; nannyId: string; access: "family" | "nanny"; step: ChecklistStep }) {
+  const ownConfirmed = access === "family" ? step.parentConfirmed : step.nannyConfirmed;
+  const ownNote = access === "family" ? step.parentNote : step.nannyNote;
+  const [note, setNote] = useState(ownNote);
+  const [busy, setBusy] = useState(false);
+  const save = useServerFn(saveFirst48Fn);
+  const client = useQueryClient();
+  async function update(confirmed: boolean) {
+    setBusy(true);
+    try {
+      await save({ data: { slug, nannyId, stepId: step.id, confirmed, note } });
+      await client.invalidateQueries({ queryKey: ["first48", slug] });
+      toast.success("Checklist updated");
+    } catch (error) { toast.error(error instanceof Error ? error.message : "Your update could not be saved."); }
+    finally { setBusy(false); }
+  }
+  const dateLabel = (date: string | null) => date ? new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "Europe/London" }) : "Not yet";
+  return <article className="p-5">
+    <div className="flex items-start gap-3">
+      <Checkbox id={`${nannyId}-${step.id}`} className="mt-1" aria-label={`I confirm: ${step.label}`} checked={Boolean(ownConfirmed)} disabled={busy} onCheckedChange={(checked) => update(checked === true)} />
+      <div className="min-w-0 flex-1"><label htmlFor={`${nannyId}-${step.id}`} className="font-semibold text-foreground">{step.label}</label><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.description}</p></div>
+      {step.done && <CheckCircle2 aria-label="Agreed together" className="mt-0.5 h-5 w-5 shrink-0 text-primary" />}
+    </div>
+    <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 pl-7 text-xs text-muted-foreground">
+      <span>Parent · {dateLabel(step.parentConfirmed)}</span><span>Nanny · {dateLabel(step.nannyConfirmed)}</span>
+    </div>
+    <details className="mt-3 pl-7">
+      <summary className="cursor-pointer text-sm font-medium text-primary">Notes &amp; details{step.parentNote || step.nannyNote ? " · Notes added" : ""}</summary>
+      <div className="mt-3 space-y-3">
+        {step.parentNote && <p className="whitespace-pre-wrap break-words text-sm text-foreground"><span className="font-semibold">Parent: </span>{step.parentNote}</p>}
+        {step.nannyNote && <p className="whitespace-pre-wrap break-words text-sm text-foreground"><span className="font-semibold">Nanny: </span>{step.nannyNote}</p>}
+        <label className="block text-sm text-foreground">Your {access === "family" ? "parent" : "nanny"} note<Textarea aria-label={`Your note: ${step.label}`} className="mt-2" value={note} rows={3} maxLength={2000} onChange={(event) => setNote(event.target.value)} /></label>
+        <div className="flex flex-wrap gap-2"><Button size="sm" variant="outline" disabled={busy || note === ownNote} onClick={() => update(Boolean(ownConfirmed))}>Save note</Button><Button asChild variant="ghost" size="sm"><Link to={step.href} params={{ slug }}>Related details <ChevronRight className="h-4 w-4" /></Link></Button></div>
+      </div>
+    </details>
+  </article>;
+}

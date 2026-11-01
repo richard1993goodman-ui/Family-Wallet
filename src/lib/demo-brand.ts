@@ -1,1 +1,6 @@
-Y29uc3QgS0VZID0gImRlbW8tYnJhbmQiOwpleHBvcnQgY29uc3Qgc2V0RGVtb0JyYW5kID0gKG5hbWU6IHN0cmluZyB8IG51bGwpID0+IHsKICBpZiAobmFtZSkgd2luZG93LnNlc3Npb25TdG9yYWdlLnNldEl0ZW0oS0VZLCBuYW1lKTsKICBlbHNlIHdpbmRvdy5zZXNzaW9uU3RvcmFnZS5yZW1vdmVJdGVtKEtFWSk7Cn07CmV4cG9ydCBjb25zdCByZWFkRGVtb0JyYW5kID0gKCkgPT4gd2luZG93LnNlc3Npb25TdG9yYWdlLmdldEl0ZW0oS0VZKTsK
+const KEY = "demo-brand";
+export const setDemoBrand = (name: string | null) => {
+  if (name) window.sessionStorage.setItem(KEY, name);
+  else window.sessionStorage.removeItem(KEY);
+};
+export const readDemoBrand = () => window.sessionStorage.getItem(KEY);

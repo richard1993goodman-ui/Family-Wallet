@@ -1,1 +1,123 @@
-aW1wb3J0IHsgcmVxdWlyZVR3b1N0ZXBDbGllbnQgfSBmcm9tICJAL2xpYi90d28tc3RlcCI7CmltcG9ydCB7IGNyZWF0ZUZpbGVSb3V0ZSwgTGluayB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VRdWVyeSB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgQXJyb3dMZWZ0IH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKCmltcG9ydCB7IGdldEZhbWlseUh1YiB9IGZyb20gIkAvbGliL2FkbWluLmZ1bmN0aW9ucyI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi9fYXV0aGVudGljYXRlZC9hZG1pbi9odWIvJGlkIikoewogIGJlZm9yZUxvYWQ6ICgpID0+IHJlcXVpcmVUd29TdGVwQ2xpZW50KCksCiAgaGVhZDogKCkgPT4gKHsKICAgIG1ldGE6IFsKICAgICAgeyB0aXRsZTogIkZhbWlseSBodWIgb3ZlcnZpZXcg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IGFkbWluIiB9LAogICAgICB7CiAgICAgICAgbmFtZTogImRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiUmVhZC1vbmx5IHZpZXcgb2YgYSBmYW1pbHkncyBwcm9maWxlLCBjaGlsZHJlbiwgcGxhbm5lciBhbmQgZGFpbHkgbG9ncy4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dGl0bGUiLCBjb250ZW50OiAiRmFtaWx5IGh1YiBvdmVydmlldyDigJQgVGhlIEZhbWlseSBXYWxsZXQgYWRtaW4iIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsIGNvbnRlbnQ6ICJTZWUgd2hhdCBhIGZhbWlseSBoYXMgYWRkZWQgdG8gdGhlaXIgd2FsbGV0LiIgfSwKICAgICAgeyBuYW1lOiAicm9ib3RzIiwgY29udGVudDogIm5vaW5kZXgiIH0sCiAgICBdLAogIH0pLAogIGNvbXBvbmVudDogRmFtaWx5SHViVmlldywKfSk7CgpmdW5jdGlvbiBSb3coeyBsYWJlbCwgdmFsdWUgfTogeyBsYWJlbDogc3RyaW5nOyB2YWx1ZTogc3RyaW5nIHwgbnVsbCB8IHVuZGVmaW5lZCB9KSB7CiAgaWYgKCF2YWx1ZSkgcmV0dXJuIG51bGw7CiAgcmV0dXJuICgKICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXNtIHdoaXRlc3BhY2UtcHJlLWxpbmUgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgPHNwYW4gY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPntsYWJlbH06IDwvc3Bhbj4KICAgICAge3ZhbHVlfQogICAgPC9wPgogICk7Cn0KCmZ1bmN0aW9uIEZhbWlseUh1YlZpZXcoKSB7CiAgY29uc3QgeyBpZCB9ID0gUm91dGUudXNlUGFyYW1zKCk7CiAgY29uc3QgbG9hZEZuID0gdXNlU2VydmVyRm4oZ2V0RmFtaWx5SHViKTsKICBjb25zdCBxdWVyeSA9IHVzZVF1ZXJ5KHsgcXVlcnlLZXk6IFsiYWRtaW4taHViIiwgaWRdLCBxdWVyeUZuOiAoKSA9PiBsb2FkRm4oeyBkYXRhOiB7IGlkIH0gfSkgfSk7CgogIGNvbnN0IGRhdGEgPSBxdWVyeS5kYXRhOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy1zYW5kIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctM3hsIHB4LTUgcHktMTAiPgogICAgICAgIDxMaW5rCiAgICAgICAgICB0bz0iL2FkbWluL2ZhbWlseS8kaWQiCiAgICAgICAgICBwYXJhbXM9e3sgaWQgfX0KICAgICAgICAgIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1mb3JlZ3JvdW5kIgogICAgICAgID4KICAgICAgICAgIDxBcnJvd0xlZnQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBCYWNrIHRvIGZhbWlseQogICAgICAgIDwvTGluaz4KICAgICAgICA8aDEgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbXQtNCB0ZXh0LTN4bCB0ZXh0LXByaW1hcnkiPgogICAgICAgICAge2RhdGE/LmZhbWlseU5hbWUgPz8gIkZhbWlseSJ9IGh1YgogICAgICAgIDwvaDE+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgIFJlYWQtb25seS4gRmFtaWxpZXMgYW5kIHRoZWlyIG5hbm55IGZpbGwgdGhpcyBpbiB0aGVtc2VsdmVzLgogICAgICAgIDwvcD4KCiAgICAgICAge3F1ZXJ5LmlzTG9hZGluZyAmJiA8cCBjbGFzc05hbWU9Im10LTYgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPkxvYWRpbmfigKY8L3A+fQoKICAgICAgICB7ZGF0YSAmJiAoCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNiBzcGFjZS15LTQiPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNSI+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPkNoaWxkcmVuPC9wPgogICAgICAgICAgICAgIHtkYXRhLmNoaWxkcmVuLmxlbmd0aCA9PT0gMCAmJiAoCiAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5vbmUgYWRkZWQgeWV0LjwvcD4KICAgICAgICAgICAgICApfQogICAgICAgICAgICAgIHtkYXRhLmNoaWxkcmVuLm1hcCgoY2hpbGQpID0+ICgKICAgICAgICAgICAgICAgIDxkaXYga2V5PXtjaGlsZC5pZH0gY2xhc3NOYW1lPSJtdC0zIGJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtMyBmaXJzdDpib3JkZXItMCBmaXJzdDpwdC0wIj4KICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPntjaGlsZC5uYW1lfTwvcD4KICAgICAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iU2Nob29sIiB2YWx1ZT17W2NoaWxkLnllYXJfZ3JvdXAsIGNoaWxkLnNjaG9vbF0uZmlsdGVyKEJvb2xlYW4pLmpvaW4oIiDCtyAiKX0gLz4KICAgICAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iQWxsZXJnaWVzIiB2YWx1ZT17Y2hpbGQuYWxsZXJnaWVzfSAvPgogICAgICAgICAgICAgICAgICA8Um93IGxhYmVsPSJNZWRpY2F0aW9uIiB2YWx1ZT17Y2hpbGQubWVkaWNhdGlvbn0gLz4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICkpfQogICAgICAgICAgICA8L2Rpdj4KCiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJyb3VuZGVkLXhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC01Ij4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+SG91c2Vob2xkPC9wPgogICAgICAgICAgICAgIDxSb3cgbGFiZWw9IkhvbWUiIHZhbHVlPXtkYXRhLnByb2ZpbGU/LmhvbWVfYWRkcmVzc30gLz4KICAgICAgICAgICAgICA8Um93IGxhYmVsPSJIb3VzZSBydWxlcyIgdmFsdWU9e2RhdGEucHJvZmlsZT8uaG91c2VfcnVsZXN9IC8+CiAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iR1AiIHZhbHVlPXtkYXRhLnByb2ZpbGU/LmdwX2RldGFpbHN9IC8+CiAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iRW1lcmdlbmN5IGluc3RydWN0aW9ucyIgdmFsdWU9e2RhdGEucHJvZmlsZT8uZW1lcmdlbmN5X2luc3RydWN0aW9uc30gLz4KICAgICAgICAgICAgICB7IWRhdGEucHJvZmlsZSAmJiA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPk5vdCBmaWxsZWQgaW4geWV0LjwvcD59CiAgICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InJvdW5kZWQteGwgYm9yZGVyIGJvcmRlci1ib3JkZXIgYmctY2FyZCBwLTUiPgogICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5QbGFubmVyIChmcm9tIGxhc3Qgd2Vlayk8L3A+CiAgICAgICAgICAgICAge2RhdGEuZW50cmllcy5sZW5ndGggPT09IDAgJiYgKAogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Ob3RoaW5nIHBsYW5uZWQuPC9wPgogICAgICAgICAgICAgICl9CiAgICAgICAgICAgICAgPHVsIGNsYXNzTmFtZT0ibXQtMiBzcGFjZS15LTEgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAge2RhdGEuZW50cmllcy5tYXAoKGVudHJ5KSA9PiAoCiAgICAgICAgICAgICAgICAgIDxsaSBrZXk9e2VudHJ5LmlkfT4KICAgICAgICAgICAgICAgICAgICB7ZW50cnkuZW50cnlfZGF0ZX0gwrcge2VudHJ5LnRpbWVfbGFiZWwgPz8gIiJ9IHtlbnRyeS50aXRsZX0KICAgICAgICAgICAgICAgICAgICB7ZW50cnkuY2hpbGRfbmFtZSA/IGAgKCR7ZW50cnkuY2hpbGRfbmFtZX0pYCA6ICIifQogICAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgICAgPC91bD4KICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWJvcmRlciBiZy1jYXJkIHAtNSI+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LWZvcmVncm91bmQiPlJlY2VudCBkYWlseSBsb2dzPC9wPgogICAgICAgICAgICAgIHtkYXRhLmxvZ3MubGVuZ3RoID09PSAwICYmICgKICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+Tm8gdXBkYXRlcyB5ZXQuPC9wPgogICAgICAgICAgICAgICl9CiAgICAgICAgICAgICAge2RhdGEubG9ncy5tYXAoKGxvZykgPT4gKAogICAgICAgICAgICAgICAgPGRpdiBrZXk9e2xvZy5pZH0gY2xhc3NOYW1lPSJtdC0zIGJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtMyBmaXJzdDpib3JkZXItMCBmaXJzdDpwdC0wIj4KICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPntsb2cubG9nX2RhdGV9PC9wPgogICAgICAgICAgICAgICAgICA8Um93IGxhYmVsPSJEaWQiIHZhbHVlPXtsb2cuYWN0aXZpdGllc30gLz4KICAgICAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iQXRlIiB2YWx1ZT17bG9nLmZvb2R9IC8+CiAgICAgICAgICAgICAgICAgIDxSb3cgbGFiZWw9Ik1vb2QiIHZhbHVlPXtsb2cubW9vZH0gLz4KICAgICAgICAgICAgICAgICAgPFJvdyBsYWJlbD0iTm90ZXMiIHZhbHVlPXtsb2cubm90ZXN9IC8+CiAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApfQogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0K
+import { requireTwoStepClient } from "@/lib/two-step";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowLeft } from "lucide-react";
+
+import { getFamilyHub } from "@/lib/admin.functions";
+
+export const Route = createFileRoute("/_authenticated/admin/hub/$id")({
+  beforeLoad: () => requireTwoStepClient(),
+  head: () => ({
+    meta: [
+      { title: "Family hub overview — The Family Wallet admin" },
+      {
+        name: "description",
+        content: "Read-only view of a family's profile, children, planner and daily logs.",
+      },
+      { property: "og:title", content: "Family hub overview — The Family Wallet admin" },
+      { property: "og:description", content: "See what a family has added to their wallet." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: FamilyHubView,
+});
+
+function Row({ label, value }: { label: string; value: string | null | undefined }) {
+  if (!value) return null;
+  return (
+    <p className="mt-2 text-sm whitespace-pre-line text-muted-foreground">
+      <span className="font-medium text-foreground">{label}: </span>
+      {value}
+    </p>
+  );
+}
+
+function FamilyHubView() {
+  const { id } = Route.useParams();
+  const loadFn = useServerFn(getFamilyHub);
+  const query = useQuery({ queryKey: ["admin-hub", id], queryFn: () => loadFn({ data: { id } }) });
+
+  const data = query.data;
+
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-3xl px-5 py-10">
+        <Link
+          to="/admin/family/$id"
+          params={{ id }}
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to family
+        </Link>
+        <h1 className="heading-display mt-4 text-3xl text-primary">
+          {data?.familyName ?? "Family"} hub
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Read-only. Families and their nanny fill this in themselves.
+        </p>
+
+        {query.isLoading && <p className="mt-6 text-sm text-muted-foreground">Loading…</p>}
+
+        {data && (
+          <div className="mt-6 space-y-4">
+            <div className="rounded-xl border border-border bg-card p-5">
+              <p className="heading-display text-lg text-foreground">Children</p>
+              {data.children.length === 0 && (
+                <p className="mt-2 text-sm text-muted-foreground">None added yet.</p>
+              )}
+              {data.children.map((child) => (
+                <div key={child.id} className="mt-3 border-t border-border pt-3 first:border-0 first:pt-0">
+                  <p className="font-medium text-foreground">{child.name}</p>
+                  <Row label="School" value={[child.year_group, child.school].filter(Boolean).join(" · ")} />
+                  <Row label="Allergies" value={child.allergies} />
+                  <Row label="Medication" value={child.medication} />
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-5">
+              <p className="heading-display text-lg text-foreground">Household</p>
+              <Row label="Home" value={data.profile?.home_address} />
+              <Row label="House rules" value={data.profile?.house_rules} />
+              <Row label="GP" value={data.profile?.gp_details} />
+              <Row label="Emergency instructions" value={data.profile?.emergency_instructions} />
+              {!data.profile && <p className="mt-2 text-sm text-muted-foreground">Not filled in yet.</p>}
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-5">
+              <p className="heading-display text-lg text-foreground">Planner (from last week)</p>
+              {data.entries.length === 0 && (
+                <p className="mt-2 text-sm text-muted-foreground">Nothing planned.</p>
+              )}
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                {data.entries.map((entry) => (
+                  <li key={entry.id}>
+                    {entry.entry_date} · {entry.time_label ?? ""} {entry.title}
+                    {entry.child_name ? ` (${entry.child_name})` : ""}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-5">
+              <p className="heading-display text-lg text-foreground">Recent daily logs</p>
+              {data.logs.length === 0 && (
+                <p className="mt-2 text-sm text-muted-foreground">No updates yet.</p>
+              )}
+              {data.logs.map((log) => (
+                <div key={log.id} className="mt-3 border-t border-border pt-3 first:border-0 first:pt-0">
+                  <p className="font-medium text-foreground">{log.log_date}</p>
+                  <Row label="Did" value={log.activities} />
+                  <Row label="Ate" value={log.food} />
+                  <Row label="Mood" value={log.mood} />
+                  <Row label="Notes" value={log.notes} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

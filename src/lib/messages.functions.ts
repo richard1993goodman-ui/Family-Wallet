@@ -1,1 +1,32 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKZXhwb3J0IGNvbnN0IGdldE1lc3NhZ2VzID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pCiAgLmlucHV0VmFsaWRhdG9yKChkYXRhOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBsb2FkTWVzc2FnZXMgfSA9IGF3YWl0IGltcG9ydCgiLi9tZXNzYWdlcy5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkTWVzc2FnZXMoZGF0YS5zbHVnKTsKICB9KTsKCmV4cG9ydCBjb25zdCBzdGFydFRocmVhZEZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IHRvcGljOiBzdHJpbmc7IHRpdGxlOiBzdHJpbmc7IGJvZHk6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyBzdGFydFRocmVhZCB9ID0gYXdhaXQgaW1wb3J0KCIuL21lc3NhZ2VzLnNlcnZlciIpOwogICAgY29uc3QgaWQgPSBhd2FpdCBzdGFydFRocmVhZChkYXRhLnNsdWcsIGRhdGEpOwogICAgcmV0dXJuIHsgaWQgfTsKICB9KTsKCmV4cG9ydCBjb25zdCByZXBseVRocmVhZEZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IHRocmVhZElkOiBzdHJpbmc7IGJvZHk6IHN0cmluZyB9KSA9PiBkYXRhKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgeyByZXBseVRocmVhZCB9ID0gYXdhaXQgaW1wb3J0KCIuL21lc3NhZ2VzLnNlcnZlciIpOwogICAgYXdhaXQgcmVwbHlUaHJlYWQoZGF0YS5zbHVnLCBkYXRhLnRocmVhZElkLCBkYXRhLmJvZHkpOwogICAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKICB9KTsKCmV4cG9ydCBjb25zdCBtYXJrVGhyZWFkUmVhZEZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IHRocmVhZElkOiBzdHJpbmcgfSkgPT4gZGF0YSkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhIH0pID0+IHsKICAgIGNvbnN0IHsgbWFya1RocmVhZFJlYWQgfSA9IGF3YWl0IGltcG9ydCgiLi9tZXNzYWdlcy5zZXJ2ZXIiKTsKICAgIGF3YWl0IG1hcmtUaHJlYWRSZWFkKGRhdGEuc2x1ZywgZGF0YS50aHJlYWRJZCk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+export const getMessages = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadMessages } = await import("./messages.server");
+    return loadMessages(data.slug);
+  });
+
+export const startThreadFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; topic: string; title: string; body: string }) => data)
+  .handler(async ({ data }) => {
+    const { startThread } = await import("./messages.server");
+    const id = await startThread(data.slug, data);
+    return { id };
+  });
+
+export const replyThreadFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; threadId: string; body: string }) => data)
+  .handler(async ({ data }) => {
+    const { replyThread } = await import("./messages.server");
+    await replyThread(data.slug, data.threadId, data.body);
+    return { ok: true as const };
+  });
+
+export const markThreadReadFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; threadId: string }) => data)
+  .handler(async ({ data }) => {
+    const { markThreadRead } = await import("./messages.server");
+    await markThreadRead(data.slug, data.threadId);
+    return { ok: true as const };
+  });

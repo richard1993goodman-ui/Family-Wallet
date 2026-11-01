@@ -1,1 +1,18 @@
-ZXhwb3J0IHR5cGUgRG9zZUlucHV0ID0gewogIGNoaWxkTmFtZTogc3RyaW5nOwogIG1lZGljaW5lOiBzdHJpbmc7CiAgZG9zZT86IHN0cmluZyB8IHVuZGVmaW5lZDsKICBnaXZlbkF0OiBzdHJpbmc7IC8vIElTTyBkYXRldGltZQogIG5leHREb3NlRnJvbT86IHN0cmluZyB8IHVuZGVmaW5lZDsKICByZWFzb24/OiBzdHJpbmcgfCB1bmRlZmluZWQ7CiAgbm90ZXM/OiBzdHJpbmcgfCB1bmRlZmluZWQ7Cn07CgpleHBvcnQgY29uc3QgQ09NTU9OX01FRElDSU5FUzogeyBuYW1lOiBzdHJpbmc7IGdhcEhvdXJzOiBudW1iZXIgfVtdID0gWwogIHsgbmFtZTogIkNhbHBvbCAocGFyYWNldGFtb2wpIiwgZ2FwSG91cnM6IDQgfSwKICB7IG5hbWU6ICJJYnVwcm9mZW4iLCBnYXBIb3VyczogNiB9LAogIHsgbmFtZTogIkFudGloaXN0YW1pbmUgKGUuZy4gUGlyaXRvbikiLCBnYXBIb3VyczogNiB9LAogIHsgbmFtZTogIkFudGliaW90aWNzIiwgZ2FwSG91cnM6IDggfSwKICB7IG5hbWU6ICJJbmhhbGVyIiwgZ2FwSG91cnM6IDQgfSwKICB7IG5hbWU6ICJPdGhlciIsIGdhcEhvdXJzOiA0IH0sCl07Cg==
+export type DoseInput = {
+  childName: string;
+  medicine: string;
+  dose?: string | undefined;
+  givenAt: string; // ISO datetime
+  nextDoseFrom?: string | undefined;
+  reason?: string | undefined;
+  notes?: string | undefined;
+};
+
+export const COMMON_MEDICINES: { name: string; gapHours: number }[] = [
+  { name: "Calpol (paracetamol)", gapHours: 4 },
+  { name: "Ibuprofen", gapHours: 6 },
+  { name: "Antihistamine (e.g. Piriton)", gapHours: 6 },
+  { name: "Antibiotics", gapHours: 8 },
+  { name: "Inhaler", gapHours: 4 },
+  { name: "Other", gapHours: 4 },
+];

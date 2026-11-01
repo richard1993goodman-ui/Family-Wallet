@@ -1,1 +1,92 @@
-LS0gUm9sZXMKQ1JFQVRFIFRZUEUgcHVibGljLmFwcF9yb2xlIEFTIEVOVU0gKCdhZG1pbicpOwoKQ1JFQVRFIFRBQkxFIHB1YmxpYy51c2VyX3JvbGVzICgKICBpZCB1dWlkIFBSSU1BUlkgS0VZIERFRkFVTFQgZ2VuX3JhbmRvbV91dWlkKCksCiAgdXNlcl9pZCB1dWlkIE5PVCBOVUxMLAogIHJvbGUgcHVibGljLmFwcF9yb2xlIE5PVCBOVUxMLAogIGNyZWF0ZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKSwKICBVTklRVUUgKHVzZXJfaWQsIHJvbGUpCik7CkdSQU5UIFNFTEVDVCBPTiBwdWJsaWMudXNlcl9yb2xlcyBUTyBhdXRoZW50aWNhdGVkOwpHUkFOVCBBTEwgT04gcHVibGljLnVzZXJfcm9sZXMgVE8gc2VydmljZV9yb2xlOwpBTFRFUiBUQUJMRSBwdWJsaWMudXNlcl9yb2xlcyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwoKQ1JFQVRFIE9SIFJFUExBQ0UgRlVOQ1RJT04gcHVibGljLmhhc19yb2xlKF91c2VyX2lkIHV1aWQsIF9yb2xlIHB1YmxpYy5hcHBfcm9sZSkKUkVUVVJOUyBib29sZWFuCkxBTkdVQUdFIHNxbApTVEFCTEUKU0VDVVJJVFkgREVGSU5FUgpTRVQgc2VhcmNoX3BhdGggPSBwdWJsaWMKQVMgJCQKICBTRUxFQ1QgRVhJU1RTICgKICAgIFNFTEVDVCAxIEZST00gcHVibGljLnVzZXJfcm9sZXMgV0hFUkUgdXNlcl9pZCA9IF91c2VyX2lkIEFORCByb2xlID0gX3JvbGUKICApCiQkOwoKQ1JFQVRFIFBPTElDWSAiVXNlcnMgY2FuIHJlYWQgb3duIHJvbGVzIgpPTiBwdWJsaWMudXNlcl9yb2xlcyBGT1IgU0VMRUNUIFRPIGF1dGhlbnRpY2F0ZWQKVVNJTkcgKGF1dGgudWlkKCkgPSB1c2VyX2lkKTsKCi0tIEZhbWlsaWVzCkNSRUFURSBUQUJMRSBwdWJsaWMuZmFtaWxpZXMgKAogIGlkIHV1aWQgUFJJTUFSWSBLRVkgREVGQVVMVCBnZW5fcmFuZG9tX3V1aWQoKSwKICBzbHVnIHRleHQgTk9UIE5VTEwgVU5JUVVFLAogIGZhbWlseV9uYW1lIHRleHQgTk9UIE5VTEwsCiAgY29udGFjdF9lbWFpbCB0ZXh0LAogIGNvbnRhY3RfcGhvbmUgdGV4dCwKICB0aWVyX2JhbmQgdGV4dCBOT1QgTlVMTCBERUZBVUxUICczJywKICBuYW5ueV9uYW1lIHRleHQsCiAgc3RhcnRfZGF0ZSBkYXRlLAogIHRlcm1zX2FjY2VwdGVkX29uIGRhdGUsCiAgbm90ZXMgdGV4dCwKICBhY2Nlc3NfY29kZV9oYXNoIHRleHQgTk9UIE5VTEwsCiAgc3RhdHVzIHRleHQgTk9UIE5VTEwgREVGQVVMVCAnYWN0aXZlJywKICBjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgdXBkYXRlZF9hdCB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CkdSQU5UIFNFTEVDVCwgSU5TRVJULCBVUERBVEUsIERFTEVURSBPTiBwdWJsaWMuZmFtaWxpZXMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5mYW1pbGllcyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy5mYW1pbGllcyBFTkFCTEUgUk9XIExFVkVMIFNFQ1VSSVRZOwoKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBmYW1pbGllcyIKT04gcHVibGljLmZhbWlsaWVzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKQpXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpOwoKLS0gRG9jdW1lbnRzCkNSRUFURSBUQUJMRSBwdWJsaWMuZmFtaWx5X2RvY3VtZW50cyAoCiAgaWQgdXVpZCBQUklNQVJZIEtFWSBERUZBVUxUIGdlbl9yYW5kb21fdXVpZCgpLAogIGZhbWlseV9pZCB1dWlkIE5PVCBOVUxMIFJFRkVSRU5DRVMgcHVibGljLmZhbWlsaWVzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBkb2NfdHlwZSB0ZXh0IE5PVCBOVUxMLAogIHN0b3JhZ2VfcGF0aCB0ZXh0IE5PVCBOVUxMLAogIGZpbGVfbmFtZSB0ZXh0IE5PVCBOVUxMLAogIHVwbG9hZGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgVU5JUVVFIChmYW1pbHlfaWQsIGRvY190eXBlKQopOwpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLmZhbWlseV9kb2N1bWVudHMgVE8gYXV0aGVudGljYXRlZDsKR1JBTlQgQUxMIE9OIHB1YmxpYy5mYW1pbHlfZG9jdW1lbnRzIFRPIHNlcnZpY2Vfcm9sZTsKQUxURVIgVEFCTEUgcHVibGljLmZhbWlseV9kb2N1bWVudHMgRU5BQkxFIFJPVyBMRVZFTCBTRUNVUklUWTsKCkNSRUFURSBQT0xJQ1kgIkFkbWlucyBtYW5hZ2UgZmFtaWx5IGRvY3VtZW50cyIKT04gcHVibGljLmZhbWlseV9kb2N1bWVudHMgRk9SIEFMTCBUTyBhdXRoZW50aWNhdGVkClVTSU5HIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpCldJVEggQ0hFQ0sgKHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nKSk7CgotLSBBY2Nlc3MgYXR0ZW1wdHMgKHJhdGUgbGltaXRpbmcpOyBzZXJ2aWNlX3JvbGUgb25seQpDUkVBVEUgVEFCTEUgcHVibGljLndhbGxldF9hY2Nlc3NfYXR0ZW1wdHMgKAogIGlkIHV1aWQgUFJJTUFSWSBLRVkgREVGQVVMVCBnZW5fcmFuZG9tX3V1aWQoKSwKICBzbHVnIHRleHQgTk9UIE5VTEwsCiAgY2xpZW50X2tleSB0ZXh0IE5PVCBOVUxMLAogIHN1Y2NlZWRlZCBib29sZWFuIE5PVCBOVUxMIERFRkFVTFQgZmFsc2UsCiAgYXR0ZW1wdGVkX2F0IHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCkKKTsKQ1JFQVRFIElOREVYIHdhbGxldF9hY2Nlc3NfYXR0ZW1wdHNfbG9va3VwIE9OIHB1YmxpYy53YWxsZXRfYWNjZXNzX2F0dGVtcHRzIChjbGllbnRfa2V5LCBhdHRlbXB0ZWRfYXQgREVTQyk7CkdSQU5UIEFMTCBPTiBwdWJsaWMud2FsbGV0X2FjY2Vzc19hdHRlbXB0cyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy53YWxsZXRfYWNjZXNzX2F0dGVtcHRzIEVOQUJMRSBST1cgTEVWRUwgU0VDVVJJVFk7CgotLSBTdG9yYWdlOiBhZG1pbnMgbWFuYWdlIHdhbGxldCBkb2N1bWVudHM7IGZhbWlsaWVzIG5ldmVyIHJlYWQgc3RvcmFnZSBkaXJlY3RseQpDUkVBVEUgUE9MSUNZICJBZG1pbnMgbWFuYWdlIGZhbWlseSBkb2NzIHN0b3JhZ2UiCk9OIHN0b3JhZ2Uub2JqZWN0cyBGT1IgQUxMIFRPIGF1dGhlbnRpY2F0ZWQKVVNJTkcgKGJ1Y2tldF9pZCA9ICdmYW1pbHktZG9jcycgQU5EIHB1YmxpYy5oYXNfcm9sZShhdXRoLnVpZCgpLCAnYWRtaW4nKSkKV0lUSCBDSEVDSyAoYnVja2V0X2lkID0gJ2ZhbWlseS1kb2NzJyBBTkQgcHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKTsK
+-- Roles
+CREATE TYPE public.app_role AS ENUM ('admin');
+
+CREATE TABLE public.user_roles (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL,
+  role public.app_role NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (user_id, role)
+);
+GRANT SELECT ON public.user_roles TO authenticated;
+GRANT ALL ON public.user_roles TO service_role;
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+
+CREATE OR REPLACE FUNCTION public.has_role(_user_id uuid, _role public.app_role)
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.user_roles WHERE user_id = _user_id AND role = _role
+  )
+$$;
+
+CREATE POLICY "Users can read own roles"
+ON public.user_roles FOR SELECT TO authenticated
+USING (auth.uid() = user_id);
+
+-- Families
+CREATE TABLE public.families (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug text NOT NULL UNIQUE,
+  family_name text NOT NULL,
+  contact_email text,
+  contact_phone text,
+  tier_band text NOT NULL DEFAULT '3',
+  nanny_name text,
+  start_date date,
+  terms_accepted_on date,
+  notes text,
+  access_code_hash text NOT NULL,
+  status text NOT NULL DEFAULT 'active',
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.families TO authenticated;
+GRANT ALL ON public.families TO service_role;
+ALTER TABLE public.families ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage families"
+ON public.families FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+-- Documents
+CREATE TABLE public.family_documents (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  doc_type text NOT NULL,
+  storage_path text NOT NULL,
+  file_name text NOT NULL,
+  uploaded_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (family_id, doc_type)
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.family_documents TO authenticated;
+GRANT ALL ON public.family_documents TO service_role;
+ALTER TABLE public.family_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage family documents"
+ON public.family_documents FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+-- Access attempts (rate limiting); service_role only
+CREATE TABLE public.wallet_access_attempts (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug text NOT NULL,
+  client_key text NOT NULL,
+  succeeded boolean NOT NULL DEFAULT false,
+  attempted_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX wallet_access_attempts_lookup ON public.wallet_access_attempts (client_key, attempted_at DESC);
+GRANT ALL ON public.wallet_access_attempts TO service_role;
+ALTER TABLE public.wallet_access_attempts ENABLE ROW LEVEL SECURITY;
+
+-- Storage: admins manage wallet documents; families never read storage directly
+CREATE POLICY "Admins manage family docs storage"
+ON storage.objects FOR ALL TO authenticated
+USING (bucket_id = 'family-docs' AND public.has_role(auth.uid(), 'admin'))
+WITH CHECK (bucket_id = 'family-docs' AND public.has_role(auth.uid(), 'admin'));

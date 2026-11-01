@@ -1,1 +1,239 @@
-ZXhwb3J0IHR5cGUgVHJhaW5pbmdRdWVzdGlvbiA9IHsKICBpZDogc3RyaW5nOwogIHNlY3Rpb246IHN0cmluZzsKICBxdWVzdGlvbjogc3RyaW5nOwogIG9wdGlvbnM6IHN0cmluZ1tdOwp9OwoKZXhwb3J0IGNvbnN0IFRSQUlOSU5HX1NFQ1RJT05TID0gWwogICJUaGUgYWZ0ZXItc2Nob29sIHJvdXRpbmUiLAogICJTYWZlZ3VhcmRpbmcgY2hpbGRyZW4iLAogICJFbWVyZ2VuY2llcyBhbmQgZmlyc3QgYWlkIiwKICAiRm9vZCwgaGVhbHRoIGFuZCB3ZWxsYmVpbmciLAogICJQcm9mZXNzaW9uYWwgY29uZHVjdCIsCl0gYXMgY29uc3Q7CgpleHBvcnQgY29uc3QgUEFTU19NQVJLID0gMTY7CgpleHBvcnQgY29uc3QgVFJBSU5JTkdfUVVFU1RJT05TOiBUcmFpbmluZ1F1ZXN0aW9uW10gPSBbCiAgewogICAgaWQ6ICJxMSIsCiAgICBzZWN0aW9uOiAiVGhlIGFmdGVyLXNjaG9vbCByb3V0aW5lIiwKICAgIHF1ZXN0aW9uOiAiWW91IGFycml2ZSBhdCB0aGUgc2Nob29sIGdhdGUgZm9yIHBpY2stdXAuIFdoYXQgc2hvdWxkIHlvdSBkbyBmaXJzdD8iLAogICAgb3B0aW9uczogWwogICAgICAiV2FpdCBpbiB0aGUgY2FyIGFuZCB0ZXh0IHRoZSBjaGlsZCB0byBjb21lIG91dCIsCiAgICAgICJDaGVjayBpbiBhdCB0aGUgYWdyZWVkIG1lZXRpbmcgcG9pbnQgYW5kIG1ha2Ugc3VyZSB0aGUgc2Nob29sIGtub3dzIHlvdSBhcmUgY29sbGVjdGluZyIsCiAgICAgICJHbyBzdHJhaWdodCB0byB0aGUgY2xhc3Nyb29tIGFuZCB0YWtlIHRoZSBjaGlsZCIsCiAgICAgICJBc2sgYW5vdGhlciBwYXJlbnQgdG8gYnJpbmcgdGhlbSBvdXQgdG8geW91IiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInEyIiwKICAgIHNlY3Rpb246ICJUaGUgYWZ0ZXItc2Nob29sIHJvdXRpbmUiLAogICAgcXVlc3Rpb246ICJBIHR5cGljYWwgYWZ0ZXItc2Nob29sIHNoaWZ0IHJ1bnMgc21vb3RoZXN0IHdoZW4geW91OiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJJbXByb3Zpc2UgZWFjaCBkYXkgc28gdGhlIGNoaWxkcmVuIGFyZW4ndCBib3JlZCIsCiAgICAgICJGb2xsb3cgdGhlIGZhbWlseSdzIGFncmVlZCByb3V0aW5lIOKAlCBzbmFjaywgZGVjb21wcmVzcywgaG9tZXdvcmssIGFjdGl2aXR5LCB0aWR5IHVwIiwKICAgICAgIkRvIGhvbWV3b3JrIHRoZSBtb21lbnQgeW91IHdhbGsgaW4sIGV2ZXJ5IHRpbWUiLAogICAgICAiTGVhdmUgZXZlcnl0aGluZyBmb3IgdGhlIHBhcmVudHMgd2hlbiB0aGV5IGdldCBob21lIiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInEzIiwKICAgIHNlY3Rpb246ICJUaGUgYWZ0ZXItc2Nob29sIHJvdXRpbmUiLAogICAgcXVlc3Rpb246ICJBIGNoaWxkIHNheXMgdGhleSBoYXZlIG5vIGhvbWV3b3JrLCBidXQgdGhlIHBsYW5uZXIgc2F5cyBvdGhlcndpc2UuIFlvdSBzaG91bGQ6IiwKICAgIG9wdGlvbnM6IFsKICAgICAgIlRha2UgdGhlaXIgd29yZCBmb3IgaXQiLAogICAgICAiTWFrZSB0aGVtIGRvIHR3byBob3VycyBvZiBleHRyYSB3b3JrIiwKICAgICAgIkNoZWNrIHRoZSBwbGFubmVyIG9yIHNjaG9vbCBhcHAgY2FsbWx5LCBhbmQgbWVudGlvbiBpdCBpbiB0aGUgZGFpbHkgbG9nIiwKICAgICAgIlBob25lIHRoZSB0ZWFjaGVyIGF0IGhvbWUiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTQiLAogICAgc2VjdGlvbjogIlRoZSBhZnRlci1zY2hvb2wgcm91dGluZSIsCiAgICBxdWVzdGlvbjogIkJlc3QgcHJhY3RpY2UgZm9yIHNjcmVlbiB0aW1lIGlzIHRvOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJBbGxvdyBpdCB3aGVuZXZlciB0aGUgY2hpbGRyZW4gYXNrIiwKICAgICAgIkJhbiBzY3JlZW5zIGVudGlyZWx5IiwKICAgICAgIkZvbGxvdyB0aGUgZmFtaWx5J3Mgc2NyZWVuLXRpbWUgcnVsZXMgcmVjb3JkZWQgaW4gdGhlIGZhbWlseSBwcm9maWxlIiwKICAgICAgIlVzZSB5b3VyIG93biBwaG9uZSB0byBrZWVwIHRoZW0gZW50ZXJ0YWluZWQiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTUiLAogICAgc2VjdGlvbjogIlRoZSBhZnRlci1zY2hvb2wgcm91dGluZSIsCiAgICBxdWVzdGlvbjogIkF0IHRoZSBlbmQgb2YgeW91ciBzaGlmdCwgdGhlIG1vc3QgdXNlZnVsIHRoaW5nIHlvdSBjYW4gbGVhdmUgYmVoaW5kIGlzOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJBIHRpZHkga2l0Y2hlbiBvbmx5IiwKICAgICAgIkEgc2hvcnQgZGFpbHkgbG9nOiB3aGF0IHRoZXkgZGlkLCB3aGF0IHRoZXkgYXRlLCBob21ld29yaywgbW9vZCBhbmQgYW55dGhpbmcgZm9yIHRvbW9ycm93IiwKICAgICAgIkEgbG9uZyB2ZXJiYWwgaGFuZG92ZXIgYXQgdGhlIGRvb3IiLAogICAgICAiTm90aGluZyDigJQgcGFyZW50cyBjYW4gYXNrIGlmIHRoZXkgd2FudCB0byBrbm93IiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInE2IiwKICAgIHNlY3Rpb246ICJTYWZlZ3VhcmRpbmcgY2hpbGRyZW4iLAogICAgcXVlc3Rpb246ICJTYWZlZ3VhcmRpbmcgbWVhbnM6IiwKICAgIG9wdGlvbnM6IFsKICAgICAgIk9ubHkgYWN0aW5nIHdoZW4geW91IHNlZSBwaHlzaWNhbCBpbmp1cmllcyIsCiAgICAgICJQcm90ZWN0aW5nIGNoaWxkcmVuIGZyb20gaGFybSwgYWJ1c2UgYW5kIG5lZ2xlY3QsIGFuZCBhY3Rpbmcgb24gY29uY2VybnMiLAogICAgICAiS2VlcGluZyB0aGUgaG91c2Ugc2VjdXJlIiwKICAgICAgIk1ha2luZyBzdXJlIHRoZSBjaGlsZHJlbiBhcmUgbmV2ZXIgdXBzZXQiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTciLAogICAgc2VjdGlvbjogIlNhZmVndWFyZGluZyBjaGlsZHJlbiIsCiAgICBxdWVzdGlvbjogIkEgY2hpbGQgc3RhcnRzIHRvIGRpc2Nsb3NlIHNvbWV0aGluZyB3b3JyeWluZy4gWW91IHNob3VsZDoiLAogICAgb3B0aW9uczogWwogICAgICAiU3RvcCB0aGVtIGFuZCBzYXkgeW91IGNhbid0IGRpc2N1c3MgaXQiLAogICAgICAiQXNrIGxvdHMgb2YgbGVhZGluZyBxdWVzdGlvbnMgdG8gZ2V0IHRoZSBmdWxsIHN0b3J5IiwKICAgICAgIkxpc3RlbiBjYWxtbHksIGRvbid0IHByb21pc2Ugc2VjcmVjeSwgZG9uJ3QgbGVhZCB0aGVtLCBhbmQgcmVjb3JkIHdoYXQgd2FzIHNhaWQgaW4gdGhlaXIgd29yZHMiLAogICAgICAiUmVjb3JkIGl0IG9uIHlvdXIgcGhvbmUgYXMgdmlkZW8gZXZpZGVuY2UiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTgiLAogICAgc2VjdGlvbjogIlNhZmVndWFyZGluZyBjaGlsZHJlbiIsCiAgICBxdWVzdGlvbjogIklmIHlvdSBoYXZlIGEgc2VyaW91cyBzYWZlZ3VhcmRpbmcgY29uY2VybiBhYm91dCBhIGNoaWxkIGluIHlvdXIgY2FyZSwgeW91IHNob3VsZDoiLAogICAgb3B0aW9uczogWwogICAgICAiUG9zdCBhYm91dCBpdCBhbm9ueW1vdXNseSBpbiBhIG5hbm55IGdyb3VwIGZvciBhZHZpY2UiLAogICAgICAiV2FpdCBhIGZldyB3ZWVrcyB0byBzZWUgaWYgaXQgaGFwcGVucyBhZ2FpbiIsCiAgICAgICJSZXBvcnQgaXQgdGhlIHNhbWUgZGF5IHRvIHlvdXIgYWdlbmN5IGFuZCwgd2hlcmUgYSBjaGlsZCBpcyBhdCByaXNrIG9mIGhhcm0sIHRvIGNoaWxkcmVuJ3Mgc29jaWFsIGNhcmUgb3IgdGhlIHBvbGljZSIsCiAgICAgICJDb25mcm9udCB0aGUgcGVyc29uIHlvdSBzdXNwZWN0IiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInE5IiwKICAgIHNlY3Rpb246ICJTYWZlZ3VhcmRpbmcgY2hpbGRyZW4iLAogICAgcXVlc3Rpb246ICJQaG90b2dyYXBocyBvZiB0aGUgY2hpbGRyZW4gc2hvdWxkOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJOZXZlciBiZSBwb3N0ZWQgb24geW91ciBzb2NpYWwgbWVkaWE7IHRoZXkgYXJlIG9ubHkgc2hhcmVkIHdpdGggdGhlIHBhcmVudHMgaW4gYWdyZWVkIHdheXMiLAogICAgICAiQmUgcG9zdGVkIGlmIHRoZSBjaGlsZCdzIGZhY2UgaXNuJ3QgY2xlYXIiLAogICAgICAiQmUgc2hhcmVkIHdpdGggeW91ciBmcmllbmRzIHByaXZhdGVseSIsCiAgICAgICJCZSBwb3N0ZWQgaWYgdGhlIHBhcmVudHMgb25jZSBzYWlkIGEgcGhvdG8gd2FzIGxvdmVseSIsCiAgICBdLAogIH0sCiAgewogICAgaWQ6ICJxMTAiLAogICAgc2VjdGlvbjogIlNhZmVndWFyZGluZyBjaGlsZHJlbiIsCiAgICBxdWVzdGlvbjogIk9ubHkgYWR1bHRzIG5hbWVkIG9uIHRoZSBmYW1pbHkncyBhdXRob3Jpc2VkIGxpc3QgbWF5IGNvbGxlY3QgYSBjaGlsZC4gSWYgc29tZW9uZSBlbHNlIHR1cm5zIHVwIHNheWluZyB0aGUgcGFyZW50IHNlbnQgdGhlbSwgeW91OiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJMZXQgdGhlbSB0YWtlIHRoZSBjaGlsZCB0byBhdm9pZCBhIHNjZW5lIiwKICAgICAgIkRvIG5vdCByZWxlYXNlIHRoZSBjaGlsZCBhbmQgcGhvbmUgdGhlIHBhcmVudCB0byBjb25maXJtIGJlZm9yZSBhbnl0aGluZyBlbHNlIiwKICAgICAgIkFzayB0aGUgY2hpbGQgaWYgdGhleSBrbm93IHRoZW0gYW5kIGdvIGZyb20gdGhlcmUiLAogICAgICAiQXNrIGZvciBJRCBhbmQgcmVsZWFzZSB0aGUgY2hpbGQgaWYgdGhleSBoYXZlIGFueSIsCiAgICBdLAogIH0sCiAgewogICAgaWQ6ICJxMTEiLAogICAgc2VjdGlvbjogIlNhZmVndWFyZGluZyBjaGlsZHJlbiIsCiAgICBxdWVzdGlvbjogIlNhZmVyIHdvcmtpbmcgcHJhY3RpY2Ugd2l0aCBjaGlsZHJlbiBpbmNsdWRlczoiLAogICAgb3B0aW9uczogWwogICAgICAiS2VlcGluZyBzZWNyZXRzIHdpdGggY2hpbGRyZW4gdG8gYnVpbGQgdHJ1c3QiLAogICAgICAiUHJpdmF0ZSBtZXNzYWdpbmcgd2l0aCBjaGlsZHJlbiBvbiB5b3VyIHBlcnNvbmFsIGFjY291bnRzIiwKICAgICAgIkJlaW5nIHRyYW5zcGFyZW50IOKAlCB2aXNpYmxlIGNhcmUsIGFncmVlZCBib3VuZGFyaWVzLCBhbmQgY29tbXVuaWNhdGlvbiB0aHJvdWdoIHRoZSBwYXJlbnRzIiwKICAgICAgIk9mZmVyaW5nIGxpZnRzIHRvIGNoaWxkcmVuIG91dHNpZGUgeW91ciB3b3JraW5nIGhvdXJzIHdpdGhvdXQgdGVsbGluZyBwYXJlbnRzIiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInExMiIsCiAgICBzZWN0aW9uOiAiRW1lcmdlbmNpZXMgYW5kIGZpcnN0IGFpZCIsCiAgICBxdWVzdGlvbjogIkEgY2hpbGQgZmFsbHMgYW5kIGlzIHVucmVzcG9uc2l2ZSBidXQgYnJlYXRoaW5nLiBZb3Ugc2hvdWxkOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJTaXQgdGhlbSB1cCBhbmQgZ2l2ZSB0aGVtIHdhdGVyIiwKICAgICAgIlBsYWNlIHRoZW0gaW4gdGhlIHJlY292ZXJ5IHBvc2l0aW9uLCBjYWxsIDk5OSwgYW5kIHN0YXkgd2l0aCB0aGVtIiwKICAgICAgIkRyaXZlIHRoZW0gdG8gaG9zcGl0YWwgeW91cnNlbGYiLAogICAgICAiV2FpdCB0ZW4gbWludXRlcyB0byBzZWUgaWYgdGhleSBjb21lIHJvdW5kIiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInExMyIsCiAgICBzZWN0aW9uOiAiRW1lcmdlbmNpZXMgYW5kIGZpcnN0IGFpZCIsCiAgICBxdWVzdGlvbjogIkEgY2hpbGQgd2l0aCBhIGtub3duIG51dCBhbGxlcmd5IGRldmVsb3BzIHN3ZWxsaW5nIG9mIHRoZSBsaXBzIGFuZCBkaWZmaWN1bHR5IGJyZWF0aGluZy4gWW91ciBmaXJzdCBhY3Rpb24gaXM6IiwKICAgIG9wdGlvbnM6IFsKICAgICAgIkdpdmUgYW50aWhpc3RhbWluZSBhbmQgd2FpdCIsCiAgICAgICJVc2UgdGhlaXIgYWRyZW5hbGluZSBhdXRvLWluamVjdG9yIChFcGlQZW4pIHN0cmFpZ2h0IGF3YXkgYW5kIGNhbGwgOTk5IiwKICAgICAgIlBob25lIHRoZSBwYXJlbnRzIGZpcnN0IGZvciBwZXJtaXNzaW9uIiwKICAgICAgIkdpdmUgdGhlbSBhIGRyaW5rIHRvIGNsZWFyIHRoZWlyIHRocm9hdCIsCiAgICBdLAogIH0sCiAgewogICAgaWQ6ICJxMTQiLAogICAgc2VjdGlvbjogIkVtZXJnZW5jaWVzIGFuZCBmaXJzdCBhaWQiLAogICAgcXVlc3Rpb246ICJBIGNoaWxkIGlzIGNob2tpbmcgYnV0IGNhbiBzdGlsbCBjb3VnaCBmb3JjZWZ1bGx5LiBZb3Ugc2hvdWxkOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJTdGFydCBiYWNrIGJsb3dzIGltbWVkaWF0ZWx5IiwKICAgICAgIlB1dCB5b3VyIGZpbmdlcnMgaW4gdGhlaXIgbW91dGggdG8gZmluZCB0aGUgb2JqZWN0IiwKICAgICAgIkVuY291cmFnZSB0aGVtIHRvIGtlZXAgY291Z2hpbmcgYW5kIHN0YXkgd2l0aCB0aGVtLCByZWFkeSB0byBhY3QgaWYgaXQgd29yc2VucyIsCiAgICAgICJHaXZlIHRoZW0gd2F0ZXIgdG8gd2FzaCBpdCBkb3duIiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInExNSIsCiAgICBzZWN0aW9uOiAiRW1lcmdlbmNpZXMgYW5kIGZpcnN0IGFpZCIsCiAgICBxdWVzdGlvbjogIlRoZSBlbWVyZ2VuY3kgY2FyZCBpbiB0aGUgRmFtaWx5IFdhbGxldCBleGlzdHMgc28gdGhhdDoiLAogICAgb3B0aW9uczogWwogICAgICAiUGFyZW50cyBoYXZlIGEgcmVjb3JkIGZvciBpbnN1cmFuY2UiLAogICAgICAiWW91IGNhbiBmaW5kIGNvbnRhY3RzLCBhbGxlcmdpZXMsIG1lZGljYXRpb24sIEdQIGRldGFpbHMgYW5kIHRoZSBob21lIGFkZHJlc3MgaW4gb25lIHRhcCIsCiAgICAgICJUaGUgYWdlbmN5IGNhbiBhdWRpdCB0aGUgZmFtaWx5IiwKICAgICAgIkl0IHJlcGxhY2VzIGNhbGxpbmcgOTk5IiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInExNiIsCiAgICBzZWN0aW9uOiAiRW1lcmdlbmNpZXMgYW5kIGZpcnN0IGFpZCIsCiAgICBxdWVzdGlvbjogIkFmdGVyIGFueSBhY2NpZGVudCwgaW5qdXJ5IG9yIG5lYXIgbWlzcywgeW91IHNob3VsZDoiLAogICAgb3B0aW9uczogWwogICAgICAiT25seSBtZW50aW9uIGl0IGlmIHRoZSBjaGlsZCBjb21wbGFpbnMgbGF0ZXIiLAogICAgICAiVGVsbCB0aGUgcGFyZW50cyB0aGUgc2FtZSBkYXkgYW5kIHJlY29yZCBpdCBpbiB0aGUgZGFpbHkgbG9nLCB3aXRoIHRpbWUsIHdoYXQgaGFwcGVuZWQgYW5kIHdoYXQgeW91IGRpZCIsCiAgICAgICJXcml0ZSBpdCBkb3duIG9ubHkgaWYgYSBmaXJzdC1haWQga2l0IHdhcyB1c2VkIiwKICAgICAgIktlZXAgaXQgdG8geW91cnNlbGYgaWYgdGhlIGNoaWxkIHNlZW1zIGZpbmUiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTE3IiwKICAgIHNlY3Rpb246ICJGb29kLCBoZWFsdGggYW5kIHdlbGxiZWluZyIsCiAgICBxdWVzdGlvbjogIkJlZm9yZSBnaXZpbmcgYW55IHNuYWNrIG9yIG1lYWwgeW91IHNob3VsZDoiLAogICAgb3B0aW9uczogWwogICAgICAiQ2hlY2sgdGhlIGNoaWxkJ3MgYWxsZXJnaWVzIGFuZCBkaWV0YXJ5IG5vdGVzIGluIHRoZSBmYW1pbHkgcHJvZmlsZSIsCiAgICAgICJBc2sgdGhlIGNoaWxkIHdoYXQgdGhleSBmYW5jeSBhbmQgZ2l2ZSB0aGVtIHRoYXQiLAogICAgICAiQXNzdW1lIGxhc3Qgd2VlaydzIGluZm9ybWF0aW9uIHN0aWxsIGFwcGxpZXMgd2l0aG91dCBjaGVja2luZyIsCiAgICAgICJPZmZlciB3aGF0ZXZlciBpcyBpbiB0aGUgY3VwYm9hcmQiLAogICAgXSwKICB9LAogIHsKICAgIGlkOiAicTE4IiwKICAgIHNlY3Rpb246ICJGb29kLCBoZWFsdGggYW5kIHdlbGxiZWluZyIsCiAgICBxdWVzdGlvbjogIllvdSBtYXkgZ2l2ZSBhIGNoaWxkIG1lZGljYXRpb24gd2hlbjoiLAogICAgb3B0aW9uczogWwogICAgICAiVGhleSBzYXkgdGhleSB1c3VhbGx5IGhhdmUgaXQiLAogICAgICAiVGhlIHBhcmVudHMgaGF2ZSBnaXZlbiB3cml0dGVuIHBlcm1pc3Npb24gd2l0aCB0aGUgZG9zZSBhbmQgdGltZSwgYW5kIHlvdSByZWNvcmQgd2hhdCB5b3UgZ2F2ZSIsCiAgICAgICJZb3UganVkZ2UgdGhhdCB0aGV5IG5lZWQgaXQiLAogICAgICAiQW4gb2xkZXIgc2libGluZyBjb25maXJtcyBpdCIsCiAgICBdLAogIH0sCiAgewogICAgaWQ6ICJxMTkiLAogICAgc2VjdGlvbjogIlByb2Zlc3Npb25hbCBjb25kdWN0IiwKICAgIHF1ZXN0aW9uOiAiQSBjaGlsZCBpcyBoYXZpbmcgYSBtZWx0ZG93biBhZnRlciBhIGhhcmQgZGF5IGF0IHNjaG9vbC4gVGhlIGJlc3QgcmVzcG9uc2UgaXM6IiwKICAgIG9wdGlvbnM6IFsKICAgICAgIlNlbmQgdGhlbSB0byB0aGVpciByb29tIHVudGlsIHRoZXkgc3RvcCIsCiAgICAgICJTdGF5IGNhbG0sIG5hbWUgdGhlIGZlZWxpbmcsIGdpdmUgdGhlbSBzcGFjZSBhbmQgYSBzbmFjaywgYW5kIGZvbGxvdyB1cCBvbmNlIHRoZXkncmUgc2V0dGxlZCIsCiAgICAgICJUYWtlIGF3YXkgYSBwcml2aWxlZ2UgaW1tZWRpYXRlbHkiLAogICAgICAiSWdub3JlIGl0IGVudGlyZWx5IiwKICAgIF0sCiAgfSwKICB7CiAgICBpZDogInEyMCIsCiAgICBzZWN0aW9uOiAiUHJvZmVzc2lvbmFsIGNvbmR1Y3QiLAogICAgcXVlc3Rpb246ICJZb3UgYXJlIGdvaW5nIHRvIGJlIGxhdGUgZm9yIHBpY2stdXAgYmVjYXVzZSBvZiB0cmFmZmljLiBZb3Ugc2hvdWxkOiIsCiAgICBvcHRpb25zOiBbCiAgICAgICJEcml2ZSBmYXN0ZXIgYW5kIHNheSBub3RoaW5nIiwKICAgICAgIlRlbGwgdGhlIHBhcmVudHMgYW5kIHRoZSBzY2hvb2wgYXMgc29vbiBhcyB5b3Uga25vdywgc28gY292ZXIgY2FuIGJlIGFycmFuZ2VkIiwKICAgICAgIldhaXQgYW5kIGV4cGxhaW4gd2hlbiB5b3UgYXJyaXZlIiwKICAgICAgIkFzayBhIGZyaWVuZCB0byBjb2xsZWN0IHRoZSBjaGlsZCBmb3IgeW91IiwKICAgIF0sCiAgfSwKXTsK
+export type TrainingQuestion = {
+  id: string;
+  section: string;
+  question: string;
+  options: string[];
+};
+
+export const TRAINING_SECTIONS = [
+  "The after-school routine",
+  "Safeguarding children",
+  "Emergencies and first aid",
+  "Food, health and wellbeing",
+  "Professional conduct",
+] as const;
+
+export const PASS_MARK = 16;
+
+export const TRAINING_QUESTIONS: TrainingQuestion[] = [
+  {
+    id: "q1",
+    section: "The after-school routine",
+    question: "You arrive at the school gate for pick-up. What should you do first?",
+    options: [
+      "Wait in the car and text the child to come out",
+      "Check in at the agreed meeting point and make sure the school knows you are collecting",
+      "Go straight to the classroom and take the child",
+      "Ask another parent to bring them out to you",
+    ],
+  },
+  {
+    id: "q2",
+    section: "The after-school routine",
+    question: "A typical after-school shift runs smoothest when you:",
+    options: [
+      "Improvise each day so the children aren't bored",
+      "Follow the family's agreed routine — snack, decompress, homework, activity, tidy up",
+      "Do homework the moment you walk in, every time",
+      "Leave everything for the parents when they get home",
+    ],
+  },
+  {
+    id: "q3",
+    section: "The after-school routine",
+    question: "A child says they have no homework, but the planner says otherwise. You should:",
+    options: [
+      "Take their word for it",
+      "Make them do two hours of extra work",
+      "Check the planner or school app calmly, and mention it in the daily log",
+      "Phone the teacher at home",
+    ],
+  },
+  {
+    id: "q4",
+    section: "The after-school routine",
+    question: "Best practice for screen time is to:",
+    options: [
+      "Allow it whenever the children ask",
+      "Ban screens entirely",
+      "Follow the family's screen-time rules recorded in the family profile",
+      "Use your own phone to keep them entertained",
+    ],
+  },
+  {
+    id: "q5",
+    section: "The after-school routine",
+    question: "At the end of your shift, the most useful thing you can leave behind is:",
+    options: [
+      "A tidy kitchen only",
+      "A short daily log: what they did, what they ate, homework, mood and anything for tomorrow",
+      "A long verbal handover at the door",
+      "Nothing — parents can ask if they want to know",
+    ],
+  },
+  {
+    id: "q6",
+    section: "Safeguarding children",
+    question: "Safeguarding means:",
+    options: [
+      "Only acting when you see physical injuries",
+      "Protecting children from harm, abuse and neglect, and acting on concerns",
+      "Keeping the house secure",
+      "Making sure the children are never upset",
+    ],
+  },
+  {
+    id: "q7",
+    section: "Safeguarding children",
+    question: "A child starts to disclose something worrying. You should:",
+    options: [
+      "Stop them and say you can't discuss it",
+      "Ask lots of leading questions to get the full story",
+      "Listen calmly, don't promise secrecy, don't lead them, and record what was said in their words",
+      "Record it on your phone as video evidence",
+    ],
+  },
+  {
+    id: "q8",
+    section: "Safeguarding children",
+    question: "If you have a serious safeguarding concern about a child in your care, you should:",
+    options: [
+      "Post about it anonymously in a nanny group for advice",
+      "Wait a few weeks to see if it happens again",
+      "Report it the same day to your agency and, where a child is at risk of harm, to children's social care or the police",
+      "Confront the person you suspect",
+    ],
+  },
+  {
+    id: "q9",
+    section: "Safeguarding children",
+    question: "Photographs of the children should:",
+    options: [
+      "Never be posted on your social media; they are only shared with the parents in agreed ways",
+      "Be posted if the child's face isn't clear",
+      "Be shared with your friends privately",
+      "Be posted if the parents once said a photo was lovely",
+    ],
+  },
+  {
+    id: "q10",
+    section: "Safeguarding children",
+    question: "Only adults named on the family's authorised list may collect a child. If someone else turns up saying the parent sent them, you:",
+    options: [
+      "Let them take the child to avoid a scene",
+      "Do not release the child and phone the parent to confirm before anything else",
+      "Ask the child if they know them and go from there",
+      "Ask for ID and release the child if they have any",
+    ],
+  },
+  {
+    id: "q11",
+    section: "Safeguarding children",
+    question: "Safer working practice with children includes:",
+    options: [
+      "Keeping secrets with children to build trust",
+      "Private messaging with children on your personal accounts",
+      "Being transparent — visible care, agreed boundaries, and communication through the parents",
+      "Offering lifts to children outside your working hours without telling parents",
+    ],
+  },
+  {
+    id: "q12",
+    section: "Emergencies and first aid",
+    question: "A child falls and is unresponsive but breathing. You should:",
+    options: [
+      "Sit them up and give them water",
+      "Place them in the recovery position, call 999, and stay with them",
+      "Drive them to hospital yourself",
+      "Wait ten minutes to see if they come round",
+    ],
+  },
+  {
+    id: "q13",
+    section: "Emergencies and first aid",
+    question: "A child with a known nut allergy develops swelling of the lips and difficulty breathing. Your first action is:",
+    options: [
+      "Give antihistamine and wait",
+      "Use their adrenaline auto-injector (EpiPen) straight away and call 999",
+      "Phone the parents first for permission",
+      "Give them a drink to clear their throat",
+    ],
+  },
+  {
+    id: "q14",
+    section: "Emergencies and first aid",
+    question: "A child is choking but can still cough forcefully. You should:",
+    options: [
+      "Start back blows immediately",
+      "Put your fingers in their mouth to find the object",
+      "Encourage them to keep coughing and stay with them, ready to act if it worsens",
+      "Give them water to wash it down",
+    ],
+  },
+  {
+    id: "q15",
+    section: "Emergencies and first aid",
+    question: "The emergency card in the Family Wallet exists so that:",
+    options: [
+      "Parents have a record for insurance",
+      "You can find contacts, allergies, medication, GP details and the home address in one tap",
+      "The agency can audit the family",
+      "It replaces calling 999",
+    ],
+  },
+  {
+    id: "q16",
+    section: "Emergencies and first aid",
+    question: "After any accident, injury or near miss, you should:",
+    options: [
+      "Only mention it if the child complains later",
+      "Tell the parents the same day and record it in the daily log, with time, what happened and what you did",
+      "Write it down only if a first-aid kit was used",
+      "Keep it to yourself if the child seems fine",
+    ],
+  },
+  {
+    id: "q17",
+    section: "Food, health and wellbeing",
+    question: "Before giving any snack or meal you should:",
+    options: [
+      "Check the child's allergies and dietary notes in the family profile",
+      "Ask the child what they fancy and give them that",
+      "Assume last week's information still applies without checking",
+      "Offer whatever is in the cupboard",
+    ],
+  },
+  {
+    id: "q18",
+    section: "Food, health and wellbeing",
+    question: "You may give a child medication when:",
+    options: [
+      "They say they usually have it",
+      "The parents have given written permission with the dose and time, and you record what you gave",
+      "You judge that they need it",
+      "An older sibling confirms it",
+    ],
+  },
+  {
+    id: "q19",
+    section: "Professional conduct",
+    question: "A child is having a meltdown after a hard day at school. The best response is:",
+    options: [
+      "Send them to their room until they stop",
+      "Stay calm, name the feeling, give them space and a snack, and follow up once they're settled",
+      "Take away a privilege immediately",
+      "Ignore it entirely",
+    ],
+  },
+  {
+    id: "q20",
+    section: "Professional conduct",
+    question: "You are going to be late for pick-up because of traffic. You should:",
+    options: [
+      "Drive faster and say nothing",
+      "Tell the parents and the school as soon as you know, so cover can be arranged",
+      "Wait and explain when you arrive",
+      "Ask a friend to collect the child for you",
+    ],
+  },
+];

@@ -1,1 +1,156 @@
-Ly8gQWdlbmN5IHN0YWZmIHNjb3BlOiB0aGUgdGhlIG93bmVyIGFnZW5jeSBvd25lciAoYWRtaW4gcm9sZSkgc2VlcyBldmVyeSBmYW1pbHk7Ci8vIHBhcnRuZXItYWdlbmN5IHN0YWZmIHNlZSBvbmx5IGZhbWlsaWVzIHdob3NlIHBhcnRuZXJfYWdlbmN5X2lkIG1hdGNoZXMgdGhlaXJzLgpleHBvcnQgdHlwZSBTdGFmZlNjb3BlID0KICB8IHsga2luZDogIm93bmVyIiB9CiAgfCB7IGtpbmQ6ICJwYXJ0bmVyIjsgYWdlbmN5SWQ6IHN0cmluZzsgYWdlbmN5TmFtZTogc3RyaW5nIH07Cgp0eXBlIFN0YWZmQ3R4ID0gewogIHN1cGFiYXNlOiB7IHJwYzogKGZuOiBzdHJpbmcsIGFyZ3M6IFJlY29yZDxzdHJpbmcsIHVua25vd24+KSA9PiBQcm9taXNlTGlrZTx7IGRhdGE6IHVua25vd24gfT4gfTsKICB1c2VySWQ6IHN0cmluZzsKICBjbGFpbXM/OiB7IGVtYWlsPzogc3RyaW5nOyBhYWw/OiBzdHJpbmcgfSB8IG51bGw7Cn07CgovKiogQWdlbmN5IGFjY2VzcyBuZWVkcyBhIHNlc3Npb24gdmVyaWZpZWQgd2l0aCBhbiBhdXRoZW50aWNhdG9yLWFwcCBjb2RlLiAqLwpleHBvcnQgZnVuY3Rpb24gYXNzZXJ0VHdvU3RlcChjb250ZXh0OiB1bmtub3duKSB7CiAgY29uc3QgYWFsID0gKGNvbnRleHQgYXMgU3RhZmZDdHgpLmNsYWltcz8uYWFsOwogIGlmIChhYWwgIT09ICJhYWwyIikgdGhyb3cgbmV3IEVycm9yKCJUd28tc3RlcCB2ZXJpZmljYXRpb24gcmVxdWlyZWQuIFBsZWFzZSBzaWduIGluIGFnYWluLiIpOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmVzb2x2ZVN0YWZmU2NvcGUoY29udGV4dDogdW5rbm93bik6IFByb21pc2U8U3RhZmZTY29wZSB8IG51bGw+IHsKICBjb25zdCBjdHggPSBjb250ZXh0IGFzIFN0YWZmQ3R4OwogIGFzc2VydFR3b1N0ZXAoY29udGV4dCk7CiAgY29uc3QgeyBkYXRhOiBpc0FkbWluIH0gPSBhd2FpdCBjdHguc3VwYWJhc2UucnBjKCJoYXNfcm9sZSIsIHsgX3VzZXJfaWQ6IGN0eC51c2VySWQsIF9yb2xlOiAiYWRtaW4iIH0pOwogIGlmIChpc0FkbWluID09PSB0cnVlKSByZXR1cm4geyBraW5kOiAib3duZXIiIH07CgogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgbGV0IHsgZGF0YTogc3RhZmYgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJwYXJ0bmVyX2FnZW5jeV9zdGFmZiIpCiAgICAuc2VsZWN0KCJpZCwgYWdlbmN5X2lkIikKICAgIC5lcSgidXNlcl9pZCIsIGN0eC51c2VySWQpCiAgICAubWF5YmVTaW5nbGUoKTsKCiAgY29uc3QgZW1haWwgPSAoY3R4LmNsYWltcz8uZW1haWwgPz8gIiIpLnRyaW0oKS50b0xvd2VyQ2FzZSgpOwogIGlmICghc3RhZmYgJiYgZW1haWwpIHsKICAgIGNvbnN0IHsgZGF0YTogaW52aXRlZCB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgICAuZnJvbSgicGFydG5lcl9hZ2VuY3lfc3RhZmYiKQogICAgICAuc2VsZWN0KCJpZCwgYWdlbmN5X2lkIikKICAgICAgLmVxKCJlbWFpbCIsIGVtYWlsKQogICAgICAuaXMoInVzZXJfaWQiLCBudWxsKQogICAgICAubWF5YmVTaW5nbGUoKTsKICAgIGlmIChpbnZpdGVkKSB7CiAgICAgIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9hZ2VuY3lfc3RhZmYiKS51cGRhdGUoeyB1c2VyX2lkOiBjdHgudXNlcklkIH0pLmVxKCJpZCIsIGludml0ZWQuaWQpOwogICAgICBzdGFmZiA9IGludml0ZWQ7CiAgICB9CiAgfQogIGlmICghc3RhZmYpIHJldHVybiBudWxsOwoKICBjb25zdCB7IGRhdGE6IGFnZW5jeSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oInBhcnRuZXJfYWdlbmNpZXMiKQogICAgLnNlbGVjdCgiaWQsIG5hbWUsIHN0YXR1cyIpCiAgICAuZXEoImlkIiwgc3RhZmYuYWdlbmN5X2lkKQogICAgLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFhZ2VuY3kgfHwgYWdlbmN5LnN0YXR1cyAhPT0gImFjdGl2ZSIpIHJldHVybiBudWxsOwogIHJldHVybiB7IGtpbmQ6ICJwYXJ0bmVyIiwgYWdlbmN5SWQ6IGFnZW5jeS5pZCwgYWdlbmN5TmFtZTogYWdlbmN5Lm5hbWUgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJlcXVpcmVTdGFmZihjb250ZXh0OiB1bmtub3duKTogUHJvbWlzZTxTdGFmZlNjb3BlPiB7CiAgY29uc3Qgc2NvcGUgPSBhd2FpdCByZXNvbHZlU3RhZmZTY29wZShjb250ZXh0KTsKICBpZiAoIXNjb3BlKSB0aHJvdyBuZXcgRXJyb3IoIkZvcmJpZGRlbiIpOwogIHJldHVybiBzY29wZTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJlcXVpcmVPd25lcihjb250ZXh0OiB1bmtub3duKTogUHJvbWlzZTx2b2lkPiB7CiAgY29uc3Qgc2NvcGUgPSBhd2FpdCByZXNvbHZlU3RhZmZTY29wZShjb250ZXh0KTsKICBpZiAoc2NvcGU/LmtpbmQgIT09ICJvd25lciIpIHRocm93IG5ldyBFcnJvcigiRm9yYmlkZGVuIik7Cn0KCmV4cG9ydCBmdW5jdGlvbiBjYW5TZWVGYW1pbHkoc2NvcGU6IFN0YWZmU2NvcGUsIGZhbWlseUFnZW5jeUlkOiBzdHJpbmcgfCBudWxsKTogYm9vbGVhbiB7CiAgcmV0dXJuIHNjb3BlLmtpbmQgPT09ICJvd25lciIgfHwgZmFtaWx5QWdlbmN5SWQgPT09IHNjb3BlLmFnZW5jeUlkOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gYXNzZXJ0RmFtaWx5SW5TY29wZShzY29wZTogU3RhZmZTY29wZSwgZmFtaWx5SWQ6IHN0cmluZyk6IFByb21pc2U8dm9pZD4gewogIGlmIChzY29wZS5raW5kID09PSAib3duZXIiKSByZXR1cm47CiAgY29uc3QgeyBzdXBhYmFzZUFkbWluIH0gPSBhd2FpdCBpbXBvcnQoIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiKTsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJwYXJ0bmVyX2FnZW5jeV9pZCIpCiAgICAuZXEoImlkIiwgZmFtaWx5SWQpCiAgICAubWF5YmVTaW5nbGUoKTsKICBpZiAoIWRhdGEgfHwgIWNhblNlZUZhbWlseShzY29wZSwgZGF0YS5wYXJ0bmVyX2FnZW5jeV9pZCkpIHRocm93IG5ldyBFcnJvcigiRmFtaWx5IG5vdCBmb3VuZCIpOwp9Cgp0eXBlIEZhbWlseU93bmVkVGFibGUgPSAiZmFtaWx5X2RvY3VtZW50cyIgfCAiZmFtaWx5X2NvbnRhY3RzIiB8ICJzdXBwb3J0X3RocmVhZHMiOwoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGFzc2VydFJvd0luU2NvcGUoc2NvcGU6IFN0YWZmU2NvcGUsIHRhYmxlOiBGYW1pbHlPd25lZFRhYmxlLCBpZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPiB7CiAgaWYgKHNjb3BlLmtpbmQgPT09ICJvd25lciIpIHJldHVybjsKICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogIGNvbnN0IHsgZGF0YSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKHRhYmxlKS5zZWxlY3QoImZhbWlseV9pZCIpLmVxKCJpZCIsIGlkKS5tYXliZVNpbmdsZSgpOwogIGlmICghZGF0YSkgdGhyb3cgbmV3IEVycm9yKCJOb3QgZm91bmQiKTsKICBhd2FpdCBhc3NlcnRGYW1pbHlJblNjb3BlKHNjb3BlLCAoZGF0YSBhcyB7IGZhbWlseV9pZDogc3RyaW5nIH0pLmZhbWlseV9pZCk7Cn0KCi8qKiBTdG9yYWdlIHBhdGhzIGFyZSBhbHdheXMgYDxmYW1pbHlJZD4vLi4uYC4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGFzc2VydFBhdGhJblNjb3BlKHNjb3BlOiBTdGFmZlNjb3BlLCBzdG9yYWdlUGF0aDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPiB7CiAgaWYgKHNjb3BlLmtpbmQgPT09ICJvd25lciIpIHJldHVybjsKICBjb25zdCBmYW1pbHlJZCA9IHN0b3JhZ2VQYXRoLnNwbGl0KCIvIilbMF0gPz8gIiI7CiAgaWYgKCEvXlswLTlhLWYtXXszNn0kL2kudGVzdChmYW1pbHlJZCkgfHwgc3RvcmFnZVBhdGguaW5jbHVkZXMoIi4uIikpIHRocm93IG5ldyBFcnJvcigiTm90IGZvdW5kIik7CiAgYXdhaXQgYXNzZXJ0RmFtaWx5SW5TY29wZShzY29wZSwgZmFtaWx5SWQpOwp9CgovKiAtLS0tLS0tLS0tIFByZW1pdW0gY29udGVudCAoY2hhbGxlbmdlcywgcGVya3MsIHBsYXlib29rcykgLS0tLS0tLS0tLSAqLwoKZXhwb3J0IHR5cGUgQ29udGVudEZlYXR1cmUgPSAiY2hhbGxlbmdlcyIgfCAicGVya3MiIHwgInBsYXlib29rcyI7CnR5cGUgRmVhdHVyZUZsYWdzID0geyBhbGxvd19jaGFsbGVuZ2VzOiBib29sZWFuOyBhbGxvd19wZXJrczogYm9vbGVhbjsgYWxsb3dfcGxheWJvb2tzOiBib29sZWFuOyBzdGF0dXM/OiBzdHJpbmcgfTsKCi8qKiBFdmVyeSBhY3RpdmUgcGFydG5lciBnZXRzIGV2ZXJ5IGNvbnRlbnQgdG9vbDsgbGVnYWN5IGFsbG93XyogdmFsdWVzIGFyZSBub3QgYWNjZXNzIGdhdGVzLiAqLwpleHBvcnQgZnVuY3Rpb24gcGFydG5lckNvbnRlbnRBbGxvd2VkKGFnZW5jeTogRmVhdHVyZUZsYWdzIHwgbnVsbCB8IHVuZGVmaW5lZCwgX2ZlYXR1cmU6IENvbnRlbnRGZWF0dXJlKTogYm9vbGVhbiB7CiAgcmV0dXJuICEhYWdlbmN5ICYmIGFnZW5jeS5zdGF0dXMgPT09ICJhY3RpdmUiOwp9CgovKiogUmV0dXJucyB0aGUgYWdlbmN5IHRoYXQgb3ducyBjb250ZW50IG1hZGUgYnkgdGhpcyBzdGFmZiBtZW1iZXI6IG51bGwgPSB0aGUgb3duZXIgYWdlbmN5IChvd25lcikuICovCmV4cG9ydCBhc3luYyBmdW5jdGlvbiByZXF1aXJlQ29udGVudFNjb3BlKGNvbnRleHQ6IHVua25vd24sIGZlYXR1cmU6IENvbnRlbnRGZWF0dXJlKTogUHJvbWlzZTxzdHJpbmcgfCBudWxsPiB7CiAgY29uc3Qgc2NvcGUgPSBhd2FpdCByZXF1aXJlU3RhZmYoY29udGV4dCk7CiAgaWYgKHNjb3BlLmtpbmQgPT09ICJvd25lciIpIHJldHVybiBudWxsOwogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgicGFydG5lcl9hZ2VuY2llcyIpCiAgICAuc2VsZWN0KCJhbGxvd19jaGFsbGVuZ2VzLCBhbGxvd19wZXJrcywgYWxsb3dfcGxheWJvb2tzLCBzdGF0dXMiKQogICAgLmVxKCJpZCIsIHNjb3BlLmFnZW5jeUlkKQogICAgLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFwYXJ0bmVyQ29udGVudEFsbG93ZWQoZGF0YSwgZmVhdHVyZSkpIHRocm93IG5ldyBFcnJvcigiQWdlbmN5IGFjY2VzcyBpcyBwYXVzZWQgb3IgdW5hdmFpbGFibGUiKTsKICByZXR1cm4gc2NvcGUuYWdlbmN5SWQ7Cn0KCi8qKiBDb250ZW50IHJvd3MgbXVzdCBiZWxvbmcgdG8gdGhlIGNhbGxlcidzIGFnZW5jeSAobnVsbCA9IG93bmVyIGNvbnRlbnQpLiAqLwpleHBvcnQgYXN5bmMgZnVuY3Rpb24gYXNzZXJ0Q29udGVudFJvdygKICB0YWJsZTogImFnZW5jeV9jaGFsbGVuZ2VzIiB8ICJwYXJ0bmVyX3BlcmtzIiB8ICJzZWFzb25hbF9wbGF5Ym9va3MiLAogIGlkOiBzdHJpbmcsCiAgYWdlbmN5SWQ6IHN0cmluZyB8IG51bGwsCik6IFByb21pc2U8dm9pZD4gewogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20odGFibGUpLnNlbGVjdCgiYWdlbmN5X2lkIikuZXEoImlkIiwgaWQpLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFkYXRhIHx8IChkYXRhLmFnZW5jeV9pZCA/PyBudWxsKSAhPT0gYWdlbmN5SWQpIHRocm93IG5ldyBFcnJvcigiTm90IGZvdW5kIik7Cn0KCi8qKiBGYW1pbGllcyBwaWNrZWQgYXMgcmVjaXBpZW50cyBtdXN0IHNpdCBpbnNpZGUgdGhlIGNhbGxlcidzIGFnZW5jeS4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGFzc2VydEZhbWlsaWVzSW5BZ2VuY3koZmFtaWx5SWRzOiBzdHJpbmdbXSwgYWdlbmN5SWQ6IHN0cmluZyB8IG51bGwpOiBQcm9taXNlPHZvaWQ+IHsKICBpZiAoIWZhbWlseUlkcy5sZW5ndGgpIHJldHVybjsKICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogIGNvbnN0IHsgZGF0YSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJmYW1pbGllcyIpLnNlbGVjdCgiaWQsIHBhcnRuZXJfYWdlbmN5X2lkIikuaW4oImlkIiwgZmFtaWx5SWRzKTsKICBjb25zdCBvayA9IChkYXRhID8/IFtdKS5sZW5ndGggPT09IG5ldyBTZXQoZmFtaWx5SWRzKS5zaXplICYmIChkYXRhID8/IFtdKS5ldmVyeSgoZikgPT4gKGYucGFydG5lcl9hZ2VuY3lfaWQgPz8gbnVsbCkgPT09IGFnZW5jeUlkKTsKICBpZiAoIW9rKSB0aHJvdyBuZXcgRXJyb3IoIkZhbWlseSBub3QgZm91bmQiKTsKfQoKLyoqIFdoaWNoIGFnZW5jeSdzIGNvbnRlbnQgYSB3YWxsZXQgZmFtaWx5IHNlZXMsIG9yIGZhbHNlIHdoZW4gdGhlaXIgYWdlbmN5IGlzIHVuYXZhaWxhYmxlLiAqLwpleHBvcnQgYXN5bmMgZnVuY3Rpb24gd2FsbGV0Q29udGVudEFnZW5jeShmYW1pbHlJZDogc3RyaW5nLCBmZWF0dXJlOiBDb250ZW50RmVhdHVyZSk6IFByb21pc2U8c3RyaW5nIHwgbnVsbCB8IGZhbHNlPiB7CiAgY29uc3QgeyBzdXBhYmFzZUFkbWluIH0gPSBhd2FpdCBpbXBvcnQoIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiKTsKICBjb25zdCB7IGRhdGE6IGZhbSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJmYW1pbGllcyIpLnNlbGVjdCgicGFydG5lcl9hZ2VuY3lfaWQiKS5lcSgiaWQiLCBmYW1pbHlJZCkubWF5YmVTaW5nbGUoKTsKICBjb25zdCBhZ2VuY3lJZCA9IGZhbT8ucGFydG5lcl9hZ2VuY3lfaWQgPz8gbnVsbDsKICBpZiAoIWFnZW5jeUlkKSByZXR1cm4gbnVsbDsKICBjb25zdCB7IGRhdGE6IGFnZW5jeSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oInBhcnRuZXJfYWdlbmNpZXMiKQogICAgLnNlbGVjdCgiYWxsb3dfY2hhbGxlbmdlcywgYWxsb3dfcGVya3MsIGFsbG93X3BsYXlib29rcywgc3RhdHVzIikKICAgIC5lcSgiaWQiLCBhZ2VuY3lJZCkKICAgIC5tYXliZVNpbmdsZSgpOwogIHJldHVybiBwYXJ0bmVyQ29udGVudEFsbG93ZWQoYWdlbmN5LCBmZWF0dXJlKSA/IGFnZW5jeUlkIDogZmFsc2U7Cn0K
+// Agency staff scope: the the owner agency owner (admin role) sees every family;
+// partner-agency staff see only families whose partner_agency_id matches theirs.
+export type StaffScope =
+  | { kind: "owner" }
+  | { kind: "partner"; agencyId: string; agencyName: string };
+
+type StaffCtx = {
+  supabase: { rpc: (fn: string, args: Record<string, unknown>) => PromiseLike<{ data: unknown }> };
+  userId: string;
+  claims?: { email?: string; aal?: string } | null;
+};
+
+/** Agency access needs a session verified with an authenticator-app code. */
+export function assertTwoStep(context: unknown) {
+  const aal = (context as StaffCtx).claims?.aal;
+  if (aal !== "aal2") throw new Error("Two-step verification required. Please sign in again.");
+}
+
+export async function resolveStaffScope(context: unknown): Promise<StaffScope | null> {
+  const ctx = context as StaffCtx;
+  assertTwoStep(context);
+  const { data: isAdmin } = await ctx.supabase.rpc("has_role", { _user_id: ctx.userId, _role: "admin" });
+  if (isAdmin === true) return { kind: "owner" };
+
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  let { data: staff } = await supabaseAdmin
+    .from("partner_agency_staff")
+    .select("id, agency_id")
+    .eq("user_id", ctx.userId)
+    .maybeSingle();
+
+  const email = (ctx.claims?.email ?? "").trim().toLowerCase();
+  if (!staff && email) {
+    const { data: invited } = await supabaseAdmin
+      .from("partner_agency_staff")
+      .select("id, agency_id")
+      .eq("email", email)
+      .is("user_id", null)
+      .maybeSingle();
+    if (invited) {
+      await supabaseAdmin.from("partner_agency_staff").update({ user_id: ctx.userId }).eq("id", invited.id);
+      staff = invited;
+    }
+  }
+  if (!staff) return null;
+
+  const { data: agency } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("id, name, status")
+    .eq("id", staff.agency_id)
+    .maybeSingle();
+  if (!agency || agency.status !== "active") return null;
+  return { kind: "partner", agencyId: agency.id, agencyName: agency.name };
+}
+
+export async function requireStaff(context: unknown): Promise<StaffScope> {
+  const scope = await resolveStaffScope(context);
+  if (!scope) throw new Error("Forbidden");
+  return scope;
+}
+
+export async function requireOwner(context: unknown): Promise<void> {
+  const scope = await resolveStaffScope(context);
+  if (scope?.kind !== "owner") throw new Error("Forbidden");
+}
+
+export function canSeeFamily(scope: StaffScope, familyAgencyId: string | null): boolean {
+  return scope.kind === "owner" || familyAgencyId === scope.agencyId;
+}
+
+export async function assertFamilyInScope(scope: StaffScope, familyId: string): Promise<void> {
+  if (scope.kind === "owner") return;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("partner_agency_id")
+    .eq("id", familyId)
+    .maybeSingle();
+  if (!data || !canSeeFamily(scope, data.partner_agency_id)) throw new Error("Family not found");
+}
+
+type FamilyOwnedTable = "family_documents" | "family_contacts" | "support_threads";
+
+export async function assertRowInScope(scope: StaffScope, table: FamilyOwnedTable, id: string): Promise<void> {
+  if (scope.kind === "owner") return;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from(table).select("family_id").eq("id", id).maybeSingle();
+  if (!data) throw new Error("Not found");
+  await assertFamilyInScope(scope, (data as { family_id: string }).family_id);
+}
+
+/** Storage paths are always `<familyId>/...`. */
+export async function assertPathInScope(scope: StaffScope, storagePath: string): Promise<void> {
+  if (scope.kind === "owner") return;
+  const familyId = storagePath.split("/")[0] ?? "";
+  if (!/^[0-9a-f-]{36}$/i.test(familyId) || storagePath.includes("..")) throw new Error("Not found");
+  await assertFamilyInScope(scope, familyId);
+}
+
+/* ---------- Premium content (challenges, perks, playbooks) ---------- */
+
+export type ContentFeature = "challenges" | "perks" | "playbooks";
+type FeatureFlags = { allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean; status?: string };
+
+/** Every active partner gets every content tool; legacy allow_* values are not access gates. */
+export function partnerContentAllowed(agency: FeatureFlags | null | undefined, _feature: ContentFeature): boolean {
+  return !!agency && agency.status === "active";
+}
+
+/** Returns the agency that owns content made by this staff member: null = the owner agency (owner). */
+export async function requireContentScope(context: unknown, feature: ContentFeature): Promise<string | null> {
+  const scope = await requireStaff(context);
+  if (scope.kind === "owner") return null;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("allow_challenges, allow_perks, allow_playbooks, status")
+    .eq("id", scope.agencyId)
+    .maybeSingle();
+  if (!partnerContentAllowed(data, feature)) throw new Error("Agency access is paused or unavailable");
+  return scope.agencyId;
+}
+
+/** Content rows must belong to the caller's agency (null = owner content). */
+export async function assertContentRow(
+  table: "agency_challenges" | "partner_perks" | "seasonal_playbooks",
+  id: string,
+  agencyId: string | null,
+): Promise<void> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from(table).select("agency_id").eq("id", id).maybeSingle();
+  if (!data || (data.agency_id ?? null) !== agencyId) throw new Error("Not found");
+}
+
+/** Families picked as recipients must sit inside the caller's agency. */
+export async function assertFamiliesInAgency(familyIds: string[], agencyId: string | null): Promise<void> {
+  if (!familyIds.length) return;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from("families").select("id, partner_agency_id").in("id", familyIds);
+  const ok = (data ?? []).length === new Set(familyIds).size && (data ?? []).every((f) => (f.partner_agency_id ?? null) === agencyId);
+  if (!ok) throw new Error("Family not found");
+}
+
+/** Which agency's content a wallet family sees, or false when their agency is unavailable. */
+export async function walletContentAgency(familyId: string, feature: ContentFeature): Promise<string | null | false> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();
+  const agencyId = fam?.partner_agency_id ?? null;
+  if (!agencyId) return null;
+  const { data: agency } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("allow_challenges, allow_perks, allow_playbooks, status")
+    .eq("id", agencyId)
+    .maybeSingle();
+  return partnerContentAllowed(agency, feature) ? agencyId : false;
+}

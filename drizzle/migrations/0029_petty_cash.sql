@@ -1,1 +1,27 @@
-Q1JFQVRFIFRBQkxFIHB1YmxpYy5wZXR0eV9jYXNoX2VudHJpZXMgKAogIGlkIHV1aWQgUFJJTUFSWSBLRVkgREVGQVVMVCBnZW5fcmFuZG9tX3V1aWQoKSwKICBmYW1pbHlfaWQgdXVpZCBOT1QgTlVMTCBSRUZFUkVOQ0VTIHB1YmxpYy5mYW1pbGllcyhpZCkgT04gREVMRVRFIENBU0NBREUsCiAga2luZCB0ZXh0IE5PVCBOVUxMIENIRUNLIChraW5kIElOICgndG9wdXAnLCAnc3BlbmQnKSksCiAgZW50cnlfZGF0ZSBkYXRlIE5PVCBOVUxMLAogIGFtb3VudCBudW1lcmljKDEwLDIpIE5PVCBOVUxMIENIRUNLIChhbW91bnQgPiAwKSwKICBkZXNjcmlwdGlvbiB0ZXh0IE5PVCBOVUxMLAogIGFkZGVkX2J5IHRleHQgTk9UIE5VTEwsCiAgYWRkZWRfYnlfbmFtZSB0ZXh0LAogIGNyZWF0ZWRfYXQgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwpHUkFOVCBTRUxFQ1QsIElOU0VSVCwgVVBEQVRFLCBERUxFVEUgT04gcHVibGljLnBldHR5X2Nhc2hfZW50cmllcyBUTyBhdXRoZW50aWNhdGVkOwpHUkFOVCBBTEwgT04gcHVibGljLnBldHR5X2Nhc2hfZW50cmllcyBUTyBzZXJ2aWNlX3JvbGU7CkFMVEVSIFRBQkxFIHB1YmxpYy5wZXR0eV9jYXNoX2VudHJpZXMgRU5BQkxFIFJPVyBMRVZFTCBTRUNVUklUWTsKQ1JFQVRFIFBPTElDWSAiQWRtaW5zIG1hbmFnZSBwZXR0eSBjYXNoIgpPTiBwdWJsaWMucGV0dHlfY2FzaF9lbnRyaWVzIEZPUiBBTEwgVE8gYXV0aGVudGljYXRlZApVU0lORyAocHVibGljLmhhc19yb2xlKGF1dGgudWlkKCksICdhZG1pbicpKQpXSVRIIENIRUNLIChwdWJsaWMuaGFzX3JvbGUoYXV0aC51aWQoKSwgJ2FkbWluJykpOwpDUkVBVEUgSU5ERVggcGV0dHlfY2FzaF9mYW1pbHlfZGF0ZV9pZHggT04gcHVibGljLnBldHR5X2Nhc2hfZW50cmllcyhmYW1pbHlfaWQsIGVudHJ5X2RhdGUgREVTQyk7CklOU0VSVCBJTlRPIHB1YmxpYy5wZXR0eV9jYXNoX2VudHJpZXMgKGZhbWlseV9pZCwga2luZCwgZW50cnlfZGF0ZSwgYW1vdW50LCBkZXNjcmlwdGlvbiwgYWRkZWRfYnksIGFkZGVkX2J5X25hbWUpClNFTEVDVCBmLmlkLCB2LmtpbmQsIGN1cnJlbnRfZGF0ZSAtIHYuZCwgdi5hbW91bnQsIHYuZGVzY3JpcHRpb24sIHYuYnksIHYuYnluYW1lCkZST00gcHVibGljLmZhbWlsaWVzIGYsCihWQUxVRVMgKCd0b3B1cCcsIDYsIDEwMC4wMCwgJ1dlZWtseSBmbG9hdCcsICdmYW1pbHknLCAnUGFyZW50JyksCiAgICAgICAgKCdzcGVuZCcsIDUsIDEyLjQwLCAnU25hY2tzIGFmdGVyIHN3aW1taW5nJywgJ25hbm55JywgJ0plc3MnKSwKICAgICAgICAoJ3NwZW5kJywgMywgOC4wMCwgJ0J1cyBmYXJlcyB0byB0aGUgcGFyaycsICduYW5ueScsICdKZXNzJyksCiAgICAgICAgKCdzcGVuZCcsIDEsIDIxLjUwLCAnQ3JhZnQgc3VwcGxpZXMnLCAnbmFubnknLCAnSmVzcycpKSBBUyB2KGtpbmQsIGQsIGFtb3VudCwgZGVzY3JpcHRpb24sIGJ5LCBieW5hbWUpCldIRVJFIGYuc2x1ZyA9ICdkZW1vJzs=
+CREATE TABLE public.petty_cash_entries (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id uuid NOT NULL REFERENCES public.families(id) ON DELETE CASCADE,
+  kind text NOT NULL CHECK (kind IN ('topup', 'spend')),
+  entry_date date NOT NULL,
+  amount numeric(10,2) NOT NULL CHECK (amount > 0),
+  description text NOT NULL,
+  added_by text NOT NULL,
+  added_by_name text,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.petty_cash_entries TO authenticated;
+GRANT ALL ON public.petty_cash_entries TO service_role;
+ALTER TABLE public.petty_cash_entries ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins manage petty cash"
+ON public.petty_cash_entries FOR ALL TO authenticated
+USING (public.has_role(auth.uid(), 'admin'))
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+CREATE INDEX petty_cash_family_date_idx ON public.petty_cash_entries(family_id, entry_date DESC);
+INSERT INTO public.petty_cash_entries (family_id, kind, entry_date, amount, description, added_by, added_by_name)
+SELECT f.id, v.kind, current_date - v.d, v.amount, v.description, v.by, v.byname
+FROM public.families f,
+(VALUES ('topup', 6, 100.00, 'Weekly float', 'family', 'Parent'),
+        ('spend', 5, 12.40, 'Snacks after swimming', 'nanny', 'Jess'),
+        ('spend', 3, 8.00, 'Bus fares to the park', 'nanny', 'Jess'),
+        ('spend', 1, 21.50, 'Craft supplies', 'nanny', 'Jess')) AS v(kind, d, amount, description, by, byname)
+WHERE f.slug = 'demo';

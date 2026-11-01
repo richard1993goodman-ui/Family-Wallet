@@ -1,1 +1,25 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKaW1wb3J0IHR5cGUgeyBEb3NlSW5wdXQgfSBmcm9tICIuL21lZGljYXRpb24udHlwZXMiOwoKZXhwb3J0IGNvbnN0IGdldE1lZGljYXRpb24gPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nIH0pID0+IGRhdGEpCiAgLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgICBjb25zdCB7IGxvYWRNZWRpY2F0aW9uIH0gPSBhd2FpdCBpbXBvcnQoIi4vbWVkaWNhdGlvbi5zZXJ2ZXIiKTsKICAgIHJldHVybiBsb2FkTWVkaWNhdGlvbihkYXRhLnNsdWcpOwogIH0pOwoKZXhwb3J0IGNvbnN0IHJlY29yZERvc2VGbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiUE9TVCIgfSkKICAuaW5wdXRWYWxpZGF0b3IoKGRhdGE6IHsgc2x1Zzogc3RyaW5nOyBkb3NlOiBEb3NlSW5wdXQgfSkgPT4gZGF0YSkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhIH0pID0+IHsKICAgIGNvbnN0IHsgcmVjb3JkRG9zZSB9ID0gYXdhaXQgaW1wb3J0KCIuL21lZGljYXRpb24uc2VydmVyIik7CiAgICByZXR1cm4gcmVjb3JkRG9zZShkYXRhLnNsdWcsIGRhdGEuZG9zZSk7CiAgfSk7CgpleHBvcnQgY29uc3QgZGVsZXRlRG9zZUZuID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZGF0YTogeyBzbHVnOiBzdHJpbmc7IGlkOiBzdHJpbmcgfSkgPT4gZGF0YSkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhIH0pID0+IHsKICAgIGNvbnN0IHsgZGVsZXRlRG9zZSB9ID0gYXdhaXQgaW1wb3J0KCIuL21lZGljYXRpb24uc2VydmVyIik7CiAgICBhd2FpdCBkZWxldGVEb3NlKGRhdGEuc2x1ZywgZGF0YS5pZCk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+import type { DoseInput } from "./medication.types";
+
+export const getMedication = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadMedication } = await import("./medication.server");
+    return loadMedication(data.slug);
+  });
+
+export const recordDoseFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; dose: DoseInput }) => data)
+  .handler(async ({ data }) => {
+    const { recordDose } = await import("./medication.server");
+    return recordDose(data.slug, data.dose);
+  });
+
+export const deleteDoseFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { deleteDose } = await import("./medication.server");
+    await deleteDose(data.slug, data.id);
+    return { ok: true as const };
+  });

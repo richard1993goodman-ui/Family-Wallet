@@ -1,1 +1,30 @@
-Ly8gUGFydG5lciByZXRhaW5lciB0aWVycywgYmlsbGVkIG1vbnRobHkgcGVyIGFjdGl2ZSBmYW1pbHkgYmFuZC4gTm8gc2V0dXAgZmVlLgovLyBBY3RpdmUgZmFtaWx5ID0gd2FsbGV0IGxpdmUgYW5kIGFjY2Vzc2libGUgKHN0YXR1cyAiYWN0aXZlIik7IGFyY2hpdmVkIGZhbWlsaWVzIGRvbid0IGNvdW50LgpleHBvcnQgdHlwZSBQYXJ0bmVyVGllciA9IHsgbmFtZTogc3RyaW5nOyBtaW46IG51bWJlcjsgbWF4OiBudW1iZXIgfCBudWxsOyBtb250aGx5OiBudW1iZXIgfCBudWxsIH07CgpleHBvcnQgY29uc3QgUEFSVE5FUl9USUVSUzogUGFydG5lclRpZXJbXSA9IFsKICB7IG5hbWU6ICJTdGFydGVyIiwgbWluOiAwLCBtYXg6IDUsIG1vbnRobHk6IDE1MCB9LAogIHsgbmFtZTogIkdyb3d0aCIsIG1pbjogNiwgbWF4OiAxMCwgbW9udGhseTogMjUwIH0sCiAgeyBuYW1lOiAiU2NhbGUiLCBtaW46IDExLCBtYXg6IDE1LCBtb250aGx5OiAzNTAgfSwKICB7IG5hbWU6ICJFc3RhYmxpc2hlZCIsIG1pbjogMTYsIG1heDogMjAsIG1vbnRobHk6IDQwMCB9LAogIHsgbmFtZTogIkVudGVycHJpc2UiLCBtaW46IDIxLCBtYXg6IDMwLCBtb250aGx5OiA1MDAgfSwKICB7IG5hbWU6ICJCZXNwb2tlIiwgbWluOiAzMSwgbWF4OiBudWxsLCBtb250aGx5OiBudWxsIH0sCl07CgpleHBvcnQgY29uc3QgUEFSVE5FUl9TRVRVUF9GRUUgPSAwOwovKiogSW50cm9kdWN0b3J5IHBlci1mYW1pbHkgcmF0ZSBmb3IgYW4gYWdlbmN5J3MgZmlyc3QgZmV3IGFjdGl2ZSBmYW1pbGllcy4gKi8KZXhwb3J0IGNvbnN0IElOVFJPX1BFUl9GQU1JTFkgPSAzNTsKZXhwb3J0IGNvbnN0IElOVFJPX01BWF9GQU1JTElFUyA9IDM7CgpleHBvcnQgZnVuY3Rpb24gdGllckZvcihhY3RpdmVGYW1pbGllczogbnVtYmVyKTogUGFydG5lclRpZXIgewogIHJldHVybiBQQVJUTkVSX1RJRVJTLmZpbmQoKHQpID0+IHQubWF4ID09PSBudWxsIHx8IGFjdGl2ZUZhbWlsaWVzIDw9IHQubWF4KSE7Cn0KCi8qKiBNb250aGx5IGZlZSAoKyBWQVQpIGFuZCBsYWJlbCwgaG9ub3VyaW5nIHRoZSBpbnRyb2R1Y3RvcnkgcGVyLWZhbWlseSBvZmZlciB3aGVuIGVuYWJsZWQuICovCmV4cG9ydCBmdW5jdGlvbiBwYXJ0bmVyRmVlKGFjdGl2ZUZhbWlsaWVzOiBudW1iZXIsIGludHJvUHJpY2luZzogYm9vbGVhbikgewogIGlmIChpbnRyb1ByaWNpbmcgJiYgYWN0aXZlRmFtaWxpZXMgPD0gSU5UUk9fTUFYX0ZBTUlMSUVTKSB7CiAgICByZXR1cm4geyBsYWJlbDogIkludHJvZHVjdG9yeSIsIG1vbnRobHk6IGFjdGl2ZUZhbWlsaWVzICogSU5UUk9fUEVSX0ZBTUlMWSwgbWF4OiBJTlRST19NQVhfRkFNSUxJRVMgfTsKICB9CiAgY29uc3QgdCA9IHRpZXJGb3IoYWN0aXZlRmFtaWxpZXMpOwogIHJldHVybiB7IGxhYmVsOiB0Lm5hbWUsIG1vbnRobHk6IHQubW9udGhseSwgbWF4OiB0Lm1heCB9Owp9Cg==
+// Partner retainer tiers, billed monthly per active family band. No setup fee.
+// Active family = wallet live and accessible (status "active"); archived families don't count.
+export type PartnerTier = { name: string; min: number; max: number | null; monthly: number | null };
+
+export const PARTNER_TIERS: PartnerTier[] = [
+  { name: "Starter", min: 0, max: 5, monthly: 150 },
+  { name: "Growth", min: 6, max: 10, monthly: 250 },
+  { name: "Scale", min: 11, max: 15, monthly: 350 },
+  { name: "Established", min: 16, max: 20, monthly: 400 },
+  { name: "Enterprise", min: 21, max: 30, monthly: 500 },
+  { name: "Bespoke", min: 31, max: null, monthly: null },
+];
+
+export const PARTNER_SETUP_FEE = 0;
+/** Introductory per-family rate for an agency's first few active families. */
+export const INTRO_PER_FAMILY = 35;
+export const INTRO_MAX_FAMILIES = 3;
+
+export function tierFor(activeFamilies: number): PartnerTier {
+  return PARTNER_TIERS.find((t) => t.max === null || activeFamilies <= t.max)!;
+}
+
+/** Monthly fee (+ VAT) and label, honouring the introductory per-family offer when enabled. */
+export function partnerFee(activeFamilies: number, introPricing: boolean) {
+  if (introPricing && activeFamilies <= INTRO_MAX_FAMILIES) {
+    return { label: "Introductory", monthly: activeFamilies * INTRO_PER_FAMILY, max: INTRO_MAX_FAMILIES };
+  }
+  const t = tierFor(activeFamilies);
+  return { label: t.name, monthly: t.monthly, max: t.max };
+}

@@ -1,1 +1,21 @@
-LyoqIExvdmFibGUgQUkgR2F0ZXdheSBoZWxwZXJzIOKAlCBzZXJ2ZXIgb25seS4gKi8KCmNvbnN0IExPVkFCTEVfQUlHX1JVTl9JRF9IRUFERVIgPSAiWC1Mb3ZhYmxlLUFJRy1SdW4tSUQiOwoKZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZUxvdmFibGVBaUdhdGV3YXlSdW5JZEZldGNoKGluaXRpYWxSdW5JZD86IHN0cmluZykgewogIGxldCBydW5JZCA9IGluaXRpYWxSdW5JZD8udHJpbSgpIHx8IHVuZGVmaW5lZDsKCiAgcmV0dXJuIHsKICAgIGZldGNoOiBhc3luYyAoaW5wdXQ6IFJlcXVlc3RJbmZvIHwgVVJMLCBpbml0PzogUmVxdWVzdEluaXQpID0+IHsKICAgICAgY29uc3QgaGVhZGVycyA9IG5ldyBIZWFkZXJzKGluaXQ/LmhlYWRlcnMpOwogICAgICBpZiAocnVuSWQgJiYgIWhlYWRlcnMuaGFzKExPVkFCTEVfQUlHX1JVTl9JRF9IRUFERVIpKSB7CiAgICAgICAgaGVhZGVycy5zZXQoTE9WQUJMRV9BSUdfUlVOX0lEX0hFQURFUiwgcnVuSWQpOwogICAgICB9CiAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goaW5wdXQsIHsgLi4uaW5pdCwgaGVhZGVycyB9KTsKICAgICAgY29uc3QgbmV4dCA9IHJlc3BvbnNlLmhlYWRlcnMuZ2V0KExPVkFCTEVfQUlHX1JVTl9JRF9IRUFERVIpPy50cmltKCk7CiAgICAgIGlmICghcnVuSWQgJiYgbmV4dCkgcnVuSWQgPSBuZXh0OwogICAgICByZXR1cm4gcmVzcG9uc2U7CiAgICB9LAogICAgZ2V0UnVuSWQ6ICgpID0+IHJ1bklkLAogIH07Cn0K
+/** Lovable AI Gateway helpers — server only. */
+
+const LOVABLE_AIG_RUN_ID_HEADER = "X-Lovable-AIG-Run-ID";
+
+export function createLovableAiGatewayRunIdFetch(initialRunId?: string) {
+  let runId = initialRunId?.trim() || undefined;
+
+  return {
+    fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+      const headers = new Headers(init?.headers);
+      if (runId && !headers.has(LOVABLE_AIG_RUN_ID_HEADER)) {
+        headers.set(LOVABLE_AIG_RUN_ID_HEADER, runId);
+      }
+      const response = await fetch(input, { ...init, headers });
+      const next = response.headers.get(LOVABLE_AIG_RUN_ID_HEADER)?.trim();
+      if (!runId && next) runId = next;
+      return response;
+    },
+    getRunId: () => runId,
+  };
+}

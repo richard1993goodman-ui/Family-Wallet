@@ -1,1 +1,172 @@
-aW1wb3J0IHsgcmVxdWlyZVR3b1N0ZXBDbGllbnQgfSBmcm9tICJAL2xpYi90d28tc3RlcCI7CmltcG9ydCB7IGNyZWF0ZUZpbGVSb3V0ZSwgTGluayB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyB1c2VRdWVyeSwgdXNlUXVlcnlDbGllbnQgfSBmcm9tICJAdGFuc3RhY2svcmVhY3QtcXVlcnkiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKaW1wb3J0IHsgQXJyb3dMZWZ0LCBFeWUsIFBlbmNpbCwgUHJpbnRlciB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBnZXRBZ3JlZW1lbnRBZG1pbiwgc2F2ZUFncmVlbWVudEFkbWluLCBzaWduQXNBZ2VuY3kgfSBmcm9tICJAL2xpYi9hZG1pbi5mdW5jdGlvbnMiOwppbXBvcnQgeyBkZWZhdWx0QWdyZWVtZW50RGF0YSwgdHlwZSBBZ3JlZW1lbnREYXRhIH0gZnJvbSAiQC9saWIvYWdyZWVtZW50Lm1vZGVsIjsKaW1wb3J0IHsgQWdyZWVtZW50QnVpbGRlciB9IGZyb20gIkAvY29tcG9uZW50cy9BZ3JlZW1lbnRCdWlsZGVyIjsKaW1wb3J0IHsgQWdyZWVtZW50RG9jdW1lbnQgfSBmcm9tICJAL2NvbXBvbmVudHMvQWdyZWVtZW50RG9jdW1lbnQiOwppbXBvcnQgeyBDYXJkIH0gZnJvbSAiQC9jb21wb25lbnRzL2h1Yi11aSI7CmltcG9ydCB7IFNpZ25hdHVyZUxpc3QgfSBmcm9tICJAL2NvbXBvbmVudHMvU2lnbkJsb2NrIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IElucHV0IH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2lucHV0IjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL19hdXRoZW50aWNhdGVkL2FkbWluL2FncmVlbWVudC8kaWQiKSh7CiAgYmVmb3JlTG9hZDogKCkgPT4gcmVxdWlyZVR3b1N0ZXBDbGllbnQoKSwKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiTmFubnkgYWdyZWVtZW50IGJ1aWxkZXIg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IGFkbWluIiB9LAogICAgICB7CiAgICAgICAgbmFtZTogImRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiQnVpbGQsIGlzc3VlIGFuZCBjb3VudGVyc2lnbiBhIGZhbWlseSdzIGZ1bGwgbmFubnkgZW1wbG95bWVudCBjb250cmFjdC4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dGl0bGUiLCBjb250ZW50OiAiTmFubnkgYWdyZWVtZW50IGJ1aWxkZXIg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IGFkbWluIiB9LAogICAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQnVpbGQsIGlzc3VlIGFuZCBjb3VudGVyc2lnbiBhIG5hbm55IGNvbnRyYWN0LiIgfSwKICAgICAgeyBuYW1lOiAicm9ib3RzIiwgY29udGVudDogIm5vaW5kZXgiIH0sCiAgICBdLAogIH0pLAogIGNvbXBvbmVudDogQWRtaW5BZ3JlZW1lbnRQYWdlLAp9KTsKCmZ1bmN0aW9uIEFkbWluQWdyZWVtZW50UGFnZSgpIHsKICBjb25zdCB7IGlkIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBxdWVyeUNsaWVudCA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgbG9hZEZuID0gdXNlU2VydmVyRm4oZ2V0QWdyZWVtZW50QWRtaW4pOwogIGNvbnN0IHNhdmVGbiA9IHVzZVNlcnZlckZuKHNhdmVBZ3JlZW1lbnRBZG1pbik7CiAgY29uc3Qgc2lnbkZuID0gdXNlU2VydmVyRm4oc2lnbkFzQWdlbmN5KTsKCiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7CiAgICBxdWVyeUtleTogWyJhZG1pbi1hZ3JlZW1lbnQiLCBpZF0sCiAgICBxdWVyeUZuOiAoKSA9PiBsb2FkRm4oeyBkYXRhOiB7IGZhbWlseUlkOiBpZCB9IH0pLAogIH0pOwoKICBjb25zdCBbZGF0YSwgc2V0RGF0YV0gPSB1c2VTdGF0ZTxBZ3JlZW1lbnREYXRhPihkZWZhdWx0QWdyZWVtZW50RGF0YSk7CiAgY29uc3QgW2FnZW5jeU5hbWUsIHNldEFnZW5jeU5hbWVdID0gdXNlU3RhdGUoIiIpOwogIGNvbnN0IFtidXN5LCBzZXRCdXN5XSA9IHVzZVN0YXRlKGZhbHNlKTsKICBjb25zdCBbcHJldmlldywgc2V0UHJldmlld10gPSB1c2VTdGF0ZShmYWxzZSk7CgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBpZiAocXVlcnkuZGF0YSkgc2V0RGF0YShxdWVyeS5kYXRhLmRhdGEpOwogIH0sIFtxdWVyeS5kYXRhXSk7CgogIGlmIChxdWVyeS5pc0xvYWRpbmcgfHwgIXF1ZXJ5LmRhdGEpIHsKICAgIHJldHVybiA8ZGl2IGNsYXNzTmFtZT0icC04IHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Mb2FkaW5n4oCmPC9kaXY+OwogIH0KCiAgY29uc3QgcmVjb3JkID0gcXVlcnkuZGF0YTsKCiAgYXN5bmMgZnVuY3Rpb24gc2F2ZShwdWJsaXNoOiBib29sZWFuKSB7CiAgICBzZXRCdXN5KHRydWUpOwogICAgdHJ5IHsKICAgICAgYXdhaXQgc2F2ZUZuKHsgZGF0YTogeyBmYW1pbHlJZDogaWQsIGZpZWxkczogZGF0YSwgcHVibGlzaCB9IH0pOwogICAgICB0b2FzdC5zdWNjZXNzKHB1Ymxpc2ggPyAiQWdyZWVtZW50IGlzc3VlZCB0byB0aGUgd2FsbGV0IiA6ICJEcmFmdCBzYXZlZCIpOwogICAgICBhd2FpdCBxdWVyeUNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbImFkbWluLWFncmVlbWVudCIsIGlkXSB9KTsKICAgIH0gY2F0Y2ggewogICAgICB0b2FzdC5lcnJvcigiQ291bGQgbm90IHNhdmUuIFBsZWFzZSB0cnkgYWdhaW4uIik7CiAgICB9IGZpbmFsbHkgewogICAgICBzZXRCdXN5KGZhbHNlKTsKICAgIH0KICB9CgogIGFzeW5jIGZ1bmN0aW9uIGNvdW50ZXJzaWduKGRvY0tpbmQ6ICJhZ3JlZW1lbnQiIHwgInRlcm1zIikgewogICAgaWYgKGFnZW5jeU5hbWUudHJpbSgpLmxlbmd0aCA8IDMpIHsKICAgICAgdG9hc3QuZXJyb3IoIlR5cGUgeW91ciBmdWxsIG5hbWUgZmlyc3QuIik7CiAgICAgIHJldHVybjsKICAgIH0KICAgIGF3YWl0IHNpZ25Gbih7IGRhdGE6IHsgZmFtaWx5SWQ6IGlkLCBkb2NLaW5kLCBuYW1lOiBhZ2VuY3lOYW1lIH0gfSk7CiAgICBzZXRBZ2VuY3lOYW1lKCIiKTsKICAgIHRvYXN0LnN1Y2Nlc3MoIlNpZ25hdHVyZSByZWNvcmRlZCIpOwogICAgYXdhaXQgcXVlcnlDbGllbnQuaW52YWxpZGF0ZVF1ZXJpZXMoeyBxdWVyeUtleTogWyJhZG1pbi1hZ3JlZW1lbnQiLCBpZF0gfSk7CiAgfQoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy1zYW5kIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctM3hsIHB4LTUgcHktOCI+CiAgICAgICAgPExpbmsKICAgICAgICAgIHRvPSIvYWRtaW4vZmFtaWx5LyRpZCIKICAgICAgICAgIHBhcmFtcz17eyBpZCB9fQogICAgICAgICAgY2xhc3NOYW1lPSJpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LWZvcmVncm91bmQgbm8tcHJpbnQiCiAgICAgICAgPgogICAgICAgICAgPEFycm93TGVmdCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IEJhY2sgdG8gZmFtaWx5CiAgICAgICAgPC9MaW5rPgogICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC00IHRleHQtM3hsIHRleHQtcHJpbWFyeSBuby1wcmludCI+TmFubnkgYWdyZWVtZW50PC9oMT4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQgbm8tcHJpbnQiPgogICAgICAgICAge3JlY29yZC5mYW1pbHkuZmFtaWx5TmFtZX0gwrcge3JlY29yZC5zdGF0dXMgPT09ICJpc3N1ZWQiID8gIklzc3VlZCIgOiAiRHJhZnQifSDCtyB2ZXJzaW9ueyIgIn0KICAgICAgICAgIHtyZWNvcmQudmVyc2lvbn0KICAgICAgICA8L3A+CgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC01IGZsZXggZmxleC13cmFwIGdhcC0zIG5vLXByaW50Ij4KICAgICAgICAgIDxCdXR0b24gdmFyaWFudD0ib3V0bGluZSIgb25DbGljaz17KCkgPT4gc2V0UHJldmlldygocCkgPT4gIXApfT4KICAgICAgICAgICAge3ByZXZpZXcgPyAoCiAgICAgICAgICAgICAgPD4KICAgICAgICAgICAgICAgIDxQZW5jaWwgY2xhc3NOYW1lPSJtci0yIGgtNCB3LTQiIC8+IEJhY2sgdG8gYnVpbGRlcgogICAgICAgICAgICAgIDwvPgogICAgICAgICAgICApIDogKAogICAgICAgICAgICAgIDw+CiAgICAgICAgICAgICAgICA8RXllIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPiBQcmV2aWV3IGNvbnRyYWN0CiAgICAgICAgICAgICAgPC8+CiAgICAgICAgICAgICl9CiAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgIDxCdXR0b24gdmFyaWFudD0ib3V0bGluZSIgZGlzYWJsZWQ9e2J1c3l9IG9uQ2xpY2s9eygpID0+IHNhdmUoZmFsc2UpfT4KICAgICAgICAgICAgU2F2ZSBkcmFmdAogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICA8QnV0dG9uIGRpc2FibGVkPXtidXN5fSBvbkNsaWNrPXsoKSA9PiBzYXZlKHRydWUpfT4KICAgICAgICAgICAge3JlY29yZC5zdGF0dXMgPT09ICJpc3N1ZWQiID8gIlB1Ymxpc2ggdXBkYXRlIiA6ICJJc3N1ZSB0byB3YWxsZXQifQogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICB7cHJldmlldyAmJiAoCiAgICAgICAgICAgIDxCdXR0b24gdmFyaWFudD0ib3V0bGluZSIgb25DbGljaz17KCkgPT4gd2luZG93LnByaW50KCl9PgogICAgICAgICAgICAgIDxQcmludGVyIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPiBQcmludCAvIHNhdmUgYXMgUERGCiAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgKX0KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTYgc3BhY2UteS02Ij4KICAgICAgICAgIHtwcmV2aWV3ID8gKAogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icHJpbnQtYXJlYSI+CiAgICAgICAgICAgICAgPEFncmVlbWVudERvY3VtZW50IGRhdGE9e2RhdGF9IGZhbWlseU5hbWU9e3JlY29yZC5mYW1pbHkuZmFtaWx5TmFtZX0gLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICApIDogKAogICAgICAgICAgICA8QWdyZWVtZW50QnVpbGRlciBkYXRhPXtkYXRhfSBvbkNoYW5nZT17c2V0RGF0YX0gLz4KICAgICAgICAgICl9CgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBuby1wcmludCI+CiAgICAgICAgICAgIEZhbWlsaWVzIG9ubHkgc2VlIHRoZSBhZ3JlZW1lbnQgb25jZSBpdCdzIGlzc3VlZC4gUHVibGlzaGluZyBhbiB1cGRhdGUgdG8gYW4gaXNzdWVkCiAgICAgICAgICAgIGFncmVlbWVudCBjcmVhdGVzIGEgbmV3IHZlcnNpb24gZm9yIHNpZ25pbmcuCiAgICAgICAgICA8L3A+CgogICAgICAgICAgPENhcmQ+CiAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+U2lnbmF0dXJlczwvaDI+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0zIj4KICAgICAgICAgICAgICA8U2lnbmF0dXJlTGlzdCBzaWduYXR1cmVzPXtyZWNvcmQuc2lnbmF0dXJlc30gLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC01IHNwYWNlLXktMyBib3JkZXItdCBib3JkZXItYm9yZGVyIHB0LTUiPgogICAgICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9ImJsb2NrIj4KICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgICBTaWduIG9uIGJlaGFsZiBvZiB5b3VyIGFnZW5jeQogICAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICAgICAgPElucHV0CiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtMS41IgogICAgICAgICAgICAgICAgICB2YWx1ZT17YWdlbmN5TmFtZX0KICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9IllvdXIgZnVsbCBuYW1lIgogICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldEFnZW5jeU5hbWUoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8L2xhYmVsPgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBnYXAtMyI+CiAgICAgICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Im91dGxpbmUiIG9uQ2xpY2s9eygpID0+IGNvdW50ZXJzaWduKCJhZ3JlZW1lbnQiKX0+CiAgICAgICAgICAgICAgICAgIENvdW50ZXJzaWduIGFncmVlbWVudAogICAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Im91dGxpbmUiIG9uQ2xpY2s9eygpID0+IGNvdW50ZXJzaWduKCJ0ZXJtcyIpfT4KICAgICAgICAgICAgICAgICAgQ291bnRlcnNpZ24gdGVybXMKICAgICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApOwp9Cg==
+import { requireTwoStepClient } from "@/lib/two-step";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { ArrowLeft, Eye, Pencil, Printer } from "lucide-react";
+
+import { getAgreementAdmin, saveAgreementAdmin, signAsAgency } from "@/lib/admin.functions";
+import { defaultAgreementData, type AgreementData } from "@/lib/agreement.model";
+import { AgreementBuilder } from "@/components/AgreementBuilder";
+import { AgreementDocument } from "@/components/AgreementDocument";
+import { Card } from "@/components/hub-ui";
+import { SignatureList } from "@/components/SignBlock";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+export const Route = createFileRoute("/_authenticated/admin/agreement/$id")({
+  beforeLoad: () => requireTwoStepClient(),
+  head: () => ({
+    meta: [
+      { title: "Nanny agreement builder — The Family Wallet admin" },
+      {
+        name: "description",
+        content: "Build, issue and countersign a family's full nanny employment contract.",
+      },
+      { property: "og:title", content: "Nanny agreement builder — The Family Wallet admin" },
+      { property: "og:description", content: "Build, issue and countersign a nanny contract." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: AdminAgreementPage,
+});
+
+function AdminAgreementPage() {
+  const { id } = Route.useParams();
+  const queryClient = useQueryClient();
+  const loadFn = useServerFn(getAgreementAdmin);
+  const saveFn = useServerFn(saveAgreementAdmin);
+  const signFn = useServerFn(signAsAgency);
+
+  const query = useQuery({
+    queryKey: ["admin-agreement", id],
+    queryFn: () => loadFn({ data: { familyId: id } }),
+  });
+
+  const [data, setData] = useState<AgreementData>(defaultAgreementData);
+  const [agencyName, setAgencyName] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState(false);
+
+  useEffect(() => {
+    if (query.data) setData(query.data.data);
+  }, [query.data]);
+
+  if (query.isLoading || !query.data) {
+    return <div className="p-8 text-sm text-muted-foreground">Loading…</div>;
+  }
+
+  const record = query.data;
+
+  async function save(publish: boolean) {
+    setBusy(true);
+    try {
+      await saveFn({ data: { familyId: id, fields: data, publish } });
+      toast.success(publish ? "Agreement issued to the wallet" : "Draft saved");
+      await queryClient.invalidateQueries({ queryKey: ["admin-agreement", id] });
+    } catch {
+      toast.error("Could not save. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function countersign(docKind: "agreement" | "terms") {
+    if (agencyName.trim().length < 3) {
+      toast.error("Type your full name first.");
+      return;
+    }
+    await signFn({ data: { familyId: id, docKind, name: agencyName } });
+    setAgencyName("");
+    toast.success("Signature recorded");
+    await queryClient.invalidateQueries({ queryKey: ["admin-agreement", id] });
+  }
+
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-3xl px-5 py-8">
+        <Link
+          to="/admin/family/$id"
+          params={{ id }}
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground no-print"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to family
+        </Link>
+        <h1 className="heading-display mt-4 text-3xl text-primary no-print">Nanny agreement</h1>
+        <p className="mt-2 text-sm text-muted-foreground no-print">
+          {record.family.familyName} · {record.status === "issued" ? "Issued" : "Draft"} · version{" "}
+          {record.version}
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-3 no-print">
+          <Button variant="outline" onClick={() => setPreview((p) => !p)}>
+            {preview ? (
+              <>
+                <Pencil className="mr-2 h-4 w-4" /> Back to builder
+              </>
+            ) : (
+              <>
+                <Eye className="mr-2 h-4 w-4" /> Preview contract
+              </>
+            )}
+          </Button>
+          <Button variant="outline" disabled={busy} onClick={() => save(false)}>
+            Save draft
+          </Button>
+          <Button disabled={busy} onClick={() => save(true)}>
+            {record.status === "issued" ? "Publish update" : "Issue to wallet"}
+          </Button>
+          {preview && (
+            <Button variant="outline" onClick={() => window.print()}>
+              <Printer className="mr-2 h-4 w-4" /> Print / save as PDF
+            </Button>
+          )}
+        </div>
+
+        <div className="mt-6 space-y-6">
+          {preview ? (
+            <div className="print-area">
+              <AgreementDocument data={data} familyName={record.family.familyName} />
+            </div>
+          ) : (
+            <AgreementBuilder data={data} onChange={setData} />
+          )}
+
+          <p className="text-xs text-muted-foreground no-print">
+            Families only see the agreement once it's issued. Publishing an update to an issued
+            agreement creates a new version for signing.
+          </p>
+
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Signatures</h2>
+            <div className="mt-3">
+              <SignatureList signatures={record.signatures} />
+            </div>
+            <div className="mt-5 space-y-3 border-t border-border pt-5">
+              <label className="block">
+                <span className="text-sm font-medium text-foreground">
+                  Sign on behalf of your agency
+                </span>
+                <Input
+                  className="mt-1.5"
+                  value={agencyName}
+                  placeholder="Your full name"
+                  onChange={(e) => setAgencyName(e.target.value)}
+                />
+              </label>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="outline" onClick={() => countersign("agreement")}>
+                  Countersign agreement
+                </Button>
+                <Button variant="outline" onClick={() => countersign("terms")}>
+                  Countersign terms
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}

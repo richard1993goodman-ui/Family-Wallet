@@ -1,1 +1,104 @@
-aW1wb3J0IHsgYXNzZXJ0Q29udGVudFJvdywgYXNzZXJ0RmFtaWxpZXNJbkFnZW5jeSwgcmVxdWlyZUNvbnRlbnRTY29wZSwgdHlwZSBDb250ZW50RmVhdHVyZSB9IGZyb20gIi4vc3RhZmYuc2NvcGUiOwppbXBvcnQgeyBjcmVhdGVTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHJlcXVpcmVTdXBhYmFzZUF1dGggfSBmcm9tICJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9hdXRoLW1pZGRsZXdhcmUiOwoKdHlwZSBTZWN0aW9uID0geyBoZWFkaW5nOiBzdHJpbmc7IGJvZHk6IHN0cmluZyB9OwoKYXN5bmMgZnVuY3Rpb24gdHJ5U2NvcGUoY29udGV4dDogdW5rbm93biwgZjogQ29udGVudEZlYXR1cmUpIHsKICB0cnkgeyByZXR1cm4geyBhZ2VuY3lJZDogYXdhaXQgcmVxdWlyZUNvbnRlbnRTY29wZShjb250ZXh0LCBmKSB9OyB9IGNhdGNoIHsgcmV0dXJuIG51bGw7IH0KfQoKY29uc3QgdGV4dCA9ICh2YWx1ZTogc3RyaW5nIHwgdW5kZWZpbmVkIHwgbnVsbCwgbWF4OiBudW1iZXIpID0+IHsKICBjb25zdCBjbGVhbiA9ICh2YWx1ZSA/PyAiIikudHJpbSgpOwogIHJldHVybiBjbGVhbiA/IGNsZWFuLnNsaWNlKDAsIG1heCkgOiBudWxsOwp9OwoKZXhwb3J0IGNvbnN0IGdldFBlcmtzID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJHRVQiIH0pLmlucHV0VmFsaWRhdG9yKChkOiB7IHNsdWc6IHN0cmluZyB9KSA9PiBkKS5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogIGNvbnN0IHsgbG9hZFBhcnRuZXJQZXJrcyB9ID0gYXdhaXQgaW1wb3J0KCIuL3ByZW1pdW0tY29udGVudC5zZXJ2ZXIiKTsKICByZXR1cm4gbG9hZFBhcnRuZXJQZXJrcyhkYXRhLnNsdWcpOwp9KTsKCmV4cG9ydCBjb25zdCBnZXRQbGF5Ym9va3MgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIkdFVCIgfSkuaW5wdXRWYWxpZGF0b3IoKGQ6IHsgc2x1Zzogc3RyaW5nIH0pID0+IGQpLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgY29uc3QgeyBsb2FkUGxheWJvb2tzIH0gPSBhd2FpdCBpbXBvcnQoIi4vcHJlbWl1bS1jb250ZW50LnNlcnZlciIpOwogIHJldHVybiBsb2FkUGxheWJvb2tzKGRhdGEuc2x1Zyk7Cn0pOwoKZXhwb3J0IGNvbnN0IG1hcmtQbGF5Ym9va1JlYWQgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pLmlucHV0VmFsaWRhdG9yKChkOiB7IHNsdWc6IHN0cmluZzsgcGxheWJvb2tJZDogc3RyaW5nIH0pID0+IGQpLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSB9KSA9PiB7CiAgY29uc3QgeyByZWNvcmRQbGF5Ym9va1JlYWQgfSA9IGF3YWl0IGltcG9ydCgiLi9wcmVtaXVtLWNvbnRlbnQuc2VydmVyIik7CiAgYXdhaXQgcmVjb3JkUGxheWJvb2tSZWFkKGRhdGEuc2x1ZywgZGF0YS5wbGF5Ym9va0lkKTsKICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9Owp9KTsKCmV4cG9ydCBjb25zdCBsaXN0UHJlbWl1bUNvbnRlbnRBZG1pbiA9IGNyZWF0ZVNlcnZlckZuKHsgbWV0aG9kOiAiR0VUIiB9KS5taWRkbGV3YXJlKFtyZXF1aXJlU3VwYWJhc2VBdXRoXSkuaGFuZGxlcihhc3luYyAoeyBjb250ZXh0IH0pID0+IHsKICBjb25zdCBbcGVya1Njb3BlLCBwbGF5U2NvcGVdID0gYXdhaXQgUHJvbWlzZS5hbGwoW3RyeVNjb3BlKGNvbnRleHQsICJwZXJrcyIpLCB0cnlTY29wZShjb250ZXh0LCAicGxheWJvb2tzIildKTsKICBjb25zdCBjb250ZW50U2NvcGUgPSBwZXJrU2NvcGUgPz8gcGxheVNjb3BlOwogIGlmICghY29udGVudFNjb3BlKSB0aHJvdyBuZXcgRXJyb3IoIkZvcmJpZGRlbiIpOwogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgY29uc3QgYWdlbmN5SWQgPSBjb250ZW50U2NvcGUuYWdlbmN5SWQ7CiAgY29uc3QgcGVya1EgPSBzdXBhYmFzZUFkbWluLmZyb20oInBhcnRuZXJfcGVya3MiKS5zZWxlY3QoIioiKS5vcmRlcigic29ydF9vcmRlciIpLm9yZGVyKCJjcmVhdGVkX2F0IiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pOwogIGNvbnN0IHBsYXlRID0gc3VwYWJhc2VBZG1pbi5mcm9tKCJzZWFzb25hbF9wbGF5Ym9va3MiKS5zZWxlY3QoIioiKS5vcmRlcigiY3JlYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KTsKICBjb25zdCBbeyBkYXRhOiBwZXJrUm93cywgZXJyb3I6IHBlcmtFcnJvciB9LCB7IGRhdGE6IHBsYXlSb3dzLCBlcnJvcjogcGxheWJvb2tFcnJvciB9XSA9IGF3YWl0IFByb21pc2UuYWxsKFsKICAgIGFnZW5jeUlkID8gcGVya1EuZXEoImFnZW5jeV9pZCIsIGFnZW5jeUlkKSA6IHBlcmtRLmlzKCJhZ2VuY3lfaWQiLCBudWxsKSwKICAgIGFnZW5jeUlkID8gcGxheVEuZXEoImFnZW5jeV9pZCIsIGFnZW5jeUlkKSA6IHBsYXlRLmlzKCJhZ2VuY3lfaWQiLCBudWxsKSwKICBdKTsKICBpZiAocGVya0Vycm9yKSB0aHJvdyBuZXcgRXJyb3IocGVya0Vycm9yLm1lc3NhZ2UpOwogIGlmIChwbGF5Ym9va0Vycm9yKSB0aHJvdyBuZXcgRXJyb3IocGxheWJvb2tFcnJvci5tZXNzYWdlKTsKICBjb25zdCBwZXJrcyA9IHBlcmtTY29wZSA/IChwZXJrUm93cyA/PyBbXSkgOiBbXTsKICBjb25zdCBwbGF5Ym9va3MgPSBwbGF5U2NvcGUgPyAocGxheVJvd3MgPz8gW10pIDogW107CiAgY29uc3QgeyBkYXRhOiByZWNpcGllbnRzIH0gPSBwbGF5Ym9va3MubGVuZ3RoCiAgICA/IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGxheWJvb2tfcmVjaXBpZW50cyIpLnNlbGVjdCgicGxheWJvb2tfaWQsIGZhbWlseV9pZCIpLmluKCJwbGF5Ym9va19pZCIsIHBsYXlib29rcy5tYXAoKHApID0+IHAuaWQpKQogICAgOiB7IGRhdGE6IFtdIGFzIHsgcGxheWJvb2tfaWQ6IHN0cmluZzsgZmFtaWx5X2lkOiBzdHJpbmcgfVtdIH07CiAgcmV0dXJuIHsKICAgIGNhblBlcmtzOiAhIXBlcmtTY29wZSwKICAgIGNhblBsYXlib29rczogISFwbGF5U2NvcGUsCiAgICBwZXJrcywKICAgIHBsYXlib29rczogKHBsYXlib29rcyA/PyBbXSkubWFwKChwKSA9PiAoeyAuLi5wLCByZWNpcGllbnRJZHM6IChyZWNpcGllbnRzID8/IFtdKS5maWx0ZXIoKHIpID0+IHIucGxheWJvb2tfaWQgPT09IHAuaWQpLm1hcCgocikgPT4gci5mYW1pbHlfaWQpIH0pKSwKICB9Owp9KTsKCmV4cG9ydCB0eXBlIFBlcmtJbnB1dCA9IHsgaWQ/OiBzdHJpbmc7IHRpdGxlOiBzdHJpbmc7IHBhcnRuZXJOYW1lOiBzdHJpbmc7IGNhdGVnb3J5OiBzdHJpbmc7IGFyZWE/OiBzdHJpbmc7IG9mZmVyVGV4dDogc3RyaW5nOyBkZXNjcmlwdGlvbj86IHN0cmluZzsgcmVkZW1wdGlvbkluc3RydWN0aW9ucz86IHN0cmluZzsgb2ZmZXJDb2RlPzogc3RyaW5nOyB3ZWJzaXRlVXJsPzogc3RyaW5nOyBjb250YWN0VGV4dD86IHN0cmluZzsgZXhwaXJlc09uPzogc3RyaW5nOyBpc1B1Ymxpc2hlZDogYm9vbGVhbiB9OwpleHBvcnQgY29uc3Qgc2F2ZVBlcmsgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKS5pbnB1dFZhbGlkYXRvcigoZDogUGVya0lucHV0KSA9PiBkKS5oYW5kbGVyKGFzeW5jICh7IGRhdGEsIGNvbnRleHQgfSkgPT4gewogIGNvbnN0IGFnZW5jeUlkID0gYXdhaXQgcmVxdWlyZUNvbnRlbnRTY29wZShjb250ZXh0LCAicGVya3MiKTsKICBpZiAoZGF0YS5pZCkgYXdhaXQgYXNzZXJ0Q29udGVudFJvdygicGFydG5lcl9wZXJrcyIsIGRhdGEuaWQsIGFnZW5jeUlkKTsKICBpZiAoIXRleHQoZGF0YS50aXRsZSwgMTQwKSB8fCAhdGV4dChkYXRhLnBhcnRuZXJOYW1lLCAxNDApIHx8ICF0ZXh0KGRhdGEub2ZmZXJUZXh0LCA1MDApKSB0aHJvdyBuZXcgRXJyb3IoIkFkZCB0aGUgcGFydG5lciwgdGl0bGUgYW5kIG1lbWJlciBvZmZlciIpOwogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgY29uc3Qgcm93ID0geyB0aXRsZTogdGV4dChkYXRhLnRpdGxlLCAxNDApID8/ICIiLCBwYXJ0bmVyX25hbWU6IHRleHQoZGF0YS5wYXJ0bmVyTmFtZSwgMTQwKSA/PyAiIiwgY2F0ZWdvcnk6IHRleHQoZGF0YS5jYXRlZ29yeSwgODApID8/ICJGYW1pbHkgc2VydmljZXMiLCBhcmVhOiB0ZXh0KGRhdGEuYXJlYSwgMTIwKSwgb2ZmZXJfdGV4dDogdGV4dChkYXRhLm9mZmVyVGV4dCwgNTAwKSA/PyAiIiwgZGVzY3JpcHRpb246IHRleHQoZGF0YS5kZXNjcmlwdGlvbiwgMjAwMCksIHJlZGVtcHRpb25faW5zdHJ1Y3Rpb25zOiB0ZXh0KGRhdGEucmVkZW1wdGlvbkluc3RydWN0aW9ucywgMTAwMCksIG9mZmVyX2NvZGU6IHRleHQoZGF0YS5vZmZlckNvZGUsIDEwMCksIHdlYnNpdGVfdXJsOiB0ZXh0KGRhdGEud2Vic2l0ZVVybCwgNTAwKSwgY29udGFjdF90ZXh0OiB0ZXh0KGRhdGEuY29udGFjdFRleHQsIDMwMCksIGV4cGlyZXNfb246IGRhdGEuZXhwaXJlc09uIHx8IG51bGwsIGlzX3B1Ymxpc2hlZDogZGF0YS5pc1B1Ymxpc2hlZCwgdXBkYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLCBhZ2VuY3lfaWQ6IGFnZW5jeUlkIH07CiAgY29uc3QgcmVzdWx0ID0gZGF0YS5pZCA/IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGFydG5lcl9wZXJrcyIpLnVwZGF0ZShyb3cpLmVxKCJpZCIsIGRhdGEuaWQpIDogYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwYXJ0bmVyX3BlcmtzIikuaW5zZXJ0KHJvdyk7CiAgaWYgKHJlc3VsdC5lcnJvcikgdGhyb3cgbmV3IEVycm9yKHJlc3VsdC5lcnJvci5tZXNzYWdlKTsKICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9Owp9KTsKCmV4cG9ydCB0eXBlIFBsYXlib29rSW5wdXQgPSB7IGlkPzogc3RyaW5nOyB0aXRsZTogc3RyaW5nOyBzZWFzb246IHN0cmluZzsgdG9waWM6IHN0cmluZzsgaW50cm9kdWN0aW9uPzogc3RyaW5nOyBhZ2VHdWlkYW5jZT86IHN0cmluZzsgc2VjdGlvbnM6IFNlY3Rpb25bXTsgY292ZXJJbWFnZVVybD86IHN0cmluZzsgcmVzb3VyY2VVcmw/OiBzdHJpbmc7IGF1ZGllbmNlOiAiYWxsIiB8ICJzZWxlY3RlZCI7IGZhbWlseUlkczogc3RyaW5nW107IGlzRmVhdHVyZWQ6IGJvb2xlYW47IGlzUHVibGlzaGVkOiBib29sZWFuIH07CmV4cG9ydCBjb25zdCBzYXZlUGxheWJvb2sgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKS5pbnB1dFZhbGlkYXRvcigoZDogUGxheWJvb2tJbnB1dCkgPT4gZCkuaGFuZGxlcihhc3luYyAoeyBkYXRhLCBjb250ZXh0IH0pID0+IHsKICBjb25zdCBhZ2VuY3lJZCA9IGF3YWl0IHJlcXVpcmVDb250ZW50U2NvcGUoY29udGV4dCwgInBsYXlib29rcyIpOwogIGlmIChkYXRhLmlkKSBhd2FpdCBhc3NlcnRDb250ZW50Um93KCJzZWFzb25hbF9wbGF5Ym9va3MiLCBkYXRhLmlkLCBhZ2VuY3lJZCk7CiAgaWYgKGRhdGEuYXVkaWVuY2UgPT09ICJzZWxlY3RlZCIpIGF3YWl0IGFzc2VydEZhbWlsaWVzSW5BZ2VuY3koZGF0YS5mYW1pbHlJZHMsIGFnZW5jeUlkKTsKICBpZiAoIXRleHQoZGF0YS50aXRsZSwgMTYwKSB8fCAhdGV4dChkYXRhLnNlYXNvbiwgNjApIHx8ICF0ZXh0KGRhdGEudG9waWMsIDgwKSkgdGhyb3cgbmV3IEVycm9yKCJBZGQgYSB0aXRsZSwgc2Vhc29uIGFuZCB0b3BpYyIpOwogIGlmIChkYXRhLmF1ZGllbmNlID09PSAic2VsZWN0ZWQiICYmIGRhdGEuZmFtaWx5SWRzLmxlbmd0aCA9PT0gMCkgdGhyb3cgbmV3IEVycm9yKCJDaG9vc2UgYXQgbGVhc3Qgb25lIGZhbWlseSIpOwogIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgY29uc3Qgcm93ID0geyB0aXRsZTogdGV4dChkYXRhLnRpdGxlLCAxNjApID8/ICIiLCBzZWFzb246IHRleHQoZGF0YS5zZWFzb24sIDYwKSA/PyAiIiwgdG9waWM6IHRleHQoZGF0YS50b3BpYywgODApID8/ICIiLCBpbnRyb2R1Y3Rpb246IHRleHQoZGF0YS5pbnRyb2R1Y3Rpb24sIDIwMDApLCBhZ2VfZ3VpZGFuY2U6IHRleHQoZGF0YS5hZ2VHdWlkYW5jZSwgMzAwKSwgc2VjdGlvbnM6IGRhdGEuc2VjdGlvbnMuZmlsdGVyKChzKSA9PiBzLmhlYWRpbmcudHJpbSgpICYmIHMuYm9keS50cmltKCkpLnNsaWNlKDAsIDEyKS5tYXAoKHMpID0+ICh7IGhlYWRpbmc6IHMuaGVhZGluZy50cmltKCkuc2xpY2UoMCwgMTQwKSwgYm9keTogcy5ib2R5LnRyaW0oKS5zbGljZSgwLCA1MDAwKSB9KSksIGNvdmVyX2ltYWdlX3VybDogdGV4dChkYXRhLmNvdmVySW1hZ2VVcmwsIDUwMCksIHJlc291cmNlX3VybDogdGV4dChkYXRhLnJlc291cmNlVXJsLCA1MDApLCBhdWRpZW5jZTogZGF0YS5hdWRpZW5jZSwgaXNfZmVhdHVyZWQ6IGRhdGEuaXNGZWF0dXJlZCwgaXNfcHVibGlzaGVkOiBkYXRhLmlzUHVibGlzaGVkLCBwdWJsaXNoZWRfYXQ6IGRhdGEuaXNQdWJsaXNoZWQgPyBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgOiBudWxsLCB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksIGFnZW5jeV9pZDogYWdlbmN5SWQgfTsKICBsZXQgaWQgPSBkYXRhLmlkOwogIGlmIChpZCkgewogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJzZWFzb25hbF9wbGF5Ym9va3MiKS51cGRhdGUocm93KS5lcSgiaWQiLCBpZCk7CiAgICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICB9IGVsc2UgewogICAgY29uc3QgeyBkYXRhOiBjcmVhdGVkLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJzZWFzb25hbF9wbGF5Ym9va3MiKS5pbnNlcnQocm93KS5zZWxlY3QoImlkIikuc2luZ2xlKCk7CiAgICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICAgIGlkID0gY3JlYXRlZC5pZDsKICB9CiAgYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwbGF5Ym9va19yZWNpcGllbnRzIikuZGVsZXRlKCkuZXEoInBsYXlib29rX2lkIiwgaWQpOwogIGlmIChkYXRhLmF1ZGllbmNlID09PSAic2VsZWN0ZWQiKSB7CiAgICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInBsYXlib29rX3JlY2lwaWVudHMiKS5pbnNlcnQoZGF0YS5mYW1pbHlJZHMubWFwKChmYW1pbHlfaWQpID0+ICh7IHBsYXlib29rX2lkOiBpZCwgZmFtaWx5X2lkIH0pKSk7CiAgICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICB9CiAgcmV0dXJuIHsgaWQgfTsKfSk7CgpleHBvcnQgY29uc3QgZGVsZXRlUHJlbWl1bUNvbnRlbnQgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKS5pbnB1dFZhbGlkYXRvcigoZDogeyBraW5kOiAicGVyayIgfCAicGxheWJvb2siOyBpZDogc3RyaW5nIH0pID0+IGQpLmhhbmRsZXIoYXN5bmMgKHsgZGF0YSwgY29udGV4dCB9KSA9PiB7CiAgY29uc3QgYWdlbmN5SWQgPSBhd2FpdCByZXF1aXJlQ29udGVudFNjb3BlKGNvbnRleHQsIGRhdGEua2luZCA9PT0gInBlcmsiID8gInBlcmtzIiA6ICJwbGF5Ym9va3MiKTsKICBhd2FpdCBhc3NlcnRDb250ZW50Um93KGRhdGEua2luZCA9PT0gInBlcmsiID8gInBhcnRuZXJfcGVya3MiIDogInNlYXNvbmFsX3BsYXlib29rcyIsIGRhdGEuaWQsIGFnZW5jeUlkKTsKICBjb25zdCB7IHN1cGFiYXNlQWRtaW4gfSA9IGF3YWl0IGltcG9ydCgiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvY2xpZW50LnNlcnZlciIpOwogIGNvbnN0IHJlc3VsdCA9IGRhdGEua2luZCA9PT0gInBlcmsiID8gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwYXJ0bmVyX3BlcmtzIikuZGVsZXRlKCkuZXEoImlkIiwgZGF0YS5pZCkgOiBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInNlYXNvbmFsX3BsYXlib29rcyIpLmRlbGV0ZSgpLmVxKCJpZCIsIGRhdGEuaWQpOwogIGlmIChyZXN1bHQuZXJyb3IpIHRocm93IG5ldyBFcnJvcihyZXN1bHQuZXJyb3IubWVzc2FnZSk7CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfSk7
+import { assertContentRow, assertFamiliesInAgency, requireContentScope, type ContentFeature } from "./staff.scope";
+import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
+type Section = { heading: string; body: string };
+
+async function tryScope(context: unknown, f: ContentFeature) {
+  try { return { agencyId: await requireContentScope(context, f) }; } catch { return null; }
+}
+
+const text = (value: string | undefined | null, max: number) => {
+  const clean = (value ?? "").trim();
+  return clean ? clean.slice(0, max) : null;
+};
+
+export const getPerks = createServerFn({ method: "GET" }).inputValidator((d: { slug: string }) => d).handler(async ({ data }) => {
+  const { loadPartnerPerks } = await import("./premium-content.server");
+  return loadPartnerPerks(data.slug);
+});
+
+export const getPlaybooks = createServerFn({ method: "GET" }).inputValidator((d: { slug: string }) => d).handler(async ({ data }) => {
+  const { loadPlaybooks } = await import("./premium-content.server");
+  return loadPlaybooks(data.slug);
+});
+
+export const markPlaybookRead = createServerFn({ method: "POST" }).inputValidator((d: { slug: string; playbookId: string }) => d).handler(async ({ data }) => {
+  const { recordPlaybookRead } = await import("./premium-content.server");
+  await recordPlaybookRead(data.slug, data.playbookId);
+  return { ok: true as const };
+});
+
+export const listPremiumContentAdmin = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
+  const [perkScope, playScope] = await Promise.all([tryScope(context, "perks"), tryScope(context, "playbooks")]);
+  const contentScope = perkScope ?? playScope;
+  if (!contentScope) throw new Error("Forbidden");
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const agencyId = contentScope.agencyId;
+  const perkQ = supabaseAdmin.from("partner_perks").select("*").order("sort_order").order("created_at", { ascending: false });
+  const playQ = supabaseAdmin.from("seasonal_playbooks").select("*").order("created_at", { ascending: false });
+  const [{ data: perkRows, error: perkError }, { data: playRows, error: playbookError }] = await Promise.all([
+    agencyId ? perkQ.eq("agency_id", agencyId) : perkQ.is("agency_id", null),
+    agencyId ? playQ.eq("agency_id", agencyId) : playQ.is("agency_id", null),
+  ]);
+  if (perkError) throw new Error(perkError.message);
+  if (playbookError) throw new Error(playbookError.message);
+  const perks = perkScope ? (perkRows ?? []) : [];
+  const playbooks = playScope ? (playRows ?? []) : [];
+  const { data: recipients } = playbooks.length
+    ? await supabaseAdmin.from("playbook_recipients").select("playbook_id, family_id").in("playbook_id", playbooks.map((p) => p.id))
+    : { data: [] as { playbook_id: string; family_id: string }[] };
+  return {
+    canPerks: !!perkScope,
+    canPlaybooks: !!playScope,
+    perks,
+    playbooks: (playbooks ?? []).map((p) => ({ ...p, recipientIds: (recipients ?? []).filter((r) => r.playbook_id === p.id).map((r) => r.family_id) })),
+  };
+});
+
+export type PerkInput = { id?: string; title: string; partnerName: string; category: string; area?: string; offerText: string; description?: string; redemptionInstructions?: string; offerCode?: string; websiteUrl?: string; contactText?: string; expiresOn?: string; isPublished: boolean };
+export const savePerk = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((d: PerkInput) => d).handler(async ({ data, context }) => {
+  const agencyId = await requireContentScope(context, "perks");
+  if (data.id) await assertContentRow("partner_perks", data.id, agencyId);
+  if (!text(data.title, 140) || !text(data.partnerName, 140) || !text(data.offerText, 500)) throw new Error("Add the partner, title and member offer");
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const row = { title: text(data.title, 140) ?? "", partner_name: text(data.partnerName, 140) ?? "", category: text(data.category, 80) ?? "Family services", area: text(data.area, 120), offer_text: text(data.offerText, 500) ?? "", description: text(data.description, 2000), redemption_instructions: text(data.redemptionInstructions, 1000), offer_code: text(data.offerCode, 100), website_url: text(data.websiteUrl, 500), contact_text: text(data.contactText, 300), expires_on: data.expiresOn || null, is_published: data.isPublished, updated_at: new Date().toISOString(), agency_id: agencyId };
+  const result = data.id ? await supabaseAdmin.from("partner_perks").update(row).eq("id", data.id) : await supabaseAdmin.from("partner_perks").insert(row);
+  if (result.error) throw new Error(result.error.message);
+  return { ok: true as const };
+});
+
+export type PlaybookInput = { id?: string; title: string; season: string; topic: string; introduction?: string; ageGuidance?: string; sections: Section[]; coverImageUrl?: string; resourceUrl?: string; audience: "all" | "selected"; familyIds: string[]; isFeatured: boolean; isPublished: boolean };
+export const savePlaybook = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((d: PlaybookInput) => d).handler(async ({ data, context }) => {
+  const agencyId = await requireContentScope(context, "playbooks");
+  if (data.id) await assertContentRow("seasonal_playbooks", data.id, agencyId);
+  if (data.audience === "selected") await assertFamiliesInAgency(data.familyIds, agencyId);
+  if (!text(data.title, 160) || !text(data.season, 60) || !text(data.topic, 80)) throw new Error("Add a title, season and topic");
+  if (data.audience === "selected" && data.familyIds.length === 0) throw new Error("Choose at least one family");
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const row = { title: text(data.title, 160) ?? "", season: text(data.season, 60) ?? "", topic: text(data.topic, 80) ?? "", introduction: text(data.introduction, 2000), age_guidance: text(data.ageGuidance, 300), sections: data.sections.filter((s) => s.heading.trim() && s.body.trim()).slice(0, 12).map((s) => ({ heading: s.heading.trim().slice(0, 140), body: s.body.trim().slice(0, 5000) })), cover_image_url: text(data.coverImageUrl, 500), resource_url: text(data.resourceUrl, 500), audience: data.audience, is_featured: data.isFeatured, is_published: data.isPublished, published_at: data.isPublished ? new Date().toISOString() : null, updated_at: new Date().toISOString(), agency_id: agencyId };
+  let id = data.id;
+  if (id) {
+    const { error } = await supabaseAdmin.from("seasonal_playbooks").update(row).eq("id", id);
+    if (error) throw new Error(error.message);
+  } else {
+    const { data: created, error } = await supabaseAdmin.from("seasonal_playbooks").insert(row).select("id").single();
+    if (error) throw new Error(error.message);
+    id = created.id;
+  }
+  await supabaseAdmin.from("playbook_recipients").delete().eq("playbook_id", id);
+  if (data.audience === "selected") {
+    const { error } = await supabaseAdmin.from("playbook_recipients").insert(data.familyIds.map((family_id) => ({ playbook_id: id, family_id })));
+    if (error) throw new Error(error.message);
+  }
+  return { id };
+});
+
+export const deletePremiumContent = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((d: { kind: "perk" | "playbook"; id: string }) => d).handler(async ({ data, context }) => {
+  const agencyId = await requireContentScope(context, data.kind === "perk" ? "perks" : "playbooks");
+  await assertContentRow(data.kind === "perk" ? "partner_perks" : "seasonal_playbooks", data.id, agencyId);
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const result = data.kind === "perk" ? await supabaseAdmin.from("partner_perks").delete().eq("id", data.id) : await supabaseAdmin.from("seasonal_playbooks").delete().eq("id", data.id);
+  if (result.error) throw new Error(result.error.message);
+  return { ok: true as const };
+});

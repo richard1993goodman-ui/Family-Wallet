@@ -1,1 +1,124 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IFRyYXNoMiB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CmltcG9ydCB7IHRvYXN0IH0gZnJvbSAic29ubmVyIjsKCmltcG9ydCB7IENhcmQsIEZpZWxkLCBIdWJQYWdlLCBMb2NrZWROb3RpY2UgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CmltcG9ydCB7IGFkZFBldHR5Q2FzaEZuLCBkZWxldGVQZXR0eUNhc2hGbiwgZ2V0UGV0dHlDYXNoIH0gZnJvbSAiQC9saWIvcGV0dHktY2FzaC5mdW5jdGlvbnMiOwppbXBvcnQgdHlwZSB7IFBldHR5Q2FzaEtpbmQgfSBmcm9tICJAL2xpYi9wZXR0eS1jYXNoLnR5cGVzIjsKCmV4cG9ydCBjb25zdCBSb3V0ZSA9IGNyZWF0ZUZpbGVSb3V0ZSgiL3BldHR5Y2FzaC8kc2x1ZyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiUGV0dHkgY2FzaCBmbG9hdCDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsgbmFtZTogImRlc2NyaXB0aW9uIiwgY29udGVudDogIlRyYWNrIHRoZSBob3VzZWhvbGQgY2FzaCBmbG9hdDogbW9uZXkgYWRkZWQgYnkgdGhlIGZhbWlseSBhbmQgd2hhdCB0aGUgbmFubnkgc3BlbmRzLiIgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIlBldHR5IGNhc2ggZmxvYXQg4oCUIFRoZSBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7IHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLCBjb250ZW50OiAiQSBzaGFyZWQgcnVubmluZyBiYWxhbmNlIGZvciBuYW5ueSBzcGVuZGluZyBtb25leS4iIH0sCiAgICAgIHsgcHJvcGVydHk6ICJvZzp0eXBlIiwgY29udGVudDogIndlYnNpdGUiIH0sCiAgICAgIHsgbmFtZTogInR3aXR0ZXI6Y2FyZCIsIGNvbnRlbnQ6ICJzdW1tYXJ5IiB9LAogICAgICB7IG5hbWU6ICJyb2JvdHMiLCBjb250ZW50OiAibm9pbmRleCIgfSwKICAgIF0sCiAgfSksCiAgY29tcG9uZW50OiBQZXR0eUNhc2hQYWdlLAp9KTsKCmNvbnN0IHRvZGF5ID0gKCkgPT4gbmV3IERhdGUoKS50b0lTT1N0cmluZygpLnNsaWNlKDAsIDEwKTsKY29uc3QgbW9uZXkgPSAobjogbnVtYmVyKSA9PiBgwqMke01hdGguYWJzKG4pLnRvRml4ZWQoMil9YDsKCmZ1bmN0aW9uIFBldHR5Q2FzaFBhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBjbGllbnQgPSB1c2VRdWVyeUNsaWVudCgpOwogIGNvbnN0IGxvYWRGbiA9IHVzZVNlcnZlckZuKGdldFBldHR5Q2FzaCk7CiAgY29uc3QgYWRkRm4gPSB1c2VTZXJ2ZXJGbihhZGRQZXR0eUNhc2hGbik7CiAgY29uc3QgcmVtb3ZlRm4gPSB1c2VTZXJ2ZXJGbihkZWxldGVQZXR0eUNhc2hGbik7CiAgY29uc3QgcXVlcnkgPSB1c2VRdWVyeSh7IHF1ZXJ5S2V5OiBbInBldHR5LWNhc2giLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gbG9hZEZuKHsgZGF0YTogeyBzbHVnIH0gfSkgfSk7CgogIGNvbnN0IFtraW5kLCBzZXRLaW5kXSA9IHVzZVN0YXRlPFBldHR5Q2FzaEtpbmQ+KCJzcGVuZCIpOwogIGNvbnN0IFtlbnRyeURhdGUsIHNldEVudHJ5RGF0ZV0gPSB1c2VTdGF0ZSh0b2RheSk7CiAgY29uc3QgW2Ftb3VudCwgc2V0QW1vdW50XSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbZGVzY3JpcHRpb24sIHNldERlc2NyaXB0aW9uXSA9IHVzZVN0YXRlKCIiKTsKICBjb25zdCBbc2F2aW5nLCBzZXRTYXZpbmddID0gdXNlU3RhdGUoZmFsc2UpOwoKICBpZiAocXVlcnkuaXNMb2FkaW5nKSB7CiAgICByZXR1cm4gPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1zYW5kIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Mb2FkaW5n4oCmPC9kaXY+OwogIH0KICBpZiAoIXF1ZXJ5LmRhdGEpIHJldHVybiA8TG9ja2VkTm90aWNlIHNsdWc9e3NsdWd9IC8+OwogIGNvbnN0IGRhdGEgPSBxdWVyeS5kYXRhOwogIGNvbnN0IGlzRmFtaWx5ID0gZGF0YS5hY2Nlc3MgPT09ICJmYW1pbHkiOwogIGNvbnN0IGVmZmVjdGl2ZUtpbmQ6IFBldHR5Q2FzaEtpbmQgPSBpc0ZhbWlseSA/IGtpbmQgOiAic3BlbmQiOwoKICBjb25zdCBzdWJtaXQgPSBhc3luYyAoKSA9PiB7CiAgICBzZXRTYXZpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBhd2FpdCBhZGRGbih7IGRhdGE6IHsgc2x1ZywgZW50cnk6IHsga2luZDogZWZmZWN0aXZlS2luZCwgZW50cnlEYXRlLCBhbW91bnQ6IE51bWJlcihhbW91bnQpLCBkZXNjcmlwdGlvbiB9IH0gfSk7CiAgICAgIHNldEFtb3VudCgiIik7CiAgICAgIHNldERlc2NyaXB0aW9uKCIiKTsKICAgICAgYXdhaXQgY2xpZW50LmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsicGV0dHktY2FzaCIsIHNsdWddIH0pOwogICAgICB0b2FzdC5zdWNjZXNzKGVmZmVjdGl2ZUtpbmQgPT09ICJ0b3B1cCIgPyAiTW9uZXkgYWRkZWQgdG8gdGhlIGZsb2F0IiA6ICJTcGVuZGluZyBsb2dnZWQiKTsKICAgIH0gY2F0Y2ggKGUpIHsKICAgICAgdG9hc3QuZXJyb3IoZSBpbnN0YW5jZW9mIEVycm9yID8gZS5tZXNzYWdlIDogIkNvdWxkbid0IHNhdmUiKTsKICAgIH0gZmluYWxseSB7CiAgICAgIHNldFNhdmluZyhmYWxzZSk7CiAgICB9CiAgfTsKCiAgcmV0dXJuICgKICAgIDxIdWJQYWdlIHNsdWc9e3NsdWd9IHRpdGxlPSJQZXR0eSBjYXNoIGZsb2F0IiBpbnRybz0iT25lIHNoYXJlZCBydW5uaW5nIGJhbGFuY2UgZm9yIHRoZSBuYW5ueSdzIHNwZW5kaW5nIG1vbmV5IOKAlCBubyBtb3JlIHNjcmFwcyBvZiByZWNlaXB0cyBvciBndWVzc2luZyB3aGF0J3MgbGVmdC4iPgogICAgICA8Q2FyZD4KICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57ZGF0YS5iYWxhbmNlIDwgMCA/ICJPd2VkIHRvIHRoZSBuYW5ueSIgOiAiTGVmdCBpbiB0aGUgZmxvYXQifTwvcD4KICAgICAgICA8cCBjbGFzc05hbWU9e2BoZWFkaW5nLWRpc3BsYXkgbXQtMSB0ZXh0LTR4bCAke2RhdGEuYmFsYW5jZSA8IDAgPyAidGV4dC1kZXN0cnVjdGl2ZSIgOiAidGV4dC1wcmltYXJ5In1gfT57bW9uZXkoZGF0YS5iYWxhbmNlKX08L3A+CiAgICAgIDwvQ2FyZD4KCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC02Ij4KICAgICAgICA8Q2FyZD4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIj57aXNGYW1pbHkgPyAiQWRkIGFuIGVudHJ5IiA6ICJMb2cgc29tZXRoaW5nIHlvdSBib3VnaHQifTwvaDI+CiAgICAgICAgICB7aXNGYW1pbHkgJiYgKAogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBmbGV4IGdhcC0yIj4KICAgICAgICAgICAgICA8QnV0dG9uIHNpemU9InNtIiB2YXJpYW50PXtraW5kID09PSAidG9wdXAiID8gImRlZmF1bHQiIDogIm91dGxpbmUifSBvbkNsaWNrPXsoKSA9PiBzZXRLaW5kKCJ0b3B1cCIpfT5BZGQgbW9uZXk8L0J1dHRvbj4KICAgICAgICAgICAgICA8QnV0dG9uIHNpemU9InNtIiB2YXJpYW50PXtraW5kID09PSAic3BlbmQiID8gImRlZmF1bHQiIDogIm91dGxpbmUifSBvbkNsaWNrPXsoKSA9PiBzZXRLaW5kKCJzcGVuZCIpfT5Mb2cgc3BlbmRpbmc8L0J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICApfQogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTMgZ3JpZCBnYXAtMyI+CiAgICAgICAgICAgIDxGaWVsZCBsYWJlbD0iRGF0ZSIgdHlwZT0iZGF0ZSIgdmFsdWU9e2VudHJ5RGF0ZX0gb25DaGFuZ2U9e3NldEVudHJ5RGF0ZX0gLz4KICAgICAgICAgICAgPEZpZWxkIGxhYmVsPSJBbW91bnQgKMKjKSIgdHlwZT0ibnVtYmVyIiB2YWx1ZT17YW1vdW50fSBvbkNoYW5nZT17c2V0QW1vdW50fSBwbGFjZWhvbGRlcj0iMTIuNTAiIC8+CiAgICAgICAgICAgIDxGaWVsZCBsYWJlbD0iV2hhdCBmb3I/IiB2YWx1ZT17ZGVzY3JpcHRpb259IG9uQ2hhbmdlPXtzZXREZXNjcmlwdGlvbn0gcGxhY2Vob2xkZXI9e2VmZmVjdGl2ZUtpbmQgPT09ICJ0b3B1cCIgPyAiV2Vla2x5IGZsb2F0IiA6ICJTbmFja3MgYWZ0ZXIgc3dpbW1pbmcifSAvPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8QnV0dG9uIGNsYXNzTmFtZT0ibXQtNCIgZGlzYWJsZWQ9e3NhdmluZ30gb25DbGljaz17c3VibWl0fT57c2F2aW5nID8gIlNhdmluZ+KApiIgOiAiU2F2ZSJ9PC9CdXR0b24+CiAgICAgICAgPC9DYXJkPgogICAgICA8L2Rpdj4KCiAgICAgIDxoMiBjbGFzc05hbWU9Imlvcy1zZWN0aW9uLXRpdGxlIG10LTgiPkhpc3Rvcnk8L2gyPgogICAgICA8ZGl2IGNsYXNzTmFtZT0iaW9zLWdyb3VwIG10LTIiPgogICAgICAgIHtkYXRhLmVudHJpZXMubGVuZ3RoID09PSAwICYmIDxwIGNsYXNzTmFtZT0icC01IHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5Ob3RoaW5nIGxvZ2dlZCB5ZXQuPC9wPn0KICAgICAgICB7ZGF0YS5lbnRyaWVzLm1hcCgoZSkgPT4gKAogICAgICAgICAgPGRpdiBrZXk9e2UuaWR9IGNsYXNzTmFtZT0iaW9zLXJvdyBpdGVtcy1jZW50ZXIiPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9Im1pbi13LTAgZmxleC0xIj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImJsb2NrIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e2UuZGVzY3JpcHRpb259PC9zcGFuPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0ibXQtMC41IGJsb2NrIHRleHQteHMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICAgIHtuZXcgRGF0ZShlLmVudHJ5RGF0ZSkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsgZGF5OiAibnVtZXJpYyIsIG1vbnRoOiAic2hvcnQiIH0pfSDCtyB7ZS5hZGRlZEJ5TmFtZSA/PyBlLmFkZGVkQnl9CiAgICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT17YGZvbnQtc2VtaWJvbGQgJHtlLmtpbmQgPT09ICJ0b3B1cCIgPyAidGV4dC1wcmltYXJ5IiA6ICJ0ZXh0LWZvcmVncm91bmQifWB9PgogICAgICAgICAgICAgIHtlLmtpbmQgPT09ICJ0b3B1cCIgPyAiKyIgOiAi4oiSIn17bW9uZXkoZS5hbW91bnQpfQogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIHsoaXNGYW1pbHkgfHwgZS5hZGRlZEJ5ID09PSAibmFubnkiKSAmJiAoCiAgICAgICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICAgICAgYXJpYS1sYWJlbD0iUmVtb3ZlIGVudHJ5IgogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJtbC0yIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LWRlc3RydWN0aXZlIgogICAgICAgICAgICAgICAgb25DbGljaz17YXN5bmMgKCkgPT4gewogICAgICAgICAgICAgICAgICBhd2FpdCByZW1vdmVGbih7IGRhdGE6IHsgc2x1ZywgaWQ6IGUuaWQgfSB9KTsKICAgICAgICAgICAgICAgICAgYXdhaXQgY2xpZW50LmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsicGV0dHktY2FzaCIsIHNsdWddIH0pOwogICAgICAgICAgICAgICAgfX0KICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICA8VHJhc2gyIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgKX0KICAgICAgICAgIDwvZGl2PgogICAgICAgICkpfQogICAgICA8L2Rpdj4KICAgIDwvSHViUGFnZT4KICApOwp9Cg==
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { addPettyCashFn, deletePettyCashFn, getPettyCash } from "@/lib/petty-cash.functions";
+import type { PettyCashKind } from "@/lib/petty-cash.types";
+
+export const Route = createFileRoute("/pettycash/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Petty cash float — The Family Wallet" },
+      { name: "description", content: "Track the household cash float: money added by the family and what the nanny spends." },
+      { property: "og:title", content: "Petty cash float — The Family Wallet" },
+      { property: "og:description", content: "A shared running balance for nanny spending money." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: PettyCashPage,
+});
+
+const today = () => new Date().toISOString().slice(0, 10);
+const money = (n: number) => `£${Math.abs(n).toFixed(2)}`;
+
+function PettyCashPage() {
+  const { slug } = Route.useParams();
+  const client = useQueryClient();
+  const loadFn = useServerFn(getPettyCash);
+  const addFn = useServerFn(addPettyCashFn);
+  const removeFn = useServerFn(deletePettyCashFn);
+  const query = useQuery({ queryKey: ["petty-cash", slug], queryFn: () => loadFn({ data: { slug } }) });
+
+  const [kind, setKind] = useState<PettyCashKind>("spend");
+  const [entryDate, setEntryDate] = useState(today);
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  if (query.isLoading) {
+    return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  }
+  if (!query.data) return <LockedNotice slug={slug} />;
+  const data = query.data;
+  const isFamily = data.access === "family";
+  const effectiveKind: PettyCashKind = isFamily ? kind : "spend";
+
+  const submit = async () => {
+    setSaving(true);
+    try {
+      await addFn({ data: { slug, entry: { kind: effectiveKind, entryDate, amount: Number(amount), description } } });
+      setAmount("");
+      setDescription("");
+      await client.invalidateQueries({ queryKey: ["petty-cash", slug] });
+      toast.success(effectiveKind === "topup" ? "Money added to the float" : "Spending logged");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't save");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <HubPage slug={slug} title="Petty cash float" intro="One shared running balance for the nanny's spending money — no more scraps of receipts or guessing what's left.">
+      <Card>
+        <p className="text-sm text-muted-foreground">{data.balance < 0 ? "Owed to the nanny" : "Left in the float"}</p>
+        <p className={`heading-display mt-1 text-4xl ${data.balance < 0 ? "text-destructive" : "text-primary"}`}>{money(data.balance)}</p>
+      </Card>
+
+      <div className="mt-6">
+        <Card>
+          <h2 className="font-semibold text-foreground">{isFamily ? "Add an entry" : "Log something you bought"}</h2>
+          {isFamily && (
+            <div className="mt-3 flex gap-2">
+              <Button size="sm" variant={kind === "topup" ? "default" : "outline"} onClick={() => setKind("topup")}>Add money</Button>
+              <Button size="sm" variant={kind === "spend" ? "default" : "outline"} onClick={() => setKind("spend")}>Log spending</Button>
+            </div>
+          )}
+          <div className="mt-3 grid gap-3">
+            <Field label="Date" type="date" value={entryDate} onChange={setEntryDate} />
+            <Field label="Amount (£)" type="number" value={amount} onChange={setAmount} placeholder="12.50" />
+            <Field label="What for?" value={description} onChange={setDescription} placeholder={effectiveKind === "topup" ? "Weekly float" : "Snacks after swimming"} />
+          </div>
+          <Button className="mt-4" disabled={saving} onClick={submit}>{saving ? "Saving…" : "Save"}</Button>
+        </Card>
+      </div>
+
+      <h2 className="ios-section-title mt-8">History</h2>
+      <div className="ios-group mt-2">
+        {data.entries.length === 0 && <p className="p-5 text-sm text-muted-foreground">Nothing logged yet.</p>}
+        {data.entries.map((e) => (
+          <div key={e.id} className="ios-row items-center">
+            <span className="min-w-0 flex-1">
+              <span className="block font-medium text-foreground">{e.description}</span>
+              <span className="mt-0.5 block text-xs text-muted-foreground">
+                {new Date(e.entryDate).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} · {e.addedByName ?? e.addedBy}
+              </span>
+            </span>
+            <span className={`font-semibold ${e.kind === "topup" ? "text-primary" : "text-foreground"}`}>
+              {e.kind === "topup" ? "+" : "−"}{money(e.amount)}
+            </span>
+            {(isFamily || e.addedBy === "nanny") && (
+              <button
+                aria-label="Remove entry"
+                className="ml-2 text-muted-foreground hover:text-destructive"
+                onClick={async () => {
+                  await removeFn({ data: { slug, id: e.id } });
+                  await client.invalidateQueries({ queryKey: ["petty-cash", slug] });
+                }}
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    </HubPage>
+  );
+}

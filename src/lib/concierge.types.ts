@@ -1,1 +1,32 @@
-ZXhwb3J0IGNvbnN0IFBBWVJPTExfU1RBVFVTRVMgPSBbCiAgWyJub3Rfc3RhcnRlZCIsICJOb3Qgc3RhcnRlZCJdLAogIFsiZGV0YWlsc19uZWVkZWQiLCAiRGV0YWlscyBuZWVkZWQiXSwKICBbImludHJvZHVjdGlvbl9yZXF1ZXN0ZWQiLCAiSW50cm9kdWN0aW9uIHJlcXVlc3RlZCJdLAogIFsic2V0dXBfaW5fcHJvZ3Jlc3MiLCAiU2V0dXAgaW4gcHJvZ3Jlc3MiXSwKICBbInBheXJvbGxfcmVhZHkiLCAiUGF5cm9sbCByZWFkeSJdLApdIGFzIGNvbnN0OwoKZXhwb3J0IGNvbnN0IENVUkFUSU9OX1NUQVRVU0VTID0gWwogIFsibm90X3N0YXJ0ZWQiLCAiTm90IHN0YXJ0ZWQiXSwKICBbImJyaWVmX3JlY2VpdmVkIiwgIkJyaWVmIHJlY2VpdmVkIl0sCiAgWyJzZWFyY2hfdW5kZXJ3YXkiLCAiU2VhcmNoIHVuZGVyd2F5Il0sCiAgWyJzaG9ydGxpc3Rfc2VudCIsICJTaG9ydGxpc3Qgc2VudCBwcml2YXRlbHkiXSwKICBbImludGVydmlld3MiLCAiSW50ZXJ2aWV3cyB1bmRlcndheSJdLAogIFsicGxhY2VtZW50X21hZGUiLCAiUGxhY2VtZW50IG1hZGUiXSwKICBbInBhdXNlZCIsICJQYXVzZWQiXSwKXSBhcyBjb25zdDsKCmV4cG9ydCB0eXBlIFBheXJvbGxTdGF0dXMgPSAodHlwZW9mIFBBWVJPTExfU1RBVFVTRVMpW251bWJlcl1bMF07CmV4cG9ydCB0eXBlIEN1cmF0aW9uU3RhdHVzID0gKHR5cGVvZiBDVVJBVElPTl9TVEFUVVNFUylbbnVtYmVyXVswXTsKCmV4cG9ydCBjb25zdCBzdGF0dXNMYWJlbCA9IChyb3dzOiByZWFkb25seSAocmVhZG9ubHkgW3N0cmluZywgc3RyaW5nXSlbXSwgdmFsdWU6IHN0cmluZykgPT4KICByb3dzLmZpbmQoKFtrZXldKSA9PiBrZXkgPT09IHZhbHVlKT8uWzFdID8/ICJOb3Qgc3RhcnRlZCI7CgpleHBvcnQgY29uc3QgU0FGRVRZX0RPQ1VNRU5UUyA9IFsKICBbImRicyIsICJFbmhhbmNlZCBEQlMiXSwKICBbImZpcnN0X2FpZCIsICJQYWVkaWF0cmljIGZpcnN0IGFpZCJdLAogIFsicmlnaHRfdG9fd29yayIsICJJRCAmIHJpZ2h0IHRvIHdvcmsiXSwKICBbInJlZmVyZW5jZV8xIiwgIlJlZmVyZW5jZSAxIl0sCiAgWyJyZWZlcmVuY2VfMiIsICJSZWZlcmVuY2UgMiJdLAogIFsicHVibGljX2xpYWJpbGl0eSIsICJQdWJsaWMgbGlhYmlsaXR5IGluc3VyYW5jZSJdLApdIGFzIGNvbnN0Ow==
+export const PAYROLL_STATUSES = [
+  ["not_started", "Not started"],
+  ["details_needed", "Details needed"],
+  ["introduction_requested", "Introduction requested"],
+  ["setup_in_progress", "Setup in progress"],
+  ["payroll_ready", "Payroll ready"],
+] as const;
+
+export const CURATION_STATUSES = [
+  ["not_started", "Not started"],
+  ["brief_received", "Brief received"],
+  ["search_underway", "Search underway"],
+  ["shortlist_sent", "Shortlist sent privately"],
+  ["interviews", "Interviews underway"],
+  ["placement_made", "Placement made"],
+  ["paused", "Paused"],
+] as const;
+
+export type PayrollStatus = (typeof PAYROLL_STATUSES)[number][0];
+export type CurationStatus = (typeof CURATION_STATUSES)[number][0];
+
+export const statusLabel = (rows: readonly (readonly [string, string])[], value: string) =>
+  rows.find(([key]) => key === value)?.[1] ?? "Not started";
+
+export const SAFETY_DOCUMENTS = [
+  ["dbs", "Enhanced DBS"],
+  ["first_aid", "Paediatric first aid"],
+  ["right_to_work", "ID & right to work"],
+  ["reference_1", "Reference 1"],
+  ["reference_2", "Reference 2"],
+  ["public_liability", "Public liability insurance"],
+] as const;

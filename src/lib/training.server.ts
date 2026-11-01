@@ -1,1 +1,165 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgUEFTU19NQVJLLCBUUkFJTklOR19RVUVTVElPTlMgfSBmcm9tICIuL3RyYWluaW5nLnF1ZXN0aW9ucyI7Cgpjb25zdCBBTlNXRVJTOiBSZWNvcmQ8c3RyaW5nLCB7IGNvcnJlY3Q6IG51bWJlcjsgZXhwbGFuYXRpb246IHN0cmluZyB9PiA9IHsKICBxMTogewogICAgY29ycmVjdDogMSwKICAgIGV4cGxhbmF0aW9uOgogICAgICAiQWx3YXlzIGNvbGxlY3QgZnJvbSB0aGUgYWdyZWVkIHBvaW50IGFuZCBtYWtlIHN1cmUgdGhlIHNjaG9vbCBrbm93cyB3aG8gaXMgY29sbGVjdGluZy4iLAogIH0sCiAgcTI6IHsKICAgIGNvcnJlY3Q6IDEsCiAgICBleHBsYW5hdGlvbjogIkNoaWxkcmVuIHNldHRsZSBiZXN0IHdpdGggdGhlIGZhbWlseSdzIG93biBwcmVkaWN0YWJsZSByb3V0aW5lLiIsCiAgfSwKICBxMzogewogICAgY29ycmVjdDogMiwKICAgIGV4cGxhbmF0aW9uOiAiQ2hlY2sgdGhlIHBsYW5uZXIgY2FsbWx5IGFuZCBub3RlIGl0IGZvciB0aGUgcGFyZW50cyByYXRoZXIgdGhhbiBndWVzc2luZy4iLAogIH0sCiAgcTQ6IHsgY29ycmVjdDogMiwgZXhwbGFuYXRpb246ICJTY3JlZW4gcnVsZXMgYmVsb25nIHRvIHRoZSBmYW1pbHksIG5vdCB0aGUgbmFubnkuIiB9LAogIHE1OiB7CiAgICBjb3JyZWN0OiAxLAogICAgZXhwbGFuYXRpb246ICJBIHNob3J0IHdyaXR0ZW4gbG9nIGdpdmVzIHBhcmVudHMgdGhlIGRheSBhdCBhIGdsYW5jZS4iLAogIH0sCiAgcTY6IHsKICAgIGNvcnJlY3Q6IDEsCiAgICBleHBsYW5hdGlvbjogIlNhZmVndWFyZGluZyBpcyBhYm91dCBwcmV2ZW50aW5nIGhhcm0gYW5kIGFjdGluZyBvbiBjb25jZXJucywgbm90IGp1c3QgaW5qdXJpZXMuIiwKICB9LAogIHE3OiB7CiAgICBjb3JyZWN0OiAyLAogICAgZXhwbGFuYXRpb246CiAgICAgICJMaXN0ZW4sIG5ldmVyIHByb21pc2UgdG8ga2VlcCBpdCBzZWNyZXQsIGF2b2lkIGxlYWRpbmcgcXVlc3Rpb25zLCBhbmQgcmVjb3JkIHRoZWlyIHdvcmRzLiIsCiAgfSwKICBxODogewogICAgY29ycmVjdDogMiwKICAgIGV4cGxhbmF0aW9uOiAiU2VyaW91cyBjb25jZXJucyBhcmUgcmVwb3J0ZWQgdGhlIHNhbWUgZGF5OyBuZXZlciBpbnZlc3RpZ2F0ZSBpdCB5b3Vyc2VsZi4iLAogIH0sCiAgcTk6IHsgY29ycmVjdDogMCwgZXhwbGFuYXRpb246ICJDaGlsZHJlbidzIGltYWdlcyBuZXZlciBnbyBvbiBhIG5hbm55J3Mgc29jaWFsIG1lZGlhLiIgfSwKICBxMTA6IHsKICAgIGNvcnJlY3Q6IDEsCiAgICBleHBsYW5hdGlvbjogIk5ldmVyIHJlbGVhc2UgYSBjaGlsZCB0byBhbiB1bmF1dGhvcmlzZWQgYWR1bHQ7IGNvbmZpcm0gd2l0aCB0aGUgcGFyZW50IGZpcnN0LiIsCiAgfSwKICBxMTE6IHsKICAgIGNvcnJlY3Q6IDIsCiAgICBleHBsYW5hdGlvbjogIlRyYW5zcGFyZW5jeSBhbmQgY2xlYXIgYm91bmRhcmllcyBwcm90ZWN0IGJvdGggdGhlIGNoaWxkIGFuZCB5b3UuIiwKICB9LAogIHExMjogewogICAgY29ycmVjdDogMSwKICAgIGV4cGxhbmF0aW9uOiAiUmVjb3ZlcnkgcG9zaXRpb24sIGNhbGwgOTk5LCBhbmQgc3RheSB3aXRoIHRoZSBjaGlsZC4iLAogIH0sCiAgcTEzOiB7CiAgICBjb3JyZWN0OiAxLAogICAgZXhwbGFuYXRpb246ICJBZHJlbmFsaW5lIGZpcnN0LCB0aGVuIDk5OSDigJQgbmV2ZXIgZGVsYXkgdG8gbWFrZSBvdGhlciBjYWxscy4iLAogIH0sCiAgcTE0OiB7CiAgICBjb3JyZWN0OiAyLAogICAgZXhwbGFuYXRpb246ICJBbiBlZmZlY3RpdmUgY291Z2ggY2xlYXJzIG1vc3Qgb2JzdHJ1Y3Rpb25zOyBpbnRlcnZlbmUgb25seSBpZiBpdCBiZWNvbWVzIHdlYWsuIiwKICB9LAogIHExNTogewogICAgY29ycmVjdDogMSwKICAgIGV4cGxhbmF0aW9uOiAiSXQgcHV0cyB0aGUgY3JpdGljYWwgZGV0YWlscyBpbiBvbmUgcGxhY2UgZm9yIGEgc3RyZXNzZnVsIG1vbWVudC4iLAogIH0sCiAgcTE2OiB7CiAgICBjb3JyZWN0OiAxLAogICAgZXhwbGFuYXRpb246ICJTYW1lLWRheSByZXBvcnRpbmcgd2l0aCBhIHdyaXR0ZW4gcmVjb3JkIHByb3RlY3RzIGV2ZXJ5b25lLiIsCiAgfSwKICBxMTc6IHsgY29ycmVjdDogMCwgZXhwbGFuYXRpb246ICJBbGxlcmd5IGFuZCBkaWV0YXJ5IG5vdGVzIGFyZSBjaGVja2VkIGV2ZXJ5IHRpbWUuIiB9LAogIHExODogewogICAgY29ycmVjdDogMSwKICAgIGV4cGxhbmF0aW9uOiAiV3JpdHRlbiBwYXJlbnRhbCBwZXJtaXNzaW9uLCBjb3JyZWN0IGRvc2UsIGFuZCBhIHdyaXR0ZW4gcmVjb3JkLiIsCiAgfSwKICBxMTk6IHsKICAgIGNvcnJlY3Q6IDEsCiAgICBleHBsYW5hdGlvbjogIkNhbG0gY28tcmVndWxhdGlvbiB3b3JrcyBiZXR0ZXIgdGhhbiBwdW5pc2htZW50IGFmdGVyIGEgaGFyZCBzY2hvb2wgZGF5LiIsCiAgfSwKICBxMjA6IHsKICAgIGNvcnJlY3Q6IDEsCiAgICBleHBsYW5hdGlvbjogIlRlbGwgdGhlIHBhcmVudHMgYW5kIHRoZSBzY2hvb2wgc3RyYWlnaHQgYXdheSBzbyBhIGNoaWxkIGlzIG5ldmVyIGxlZnQgd2FpdGluZy4iLAogIH0sCn07CgpmdW5jdGlvbiBtYWtlUmVmKCkgewogIGNvbnN0IGFscGhhYmV0ID0gIkFCQ0RFRkdISktNTlBRUlNUVVZXWFlaMjM0NTY3ODkiOwogIGxldCBvdXQgPSAiIjsKICBmb3IgKGxldCBpID0gMDsgaSA8IDY7IGkgKz0gMSkgewogICAgb3V0ICs9IGFscGhhYmV0W01hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIGFscGhhYmV0Lmxlbmd0aCldOwogIH0KICByZXR1cm4gYEFNLSR7b3V0fWA7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkVHJhaW5pbmcoc2x1Zzogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZUZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgidHJhaW5pbmdfYXR0ZW1wdHMiKQogICAgLnNlbGVjdCgiaWQsIGxlYXJuZXJfbmFtZSwgc2NvcmUsIHRvdGFsLCBwYXNzZWQsIGNlcnRpZmljYXRlX3JlZiwgY29tcGxldGVkX2F0IikKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgLm9yZGVyKCJjb21wbGV0ZWRfYXQiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgIC5saW1pdCgyMCk7CiAgcmV0dXJuIHsKICAgIGZhbWlseU5hbWU6IGZhbWlseS5mYW1pbHlfbmFtZSwKICAgIG5hbm55TmFtZTogZmFtaWx5Lm5hbm55X25hbWUsCiAgICBhdHRlbXB0czogZGF0YSA/PyBbXSwKICB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gc3VibWl0VHJhaW5pbmcoCiAgc2x1Zzogc3RyaW5nLAogIGxlYXJuZXJOYW1lOiBzdHJpbmcsCiAgYW5zd2VyczogUmVjb3JkPHN0cmluZywgbnVtYmVyPiwKKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZUZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJMb2NrZWQiKTsKICBjb25zdCBuYW1lID0gKGxlYXJuZXJOYW1lID8/ICIiKS50cmltKCkuc2xpY2UoMCwgODApOwogIGlmICghbmFtZSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2UgZW50ZXIgeW91ciBuYW1lIik7CgogIGNvbnN0IHJlc3VsdHMgPSBUUkFJTklOR19RVUVTVElPTlMubWFwKChxKSA9PiB7CiAgICBjb25zdCBrZXkgPSBBTlNXRVJTW3EuaWRdITsKICAgIGNvbnN0IGdpdmVuID0gYW5zd2Vyc1txLmlkXTsKICAgIHJldHVybiB7CiAgICAgIGlkOiBxLmlkLAogICAgICBxdWVzdGlvbjogcS5xdWVzdGlvbiwKICAgICAgZ2l2ZW46IHR5cGVvZiBnaXZlbiA9PT0gIm51bWJlciIgPyBnaXZlbiA6IG51bGwsCiAgICAgIGNvcnJlY3Q6IGtleS5jb3JyZWN0LAogICAgICBpc0NvcnJlY3Q6IGdpdmVuID09PSBrZXkuY29ycmVjdCwKICAgICAgZXhwbGFuYXRpb246IGtleS5leHBsYW5hdGlvbiwKICAgIH07CiAgfSk7CgogIGNvbnN0IHNjb3JlID0gcmVzdWx0cy5maWx0ZXIoKHIpID0+IHIuaXNDb3JyZWN0KS5sZW5ndGg7CiAgY29uc3QgdG90YWwgPSBUUkFJTklOR19RVUVTVElPTlMubGVuZ3RoOwogIGNvbnN0IHBhc3NlZCA9IHNjb3JlID49IFBBU1NfTUFSSzsKCiAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oInRyYWluaW5nX2F0dGVtcHRzIikKICAgIC5pbnNlcnQoewogICAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgICAgbGVhcm5lcl9uYW1lOiBuYW1lLAogICAgICBzY29yZSwKICAgICAgdG90YWwsCiAgICAgIHBhc3NlZCwKICAgICAgY2VydGlmaWNhdGVfcmVmOiBtYWtlUmVmKCksCiAgICAgIGFuc3dlcnM6IHJlc3VsdHMucmVkdWNlPFJlY29yZDxzdHJpbmcsIG51bWJlciB8IG51bGw+PigoYWNjLCByKSA9PiB7CiAgICAgICAgYWNjW3IuaWRdID0gci5naXZlbjsKICAgICAgICByZXR1cm4gYWNjOwogICAgICB9LCB7fSksCiAgICB9KQogICAgLnNlbGVjdCgiaWQsIGNlcnRpZmljYXRlX3JlZiIpCiAgICAuc2luZ2xlKCk7CiAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7CgogIHJldHVybiB7IGlkOiBkYXRhLmlkLCBjZXJ0aWZpY2F0ZVJlZjogZGF0YS5jZXJ0aWZpY2F0ZV9yZWYsIHNjb3JlLCB0b3RhbCwgcGFzc2VkLCByZXN1bHRzIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkQ2VydGlmaWNhdGUoc2x1Zzogc3RyaW5nLCBpZDogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZUZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgidHJhaW5pbmdfYXR0ZW1wdHMiKQogICAgLnNlbGVjdCgiaWQsIGxlYXJuZXJfbmFtZSwgc2NvcmUsIHRvdGFsLCBwYXNzZWQsIGNlcnRpZmljYXRlX3JlZiwgY29tcGxldGVkX2F0IikKICAgIC5lcSgiaWQiLCBpZCkKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFkYXRhIHx8ICFkYXRhLnBhc3NlZCkgcmV0dXJuIG51bGw7CiAgcmV0dXJuIHsgLi4uZGF0YSwgZmFtaWx5TmFtZTogZmFtaWx5LmZhbWlseV9uYW1lIH07Cn0K
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireFamily } from "./family.server";
+import { PASS_MARK, TRAINING_QUESTIONS } from "./training.questions";
+
+const ANSWERS: Record<string, { correct: number; explanation: string }> = {
+  q1: {
+    correct: 1,
+    explanation:
+      "Always collect from the agreed point and make sure the school knows who is collecting.",
+  },
+  q2: {
+    correct: 1,
+    explanation: "Children settle best with the family's own predictable routine.",
+  },
+  q3: {
+    correct: 2,
+    explanation: "Check the planner calmly and note it for the parents rather than guessing.",
+  },
+  q4: { correct: 2, explanation: "Screen rules belong to the family, not the nanny." },
+  q5: {
+    correct: 1,
+    explanation: "A short written log gives parents the day at a glance.",
+  },
+  q6: {
+    correct: 1,
+    explanation: "Safeguarding is about preventing harm and acting on concerns, not just injuries.",
+  },
+  q7: {
+    correct: 2,
+    explanation:
+      "Listen, never promise to keep it secret, avoid leading questions, and record their words.",
+  },
+  q8: {
+    correct: 2,
+    explanation: "Serious concerns are reported the same day; never investigate it yourself.",
+  },
+  q9: { correct: 0, explanation: "Children's images never go on a nanny's social media." },
+  q10: {
+    correct: 1,
+    explanation: "Never release a child to an unauthorised adult; confirm with the parent first.",
+  },
+  q11: {
+    correct: 2,
+    explanation: "Transparency and clear boundaries protect both the child and you.",
+  },
+  q12: {
+    correct: 1,
+    explanation: "Recovery position, call 999, and stay with the child.",
+  },
+  q13: {
+    correct: 1,
+    explanation: "Adrenaline first, then 999 — never delay to make other calls.",
+  },
+  q14: {
+    correct: 2,
+    explanation: "An effective cough clears most obstructions; intervene only if it becomes weak.",
+  },
+  q15: {
+    correct: 1,
+    explanation: "It puts the critical details in one place for a stressful moment.",
+  },
+  q16: {
+    correct: 1,
+    explanation: "Same-day reporting with a written record protects everyone.",
+  },
+  q17: { correct: 0, explanation: "Allergy and dietary notes are checked every time." },
+  q18: {
+    correct: 1,
+    explanation: "Written parental permission, correct dose, and a written record.",
+  },
+  q19: {
+    correct: 1,
+    explanation: "Calm co-regulation works better than punishment after a hard school day.",
+  },
+  q20: {
+    correct: 1,
+    explanation: "Tell the parents and the school straight away so a child is never left waiting.",
+  },
+};
+
+function makeRef() {
+  const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let out = "";
+  for (let i = 0; i < 6; i += 1) {
+    out += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return `AM-${out}`;
+}
+
+export async function loadTraining(slug: string) {
+  const family = await requireFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin
+    .from("training_attempts")
+    .select("id, learner_name, score, total, passed, certificate_ref, completed_at")
+    .eq("family_id", family.id)
+    .order("completed_at", { ascending: false })
+    .limit(20);
+  return {
+    familyName: family.family_name,
+    nannyName: family.nanny_name,
+    attempts: data ?? [],
+  };
+}
+
+export async function submitTraining(
+  slug: string,
+  learnerName: string,
+  answers: Record<string, number>,
+) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Locked");
+  const name = (learnerName ?? "").trim().slice(0, 80);
+  if (!name) throw new Error("Please enter your name");
+
+  const results = TRAINING_QUESTIONS.map((q) => {
+    const key = ANSWERS[q.id]!;
+    const given = answers[q.id];
+    return {
+      id: q.id,
+      question: q.question,
+      given: typeof given === "number" ? given : null,
+      correct: key.correct,
+      isCorrect: given === key.correct,
+      explanation: key.explanation,
+    };
+  });
+
+  const score = results.filter((r) => r.isCorrect).length;
+  const total = TRAINING_QUESTIONS.length;
+  const passed = score >= PASS_MARK;
+
+  const { data, error } = await supabaseAdmin
+    .from("training_attempts")
+    .insert({
+      family_id: family.id,
+      learner_name: name,
+      score,
+      total,
+      passed,
+      certificate_ref: makeRef(),
+      answers: results.reduce<Record<string, number | null>>((acc, r) => {
+        acc[r.id] = r.given;
+        return acc;
+      }, {}),
+    })
+    .select("id, certificate_ref")
+    .single();
+  if (error) throw new Error(error.message);
+
+  return { id: data.id, certificateRef: data.certificate_ref, score, total, passed, results };
+}
+
+export async function loadCertificate(slug: string, id: string) {
+  const family = await requireFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin
+    .from("training_attempts")
+    .select("id, learner_name, score, total, passed, certificate_ref, completed_at")
+    .eq("id", id)
+    .eq("family_id", family.id)
+    .maybeSingle();
+  if (!data || !data.passed) return null;
+  return { ...data, familyName: family.family_name };
+}

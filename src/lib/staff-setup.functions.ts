@@ -1,1 +1,25 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwoKLy8gUHVibGljOiBzZW5kcyBhbiBhY2NvdW50IGludml0ZSBvbmx5IHRvIGVtYWlscyB0aGUgb3duZXIgaGFzIGFkZGVkIGFzIHBhcnRuZXIgc3RhZmYuCi8vIEFsd2F5cyByZXR1cm5zIHRoZSBzYW1lIGFuc3dlciBzbyBpdCBjYW4ndCBiZSB1c2VkIHRvIGNoZWNrIHdoaWNoIGVtYWlscyBhcmUgaW52aXRlZC4KZXhwb3J0IGNvbnN0IHJlcXVlc3RTdGFmZlNldHVwID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5pbnB1dFZhbGlkYXRvcigoZDogeyBlbWFpbDogc3RyaW5nOyBvcmlnaW46IHN0cmluZyB9KSA9PiBkKQogIC5oYW5kbGVyKGFzeW5jICh7IGRhdGEgfSkgPT4gewogICAgY29uc3QgZW1haWwgPSBkYXRhLmVtYWlsLnRyaW0oKS50b0xvd2VyQ2FzZSgpOwogICAgaWYgKCEvXlteXHNAXStAW15cc0BdK1wuW15cc0BdKyQvLnRlc3QoZW1haWwpKSB0aHJvdyBuZXcgRXJyb3IoIkVudGVyIGEgdmFsaWQgZW1haWwiKTsKICAgIGNvbnN0IG9yaWdpbiA9IC9eaHR0cHM/OlwvXC9bXi9dKyQvLnRlc3QoZGF0YS5vcmlnaW4pID8gZGF0YS5vcmlnaW4gOiAiIjsKICAgIGNvbnN0IHsgc3VwYWJhc2VBZG1pbiB9ID0gYXdhaXQgaW1wb3J0KCJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS9jbGllbnQuc2VydmVyIik7CiAgICBjb25zdCB7IGRhdGE6IHN0YWZmIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJwYXJ0bmVyX2FnZW5jeV9zdGFmZiIpCiAgICAgIC5zZWxlY3QoImlkLCB1c2VyX2lkLCBhZ2VuY3lfaWQiKQogICAgICAuZXEoImVtYWlsIiwgZW1haWwpCiAgICAgIC5tYXliZVNpbmdsZSgpOwogICAgaWYgKHN0YWZmICYmICFzdGFmZi51c2VyX2lkKSB7CiAgICAgIGNvbnN0IHsgZGF0YTogYWdlbmN5IH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInBhcnRuZXJfYWdlbmNpZXMiKS5zZWxlY3QoInN0YXR1cyIpLmVxKCJpZCIsIHN0YWZmLmFnZW5jeV9pZCkubWF5YmVTaW5nbGUoKTsKICAgICAgaWYgKGFnZW5jeT8uc3RhdHVzID09PSAiYWN0aXZlIikgewogICAgICAgIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uYXV0aC5hZG1pbi5pbnZpdGVVc2VyQnlFbWFpbChlbWFpbCwgb3JpZ2luID8geyByZWRpcmVjdFRvOiBgJHtvcmlnaW59L2F1dGg/c2V0dXA9MWAgfSA6IHt9KTsKICAgICAgICBpZiAoZXJyb3IgJiYgIS9hbHJlYWR5L2kudGVzdChlcnJvci5tZXNzYWdlKSkgY29uc29sZS5lcnJvcigic3RhZmYgaW52aXRlIGZhaWxlZCIsIGVycm9yLm1lc3NhZ2UpOwogICAgICB9CiAgICB9CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+
+// Public: sends an account invite only to emails the owner has added as partner staff.
+// Always returns the same answer so it can't be used to check which emails are invited.
+export const requestStaffSetup = createServerFn({ method: "POST" })
+  .inputValidator((d: { email: string; origin: string }) => d)
+  .handler(async ({ data }) => {
+    const email = data.email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Enter a valid email");
+    const origin = /^https?:\/\/[^/]+$/.test(data.origin) ? data.origin : "";
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: staff } = await supabaseAdmin
+      .from("partner_agency_staff")
+      .select("id, user_id, agency_id")
+      .eq("email", email)
+      .maybeSingle();
+    if (staff && !staff.user_id) {
+      const { data: agency } = await supabaseAdmin.from("partner_agencies").select("status").eq("id", staff.agency_id).maybeSingle();
+      if (agency?.status === "active") {
+        const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, origin ? { redirectTo: `${origin}/auth?setup=1` } : {});
+        if (error && !/already/i.test(error.message)) console.error("staff invite failed", error.message);
+      }
+    }
+    return { ok: true as const };
+  });

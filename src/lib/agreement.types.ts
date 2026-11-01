@@ -1,1 +1,7 @@
-ZXhwb3J0IHR5cGUgU2lnbmF0dXJlID0gewogIGRvY0tpbmQ6ICJhZ3JlZW1lbnQiIHwgInRlcm1zIjsKICBzaWduZXJSb2xlOiAicGFyZW50IiB8ICJuYW5ueSIgfCAiYWdlbmN5IjsKICBzaWduZXJOYW1lOiBzdHJpbmc7CiAgZG9jVmVyc2lvbjogc3RyaW5nOwogIHNpZ25lZEF0OiBzdHJpbmc7Cn07Cg==
+export type Signature = {
+  docKind: "agreement" | "terms";
+  signerRole: "parent" | "nanny" | "agency";
+  signerName: string;
+  docVersion: string;
+  signedAt: string;
+};

@@ -1,1 +1,112 @@
-aW1wb3J0IHsgTGluayB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXIiOwppbXBvcnQgeyBBcnJvd0xlZnQgfSBmcm9tICJsdWNpZGUtcmVhY3QiOwoKaW1wb3J0IHsgSW5wdXQgfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvaW5wdXQiOwppbXBvcnQgeyBUZXh0YXJlYSB9IGZyb20gIkAvY29tcG9uZW50cy91aS90ZXh0YXJlYSI7CgpleHBvcnQgZnVuY3Rpb24gSHViUGFnZSh7CiAgc2x1ZywKICB0aXRsZSwKICBpbnRybywKICBjaGlsZHJlbiwKfTogewogIHNsdWc6IHN0cmluZzsKICB0aXRsZTogc3RyaW5nOwogIGludHJvPzogc3RyaW5nOwogIGNoaWxkcmVuOiBSZWFjdC5SZWFjdE5vZGU7Cn0pIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy1zYW5kIj4KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctMnhsIHB4LTUgcHktOCI+CiAgICAgICAgPExpbmsKICAgICAgICAgIHRvPSIvdy8kc2x1ZyIKICAgICAgICAgIHBhcmFtcz17eyBzbHVnIH19CiAgICAgICAgICBjbGFzc05hbWU9ImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBnYXAtMS41IHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOnRleHQtZm9yZWdyb3VuZCIKICAgICAgICA+CiAgICAgICAgICA8QXJyb3dMZWZ0IGNsYXNzTmFtZT0iaC00IHctNCIgLz4gQmFjayB0byB3YWxsZXQKICAgICAgICA8L0xpbms+CiAgICAgICAgPGgxIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG10LTQgdGV4dC0zeGwgbGVhZGluZy10aWdodCB0ZXh0LXByaW1hcnkiPnt0aXRsZX08L2gxPgogICAgICAgIHtpbnRybyAmJiA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPntpbnRyb308L3A+fQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC02Ij57Y2hpbGRyZW59PC9kaXY+CiAgICAgICAgPEJhY2tUb1dhbGxldCBzbHVnPXtzbHVnfSAvPgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBCYWNrVG9XYWxsZXQoeyBzbHVnIH06IHsgc2x1Zzogc3RyaW5nIH0pIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9Im10LTEwIGJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtNSBwcmludDpoaWRkZW4iPgogICAgICA8TGluawogICAgICAgIHRvPSIvdy8kc2x1ZyIKICAgICAgICBwYXJhbXM9e3sgc2x1ZyB9fQogICAgICAgIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQgaG92ZXI6dGV4dC1mb3JlZ3JvdW5kIgogICAgICA+CiAgICAgICAgPEFycm93TGVmdCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IEJhY2sgdG8gd2FsbGV0CiAgICAgIDwvTGluaz4KICAgIDwvZGl2PgogICk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBMb2NrZWROb3RpY2UoeyBzbHVnIH06IHsgc2x1Zzogc3RyaW5nIH0pIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1zYW5kIHB4LTUiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctc20gdGV4dC1jZW50ZXIiPgogICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LTJ4bCB0ZXh0LXByaW1hcnkiPlBsZWFzZSB1bmxvY2sgeW91ciB3YWxsZXQ8L2gxPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMyB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICBFbnRlciB5b3VyIGFjY2VzcyBjb2RlIGZpcnN0LCB0aGVuIGNvbWUgYmFjayB0byB0aGlzIHBhZ2UuCiAgICAgICAgPC9wPgogICAgICAgIDxMaW5rCiAgICAgICAgICB0bz0iL3cvJHNsdWciCiAgICAgICAgICBwYXJhbXM9e3sgc2x1ZyB9fQogICAgICAgICAgY2xhc3NOYW1lPSJtdC00IGlubGluZS1ibG9jayB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtcHJpbWFyeSBob3Zlcjp1bmRlcmxpbmUiCiAgICAgICAgPgogICAgICAgICAgR28gdG8gbXkgd2FsbGV0CiAgICAgICAgPC9MaW5rPgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBGaWVsZCh7CiAgbGFiZWwsCiAgdmFsdWUsCiAgb25DaGFuZ2UsCiAgcGxhY2Vob2xkZXIsCiAgdGV4dGFyZWEsCiAgdHlwZSwKfTogewogIGxhYmVsOiBzdHJpbmc7CiAgdmFsdWU6IHN0cmluZzsKICBvbkNoYW5nZTogKHZhbHVlOiBzdHJpbmcpID0+IHZvaWQ7CiAgcGxhY2Vob2xkZXI/OiBzdHJpbmc7CiAgdGV4dGFyZWE/OiBib29sZWFuOwogIHR5cGU/OiBzdHJpbmc7Cn0pIHsKICByZXR1cm4gKAogICAgPGxhYmVsIGNsYXNzTmFtZT0iYmxvY2siPgogICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1mb3JlZ3JvdW5kIj57bGFiZWx9PC9zcGFuPgogICAgICB7dGV4dGFyZWEgPyAoCiAgICAgICAgPFRleHRhcmVhCiAgICAgICAgICBjbGFzc05hbWU9Im10LTEuNSIKICAgICAgICAgIHJvd3M9ezN9CiAgICAgICAgICB2YWx1ZT17dmFsdWV9CiAgICAgICAgICBwbGFjZWhvbGRlcj17cGxhY2Vob2xkZXJ9CiAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IG9uQ2hhbmdlKGUudGFyZ2V0LnZhbHVlKX0KICAgICAgICAvPgogICAgICApIDogKAogICAgICAgIDxJbnB1dAogICAgICAgICAgY2xhc3NOYW1lPSJtdC0xLjUiCiAgICAgICAgICB0eXBlPXt0eXBlID8/ICJ0ZXh0In0KICAgICAgICAgIHZhbHVlPXt2YWx1ZX0KICAgICAgICAgIHBsYWNlaG9sZGVyPXtwbGFjZWhvbGRlcn0KICAgICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gb25DaGFuZ2UoZS50YXJnZXQudmFsdWUpfQogICAgICAgIC8+CiAgICAgICl9CiAgICA8L2xhYmVsPgogICk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBDYXJkKHsgY2hpbGRyZW4gfTogeyBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlIH0pIHsKICByZXR1cm4gPGRpdiBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJnLWNhcmQgc2hhZG93LXNtIHAtNSI+e2NoaWxkcmVufTwvZGl2PjsKfQo=
+import { Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+export function HubPage({
+  slug,
+  title,
+  intro,
+  children,
+}: {
+  slug: string;
+  title: string;
+  intro?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen bg-sand">
+      <div className="mx-auto max-w-2xl px-5 py-8">
+        <Link
+          to="/w/$slug"
+          params={{ slug }}
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to wallet
+        </Link>
+        <h1 className="heading-display mt-4 text-3xl leading-tight text-primary">{title}</h1>
+        {intro && <p className="mt-2 text-sm text-muted-foreground">{intro}</p>}
+        <div className="mt-6">{children}</div>
+        <BackToWallet slug={slug} />
+      </div>
+    </div>
+  );
+}
+
+export function BackToWallet({ slug }: { slug: string }) {
+  return (
+    <div className="mt-10 border-t border-border pt-5 print:hidden">
+      <Link
+        to="/w/$slug"
+        params={{ slug }}
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" /> Back to wallet
+      </Link>
+    </div>
+  );
+}
+
+export function LockedNotice({ slug }: { slug: string }) {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-sand px-5">
+      <div className="max-w-sm text-center">
+        <h1 className="heading-display text-2xl text-primary">Please unlock your wallet</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Enter your access code first, then come back to this page.
+        </p>
+        <Link
+          to="/w/$slug"
+          params={{ slug }}
+          className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+        >
+          Go to my wallet
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  textarea,
+  type,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  textarea?: boolean;
+  type?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      {textarea ? (
+        <Textarea
+          className="mt-1.5"
+          rows={3}
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      ) : (
+        <Input
+          className="mt-1.5"
+          type={type ?? "text"}
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      )}
+    </label>
+  );
+}
+
+export function Card({ children }: { children: React.ReactNode }) {
+  return <div className="rounded-2xl bg-card shadow-sm p-5">{children}</div>;
+}

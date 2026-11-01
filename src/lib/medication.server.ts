@@ -1,1 +1,87 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHR5cGUgeyBEb3NlSW5wdXQgfSBmcm9tICIuL21lZGljYXRpb24udHlwZXMiOwoKZnVuY3Rpb24gY2xlYW4odmFsdWU6IHN0cmluZyB8IHVuZGVmaW5lZCB8IG51bGwsIG1heCA9IDMwMCkgewogIGNvbnN0IHRyaW1tZWQgPSAodmFsdWUgPz8gIiIpLnRyaW0oKTsKICByZXR1cm4gdHJpbW1lZCA/IHRyaW1tZWQuc2xpY2UoMCwgbWF4KSA6IG51bGw7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkTWVkaWNhdGlvbihzbHVnOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKCiAgY29uc3QgW3sgZGF0YTogZG9zZXMgfSwgeyBkYXRhOiBjaGlsZHJlbiB9XSA9IGF3YWl0IFByb21pc2UuYWxsKFsKICAgIHN1cGFiYXNlQWRtaW4KICAgICAgLmZyb20oIm1lZGljYXRpb25fZG9zZXMiKQogICAgICAuc2VsZWN0KAogICAgICAgICJpZCwgY2hpbGRfbmFtZSwgbWVkaWNpbmUsIGRvc2UsIGdpdmVuX2F0LCBnaXZlbl9ieSwgZ2l2ZW5fYnlfbmFtZSwgbmV4dF9kb3NlX2Zyb20sIHJlYXNvbiwgbm90ZXMiLAogICAgICApCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKQogICAgICAub3JkZXIoImdpdmVuX2F0IiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pCiAgICAgIC5saW1pdCg2MCksCiAgICBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJmYW1pbHlfY2hpbGRyZW4iKQogICAgICAuc2VsZWN0KCJuYW1lLCBhbGxlcmdpZXMsIG1lZGljYXRpb24iKQogICAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgICAgLm9yZGVyKCJzb3J0X29yZGVyIiksCiAgXSk7CgogIHJldHVybiB7CiAgICBhY2Nlc3M6IGZhbWlseS5hY2Nlc3MsCiAgICBmYW1pbHlOYW1lOiBmYW1pbHkuZmFtaWx5X25hbWUsCiAgICBjaGlsZHJlbjogKGNoaWxkcmVuID8/IFtdKS5tYXAoKGMpID0+ICh7CiAgICAgIG5hbWU6IGMubmFtZSwKICAgICAgYWxsZXJnaWVzOiBjLmFsbGVyZ2llcywKICAgICAgbWVkaWNhdGlvbjogYy5tZWRpY2F0aW9uLAogICAgfSkpLAogICAgZG9zZXM6IChkb3NlcyA/PyBbXSkubWFwKChkKSA9PiAoewogICAgICBpZDogZC5pZCwKICAgICAgY2hpbGROYW1lOiBkLmNoaWxkX25hbWUsCiAgICAgIG1lZGljaW5lOiBkLm1lZGljaW5lLAogICAgICBkb3NlOiBkLmRvc2UsCiAgICAgIGdpdmVuQXQ6IGQuZ2l2ZW5fYXQsCiAgICAgIGdpdmVuQnk6IGQuZ2l2ZW5fYnksCiAgICAgIGdpdmVuQnlOYW1lOiBkLmdpdmVuX2J5X25hbWUsCiAgICAgIG5leHREb3NlRnJvbTogZC5uZXh0X2Rvc2VfZnJvbSwKICAgICAgcmVhc29uOiBkLnJlYXNvbiwKICAgICAgbm90ZXM6IGQubm90ZXMsCiAgICB9KSksCiAgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJlY29yZERvc2Uoc2x1Zzogc3RyaW5nLCBpbnB1dDogRG9zZUlucHV0KSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBpZiAoIWlucHV0LmNoaWxkTmFtZT8udHJpbSgpKSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBjaG9vc2Ugd2hvIHRoZSBkb3NlIHdhcyBmb3IuIik7CiAgaWYgKCFpbnB1dC5tZWRpY2luZT8udHJpbSgpKSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBzYXkgd2hpY2ggbWVkaWNpbmUgd2FzIGdpdmVuLiIpOwoKICBjb25zdCBnaXZlbkF0ID0gaW5wdXQuZ2l2ZW5BdCA/IG5ldyBEYXRlKGlucHV0LmdpdmVuQXQpIDogbmV3IERhdGUoKTsKICBpZiAoTnVtYmVyLmlzTmFOKGdpdmVuQXQuZ2V0VGltZSgpKSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2UgY2hlY2sgdGhlIHRpbWUgZ2l2ZW4uIik7CgogIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgibWVkaWNhdGlvbl9kb3NlcyIpLmluc2VydCh7CiAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgIGNoaWxkX25hbWU6IGNsZWFuKGlucHV0LmNoaWxkTmFtZSwgMTIwKSEsCiAgICBtZWRpY2luZTogY2xlYW4oaW5wdXQubWVkaWNpbmUsIDEyMCkhLAogICAgZG9zZTogY2xlYW4oaW5wdXQuZG9zZSwgMTIwKSwKICAgIGdpdmVuX2F0OiBnaXZlbkF0LnRvSVNPU3RyaW5nKCksCiAgICBnaXZlbl9ieTogZmFtaWx5LmFjY2VzcywKICAgIGdpdmVuX2J5X25hbWU6IGZhbWlseS5hY2Nlc3MgPT09ICJuYW5ueSIgPyBmYW1pbHkubmFubnlfbmFtZSA6IGZhbWlseS5mYW1pbHlfbmFtZSwKICAgIG5leHRfZG9zZV9mcm9tOiBpbnB1dC5uZXh0RG9zZUZyb20gPyBuZXcgRGF0ZShpbnB1dC5uZXh0RG9zZUZyb20pLnRvSVNPU3RyaW5nKCkgOiBudWxsLAogICAgcmVhc29uOiBjbGVhbihpbnB1dC5yZWFzb24sIDIwMCksCiAgICBub3RlczogY2xlYW4oaW5wdXQubm90ZXMsIDYwMCksCiAgfSk7CiAgaWYgKGVycm9yKSB0aHJvdyBuZXcgRXJyb3IoZXJyb3IubWVzc2FnZSk7CiAgcmV0dXJuIHsgb2s6IHRydWUgYXMgY29uc3QgfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGRlbGV0ZURvc2Uoc2x1Zzogc3RyaW5nLCBpZDogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgibWVkaWNhdGlvbl9kb3NlcyIpCiAgICAuZGVsZXRlKCkKICAgIC5lcSgiaWQiLCBpZCkKICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKfQo=
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import type { DoseInput } from "./medication.types";
+
+function clean(value: string | undefined | null, max = 300) {
+  const trimmed = (value ?? "").trim();
+  return trimmed ? trimmed.slice(0, max) : null;
+}
+
+export async function loadMedication(slug: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+
+  const [{ data: doses }, { data: children }] = await Promise.all([
+    supabaseAdmin
+      .from("medication_doses")
+      .select(
+        "id, child_name, medicine, dose, given_at, given_by, given_by_name, next_dose_from, reason, notes",
+      )
+      .eq("family_id", family.id)
+      .order("given_at", { ascending: false })
+      .limit(60),
+    supabaseAdmin
+      .from("family_children")
+      .select("name, allergies, medication")
+      .eq("family_id", family.id)
+      .order("sort_order"),
+  ]);
+
+  return {
+    access: family.access,
+    familyName: family.family_name,
+    children: (children ?? []).map((c) => ({
+      name: c.name,
+      allergies: c.allergies,
+      medication: c.medication,
+    })),
+    doses: (doses ?? []).map((d) => ({
+      id: d.id,
+      childName: d.child_name,
+      medicine: d.medicine,
+      dose: d.dose,
+      givenAt: d.given_at,
+      givenBy: d.given_by,
+      givenByName: d.given_by_name,
+      nextDoseFrom: d.next_dose_from,
+      reason: d.reason,
+      notes: d.notes,
+    })),
+  };
+}
+
+export async function recordDose(slug: string, input: DoseInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  if (!input.childName?.trim()) throw new Error("Please choose who the dose was for.");
+  if (!input.medicine?.trim()) throw new Error("Please say which medicine was given.");
+
+  const givenAt = input.givenAt ? new Date(input.givenAt) : new Date();
+  if (Number.isNaN(givenAt.getTime())) throw new Error("Please check the time given.");
+
+  const { error } = await supabaseAdmin.from("medication_doses").insert({
+    family_id: family.id,
+    child_name: clean(input.childName, 120)!,
+    medicine: clean(input.medicine, 120)!,
+    dose: clean(input.dose, 120),
+    given_at: givenAt.toISOString(),
+    given_by: family.access,
+    given_by_name: family.access === "nanny" ? family.nanny_name : family.family_name,
+    next_dose_from: input.nextDoseFrom ? new Date(input.nextDoseFrom).toISOString() : null,
+    reason: clean(input.reason, 200),
+    notes: clean(input.notes, 600),
+  });
+  if (error) throw new Error(error.message);
+  return { ok: true as const };
+}
+
+export async function deleteDose(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const { error } = await supabaseAdmin
+    .from("medication_doses")
+    .delete()
+    .eq("id", id)
+    .eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}

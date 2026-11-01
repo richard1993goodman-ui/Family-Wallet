@@ -1,1 +1,105 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHVzZVF1ZXJ5LCB1c2VRdWVyeUNsaWVudCB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1xdWVyeSI7CmltcG9ydCB7IHVzZVNlcnZlckZuIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXN0YXJ0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwppbXBvcnQgeyBEb3dubG9hZCB9IGZyb20gImx1Y2lkZS1yZWFjdCI7CgppbXBvcnQgeyBnZXRTaWduYXR1cmVzLCBzaWduRG9jdW1lbnRGbiB9IGZyb20gIkAvbGliL2FncmVlbWVudC5mdW5jdGlvbnMiOwppbXBvcnQgeyBIdWJQYWdlLCBMb2NrZWROb3RpY2UsIENhcmQgfSBmcm9tICJAL2NvbXBvbmVudHMvaHViLXVpIjsKaW1wb3J0IHsgU2lnbkZvcm0sIFNpZ25hdHVyZUxpc3QgfSBmcm9tICJAL2NvbXBvbmVudHMvU2lnbkJsb2NrIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVGaWxlUm91dGUoIi90ZXJtcy8kc2x1ZyIpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IHRpdGxlOiAiQWdlbmN5IHRlcm1zIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgICAgewogICAgICAgIG5hbWU6ICJkZXNjcmlwdGlvbiIsCiAgICAgICAgY29udGVudDoKICAgICAgICAgICJSZWFkIGFuZCBzaWduIHlvdXIgYWdlbmN5IHRlcm1zIGFuZCBjb25kaXRpb25zIGluc2lkZSB5b3VyIEZhbWlseSBXYWxsZXQuIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkFnZW5jeSB0ZXJtcyDigJQgVGhlIEZhbWlseSBXYWxsZXQiIH0sCiAgICAgIHsKICAgICAgICBwcm9wZXJ0eTogIm9nOmRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OiAiUmVhZCBhbmQgc2lnbiB5b3VyIGFnZW5jeSB0ZXJtcyBpbnNpZGUgeW91ciBGYW1pbHkgV2FsbGV0LiIsCiAgICAgIH0sCiAgICAgIHsgbmFtZTogInJvYm90cyIsIGNvbnRlbnQ6ICJub2luZGV4IiB9LAogICAgXSwKICB9KSwKICBjb21wb25lbnQ6IFRlcm1zUGFnZSwKfSk7CgpmdW5jdGlvbiBUZXJtc1BhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBxdWVyeUNsaWVudCA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgbG9hZEZuID0gdXNlU2VydmVyRm4oZ2V0U2lnbmF0dXJlcyk7CiAgY29uc3Qgc2lnbkZuID0gdXNlU2VydmVyRm4oc2lnbkRvY3VtZW50Rm4pOwoKICBjb25zdCBxdWVyeSA9IHVzZVF1ZXJ5KHsKICAgIHF1ZXJ5S2V5OiBbInNpZ25hdHVyZXMiLCBzbHVnXSwKICAgIHF1ZXJ5Rm46ICgpID0+IGxvYWRGbih7IGRhdGE6IHsgc2x1ZyB9IH0pLAogIH0pOwoKICBpZiAocXVlcnkuaXNMb2FkaW5nKSB7CiAgICByZXR1cm4gKAogICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBtaW4taC1zY3JlZW4gaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGJnLXNhbmQgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgIExvYWRpbmcgeW91ciB0ZXJtc+KApgogICAgICA8L2Rpdj4KICAgICk7CiAgfQoKICBjb25zdCBkYXRhID0gcXVlcnkuZGF0YTsKICBpZiAoIWRhdGEpIHJldHVybiA8TG9ja2VkTm90aWNlIHNsdWc9e3NsdWd9IC8+OwoKICBhc3luYyBmdW5jdGlvbiBvblNpZ24obmFtZTogc3RyaW5nLCByb2xlOiAicGFyZW50IiB8ICJuYW5ueSIpIHsKICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNpZ25Gbih7CiAgICAgIGRhdGE6IHsgc2x1ZywgZG9jS2luZDogInRlcm1zIiBhcyBjb25zdCwgc2lnbmVyUm9sZTogcm9sZSwgc2lnbmVyTmFtZTogbmFtZSB9LAogICAgfSk7CiAgICBpZiAocmVzdWx0Lm9rKSB7CiAgICAgIHRvYXN0LnN1Y2Nlc3MoIlRlcm1zIHNpZ25lZCBhbmQgc2F2ZWQgdG8geW91ciB3YWxsZXQuIik7CiAgICAgIGF3YWl0IHF1ZXJ5Q2xpZW50LmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsic2lnbmF0dXJlcyIsIHNsdWddIH0pOwogICAgICBhd2FpdCBxdWVyeUNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbIndhbGxldCIsIHNsdWddIH0pOwogICAgfSBlbHNlIGlmIChyZXN1bHQucmVhc29uID09PSAibmFtZSIpIHsKICAgICAgdG9hc3QuZXJyb3IoIlBsZWFzZSB0eXBlIHlvdXIgZnVsbCBuYW1lLiIpOwogICAgfSBlbHNlIHsKICAgICAgdG9hc3QuZXJyb3IoIlNvbWV0aGluZyB3ZW50IHdyb25nLiBQbGVhc2UgdHJ5IGFnYWluLiIpOwogICAgfQogIH0KCiAgY29uc3Qgc2lnbmF0dXJlcyA9IGRhdGEuc2lnbmF0dXJlcy5maWx0ZXIoKHMpID0+IHMuZG9jS2luZCA9PT0gInRlcm1zIik7CgogIHJldHVybiAoCiAgICA8SHViUGFnZQogICAgICBzbHVnPXtzbHVnfQogICAgICB0aXRsZT0iQWdlbmN5IHRlcm1zICYgY29uZGl0aW9ucyIKICAgICAgaW50cm89IlJlYWQgdGhlbSBoZXJlIGFuZCBzaWduIHRoZW0gaGVyZSDigJQgeW91ciBzaWduZWQgY29weSBzdGF5cyBpbiB5b3VyIHdhbGxldC4iCiAgICA+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTYiPgogICAgICAgIDxDYXJkPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtbGcgdGV4dC1mb3JlZ3JvdW5kIj5Zb3VyIHNpZ25hdHVyZTwvaDI+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyI+CiAgICAgICAgICAgIDxTaWduYXR1cmVMaXN0IHNpZ25hdHVyZXM9e3NpZ25hdHVyZXN9IC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC01IGJvcmRlci10IGJvcmRlci1ib3JkZXIgcHQtNSI+CiAgICAgICAgICAgIHtkYXRhLnRlcm1zICYmIDxTaWduRm9ybQogICAgICAgICAgICAgIHJvbGU9InBhcmVudCIKICAgICAgICAgICAgICBzdGF0ZW1lbnQ9e2BJIGhhdmUgcmVhZCBhbmQgYWdyZWUgdG8gdGhlIGFnZW5jeSB0ZXJtcyBhbmQgY29uZGl0aW9ucyAodmVyc2lvbiAke2RhdGEudGVybXNWZXJzaW9ufSkuYH0KICAgICAgICAgICAgICBvblNpZ249e29uU2lnbn0KICAgICAgICAgICAgLz59CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L0NhcmQ+CgogICAgICAgIHtkYXRhLnRlcm1zPy51cmwgPyAoCiAgICAgICAgICA8Q2FyZD4KICAgICAgICAgICAgPGlmcmFtZSB0aXRsZT0iQWdlbmN5IHRlcm1zIiBzcmM9e2RhdGEudGVybXMudXJsfSBjbGFzc05hbWU9ImgtWzcwdmhdIHctZnVsbCByb3VuZGVkLWxnIGJvcmRlciBib3JkZXItYm9yZGVyIiAvPgogICAgICAgICAgICA8QnV0dG9uIGFzQ2hpbGQgdmFyaWFudD0ib3V0bGluZSIgY2xhc3NOYW1lPSJtdC00Ij4KICAgICAgICAgICAgICA8YSBocmVmPXtkYXRhLnRlcm1zLnVybH0gdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+PERvd25sb2FkIGNsYXNzTmFtZT0ibXItMiBoLTQgdy00IiAvPiBPcGVuIG9yIGRvd25sb2FkICh7ZGF0YS50ZXJtcy5maWxlTmFtZX0pPC9hPgogICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICApIDogKAogICAgICAgICAgPENhcmQ+PHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+WW91ciBhZ2VuY3kgaGFzbid0IGFkZGVkIGl0cyB0ZXJtcyB5ZXQuPC9wPjwvQ2FyZD4KICAgICAgICApfQogICAgICA8L2Rpdj4KICAgIDwvSHViUGFnZT4KICApOwp9Cg==
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { Download } from "lucide-react";
+
+import { getSignatures, signDocumentFn } from "@/lib/agreement.functions";
+import { HubPage, LockedNotice, Card } from "@/components/hub-ui";
+import { SignForm, SignatureList } from "@/components/SignBlock";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/terms/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Agency terms — The Family Wallet" },
+      {
+        name: "description",
+        content:
+          "Read and sign your agency terms and conditions inside your Family Wallet.",
+      },
+      { property: "og:title", content: "Agency terms — The Family Wallet" },
+      {
+        property: "og:description",
+        content: "Read and sign your agency terms inside your Family Wallet.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: TermsPage,
+});
+
+function TermsPage() {
+  const { slug } = Route.useParams();
+  const queryClient = useQueryClient();
+  const loadFn = useServerFn(getSignatures);
+  const signFn = useServerFn(signDocumentFn);
+
+  const query = useQuery({
+    queryKey: ["signatures", slug],
+    queryFn: () => loadFn({ data: { slug } }),
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading your terms…
+      </div>
+    );
+  }
+
+  const data = query.data;
+  if (!data) return <LockedNotice slug={slug} />;
+
+  async function onSign(name: string, role: "parent" | "nanny") {
+    const result = await signFn({
+      data: { slug, docKind: "terms" as const, signerRole: role, signerName: name },
+    });
+    if (result.ok) {
+      toast.success("Terms signed and saved to your wallet.");
+      await queryClient.invalidateQueries({ queryKey: ["signatures", slug] });
+      await queryClient.invalidateQueries({ queryKey: ["wallet", slug] });
+    } else if (result.reason === "name") {
+      toast.error("Please type your full name.");
+    } else {
+      toast.error("Something went wrong. Please try again.");
+    }
+  }
+
+  const signatures = data.signatures.filter((s) => s.docKind === "terms");
+
+  return (
+    <HubPage
+      slug={slug}
+      title="Agency terms & conditions"
+      intro="Read them here and sign them here — your signed copy stays in your wallet."
+    >
+      <div className="space-y-6">
+        <Card>
+          <h2 className="heading-display text-lg text-foreground">Your signature</h2>
+          <div className="mt-3">
+            <SignatureList signatures={signatures} />
+          </div>
+          <div className="mt-5 border-t border-border pt-5">
+            {data.terms && <SignForm
+              role="parent"
+              statement={`I have read and agree to the agency terms and conditions (version ${data.termsVersion}).`}
+              onSign={onSign}
+            />}
+          </div>
+        </Card>
+
+        {data.terms?.url ? (
+          <Card>
+            <iframe title="Agency terms" src={data.terms.url} className="h-[70vh] w-full rounded-lg border border-border" />
+            <Button asChild variant="outline" className="mt-4">
+              <a href={data.terms.url} target="_blank" rel="noopener noreferrer"><Download className="mr-2 h-4 w-4" /> Open or download ({data.terms.fileName})</a>
+            </Button>
+          </Card>
+        ) : (
+          <Card><p className="text-sm text-muted-foreground">Your agency hasn't added its terms yet.</p></Card>
+        )}
+      </div>
+    </HubPage>
+  );
+}

@@ -1,1 +1,102 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgTUVTU0FHRV9UT1BJQ1MsIHR5cGUgSG91c2Vob2xkTWVzc2FnZXNEYXRhIH0gZnJvbSAiLi9tZXNzYWdlcy50eXBlcyI7Cgpjb25zdCB0b3BpY0lkcyA9IG5ldyBTZXQ8c3RyaW5nPihNRVNTQUdFX1RPUElDUy5tYXAoKHQpID0+IHQuaWQpKTsKY29uc3Qgc2VuZGVyTmFtZSA9IChmOiB7IGFjY2Vzczogc3RyaW5nOyBuYW5ueV9uYW1lOiBzdHJpbmcgfCBudWxsIH0pID0+CiAgZi5hY2Nlc3MgPT09ICJmYW1pbHkiID8gIlBhcmVudCIgOiBmLm5hbm55X25hbWUgPz8gIk5hbm55IjsKCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkTWVzc2FnZXMoc2x1Zzogc3RyaW5nKTogUHJvbWlzZTxIb3VzZWhvbGRNZXNzYWdlc0RhdGEgfCBudWxsPiB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhOiB0aHJlYWRzIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgiaG91c2Vob2xkX3RocmVhZHMiKQogICAgLnNlbGVjdCgiaWQsIHRvcGljLCB0aXRsZSwgbGFzdF9zZW5kZXIsIGZhbWlseV91bnJlYWQsIG5hbm55X3VucmVhZCwgdXBkYXRlZF9hdCIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgIC5vcmRlcigidXBkYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KQogICAgLmxpbWl0KDEwMCk7CiAgY29uc3QgaWRzID0gKHRocmVhZHMgPz8gW10pLm1hcCgodCkgPT4gdC5pZCk7CiAgY29uc3QgeyBkYXRhOiBtc2dzIH0gPSBpZHMubGVuZ3RoCiAgICA/IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgICAgICAuZnJvbSgiaG91c2Vob2xkX21lc3NhZ2VzIikKICAgICAgICAuc2VsZWN0KCJpZCwgdGhyZWFkX2lkLCBzZW5kZXIsIHNlbmRlcl9uYW1lLCBib2R5LCBjcmVhdGVkX2F0IikKICAgICAgICAuaW4oInRocmVhZF9pZCIsIGlkcykKICAgICAgICAub3JkZXIoImNyZWF0ZWRfYXQiLCB7IGFzY2VuZGluZzogdHJ1ZSB9KQogICAgOiB7IGRhdGE6IFtdIH07CiAgcmV0dXJuIHsKICAgIGFjY2VzczogZmFtaWx5LmFjY2VzcywKICAgIHRocmVhZHM6ICh0aHJlYWRzID8/IFtdKS5tYXAoKHQpID0+ICh7CiAgICAgIGlkOiB0LmlkLAogICAgICB0b3BpYzogdC50b3BpYywKICAgICAgdGl0bGU6IHQudGl0bGUsCiAgICAgIGxhc3RTZW5kZXI6IHQubGFzdF9zZW5kZXIsCiAgICAgIHVucmVhZDogZmFtaWx5LmFjY2VzcyA9PT0gImZhbWlseSIgPyB0LmZhbWlseV91bnJlYWQgOiB0Lm5hbm55X3VucmVhZCwKICAgICAgdXBkYXRlZEF0OiB0LnVwZGF0ZWRfYXQsCiAgICAgIG1lc3NhZ2VzOiAobXNncyA/PyBbXSkKICAgICAgICAuZmlsdGVyKChtKSA9PiBtLnRocmVhZF9pZCA9PT0gdC5pZCkKICAgICAgICAubWFwKChtKSA9PiAoeyBpZDogbS5pZCwgc2VuZGVyOiBtLnNlbmRlciwgc2VuZGVyTmFtZTogbS5zZW5kZXJfbmFtZSwgYm9keTogbS5ib2R5LCBjcmVhdGVkQXQ6IG0uY3JlYXRlZF9hdCB9KSksCiAgICB9KSksCiAgfTsKfQoKZnVuY3Rpb24gY2xlYW5Cb2R5KGJvZHk6IHN0cmluZykgewogIGNvbnN0IGIgPSAoYm9keSA/PyAiIikudHJpbSgpLnNsaWNlKDAsIDQwMDApOwogIGlmICghYikgdGhyb3cgbmV3IEVycm9yKCJXcml0ZSBhIG1lc3NhZ2UgZmlyc3QuIik7CiAgcmV0dXJuIGI7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBzdGFydFRocmVhZChzbHVnOiBzdHJpbmcsIGlucHV0OiB7IHRvcGljOiBzdHJpbmc7IHRpdGxlOiBzdHJpbmc7IGJvZHk6IHN0cmluZyB9KSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBjb25zdCB0aXRsZSA9IChpbnB1dC50aXRsZSA/PyAiIikudHJpbSgpLnNsaWNlKDAsIDEyMCk7CiAgaWYgKCF0aXRsZSkgdGhyb3cgbmV3IEVycm9yKCJHaXZlIHRoZSBjb252ZXJzYXRpb24gYSBzdWJqZWN0LiIpOwogIGNvbnN0IGJvZHkgPSBjbGVhbkJvZHkoaW5wdXQuYm9keSk7CiAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImhvdXNlaG9sZF90aHJlYWRzIikKICAgIC5pbnNlcnQoewogICAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgICAgdG9waWM6IHRvcGljSWRzLmhhcyhpbnB1dC50b3BpYykgPyBpbnB1dC50b3BpYyA6ICJnZW5lcmFsIiwKICAgICAgdGl0bGUsCiAgICAgIGNyZWF0ZWRfYnk6IGZhbWlseS5hY2Nlc3MsCiAgICAgIGxhc3Rfc2VuZGVyOiBmYW1pbHkuYWNjZXNzLAogICAgICBmYW1pbHlfdW5yZWFkOiBmYW1pbHkuYWNjZXNzID09PSAibmFubnkiLAogICAgICBuYW5ueV91bnJlYWQ6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiLAogICAgfSkKICAgIC5zZWxlY3QoImlkIikKICAgIC5zaW5nbGUoKTsKICBpZiAoZXJyb3IgfHwgIWRhdGEpIHRocm93IG5ldyBFcnJvcigiQ291bGRuJ3Qgc3RhcnQgdGhhdCBjb252ZXJzYXRpb24uIik7CiAgYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJob3VzZWhvbGRfbWVzc2FnZXMiKS5pbnNlcnQoeyB0aHJlYWRfaWQ6IGRhdGEuaWQsIHNlbmRlcjogZmFtaWx5LmFjY2Vzcywgc2VuZGVyX25hbWU6IHNlbmRlck5hbWUoZmFtaWx5KSwgYm9keSB9KTsKICByZXR1cm4gZGF0YS5pZDsKfQoKYXN5bmMgZnVuY3Rpb24gb3duVGhyZWFkKGZhbWlseUlkOiBzdHJpbmcsIHRocmVhZElkOiBzdHJpbmcpIHsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgiaG91c2Vob2xkX3RocmVhZHMiKS5zZWxlY3QoImlkIikuZXEoImlkIiwgdGhyZWFkSWQpLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHlJZCkubWF5YmVTaW5nbGUoKTsKICBpZiAoIWRhdGEpIHRocm93IG5ldyBFcnJvcigiQ29udmVyc2F0aW9uIG5vdCBmb3VuZC4iKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJlcGx5VGhyZWFkKHNsdWc6IHN0cmluZywgdGhyZWFkSWQ6IHN0cmluZywgYm9keTogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBhd2FpdCBvd25UaHJlYWQoZmFtaWx5LmlkLCB0aHJlYWRJZCk7CiAgY29uc3QgdGV4dCA9IGNsZWFuQm9keShib2R5KTsKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oImhvdXNlaG9sZF9tZXNzYWdlcyIpLmluc2VydCh7IHRocmVhZF9pZDogdGhyZWFkSWQsIHNlbmRlcjogZmFtaWx5LmFjY2Vzcywgc2VuZGVyX25hbWU6IHNlbmRlck5hbWUoZmFtaWx5KSwgYm9keTogdGV4dCB9KTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcigiQ291bGRuJ3Qgc2VuZCB0aGF0IG1lc3NhZ2UuIik7CiAgYXdhaXQgc3VwYWJhc2VBZG1pbgogICAgLmZyb20oImhvdXNlaG9sZF90aHJlYWRzIikKICAgIC51cGRhdGUoewogICAgICBsYXN0X3NlbmRlcjogZmFtaWx5LmFjY2VzcywKICAgICAgdXBkYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLAogICAgICAuLi4oZmFtaWx5LmFjY2VzcyA9PT0gImZhbWlseSIgPyB7IG5hbm55X3VucmVhZDogdHJ1ZSwgZmFtaWx5X3VucmVhZDogZmFsc2UgfSA6IHsgZmFtaWx5X3VucmVhZDogdHJ1ZSwgbmFubnlfdW5yZWFkOiBmYWxzZSB9KSwKICAgIH0pCiAgICAuZXEoImlkIiwgdGhyZWFkSWQpOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbWFya1RocmVhZFJlYWQoc2x1Zzogc3RyaW5nLCB0aHJlYWRJZDogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuOwogIGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJob3VzZWhvbGRfdGhyZWFkcyIpCiAgICAudXBkYXRlKGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8geyBmYW1pbHlfdW5yZWFkOiBmYWxzZSB9IDogeyBuYW5ueV91bnJlYWQ6IGZhbHNlIH0pCiAgICAuZXEoImlkIiwgdGhyZWFkSWQpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCk7Cn0K
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { MESSAGE_TOPICS, type HouseholdMessagesData } from "./messages.types";
+
+const topicIds = new Set<string>(MESSAGE_TOPICS.map((t) => t.id));
+const senderName = (f: { access: string; nanny_name: string | null }) =>
+  f.access === "family" ? "Parent" : f.nanny_name ?? "Nanny";
+
+export async function loadMessages(slug: string): Promise<HouseholdMessagesData | null> {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const { data: threads } = await supabaseAdmin
+    .from("household_threads")
+    .select("id, topic, title, last_sender, family_unread, nanny_unread, updated_at")
+    .eq("family_id", family.id)
+    .order("updated_at", { ascending: false })
+    .limit(100);
+  const ids = (threads ?? []).map((t) => t.id);
+  const { data: msgs } = ids.length
+    ? await supabaseAdmin
+        .from("household_messages")
+        .select("id, thread_id, sender, sender_name, body, created_at")
+        .in("thread_id", ids)
+        .order("created_at", { ascending: true })
+    : { data: [] };
+  return {
+    access: family.access,
+    threads: (threads ?? []).map((t) => ({
+      id: t.id,
+      topic: t.topic,
+      title: t.title,
+      lastSender: t.last_sender,
+      unread: family.access === "family" ? t.family_unread : t.nanny_unread,
+      updatedAt: t.updated_at,
+      messages: (msgs ?? [])
+        .filter((m) => m.thread_id === t.id)
+        .map((m) => ({ id: m.id, sender: m.sender, senderName: m.sender_name, body: m.body, createdAt: m.created_at })),
+    })),
+  };
+}
+
+function cleanBody(body: string) {
+  const b = (body ?? "").trim().slice(0, 4000);
+  if (!b) throw new Error("Write a message first.");
+  return b;
+}
+
+export async function startThread(slug: string, input: { topic: string; title: string; body: string }) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const title = (input.title ?? "").trim().slice(0, 120);
+  if (!title) throw new Error("Give the conversation a subject.");
+  const body = cleanBody(input.body);
+  const { data, error } = await supabaseAdmin
+    .from("household_threads")
+    .insert({
+      family_id: family.id,
+      topic: topicIds.has(input.topic) ? input.topic : "general",
+      title,
+      created_by: family.access,
+      last_sender: family.access,
+      family_unread: family.access === "nanny",
+      nanny_unread: family.access === "family",
+    })
+    .select("id")
+    .single();
+  if (error || !data) throw new Error("Couldn't start that conversation.");
+  await supabaseAdmin.from("household_messages").insert({ thread_id: data.id, sender: family.access, sender_name: senderName(family), body });
+  return data.id;
+}
+
+async function ownThread(familyId: string, threadId: string) {
+  const { data } = await supabaseAdmin.from("household_threads").select("id").eq("id", threadId).eq("family_id", familyId).maybeSingle();
+  if (!data) throw new Error("Conversation not found.");
+}
+
+export async function replyThread(slug: string, threadId: string, body: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  await ownThread(family.id, threadId);
+  const text = cleanBody(body);
+  const { error } = await supabaseAdmin.from("household_messages").insert({ thread_id: threadId, sender: family.access, sender_name: senderName(family), body: text });
+  if (error) throw new Error("Couldn't send that message.");
+  await supabaseAdmin
+    .from("household_threads")
+    .update({
+      last_sender: family.access,
+      updated_at: new Date().toISOString(),
+      ...(family.access === "family" ? { nanny_unread: true, family_unread: false } : { family_unread: true, nanny_unread: false }),
+    })
+    .eq("id", threadId);
+}
+
+export async function markThreadRead(slug: string, threadId: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) return;
+  await supabaseAdmin
+    .from("household_threads")
+    .update(family.access === "family" ? { family_unread: false } : { nanny_unread: false })
+    .eq("id", threadId)
+    .eq("family_id", family.id);
+}

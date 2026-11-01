@@ -1,1 +1,19 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICJ2aXRlc3QiOwppbXBvcnQgeyBjYW5Db25maXJtRmlyc3Q0OCwgZmlyc3Q0OERvbmUsIHZhbGlkYXRlRmlyc3Q0OElucHV0IH0gZnJvbSAiLi93ZWxjb21lLnR5cGVzIjsKCmRlc2NyaWJlKCJmaXJzdCA0OCBob3VycyBzaGFyZWQgY29uZmlybWF0aW9ucyIsICgpID0+IHsKICBpdCgicmVxdWlyZXMgYm90aCBwYXJlbnQgYW5kIG5hbm55IGNvbmZpcm1hdGlvbnMiLCAoKSA9PiB7CiAgICBleHBlY3QoZmlyc3Q0OERvbmUoIjIwMjYtMTAtMjciLCBudWxsKSkudG9CZShmYWxzZSk7CiAgICBleHBlY3QoZmlyc3Q0OERvbmUobnVsbCwgIjIwMjYtMTAtMjciKSkudG9CZShmYWxzZSk7CiAgICBleHBlY3QoZmlyc3Q0OERvbmUoIjIwMjYtMTAtMjciLCAiMjAyNi0xMC0yOCIpKS50b0JlKHRydWUpOwogIH0pOwogIGl0KCJhbGxvd3MgYSBuYW5ueSB0byBjb25maXJtIG9ubHkgdGhlaXIgb3duIGNoZWNrbGlzdCIsICgpID0+IHsKICAgIGV4cGVjdChjYW5Db25maXJtRmlyc3Q0OCgibmFubnkiLCAibmFubnktYSIsICJuYW5ueS1iIikpLnRvQmUoZmFsc2UpOwogICAgZXhwZWN0KGNhbkNvbmZpcm1GaXJzdDQ4KCJuYW5ueSIsIG51bGwsICJuYW5ueS1hIikpLnRvQmUoZmFsc2UpOwogICAgZXhwZWN0KGNhbkNvbmZpcm1GaXJzdDQ4KCJuYW5ueSIsICJuYW5ueS1hIiwgIm5hbm55LWEiKSkudG9CZSh0cnVlKTsKICAgIGV4cGVjdChjYW5Db25maXJtRmlyc3Q0OCgiZmFtaWx5IiwgbnVsbCwgIm5hbm55LWIiKSkudG9CZSh0cnVlKTsKICB9KTsKICBpdCgicmVqZWN0cyB1bmtub3duIGNoZWNrbGlzdCBzdGVwcyIsICgpID0+IHsKICAgIGV4cGVjdCgoKSA9PiB2YWxpZGF0ZUZpcnN0NDhJbnB1dCh7IHNsdWc6ICJ0ZXN0IiwgbmFubnlJZDogImEiLCBzdGVwSWQ6ICJ1bmtub3duIiBhcyAic2FmZXR5IiwgY29uZmlybWVkOiB0cnVlLCBub3RlOiAiIiB9KSkudG9UaHJvdygiVW5rbm93biIpOwogIH0pOwp9KTs=
+import { describe, expect, it } from "vitest";
+import { canConfirmFirst48, first48Done, validateFirst48Input } from "./welcome.types";
+
+describe("first 48 hours shared confirmations", () => {
+  it("requires both parent and nanny confirmations", () => {
+    expect(first48Done("2026-10-27", null)).toBe(false);
+    expect(first48Done(null, "2026-10-27")).toBe(false);
+    expect(first48Done("2026-10-27", "2026-10-28")).toBe(true);
+  });
+  it("allows a nanny to confirm only their own checklist", () => {
+    expect(canConfirmFirst48("nanny", "nanny-a", "nanny-b")).toBe(false);
+    expect(canConfirmFirst48("nanny", null, "nanny-a")).toBe(false);
+    expect(canConfirmFirst48("nanny", "nanny-a", "nanny-a")).toBe(true);
+    expect(canConfirmFirst48("family", null, "nanny-b")).toBe(true);
+  });
+  it("rejects unknown checklist steps", () => {
+    expect(() => validateFirst48Input({ slug: "test", nannyId: "a", stepId: "unknown" as "safety", confirmed: true, note: "" })).toThrow("Unknown");
+  });
+});

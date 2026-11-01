@@ -1,1 +1,33 @@
-ZXhwb3J0IHR5cGUgUGV0dHlDYXNoS2luZCA9ICJ0b3B1cCIgfCAic3BlbmQiOwoKZXhwb3J0IHR5cGUgUGV0dHlDYXNoSW5wdXQgPSB7CiAga2luZDogUGV0dHlDYXNoS2luZDsKICBlbnRyeURhdGU6IHN0cmluZzsKICBhbW91bnQ6IG51bWJlcjsKICBkZXNjcmlwdGlvbjogc3RyaW5nOwp9OwoKZXhwb3J0IHR5cGUgUGV0dHlDYXNoUm93ID0gewogIGlkOiBzdHJpbmc7CiAga2luZDogUGV0dHlDYXNoS2luZDsKICBlbnRyeURhdGU6IHN0cmluZzsKICBhbW91bnQ6IG51bWJlcjsKICBkZXNjcmlwdGlvbjogc3RyaW5nOwogIGFkZGVkQnk6IHN0cmluZzsKICBhZGRlZEJ5TmFtZTogc3RyaW5nIHwgbnVsbDsKfTsKCmV4cG9ydCB0eXBlIFBldHR5Q2FzaERhdGEgPSB7CiAgYWNjZXNzOiAiZmFtaWx5IiB8ICJuYW5ueSI7CiAgYmFsYW5jZTogbnVtYmVyOwogIGVudHJpZXM6IFBldHR5Q2FzaFJvd1tdOwp9OwoKLyoqIEZsb2F0IGJhbGFuY2UgPSBtb25leSBhZGRlZCBieSB0aGUgZmFtaWx5IG1pbnVzIG1vbmV5IHNwZW50IGJ5IHRoZSBuYW5ueS4gKi8KZXhwb3J0IGZ1bmN0aW9uIHBldHR5Q2FzaEJhbGFuY2UoZW50cmllczogeyBraW5kOiBQZXR0eUNhc2hLaW5kOyBhbW91bnQ6IG51bWJlciB9W10pIHsKICBjb25zdCBwZW5jZSA9IGVudHJpZXMucmVkdWNlKAogICAgKHN1bSwgZSkgPT4gc3VtICsgKGUua2luZCA9PT0gInRvcHVwIiA/IDEgOiAtMSkgKiBNYXRoLnJvdW5kKGUuYW1vdW50ICogMTAwKSwKICAgIDAsCiAgKTsKICByZXR1cm4gcGVuY2UgLyAxMDA7Cn0K
+export type PettyCashKind = "topup" | "spend";
+
+export type PettyCashInput = {
+  kind: PettyCashKind;
+  entryDate: string;
+  amount: number;
+  description: string;
+};
+
+export type PettyCashRow = {
+  id: string;
+  kind: PettyCashKind;
+  entryDate: string;
+  amount: number;
+  description: string;
+  addedBy: string;
+  addedByName: string | null;
+};
+
+export type PettyCashData = {
+  access: "family" | "nanny";
+  balance: number;
+  entries: PettyCashRow[];
+};
+
+/** Float balance = money added by the family minus money spent by the nanny. */
+export function pettyCashBalance(entries: { kind: PettyCashKind; amount: number }[]) {
+  const pence = entries.reduce(
+    (sum, e) => sum + (e.kind === "topup" ? 1 : -1) * Math.round(e.amount * 100),
+    0,
+  );
+  return pence / 100;
+}

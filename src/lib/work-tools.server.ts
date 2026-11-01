@@ -1,1 +1,204 @@
-aW1wb3J0IHsgY3JlYXRlT3BlbkFJIH0gZnJvbSAiQGFpLXNkay9vcGVuYWkiOwppbXBvcnQgeyBOb09iamVjdEdlbmVyYXRlZEVycm9yLCBPdXRwdXQsIHN0cmVhbVRleHQgfSBmcm9tICJhaSI7CmltcG9ydCB7IHogfSBmcm9tICJ6b2QiOwoKaW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgdHlwZSB7IEpzb24gfSBmcm9tICJAL2ludGVncmF0aW9ucy9zdXBhYmFzZS90eXBlcyI7CmltcG9ydCB7IGNyZWF0ZUxvdmFibGVBaUdhdGV3YXlSdW5JZEZldGNoIH0gZnJvbSAiLi9haS1nYXRld2F5LnNlcnZlciI7CmltcG9ydCB7IGFjY2Vzc0xldmVsIH0gZnJvbSAiLi93YWxsZXQuc2VydmVyIjsKaW1wb3J0IHR5cGUgeyBBY3Rpdml0eUlkZWEsIE1lYWxJZGVhLCBSZXNvdXJjZUtpbmQsIFNoaWZ0SW5wdXQgfSBmcm9tICIuL3dvcmstdG9vbHMubW9kZWwiOwoKYXN5bmMgZnVuY3Rpb24gc2hhcmVkRmFtaWx5KHNsdWc6IHN0cmluZykgewogIGNvbnN0IGFjY2VzcyA9IGF3YWl0IGFjY2Vzc0xldmVsKHNsdWcpOwogIGlmICghYWNjZXNzKSByZXR1cm4gbnVsbDsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJmYW1pbGllcyIpCiAgICAuc2VsZWN0KCJpZCwgZmFtaWx5X25hbWUiKQogICAgLmVxKCJzbHVnIiwgc2x1ZykKICAgIC5lcSgic3RhdHVzIiwgImFjdGl2ZSIpCiAgICAubWF5YmVTaW5nbGUoKTsKICByZXR1cm4gZGF0YSA/IHsgLi4uZGF0YSwgYWNjZXNzIH0gOiBudWxsOwp9Cgpjb25zdCBBY3Rpdml0eVNjaGVtYSA9IHoub2JqZWN0KHsKICBhY3Rpdml0aWVzOiB6LmFycmF5KHoub2JqZWN0KHsKICAgIHRpdGxlOiB6LnN0cmluZygpLCBob29rOiB6LnN0cmluZygpLCBhZ2VSYW5nZTogei5zdHJpbmcoKSwgZHVyYXRpb246IHouc3RyaW5nKCksCiAgICBzZXR0aW5nOiB6LnN0cmluZygpLCBjb3N0OiB6LnN0cmluZygpLCB3aGF0WW91TmVlZDogei5hcnJheSh6LnN0cmluZygpKSwKICAgIHN0ZXBzOiB6LmFycmF5KHouc3RyaW5nKCkpLCBzYWZldHlOb3RlOiB6LnN0cmluZygpLCB3aHlLaWRzTG92ZUl0OiB6LnN0cmluZygpLAogIH0pKSwKfSk7Cgpjb25zdCBNZWFsU2NoZW1hID0gei5vYmplY3QoewogIGlkZWFzOiB6LmFycmF5KHoub2JqZWN0KHsKICAgIHRpdGxlOiB6LnN0cmluZygpLCBob29rOiB6LnN0cmluZygpLCBjYXRlZ29yeTogei5zdHJpbmcoKSwgYWdlUmFuZ2U6IHouc3RyaW5nKCksCiAgICB0b3RhbFRpbWU6IHouc3RyaW5nKCksIGluZ3JlZGllbnRzOiB6LmFycmF5KHouc3RyaW5nKCkpLCBzdGVwczogei5hcnJheSh6LnN0cmluZygpKSwKICAgIG51dHJpdGlvbk5vdGU6IHouc3RyaW5nKCksIHNhZmV0eU5vdGU6IHouc3RyaW5nKCksIGNoaWxkSm9iOiB6LnN0cmluZygpLAogIH0pKSwKfSk7Cgphc3luYyBmdW5jdGlvbiBmYW1pbHlDb250ZXh0KGZhbWlseUlkOiBzdHJpbmcpIHsKICBjb25zdCBbeyBkYXRhOiBjaGlsZHJlbiB9LCB7IGRhdGE6IHByb2ZpbGUgfV0gPSBhd2FpdCBQcm9taXNlLmFsbChbCiAgICBzdXBhYmFzZUFkbWluLmZyb20oImZhbWlseV9jaGlsZHJlbiIpLnNlbGVjdCgibmFtZSwgZGF0ZV9vZl9iaXJ0aCwgaW50ZXJlc3RzLCBhbGxlcmdpZXMsIGRpZXRhcnkiKS5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5SWQpLAogICAgc3VwYWJhc2VBZG1pbi5mcm9tKCJmYW1pbHlfcHJvZmlsZSIpLnNlbGVjdCgibWVkaWNhbF9ub3RlcyIpLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHlJZCkubWF5YmVTaW5nbGUoKSwKICBdKTsKICByZXR1cm4geyBjaGlsZHJlbjogY2hpbGRyZW4gPz8gW10sIG1lZGljYWxOb3RlczogcHJvZmlsZT8ubWVkaWNhbF9ub3RlcyA/PyBudWxsIH07Cn0KCmFzeW5jIGZ1bmN0aW9uIGdlbmVyYXRlU3RydWN0dXJlZDxUPihwcm9tcHQ6IHN0cmluZywgc2NoZW1hOiB6LlpvZFR5cGU8VD4pIHsKICBjb25zdCBhcGlLZXkgPSBwcm9jZXNzLmVudlsiTE9WQUJMRV9BUElfS0VZIl07CiAgaWYgKCFhcGlLZXkpIHJldHVybiB7IG9rOiBmYWxzZSBhcyBjb25zdCwgZXJyb3I6ICJBSSBpZGVhcyBhcmUgbm90IGNvbmZpZ3VyZWQgeWV0LiIgfTsKICB0cnkgewogICAgY29uc3QgcnVuSWRGZXRjaCA9IGNyZWF0ZUxvdmFibGVBaUdhdGV3YXlSdW5JZEZldGNoKCk7CiAgICBjb25zdCBsb3ZhYmxlID0gY3JlYXRlT3BlbkFJKHsKICAgICAgYmFzZVVSTDogImh0dHBzOi8vYWkuZ2F0ZXdheS5sb3ZhYmxlLmRldi92MSIsCiAgICAgIGFwaUtleSwKICAgICAgaGVhZGVyczogeyAiTG92YWJsZS1BUEktS2V5IjogYXBpS2V5LCAiWC1Mb3ZhYmxlLUFJRy1TREsiOiAidmVyY2VsLWFpLXNkayIgfSwKICAgICAgZmV0Y2g6IHJ1bklkRmV0Y2guZmV0Y2gsCiAgICB9KTsKICAgIGNvbnN0IHJlc3VsdCA9IHN0cmVhbVRleHQoewogICAgICBtb2RlbDogbG92YWJsZS5yZXNwb25zZXMoIm9wZW5haS9ncHQtNi1hc3RyYSIpLAogICAgICBvdXRwdXQ6IE91dHB1dC5vYmplY3QoeyBzY2hlbWEgfSksCiAgICAgIHByb21wdCwKICAgICAgcHJvdmlkZXJPcHRpb25zOiB7CiAgICAgICAgb3BlbmFpOiB7CiAgICAgICAgICBmb3JjZVJlYXNvbmluZzogdHJ1ZSwKICAgICAgICAgIHJlYXNvbmluZ0VmZm9ydDogImxvdyIsCiAgICAgICAgICByZWFzb25pbmdTdW1tYXJ5OiAiYXV0byIsCiAgICAgICAgICBzdG9yZTogZmFsc2UsCiAgICAgICAgICBpbmNsdWRlOiBbInJlYXNvbmluZy5lbmNyeXB0ZWRfY29udGVudCJdLAogICAgICAgIH0sCiAgICAgIH0sCiAgICB9KTsKICAgIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0LCBkYXRhOiBhd2FpdCByZXN1bHQub3V0cHV0IH07CiAgfSBjYXRjaCAoZXJyb3IpIHsKICAgIGlmIChOb09iamVjdEdlbmVyYXRlZEVycm9yLmlzSW5zdGFuY2UoZXJyb3IpKSB7CiAgICAgIHJldHVybiB7IG9rOiBmYWxzZSBhcyBjb25zdCwgZXJyb3I6ICJObyBzdWl0YWJsZSBpZGVhcyBjYW1lIGJhY2suIFBsZWFzZSB0cnkgYWdhaW4uIiB9OwogICAgfQogICAgY29uc3QgbWVzc2FnZSA9IGVycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvci5tZXNzYWdlIDogIklkZWFzIGNvdWxkIG5vdCBiZSBjcmVhdGVkLiI7CiAgICBjb25zdCBzYWZlTWVzc2FnZSA9IC80MDJ8Y3JlZGl0L2kudGVzdChtZXNzYWdlKQogICAgICA/ICJUaGUgc2l0ZSdzIEFJIGNyZWRpdHMgbmVlZCB0b3BwaW5nIHVwLiIKICAgICAgOiAvNDI5fHJhdGUvaS50ZXN0KG1lc3NhZ2UpCiAgICAgICAgPyAiTG90cyBvZiBpZGVhcyBhcmUgYmVpbmcgbWFkZSByaWdodCBub3cuIFBsZWFzZSB0cnkgYWdhaW4gc2hvcnRseS4iCiAgICAgICAgOiAvNDAxfGtleXxjb25maWcvaS50ZXN0KG1lc3NhZ2UpCiAgICAgICAgICA/ICJUaGUgaWRlYSBnZW5lcmF0b3IgaXMgbm90IGNvbmZpZ3VyZWQgY29ycmVjdGx5LiIKICAgICAgICAgIDogLzQwM3xkZW5pZWR8ZGlzYWJsZWQvaS50ZXN0KG1lc3NhZ2UpCiAgICAgICAgICAgID8gbWVzc2FnZQogICAgICAgICAgICA6ICJJZGVhcyBjb3VsZCBub3QgYmUgY3JlYXRlZCBqdXN0IG5vdy4gUGxlYXNlIHRyeSBhZ2Fpbi4iOwogICAgcmV0dXJuIHsgb2s6IGZhbHNlIGFzIGNvbnN0LCBlcnJvcjogc2FmZU1lc3NhZ2UgfTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBnZW5lcmF0ZUFjdGl2aXR5SWRlYXMoc2x1Zzogc3RyaW5nLCBpbnB1dDogeyBzZXR0aW5nOiBzdHJpbmc7IG1pbnV0ZXM6IG51bWJlcjsgZW5lcmd5OiBzdHJpbmc7IG5vdGVzOiBzdHJpbmcgfSkgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIHsgb2s6IGZhbHNlIGFzIGNvbnN0LCBlcnJvcjogIlBsZWFzZSBzaWduIGluIGFnYWluLiIgfTsKICBjb25zdCBjb250ZXh0ID0gYXdhaXQgZmFtaWx5Q29udGV4dChmYW1pbHkuaWQpOwogIGNvbnN0IHJlc3VsdCA9IGF3YWl0IGdlbmVyYXRlU3RydWN0dXJlZCgKICAgIGBDcmVhdGUgZXhhY3RseSBmb3VyIHNhZmUsIHByYWN0aWNhbCBhY3Rpdml0aWVzIGZvciB0aGlzIFVLIGZhbWlseS4gQ2hpbGRyZW46ICR7SlNPTi5zdHJpbmdpZnkoY29udGV4dC5jaGlsZHJlbil9LiBNZWRpY2FsIG5vdGVzOiAke2NvbnRleHQubWVkaWNhbE5vdGVzID8/ICJub25lIn0uIFNldHRpbmc6ICR7aW5wdXQuc2V0dGluZ30uIEF2YWlsYWJsZSB0aW1lOiAke2lucHV0Lm1pbnV0ZXN9IG1pbnV0ZXMuIEVuZXJneTogJHtpbnB1dC5lbmVyZ3l9LiBSZXF1ZXN0OiAke2lucHV0Lm5vdGVzIHx8ICJhbnkgc3VpdGFibGUgYWN0aXZpdHkifS4gVXNlIG9yZGluYXJ5IHN1cHBsaWVzLCBjb25jaXNlIHN0ZXBzLCBhIHNwZWNpZmljIGFkdWx0IHNhZmV0eSBub3RlLCBhbmQgbmV2ZXIgaW52ZW50IGxvY2FsIHZlbnVlcy5gLAogICAgQWN0aXZpdHlTY2hlbWEsCiAgKTsKICBpZiAoIXJlc3VsdC5vaykgcmV0dXJuIHJlc3VsdDsKICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCwgYWN0aXZpdGllczogcmVzdWx0LmRhdGEuYWN0aXZpdGllcy5zbGljZSgwLCA0KSBhcyBBY3Rpdml0eUlkZWFbXSB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gZ2VuZXJhdGVNZWFsSWRlYXMoc2x1Zzogc3RyaW5nLCBpbnB1dDogeyBjYXRlZ29yeTogc3RyaW5nOyBtaW51dGVzOiBudW1iZXI7IGluZ3JlZGllbnRzOiBzdHJpbmc7IG5vdGVzOiBzdHJpbmcgfSkgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIHsgb2s6IGZhbHNlIGFzIGNvbnN0LCBlcnJvcjogIlBsZWFzZSBzaWduIGluIGFnYWluLiIgfTsKICBjb25zdCBjb250ZXh0ID0gYXdhaXQgZmFtaWx5Q29udGV4dChmYW1pbHkuaWQpOwogIGNvbnN0IHJlc3VsdCA9IGF3YWl0IGdlbmVyYXRlU3RydWN0dXJlZCgKICAgIGBDcmVhdGUgZXhhY3RseSBmb3VyIHByYWN0aWNhbCAke2lucHV0LmNhdGVnb3J5fSBpZGVhcyBmb3IgdGhpcyBVSyBmYW1pbHkuIENoaWxkcmVuIGFuZCBkaWV0YXJ5IGRldGFpbHM6ICR7SlNPTi5zdHJpbmdpZnkoY29udGV4dC5jaGlsZHJlbil9LiBNZWRpY2FsIG5vdGVzOiAke2NvbnRleHQubWVkaWNhbE5vdGVzID8/ICJub25lIn0uIFRpbWUgYXZhaWxhYmxlOiAke2lucHV0Lm1pbnV0ZXN9IG1pbnV0ZXMuIEluZ3JlZGllbnRzIGF2YWlsYWJsZTogJHtpbnB1dC5pbmdyZWRpZW50cyB8fCAibm90IHNwZWNpZmllZCJ9LiBSZXF1ZXN0OiAke2lucHV0Lm5vdGVzIHx8ICJub25lIn0uIFVzZSBVSyBzdXBlcm1hcmtldCBpbmdyZWRpZW50cyBhbmQgbWV0cmljIHF1YW50aXRpZXMuIEhvbm91ciBhbGxlcmdpZXMgc3RyaWN0bHkuIEluY2x1ZGUgY29uY2lzZSBzdGVwcywgYSB1c2VmdWwgY2hpbGQgam9iLCBudXRyaXRpb24gbm90ZSB3aXRob3V0IG1lZGljYWwgY2xhaW1zLCBhbmQgYSBzcGVjaWZpYyBhZHVsdCBzYWZldHkgbm90ZS5gLAogICAgTWVhbFNjaGVtYSwKICApOwogIGlmICghcmVzdWx0Lm9rKSByZXR1cm4gcmVzdWx0OwogIHJldHVybiB7IG9rOiB0cnVlIGFzIGNvbnN0LCBpZGVhczogcmVzdWx0LmRhdGEuaWRlYXMuc2xpY2UoMCwgNCkgYXMgTWVhbElkZWFbXSB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbGlzdFNhdmVkUmVzb3VyY2VzKHNsdWc6IHN0cmluZywga2luZDogUmVzb3VyY2VLaW5kKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgc2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSByZXR1cm4gbnVsbDsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4KICAgIC5mcm9tKCJzYXZlZF9yZXNvdXJjZXMiKQogICAgLnNlbGVjdCgiaWQsIHJlc291cmNlX3R5cGUsIHRpdGxlLCBzdW1tYXJ5LCBkZXRhaWxzLCBzYXZlZF9ieSwgY3JlYXRlZF9hdCIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgIC5lcSgicmVzb3VyY2VfdHlwZSIsIGtpbmQpCiAgICAub3JkZXIoImNyZWF0ZWRfYXQiLCB7IGFzY2VuZGluZzogZmFsc2UgfSk7CiAgcmV0dXJuIHsgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLCByZXNvdXJjZXM6IGRhdGEgPz8gW10gfTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNhdmVSZXNvdXJjZShzbHVnOiBzdHJpbmcsIGtpbmQ6IFJlc291cmNlS2luZCwgaXRlbTogQWN0aXZpdHlJZGVhIHwgTWVhbElkZWEpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCBzaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHNpZ24gaW4gYWdhaW4uIik7CiAgY29uc3Qgc3VtbWFyeSA9ICJob29rIiBpbiBpdGVtID8gaXRlbS5ob29rIDogIiI7CiAgY29uc3QgeyBkYXRhLCBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJzYXZlZF9yZXNvdXJjZXMiKS5pbnNlcnQoewogICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICByZXNvdXJjZV90eXBlOiBraW5kLAogICAgdGl0bGU6IGl0ZW0udGl0bGUuc2xpY2UoMCwgMTgwKSwKICAgIHN1bW1hcnk6IHN1bW1hcnkuc2xpY2UoMCwgNTAwKSwKICAgIGRldGFpbHM6IGl0ZW0gYXMgdW5rbm93biBhcyBKc29uLAogICAgc2F2ZWRfYnk6IGZhbWlseS5hY2Nlc3MsCiAgfSkuc2VsZWN0KCJpZCIpLnNpbmdsZSgpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogIHJldHVybiBkYXRhOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gYWRkUmVzb3VyY2VUb0NhbGVuZGFyKHNsdWc6IHN0cmluZywgcmVzb3VyY2VJZDogc3RyaW5nLCBlbnRyeURhdGU6IHN0cmluZywgdGltZUxhYmVsOiBzdHJpbmcpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCBzaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHRocm93IG5ldyBFcnJvcigiUGxlYXNlIHNpZ24gaW4gYWdhaW4uIik7CiAgY29uc3QgeyBkYXRhOiByZXNvdXJjZSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJzYXZlZF9yZXNvdXJjZXMiKS5zZWxlY3QoImlkLCB0aXRsZSwgcmVzb3VyY2VfdHlwZSIpLmVxKCJpZCIsIHJlc291cmNlSWQpLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpLm1heWJlU2luZ2xlKCk7CiAgaWYgKCFyZXNvdXJjZSkgdGhyb3cgbmV3IEVycm9yKCJTYXZlZCBpZGVhIG5vdCBmb3VuZC4iKTsKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInBsYW5uZXJfZW50cmllcyIpLmluc2VydCh7CiAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgIGVudHJ5X2RhdGU6IGVudHJ5RGF0ZSwKICAgIHRpbWVfbGFiZWw6IHRpbWVMYWJlbCB8fCBudWxsLAogICAgdGl0bGU6IHJlc291cmNlLnRpdGxlLAogICAgZW50cnlfdHlwZTogcmVzb3VyY2UucmVzb3VyY2VfdHlwZSwKICAgIGFkZGVkX2J5OiBmYW1pbHkuYWNjZXNzLAogICAgbm90ZXM6IGBTYXZlZCAke3Jlc291cmNlLnJlc291cmNlX3R5cGV9YCwKICB9KTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGxvYWRUaW1lc2hlZXRzKHNsdWc6IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInRpbWVzaGVldF9zaGlmdHMiKS5zZWxlY3QoIioiKS5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5LmlkKS5vcmRlcigic2hpZnRfZGF0ZSIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KS5vcmRlcigiY3JlYXRlZF9hdCIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KTsKICByZXR1cm4geyBhY2Nlc3M6IGZhbWlseS5hY2Nlc3MsIHNoaWZ0czogZGF0YSA/PyBbXSB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gc3VibWl0U2hpZnQoc2x1Zzogc3RyaW5nLCBpbnB1dDogU2hpZnRJbnB1dCkgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBjb25zdCBzaGlmdFR5cGUgPSBpbnB1dC5zaGlmdFR5cGUgPT09ICJiYWJ5c2l0dGluZyIgPyAiYmFieXNpdHRpbmciIDogIm5hbm55IjsKICBjb25zdCB7IGRhdGEsIGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLmZyb20oInRpbWVzaGVldF9zaGlmdHMiKS5pbnNlcnQoewogICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICBzaGlmdF9kYXRlOiBpbnB1dC5zaGlmdERhdGUsCiAgICBzdGFydF90aW1lOiBpbnB1dC5zdGFydFRpbWUsCiAgICBlbmRfdGltZTogaW5wdXQuZW5kVGltZSwKICAgIGJyZWFrX21pbnV0ZXM6IE1hdGgubWF4KDAsIE1hdGgubWluKDcyMCwgaW5wdXQuYnJlYWtNaW51dGVzIHx8IDApKSwKICAgIGlzX292ZXJuaWdodDogaW5wdXQuaXNPdmVybmlnaHQsCiAgICBob3VybHlfcmF0ZTogTWF0aC5tYXgoMCwgaW5wdXQuaG91cmx5UmF0ZSB8fCAwKSwKICAgIG5vdGVzOiBpbnB1dC5ub3Rlcz8udHJpbSgpLnNsaWNlKDAsIDEwMDApIHx8IG51bGwsCiAgICBzaGlmdF90eXBlOiBzaGlmdFR5cGUsCiAgICBzdWJtaXR0ZWRfYnk6IGZhbWlseS5hY2Nlc3MsCiAgICBzdGF0dXM6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gImFwcHJvdmVkIiA6ICJwZW5kaW5nIiwKICAgIHJldmlld2VkX2F0OiBmYW1pbHkuYWNjZXNzID09PSAiZmFtaWx5IiA/IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSA6IG51bGwsCiAgfSkuc2VsZWN0KCJpZCIpLnNpbmdsZSgpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogIGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgicGxhbm5lcl9lbnRyaWVzIikuaW5zZXJ0KHsKICAgIGZhbWlseV9pZDogZmFtaWx5LmlkLAogICAgZW50cnlfZGF0ZTogaW5wdXQuc2hpZnREYXRlLAogICAgdGltZV9sYWJlbDogaW5wdXQuc3RhcnRUaW1lLAogICAgZW5kX3RpbWVfbGFiZWw6IGlucHV0LmVuZFRpbWUsCiAgICB0aXRsZTogc2hpZnRUeXBlID09PSAiYmFieXNpdHRpbmciID8gIkJhYnlzaXR0aW5nIiA6ICJOYW5ueSBzaGlmdCIsCiAgICBlbnRyeV90eXBlOiAic2hpZnQiLAogICAgYWRkZWRfYnk6IGZhbWlseS5hY2Nlc3MsCiAgICBub3RlczogaW5wdXQubm90ZXM/LnRyaW0oKS5zbGljZSgwLCAxMDAwKSB8fCBudWxsLAogIH0pOwogIHJldHVybiBkYXRhOwp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmV2aWV3U2hpZnQoc2x1Zzogc3RyaW5nLCBpZDogc3RyaW5nLCBzdGF0dXM6ICJhcHByb3ZlZCIgfCAiZGVjbGluZWQiKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgc2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5IHx8IGZhbWlseS5hY2Nlc3MgIT09ICJmYW1pbHkiKSB0aHJvdyBuZXcgRXJyb3IoIk9ubHkgYSBwYXJlbnQgY2FuIHJldmlldyBzaGlmdHMuIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJ0aW1lc2hlZXRfc2hpZnRzIikudXBkYXRlKHsgc3RhdHVzLCByZXZpZXdlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLCB1cGRhdGVkX2F0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgfSkuZXEoImlkIiwgaWQpLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwp9Cg==
+import { createOpenAI } from "@ai-sdk/openai";
+import { NoObjectGeneratedError, Output, streamText } from "ai";
+import { z } from "zod";
+
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Json } from "@/integrations/supabase/types";
+import { createLovableAiGatewayRunIdFetch } from "./ai-gateway.server";
+import { accessLevel } from "./wallet.server";
+import type { ActivityIdea, MealIdea, ResourceKind, ShiftInput } from "./work-tools.model";
+
+async function sharedFamily(slug: string) {
+  const access = await accessLevel(slug);
+  if (!access) return null;
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+  return data ? { ...data, access } : null;
+}
+
+const ActivitySchema = z.object({
+  activities: z.array(z.object({
+    title: z.string(), hook: z.string(), ageRange: z.string(), duration: z.string(),
+    setting: z.string(), cost: z.string(), whatYouNeed: z.array(z.string()),
+    steps: z.array(z.string()), safetyNote: z.string(), whyKidsLoveIt: z.string(),
+  })),
+});
+
+const MealSchema = z.object({
+  ideas: z.array(z.object({
+    title: z.string(), hook: z.string(), category: z.string(), ageRange: z.string(),
+    totalTime: z.string(), ingredients: z.array(z.string()), steps: z.array(z.string()),
+    nutritionNote: z.string(), safetyNote: z.string(), childJob: z.string(),
+  })),
+});
+
+async function familyContext(familyId: string) {
+  const [{ data: children }, { data: profile }] = await Promise.all([
+    supabaseAdmin.from("family_children").select("name, date_of_birth, interests, allergies, dietary").eq("family_id", familyId),
+    supabaseAdmin.from("family_profile").select("medical_notes").eq("family_id", familyId).maybeSingle(),
+  ]);
+  return { children: children ?? [], medicalNotes: profile?.medical_notes ?? null };
+}
+
+async function generateStructured<T>(prompt: string, schema: z.ZodType<T>) {
+  const apiKey = process.env["LOVABLE_API_KEY"];
+  if (!apiKey) return { ok: false as const, error: "AI ideas are not configured yet." };
+  try {
+    const runIdFetch = createLovableAiGatewayRunIdFetch();
+    const lovable = createOpenAI({
+      baseURL: "https://ai.gateway.lovable.dev/v1",
+      apiKey,
+      headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
+      fetch: runIdFetch.fetch,
+    });
+    const result = streamText({
+      model: lovable.responses("openai/gpt-6-astra"),
+      output: Output.object({ schema }),
+      prompt,
+      providerOptions: {
+        openai: {
+          forceReasoning: true,
+          reasoningEffort: "low",
+          reasoningSummary: "auto",
+          store: false,
+          include: ["reasoning.encrypted_content"],
+        },
+      },
+    });
+    return { ok: true as const, data: await result.output };
+  } catch (error) {
+    if (NoObjectGeneratedError.isInstance(error)) {
+      return { ok: false as const, error: "No suitable ideas came back. Please try again." };
+    }
+    const message = error instanceof Error ? error.message : "Ideas could not be created.";
+    const safeMessage = /402|credit/i.test(message)
+      ? "The site's AI credits need topping up."
+      : /429|rate/i.test(message)
+        ? "Lots of ideas are being made right now. Please try again shortly."
+        : /401|key|config/i.test(message)
+          ? "The idea generator is not configured correctly."
+          : /403|denied|disabled/i.test(message)
+            ? message
+            : "Ideas could not be created just now. Please try again.";
+    return { ok: false as const, error: safeMessage };
+  }
+}
+
+export async function generateActivityIdeas(slug: string, input: { setting: string; minutes: number; energy: string; notes: string }) {
+  const family = await sharedFamily(slug);
+  if (!family) return { ok: false as const, error: "Please sign in again." };
+  const context = await familyContext(family.id);
+  const result = await generateStructured(
+    `Create exactly four safe, practical activities for this UK family. Children: ${JSON.stringify(context.children)}. Medical notes: ${context.medicalNotes ?? "none"}. Setting: ${input.setting}. Available time: ${input.minutes} minutes. Energy: ${input.energy}. Request: ${input.notes || "any suitable activity"}. Use ordinary supplies, concise steps, a specific adult safety note, and never invent local venues.`,
+    ActivitySchema,
+  );
+  if (!result.ok) return result;
+  return { ok: true as const, activities: result.data.activities.slice(0, 4) as ActivityIdea[] };
+}
+
+export async function generateMealIdeas(slug: string, input: { category: string; minutes: number; ingredients: string; notes: string }) {
+  const family = await sharedFamily(slug);
+  if (!family) return { ok: false as const, error: "Please sign in again." };
+  const context = await familyContext(family.id);
+  const result = await generateStructured(
+    `Create exactly four practical ${input.category} ideas for this UK family. Children and dietary details: ${JSON.stringify(context.children)}. Medical notes: ${context.medicalNotes ?? "none"}. Time available: ${input.minutes} minutes. Ingredients available: ${input.ingredients || "not specified"}. Request: ${input.notes || "none"}. Use UK supermarket ingredients and metric quantities. Honour allergies strictly. Include concise steps, a useful child job, nutrition note without medical claims, and a specific adult safety note.`,
+    MealSchema,
+  );
+  if (!result.ok) return result;
+  return { ok: true as const, ideas: result.data.ideas.slice(0, 4) as MealIdea[] };
+}
+
+export async function listSavedResources(slug: string, kind: ResourceKind) {
+  const family = await sharedFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin
+    .from("saved_resources")
+    .select("id, resource_type, title, summary, details, saved_by, created_at")
+    .eq("family_id", family.id)
+    .eq("resource_type", kind)
+    .order("created_at", { ascending: false });
+  return { access: family.access, resources: data ?? [] };
+}
+
+export async function saveResource(slug: string, kind: ResourceKind, item: ActivityIdea | MealIdea) {
+  const family = await sharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const summary = "hook" in item ? item.hook : "";
+  const { data, error } = await supabaseAdmin.from("saved_resources").insert({
+    family_id: family.id,
+    resource_type: kind,
+    title: item.title.slice(0, 180),
+    summary: summary.slice(0, 500),
+    details: item as unknown as Json,
+    saved_by: family.access,
+  }).select("id").single();
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function addResourceToCalendar(slug: string, resourceId: string, entryDate: string, timeLabel: string) {
+  const family = await sharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const { data: resource } = await supabaseAdmin.from("saved_resources").select("id, title, resource_type").eq("id", resourceId).eq("family_id", family.id).maybeSingle();
+  if (!resource) throw new Error("Saved idea not found.");
+  const { error } = await supabaseAdmin.from("planner_entries").insert({
+    family_id: family.id,
+    entry_date: entryDate,
+    time_label: timeLabel || null,
+    title: resource.title,
+    entry_type: resource.resource_type,
+    added_by: family.access,
+    notes: `Saved ${resource.resource_type}`,
+  });
+  if (error) throw new Error(error.message);
+}
+
+export async function loadTimesheets(slug: string) {
+  const family = await sharedFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin.from("timesheet_shifts").select("*").eq("family_id", family.id).order("shift_date", { ascending: false }).order("created_at", { ascending: false });
+  return { access: family.access, shifts: data ?? [] };
+}
+
+export async function submitShift(slug: string, input: ShiftInput) {
+  const family = await sharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const shiftType = input.shiftType === "babysitting" ? "babysitting" : "nanny";
+  const { data, error } = await supabaseAdmin.from("timesheet_shifts").insert({
+    family_id: family.id,
+    shift_date: input.shiftDate,
+    start_time: input.startTime,
+    end_time: input.endTime,
+    break_minutes: Math.max(0, Math.min(720, input.breakMinutes || 0)),
+    is_overnight: input.isOvernight,
+    hourly_rate: Math.max(0, input.hourlyRate || 0),
+    notes: input.notes?.trim().slice(0, 1000) || null,
+    shift_type: shiftType,
+    submitted_by: family.access,
+    status: family.access === "family" ? "approved" : "pending",
+    reviewed_at: family.access === "family" ? new Date().toISOString() : null,
+  }).select("id").single();
+  if (error) throw new Error(error.message);
+  await supabaseAdmin.from("planner_entries").insert({
+    family_id: family.id,
+    entry_date: input.shiftDate,
+    time_label: input.startTime,
+    end_time_label: input.endTime,
+    title: shiftType === "babysitting" ? "Babysitting" : "Nanny shift",
+    entry_type: "shift",
+    added_by: family.access,
+    notes: input.notes?.trim().slice(0, 1000) || null,
+  });
+  return data;
+}
+
+export async function reviewShift(slug: string, id: string, status: "approved" | "declined") {
+  const family = await sharedFamily(slug);
+  if (!family || family.access !== "family") throw new Error("Only a parent can review shifts.");
+  const { error } = await supabaseAdmin.from("timesheet_shifts").update({ status, reviewed_at: new Date().toISOString(), updated_at: new Date().toISOString() }).eq("id", id).eq("family_id", family.id);
+  if (error) throw new Error(error.message);
+}

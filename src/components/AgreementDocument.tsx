@@ -1,1 +1,287 @@
-aW1wb3J0IHsKICBjYWxjdWxhdGVIb2xpZGF5LAogIGZvcm1hdFVLRGF0ZSwKICBpc1Rlcm1UaW1lLAogIHR5cGUgQWdyZWVtZW50RGF0YSwKfSBmcm9tICJAL2xpYi9hZ3JlZW1lbnQubW9kZWwiOwoKZnVuY3Rpb24gd29ya2luZ1BhdHRlcm5DbGF1c2UoZGF0YTogQWdyZWVtZW50RGF0YSkgewogIGNvbnN0IHNjaG9vbEhvbGlkYXlBZGRlbmR1bSA9CiAgICBkYXRhLmFsbG93U2Nob29sSG9saWRheVdvcmsgJiYgaXNUZXJtVGltZShkYXRhLmNvbnRyYWN0VHlwZSkKICAgICAgPyAiIFRoZSBFbXBsb3llciBtYXkgb2ZmZXIgYWRkaXRpb25hbCB3b3JrIGR1cmluZyBzY2hvb2wgaG9saWRheXMgd2hlcmUgY292ZXIgaXMgbmVlZGVkIGFuZCB0aGUgTmFubnkgaXMgYXZhaWxhYmxlLiBBbnkgc3VjaCBob3VycyBtdXN0IGJlIGFncmVlZCBpbiBhZHZhbmNlIGJ5IGJvdGggcGFydGllcyBhbmQgd2lsbCBiZSBwYWlkIGF0IHRoZSBOYW5ueeKAmXMgYWdyZWVkIGhvdXJseSByYXRlLCB1bmxlc3Mgb3RoZXJ3aXNlIGFncmVlZCBpbiB3cml0aW5nLiIKICAgICAgOiAiIjsKCiAgaWYgKGRhdGEuY29udHJhY3RUeXBlID09PSAicGFydC10aW1lLXRlcm0tdGltZSIpIHsKICAgIHJldHVybiBgVGhpcyBpcyBhIHBhcnQtdGltZSwgdGVybS10aW1lIG9ubHkgY29udHJhY3QuIFRoZSBOYW5ueSBzaGFsbCBub3JtYWxseSB3b3JrICR7ZGF0YS53ZWVrc1BlclllYXIgfHwgIjM2In0gd2Vla3MgcGVyIHllYXIgZHVyaW5nIHNjaG9vbCB0ZXJtIHRpbWUsIG9uIHRoZSBkYXlzIGFuZCBob3VycyBzZXQgb3V0IGFib3ZlLCBhbmQgc2hhbGwgbm90IGJlIHJlcXVpcmVkIHRvIHdvcmsgZHVyaW5nIHNjaG9vbCBob2xpZGF5cy4ke3NjaG9vbEhvbGlkYXlBZGRlbmR1bX1gOwogIH0KCiAgaWYgKGRhdGEuY29udHJhY3RUeXBlID09PSAidGVybS10aW1lIikgewogICAgcmV0dXJuIGBUaGlzIGlzIGEgdGVybS10aW1lIG9ubHkgY29udHJhY3QuIFRoZSBOYW5ueSBzaGFsbCBub3JtYWxseSB3b3JrICR7ZGF0YS53ZWVrc1BlclllYXIgfHwgIjM2In0gd2Vla3MgcGVyIHllYXIgZHVyaW5nIHNjaG9vbCB0ZXJtIHRpbWUgYW5kIHNoYWxsIG5vdCBiZSByZXF1aXJlZCB0byB3b3JrIGR1cmluZyBzY2hvb2wgaG9saWRheXMuJHtzY2hvb2xIb2xpZGF5QWRkZW5kdW19YDsKICB9CgogIHJldHVybiBgVGhpcyBpcyBhIHllYXItcm91bmQgY29udHJhY3Qgb2YgJHtkYXRhLndlZWtzUGVyWWVhciB8fCAiNTIifSB3ZWVrcyBwZXIgeWVhci5gOwp9CgpleHBvcnQgZnVuY3Rpb24gQWdyZWVtZW50RG9jdW1lbnQoewogIGRhdGEsCiAgdmVyc2lvbiwKICBpc3N1ZWRBdCwKICBmYW1pbHlOYW1lLAp9OiB7CiAgZGF0YTogQWdyZWVtZW50RGF0YTsKICB2ZXJzaW9uPzogbnVtYmVyOwogIGlzc3VlZEF0Pzogc3RyaW5nIHwgbnVsbDsKICBmYW1pbHlOYW1lPzogc3RyaW5nOwp9KSB7CiAgY29uc3QgZW5hYmxlZER1dGllcyA9IGRhdGEuZHV0aWVzLmZpbHRlcigoZCkgPT4gZC5lbmFibGVkICYmIGQubGFiZWwudHJpbSgpKTsKICBjb25zdCBlbmFibGVkRGF5cyA9IGRhdGEud29ya2luZ0RheXMuZmlsdGVyKChkKSA9PiBkLmVuYWJsZWQpOwogIGNvbnN0IGhvbGlkYXkgPSBjYWxjdWxhdGVIb2xpZGF5KGRhdGEud29ya2luZ0RheXMsIGRhdGEuY29udHJhY3RUeXBlLCBkYXRhLndlZWtzUGVyWWVhcik7CgogIHJldHVybiAoCiAgICA8YXJ0aWNsZSBjbGFzc05hbWU9InJvdW5kZWQtMnhsIGJvcmRlciBib3JkZXItYm9yZGVyIGJnLWNhcmQgcC02IHRleHQtc20gbGVhZGluZy1yZWxheGVkIHRleHQtZm9yZWdyb3VuZCBzaGFkb3ctc20gc206cC04IHByaW50OmJvcmRlci0wIHByaW50OnAtMCBwcmludDpzaGFkb3ctbm9uZSI+CiAgICAgIDxoZWFkZXIgY2xhc3NOYW1lPSJtYi04IGJvcmRlci1iIGJvcmRlci1ib3JkZXIgcGItNiB0ZXh0LWNlbnRlciI+CiAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC1sZyB0ZXh0LXByaW1hcnkiPlRoZSBGYW1pbHkgV2FsbGV0PC9wPgogICAgICAgIDxoMSBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtdC0xIHRleHQteGwgdGV4dC1mb3JlZ3JvdW5kIj4KICAgICAgICAgIENvbnRyYWN0IG9mIGVtcGxveW1lbnQgZm9yIGEgbmFubnkgb3IgbWFsZSBuYW5ueQogICAgICAgIDwvaDE+CiAgICAgICAgeyhmYW1pbHlOYW1lIHx8IHZlcnNpb24pICYmICgKICAgICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LXhzIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgICAgIHtmYW1pbHlOYW1lID8gYCR7ZmFtaWx5TmFtZX0gwrcgYCA6ICIifQogICAgICAgICAgICB7dmVyc2lvbiA/IGB2ZXJzaW9uICR7dmVyc2lvbn1gIDogIiJ9CiAgICAgICAgICAgIHtpc3N1ZWRBdAogICAgICAgICAgICAgID8gYCDCtyBpc3N1ZWQgJHtuZXcgRGF0ZShpc3N1ZWRBdCkudG9Mb2NhbGVEYXRlU3RyaW5nKCJlbi1HQiIsIHsKICAgICAgICAgICAgICAgICAgZGF5OiAibnVtZXJpYyIsCiAgICAgICAgICAgICAgICAgIG1vbnRoOiAibG9uZyIsCiAgICAgICAgICAgICAgICAgIHllYXI6ICJudW1lcmljIiwKICAgICAgICAgICAgICAgIH0pfWAKICAgICAgICAgICAgICA6ICIifQogICAgICAgICAgPC9wPgogICAgICAgICl9CiAgICAgIDwvaGVhZGVyPgoKICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtYi04Ij4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbWItMyB0ZXh0LWJhc2UiPkJldHdlZW48L2gyPgogICAgICAgIDxwPgogICAgICAgICAgPHN0cm9uZz4oMSkg4oCcdGhlIEVtcGxveWVy4oCdOjwvc3Ryb25nPnsiICJ9CiAgICAgICAgICB7ZGF0YS5lbXBsb3llck5hbWUgfHwgIl9fX19fX19fX19fX19fX19fX18ifQogICAgICAgICAge2RhdGEuZW1wbG95ZXJBZGRyZXNzID8gYCwgJHtkYXRhLmVtcGxveWVyQWRkcmVzc31gIDogIiJ9CiAgICAgICAgPC9wPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiI+CiAgICAgICAgICA8c3Ryb25nPigyKSDigJx0aGUgTmFubnnigJ06PC9zdHJvbmc+IHtkYXRhLm5hbm55TmFtZSB8fCAiX19fX19fX19fX19fX19fX19fXyJ9CiAgICAgICAgPC9wPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtNCB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgSXQgaXMgYWdyZWVkIHRoYXQgdGhlIEVtcGxveWVyIHdpbGwgZW1wbG95IHRoZSBOYW5ueSBvbiB0aGUgZm9sbG93aW5nIHRlcm1zIGFuZAogICAgICAgICAgY29uZGl0aW9uczoKICAgICAgICA8L3A+CiAgICAgIDwvc2VjdGlvbj4KCiAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0ibWItOCBzcGFjZS15LTQiPgogICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWJhc2UiPjEuIFRlcm1zIG9mIGVtcGxveW1lbnQ8L2gyPgogICAgICAgIDxwPgogICAgICAgICAgPHN0cm9uZz4xLjE8L3N0cm9uZz4gVGhlIE5hbm55IGlzIGVtcGxveWVkIGFzIHtkYXRhLmpvYlRpdGxlIHx8ICJOYW5ueSJ9IHRvIHdvcmsgYXQgdGhlCiAgICAgICAgICBFbXBsb3llcuKAmXMgaG9tZSBhdCB7ZGF0YS53b3JrQWRkcmVzcyB8fCAiX19fX19fX19fX19fX19fX19fXyJ9IG9yIHN1Y2ggb3RoZXIgcGxhY2UocykgYXMKICAgICAgICAgIHRoZSBFbXBsb3llciBtYXkgcmVhc29uYWJseSByZXF1aXJlIGZyb20gdGltZSB0byB0aW1lLiBUaGUgZW1wbG95bWVudCBjb21tZW5jZXMgb257IiAifQogICAgICAgICAge2Zvcm1hdFVLRGF0ZShkYXRhLnN0YXJ0RGF0ZSl9CiAgICAgICAgICB7ZGF0YS5pc0ZpeGVkVGVybSAmJiBkYXRhLmVuZERhdGUgPyAoCiAgICAgICAgICAgIDw+CiAgICAgICAgICAgICAgeyIgIn0KICAgICAgICAgICAgICBhbmQgaXMgYSBmaXhlZC10ZXJtIGFwcG9pbnRtZW50IGVuZGluZyBvbiB7Zm9ybWF0VUtEYXRlKGRhdGEuZW5kRGF0ZSl9CiAgICAgICAgICAgICAge2RhdGEuZml4ZWRUZXJtUmVhc29uID8gYCwgZm9yIHRoZSBwdXJwb3NlIG9mICR7ZGF0YS5maXhlZFRlcm1SZWFzb259YCA6ICIifS4gVGhlCiAgICAgICAgICAgICAgZW1wbG95bWVudCB3aWxsIHRlcm1pbmF0ZSBhdXRvbWF0aWNhbGx5IG9uIHRoYXQgZGF0ZSB3aXRob3V0IGZ1cnRoZXIgbm90aWNlLCB1bmxlc3MKICAgICAgICAgICAgICB0aGUgcGFydGllcyBhZ3JlZSBpbiB3cml0aW5nIHRvIGV4dGVuZCBvciBlbmQgaXQgZWFybGllciBpbiBhY2NvcmRhbmNlIHdpdGggdGhlCiAgICAgICAgICAgICAgbm90aWNlIHByb3Zpc2lvbnMgb2YgdGhpcyBhZ3JlZW1lbnQuCiAgICAgICAgICAgIDwvPgogICAgICAgICAgKSA6ICgKICAgICAgICAgICAgIi4iCiAgICAgICAgICApfQogICAgICAgIDwvcD4KCiAgICAgICAge2RhdGEucHJvYmF0aW9uUGVyaW9kICYmICgKICAgICAgICAgIDxwPgogICAgICAgICAgICA8c3Ryb25nPjEuMjwvc3Ryb25nPiBUaGUgZmlyc3Qge2RhdGEucHJvYmF0aW9uUGVyaW9kfSBvZiBlbXBsb3ltZW50IGNvbnN0aXR1dGUgYQogICAgICAgICAgICBwcm9iYXRpb25hcnkgcGVyaW9kLCBkdXJpbmcgd2hpY2ggdGhlIEVtcGxveWVyIHdpbGwgYXNzZXNzIHRoZSBOYW5ueeKAmXMgc3VpdGFiaWxpdHkgZm9yCiAgICAgICAgICAgIHRoZSByb2xlIGFuZCB0aGUgTmFubnkgd2lsbCBhc3Nlc3Mgd2hldGhlciB0aGUgcm9sZSBpcyBzdWl0YWJsZSBmb3IgdGhlbS4KICAgICAgICAgIDwvcD4KICAgICAgICApfQoKICAgICAgICA8ZGl2PgogICAgICAgICAgPHA+CiAgICAgICAgICAgIDxzdHJvbmc+MS4zPC9zdHJvbmc+IFRoZSBOYW5ueeKAmXMgZHV0aWVzIHNoYWxsIGJlOgogICAgICAgICAgPC9wPgogICAgICAgICAgPHVsIGNsYXNzTmFtZT0ibXQtMiBtbC00IHNwYWNlLXktMS41Ij4KICAgICAgICAgICAge2VuYWJsZWREdXRpZXMubGVuZ3RoID4gMCA/ICgKICAgICAgICAgICAgICBlbmFibGVkRHV0aWVzLm1hcCgoZHV0eSwgaW5kZXgpID0+ICgKICAgICAgICAgICAgICAgIDxsaSBrZXk9e2R1dHkuaWR9PgogICAgICAgICAgICAgICAgICA8c3Ryb25nPntTdHJpbmcuZnJvbUNoYXJDb2RlKDk3ICsgaW5kZXgpfS48L3N0cm9uZz4ge2R1dHkubGFiZWx9CiAgICAgICAgICAgICAgICAgIHtkdXR5LmRldGFpbHMudHJpbSgpICYmICgKICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+IOKAlCB7ZHV0eS5kZXRhaWxzfTwvc3Bhbj4KICAgICAgICAgICAgICAgICAgKX0KICAgICAgICAgICAgICAgIDwvbGk+CiAgICAgICAgICAgICAgKSkKICAgICAgICAgICAgKSA6ICgKICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSJpdGFsaWMgdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5ObyBkdXRpZXMgc3BlY2lmaWVkPC9saT4KICAgICAgICAgICAgKX0KICAgICAgICAgIDwvdWw+CiAgICAgICAgICB7ZGF0YS5vdGhlckR1dGllc0NsYXVzZSAmJiA8cCBjbGFzc05hbWU9Im10LTIgbWwtNCI+e2RhdGEub3RoZXJEdXRpZXNDbGF1c2V9PC9wPn0KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdj4KICAgICAgICAgIDxwPgogICAgICAgICAgICA8c3Ryb25nPjEuNDwvc3Ryb25nPiBUaGUgTmFubnkgc2hhbGwgbm9ybWFsbHkgd29yayB0aGUgZm9sbG93aW5nIGRheXM6CiAgICAgICAgICA8L3A+CiAgICAgICAgICA8dWwgY2xhc3NOYW1lPSJtdC0yIG1sLTQgc3BhY2UteS0xIj4KICAgICAgICAgICAge2VuYWJsZWREYXlzLmxlbmd0aCA+IDAgPyAoCiAgICAgICAgICAgICAgZW5hYmxlZERheXMubWFwKChkYXkpID0+ICgKICAgICAgICAgICAgICAgIDxsaSBrZXk9e2RheS5kYXl9PgogICAgICAgICAgICAgICAgICB7ZGF5LmRheX06IHtkYXkuc3RhcnRUaW1lfSDigJMge2RheS5lbmRUaW1lfQogICAgICAgICAgICAgICAgICB7ZGF5LnN0YXJ0VGltZTIgJiYgZGF5LmVuZFRpbWUyCiAgICAgICAgICAgICAgICAgICAgPyBgIGFuZCAke2RheS5zdGFydFRpbWUyfSDigJMgJHtkYXkuZW5kVGltZTJ9YAogICAgICAgICAgICAgICAgICAgIDogIiJ9CiAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICkpCiAgICAgICAgICAgICkgOiAoCiAgICAgICAgICAgICAgPGxpIGNsYXNzTmFtZT0iaXRhbGljIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+V29ya2luZyBkYXlzIHRvIGJlIGFncmVlZDwvbGk+CiAgICAgICAgICAgICl9CiAgICAgICAgICA8L3VsPgogICAgICAgIDwvZGl2PgoKICAgICAgICB7ZGF0YS5vdmVydGltZVBvbGljeSAmJiAoCiAgICAgICAgICA8cD4KICAgICAgICAgICAgPHN0cm9uZz4xLjU8L3N0cm9uZz4ge2RhdGEub3ZlcnRpbWVQb2xpY3l9CiAgICAgICAgICA8L3A+CiAgICAgICAgKX0KCiAgICAgICAge2RhdGEuaW5jbHVkZVdvcmtpbmdQYXR0ZXJuQ2xhdXNlICYmICgKICAgICAgICAgIDxwPgogICAgICAgICAgICA8c3Ryb25nPjEuNjwvc3Ryb25nPiB7d29ya2luZ1BhdHRlcm5DbGF1c2UoZGF0YSl9CiAgICAgICAgICA8L3A+CiAgICAgICAgKX0KICAgICAgPC9zZWN0aW9uPgoKICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtYi04IHNwYWNlLXktMyI+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IHRleHQtYmFzZSI+Mi4gUmVtdW5lcmF0aW9uPC9oMj4KICAgICAgICA8cD4KICAgICAgICAgIDxzdHJvbmc+Mi4xPC9zdHJvbmc+IFRoZSBOYW5ueeKAmXMgc2FsYXJ5IHdpbGwgYmUgwqN7ZGF0YS5ob3VybHlSYXRlIHx8ICJfX18ifSBwZXIgaG91cnsiICJ9CiAgICAgICAgICB7ZGF0YS5yYXRlQmFzaXMgPT09ICJuZXQiID8gIm5ldCAodGFrZS1ob21lKSIgOiAiZ3Jvc3MgKGJlZm9yZSBkZWR1Y3Rpb25zKSJ9LgogICAgICAgICAge2RhdGEuaW5jbHVkZVRheFJlc3BvbnNpYmlsaXR5Q2xhdXNlCiAgICAgICAgICAgID8gZGF0YS5yYXRlQmFzaXMgPT09ICJuZXQiCiAgICAgICAgICAgICAgPyAiIFRoZSBFbXBsb3llciBpcyByZXNwb25zaWJsZSBmb3IgYWxsIFBBWUUgdGF4LCBOYXRpb25hbCBJbnN1cmFuY2UgYW5kIHBlbnNpb24gY29udHJpYnV0aW9ucyBwYXlhYmxlIGluIGFkZGl0aW9uIHRvIHRoaXMgbmV0IGZpZ3VyZS4iCiAgICAgICAgICAgICAgOiAiIEluY29tZSB0YXgsIE5hdGlvbmFsIEluc3VyYW5jZSBhbmQgcGVuc2lvbiBjb250cmlidXRpb25zIHdpbGwgYmUgZGVkdWN0ZWQgZnJvbSB0aGlzIGdyb3NzIGZpZ3VyZS4iCiAgICAgICAgICAgIDogIiJ9CiAgICAgICAgPC9wPgogICAgICAgIDxwPgogICAgICAgICAgPHN0cm9uZz4yLjI8L3N0cm9uZz4gVGhlIHNhbGFyeSBzaGFsbCBiZSBwYXlhYmxlIGluIGFycmVhcnN7IiAifQogICAgICAgICAgeyhkYXRhLnBheW1lbnRGcmVxdWVuY3kgfHwgIm1vbnRobHkiKS50b0xvd2VyQ2FzZSgpfSBieXsiICJ9CiAgICAgICAgICB7KGRhdGEucGF5bWVudE1ldGhvZCB8fCAiYmFuayB0cmFuc2ZlciIpLnRvTG93ZXJDYXNlKCl9LgogICAgICAgIDwvcD4KICAgICAgICA8cD4KICAgICAgICAgIDxzdHJvbmc+Mi4zPC9zdHJvbmc+IFRoZSBOYW5ueSBzaGFsbCByZWNlaXZlIHRoZSBmb2xsb3dpbmcgYmVuZWZpdHM6eyIgIn0KICAgICAgICAgIHtkYXRhLmJlbmVmaXRzIHx8ICJub25lIHNwZWNpZmllZCJ9LgogICAgICAgIDwvcD4KICAgICAgICB7ZGF0YS5leHBlbnNlUmF0ZSAmJiAoCiAgICAgICAgICA8cD4KICAgICAgICAgICAgPHN0cm9uZz4yLjQ8L3N0cm9uZz4gVGhlIE5hbm55IHNoYWxsIGJlIHJlaW1idXJzZWQgZm9yIGFsbCByZWFzb25hYmxlIGV4cGVuc2VzLiBQZXRyb2wKICAgICAgICAgICAgY29zdHMgd2lsbCBiZSByZWltYnVyc2VkIGF0IHRoZSByYXRlIG9mIHtkYXRhLmV4cGVuc2VSYXRlfSBwZW5jZSBwZXIgbWlsZS4KICAgICAgICAgIDwvcD4KICAgICAgICApfQogICAgICA8L3NlY3Rpb24+CgogICAgICB7ZGF0YS5pbmNsdWRlSG9saWRheUVudGl0bGVtZW50ICYmICgKICAgICAgICA8c2VjdGlvbiBjbGFzc05hbWU9Im1iLTgiPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG1iLTMgdGV4dC1iYXNlIj4zLiBIb2xpZGF5PC9oMj4KICAgICAgICAgIHtkYXRhLmhvbGlkYXlBbGxvd2FuY2UudHJpbSgpID8gKAogICAgICAgICAgICA8cD57ZGF0YS5ob2xpZGF5QWxsb3dhbmNlfTwvcD4KICAgICAgICAgICkgOiBlbmFibGVkRGF5cy5sZW5ndGggPiAwID8gKAogICAgICAgICAgICA8cD4KICAgICAgICAgICAgICBUaGUgTmFubnkgaXMgZW50aXRsZWQgdG8ge2hvbGlkYXkudG90YWxXZWVrc0VudGl0bGVtZW50fSB3ZWVrcyAoCiAgICAgICAgICAgICAge2hvbGlkYXkudG90YWxEYXlzRW50aXRsZW1lbnR9IGRheXMgLyB7aG9saWRheS50b3RhbEhvdXJzRW50aXRsZW1lbnR9IGhvdXJzKSBwYWlkCiAgICAgICAgICAgICAgaG9saWRheSBwZXIgYW5udW0sIHByby1yYXRlZCBiYXNlZCBvbiB0aGVpciB3b3JraW5nIHBhdHRlcm4gb2Z7IiAifQogICAgICAgICAgICAgIHtob2xpZGF5LndlZWtseUhvdXJzLnRvRml4ZWQoMSl9IGhvdXJzIHBlciB3ZWVrIG92ZXIge2hvbGlkYXkud2Vla3NXb3JrZWRQZXJZZWFyfSB3ZWVrcwogICAgICAgICAgICAgIHBlciB5ZWFye2lzVGVybVRpbWUoZGF0YS5jb250cmFjdFR5cGUpID8gIiAodGVybSB0aW1lIG9ubHkpIiA6ICIifS4KICAgICAgICAgICAgICB7aXNUZXJtVGltZShkYXRhLmNvbnRyYWN0VHlwZSkKICAgICAgICAgICAgICAgID8gIiBIb2xpZGF5IHNoYWxsIG5vcm1hbGx5IGJlIHRha2VuIGR1cmluZyBzY2hvb2wgaG9saWRheXMuIgogICAgICAgICAgICAgICAgOiAiIn0KICAgICAgICAgICAgPC9wPgogICAgICAgICAgKSA6ICgKICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgIEhvbGlkYXkgZGV0YWlscyB0byBiZSBhZ3JlZWQgYmFzZWQgb24gd29ya2luZyBwYXR0ZXJuLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICApfQogICAgICAgICAge2RhdGEucm9sbGVkVXBIb2xpZGF5UGF5ICYmICgKICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0zIj4KICAgICAgICAgICAgICBIb2xpZGF5IHBheSB3aWxsIGJlIOKAnHJvbGxlZCB1cOKAnSBhbmQgcGFpZCB0b2dldGhlciB3aXRoIHRoZSBOYW5ueeKAmXMgc2FsYXJ5IGZvciBlYWNoCiAgICAgICAgICAgICAgcGF5IHBlcmlvZCwgY2FsY3VsYXRlZCBhdCAxMi4wNyUgb2YgdGhlIHBheSBmb3IgdGhlIGhvdXJzIHdvcmtlZCBpbiB0aGF0IHBlcmlvZCBhbmQKICAgICAgICAgICAgICBzaG93biBzZXBhcmF0ZWx5IG9uIGVhY2ggcGF5c2xpcC4gVGhlIE5hbm554oCZcyBob2xpZGF5IHNob3VsZCBiZSB0YWtlbiBkdXJpbmcgc2Nob29sCiAgICAgICAgICAgICAgaG9saWRheXMgb3Igb3RoZXIgbm9uLXdvcmtpbmcgcGVyaW9kczsgbm8gc2VwYXJhdGUgcGF5bWVudCBpcyBtYWRlIHdoZW4gaG9saWRheSBpcwogICAgICAgICAgICAgIHRha2VuLCBhcyBob2xpZGF5IHBheSBoYXMgYWxyZWFkeSBiZWVuIHBhaWQgdGhyb3VnaG91dCB0aGUgeWVhci4KICAgICAgICAgICAgPC9wPgogICAgICAgICAgKX0KICAgICAgICA8L3NlY3Rpb24+CiAgICAgICl9CgogICAgICB7ZGF0YS5zaWNrbmVzc1BvbGljeSAmJiAoCiAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtYi04Ij4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSBtYi0zIHRleHQtYmFzZSI+NC4gU2lja25lc3M8L2gyPgogICAgICAgICAgPHA+e2RhdGEuc2lja25lc3NQb2xpY3l9PC9wPgogICAgICAgIDwvc2VjdGlvbj4KICAgICAgKX0KCiAgICAgIHtkYXRhLnBlbnNpb24gJiYgKAogICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0ibWItOCI+CiAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbWItMyB0ZXh0LWJhc2UiPjUuIFBlbnNpb248L2gyPgogICAgICAgICAgPHA+e2RhdGEucGVuc2lvbn08L3A+CiAgICAgICAgPC9zZWN0aW9uPgogICAgICApfQoKICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJtYi04Ij4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgbWItMyB0ZXh0LWJhc2UiPjYuIENvbmZpZGVudGlhbGl0eTwvaDI+CiAgICAgICAgPHA+CiAgICAgICAgICBUaGUgTmFubnkgc2hhbGwgbm90IGR1cmluZyB0aGVpciBlbXBsb3ltZW50IHdpdGggdGhlIEVtcGxveWVyLCBvciBhdCBhbnkgdGltZSB0aGVyZWFmdGVyLAogICAgICAgICAgZGl2dWxnZSBvciBkaXNjbG9zZSBhbnkgaW5mb3JtYXRpb24gd2hpY2ggaXMgY29uZmlkZW50aWFsIHRvIHRoZSBFbXBsb3llci4KICAgICAgICAgIENvbmZpZGVudGlhbGl0eSBleHRlbmRzIHRvIGRpc2Nsb3NpbmcgYW55IGluZm9ybWF0aW9uIG9uIHNvY2lhbCBtZWRpYS4KICAgICAgICA8L3A+CiAgICAgIDwvc2VjdGlvbj4KCiAgICAgIHtkYXRhLmRhdGFQcm90ZWN0aW9uICYmICgKICAgICAgICA8c2VjdGlvbiBjbGFzc05hbWU9Im1iLTgiPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0iaGVhZGluZy1kaXNwbGF5IG1iLTMgdGV4dC1iYXNlIj43LiBEYXRhIHByb3RlY3Rpb248L2gyPgogICAgICAgICAgPHA+e2RhdGEuZGF0YVByb3RlY3Rpb259PC9wPgogICAgICAgIDwvc2VjdGlvbj4KICAgICAgKX0KCiAgICAgIHsoZGF0YS5ncmlldmFuY2VQcm9jZWR1cmUgfHwgZGF0YS5kaXNjaXBsaW5hcnlQcm9jZWR1cmUpICYmICgKICAgICAgICA8c2VjdGlvbiBjbGFzc05hbWU9Im1iLTggc3BhY2UteS0zIj4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWJhc2UiPjguIEdyaWV2YW5jZSBhbmQgZGlzY2lwbGluYXJ5IHByb2NlZHVyZXM8L2gyPgogICAgICAgICAge2RhdGEuZ3JpZXZhbmNlUHJvY2VkdXJlICYmICgKICAgICAgICAgICAgPHA+CiAgICAgICAgICAgICAgPHN0cm9uZz44LjEgR3JpZXZhbmNlLjwvc3Ryb25nPiB7ZGF0YS5ncmlldmFuY2VQcm9jZWR1cmV9CiAgICAgICAgICAgIDwvcD4KICAgICAgICAgICl9CiAgICAgICAgICB7ZGF0YS5kaXNjaXBsaW5hcnlQcm9jZWR1cmUgJiYgKAogICAgICAgICAgICA8cD4KICAgICAgICAgICAgICA8c3Ryb25nPjguMiBEaXNjaXBsaW5hcnkuPC9zdHJvbmc+IHtkYXRhLmRpc2NpcGxpbmFyeVByb2NlZHVyZX0KICAgICAgICAgICAgPC9wPgogICAgICAgICAgKX0KICAgICAgICA8L3NlY3Rpb24+CiAgICAgICl9CgogICAgICB7KGRhdGEuZGJzQ2hlY2tlZCB8fCBkYXRhLnJlZmVyZW5jZXMpICYmICgKICAgICAgICA8c2VjdGlvbiBjbGFzc05hbWU9Im1iLTggc3BhY2UteS0yIj4KICAgICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWJhc2UiPjkuIENoZWNrcyBhbmQgcmVmZXJlbmNlczwvaDI+CiAgICAgICAgICB7ZGF0YS5kYnNDaGVja2VkICYmIDxwPntkYXRhLmRic0NoZWNrZWR9PC9wPn0KICAgICAgICAgIHtkYXRhLnJlZmVyZW5jZXMgJiYgPHA+e2RhdGEucmVmZXJlbmNlc308L3A+fQogICAgICAgIDwvc2VjdGlvbj4KICAgICAgKX0KCiAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0ibWItNCBzcGFjZS15LTIiPgogICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWJhc2UiPjEwLiBUZXJtaW5hdGlvbjwvaDI+CiAgICAgICAgPHA+SWYgZWl0aGVyIHBhcnR5IHdpc2hlcyB0byB0ZXJtaW5hdGUgdGhpcyBjb250cmFjdCwgdGhlIG5vdGljZSB0byBiZSBnaXZlbiBzaGFsbCBiZTo8L3A+CiAgICAgICAgPHVsIGNsYXNzTmFtZT0ibWwtNCBzcGFjZS15LTEiPgogICAgICAgICAgPGxpPihhKSBEdXJpbmcgcHJvYmF0aW9uYXJ5IHBlcmlvZDoge2RhdGEucHJvYmF0aW9uTm90aWNlIHx8ICIxIHdlZWsifTwvbGk+CiAgICAgICAgICA8bGk+KGIpIFRoZXJlYWZ0ZXI6IHtkYXRhLnN0YW5kYXJkTm90aWNlIHx8ICI0IHdlZWtzIn0gaW4gd3JpdGluZzwvbGk+CiAgICAgICAgPC91bD4KICAgICAgICB7ZGF0YS5nYXJkZW5MZWF2ZSAmJiA8cD57ZGF0YS5nYXJkZW5MZWF2ZX08L3A+fQogICAgICA8L3NlY3Rpb24+CiAgICA8L2FydGljbGU+CiAgKTsKfQo=
+import {
+  calculateHoliday,
+  formatUKDate,
+  isTermTime,
+  type AgreementData,
+} from "@/lib/agreement.model";
+
+function workingPatternClause(data: AgreementData) {
+  const schoolHolidayAddendum =
+    data.allowSchoolHolidayWork && isTermTime(data.contractType)
+      ? " The Employer may offer additional work during school holidays where cover is needed and the Nanny is available. Any such hours must be agreed in advance by both parties and will be paid at the Nanny’s agreed hourly rate, unless otherwise agreed in writing."
+      : "";
+
+  if (data.contractType === "part-time-term-time") {
+    return `This is a part-time, term-time only contract. The Nanny shall normally work ${data.weeksPerYear || "36"} weeks per year during school term time, on the days and hours set out above, and shall not be required to work during school holidays.${schoolHolidayAddendum}`;
+  }
+
+  if (data.contractType === "term-time") {
+    return `This is a term-time only contract. The Nanny shall normally work ${data.weeksPerYear || "36"} weeks per year during school term time and shall not be required to work during school holidays.${schoolHolidayAddendum}`;
+  }
+
+  return `This is a year-round contract of ${data.weeksPerYear || "52"} weeks per year.`;
+}
+
+export function AgreementDocument({
+  data,
+  version,
+  issuedAt,
+  familyName,
+}: {
+  data: AgreementData;
+  version?: number;
+  issuedAt?: string | null;
+  familyName?: string;
+}) {
+  const enabledDuties = data.duties.filter((d) => d.enabled && d.label.trim());
+  const enabledDays = data.workingDays.filter((d) => d.enabled);
+  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear);
+
+  return (
+    <article className="rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-foreground shadow-sm sm:p-8 print:border-0 print:p-0 print:shadow-none">
+      <header className="mb-8 border-b border-border pb-6 text-center">
+        <p className="heading-display text-lg text-primary">The Family Wallet</p>
+        <h1 className="heading-display mt-1 text-xl text-foreground">
+          Contract of employment for a nanny or male nanny
+        </h1>
+        {(familyName || version) && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {familyName ? `${familyName} · ` : ""}
+            {version ? `version ${version}` : ""}
+            {issuedAt
+              ? ` · issued ${new Date(issuedAt).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}`
+              : ""}
+          </p>
+        )}
+      </header>
+
+      <section className="mb-8">
+        <h2 className="heading-display mb-3 text-base">Between</h2>
+        <p>
+          <strong>(1) “the Employer”:</strong>{" "}
+          {data.employerName || "___________________"}
+          {data.employerAddress ? `, ${data.employerAddress}` : ""}
+        </p>
+        <p className="mt-2">
+          <strong>(2) “the Nanny”:</strong> {data.nannyName || "___________________"}
+        </p>
+        <p className="mt-4 text-muted-foreground">
+          It is agreed that the Employer will employ the Nanny on the following terms and
+          conditions:
+        </p>
+      </section>
+
+      <section className="mb-8 space-y-4">
+        <h2 className="heading-display text-base">1. Terms of employment</h2>
+        <p>
+          <strong>1.1</strong> The Nanny is employed as {data.jobTitle || "Nanny"} to work at the
+          Employer’s home at {data.workAddress || "___________________"} or such other place(s) as
+          the Employer may reasonably require from time to time. The employment commences on{" "}
+          {formatUKDate(data.startDate)}
+          {data.isFixedTerm && data.endDate ? (
+            <>
+              {" "}
+              and is a fixed-term appointment ending on {formatUKDate(data.endDate)}
+              {data.fixedTermReason ? `, for the purpose of ${data.fixedTermReason}` : ""}. The
+              employment will terminate automatically on that date without further notice, unless
+              the parties agree in writing to extend or end it earlier in accordance with the
+              notice provisions of this agreement.
+            </>
+          ) : (
+            "."
+          )}
+        </p>
+
+        {data.probationPeriod && (
+          <p>
+            <strong>1.2</strong> The first {data.probationPeriod} of employment constitute a
+            probationary period, during which the Employer will assess the Nanny’s suitability for
+            the role and the Nanny will assess whether the role is suitable for them.
+          </p>
+        )}
+
+        <div>
+          <p>
+            <strong>1.3</strong> The Nanny’s duties shall be:
+          </p>
+          <ul className="mt-2 ml-4 space-y-1.5">
+            {enabledDuties.length > 0 ? (
+              enabledDuties.map((duty, index) => (
+                <li key={duty.id}>
+                  <strong>{String.fromCharCode(97 + index)}.</strong> {duty.label}
+                  {duty.details.trim() && (
+                    <span className="text-muted-foreground"> — {duty.details}</span>
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className="italic text-muted-foreground">No duties specified</li>
+            )}
+          </ul>
+          {data.otherDutiesClause && <p className="mt-2 ml-4">{data.otherDutiesClause}</p>}
+        </div>
+
+        <div>
+          <p>
+            <strong>1.4</strong> The Nanny shall normally work the following days:
+          </p>
+          <ul className="mt-2 ml-4 space-y-1">
+            {enabledDays.length > 0 ? (
+              enabledDays.map((day) => (
+                <li key={day.day}>
+                  {day.day}: {day.startTime} – {day.endTime}
+                  {day.startTime2 && day.endTime2
+                    ? ` and ${day.startTime2} – ${day.endTime2}`
+                    : ""}
+                </li>
+              ))
+            ) : (
+              <li className="italic text-muted-foreground">Working days to be agreed</li>
+            )}
+          </ul>
+        </div>
+
+        {data.overtimePolicy && (
+          <p>
+            <strong>1.5</strong> {data.overtimePolicy}
+          </p>
+        )}
+
+        {data.includeWorkingPatternClause && (
+          <p>
+            <strong>1.6</strong> {workingPatternClause(data)}
+          </p>
+        )}
+      </section>
+
+      <section className="mb-8 space-y-3">
+        <h2 className="heading-display text-base">2. Remuneration</h2>
+        <p>
+          <strong>2.1</strong> The Nanny’s salary will be £{data.hourlyRate || "___"} per hour{" "}
+          {data.rateBasis === "net" ? "net (take-home)" : "gross (before deductions)"}.
+          {data.includeTaxResponsibilityClause
+            ? data.rateBasis === "net"
+              ? " The Employer is responsible for all PAYE tax, National Insurance and pension contributions payable in addition to this net figure."
+              : " Income tax, National Insurance and pension contributions will be deducted from this gross figure."
+            : ""}
+        </p>
+        <p>
+          <strong>2.2</strong> The salary shall be payable in arrears{" "}
+          {(data.paymentFrequency || "monthly").toLowerCase()} by{" "}
+          {(data.paymentMethod || "bank transfer").toLowerCase()}.
+        </p>
+        <p>
+          <strong>2.3</strong> The Nanny shall receive the following benefits:{" "}
+          {data.benefits || "none specified"}.
+        </p>
+        {data.expenseRate && (
+          <p>
+            <strong>2.4</strong> The Nanny shall be reimbursed for all reasonable expenses. Petrol
+            costs will be reimbursed at the rate of {data.expenseRate} pence per mile.
+          </p>
+        )}
+      </section>
+
+      {data.includeHolidayEntitlement && (
+        <section className="mb-8">
+          <h2 className="heading-display mb-3 text-base">3. Holiday</h2>
+          {data.holidayAllowance.trim() ? (
+            <p>{data.holidayAllowance}</p>
+          ) : enabledDays.length > 0 ? (
+            <p>
+              The Nanny is entitled to {holiday.totalWeeksEntitlement} weeks (
+              {holiday.totalDaysEntitlement} days / {holiday.totalHoursEntitlement} hours) paid
+              holiday per annum, pro-rated based on their working pattern of{" "}
+              {holiday.weeklyHours.toFixed(1)} hours per week over {holiday.weeksWorkedPerYear} weeks
+              per year{isTermTime(data.contractType) ? " (term time only)" : ""}.
+              {isTermTime(data.contractType)
+                ? " Holiday shall normally be taken during school holidays."
+                : ""}
+            </p>
+          ) : (
+            <p className="text-muted-foreground">
+              Holiday details to be agreed based on working pattern.
+            </p>
+          )}
+          {data.rolledUpHolidayPay && (
+            <p className="mt-3">
+              Holiday pay will be “rolled up” and paid together with the Nanny’s salary for each
+              pay period, calculated at 12.07% of the pay for the hours worked in that period and
+              shown separately on each payslip. The Nanny’s holiday should be taken during school
+              holidays or other non-working periods; no separate payment is made when holiday is
+              taken, as holiday pay has already been paid throughout the year.
+            </p>
+          )}
+        </section>
+      )}
+
+      {data.sicknessPolicy && (
+        <section className="mb-8">
+          <h2 className="heading-display mb-3 text-base">4. Sickness</h2>
+          <p>{data.sicknessPolicy}</p>
+        </section>
+      )}
+
+      {data.pension && (
+        <section className="mb-8">
+          <h2 className="heading-display mb-3 text-base">5. Pension</h2>
+          <p>{data.pension}</p>
+        </section>
+      )}
+
+      <section className="mb-8">
+        <h2 className="heading-display mb-3 text-base">6. Confidentiality</h2>
+        <p>
+          The Nanny shall not during their employment with the Employer, or at any time thereafter,
+          divulge or disclose any information which is confidential to the Employer.
+          Confidentiality extends to disclosing any information on social media.
+        </p>
+      </section>
+
+      {data.dataProtection && (
+        <section className="mb-8">
+          <h2 className="heading-display mb-3 text-base">7. Data protection</h2>
+          <p>{data.dataProtection}</p>
+        </section>
+      )}
+
+      {(data.grievanceProcedure || data.disciplinaryProcedure) && (
+        <section className="mb-8 space-y-3">
+          <h2 className="heading-display text-base">8. Grievance and disciplinary procedures</h2>
+          {data.grievanceProcedure && (
+            <p>
+              <strong>8.1 Grievance.</strong> {data.grievanceProcedure}
+            </p>
+          )}
+          {data.disciplinaryProcedure && (
+            <p>
+              <strong>8.2 Disciplinary.</strong> {data.disciplinaryProcedure}
+            </p>
+          )}
+        </section>
+      )}
+
+      {(data.dbsChecked || data.references) && (
+        <section className="mb-8 space-y-2">
+          <h2 className="heading-display text-base">9. Checks and references</h2>
+          {data.dbsChecked && <p>{data.dbsChecked}</p>}
+          {data.references && <p>{data.references}</p>}
+        </section>
+      )}
+
+      <section className="mb-4 space-y-2">
+        <h2 className="heading-display text-base">10. Termination</h2>
+        <p>If either party wishes to terminate this contract, the notice to be given shall be:</p>
+        <ul className="ml-4 space-y-1">
+          <li>(a) During probationary period: {data.probationNotice || "1 week"}</li>
+          <li>(b) Thereafter: {data.standardNotice || "4 weeks"} in writing</li>
+        </ul>
+        {data.gardenLeave && <p>{data.gardenLeave}</p>}
+      </section>
+    </article>
+  );
+}

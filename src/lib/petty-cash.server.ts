@@ -1,1 +1,56 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgcGV0dHlDYXNoQmFsYW5jZSwgdHlwZSBQZXR0eUNhc2hEYXRhLCB0eXBlIFBldHR5Q2FzaElucHV0LCB0eXBlIFBldHR5Q2FzaFJvdyB9IGZyb20gIi4vcGV0dHktY2FzaC50eXBlcyI7CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gbG9hZFBldHR5Q2FzaChzbHVnOiBzdHJpbmcpOiBQcm9taXNlPFBldHR5Q2FzaERhdGEgfCBudWxsPiB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgcmV0dXJuIG51bGw7CiAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgicGV0dHlfY2FzaF9lbnRyaWVzIikKICAgIC5zZWxlY3QoImlkLCBraW5kLCBlbnRyeV9kYXRlLCBhbW91bnQsIGRlc2NyaXB0aW9uLCBhZGRlZF9ieSwgYWRkZWRfYnlfbmFtZSIpCiAgICAuZXEoImZhbWlseV9pZCIsIGZhbWlseS5pZCkKICAgIC5vcmRlcigiZW50cnlfZGF0ZSIsIHsgYXNjZW5kaW5nOiBmYWxzZSB9KQogICAgLm9yZGVyKCJjcmVhdGVkX2F0IiwgeyBhc2NlbmRpbmc6IGZhbHNlIH0pCiAgICAubGltaXQoNTAwKTsKICBjb25zdCBlbnRyaWVzOiBQZXR0eUNhc2hSb3dbXSA9IChkYXRhID8/IFtdKS5tYXAoKHIpID0+ICh7CiAgICBpZDogci5pZCwKICAgIGtpbmQ6IHIua2luZCBhcyBQZXR0eUNhc2hSb3dbImtpbmQiXSwKICAgIGVudHJ5RGF0ZTogci5lbnRyeV9kYXRlLAogICAgYW1vdW50OiBOdW1iZXIoci5hbW91bnQpLAogICAgZGVzY3JpcHRpb246IHIuZGVzY3JpcHRpb24sCiAgICBhZGRlZEJ5OiByLmFkZGVkX2J5LAogICAgYWRkZWRCeU5hbWU6IHIuYWRkZWRfYnlfbmFtZSwKICB9KSk7CiAgcmV0dXJuIHsgYWNjZXNzOiBmYW1pbHkuYWNjZXNzLCBiYWxhbmNlOiBwZXR0eUNhc2hCYWxhbmNlKGVudHJpZXMpLCBlbnRyaWVzIH07Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBhZGRQZXR0eUNhc2goc2x1Zzogc3RyaW5nLCBpbnB1dDogUGV0dHlDYXNoSW5wdXQpIHsKICBjb25zdCBmYW1pbHkgPSBhd2FpdCByZXF1aXJlU2hhcmVkRmFtaWx5KHNsdWcpOwogIGlmICghZmFtaWx5KSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSBzaWduIGluIGFnYWluLiIpOwogIC8vIE9ubHkgdGhlIGZhbWlseSBhZGRzIG1vbmV5IHRvIHRoZSBmbG9hdDsgdGhlIG5hbm55IGxvZ3Mgc3BlbmRpbmcuCiAgY29uc3Qga2luZCA9IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gaW5wdXQua2luZCA6ICJzcGVuZCI7CiAgY29uc3QgYW1vdW50ID0gTWF0aC5yb3VuZChOdW1iZXIoaW5wdXQuYW1vdW50KSAqIDEwMCkgLyAxMDA7CiAgaWYgKCEoYW1vdW50ID4gMCkgfHwgYW1vdW50ID4gMTAwMDApIHRocm93IG5ldyBFcnJvcigiRW50ZXIgYW4gYW1vdW50IGFib3ZlIHplcm8uIik7CiAgY29uc3QgZGVzY3JpcHRpb24gPSAoaW5wdXQuZGVzY3JpcHRpb24gPz8gIiIpLnRyaW0oKS5zbGljZSgwLCAyMDApOwogIGlmICghZGVzY3JpcHRpb24pIHRocm93IG5ldyBFcnJvcigiQWRkIGEgc2hvcnQgZGVzY3JpcHRpb24uIik7CiAgaWYgKCEvXlxkezR9LVxkezJ9LVxkezJ9JC8udGVzdChpbnB1dC5lbnRyeURhdGUpKSB0aHJvdyBuZXcgRXJyb3IoIkNob29zZSBhIGRhdGUuIik7CiAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJwZXR0eV9jYXNoX2VudHJpZXMiKS5pbnNlcnQoewogICAgZmFtaWx5X2lkOiBmYW1pbHkuaWQsCiAgICBraW5kLAogICAgZW50cnlfZGF0ZTogaW5wdXQuZW50cnlEYXRlLAogICAgYW1vdW50LAogICAgZGVzY3JpcHRpb24sCiAgICBhZGRlZF9ieTogZmFtaWx5LmFjY2VzcywKICAgIGFkZGVkX2J5X25hbWU6IGZhbWlseS5hY2Nlc3MgPT09ICJmYW1pbHkiID8gIlBhcmVudCIgOiBmYW1pbHkubmFubnlfbmFtZSA/PyAiTmFubnkiLAogIH0pOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKCJDb3VsZG4ndCBzYXZlIHRoYXQgZW50cnkuIik7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBkZWxldGVQZXR0eUNhc2goc2x1Zzogc3RyaW5nLCBpZDogc3RyaW5nKSB7CiAgY29uc3QgZmFtaWx5ID0gYXdhaXQgcmVxdWlyZVNoYXJlZEZhbWlseShzbHVnKTsKICBpZiAoIWZhbWlseSkgdGhyb3cgbmV3IEVycm9yKCJQbGVhc2Ugc2lnbiBpbiBhZ2Fpbi4iKTsKICBsZXQgcSA9IHN1cGFiYXNlQWRtaW4uZnJvbSgicGV0dHlfY2FzaF9lbnRyaWVzIikuZGVsZXRlKCkuZXEoImlkIiwgaWQpLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpOwogIGlmIChmYW1pbHkuYWNjZXNzID09PSAibmFubnkiKSBxID0gcS5lcSgiYWRkZWRfYnkiLCAibmFubnkiKTsKICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBxOwogIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKCJDb3VsZG4ndCByZW1vdmUgdGhhdCBlbnRyeS4iKTsKfQo=
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { pettyCashBalance, type PettyCashData, type PettyCashInput, type PettyCashRow } from "./petty-cash.types";
+
+export async function loadPettyCash(slug: string): Promise<PettyCashData | null> {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const { data } = await supabaseAdmin
+    .from("petty_cash_entries")
+    .select("id, kind, entry_date, amount, description, added_by, added_by_name")
+    .eq("family_id", family.id)
+    .order("entry_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(500);
+  const entries: PettyCashRow[] = (data ?? []).map((r) => ({
+    id: r.id,
+    kind: r.kind as PettyCashRow["kind"],
+    entryDate: r.entry_date,
+    amount: Number(r.amount),
+    description: r.description,
+    addedBy: r.added_by,
+    addedByName: r.added_by_name,
+  }));
+  return { access: family.access, balance: pettyCashBalance(entries), entries };
+}
+
+export async function addPettyCash(slug: string, input: PettyCashInput) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  // Only the family adds money to the float; the nanny logs spending.
+  const kind = family.access === "family" ? input.kind : "spend";
+  const amount = Math.round(Number(input.amount) * 100) / 100;
+  if (!(amount > 0) || amount > 10000) throw new Error("Enter an amount above zero.");
+  const description = (input.description ?? "").trim().slice(0, 200);
+  if (!description) throw new Error("Add a short description.");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(input.entryDate)) throw new Error("Choose a date.");
+  const { error } = await supabaseAdmin.from("petty_cash_entries").insert({
+    family_id: family.id,
+    kind,
+    entry_date: input.entryDate,
+    amount,
+    description,
+    added_by: family.access,
+    added_by_name: family.access === "family" ? "Parent" : family.nanny_name ?? "Nanny",
+  });
+  if (error) throw new Error("Couldn't save that entry.");
+}
+
+export async function deletePettyCash(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  let q = supabaseAdmin.from("petty_cash_entries").delete().eq("id", id).eq("family_id", family.id);
+  if (family.access === "nanny") q = q.eq("added_by", "nanny");
+  const { error } = await q;
+  if (error) throw new Error("Couldn't remove that entry.");
+}

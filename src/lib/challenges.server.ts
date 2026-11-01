@@ -1,1 +1,79 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwppbXBvcnQgeyByZXF1aXJlU2hhcmVkRmFtaWx5IH0gZnJvbSAiLi9mYW1pbHkuc2VydmVyIjsKaW1wb3J0IHsgd2FsbGV0Q29udGVudEFnZW5jeSB9IGZyb20gIi4vc3RhZmYuc2NvcGUiOwoKZXhwb3J0IHR5cGUgV2FsbGV0Q2hhbGxlbmdlID0gewogIGlkOiBzdHJpbmc7CiAgdGl0bGU6IHN0cmluZzsKICBkZXNjcmlwdGlvbjogc3RyaW5nIHwgbnVsbDsKICBkdWVEYXRlOiBzdHJpbmcgfCBudWxsOwogIGNvbXBsZXRlZEF0OiBzdHJpbmcgfCBudWxsOwogIGNvbXBsZXRlZEJ5OiBzdHJpbmcgfCBudWxsOwogIG5vdGU6IHN0cmluZyB8IG51bGw7Cn07Cgphc3luYyBmdW5jdGlvbiB2aXNpYmxlQ2hhbGxlbmdlcyhmYW1pbHlJZDogc3RyaW5nKSB7CiAgY29uc3QgYWdlbmN5ID0gYXdhaXQgd2FsbGV0Q29udGVudEFnZW5jeShmYW1pbHlJZCwgImNoYWxsZW5nZXMiKTsKICBpZiAoYWdlbmN5ID09PSBmYWxzZSkgcmV0dXJuIFtdOwogIGNvbnN0IGJhc2UgPSBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgiYWdlbmN5X2NoYWxsZW5nZXMiKQogICAgLnNlbGVjdCgiaWQsIHRpdGxlLCBkZXNjcmlwdGlvbiwgZHVlX2RhdGUsIGF1ZGllbmNlLCBjcmVhdGVkX2F0IikKICAgIC5lcSgiaXNfYWN0aXZlIiwgdHJ1ZSk7CiAgY29uc3QgeyBkYXRhOiBhbGwgfSA9IGF3YWl0IChhZ2VuY3kgPyBiYXNlLmVxKCJhZ2VuY3lfaWQiLCBhZ2VuY3kpIDogYmFzZS5pcygiYWdlbmN5X2lkIiwgbnVsbCkpCiAgICAub3JkZXIoImNyZWF0ZWRfYXQiLCB7IGFzY2VuZGluZzogZmFsc2UgfSkKICAgIC5saW1pdCgyMCk7CiAgY29uc3QgbGlzdCA9IGFsbCA/PyBbXTsKICBjb25zdCBzZWxlY3RlZElkcyA9IGxpc3QuZmlsdGVyKChjKSA9PiBjLmF1ZGllbmNlID09PSAic2VsZWN0ZWQiKS5tYXAoKGMpID0+IGMuaWQpOwogIGxldCBtaW5lID0gbmV3IFNldDxzdHJpbmc+KCk7CiAgaWYgKHNlbGVjdGVkSWRzLmxlbmd0aCkgewogICAgY29uc3QgeyBkYXRhIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAgIC5mcm9tKCJjaGFsbGVuZ2VfcmVjaXBpZW50cyIpCiAgICAgIC5zZWxlY3QoImNoYWxsZW5nZV9pZCIpCiAgICAgIC5lcSgiZmFtaWx5X2lkIiwgZmFtaWx5SWQpCiAgICAgIC5pbigiY2hhbGxlbmdlX2lkIiwgc2VsZWN0ZWRJZHMpOwogICAgbWluZSA9IG5ldyBTZXQoKGRhdGEgPz8gW10pLm1hcCgocikgPT4gci5jaGFsbGVuZ2VfaWQpKTsKICB9CiAgcmV0dXJuIGxpc3QuZmlsdGVyKChjKSA9PiBjLmF1ZGllbmNlID09PSAiYWxsIiB8fCBtaW5lLmhhcyhjLmlkKSk7Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBsb2FkV2FsbGV0Q2hhbGxlbmdlcyhzbHVnOiBzdHJpbmcpOiBQcm9taXNlPFdhbGxldENoYWxsZW5nZVtdIHwgbnVsbD4gewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHJldHVybiBudWxsOwogIGNvbnN0IGxpc3QgPSBhd2FpdCB2aXNpYmxlQ2hhbGxlbmdlcyhmYW1pbHkuaWQpOwogIGlmICghbGlzdC5sZW5ndGgpIHJldHVybiBbXTsKICBjb25zdCB7IGRhdGE6IGNvbXBzIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluCiAgICAuZnJvbSgiY2hhbGxlbmdlX2NvbXBsZXRpb25zIikKICAgIC5zZWxlY3QoImNoYWxsZW5nZV9pZCwgY29tcGxldGVkX2F0LCBjb21wbGV0ZWRfYnksIG5vdGUiKQogICAgLmVxKCJmYW1pbHlfaWQiLCBmYW1pbHkuaWQpCiAgICAuaW4oImNoYWxsZW5nZV9pZCIsIGxpc3QubWFwKChjKSA9PiBjLmlkKSk7CiAgcmV0dXJuIGxpc3QubWFwKChjKSA9PiB7CiAgICBjb25zdCBkb25lID0gKGNvbXBzID8/IFtdKS5maW5kKCh4KSA9PiB4LmNoYWxsZW5nZV9pZCA9PT0gYy5pZCk7CiAgICByZXR1cm4gewogICAgICBpZDogYy5pZCwKICAgICAgdGl0bGU6IGMudGl0bGUsCiAgICAgIGRlc2NyaXB0aW9uOiBjLmRlc2NyaXB0aW9uLAogICAgICBkdWVEYXRlOiBjLmR1ZV9kYXRlLAogICAgICBjb21wbGV0ZWRBdDogZG9uZT8uY29tcGxldGVkX2F0ID8/IG51bGwsCiAgICAgIGNvbXBsZXRlZEJ5OiBkb25lPy5jb21wbGV0ZWRfYnkgPz8gbnVsbCwKICAgICAgbm90ZTogZG9uZT8ubm90ZSA/PyBudWxsLAogICAgfTsKICB9KTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIG1hcmtDaGFsbGVuZ2VEb25lKHNsdWc6IHN0cmluZywgY2hhbGxlbmdlSWQ6IHN0cmluZywgbm90ZT86IHN0cmluZykgewogIGNvbnN0IGZhbWlseSA9IGF3YWl0IHJlcXVpcmVTaGFyZWRGYW1pbHkoc2x1Zyk7CiAgaWYgKCFmYW1pbHkpIHRocm93IG5ldyBFcnJvcigiV2FsbGV0IGlzIGxvY2tlZCIpOwogIGNvbnN0IGxpc3QgPSBhd2FpdCB2aXNpYmxlQ2hhbGxlbmdlcyhmYW1pbHkuaWQpOwogIGlmICghbGlzdC5zb21lKChjKSA9PiBjLmlkID09PSBjaGFsbGVuZ2VJZCkpIHRocm93IG5ldyBFcnJvcigiQ2hhbGxlbmdlIG5vdCBmb3VuZCIpOwogIGNvbnN0IHsgZXJyb3IgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uZnJvbSgiY2hhbGxlbmdlX2NvbXBsZXRpb25zIikudXBzZXJ0KAogICAgewogICAgICBjaGFsbGVuZ2VfaWQ6IGNoYWxsZW5nZUlkLAogICAgICBmYW1pbHlfaWQ6IGZhbWlseS5pZCwKICAgICAgbm90ZTogKG5vdGUgPz8gIiIpLnRyaW0oKS5zbGljZSgwLCAxMDAwKSB8fCBudWxsLAogICAgICBjb21wbGV0ZWRfYnk6IGZhbWlseS5hY2Nlc3MgPT09ICJuYW5ueSIgPyAibmFubnkiIDogImZhbWlseSIsCiAgICAgIGNvbXBsZXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpLAogICAgfSwKICAgIHsgb25Db25mbGljdDogImNoYWxsZW5nZV9pZCxmYW1pbHlfaWQiIH0sCiAgKTsKICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKfQo=
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSharedFamily } from "./family.server";
+import { walletContentAgency } from "./staff.scope";
+
+export type WalletChallenge = {
+  id: string;
+  title: string;
+  description: string | null;
+  dueDate: string | null;
+  completedAt: string | null;
+  completedBy: string | null;
+  note: string | null;
+};
+
+async function visibleChallenges(familyId: string) {
+  const agency = await walletContentAgency(familyId, "challenges");
+  if (agency === false) return [];
+  const base = supabaseAdmin
+    .from("agency_challenges")
+    .select("id, title, description, due_date, audience, created_at")
+    .eq("is_active", true);
+  const { data: all } = await (agency ? base.eq("agency_id", agency) : base.is("agency_id", null))
+    .order("created_at", { ascending: false })
+    .limit(20);
+  const list = all ?? [];
+  const selectedIds = list.filter((c) => c.audience === "selected").map((c) => c.id);
+  let mine = new Set<string>();
+  if (selectedIds.length) {
+    const { data } = await supabaseAdmin
+      .from("challenge_recipients")
+      .select("challenge_id")
+      .eq("family_id", familyId)
+      .in("challenge_id", selectedIds);
+    mine = new Set((data ?? []).map((r) => r.challenge_id));
+  }
+  return list.filter((c) => c.audience === "all" || mine.has(c.id));
+}
+
+export async function loadWalletChallenges(slug: string): Promise<WalletChallenge[] | null> {
+  const family = await requireSharedFamily(slug);
+  if (!family) return null;
+  const list = await visibleChallenges(family.id);
+  if (!list.length) return [];
+  const { data: comps } = await supabaseAdmin
+    .from("challenge_completions")
+    .select("challenge_id, completed_at, completed_by, note")
+    .eq("family_id", family.id)
+    .in("challenge_id", list.map((c) => c.id));
+  return list.map((c) => {
+    const done = (comps ?? []).find((x) => x.challenge_id === c.id);
+    return {
+      id: c.id,
+      title: c.title,
+      description: c.description,
+      dueDate: c.due_date,
+      completedAt: done?.completed_at ?? null,
+      completedBy: done?.completed_by ?? null,
+      note: done?.note ?? null,
+    };
+  });
+}
+
+export async function markChallengeDone(slug: string, challengeId: string, note?: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Wallet is locked");
+  const list = await visibleChallenges(family.id);
+  if (!list.some((c) => c.id === challengeId)) throw new Error("Challenge not found");
+  const { error } = await supabaseAdmin.from("challenge_completions").upsert(
+    {
+      challenge_id: challengeId,
+      family_id: family.id,
+      note: (note ?? "").trim().slice(0, 1000) || null,
+      completed_by: family.access === "nanny" ? "nanny" : "family",
+      completed_at: new Date().toISOString(),
+    },
+    { onConflict: "challenge_id,family_id" },
+  );
+  if (error) throw new Error(error.message);
+}

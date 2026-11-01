@@ -1,1 +1,30 @@
-ZXhwb3J0IHR5cGUgUHJvZmlsZUlucHV0ID0gewogIGhvbWVBZGRyZXNzPzogc3RyaW5nOwogIGltcG9ydGFudEFkZHJlc3Nlcz86IHN0cmluZzsKICBob3VzZVJ1bGVzPzogc3RyaW5nOwogIHNjcmVlblRpbWVSdWxlcz86IHN0cmluZzsKICBob21ld29ya0V4cGVjdGF0aW9ucz86IHN0cmluZzsKICBncERldGFpbHM/OiBzdHJpbmc7CiAgbWVkaWNhbE5vdGVzPzogc3RyaW5nOwogIGVtZXJnZW5jeUluc3RydWN0aW9ucz86IHN0cmluZzsKfTsKCmV4cG9ydCB0eXBlIENoaWxkSW5wdXQgPSB7CiAgaWQ/OiBzdHJpbmc7CiAgbmFtZTogc3RyaW5nOwogIGRhdGVPZkJpcnRoPzogc3RyaW5nOwogIHNjaG9vbD86IHN0cmluZzsKICB5ZWFyR3JvdXA/OiBzdHJpbmc7CiAgc2Nob29sSG91cnM/OiBzdHJpbmc7CiAgYWxsZXJnaWVzPzogc3RyaW5nOwogIGRpZXRhcnk/OiBzdHJpbmc7CiAgbWVkaWNhdGlvbj86IHN0cmluZzsKICBwZXJzb25hbGl0eT86IHN0cmluZzsKICBpbnRlcmVzdHM/OiBzdHJpbmc7CiAgZGlzbGlrZXM/OiBzdHJpbmc7CiAgbW9ybmluZ1JvdXRpbmU/OiBzdHJpbmc7CiAgYmVkdGltZVJvdXRpbmU/OiBzdHJpbmc7CiAgd2hhdE1ha2VzVGhlbVRpY2s/OiBzdHJpbmc7Cn07CgpleHBvcnQgY29uc3QgTU9PRFMgPSBbIvCfmIogR3JlYXQiLCAi8J+ZgiBHb29kIiwgIvCfmJAgT2siLCAi8J+YlSBUcmlja3kiLCAi8J+YtCBUaXJlZCJdIGFzIGNvbnN0Owo=
+export type ProfileInput = {
+  homeAddress?: string;
+  importantAddresses?: string;
+  houseRules?: string;
+  screenTimeRules?: string;
+  homeworkExpectations?: string;
+  gpDetails?: string;
+  medicalNotes?: string;
+  emergencyInstructions?: string;
+};
+
+export type ChildInput = {
+  id?: string;
+  name: string;
+  dateOfBirth?: string;
+  school?: string;
+  yearGroup?: string;
+  schoolHours?: string;
+  allergies?: string;
+  dietary?: string;
+  medication?: string;
+  personality?: string;
+  interests?: string;
+  dislikes?: string;
+  morningRoutine?: string;
+  bedtimeRoutine?: string;
+  whatMakesThemTick?: string;
+};
+
+export const MOODS = ["😊 Great", "🙂 Good", "😐 Ok", "😕 Tricky", "😴 Tired"] as const;

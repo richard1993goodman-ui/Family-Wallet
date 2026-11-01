@@ -1,1 +1,176 @@
-aW1wb3J0IHsgY3JlYXRlRmlsZVJvdXRlIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IHF1ZXJ5T3B0aW9ucywgdXNlU3VzcGVuc2VRdWVyeSwgdXNlUXVlcnlDbGllbnQgfSBmcm9tICJAdGFuc3RhY2svcmVhY3QtcXVlcnkiOwppbXBvcnQgeyB1c2VTZXJ2ZXJGbiB9IGZyb20gIkB0YW5zdGFjay9yZWFjdC1zdGFydCI7CmltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAicmVhY3QiOwppbXBvcnQgeyBMaW5rIH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXJvdXRlciI7CmltcG9ydCB7IENhbWVyYSwgQ2hlY2tDaXJjbGUyLCBDaGV2cm9uUmlnaHQsIFNwYXJrbGVzIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKaW1wb3J0IHsgdG9hc3QgfSBmcm9tICJzb25uZXIiOwoKaW1wb3J0IHsgQ2FyZCwgSHViUGFnZSwgTG9ja2VkTm90aWNlIH0gZnJvbSAiQC9jb21wb25lbnRzL2h1Yi11aSI7CmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iOwppbXBvcnQgeyBGaXJzdDQ4Q2hlY2tsaXN0IH0gZnJvbSAiQC9jb21wb25lbnRzL0ZpcnN0NDhDaGVja2xpc3QiOwppbXBvcnQgeyBmaW5pc2hXZWxjb21lRm4sIGdldFdlbGNvbWUsIGdldEZpcnN0NDgsIHNldFdlbGNvbWVTdGVwRm4gfSBmcm9tICJAL2xpYi93ZWxjb21lLmZ1bmN0aW9ucyI7Cgpjb25zdCB3ZWxjb21lT3B0aW9ucyA9IChzbHVnOiBzdHJpbmcpID0+IHF1ZXJ5T3B0aW9ucyh7IHF1ZXJ5S2V5OiBbIndlbGNvbWUiLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gZ2V0V2VsY29tZSh7IGRhdGE6IHsgc2x1ZyB9IH0pIH0pOwpjb25zdCBmaXJzdDQ4T3B0aW9ucyA9IChzbHVnOiBzdHJpbmcpID0+IHF1ZXJ5T3B0aW9ucyh7IHF1ZXJ5S2V5OiBbImZpcnN0NDgiLCBzbHVnXSwgcXVlcnlGbjogKCkgPT4gZ2V0Rmlyc3Q0OCh7IGRhdGE6IHsgc2x1ZyB9IH0pIH0pOwoKZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlRmlsZVJvdXRlKCIvd2VsY29tZS8kc2x1ZyIpKHsKICBsb2FkZXI6IGFzeW5jICh7IGNvbnRleHQsIHBhcmFtcyB9KSA9PiB7IGF3YWl0IFByb21pc2UuYWxsKFtjb250ZXh0LnF1ZXJ5Q2xpZW50LmVuc3VyZVF1ZXJ5RGF0YSh3ZWxjb21lT3B0aW9ucyhwYXJhbXMuc2x1ZykpLCBjb250ZXh0LnF1ZXJ5Q2xpZW50LmVuc3VyZVF1ZXJ5RGF0YShmaXJzdDQ4T3B0aW9ucyhwYXJhbXMuc2x1ZykpXSk7IH0sCiAgaGVhZDogKCkgPT4gKHsKICAgIG1ldGE6IFsKICAgICAgeyB0aXRsZTogIkZpcnN0IDQ4IGhvdXJzIOKAlCBUaGUgRmFtaWx5IFdhbGxldCIgfSwKICAgICAgewogICAgICAgIG5hbWU6ICJkZXNjcmlwdGlvbiIsCiAgICAgICAgY29udGVudDogIkEgc2hhcmVkIHBhcmVudCBhbmQgbmFubnkgY2hlY2tsaXN0IGZvciBhIGNvbmZpZGVudCBmaXJzdCB0d28gZGF5cywgd2l0aCBjb25maXJtYXRpb25zLCByb3V0aW5lcyBhbmQgc2V0dGxpbmctaW4gbm90ZXMuIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnRpdGxlIiwgY29udGVudDogIkZpcnN0IDQ4IGhvdXJzIOKAlCBGYW1pbHkgV2FsbGV0IiB9LAogICAgICB7CiAgICAgICAgcHJvcGVydHk6ICJvZzpkZXNjcmlwdGlvbiIsCiAgICAgICAgY29udGVudDogIkFncmVlIHRoZSBlc3NlbnRpYWxzIHRvZ2V0aGVyLCBmcm9tIHNjaG9vbCBjb2xsZWN0aW9uIGFuZCBzYWZldHkgdG8geW91ciBmaXJzdCBoYW5kb3Zlci4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dHlwZSIsIGNvbnRlbnQ6ICJ3ZWJzaXRlIiB9LAogICAgICB7IG5hbWU6ICJ0d2l0dGVyOmNhcmQiLCBjb250ZW50OiAic3VtbWFyeSIgfSwKICAgICAgeyBuYW1lOiAicm9ib3RzIiwgY29udGVudDogIm5vaW5kZXgiIH0sCiAgICBdLAogIH0pLAogIGNvbXBvbmVudDogV2VsY29tZVBhZ2UsCn0pOwoKZnVuY3Rpb24gV2VsY29tZVBhZ2UoKSB7CiAgY29uc3QgeyBzbHVnIH0gPSBSb3V0ZS51c2VQYXJhbXMoKTsKICBjb25zdCBjbGllbnQgPSB1c2VRdWVyeUNsaWVudCgpOwogIGNvbnN0IHN0ZXBGbiA9IHVzZVNlcnZlckZuKHNldFdlbGNvbWVTdGVwRm4pOwogIGNvbnN0IGZpbmlzaEZuID0gdXNlU2VydmVyRm4oZmluaXNoV2VsY29tZUZuKTsKICBjb25zdCBbYnVzeSwgc2V0QnVzeV0gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGNvbnN0IHF1ZXJ5ID0gdXNlU3VzcGVuc2VRdWVyeSh3ZWxjb21lT3B0aW9ucyhzbHVnKSk7CiAgY29uc3QgZmlyc3Q0OCA9IHVzZVN1c3BlbnNlUXVlcnkoZmlyc3Q0OE9wdGlvbnMoc2x1ZykpOwogIGlmICghcXVlcnkuZGF0YSB8fCAhZmlyc3Q0OC5kYXRhKSByZXR1cm4gPExvY2tlZE5vdGljZSBzbHVnPXtzbHVnfSAvPjsKCiAgY29uc3QgZGF0YSA9IHF1ZXJ5LmRhdGE7CiAgY29uc3QgaXNGYW1pbHkgPSBkYXRhLmFjY2VzcyA9PT0gImZhbWlseSI7CiAgY29uc3QgcmVmcmVzaCA9ICgpID0+IGNsaWVudC5pbnZhbGlkYXRlUXVlcmllcyh7IHF1ZXJ5S2V5OiBbIndlbGNvbWUiLCBzbHVnXSB9KTsKCiAgY29uc3QgdG9nZ2xlU3RlcCA9IGFzeW5jIChzdGVwSWQ6ICh0eXBlb2YgZGF0YS5zdGVwcylbbnVtYmVyXVsiaWQiXSwgZG9uZTogYm9vbGVhbikgPT4gewogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IHN0ZXBGbih7IGRhdGE6IHsgc2x1Zywgc3RlcElkLCBkb25lIH0gfSk7CiAgICAgIGF3YWl0IHJlZnJlc2goKTsKICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgIHRvYXN0LmVycm9yKGVycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvci5tZXNzYWdlIDogIlRoYXQgY291bGQgbm90IGJlIHNhdmVkLiIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0QnVzeShmYWxzZSk7CiAgICB9CiAgfTsKCiAgY29uc3QgZmluaXNoID0gYXN5bmMgKCkgPT4gewogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IGZpbmlzaEZuKHsgZGF0YTogeyBzbHVnIH0gfSk7CiAgICAgIGF3YWl0IHJlZnJlc2goKTsKICAgICAgdG9hc3Quc3VjY2VzcygiU2V0dXAgZmluaXNoZWQg4oCUIGVuam95IHlvdXIgd2FsbGV0ISIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0QnVzeShmYWxzZSk7CiAgICB9CiAgfTsKCiAgY29uc3QgcGN0ID0gTWF0aC5yb3VuZCgoZGF0YS5kb25lQ291bnQgLyBkYXRhLnRvdGFsKSAqIDEwMCk7CgogIHJldHVybiAoCiAgICA8SHViUGFnZQogICAgICBzbHVnPXtzbHVnfQogICAgICB0aXRsZT0iRmlyc3QgNDggaG91cnMiCiAgICAgIGludHJvPSJBIGNvbmZpZGVudCBzdGFydCBmb3IgeW91ciBmYW1pbHkgYW5kIG5hbm55LiBDbGVhciByb3V0aW5lcywgc2hhcmVkIGV4cGVjdGF0aW9ucyBhbmQgYSBsaXR0bGUgdGltZSB0byB0YWxrLiIKICAgID4KICAgICAgPEZpcnN0NDhDaGVja2xpc3Qgc2x1Zz17c2x1Z30gZGF0YT17Zmlyc3Q0OC5kYXRhfSAvPgogICAgICA8ZGV0YWlscyBjbGFzc05hbWU9Im10LTggYm9yZGVyLXQgYm9yZGVyLWJvcmRlciBwdC01Ij4KICAgICAgPHN1bW1hcnkgY2xhc3NOYW1lPSJjdXJzb3ItcG9pbnRlciBmb250LXNlbWlib2xkIHRleHQtZm9yZWdyb3VuZCI+RmFtaWx5IFdhbGxldCBzZXR1cCDCtyB7ZGF0YS5kb25lQ291bnR9IG9mIHtkYXRhLnRvdGFsfSBkb25lPC9zdW1tYXJ5PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCI+CiAgICAgIDxDYXJkPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTQiPgogICAgICAgICAgPGRpdj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJoZWFkaW5nLWRpc3BsYXkgdGV4dC0yeGwgdGV4dC1wcmltYXJ5Ij4KICAgICAgICAgICAgICB7ZGF0YS5jb21wbGV0ZWQgPyAiWW91J3JlIGFsbCBzZXQiIDogYCR7ZGF0YS5kb25lQ291bnR9IG9mICR7ZGF0YS50b3RhbH0gZG9uZWB9CiAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4KICAgICAgICAgICAgICB7ZGF0YS5jb21wbGV0ZWQKICAgICAgICAgICAgICAgID8gIllvdXIgd2FsbGV0IGlzIGZ1bGx5IHNldCB1cCDigJQgZXZlcnl0aGluZyBiZWxvdyBzdGF5cyBoZXJlIHdoZW5ldmVyIHlvdSBuZWVkIGl0LiIKICAgICAgICAgICAgICAgIDogIktlZXAgZ29pbmcg4oCUIGVhY2ggdGljayBtYWtlcyB0aGUgd2FsbGV0IG1vcmUgdXNlZnVsIGZvciBldmVyeW9uZS4ifQogICAgICAgICAgICA8L3A+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxTcGFya2xlcyBjbGFzc05hbWU9ImgtOCB3LTggZmxleC1zaHJpbmstMCB0ZXh0LXByaW1hcnkiIC8+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTQgaC0yLjUgb3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQtZnVsbCBiZy1tdXRlZCI+CiAgICAgICAgICA8ZGl2CiAgICAgICAgICAgIGNsYXNzTmFtZT0iaC1mdWxsIHJvdW5kZWQtZnVsbCBiZy1wcmltYXJ5IHRyYW5zaXRpb24tYWxsIgogICAgICAgICAgICBzdHlsZT17eyB3aWR0aDogYCR7cGN0fSVgIH19CiAgICAgICAgICAvPgogICAgICAgIDwvZGl2PgogICAgICA8L0NhcmQ+CgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCBzcGFjZS15LTMiPgogICAgICAgIHtkYXRhLnN0ZXBzLm1hcCgoc3RlcCwgaW5kZXgpID0+ICgKICAgICAgICAgIDxDYXJkIGtleT17c3RlcC5pZH0+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC00Ij4KICAgICAgICAgICAgICA8ZGl2CiAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2BtdC0wLjUgZmxleCBoLTggdy04IGZsZXgtc2hyaW5rLTAgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtZnVsbCBib3JkZXIgdGV4dC1zbSBmb250LXNlbWlib2xkICR7CiAgICAgICAgICAgICAgICAgIHN0ZXAuZG9uZQogICAgICAgICAgICAgICAgICAgID8gImJvcmRlci1wcmltYXJ5IGJnLXByaW1hcnkgdGV4dC1wcmltYXJ5LWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICAgICAgOiAiYm9yZGVyLWJvcmRlciB0ZXh0LW11dGVkLWZvcmVncm91bmQiCiAgICAgICAgICAgICAgICB9YH0KICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICB7c3RlcC5kb25lID8gPENoZWNrQ2lyY2xlMiBjbGFzc05hbWU9ImgtNCB3LTQiIC8+IDogaW5kZXggKyAxfQogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtaW4tdy0wIGZsZXgtMSI+CiAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e3N0ZXAubGFiZWx9PC9wPgogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj57c3RlcC5kZXNjcmlwdGlvbn08L3A+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBmbGV4IGZsZXgtd3JhcCBpdGVtcy1jZW50ZXIgZ2FwLTIiPgogICAgICAgICAgICAgICAgICA8TGluawogICAgICAgICAgICAgICAgICAgIHRvPXtzdGVwLmhyZWZ9CiAgICAgICAgICAgICAgICAgICAgcGFyYW1zPXt7IHNsdWcgfX0KICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2BpbmxpbmUtZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSByb3VuZGVkLW1kIHB4LTMgcHktMS41IHRleHQtc20gZm9udC1tZWRpdW0gJHsKICAgICAgICAgICAgICAgICAgICAgIHN0ZXAuZG9uZQogICAgICAgICAgICAgICAgICAgICAgICA/ICJib3JkZXIgYm9yZGVyLWJvcmRlciB0ZXh0LWZvcmVncm91bmQgaG92ZXI6YmctbXV0ZWQiCiAgICAgICAgICAgICAgICAgICAgICAgIDogImJnLXByaW1hcnkgdGV4dC1wcmltYXJ5LWZvcmVncm91bmQgaG92ZXI6YmctcHJpbWFyeS85MCIKICAgICAgICAgICAgICAgICAgICB9YH0KICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgIHtzdGVwLmRvbmUgPyAiUmV2aXNpdCIgOiAiRG8gdGhpcyBub3cifQogICAgICAgICAgICAgICAgICAgIDxDaGV2cm9uUmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogICAgICAgICAgICAgICAgICA8L0xpbms+CiAgICAgICAgICAgICAgICAgIHtpc0ZhbWlseSAmJiAoCiAgICAgICAgICAgICAgICAgICAgPEJ1dHRvbgogICAgICAgICAgICAgICAgICAgICAgc2l6ZT0ic20iCiAgICAgICAgICAgICAgICAgICAgICB2YXJpYW50PSJnaG9zdCIKICAgICAgICAgICAgICAgICAgICAgIGRpc2FibGVkPXtidXN5fQogICAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gdG9nZ2xlU3RlcChzdGVwLmlkLCAhc3RlcC5tYW51YWwpfQogICAgICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgICAgIHtzdGVwLm1hbnVhbCA/ICJVbi10aWNrIiA6ICJNYXJrIGFzIGRvbmUifQogICAgICAgICAgICAgICAgICAgIDwvQnV0dG9uPgogICAgICAgICAgICAgICAgICApfQogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9DYXJkPgogICAgICAgICkpfQogICAgICA8L2Rpdj4KCiAgICAgIHtpc0ZhbWlseSAmJiAoCiAgICAgICAgPENhcmQ+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LXdyYXAgaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlbiBnYXAtMyI+CiAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1lZGl1bSB0ZXh0LWZvcmVncm91bmQiPkFsbCBkb25lIGVhcmx5PzwvcD4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTEgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgICAgICAgVGlkeSB0aGUgam91cm5leSBhd2F5IG5vdyDigJQgeW91IGNhbiBhbHdheXMgY29tZSBiYWNrIGZyb20geW91ciB3YWxsZXQgaG9tZS4KICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Im91dGxpbmUiIGRpc2FibGVkPXtidXN5fSBvbkNsaWNrPXtmaW5pc2h9PgogICAgICAgICAgICAgIDxDYW1lcmEgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBGaW5pc2ggc2V0dXAKICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L0NhcmQ+CiAgICAgICl9CiAgICAgIDwvZGl2PgogICAgICA8L2RldGFpbHM+CiAgICA8L0h1YlBhZ2U+CiAgKTsKfQo=
+import { createFileRoute } from "@tanstack/react-router";
+import { queryOptions, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { Camera, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
+import { toast } from "sonner";
+
+import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
+import { First48Checklist } from "@/components/First48Checklist";
+import { finishWelcomeFn, getWelcome, getFirst48, setWelcomeStepFn } from "@/lib/welcome.functions";
+
+const welcomeOptions = (slug: string) => queryOptions({ queryKey: ["welcome", slug], queryFn: () => getWelcome({ data: { slug } }) });
+const first48Options = (slug: string) => queryOptions({ queryKey: ["first48", slug], queryFn: () => getFirst48({ data: { slug } }) });
+
+export const Route = createFileRoute("/welcome/$slug")({
+  loader: async ({ context, params }) => { await Promise.all([context.queryClient.ensureQueryData(welcomeOptions(params.slug)), context.queryClient.ensureQueryData(first48Options(params.slug))]); },
+  head: () => ({
+    meta: [
+      { title: "First 48 hours — The Family Wallet" },
+      {
+        name: "description",
+        content: "A shared parent and nanny checklist for a confident first two days, with confirmations, routines and settling-in notes.",
+      },
+      { property: "og:title", content: "First 48 hours — Family Wallet" },
+      {
+        property: "og:description",
+        content: "Agree the essentials together, from school collection and safety to your first handover.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: WelcomePage,
+});
+
+function WelcomePage() {
+  const { slug } = Route.useParams();
+  const client = useQueryClient();
+  const stepFn = useServerFn(setWelcomeStepFn);
+  const finishFn = useServerFn(finishWelcomeFn);
+  const [busy, setBusy] = useState(false);
+
+  const query = useSuspenseQuery(welcomeOptions(slug));
+  const first48 = useSuspenseQuery(first48Options(slug));
+  if (!query.data || !first48.data) return <LockedNotice slug={slug} />;
+
+  const data = query.data;
+  const isFamily = data.access === "family";
+  const refresh = () => client.invalidateQueries({ queryKey: ["welcome", slug] });
+
+  const toggleStep = async (stepId: (typeof data.steps)[number]["id"], done: boolean) => {
+    setBusy(true);
+    try {
+      await stepFn({ data: { slug, stepId, done } });
+      await refresh();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "That could not be saved.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const finish = async () => {
+    setBusy(true);
+    try {
+      await finishFn({ data: { slug } });
+      await refresh();
+      toast.success("Setup finished — enjoy your wallet!");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const pct = Math.round((data.doneCount / data.total) * 100);
+
+  return (
+    <HubPage
+      slug={slug}
+      title="First 48 hours"
+      intro="A confident start for your family and nanny. Clear routines, shared expectations and a little time to talk."
+    >
+      <First48Checklist slug={slug} data={first48.data} />
+      <details className="mt-8 border-t border-border pt-5">
+      <summary className="cursor-pointer font-semibold text-foreground">Family Wallet setup · {data.doneCount} of {data.total} done</summary>
+      <div className="mt-4">
+      <Card>
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="heading-display text-2xl text-primary">
+              {data.completed ? "You're all set" : `${data.doneCount} of ${data.total} done`}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {data.completed
+                ? "Your wallet is fully set up — everything below stays here whenever you need it."
+                : "Keep going — each tick makes the wallet more useful for everyone."}
+            </p>
+          </div>
+          <Sparkles className="h-8 w-8 flex-shrink-0 text-primary" />
+        </div>
+        <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-muted">
+          <div
+            className="h-full rounded-full bg-primary transition-all"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      </Card>
+
+      <div className="mt-4 space-y-3">
+        {data.steps.map((step, index) => (
+          <Card key={step.id}>
+            <div className="flex items-start gap-4">
+              <div
+                className={`mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border text-sm font-semibold ${
+                  step.done
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border text-muted-foreground"
+                }`}
+              >
+                {step.done ? <CheckCircle2 className="h-4 w-4" /> : index + 1}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="font-medium text-foreground">{step.label}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <Link
+                    to={step.href}
+                    params={{ slug }}
+                    className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium ${
+                      step.done
+                        ? "border border-border text-foreground hover:bg-muted"
+                        : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    }`}
+                  >
+                    {step.done ? "Revisit" : "Do this now"}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                  {isFamily && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      disabled={busy}
+                      onClick={() => toggleStep(step.id, !step.manual)}
+                    >
+                      {step.manual ? "Un-tick" : "Mark as done"}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      {isFamily && (
+        <Card>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="font-medium text-foreground">All done early?</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Tidy the journey away now — you can always come back from your wallet home.
+              </p>
+            </div>
+            <Button variant="outline" disabled={busy} onClick={finish}>
+              <Camera className="h-4 w-4" /> Finish setup
+            </Button>
+          </div>
+        </Card>
+      )}
+      </div>
+      </details>
+    </HubPage>
+  );
+}

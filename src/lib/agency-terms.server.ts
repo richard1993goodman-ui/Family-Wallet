@@ -1,1 +1,54 @@
-aW1wb3J0IHsgc3VwYWJhc2VBZG1pbiB9IGZyb20gIkAvaW50ZWdyYXRpb25zL3N1cGFiYXNlL2NsaWVudC5zZXJ2ZXIiOwoKZXhwb3J0IHR5cGUgQWdlbmN5VGVybXNGaWxlID0geyBmaWxlTmFtZTogc3RyaW5nOyB2ZXJzaW9uOiBudW1iZXI7IHVwbG9hZGVkQXQ6IHN0cmluZzsgdXJsOiBzdHJpbmcgfCBudWxsIH07Cgphc3luYyBmdW5jdGlvbiByb3coYWdlbmN5SWQ6IHN0cmluZyB8IG51bGwpIHsKICBsZXQgcSA9IHN1cGFiYXNlQWRtaW4uZnJvbSgiYWdlbmN5X3Rlcm1zIikuc2VsZWN0KCJzdG9yYWdlX3BhdGgsIGZpbGVfbmFtZSwgdmVyc2lvbiwgdXBsb2FkZWRfYXQiKTsKICBxID0gYWdlbmN5SWQgPyBxLmVxKCJhZ2VuY3lfaWQiLCBhZ2VuY3lJZCkgOiBxLmlzKCJhZ2VuY3lfaWQiLCBudWxsKTsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHEubWF5YmVTaW5nbGUoKTsKICByZXR1cm4gZGF0YSA/PyBudWxsOwp9CgovKiogVGhlIHRlcm1zIHVwbG9hZGVkIGJ5IHRoZSBhZ2VuY3kgdGhhdCBydW5zIHRoaXMgZmFtaWx5IChudWxsIGFnZW5jeSA9IG93bmVyKS4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHRlcm1zRm9yRmFtaWx5KGZhbWlseUlkOiBzdHJpbmcpOiBQcm9taXNlPEFnZW5jeVRlcm1zRmlsZSB8IG51bGw+IHsKICBjb25zdCB7IGRhdGE6IGZhbSB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJmYW1pbGllcyIpLnNlbGVjdCgicGFydG5lcl9hZ2VuY3lfaWQiKS5lcSgiaWQiLCBmYW1pbHlJZCkubWF5YmVTaW5nbGUoKTsKICBpZiAoIWZhbSkgcmV0dXJuIG51bGw7CiAgcmV0dXJuIHRlcm1zRm9yQWdlbmN5KGZhbS5wYXJ0bmVyX2FnZW5jeV9pZCA/PyBudWxsKTsKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHRlcm1zRm9yQWdlbmN5KGFnZW5jeUlkOiBzdHJpbmcgfCBudWxsKTogUHJvbWlzZTxBZ2VuY3lUZXJtc0ZpbGUgfCBudWxsPiB7CiAgY29uc3QgciA9IGF3YWl0IHJvdyhhZ2VuY3lJZCk7CiAgaWYgKCFyKSByZXR1cm4gbnVsbDsKICBjb25zdCB7IGRhdGEgfSA9IGF3YWl0IHN1cGFiYXNlQWRtaW4uc3RvcmFnZS5mcm9tKCJmYW1pbHktZG9jcyIpLmNyZWF0ZVNpZ25lZFVybChyLnN0b3JhZ2VfcGF0aCwgNjAwKTsKICByZXR1cm4geyBmaWxlTmFtZTogci5maWxlX25hbWUsIHZlcnNpb246IHIudmVyc2lvbiwgdXBsb2FkZWRBdDogci51cGxvYWRlZF9hdCwgdXJsOiBkYXRhPy5zaWduZWRVcmwgPz8gbnVsbCB9Owp9CgpleHBvcnQgYXN5bmMgZnVuY3Rpb24gc2F2ZUFnZW5jeVRlcm1zKGFnZW5jeUlkOiBzdHJpbmcgfCBudWxsLCBmaWxlTmFtZTogc3RyaW5nLCBjb250ZW50VHlwZTogc3RyaW5nLCBiYXNlNjQ6IHN0cmluZykgewogIGNvbnN0IGJ5dGVzID0gQnVmZmVyLmZyb20oYmFzZTY0LCAiYmFzZTY0Iik7CiAgaWYgKGJ5dGVzLmxlbmd0aCA+IDEwICogMTAyNCAqIDEwMjQpIHRocm93IG5ldyBFcnJvcigiRmlsZSBtdXN0IGJlIHVuZGVyIDEwTUIiKTsKICBpZiAoY29udGVudFR5cGUgIT09ICJhcHBsaWNhdGlvbi9wZGYiKSB0aHJvdyBuZXcgRXJyb3IoIlBsZWFzZSB1cGxvYWQgYSBQREYiKTsKICBjb25zdCBzYWZlID0gZmlsZU5hbWUucmVwbGFjZSgvW15hLXpBLVowLTkuXy1dL2csICJfIik7CiAgY29uc3QgcGF0aCA9IGBhZ2VuY3ktdGVybXMvJHthZ2VuY3lJZCA/PyAib3duZXIifS8ke0RhdGUubm93KCl9LSR7c2FmZX1gOwogIGNvbnN0IHsgZXJyb3I6IHVwRXJyIH0gPSBhd2FpdCBzdXBhYmFzZUFkbWluLnN0b3JhZ2UuZnJvbSgiZmFtaWx5LWRvY3MiKS51cGxvYWQocGF0aCwgYnl0ZXMsIHsgY29udGVudFR5cGUsIHVwc2VydDogdHJ1ZSB9KTsKICBpZiAodXBFcnIpIHRocm93IG5ldyBFcnJvcih1cEVyci5tZXNzYWdlKTsKICBjb25zdCBleGlzdGluZyA9IGF3YWl0IHJvdyhhZ2VuY3lJZCk7CiAgaWYgKGV4aXN0aW5nKSB7CiAgICBsZXQgcSA9IHN1cGFiYXNlQWRtaW4uZnJvbSgiYWdlbmN5X3Rlcm1zIikudXBkYXRlKHsgc3RvcmFnZV9wYXRoOiBwYXRoLCBmaWxlX25hbWU6IGZpbGVOYW1lLCB2ZXJzaW9uOiBleGlzdGluZy52ZXJzaW9uICsgMSwgdXBsb2FkZWRfYXQ6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSB9KTsKICAgIHEgPSBhZ2VuY3lJZCA/IHEuZXEoImFnZW5jeV9pZCIsIGFnZW5jeUlkKSA6IHEuaXMoImFnZW5jeV9pZCIsIG51bGwpOwogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgcTsKICAgIGlmIChlcnJvcikgdGhyb3cgbmV3IEVycm9yKGVycm9yLm1lc3NhZ2UpOwogICAgYXdhaXQgc3VwYWJhc2VBZG1pbi5zdG9yYWdlLmZyb20oImZhbWlseS1kb2NzIikucmVtb3ZlKFtleGlzdGluZy5zdG9yYWdlX3BhdGhdKTsKICB9IGVsc2UgewogICAgY29uc3QgeyBlcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VBZG1pbi5mcm9tKCJhZ2VuY3lfdGVybXMiKS5pbnNlcnQoeyBhZ2VuY3lfaWQ6IGFnZW5jeUlkLCBzdG9yYWdlX3BhdGg6IHBhdGgsIGZpbGVfbmFtZTogZmlsZU5hbWUgfSk7CiAgICBpZiAoZXJyb3IpIHRocm93IG5ldyBFcnJvcihlcnJvci5tZXNzYWdlKTsKICB9Cn0KCmV4cG9ydCBhc3luYyBmdW5jdGlvbiByZW1vdmVBZ2VuY3lUZXJtcyhhZ2VuY3lJZDogc3RyaW5nIHwgbnVsbCkgewogIGNvbnN0IGV4aXN0aW5nID0gYXdhaXQgcm93KGFnZW5jeUlkKTsKICBpZiAoIWV4aXN0aW5nKSByZXR1cm47CiAgbGV0IHEgPSBzdXBhYmFzZUFkbWluLmZyb20oImFnZW5jeV90ZXJtcyIpLmRlbGV0ZSgpOwogIHEgPSBhZ2VuY3lJZCA/IHEuZXEoImFnZW5jeV9pZCIsIGFnZW5jeUlkKSA6IHEuaXMoImFnZW5jeV9pZCIsIG51bGwpOwogIGF3YWl0IHE7CiAgYXdhaXQgc3VwYWJhc2VBZG1pbi5zdG9yYWdlLmZyb20oImZhbWlseS1kb2NzIikucmVtb3ZlKFtleGlzdGluZy5zdG9yYWdlX3BhdGhdKTsKfQo=
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+
+export type AgencyTermsFile = { fileName: string; version: number; uploadedAt: string; url: string | null };
+
+async function row(agencyId: string | null) {
+  let q = supabaseAdmin.from("agency_terms").select("storage_path, file_name, version, uploaded_at");
+  q = agencyId ? q.eq("agency_id", agencyId) : q.is("agency_id", null);
+  const { data } = await q.maybeSingle();
+  return data ?? null;
+}
+
+/** The terms uploaded by the agency that runs this family (null agency = owner). */
+export async function termsForFamily(familyId: string): Promise<AgencyTermsFile | null> {
+  const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();
+  if (!fam) return null;
+  return termsForAgency(fam.partner_agency_id ?? null);
+}
+
+export async function termsForAgency(agencyId: string | null): Promise<AgencyTermsFile | null> {
+  const r = await row(agencyId);
+  if (!r) return null;
+  const { data } = await supabaseAdmin.storage.from("family-docs").createSignedUrl(r.storage_path, 600);
+  return { fileName: r.file_name, version: r.version, uploadedAt: r.uploaded_at, url: data?.signedUrl ?? null };
+}
+
+export async function saveAgencyTerms(agencyId: string | null, fileName: string, contentType: string, base64: string) {
+  const bytes = Buffer.from(base64, "base64");
+  if (bytes.length > 10 * 1024 * 1024) throw new Error("File must be under 10MB");
+  if (contentType !== "application/pdf") throw new Error("Please upload a PDF");
+  const safe = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const path = `agency-terms/${agencyId ?? "owner"}/${Date.now()}-${safe}`;
+  const { error: upErr } = await supabaseAdmin.storage.from("family-docs").upload(path, bytes, { contentType, upsert: true });
+  if (upErr) throw new Error(upErr.message);
+  const existing = await row(agencyId);
+  if (existing) {
+    let q = supabaseAdmin.from("agency_terms").update({ storage_path: path, file_name: fileName, version: existing.version + 1, uploaded_at: new Date().toISOString() });
+    q = agencyId ? q.eq("agency_id", agencyId) : q.is("agency_id", null);
+    const { error } = await q;
+    if (error) throw new Error(error.message);
+    await supabaseAdmin.storage.from("family-docs").remove([existing.storage_path]);
+  } else {
+    const { error } = await supabaseAdmin.from("agency_terms").insert({ agency_id: agencyId, storage_path: path, file_name: fileName });
+    if (error) throw new Error(error.message);
+  }
+}
+
+export async function removeAgencyTerms(agencyId: string | null) {
+  const existing = await row(agencyId);
+  if (!existing) return;
+  let q = supabaseAdmin.from("agency_terms").delete();
+  q = agencyId ? q.eq("agency_id", agencyId) : q.is("agency_id", null);
+  await q;
+  await supabaseAdmin.storage.from("family-docs").remove([existing.storage_path]);
+}

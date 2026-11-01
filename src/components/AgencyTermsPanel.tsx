@@ -1,1 +1,74 @@
-aW1wb3J0IHsgdXNlUmVmLCB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKaW1wb3J0IHsgdXNlUXVlcnksIHVzZVF1ZXJ5Q2xpZW50IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjsKaW1wb3J0IHsgdXNlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyB0b2FzdCB9IGZyb20gInNvbm5lciI7CmltcG9ydCB7IEZpbGVVcCwgU2Nyb2xsVGV4dCwgVHJhc2gyIH0gZnJvbSAibHVjaWRlLXJlYWN0IjsKCmltcG9ydCB7IGRlbGV0ZU15QWdlbmN5VGVybXMsIGdldE15QWdlbmN5VGVybXMsIHVwbG9hZE15QWdlbmN5VGVybXMgfSBmcm9tICJAL2xpYi9hZ2VuY3ktdGVybXMuZnVuY3Rpb25zIjsKaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRvbiI7Cgphc3luYyBmdW5jdGlvbiB0b0Jhc2U2NChmaWxlOiBGaWxlKSB7CiAgY29uc3QgYnl0ZXMgPSBuZXcgVWludDhBcnJheShhd2FpdCBmaWxlLmFycmF5QnVmZmVyKCkpOwogIGxldCBiaW5hcnkgPSAiIjsKICBmb3IgKGxldCBpID0gMDsgaSA8IGJ5dGVzLmxlbmd0aDsgaSArPSAweDgwMDApIGJpbmFyeSArPSBTdHJpbmcuZnJvbUNoYXJDb2RlKC4uLmJ5dGVzLnN1YmFycmF5KGksIGkgKyAweDgwMDApKTsKICByZXR1cm4gYnRvYShiaW5hcnkpOwp9CgpleHBvcnQgZnVuY3Rpb24gQWdlbmN5VGVybXNQYW5lbCgpIHsKICBjb25zdCBxYyA9IHVzZVF1ZXJ5Q2xpZW50KCk7CiAgY29uc3QgZ2V0Rm4gPSB1c2VTZXJ2ZXJGbihnZXRNeUFnZW5jeVRlcm1zKTsKICBjb25zdCB1cEZuID0gdXNlU2VydmVyRm4odXBsb2FkTXlBZ2VuY3lUZXJtcyk7CiAgY29uc3QgZGVsRm4gPSB1c2VTZXJ2ZXJGbihkZWxldGVNeUFnZW5jeVRlcm1zKTsKICBjb25zdCBpbnB1dCA9IHVzZVJlZjxIVE1MSW5wdXRFbGVtZW50PihudWxsKTsKICBjb25zdCBbYnVzeSwgc2V0QnVzeV0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgcSA9IHVzZVF1ZXJ5KHsgcXVlcnlLZXk6IFsiYWdlbmN5LXRlcm1zIl0sIHF1ZXJ5Rm46ICgpID0+IGdldEZuKCkgfSk7CgogIGFzeW5jIGZ1bmN0aW9uIG9uRmlsZShmaWxlOiBGaWxlIHwgdW5kZWZpbmVkKSB7CiAgICBpZiAoIWZpbGUpIHJldHVybjsKICAgIGlmIChmaWxlLnR5cGUgIT09ICJhcHBsaWNhdGlvbi9wZGYiKSB7IHRvYXN0LmVycm9yKCJQbGVhc2UgY2hvb3NlIGEgUERGIGZpbGUuIik7IHJldHVybjsgfQogICAgc2V0QnVzeSh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IHVwRm4oeyBkYXRhOiB7IGZpbGVOYW1lOiBmaWxlLm5hbWUsIGNvbnRlbnRUeXBlOiBmaWxlLnR5cGUsIGJhc2U2NDogYXdhaXQgdG9CYXNlNjQoZmlsZSkgfSB9KTsKICAgICAgdG9hc3Quc3VjY2VzcygiVGVybXMgdXBsb2FkZWQg4oCUIGZhbWlsaWVzIHdpbGwgYmUgYXNrZWQgdG8gc2lnbiB0aGUgbmV3IHZlcnNpb24uIik7CiAgICAgIGF3YWl0IHFjLmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsiYWdlbmN5LXRlcm1zIl0gfSk7CiAgICB9IGNhdGNoIChlKSB7CiAgICAgIHRvYXN0LmVycm9yKGUgaW5zdGFuY2VvZiBFcnJvciA/IGUubWVzc2FnZSA6ICJVcGxvYWQgZmFpbGVkIik7CiAgICB9IGZpbmFsbHkgewogICAgICBzZXRCdXN5KGZhbHNlKTsKICAgICAgaWYgKGlucHV0LmN1cnJlbnQpIGlucHV0LmN1cnJlbnQudmFsdWUgPSAiIjsKICAgIH0KICB9CgogIGNvbnN0IHQgPSBxLmRhdGE7CiAgcmV0dXJuICgKICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0icm91bmRlZC0yeGwgYm9yZGVyIGJvcmRlci1ib3JkZXIgYmctY2FyZCBwLTUgc2hhZG93LXNtIj4KICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIj4KICAgICAgICA8U2Nyb2xsVGV4dCBjbGFzc05hbWU9ImgtNSB3LTUgdGV4dC1wcmltYXJ5IiAvPgogICAgICAgIDxoMiBjbGFzc05hbWU9ImhlYWRpbmctZGlzcGxheSB0ZXh0LWxnIHRleHQtZm9yZWdyb3VuZCI+WW91ciB0ZXJtcyAmYW1wOyBjb25kaXRpb25zPC9oMj4KICAgICAgPC9kaXY+CiAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZCI+CiAgICAgICAgVXBsb2FkIHlvdXIgYWdlbmN5J3Mgb3duIHRlcm1zIGFzIGEgUERGLiBFdmVyeSBmYW1pbHkgeW91IHJ1biB3aWxsIHNlZSB0aGVtIGluIHRoZWlyIHdhbGxldCBhbmQgY2FuIHNpZ24gdGhlbSB0aGVyZS4KICAgICAgPC9wPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtNCByb3VuZGVkLXhsIGJvcmRlciBib3JkZXItYm9yZGVyIHAtMyB0ZXh0LXNtIj4KICAgICAgICB7cS5pc0xvYWRpbmcgPyAiTG9hZGluZ+KApiIgOiB0ID8gKAogICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggZmxleC13cmFwIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTIiPgogICAgICAgICAgICA8c3Bhbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9ImZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCI+e3QuZmlsZU5hbWV9PC9zcGFuPgogICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj4gwrcgdmVyc2lvbiB7dC52ZXJzaW9ufSDCtyB7bmV3IERhdGUodC51cGxvYWRlZEF0KS50b0xvY2FsZURhdGVTdHJpbmcoImVuLUdCIil9PC9zcGFuPgogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iZmxleCBnYXAtMiI+CiAgICAgICAgICAgICAge3QudXJsICYmIDxCdXR0b24gYXNDaGlsZCBzaXplPSJzbSIgdmFyaWFudD0ib3V0bGluZSI+PGEgaHJlZj17dC51cmx9IHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiPlZpZXc8L2E+PC9CdXR0b24+fQogICAgICAgICAgICAgIDxCdXR0b24gc2l6ZT0ic20iIHZhcmlhbnQ9Im91dGxpbmUiIGRpc2FibGVkPXtidXN5fSBvbkNsaWNrPXthc3luYyAoKSA9PiB7IGlmICghY29uZmlybSgiUmVtb3ZlIHlvdXIgdGVybXM/IEZhbWlsaWVzIHdpbGwgbm8gbG9uZ2VyIHNlZSB0aGVtLiIpKSByZXR1cm47IGF3YWl0IGRlbEZuKCk7IGF3YWl0IHFjLmludmFsaWRhdGVRdWVyaWVzKHsgcXVlcnlLZXk6IFsiYWdlbmN5LXRlcm1zIl0gfSk7IHRvYXN0LnN1Y2Nlc3MoIlRlcm1zIHJlbW92ZWQiKTsgfX0+CiAgICAgICAgICAgICAgICA8VHJhc2gyIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgPC9zcGFuPgogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSA6IDxzcGFuIGNsYXNzTmFtZT0idGV4dC1tdXRlZC1mb3JlZ3JvdW5kIj5ObyB0ZXJtcyB1cGxvYWRlZCB5ZXQg4oCUIGZhbWlsaWVzIHdvbid0IHNlZSBhIHRlcm1zIHBhZ2UgdW50aWwgeW91IGFkZCBvbmUuPC9zcGFuPn0KICAgICAgPC9kaXY+CiAgICAgIDxpbnB1dCByZWY9e2lucHV0fSB0eXBlPSJmaWxlIiBhY2NlcHQ9ImFwcGxpY2F0aW9uL3BkZiIgY2xhc3NOYW1lPSJoaWRkZW4iIG9uQ2hhbmdlPXsoZSkgPT4gb25GaWxlKGUudGFyZ2V0LmZpbGVzPy5bMF0pfSAvPgogICAgICA8QnV0dG9uIGNsYXNzTmFtZT0ibXQtMyIgZGlzYWJsZWQ9e2J1c3l9IG9uQ2xpY2s9eygpID0+IGlucHV0LmN1cnJlbnQ/LmNsaWNrKCl9PgogICAgICAgIDxGaWxlVXAgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiB7YnVzeSA/ICJVcGxvYWRpbmfigKYiIDogdCA/ICJVcGxvYWQgYSBuZXcgdmVyc2lvbiIgOiAiVXBsb2FkIHRlcm1zIChQREYpIn0KICAgICAgPC9CdXR0b24+CiAgICA8L3NlY3Rpb24+CiAgKTsKfQo=
+import { useRef, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { FileUp, ScrollText, Trash2 } from "lucide-react";
+
+import { deleteMyAgencyTerms, getMyAgencyTerms, uploadMyAgencyTerms } from "@/lib/agency-terms.functions";
+import { Button } from "@/components/ui/button";
+
+async function toBase64(file: File) {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(binary);
+}
+
+export function AgencyTermsPanel() {
+  const qc = useQueryClient();
+  const getFn = useServerFn(getMyAgencyTerms);
+  const upFn = useServerFn(uploadMyAgencyTerms);
+  const delFn = useServerFn(deleteMyAgencyTerms);
+  const input = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const q = useQuery({ queryKey: ["agency-terms"], queryFn: () => getFn() });
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    if (file.type !== "application/pdf") { toast.error("Please choose a PDF file."); return; }
+    setBusy(true);
+    try {
+      await upFn({ data: { fileName: file.name, contentType: file.type, base64: await toBase64(file) } });
+      toast.success("Terms uploaded — families will be asked to sign the new version.");
+      await qc.invalidateQueries({ queryKey: ["agency-terms"] });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setBusy(false);
+      if (input.current) input.current.value = "";
+    }
+  }
+
+  const t = q.data;
+  return (
+    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+      <div className="flex items-center gap-2">
+        <ScrollText className="h-5 w-5 text-primary" />
+        <h2 className="heading-display text-lg text-foreground">Your terms &amp; conditions</h2>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Upload your agency's own terms as a PDF. Every family you run will see them in their wallet and can sign them there.
+      </p>
+      <div className="mt-4 rounded-xl border border-border p-3 text-sm">
+        {q.isLoading ? "Loading…" : t ? (
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span>
+              <span className="font-medium text-foreground">{t.fileName}</span>
+              <span className="text-muted-foreground"> · version {t.version} · {new Date(t.uploadedAt).toLocaleDateString("en-GB")}</span>
+            </span>
+            <span className="flex gap-2">
+              {t.url && <Button asChild size="sm" variant="outline"><a href={t.url} target="_blank" rel="noopener noreferrer">View</a></Button>}
+              <Button size="sm" variant="outline" disabled={busy} onClick={async () => { if (!confirm("Remove your terms? Families will no longer see them.")) return; await delFn(); await qc.invalidateQueries({ queryKey: ["agency-terms"] }); toast.success("Terms removed"); }}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </span>
+          </div>
+        ) : <span className="text-muted-foreground">No terms uploaded yet — families won't see a terms page until you add one.</span>}
+      </div>
+      <input ref={input} type="file" accept="application/pdf" className="hidden" onChange={(e) => onFile(e.target.files?.[0])} />
+      <Button className="mt-3" disabled={busy} onClick={() => input.current?.click()}>
+        <FileUp className="h-4 w-4" /> {busy ? "Uploading…" : t ? "Upload a new version" : "Upload terms (PDF)"}
+      </Button>
+    </section>
+  );
+}

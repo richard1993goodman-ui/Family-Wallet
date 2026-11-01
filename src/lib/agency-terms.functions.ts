@@ -1,1 +1,35 @@
-aW1wb3J0IHsgY3JlYXRlU2VydmVyRm4gfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtc3RhcnQiOwppbXBvcnQgeyByZXF1aXJlU3VwYWJhc2VBdXRoIH0gZnJvbSAiQC9pbnRlZ3JhdGlvbnMvc3VwYWJhc2UvYXV0aC1taWRkbGV3YXJlIjsKaW1wb3J0IHsgcmVxdWlyZVN0YWZmIH0gZnJvbSAiLi9zdGFmZi5zY29wZSI7Cgphc3luYyBmdW5jdGlvbiBhZ2VuY3lPZihjb250ZXh0OiB1bmtub3duKTogUHJvbWlzZTxzdHJpbmcgfCBudWxsPiB7CiAgY29uc3Qgc2NvcGUgPSBhd2FpdCByZXF1aXJlU3RhZmYoY29udGV4dCk7CiAgcmV0dXJuIHNjb3BlLmtpbmQgPT09ICJvd25lciIgPyBudWxsIDogc2NvcGUuYWdlbmN5SWQ7Cn0KCmV4cG9ydCBjb25zdCBnZXRNeUFnZW5jeVRlcm1zID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5taWRkbGV3YXJlKFtyZXF1aXJlU3VwYWJhc2VBdXRoXSkKICAuaGFuZGxlcihhc3luYyAoeyBjb250ZXh0IH0pID0+IHsKICAgIGNvbnN0IGFnZW5jeUlkID0gYXdhaXQgYWdlbmN5T2YoY29udGV4dCk7CiAgICBjb25zdCB7IHRlcm1zRm9yQWdlbmN5IH0gPSBhd2FpdCBpbXBvcnQoIi4vYWdlbmN5LXRlcm1zLnNlcnZlciIpOwogICAgcmV0dXJuIHRlcm1zRm9yQWdlbmN5KGFnZW5jeUlkKTsKICB9KTsKCmV4cG9ydCBjb25zdCB1cGxvYWRNeUFnZW5jeVRlcm1zID0gY3JlYXRlU2VydmVyRm4oeyBtZXRob2Q6ICJQT1NUIiB9KQogIC5taWRkbGV3YXJlKFtyZXF1aXJlU3VwYWJhc2VBdXRoXSkKICAuaW5wdXRWYWxpZGF0b3IoKGQ6IHsgZmlsZU5hbWU6IHN0cmluZzsgY29udGVudFR5cGU6IHN0cmluZzsgYmFzZTY0OiBzdHJpbmcgfSkgPT4gZCkKICAuaGFuZGxlcihhc3luYyAoeyBkYXRhLCBjb250ZXh0IH0pID0+IHsKICAgIGNvbnN0IGFnZW5jeUlkID0gYXdhaXQgYWdlbmN5T2YoY29udGV4dCk7CiAgICBjb25zdCB7IHNhdmVBZ2VuY3lUZXJtcyB9ID0gYXdhaXQgaW1wb3J0KCIuL2FnZW5jeS10ZXJtcy5zZXJ2ZXIiKTsKICAgIGF3YWl0IHNhdmVBZ2VuY3lUZXJtcyhhZ2VuY3lJZCwgZGF0YS5maWxlTmFtZS5zbGljZSgwLCAxNjApLCBkYXRhLmNvbnRlbnRUeXBlLCBkYXRhLmJhc2U2NCk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwoKZXhwb3J0IGNvbnN0IGRlbGV0ZU15QWdlbmN5VGVybXMgPSBjcmVhdGVTZXJ2ZXJGbih7IG1ldGhvZDogIlBPU1QiIH0pCiAgLm1pZGRsZXdhcmUoW3JlcXVpcmVTdXBhYmFzZUF1dGhdKQogIC5oYW5kbGVyKGFzeW5jICh7IGNvbnRleHQgfSkgPT4gewogICAgY29uc3QgYWdlbmN5SWQgPSBhd2FpdCBhZ2VuY3lPZihjb250ZXh0KTsKICAgIGNvbnN0IHsgcmVtb3ZlQWdlbmN5VGVybXMgfSA9IGF3YWl0IGltcG9ydCgiLi9hZ2VuY3ktdGVybXMuc2VydmVyIik7CiAgICBhd2FpdCByZW1vdmVBZ2VuY3lUZXJtcyhhZ2VuY3lJZCk7CiAgICByZXR1cm4geyBvazogdHJ1ZSBhcyBjb25zdCB9OwogIH0pOwo=
+import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireStaff } from "./staff.scope";
+
+async function agencyOf(context: unknown): Promise<string | null> {
+  const scope = await requireStaff(context);
+  return scope.kind === "owner" ? null : scope.agencyId;
+}
+
+export const getMyAgencyTerms = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const agencyId = await agencyOf(context);
+    const { termsForAgency } = await import("./agency-terms.server");
+    return termsForAgency(agencyId);
+  });
+
+export const uploadMyAgencyTerms = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { fileName: string; contentType: string; base64: string }) => d)
+  .handler(async ({ data, context }) => {
+    const agencyId = await agencyOf(context);
+    const { saveAgencyTerms } = await import("./agency-terms.server");
+    await saveAgencyTerms(agencyId, data.fileName.slice(0, 160), data.contentType, data.base64);
+    return { ok: true as const };
+  });
+
+export const deleteMyAgencyTerms = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const agencyId = await agencyOf(context);
+    const { removeAgencyTerms } = await import("./agency-terms.server");
+    await removeAgencyTerms(agencyId);
+    return { ok: true as const };
+  });
