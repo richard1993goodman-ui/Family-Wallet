@@ -439,10 +439,59 @@ export function AgreementBuilder({
             Tick each day and set the hours. Use “Split shift” for a morning and an after-school
             block.
           </p>
+          <div className="mb-3 inline-flex rounded-xl bg-muted p-1">
+            {([1, 2] as const).map((weeks) => (
+              <button
+                key={weeks}
+                type="button"
+                onClick={() => update({ rotaWeeks: weeks })}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
+                  data.rotaWeeks === weeks
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {weeks === 1 ? "Same every week" : "Two-week rolling rota"}
+              </button>
+            ))}
+          </div>
+          {data.rotaWeeks === 2 && (
+            <p className="mb-2 text-xs text-muted-foreground">
+              Set week 1 and week 2 separately. Hours and holiday are averaged across both weeks.
+            </p>
+          )}
+          {data.rotaWeeks === 2 && (
+            <p className="mb-1 text-xs font-semibold text-foreground">Week 1</p>
+          )}
           <WorkingDaysEditor
             days={data.workingDays}
             onChange={(workingDays) => update({ workingDays })}
           />
+          {data.rotaWeeks === 2 && (
+            <>
+              <p className="mb-1 mt-4 text-xs font-semibold text-foreground">Week 2</p>
+              <WorkingDaysEditor
+                days={data.workingDaysWeek2}
+                onChange={(workingDaysWeek2) => update({ workingDaysWeek2 })}
+              />
+              <div className="mt-3">
+                <Labelled
+                  label="Week 1 starts on (optional)"
+                  hint="Pick any Monday that is a week 1, so everyone knows which week is which."
+                >
+                  <Input
+                    type="date"
+                    value={data.rotaStartDate}
+                    onChange={(e) => update({ rotaStartDate: e.target.value })}
+                  />
+                </Labelled>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Average: {holiday.weeklyHours.toFixed(1)} hours and {holiday.workingDaysPerWeek} days
+                per week.
+              </p>
+            </>
+          )}
         </div>
       </Section>
 

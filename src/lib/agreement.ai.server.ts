@@ -55,8 +55,18 @@ function describe(data: AgreementData) {
     `Contract type: ${data.contractType}, ${data.weeksPerYear} weeks per year`,
     `Working pattern clause included: ${data.includeWorkingPatternClause ? "yes" : "no"}`,
     `School holiday work: ${data.allowSchoolHolidayWork ? "may be offered if needed and the nanny is available, by agreement only" : "not included"}`,
-    `Working days: ${days.length ? days.join("; ") : "not set"}`,
-    `Weekly hours: ${holiday.weeklyHours}`,
+    `Working days${data.rotaWeeks === 2 ? " (week 1 of a two-week rolling rota)" : ""}: ${days.length ? days.join("; ") : "not set"}`,
+    ...(data.rotaWeeks === 2
+      ? [
+          `Week 2 of rota: ${
+            data.workingDaysWeek2
+              .filter((d) => d.enabled)
+              .map((d) => `${d.day} ${d.startTime}–${d.endTime}`)
+              .join("; ") || "no days"
+          }`,
+        ]
+      : []),
+    `Weekly hours${data.rotaWeeks === 2 ? " (average)" : ""}: ${holiday.weeklyHours}`,
     `Holiday clause included: ${data.includeHolidayEntitlement ? "yes" : "no"}`,
     `Pro-rata holiday: ${holiday.totalWeeksEntitlement} weeks (${holiday.totalDaysEntitlement} days)`,
     `Rolled-up holiday pay: ${data.rolledUpHolidayPay ? "yes — holiday pay is paid at 12.07% with each payslip, not when holiday is taken" : "no"}`,

@@ -127,22 +127,43 @@ export function AgreementDocument({
 
         <div>
           <p>
-            <strong>1.4</strong> The Nanny shall normally work the following days:
+            <strong>1.4</strong> The Nanny shall normally work the following days
+            {data.rotaWeeks === 2 ? ", on a two-week rolling rota" : ""}:
           </p>
-          <ul className="mt-2 ml-4 space-y-1">
-            {enabledDays.length > 0 ? (
-              enabledDays.map((day) => (
-                <li key={day.day}>
-                  {day.day}: {day.startTime} – {day.endTime}
-                  {day.startTime2 && day.endTime2
-                    ? ` and ${day.startTime2} – ${day.endTime2}`
-                    : ""}
-                </li>
-              ))
-            ) : (
-              <li className="italic text-muted-foreground">Working days to be agreed</li>
-            )}
-          </ul>
+          {(data.rotaWeeks === 2
+            ? [
+                { label: "Week 1", days: enabledDays },
+                { label: "Week 2", days: data.workingDaysWeek2.filter((d) => d.enabled) },
+              ]
+            : [{ label: "", days: enabledDays }]
+          ).map((week) => (
+            <div key={week.label || "week"}>
+              {week.label && <p className="mt-2 ml-4 font-medium">{week.label}</p>}
+              <ul className="mt-2 ml-4 space-y-1">
+                {week.days.length > 0 ? (
+                  week.days.map((day) => (
+                    <li key={day.day}>
+                      {day.day}: {day.startTime} – {day.endTime}
+                      {day.startTime2 && day.endTime2
+                        ? ` and ${day.startTime2} – ${day.endTime2}`
+                        : ""}
+                    </li>
+                  ))
+                ) : (
+                  <li className="italic text-muted-foreground">
+                    {week.label ? "No working days this week" : "Working days to be agreed"}
+                  </li>
+                )}
+              </ul>
+            </div>
+          ))}
+          {data.rotaWeeks === 2 && (
+            <p className="mt-2 ml-4">
+              This averages {holiday.weeklyHours.toFixed(1)} hours ({holiday.workingDaysPerWeek} days)
+              per week over the two-week cycle
+              {data.rotaStartDate ? `; week 1 begins on the week commencing ${formatUKDate(data.rotaStartDate)}` : ""}.
+            </p>
+          )}
         </div>
 
         {data.overtimePolicy && (
