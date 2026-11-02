@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Check, Plane, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { cancelLeaveFn, getLeave, requestLeaveFn, reviewLeaveFn } from "@/lib/leave.functions";
 import { LEAVE_TYPES, type LeaveType } from "@/lib/leave.types";
@@ -54,9 +54,7 @@ function LeavePage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!data) return <LockedNotice slug={slug} />;

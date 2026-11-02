@@ -14,7 +14,7 @@ import {
   saveHandoverFn,
 } from "@/lib/passport-handover.functions";
 import { EXPENSE_CATEGORIES } from "@/lib/passport-handover.types";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/handover/$slug")({
@@ -90,9 +90,7 @@ function HandoverPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;

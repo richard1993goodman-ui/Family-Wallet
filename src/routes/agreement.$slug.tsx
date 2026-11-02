@@ -19,7 +19,7 @@ import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
 import { StatementDocument } from "@/components/StatementDocument";
-import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
+import { HubPage, LockedNotice, Card, PageLoading } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
 import { Button } from "@/components/ui/button";
@@ -93,9 +93,7 @@ function AgreementPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading your agreement…
-      </div>
+      <PageLoading />
     );
   }
 
@@ -630,19 +628,13 @@ function AgreementPage() {
 
   if (isNanny) {
     return (
-      <div className="min-h-screen bg-sand">
-        <div className="mx-auto max-w-2xl px-5 py-8">
-          <h1 className="heading-display text-3xl leading-tight text-primary">
-            {data.familyName} — nanny agreement
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Read your agreement in full and sign it here. Your signed copy is kept in the family's
-            wallet.
-          </p>
-          <div className="mt-6">{body}</div>
-          <BackToWallet slug={slug} />
-        </div>
-      </div>
+      <HubPage
+        slug={slug}
+        title={`${data.familyName} — nanny agreement`}
+        intro="Read your agreement in full and sign it here. Your signed copy is kept in the family's wallet."
+      >
+        {body}
+      </HubPage>
     );
   }
 

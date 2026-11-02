@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Camera, Printer, Sparkles, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import {
   addMomentFn,
@@ -71,9 +71,7 @@ function MomentsPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;

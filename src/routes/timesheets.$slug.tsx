@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Check, Clock3, MoonStar, X } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { getTimesheets, reviewShiftFn, submitShiftFn } from "@/lib/work-tools.functions";
 import { isBabysitting, shiftAmount, shiftHours, shiftTotals, type ShiftInput, type ShiftType } from "@/lib/work-tools.model";
@@ -42,7 +42,7 @@ function TimesheetsPage() {
   const reviewFn = useServerFn(reviewShiftFn);
   const [draft, setDraft] = useState<ShiftInput>(freshShift);
   const query = useQuery({ queryKey: ["timesheets", slug], queryFn: () => loadFn({ data: { slug } }) });
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const isFamily = query.data.access === "family";
   const mapped: ShiftRow[] = query.data.shifts.map((s) => ({

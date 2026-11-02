@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
+import { PageContainer, PageLoading } from "@/components/hub-ui";
 import {
   BadgeCheck,
   BookOpen,
@@ -29,8 +30,6 @@ import {
   ScrollText,
   Users,
   UserPlus,
-  UtensilsCrossed,
-  WandSparkles,
   Gift,
   Library,
   Calculator,
@@ -177,9 +176,7 @@ function WalletPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading your wallet…
-      </div>
+      <PageLoading />
     );
   }
 
@@ -202,7 +199,7 @@ function WalletPage() {
 
     return (
       <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
-        <div className="w-full max-w-sm rounded-2xl bg-card shadow-sm p-7 text-center">
+        <div className="surface-card w-full max-w-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             The Family Wallet
@@ -238,10 +235,10 @@ function WalletPage() {
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
 
   return (
-    <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-2xl px-5 py-10">
+    <PageContainer>
+      <div>
         {slug === "demo" && (
-          <div className="mb-6 rounded-2xl bg-card shadow-sm p-4 text-sm">
+          <div className="surface-card mb-6 p-4 text-sm">
             <p className="font-semibold text-primary">You're viewing a demo Family Wallet</p>
             <p className="mt-1 text-muted-foreground">
               The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member,
@@ -465,8 +462,6 @@ function WalletPage() {
         <WalletChallenges slug={slug} />
         <div className="ios-group mt-2">
           <HubTile slug={slug} to="/passport/$slug" icon={Dumbbell} title="Active Kids Passport" subtitle={hub?.latestPassport ? `${hub.latestPassport.child_name}: ${hub.latestPassport.activity}` : "Sports skills, challenges and confidence wins"} />
-          <ExternalToolTile href="https://nannyguide.lovable.app" icon={WandSparkles} title="Nanny Activity Guide" subtitle="Open the original activity ideas app" />
-          <ExternalToolTile href="https://nanny-nourish-guide.lovable.app" icon={UtensilsCrossed} title="Nanny Fuel" subtitle="Open the original cooking and meal ideas app" />
           <HubTile slug={slug} to="/timesheets/$slug" icon={Clock3} title="Timesheets" subtitle={isNanny ? "Add shifts and see payment approval" : "Review hours and approve payment"} />
           <HubTile slug={slug} to="/leave/$slug" icon={Plane} title="Holiday &amp; leave" subtitle={isNanny ? "See your entitlement and request time off" : "Track entitlement and approve time off"} />
           <HubTile slug={slug} to="/handover/$slug" icon={ReceiptText} title="Expense tracker" subtitle={hub?.pendingExpensesTotal ? `£${hub.pendingExpensesTotal.toFixed(2)} awaiting reimbursement` : isNanny ? "Submit small costs for reimbursement" : "See and mark petty cash as reimbursed"} />
@@ -639,7 +634,7 @@ function WalletPage() {
         </div>
       </div>
 
-    </div>
+    </PageContainer>
   );
 }
 
@@ -989,28 +984,6 @@ function HubTile({
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
       </span>
     </Link>
-  );
-}
-
-function ExternalToolTile({
-  href,
-  icon: Icon,
-  title,
-  subtitle,
-}: {
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  subtitle: string;
-}) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="ios-row">
-      <span className="ios-icon"><Icon className="h-4 w-4" /></span>
-      <span className="min-w-0 flex-1">
-        <span className="flex items-center gap-1.5 font-medium text-foreground">{title}<ExternalLink className="h-3.5 w-3.5" /></span>
-        <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
-      </span>
-    </a>
   );
 }
 

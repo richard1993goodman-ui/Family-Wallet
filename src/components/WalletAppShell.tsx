@@ -36,8 +36,6 @@ import {
   Sparkles,
   UserPlus,
   Users,
-  UtensilsCrossed,
-  WandSparkles,
   Wallet,
 } from "lucide-react";
 
@@ -186,8 +184,6 @@ const navGroups: NavGroup[] = [
     items: [
       { label: "Nanny training", icon: BadgeCheck, to: "/training/$slug" },
       { label: "Safety records", icon: ShieldCheck, to: "/safety/$slug" },
-      { label: "Nanny Fuel", icon: UtensilsCrossed, href: "https://nanny-nourish-guide.lovable.app" },
-      { label: "Activity guide", icon: WandSparkles, href: "https://nannyguide.lovable.app" },
     ],
   },
 ];

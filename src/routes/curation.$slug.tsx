@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, Circle } from "lucide-react";
 import { toast } from "sonner";
-import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { getConcierge, requestConciergeFn } from "@/lib/concierge.functions";
 import { CURATION_STATUSES, statusLabel } from "@/lib/concierge.types";
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/curation/$slug")({ head: () => ({ meta: [
 function CurationPage() {
   const { slug } = Route.useParams(); const client = useQueryClient(); const load = useServerFn(getConcierge); const request = useServerFn(requestConciergeFn);
   const query = useQuery({ queryKey: ["concierge", slug], queryFn: () => load({ data: { slug } }) });
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const current = query.data.service.curation_status; const currentIndex = CURATION_STATUSES.findIndex(([key]) => key === current);
   return <HubPage slug={slug} title="Private nanny curation" intro="No public catalogue and no profile overload — we quietly hand-select the strongest matches for your family.">

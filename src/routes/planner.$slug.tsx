@@ -11,7 +11,7 @@ import {
   deletePlannerEntryFn,
   getPlanner,
 } from "@/lib/family.functions";
-import { HubPage, LockedNotice } from "@/components/hub-ui";
+import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -79,9 +79,7 @@ function PlannerPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;

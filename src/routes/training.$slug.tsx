@@ -7,7 +7,7 @@ import { Award, CheckCircle2, XCircle } from "lucide-react";
 
 import { getTraining, submitTrainingFn } from "@/lib/training.functions";
 import { PASS_MARK, TRAINING_QUESTIONS } from "@/lib/training.questions";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/training/$slug")({
@@ -65,9 +65,7 @@ function TrainingPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;

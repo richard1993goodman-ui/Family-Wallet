@@ -13,7 +13,7 @@ import {
   saveNannyEmergencyFn,
   updateFamilyContactFn,
 } from "@/lib/family.functions";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/emergency/$slug")({
@@ -83,9 +83,7 @@ function EmergencyPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
