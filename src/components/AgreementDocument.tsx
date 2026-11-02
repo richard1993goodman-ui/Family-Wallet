@@ -1,5 +1,5 @@
 import {
-  calculateHoliday,
+  calculateHoliday, rotaWeek2,
   formatUKDate,
   isTermTime,
   type AgreementData,
@@ -35,7 +35,7 @@ export function AgreementDocument({
 }) {
   const enabledDuties = data.duties.filter((d) => d.enabled && d.label.trim());
   const enabledDays = data.workingDays.filter((d) => d.enabled);
-  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear);
+  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear, rotaWeek2(data));
 
   return (
     <article className="rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-foreground shadow-sm sm:p-8 print:border-0 print:p-0 print:shadow-none">

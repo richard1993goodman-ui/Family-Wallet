@@ -6,7 +6,7 @@ import { createLovableAiGatewayRunIdFetch } from "./ai-gateway.server";
 import { accessLevel } from "./wallet.server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { loadEmergencyContext } from "./agreement.server";
-import { calculateHoliday, type AgreementData } from "./agreement.model";
+import { calculateHoliday, rotaWeek2, type AgreementData } from "./agreement.model";
 
 const DraftSchema = z.object({
   jobTitle: z.string(),
@@ -45,7 +45,7 @@ function describe(data: AgreementData) {
       (d) =>
         `${d.day} ${d.startTime}–${d.endTime}${d.startTime2 && d.endTime2 ? ` and ${d.startTime2}–${d.endTime2}` : ""}`,
     );
-  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear);
+  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear, rotaWeek2(data));
   const duties = data.duties.filter((d) => d.enabled).map((d) => d.label);
   return [
     `Employer: ${data.employerName || "not given"}`,

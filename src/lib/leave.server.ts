@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { calculateHoliday, normalizeAgreement, type WorkingDay } from "./agreement.model";
+import { calculateHoliday, rotaWeek2, normalizeAgreement, type WorkingDay } from "./agreement.model";
 import { requireSharedFamily } from "./family.server";
 import { listNannyRows } from "./wallet.server";
 
@@ -61,7 +61,7 @@ async function schedulesWithEntitlement(familyId: string) {
     const agreement = agreementRow ? normalizeAgreement(agreementRow.agreement_data) : null;
     const workingDays = agreement?.workingDays ?? [];
     const holiday = agreement
-      ? calculateHoliday(workingDays, agreement.contractType, agreement.weeksPerYear)
+      ? calculateHoliday(workingDays, agreement.contractType, agreement.weeksPerYear, rotaWeek2(agreement))
       : null;
     return {
       nannyId: row.id,

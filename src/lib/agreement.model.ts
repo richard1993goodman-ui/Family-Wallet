@@ -85,6 +85,12 @@ export interface AgreementData {
   otherDutiesClause: string;
 
   workingDays: WorkingDay[];
+  /** 1 = same days every week; 2 = alternating two-week rolling rota (workingDays is week 1). */
+  rotaWeeks: 1 | 2;
+  /** Week 2 of a two-week rolling rota. */
+  workingDaysWeek2: WorkingDay[];
+  /** Optional date (YYYY-MM-DD) of a Monday that starts a "week 1". */
+  rotaStartDate: string;
   contractType: ContractType;
   weeksPerYear: string;
   /** Whether clause 1.6 describing the annual working pattern appears in the printable agreement. */
@@ -139,10 +145,17 @@ export function calculateHoliday(
   workingDays: WorkingDay[],
   contractType: ContractType,
   weeksPerYear: string,
+  week2Days?: WorkingDay[] | null,
 ): HolidayCalculation {
-  const enabledDays = workingDays.filter((d) => d.enabled);
-  const workingDaysPerWeek = enabledDays.length;
-  const weeklyHours = enabledDays.reduce((total, day) => total + workingDayHours(day), 0);
+  const weeks = week2Days ? [workingDays, week2Days] : [workingDays];
+  const sumDays = weeks.reduce((t, w) => t + w.filter((d) => d.enabled).length, 0);
+  const sumHours = weeks.reduce(
+    (t, w) => t + w.filter((d) => d.enabled).reduce((h, d) => h + workingDayHours(d), 0),
+    0,
+  );
+  // Two-week rotas are averaged per week so holiday is pro-rated correctly.
+  const workingDaysPerWeek = parseFloat((sumDays / weeks.length).toFixed(2));
+  const weeklyHours = sumHours / weeks.length;
 
   const parsedWeeks = parseFloat(weeksPerYear ?? "");
   const weeksWorkedPerYear =
@@ -168,6 +181,25 @@ export function calculateHoliday(
     weeksWorkedPerYear,
     contractType,
   };
+}
+
+/** Week-2 days when the agreement uses a two-week rolling rota, otherwise null. */
+export function rotaWeek2(data: Pick<AgreementData, "rotaWeeks" | "workingDaysWeek2">) {
+  return data.rotaWeeks === 2 ? data.workingDaysWeek2 : null;
+}
+
+export function holidayForAgreement(data: AgreementData): HolidayCalculation {
+  return calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear, rotaWeek2(data));
+}
+
+/** Which rota week (1 or 2) a given ISO date falls in, based on rotaStartDate. */
+export function rotaWeekFor(dateIso: string, rotaStartDate: string): 1 | 2 {
+  const start = new Date(`${rotaStartDate}T00:00:00Z`);
+  const date = new Date(`${dateIso}T00:00:00Z`);
+  if (Number.isNaN(start.getTime()) || Number.isNaN(date.getTime())) return 1;
+  const startMonday = start.getTime() - ((start.getUTCDay() + 6) % 7) * 86400000;
+  const weeks = Math.floor((date.getTime() - startMonday) / (7 * 86400000));
+  return ((weeks % 2) + 2) % 2 === 0 ? 1 : 2;
 }
 
 /** Format an ISO date string (YYYY-MM-DD) as e.g. "15 August 2026". */
@@ -300,6 +332,9 @@ export const defaultAgreementData: AgreementData = {
     "The Nanny shall also perform any other reasonable duties as may from time to time be required by the Employer and which are consistent with the role of a Nanny.",
 
   workingDays: defaultWorkingDays,
+  rotaWeeks: 1,
+  workingDaysWeek2: defaultWorkingDays,
+  rotaStartDate: "",
   contractType: "year-round",
   weeksPerYear: "52",
   includeWorkingPatternClause: true,
@@ -360,21 +395,24 @@ export function normalizeAgreement(raw: unknown): AgreementData {
       }))
     : base.duties.map((d) => ({ ...d }));
 
-  const workingDays = Array.isArray(r["workingDays"])
-    ? (r["workingDays"] as Record<string, unknown>[]).map((d, i) => {
-        const day: WorkingDay = {
-          day: str(d["day"], base.workingDays[i]?.day ?? "Day"),
-          enabled: d["enabled"] === true,
-          startTime: str(d["startTime"], "09:00"),
-          endTime: str(d["endTime"], "17:00"),
-        };
-        if (d["startTime2"] && d["endTime2"]) {
-          day.startTime2 = str(d["startTime2"]);
-          day.endTime2 = str(d["endTime2"]);
-        }
-        return day;
-      })
-    : base.workingDays.map((d) => ({ ...d }));
+  const parseDays = (value: unknown): WorkingDay[] =>
+    Array.isArray(value)
+      ? (value as Record<string, unknown>[]).map((d, i) => {
+          const day: WorkingDay = {
+            day: str(d["day"], base.workingDays[i]?.day ?? "Day"),
+            enabled: d["enabled"] === true,
+            startTime: str(d["startTime"], "09:00"),
+            endTime: str(d["endTime"], "17:00"),
+          };
+          if (d["startTime2"] && d["endTime2"]) {
+            day.startTime2 = str(d["startTime2"]);
+            day.endTime2 = str(d["endTime2"]);
+          }
+          return day;
+        })
+      : base.workingDays.map((d) => ({ ...d }));
+  const workingDays = parseDays(r["workingDays"]);
+  const workingDaysWeek2 = parseDays(r["workingDaysWeek2"]);
 
   const contractTypeRaw = str(r["contractType"], base.contractType) as ContractType;
   const contractType = CONTRACT_TYPES.includes(contractTypeRaw) ? contractTypeRaw : "year-round";
@@ -398,6 +436,9 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     duties,
     otherDutiesClause: text("otherDutiesClause"),
     workingDays,
+    rotaWeeks: r["rotaWeeks"] === 2 ? 2 : 1,
+    workingDaysWeek2,
+    rotaStartDate: str(r["rotaStartDate"]).slice(0, 10),
     contractType,
     weeksPerYear: str(r["weeksPerYear"], String(DEFAULT_WEEKS_PER_YEAR[contractType])),
     includeWorkingPatternClause: r["includeWorkingPatternClause"] !== false,
@@ -434,6 +475,7 @@ export function agreementHasContent(data: AgreementData): boolean {
       data.workAddress ||
       data.hourlyRate ||
       data.startDate ||
-      data.workingDays.some((d) => d.enabled),
+      data.workingDays.some((d) => d.enabled) ||
+      (data.rotaWeeks === 2 && data.workingDaysWeek2.some((d) => d.enabled)),
   );
 }

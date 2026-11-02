@@ -5,7 +5,7 @@ import {
   CONTRACT_TYPE_LABELS,
   RATE_BASIS_LABELS,
   DEFAULT_WEEKS_PER_YEAR,
-  calculateHoliday,
+  calculateHoliday, rotaWeek2,
   defaultDuties,
   isTermTime,
   workingDayHours,
@@ -289,7 +289,7 @@ export function AgreementBuilder({
   onChange: (data: AgreementData) => void;
 }) {
   const update: Update = (patch) => onChange({ ...data, ...patch });
-  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear);
+  const holiday = calculateHoliday(data.workingDays, data.contractType, data.weeksPerYear, rotaWeek2(data));
 
   return (
     <div className="space-y-5">
