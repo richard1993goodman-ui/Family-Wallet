@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ChevronRight, Lock } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowLeft, ChevronRight, CloudOff, Lock, RotateCw } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 
+import { getWalletSummary } from "@/lib/wallet.functions";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
@@ -158,7 +161,43 @@ export function EmptyState({
   );
 }
 
+/**
+ * Shown when a page gets no data. Pages return nothing both when the wallet is locked and
+ * when the request fails, so check the wallet summary before telling people to unlock.
+ */
 export function LockedNotice({ slug }: { slug: string }) {
+  const queryClient = useQueryClient();
+  const summaryFn = useServerFn(getWalletSummary);
+  const summary = useQuery({
+    queryKey: ["wallet", slug],
+    queryFn: () => summaryFn({ data: { slug } }),
+  });
+
+  if (summary.isLoading) return <PageLoading />;
+
+  if (summary.isError || summary.data?.unlocked) {
+    return (
+      <PageContainer>
+        <div className="surface-card mx-auto max-w-sm p-8 text-center" role="alert">
+          <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
+            <CloudOff className="h-5 w-5" />
+          </span>
+          <h1 className="heading-display mt-4 text-2xl text-primary">This page didn't load</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Your wallet is safe — we just couldn't reach it. Check your connection and try again.
+          </p>
+          <button
+            type="button"
+            onClick={() => void queryClient.refetchQueries({ type: "active" })}
+            className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            <RotateCw className="h-4 w-4" /> Try again
+          </button>
+        </div>
+      </PageContainer>
+    );
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-sand px-5">
       <div className="surface-card max-w-sm p-8 text-center">
