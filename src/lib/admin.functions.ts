@@ -14,11 +14,17 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       .eq("role", "admin");
     const scope = await resolveStaffScope(context);
     const features = { challenges: scope !== null, perks: scope !== null, playbooks: scope !== null };
+    let agencyLogo: string | null = null;
+    if (scope?.kind === "partner") {
+      const { data: agency } = await supabaseAdmin.from("partner_agencies").select("logo_data").eq("id", scope.agencyId).maybeSingle();
+      agencyLogo = agency?.logo_data ?? null;
+    }
     return {
       features,
       isAdmin: scope !== null,
       isOwner: scope?.kind === "owner",
       agencyName: scope?.kind === "partner" ? scope.agencyName : null,
+      agencyLogo,
       adminExists: (count ?? 0) > 0,
     };
   });
