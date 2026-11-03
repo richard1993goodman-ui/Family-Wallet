@@ -311,6 +311,7 @@ export type WalletData = {
   familyName: string;
   /** Partner agency running this wallet; null = owner agency. */
   agencyName: string | null;
+  agencyLogo?: string | null;
   tierBand: string;
   nannies: WalletNanny[];
   nannytaxCode: string | null;

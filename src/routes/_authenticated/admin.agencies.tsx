@@ -38,8 +38,8 @@ function AgenciesPage() {
   const exportFn = useServerFn(exportAgencyRecords);
   const logoFn = useServerFn(setAgencyLogo);
   const uploadLogo = (id: string, file: File) => {
-    if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type)) return toast.error("Use a PNG, JPG, WebP or SVG image");
-    if (file.size > 280_000) return toast.error("Logo must be under 280KB");
+    if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type)) { toast.error("Use a PNG, JPG, WebP or SVG image"); return; }
+    if (file.size > 280_000) { toast.error("Logo must be under 280KB"); return; }
     const reader = new FileReader();
     reader.onload = () => void run(() => logoFn({ data: { id, logo: String(reader.result) } }), "Logo updated");
     reader.readAsDataURL(file);
