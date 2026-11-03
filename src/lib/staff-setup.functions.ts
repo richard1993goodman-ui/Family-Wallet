@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { PUBLIC_SITE_URL } from "@/lib/site";
 
 // Public: sends an account invite only to emails the owner has added as partner staff.
 // Always returns the same answer so it can't be used to check which emails are invited.
@@ -8,7 +9,7 @@ export const requestStaffSetup = createServerFn({ method: "POST" })
     const email = data.email.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Enter a valid email");
     // Always send email links to the public site; preview/editor domains are private and show a proxy error.
-    const origin = "https://familywallet.io";
+    const origin = PUBLIC_SITE_URL;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: staff } = await supabaseAdmin
       .from("partner_agency_staff")
