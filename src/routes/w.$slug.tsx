@@ -349,14 +349,14 @@ function WalletPage() {
 
         <h2 className="ios-section-title mt-6">This week</h2>
         <TodayPanel slug={slug} entries={hub?.entries ?? []} schedules={hub?.schedules ?? []} />
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
-          <HubTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
-          <HubTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
-          <HubTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
-          <HubTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
-          <HubTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
-          <HubTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <ShortcutTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
+          <ShortcutTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
+          <ShortcutTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
+          <ShortcutTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
+          <ShortcutTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
+          <ShortcutTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
+          <ShortcutTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
         </div>
 
 
@@ -376,9 +376,9 @@ function WalletPage() {
 
 
         <h2 className="ios-section-title mt-6">Your household</h2>
-        <div className="ios-group mt-2">
-          <HubTile slug={slug} to="/housemanual/$slug" icon={KeyRound} title="House Manual & Codes" subtitle="WiFi, alarm and lockbox codes, house rules and everyday instructions" />
-          <HubTile slug={slug} to="/kids/$slug" icon={Heart} title="Kids' Playbook" subtitle="Comforts and quirks, how we handle big moments, friends and rainy-day ideas" />
+        <div className="mt-3 grid grid-cols-2 gap-3">
+          <ShortcutTile slug={slug} to="/housemanual/$slug" icon={KeyRound} title="House Manual & Codes" subtitle="WiFi, alarm and lockbox codes, house rules and everyday instructions" />
+          <ShortcutTile slug={slug} to="/kids/$slug" icon={Heart} title="Kids' Playbook" subtitle="Comforts and quirks, how we handle big moments, friends and rainy-day ideas" />
         </div>
         {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
         <div className="ios-group mt-2">
@@ -393,7 +393,6 @@ function WalletPage() {
         {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
           <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
           <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate your nanny's pay, employer NI and pension" />
-          <HubTile slug={slug} to="/curation/$slug" icon={Handshake} title="Private nanny curation" subtitle="A discreet, personally selected search — never a public catalogue" />
         </div></>}
 
 
@@ -685,7 +684,7 @@ function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
   const allDone = done === total;
   const outstanding = items.filter((item) => !item.done);
   if (allDone) return null;
-  const barColour = allDone ? "bg-emerald-600" : done >= total / 2 ? "bg-amber-500" : "bg-destructive";
+  const barColour = allDone ? "bg-primary" : "bg-secondary";
 
   return (
     <div className="mt-4 rounded-2xl bg-card shadow-sm p-5">
@@ -987,6 +986,23 @@ function HubTile({
       <span>
         <span className="block font-medium text-foreground">{title}</span>
         <span className="mt-1 block text-sm text-muted-foreground">{subtitle}</span>
+      </span>
+    </Link>
+  );
+}
+
+function ShortcutTile(props: React.ComponentProps<typeof HubTile>) {
+  const { slug, to, icon: Icon, title, subtitle } = props;
+  return (
+    <Link
+      to={to}
+      params={{ slug }}
+      className="group flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+    >
+      <span className="ios-icon"><Icon className="h-4 w-4" /></span>
+      <span>
+        <span className="block font-medium leading-snug text-foreground">{title}</span>
+        <span className="mt-1 line-clamp-2 block text-xs text-muted-foreground">{subtitle}</span>
       </span>
     </Link>
   );
