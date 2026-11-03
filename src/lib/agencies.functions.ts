@@ -43,6 +43,15 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // Every agency always gets its own unique page + demo link: derive a handle from the name when blank.
+    if (!row.short_name) {
+      const base = (data.brandName?.trim() || name).toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 34) || "agency";
+      const { data: taken } = await supabaseAdmin.from("partner_agencies").select("id, short_name").ilike("short_name", `${base}%`);
+      const used = new Set((taken ?? []).filter((t) => t.id !== data.id).map((t) => (t.short_name ?? "").toLowerCase()));
+      let candidate = base;
+      for (let i = 2; used.has(candidate); i++) candidate = `${base}-${i}`;
+      row.short_name = candidate;
+    }
     if (data.id) {
       const { error } = await supabaseAdmin.from("partner_agencies").update(row).eq("id", data.id);
       if (error) throw new Error(error.code === "23505" ? "That web address is already taken" : error.message);
