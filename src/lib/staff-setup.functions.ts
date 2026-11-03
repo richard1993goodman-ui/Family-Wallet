@@ -14,11 +14,18 @@ export const requestStaffSetup = createServerFn({ method: "POST" })
       .select("id, user_id, agency_id")
       .eq("email", email)
       .maybeSingle();
-    if (staff && !staff.user_id) {
+    if (staff) {
       const { data: agency } = await supabaseAdmin.from("partner_agencies").select("status").eq("id", staff.agency_id).maybeSingle();
       if (agency?.status === "active") {
-        const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, origin ? { redirectTo: `${origin}/auth?setup=1` } : {});
-        if (error && !/already/i.test(error.message)) console.error("staff invite failed", error.message);
+        const redirect = origin ? { redirectTo: `${origin}/auth?setup=1` } : {};
+        if (!staff.user_id) {
+          const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, redirect);
+          if (error && !/already/i.test(error.message)) console.error("staff invite failed", error.message);
+        } else {
+          // Already joined: send a password reset link to the confirmed staff email only.
+          const { error } = await supabaseAdmin.auth.resetPasswordForEmail(email, redirect);
+          if (error) console.error("staff reset failed", error.message);
+        }
       }
     }
     return { ok: true as const };

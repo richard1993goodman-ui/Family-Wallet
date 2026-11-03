@@ -31,7 +31,7 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  const [mode, setMode] = useState<"signin" | "setup">("signin");
+  const [mode, setMode] = useState<"signin" | "setup" | "reset">("signin");
   const [sent, setSent] = useState(false);
 
   const [twoStep, setTwoStep] = useState<
@@ -118,7 +118,7 @@ function AuthPage() {
     e.preventDefault();
     setBusy(true);
     try {
-      if (mode === "setup") {
+      if (mode !== "signin") {
         await requestSetupFn({ data: { email, origin: window.location.origin } });
         setSent(true);
         return;
@@ -148,14 +148,16 @@ function AuthPage() {
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "setup"
+          {mode === "reset"
+            ? "Forgot your password? Enter the email your agency added for you and we'll send a secure link to choose a new one."
+            : mode === "setup"
             ? "First time here? Enter the email your agency added for you. We'll email you a secure link to choose your password."
             : "Private area for your agency and invited partner agency staff."}
         </p>
 
         {choosePassword ? (
           <form onSubmit={onChoosePassword} className="mt-6 space-y-4">
-            <p className="font-medium text-foreground">Choose your password</p>
+            <p className="font-medium text-foreground">Choose a new password</p>
             <div>
               <Label htmlFor="newpw">New password</Label>
               <Input id="newpw" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1" />
@@ -204,7 +206,7 @@ function AuthPage() {
           <div className="mt-6 rounded-lg border border-border bg-muted p-4 text-sm">
             <p className="font-medium text-foreground">Check your email</p>
             <p className="mt-1 text-muted-foreground">
-              If {email} has been invited, a setup link is on its way. Open it, choose a password, then set up your authenticator code.
+              If {email} is an invited partner email, a secure link is on its way. Open it, choose a password, then enter your authenticator code.
             </p>
             <Button variant="outline" className="mt-4 w-full" onClick={() => { setSent(false); setMode("signin"); }}>
               Back to sign in
@@ -240,15 +242,20 @@ function AuthPage() {
             />
           </div>)}
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? "Please wait…" : mode === "setup" ? "Email me a setup link" : "Sign in"}
+            {busy ? "Please wait…" : mode === "reset" ? "Email me a reset link" : mode === "setup" ? "Email me a setup link" : "Sign in"}
           </Button>
         </form>
+        {mode === "signin" ? (
+          <button type="button" onClick={() => setMode("reset")} className="mt-4 w-full text-center text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+            Forgot password?
+          </button>
+        ) : null}
         <button
           type="button"
-          onClick={() => setMode(mode === "setup" ? "signin" : "setup")}
+          onClick={() => setMode(mode === "signin" ? "setup" : "signin")}
           className="mt-4 w-full text-center text-sm font-medium text-primary underline-offset-4 hover:underline"
         >
-          {mode === "setup" ? "Already set a password? Sign in" : "Invited partner staff? Set up your password"}
+          {mode !== "signin" ? "Back to sign in" : "Invited partner staff? Set up your password"}
         </button>
         </>
         )}
