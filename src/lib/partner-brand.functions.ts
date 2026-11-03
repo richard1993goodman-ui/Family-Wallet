@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 
-export type PartnerBrand = { handle: string; walletName: string; agencyName: string };
+export type PartnerBrand = { handle: string; walletName: string; agencyName: string; logo: string | null };
 
 /** Public: returns only the display name of an active partner agency for its branded pages. */
 export const getPartnerBrand = createServerFn({ method: "GET" })
@@ -26,5 +26,7 @@ export const getPartnerBrand = createServerFn({ method: "GET" })
       return null;
     }
     const row = (rows as unknown as { handle: string; wallet_name: string; agency_name: string }[] | null)?.[0];
-    return row ? { handle: row.handle, walletName: row.wallet_name, agencyName: row.agency_name } : null;
+    if (!row) return null;
+    const { data: logo } = await client.rpc("get_partner_logo" as never, { _handle: data.handle } as never);
+    return { handle: row.handle, walletName: row.wallet_name, agencyName: row.agency_name, logo: (logo as unknown as string | null) ?? null };
   });
