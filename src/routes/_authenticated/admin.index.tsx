@@ -10,6 +10,7 @@ import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { siteUrl } from "@/lib/site";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -325,7 +326,7 @@ function AdminHome() {
                   className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${window.location.origin}/w/${family.slug} — access code ${family.access_code}`,
+                      `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
                     );
                     toast.success("Link and code copied");
                   }}

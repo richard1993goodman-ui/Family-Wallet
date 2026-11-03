@@ -22,6 +22,7 @@ import { StatementDocument } from "@/components/StatementDocument";
 import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
+import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -255,8 +256,7 @@ function AgreementPage() {
 
   const signatures = data.signatures.filter((s) => s.docKind === "agreement");
   const issued = data.status === "issued";
-  const inviteLink =
-    typeof window !== "undefined" ? `${window.location.origin}/nanny/${slug}` : `/nanny/${slug}`;
+  const inviteLink = siteUrl(`/nanny/${slug}`);
   const emergency = data.emergency;
   const hasEmergencyDetails = Boolean(
     emergency.homeAddress || emergency.children.length || emergency.contacts.length,
