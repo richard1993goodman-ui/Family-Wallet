@@ -353,10 +353,10 @@ function WalletPage() {
           <ShortcutTile slug={slug} to="/planner/$slug" icon={CalendarDays} title="Weekly planner" subtitle={hub?.entries.length ? `${hub.entries.length} thing${hub.entries.length === 1 ? "" : "s"} planned this week` : "Plan pickups, clubs and activities"} />
           <ShortcutTile slug={slug} to="/log/$slug" icon={NotebookPen} title="Daily log" subtitle={hub?.latestLog ? `Last update ${new Date(`${hub.latestLog.log_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "End-of-shift updates from your nanny"} />
           <ShortcutTile slug={slug} to="/handover/$slug" icon={ClipboardCheck} title="Handover &amp; expenses" subtitle={hub?.latestHandover ? `Last handover ${new Date(`${hub.latestHandover.handover_date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}` : "Doorstep wrap-up, tomorrow's kit and petty cash"} />
-          <ShortcutTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel &amp; Villa Nanny Pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
-          <ShortcutTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday Weekly Report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
+          <ShortcutTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
+          <ShortcutTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
           <ShortcutTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
-          <ShortcutTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments &amp; milestones" subtitle="A private photo diary and milestone journal for your children" />
+          <ShortcutTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments" subtitle="A private photo diary and milestone journal for your children" />
         </div>
 
 
@@ -390,7 +390,7 @@ function WalletPage() {
 
         {isNanny && <div className="mt-4"><HubTile slug={slug} to="/safety/$slug" icon={ShieldCheck} title="Insurance &amp; safeguarding" subtitle="Your checks, training and insurance records" /></div>}
 
-        {!isNanny && <><h2 className="ios-section-title mt-8">Family concierge</h2><div className="ios-group mt-2">
+        {!isNanny && <><h2 className="ios-section-title mt-8">Pay &amp; costs</h2><div className="ios-group mt-2">
           <HubTile slug={slug} to="/payroll/$slug" icon={Landmark} title="Managed payroll setup" subtitle="A guided Nannytax introduction with visible next steps" />
           <HubTile slug={slug} to="/costs/$slug" icon={Calculator} title="All-in employment cost" subtitle="Estimate your nanny's pay, employer NI and pension" />
         </div></>}
