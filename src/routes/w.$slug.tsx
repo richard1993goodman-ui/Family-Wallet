@@ -356,7 +356,6 @@ function WalletPage() {
           <ShortcutTile slug={slug} to="/travel/$slug" icon={Plane} title="Travel pack" subtitle="Going abroad? Checklist, local emergency info and travel handovers" />
           <ShortcutTile slug={slug} to="/report/$slug" icon={FileBarChart} title="Friday report" subtitle="Your week at a glance — hours, activities, handovers and expenses" />
           <ShortcutTile slug={slug} to="/medication/$slug" icon={Pill} title="Medication log" subtitle="Timestamped doses — see if Calpol has already been given" />
-          <ShortcutTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments" subtitle="A private photo diary and milestone journal for your children" />
         </div>
 
 
@@ -376,9 +375,10 @@ function WalletPage() {
 
 
         <h2 className="ios-section-title mt-6">Your household</h2>
-        <div className="mt-3 grid grid-cols-2 gap-3">
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <ShortcutTile slug={slug} to="/housemanual/$slug" icon={KeyRound} title="House Manual & Codes" subtitle="WiFi, alarm and lockbox codes, house rules and everyday instructions" />
           <ShortcutTile slug={slug} to="/kids/$slug" icon={Heart} title="Kids' Playbook" subtitle="Comforts and quirks, how we handle big moments, friends and rainy-day ideas" />
+          <ShortcutTile slug={slug} to="/moments/$slug" icon={Camera} title="Photo moments" subtitle="A private photo diary and milestone journal for your children" />
         </div>
         {!isNanny && <><h2 className="ios-section-title mt-8">Your family</h2>
         <div className="ios-group mt-2">
