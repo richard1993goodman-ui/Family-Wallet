@@ -39,15 +39,22 @@ function AuthPage() {
   >(null);
   const [code, setCode] = useState("");
   const [choosePassword, setChoosePassword] = useState(false);
+  const [resetFactorId, setResetFactorId] = useState<string | null>(null);
   const requestSetupFn = useServerFn(requestStaffSetup);
 
   async function onChoosePassword(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     try {
+      // Accounts with two-step must confirm a code before the password can change.
+      if (resetFactorId) {
+        const { error: mfaError } = await supabase.auth.mfa.challengeAndVerify({ factorId: resetFactorId, code: code.trim() });
+        if (mfaError) throw new Error("That code didn't work. Check your authenticator app and try again.");
+      }
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
       setChoosePassword(false);
+      setCode("");
       window.history.replaceState(null, "", "/auth");
       await continueTwoStep();
     } catch (error) {
@@ -86,6 +93,10 @@ function AuthPage() {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session && new URLSearchParams(window.location.search).get("setup") === "1") {
         setChoosePassword(true);
+        supabase.auth.mfa.listFactors().then(({ data: f }) => {
+          const verified = f?.totp?.find((x) => x.status === "verified");
+          if (verified) setResetFactorId(verified.id);
+        });
         return;
       }
       if (data.session) continueTwoStep().catch(() => undefined);
@@ -162,6 +173,12 @@ function AuthPage() {
               <Label htmlFor="newpw">New password</Label>
               <Input id="newpw" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1" />
             </div>
+            {resetFactorId && (
+              <div>
+                <Label htmlFor="resetcode">6-digit code from your authenticator app</Label>
+                <Input id="resetcode" inputMode="numeric" autoComplete="one-time-code" maxLength={6} required value={code} onChange={(e) => setCode(e.target.value)} className="mt-1" />
+              </div>
+            )}
             <Button type="submit" className="w-full" disabled={busy}>{busy ? "Saving…" : "Save and continue"}</Button>
           </form>
         ) : twoStep ? (
