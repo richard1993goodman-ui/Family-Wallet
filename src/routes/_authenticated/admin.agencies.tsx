@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { partnerFee } from "@/lib/partner-tiers";
+import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
@@ -126,8 +127,8 @@ function AgenciesPage() {
                       {([["Their page", `/p/${a.short_name}`], ["Their demo", `/p/${a.short_name}/demo`]] as const).map(([label, path]) => (
                         <div key={label} className="flex flex-wrap items-center gap-2">
                           <span className="text-muted-foreground">{label}:</span>
-                          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{window.location.origin}{path}</code>
-                          <Button variant="ghost" size="sm" className="h-7 px-2" onClick={() => { void navigator.clipboard.writeText(window.location.origin + path); toast.success("Link copied"); }}>Copy</Button>
+                          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{siteUrl(path)}</code>
+                          <Button variant="ghost" size="sm" className="h-7 px-2" onClick={() => { void navigator.clipboard.writeText(siteUrl(path)); toast.success("Link copied"); }}>Copy</Button>
                         </div>
                       ))}
                     </div>
