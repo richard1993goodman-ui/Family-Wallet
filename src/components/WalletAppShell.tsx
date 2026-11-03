@@ -224,11 +224,12 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
       <WalletNavigation
         slug={location.slug}
         familyName={summaryQuery.data.wallet.familyName}
+        logo={location.slug === "demo" ? null : summaryQuery.data.wallet.agencyLogo ?? null}
         isNanny={summaryQuery.data.wallet.access === "nanny"}
         activePrefix={location.prefix}
       />
       <SidebarInset className="min-w-0 bg-sand">
-        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} agencyName={demoBrand ?? summaryQuery.data.wallet.agencyName ?? null} />
+        <WalletTopBar familyName={summaryQuery.data.wallet.familyName} logo={location.slug === "demo" ? null : summaryQuery.data.wallet.agencyLogo ?? null} agencyName={demoBrand ?? summaryQuery.data.wallet.agencyName ?? null} />
         <div className="min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
           {children}
         </div>
@@ -242,10 +243,11 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   );
 }
 
-function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyName: string | null }) {
+function WalletTopBar({ familyName, agencyName, logo }: { familyName: string; agencyName: string | null; logo: string | null }) {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:px-6">
       <SidebarTrigger className="h-9 w-9" />
+      {logo ? <img src={logo} alt={agencyName ? `${agencyName} logo` : "Agency logo"} className="h-8 max-w-[96px] flex-none object-contain md:hidden" /> : null}
       <div className="min-w-0">
         <p className="truncate text-sm font-semibold text-foreground">{familyName}</p>
         <p className="truncate text-xs text-muted-foreground">{agencyName ?? "Family Wallet"}</p>
@@ -261,11 +263,13 @@ function WalletTopBar({ familyName, agencyName }: { familyName: string; agencyNa
 function WalletNavigation({
   slug,
   familyName,
+  logo,
   isNanny,
   activePrefix,
 }: {
   slug: string;
   familyName: string;
+  logo: string | null;
   isNanny: boolean;
   activePrefix: string;
 }) {
@@ -280,9 +284,15 @@ function WalletNavigation({
           onClick={() => isMobile && setOpenMobile(false)}
           className="flex min-w-0 items-center gap-3 rounded-md p-1.5 hover:bg-sidebar-accent"
         >
-          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-            <Wallet className="h-4 w-4" aria-hidden="true" />
-          </span>
+          {logo ? (
+            <span className="flex h-8 w-8 flex-none items-center justify-center overflow-hidden rounded-md bg-background">
+              <img src={logo} alt="Agency logo" className="h-full w-full object-contain" />
+            </span>
+          ) : (
+            <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
+              <Wallet className="h-4 w-4" aria-hidden="true" />
+            </span>
+          )}
           <span className="min-w-0 group-data-[collapsible=icon]:hidden">
             <span className="block truncate text-sm font-semibold">{familyName}</span>
             <span className="block text-xs text-sidebar-foreground/65">Family Wallet</span>

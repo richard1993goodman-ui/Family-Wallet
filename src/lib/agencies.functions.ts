@@ -53,6 +53,20 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
     return { id: inserted.id };
   });
 
+export const setAgencyLogo = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string; logo: string | null }) => {
+    if (d.logo !== null && (!/^data:image\/(png|jpeg|webp|svg\+xml);base64,/.test(d.logo) || d.logo.length > 400000)) throw new Error("Logo must be a PNG, JPG, WebP or SVG under 280KB");
+    return d;
+  })
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partner_agencies").update({ logo_data: data.logo, updated_at: new Date().toISOString() }).eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
 export const addAgencyStaff = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { agencyId: string; email: string }) => d)

@@ -51,7 +51,11 @@ function PartnerHome() {
     <div className="min-h-screen bg-sand">
       <header className="border-b border-border/70 bg-background/75">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">{initials}</span>
+          {brand.logo ? (
+            <img src={brand.logo} alt={`${brand.agencyName} logo`} className="h-10 max-w-[140px] object-contain" />
+          ) : (
+            <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">{initials}</span>
+          )}
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-foreground">{brand.agencyName}</p>
             <p className="text-xs text-muted-foreground">Powered by The Family Wallet</p>

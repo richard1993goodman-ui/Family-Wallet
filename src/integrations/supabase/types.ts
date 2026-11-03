@@ -1406,6 +1406,7 @@ export type Database = {
           created_at: string
           id: string
           intro_pricing: boolean
+          logo_data: string | null
           name: string
           short_name: string | null
           status: string
@@ -1421,6 +1422,7 @@ export type Database = {
           created_at?: string
           id?: string
           intro_pricing?: boolean
+          logo_data?: string | null
           name: string
           short_name?: string | null
           status?: string
@@ -1436,6 +1438,7 @@ export type Database = {
           created_at?: string
           id?: string
           intro_pricing?: boolean
+          logo_data?: string | null
           name?: string
           short_name?: string | null
           status?: string
@@ -2329,6 +2332,7 @@ export type Database = {
           wallet_name: string
         }[]
       }
+      get_partner_logo: { Args: { _handle: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

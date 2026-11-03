@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeft, Download, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -36,6 +36,14 @@ function AgenciesPage() {
   const removeStaffFn = useServerFn(removeAgencyStaff);
   const deleteFn = useServerFn(deletePartnerAgency);
   const exportFn = useServerFn(exportAgencyRecords);
+  const logoFn = useServerFn(setAgencyLogo);
+  const uploadLogo = (id: string, file: File) => {
+    if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type)) { toast.error("Use a PNG, JPG, WebP or SVG image"); return; }
+    if (file.size > 280_000) { toast.error("Logo must be under 280KB"); return; }
+    const reader = new FileReader();
+    reader.onload = () => void run(() => logoFn({ data: { id, logo: String(reader.result) } }), "Logo updated");
+    reader.readAsDataURL(file);
+  };
   const [brand, setBrand] = useState("");
   type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null; allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean };
   const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string; allowChallenges: boolean; allowPerks: boolean; allowPlaybooks: boolean }>) =>
@@ -105,7 +113,10 @@ function AgenciesPage() {
             <div key={a.id} className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="heading-display text-lg">{a.name}</p>
+                  <div className="flex items-center gap-3">
+                    {a.logo_data ? <img src={a.logo_data} alt={`${a.name} logo`} className="h-10 max-w-[120px] rounded border border-border bg-background object-contain p-1" /> : null}
+                    <p className="heading-display text-lg">{a.name}</p>
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     {a.contact_email ?? ""}
                   </p>
@@ -162,6 +173,13 @@ function AgenciesPage() {
                 >
                   Rename wallet
                 </Button>
+                <label className="inline-flex h-9 cursor-pointer items-center rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+                  {a.logo_data ? "Replace logo" : "Upload logo"}
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadLogo(a.id, f); e.target.value = ""; }} />
+                </label>
+                {a.logo_data ? (
+                  <Button variant="outline" size="sm" onClick={() => run(() => logoFn({ data: { id: a.id, logo: null } }), "Logo removed")}>Remove logo</Button>
+                ) : null}
                 <Button
                   variant="outline"
                   size="sm"
