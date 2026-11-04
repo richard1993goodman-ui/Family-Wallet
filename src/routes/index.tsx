@@ -251,12 +251,6 @@ function Index() {
                     Explore the demo wallet <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Link
-                  to="/calculator"
-                  className="text-[0.9375rem] font-medium text-foreground underline decoration-foreground/25 underline-offset-[6px] transition-colors hover:decoration-foreground"
-                >
-                  What will a nanny really cost?
-                </Link>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">
                 The demo is the Harrington family and their nanny Jess. Nothing in it is live.
