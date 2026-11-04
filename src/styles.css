@@ -54,6 +54,7 @@
   --color-positive: var(--positive);
   --color-warning: var(--warning);
   --color-warning-soft: var(--warning-soft);
+  --color-ink-band: var(--ink-band);
   --font-display: "Geist", "Inter", system-ui, sans-serif;
   --font-sans: "Geist", "Inter", system-ui, sans-serif;
   --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
@@ -103,6 +104,8 @@
   --positive: #1e5b45;
   --warning: #92400e;
   --warning-soft: #fdf6e3;
+  /* The closing band stays ink in both themes. */
+  --ink-band: #161615;
   --shadow-soft: none;
   --shadow-float: 0 12px 32px -12px rgb(18 18 17 / 0.18), 0 2px 6px rgb(18 18 17 / 0.06);
   --chart-1: #161615;
@@ -149,6 +152,7 @@
   --positive: #5fb28f;
   --warning: #f0b45a;
   --warning-soft: #2a2215;
+  --ink-band: #1b1b1a;
   --sidebar: #070706;
   --sidebar-foreground: #d6d4cf;
   --sidebar-primary: #f5f5f4;
@@ -157,6 +161,24 @@
   --sidebar-accent-foreground: #f5f5f4;
   --sidebar-border: #2a2a28;
   --sidebar-ring: #f5f5f4;
+}
+
+/* "Increase contrast": firmer edges and darker secondary text. */
+@media (prefers-contrast: more) {
+  :root {
+    --border: #a9a59f;
+    --rule: #c8c5bf;
+    --input: #8b8881;
+    --muted-foreground: #43413d;
+    --sidebar-border: #a9a59f;
+  }
+  .dark {
+    --border: #5a5a56;
+    --rule: #444441;
+    --input: #77766f;
+    --muted-foreground: #d4d2cd;
+    --sidebar-border: #5a5a56;
+  }
 }
 
 @layer base {
@@ -283,6 +305,24 @@
   align-self: flex-start;
   margin-top: 0.125rem;
   color: var(--color-muted-foreground);
+}
+
+/* Frosted chrome that content scrolls under. Goes solid when the device asks for less transparency. */
+@utility material {
+  background-color: color-mix(in oklab, var(--color-background) 78%, transparent);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--color-background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  @media (prefers-contrast: more) {
+    background-color: var(--color-background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--color-foreground);
+  }
 }
 
 /* A tiled set of links in one panel: hairline gaps instead of separate cards. */

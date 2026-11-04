@@ -89,7 +89,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "The private Family Wallet from your agency: your nanny agreement, nanny CV and everyday nanny tools in one place.",
       },
       { name: "author", content: "The Family Wallet" },
-      { name: "theme-color", content: "#f4f3f1" },
+      { name: "theme-color", content: "#f4f3f1", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#0c0c0b", media: "(prefers-color-scheme: dark)" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -112,10 +113,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+/** Follows the device's light or dark setting before first paint, and live after that. */
+const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}a();m.addEventListener("change",a)})()`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <HeadContent />
       </head>
       <body>

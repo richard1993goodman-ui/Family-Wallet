@@ -174,9 +174,7 @@ function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-40 border-b transition-colors duration-300",
-        scrolled
-          ? "border-border/70 bg-background/80 backdrop-blur-xl backdrop-saturate-150"
-          : "border-transparent bg-background",
+        scrolled ? "material border-border/70" : "border-transparent bg-background",
       )}
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
@@ -199,12 +197,6 @@ function SiteHeader() {
           >
             Demo
           </Link>
-          <Link
-            to="/calculator"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Cost calculator
-          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <Button className="hidden sm:inline-flex" asChild>
@@ -224,21 +216,23 @@ function SiteHeader() {
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
                 {navLinks.map((n) => (
-                  <Button key={n.href} variant="ghost" className="justify-start" asChild>
+                  <Button
+                    key={n.href}
+                    variant="ghost"
+                    className="h-11 justify-start text-[0.9375rem]"
+                    asChild
+                  >
                     <a href={n.href}>{n.label}</a>
                   </Button>
                 ))}
-                <Button variant="ghost" className="justify-start" asChild>
+                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
                   <Link to="/demo">Demo wallet</Link>
                 </Button>
-                <Button variant="ghost" className="justify-start" asChild>
-                  <Link to="/calculator">Cost calculator</Link>
-                </Button>
                 <Separator className="my-3" />
-                <Button asChild>
+                <Button className="h-11" asChild>
                   <a href="#sign-in">Open my wallet</a>
                 </Button>
-                <Button variant="outline" className="mt-2" asChild>
+                <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
                 </Button>
               </div>
@@ -405,10 +399,7 @@ function Index() {
         </section>
 
         {/* The way in */}
-        <section
-          id="help"
-          className="scroll-mt-16 bg-primary py-24 text-primary-foreground lg:py-32"
-        >
+        <section id="help" className="scroll-mt-16 bg-ink-band py-24 text-white lg:py-32">
           <div className={cn(frame, "grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-8")}>
             <div className="lg:col-span-5" data-reveal>
               <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] sm:text-5xl">
@@ -436,7 +427,7 @@ function Index() {
                 ))}
               </ol>
               <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Button size="lg" className="bg-white text-foreground hover:bg-white/90" asChild>
+                <Button size="lg" className="bg-white text-ink-band hover:bg-white/90" asChild>
                   <a href="#sign-in">
                     Open my wallet <ArrowRight className="h-4 w-4" />
                   </a>
@@ -472,9 +463,6 @@ function Index() {
             <nav className="flex flex-wrap gap-x-7 gap-y-2">
               <Link to="/demo" className="transition-colors hover:text-foreground">
                 Demo wallet
-              </Link>
-              <Link to="/calculator" className="transition-colors hover:text-foreground">
-                Cost calculator
               </Link>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
@@ -1118,7 +1106,7 @@ function FloatingDemoBar() {
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
       )}
     >
-      <div className="flex items-center gap-4 rounded-full bg-background/80 py-1.5 pl-5 pr-1.5 shadow-[var(--shadow-float)] backdrop-blur-xl backdrop-saturate-150">
+      <div className="material flex items-center gap-4 rounded-full border border-transparent py-1.5 pl-5 pr-1.5 shadow-[var(--shadow-float)]">
         <p className="text-sm text-foreground">The Harringtons' wallet, with nothing live in it</p>
         <Button size="sm" className="rounded-full px-4" asChild>
           <Link to="/demo">

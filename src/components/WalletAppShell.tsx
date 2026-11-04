@@ -20,6 +20,14 @@ import {
 } from "@/components/wallet-nav";
 import { Button } from "@/components/ui/button";
 import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -194,7 +202,7 @@ function WalletNavigation({
                       asChild
                       isActive={activePrefix === routePrefix(item.to)}
                       tooltip={item.label}
-                      className="h-8 text-sidebar-foreground transition-colors [&>svg]:text-muted-foreground data-[active=true]:bg-card data-[active=true]:ring-1 data-[active=true]:ring-sidebar-border data-[active=true]:[&>svg]:text-brand"
+                      className="h-11 text-[0.9375rem] text-sidebar-foreground transition-colors md:h-8 md:text-sm [&>svg]:text-muted-foreground data-[active=true]:bg-card data-[active=true]:ring-1 data-[active=true]:ring-sidebar-border data-[active=true]:[&>svg]:text-brand"
                     >
                       <Link
                         to={item.to}
@@ -317,7 +325,7 @@ function MobileTabs({
   role: WalletRole;
   activePrefix: string;
 }) {
-  const { toggleSidebar } = useSidebar();
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <nav
@@ -343,16 +351,63 @@ function MobileTabs({
             </Link>
           );
         })}
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={toggleSidebar}
-          className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[11px] font-medium text-muted-foreground"
-          aria-label="Open all wallet pages"
-        >
-          <Menu className="h-5 w-5 stroke-[1.5]" />
-          <span>More</span>
-        </Button>
+        <Drawer open={moreOpen} onOpenChange={setMoreOpen}>
+          <DrawerTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[11px] font-medium text-muted-foreground active:scale-100"
+              aria-label="Open all wallet pages"
+            >
+              <Menu className="h-5 w-5 stroke-[1.5]" />
+              <span>More</span>
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className="px-5 pb-2 pt-3 text-left">
+              <DrawerTitle className="text-base">All wallet pages</DrawerTitle>
+              <DrawerDescription className="sr-only">
+                Every page in your Family Wallet, grouped by section.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-3 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+              {navFor(role).map((section) => (
+                <section key={section.label} className="pt-3">
+                  <h3 className="px-2 pb-1 text-[0.8125rem] font-normal text-muted-foreground">
+                    {section.label}
+                  </h3>
+                  <ul>
+                    {section.items.map((item) => {
+                      const active = routePrefix(item.to) === activePrefix;
+                      return (
+                        <li key={item.to}>
+                          <Link
+                            to={item.to}
+                            params={{ slug }}
+                            onClick={() => setMoreOpen(false)}
+                            aria-current={active ? "page" : undefined}
+                            className={cn(
+                              "flex min-h-12 items-center gap-3 rounded-lg px-2 text-[0.9375rem] transition-colors active:bg-accent",
+                              active ? "bg-accent font-medium text-foreground" : "text-foreground",
+                            )}
+                          >
+                            <item.icon
+                              className={cn(
+                                "h-[1.125rem] w-[1.125rem] flex-none",
+                                active ? "text-brand" : "text-muted-foreground",
+                              )}
+                            />
+                            {item.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </nav>
   );

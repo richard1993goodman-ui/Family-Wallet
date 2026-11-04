@@ -383,7 +383,7 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
             <p className="font-medium text-foreground">{child.name}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {child.allergies ? (
-                <span className="inline-flex items-center gap-1 rounded-sm bg-[#ffedea] px-2 py-0.5 text-xs font-medium text-[#831c1e]">
+                <span className="inline-flex items-center gap-1 rounded-sm bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
                   <AlertTriangle className="h-3 w-3" /> {child.allergies}
                 </span>
               ) : (

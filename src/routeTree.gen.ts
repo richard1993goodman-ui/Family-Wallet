@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
@@ -71,11 +70,6 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CalculatorRoute = CalculatorRouteImport.update({
-  id: '/calculator',
-  path: '/calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoRoute = DemoRouteImport.update({
@@ -311,7 +305,6 @@ const AuthenticatedAdminHubIdRoute = AuthenticatedAdminHubIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/calculator': typeof CalculatorRoute
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
@@ -361,7 +354,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/calculator': typeof CalculatorRoute
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
@@ -413,7 +405,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/calculator': typeof CalculatorRoute
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
@@ -465,7 +456,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
-    | '/calculator'
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
@@ -515,7 +505,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
-    | '/calculator'
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
@@ -566,7 +555,6 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
-    | '/calculator'
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
@@ -618,7 +606,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
-  CalculatorRoute: typeof CalculatorRoute
   DemoRoute: typeof DemoRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
@@ -681,13 +668,6 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/calculator': {
-      id: '/calculator'
-      path: '/calculator'
-      fullPath: '/calculator'
-      preLoaderRoute: typeof CalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo': {
@@ -1033,7 +1013,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
-  CalculatorRoute: CalculatorRoute,
   DemoRoute: DemoRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
