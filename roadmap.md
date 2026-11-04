@@ -9,4 +9,4 @@
 - [x] Family–nanny messages: topic threads both sides can post in, like a messaging portal
 - [x] Cost calculator: remove Richard/WhatsApp contact, keep Copy summary
 - [x] Nanny bank details page
-- [ ] Demo wallet open to anyone without a code
+- [x] Demo wallet open to anyone without a code
