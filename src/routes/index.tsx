@@ -1,6 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { ArrowRight, Eye, EyeOff, Menu } from "lucide-react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  Clock3,
+  Eye,
+  EyeOff,
+  FileBarChart,
+  Menu,
+  MessageCircle,
+  Pill,
+} from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
 import { FamilyLogin } from "@/components/FamilyLogin";
@@ -152,8 +162,23 @@ function splitItem(item: string) {
 const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";
 
 function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 bg-background">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b transition-colors duration-300",
+        scrolled
+          ? "border-border/70 bg-background/80 backdrop-blur-xl backdrop-saturate-150"
+          : "border-transparent bg-background",
+      )}
+    >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
         <Link to="/" aria-label="The Family Wallet, home">
           <Wordmark />
@@ -234,7 +259,7 @@ function Index() {
 
       <main>
         {/* The front door: what this is, and the way in */}
-        <section className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
+        <section id="front" className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-7 lg:pr-6" data-reveal>
               <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
@@ -332,6 +357,9 @@ function Index() {
           </figcaption>
         </figure>
 
+        {/* One day, told as the wallet records it */}
+        <DayStory />
+
         {/* Everything in the wallet, set as an index */}
         <section id="included" className="scroll-mt-16 py-24 lg:py-36">
           <div className={frame}>
@@ -345,34 +373,7 @@ function Index() {
               </p>
             </div>
 
-            <div className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-4">
-              {benefitGroups.map((group) => (
-                <div key={group.title} data-reveal>
-                  <div className="border-t-2 border-foreground pt-5">
-                    <h3 className="flex items-baseline justify-between gap-3 text-xl font-semibold tracking-[-0.015em] text-foreground">
-                      {group.title}
-                      <span className="num text-[0.9375rem] font-normal text-muted-foreground">
-                        {group.items.length}
-                      </span>
-                    </h3>
-                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                      {group.summary}
-                    </p>
-                  </div>
-                  <ul className="mt-6 space-y-4">
-                    {group.items.map((raw) => {
-                      const { name, detail } = splitItem(raw);
-                      return (
-                        <li key={raw} className="text-[0.9375rem] leading-snug">
-                          <p className="font-medium text-foreground">{name}</p>
-                          {detail && <p className="mt-0.5 text-muted-foreground">{detail}</p>}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <DrawerSwitcher />
           </div>
         </section>
 
@@ -460,7 +461,9 @@ function Index() {
         </section>
       </main>
 
-      <footer className="pb-10 pt-20">
+      <FloatingDemoBar />
+
+      <footer id="site-footer" className="pb-10 pt-20">
         <div className={frame}>
           <p className="heading-serif whitespace-nowrap text-[11.4vw] leading-[0.9] tracking-[-0.025em] text-foreground min-[84rem]:text-[10.25rem]">
             The Family Wallet
@@ -717,6 +720,412 @@ function HouseCodes({ className }: { className?: string }) {
       <p className="border-t border-rule px-4 py-2.5 text-xs text-muted-foreground">
         Sample codes from the demo household. Each one hides again after six seconds.
       </p>
+    </div>
+  );
+}
+
+/* ---------------- One Wednesday: a scroll story with a pinned wallet card ---------------- */
+
+function StoryCard({
+  icon: Icon,
+  label,
+  meta,
+  children,
+}: {
+  icon: typeof Clock3;
+  label: string;
+  meta?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      data-ui
+      className="w-full max-w-[26rem] overflow-hidden rounded-xl border border-border bg-card"
+    >
+      <div className="flex items-center gap-2.5 border-b border-rule px-5 py-3.5">
+        <Icon className="h-4 w-4 text-muted-foreground" />
+        <p className="text-sm font-medium text-foreground">{label}</p>
+        {meta && <p className="num ml-auto text-[0.8125rem] text-muted-foreground">{meta}</p>}
+      </div>
+      <div className="px-5 py-4">{children}</div>
+    </div>
+  );
+}
+
+function LedgerRows({ rows }: { rows: Array<[string, string]> }) {
+  return (
+    <dl className="divide-y divide-rule text-sm">
+      {rows.map(([label, value]) => (
+        <div
+          key={label}
+          className="flex items-baseline justify-between gap-4 py-2.5 first:pt-0 last:pb-0"
+        >
+          <dt className="text-muted-foreground">{label}</dt>
+          <dd className="num text-right font-medium text-foreground">{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+const WEDNESDAY = PREVIEW_WEEK[2]!;
+const WEEK_HOURS = PREVIEW_WEEK.reduce((n, d) => n + (d.shift ? d.shift[1] - d.shift[0] : 0), 0);
+
+const STORY: Array<{ time: string; title: string; detail: string; card: ReactNode }> = [
+  {
+    time: "12:00",
+    title: "Jess starts at noon",
+    detail:
+      "Her shift and the afternoon are waiting on the home screen: pick-up at 15:15, football at 16:30, dinner at six.",
+    card: (
+      <StoryCard icon={Clock3} label="Your shift today" meta="Wed 4 Nov">
+        <p className="num heading-display text-[1.75rem] text-foreground">
+          {clock(WEDNESDAY.shift![0])}–{clock(WEDNESDAY.shift![1])}
+        </p>
+        <ul className="mt-4 space-y-2.5 border-t border-rule pt-4">
+          {WEDNESDAY.items.map((item) => (
+            <li key={item.time} className="flex gap-4 text-sm">
+              <span className="num w-12 flex-none text-muted-foreground">{item.time}</span>
+              <span className="text-foreground">
+                {item.title}
+                {item.who && <span className="text-muted-foreground"> · {item.who}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </StoryCard>
+    ),
+  },
+  {
+    time: "14:58",
+    title: "A message, not a phone call",
+    detail:
+      "Sophie leaves a note about the reading folder. Jess answers from the school gate, and both parents can read the thread.",
+    card: (
+      <StoryCard icon={MessageCircle} label="School run" meta="2 messages">
+        <div className="space-y-3 text-sm">
+          <div className="max-w-[85%] rounded-xl rounded-tl-sm bg-accent px-3.5 py-2.5">
+            <p className="text-foreground">
+              Reading folder is on the hall table, and Arthur's shin pads are by the door.
+            </p>
+            <p className="num mt-1 text-xs text-muted-foreground">Sophie · 14:52</p>
+          </div>
+          <div className="ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-primary px-3.5 py-2.5 text-primary-foreground">
+            <p>Got both. Leaving for school now.</p>
+            <p className="num mt-1 text-xs text-primary-foreground/60">Jess · 14:58</p>
+          </div>
+        </div>
+      </StoryCard>
+    ),
+  },
+  {
+    time: "17:30",
+    title: "Calpol, timed and signed",
+    detail:
+      "Olivia has a temperature. The dose goes into the medication log with the time and Jess's name, so nobody gives a second one by mistake.",
+    card: (
+      <StoryCard icon={Pill} label="Medication log" meta="Olivia">
+        <p className="heading-display text-xl text-foreground">Calpol 5ml</p>
+        <div className="mt-4">
+          <LedgerRows
+            rows={[
+              ["Given", "17:30 by Jess"],
+              ["Next dose from", "21:30"],
+              ["Reason", "Temperature"],
+            ]}
+          />
+        </div>
+      </StoryCard>
+    ),
+  },
+  {
+    time: "19:00",
+    title: "Handover at the door",
+    detail:
+      "Homework, dinner, mood and tomorrow's kit, written up before Jess leaves. Tom reads it on the way home.",
+    card: (
+      <StoryCard icon={ClipboardCheck} label="End-of-day handover" meta="19:00">
+        <LedgerRows
+          rows={[
+            ["Homework", "Reading done, spellings Thursday"],
+            ["Dinner", "Chicken traybake, ate well"],
+            ["Mood", "Happy, tired after football"],
+            ["Tomorrow", "Swimming kit for Olivia"],
+          ]}
+        />
+      </StoryCard>
+    ),
+  },
+  {
+    time: "Friday",
+    title: "The week, summed up",
+    detail: "Hours, handovers and expenses add up on their own into a report Sophie can print.",
+    card: (
+      <StoryCard icon={FileBarChart} label="Weekly report" meta="2–8 November">
+        <LedgerRows
+          rows={[
+            ["Hours worked", `${WEEK_HOURS} hours`],
+            ["Handovers", "5 of 5"],
+            ["Medicine doses", "1, signed"],
+            ["Expenses to repay", "£38.40"],
+          ]}
+        />
+      </StoryCard>
+    ),
+  },
+];
+
+function DayStory() {
+  const [active, setActive] = useState(0);
+  const steps = useRef<Array<HTMLLIElement | null>>([]);
+
+  useEffect(() => {
+    // A step is current while it crosses the middle band of the screen.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting)
+            setActive(Number((entry.target as HTMLElement).dataset["step"]));
+        }
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    steps.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="day" className="scroll-mt-16 py-24 lg:py-36">
+      <div className={cn(frame, "grid gap-x-8 lg:grid-cols-12")}>
+        <div className="lg:col-span-5">
+          <div data-reveal>
+            <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+              One Wednesday, start to finish
+            </h2>
+            <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-foreground">
+              Jess works noon to seven. What she does lands in the wallet as it happens, so Sophie
+              and Tom see the day without having to ask.
+            </p>
+          </div>
+          <ol className="mt-10 lg:mt-0">
+            {STORY.map((step, i) => (
+              <li
+                key={step.title}
+                ref={(el) => {
+                  steps.current[i] = el;
+                }}
+                data-step={i}
+                className="border-t border-rule py-10 lg:flex lg:min-h-[72vh] lg:items-center lg:border-0 lg:py-0 lg:last:min-h-[56vh]"
+              >
+                <div
+                  className={cn(
+                    "transition-opacity duration-500",
+                    active === i ? "lg:opacity-100" : "lg:opacity-30",
+                  )}
+                >
+                  <p className="num text-[0.9375rem] font-medium text-brand">{step.time}</p>
+                  <h3 className="mt-2 text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
+                    {step.detail}
+                  </p>
+                  <div className="mt-8 flex justify-center rounded-2xl bg-secondary px-5 py-10 lg:hidden">
+                    {step.card}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="hidden lg:col-span-6 lg:col-start-7 lg:block">
+          <div className="sticky top-[calc(50vh-17rem)]">
+            <div className="relative flex h-[30rem] items-center justify-center rounded-3xl bg-secondary">
+              {STORY.map((step, i) => (
+                <div
+                  key={step.title}
+                  aria-hidden={active !== i}
+                  className={cn(
+                    "absolute inset-0 flex items-center justify-center px-10 transition-[opacity,transform,filter,visibility] duration-500 ease-out motion-reduce:transition-none",
+                    active === i
+                      ? "translate-y-0 opacity-100 blur-0"
+                      : "pointer-events-none invisible translate-y-6 opacity-0 blur-[6px]",
+                  )}
+                >
+                  {step.card}
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center gap-4">
+              <p className="num w-12 flex-none text-sm text-muted-foreground">
+                {active + 1} / {STORY.length}
+              </p>
+              <div className="flex flex-1 gap-1.5">
+                {STORY.map((step, i) => (
+                  <button
+                    key={step.title}
+                    type="button"
+                    onClick={() =>
+                      steps.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" })
+                    }
+                    aria-label={`Go to ${step.time}: ${step.title}`}
+                    aria-current={active === i ? "step" : undefined}
+                    className="group flex h-6 flex-1 cursor-pointer items-center"
+                  >
+                    <span
+                      className={cn(
+                        "h-1 w-full rounded-full transition-colors duration-300",
+                        active === i ? "bg-brand" : "bg-input group-hover:bg-foreground/30",
+                      )}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- The four drawers, one at a time ---------------- */
+
+function DrawerSwitcher() {
+  const [index, setIndex] = useState(0);
+  const tabs = useRef<Array<HTMLButtonElement | null>>([]);
+  const group = benefitGroups[index]!;
+
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const next = (index + step + benefitGroups.length) % benefitGroups.length;
+    setIndex(next);
+    tabs.current[next]?.focus();
+  }
+
+  return (
+    <div className="mt-14" data-reveal>
+      <div
+        role="tablist"
+        aria-label="Drawers in the wallet"
+        onKeyDown={onKeyDown}
+        className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+      >
+        {benefitGroups.map((g, i) => {
+          const selected = i === index;
+          return (
+            <button
+              key={g.title}
+              ref={(el) => {
+                tabs.current[i] = el;
+              }}
+              type="button"
+              role="tab"
+              id={`drawer-tab-${i}`}
+              aria-selected={selected}
+              aria-controls="drawer-panel"
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setIndex(i)}
+              className={cn(
+                "flex h-11 flex-none cursor-pointer items-center gap-2.5 rounded-full border px-5 text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97]",
+                selected
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-input bg-card text-foreground hover:border-foreground/40",
+              )}
+            >
+              {g.title}
+              <span
+                className={cn(
+                  "num text-[0.8125rem] font-normal",
+                  selected ? "text-background/60" : "text-muted-foreground",
+                )}
+              >
+                {g.items.length}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id="drawer-panel"
+        aria-labelledby={`drawer-tab-${index}`}
+        className="mt-6 overflow-hidden rounded-2xl bg-card"
+      >
+        <div
+          key={index}
+          className="grid animate-in fade-in-0 slide-in-from-bottom-2 duration-500 motion-reduce:animate-none lg:grid-cols-12"
+        >
+          <div className="border-b border-rule p-7 sm:p-10 lg:col-span-4 lg:border-b-0 lg:border-r">
+            <h3 className="heading-serif text-[2rem] leading-[1.1] text-foreground sm:text-[2.5rem]">
+              {group.title}
+            </h3>
+            <p className="mt-4 text-lg leading-relaxed text-foreground">{group.summary}</p>
+            <p className="num mt-8 text-[0.9375rem] text-muted-foreground">
+              {group.items.length} tools in this drawer
+            </p>
+          </div>
+          <ul className="grid gap-px bg-rule sm:grid-cols-2 lg:col-span-8 [&>li:last-child:nth-child(odd)]:sm:col-span-2">
+            {group.items.map((raw) => {
+              const { name, detail } = splitItem(raw);
+              return (
+                <li key={raw} className="bg-card px-7 py-5 sm:px-8 sm:py-6">
+                  <p className="text-[1.0625rem] font-medium text-foreground">{name}</p>
+                  {detail && (
+                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                      {detail}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- A frosted pill that follows the reader ---------------- */
+
+function FloatingDemoBar() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Shown between the hero and the closing band, where the page has its own way in.
+    const watched = ["front", "help", "site-footer"]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    const onScreen = new Map<string, boolean>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) onScreen.set(entry.target.id, entry.isIntersecting);
+      setVisible(onScreen.size === watched.length && ![...onScreen.values()].some(Boolean));
+    });
+    watched.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      aria-hidden={!visible}
+      inert={!visible}
+      className={cn(
+        "fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 hidden justify-center md:flex px-4 transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
+      )}
+    >
+      <div className="flex items-center gap-4 rounded-full bg-background/80 py-1.5 pl-5 pr-1.5 shadow-[var(--shadow-float)] backdrop-blur-xl backdrop-saturate-150">
+        <p className="text-sm text-foreground">The Harringtons' wallet, with nothing live in it</p>
+        <Button size="sm" className="rounded-full px-4" asChild>
+          <Link to="/demo">
+            Explore <ArrowRight />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
