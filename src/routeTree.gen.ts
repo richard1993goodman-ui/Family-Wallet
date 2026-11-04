@@ -16,6 +16,7 @@ import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
+import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
 import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
 import { Route as CostsSlugRouteImport } from './routes/costs.$slug'
 import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
@@ -91,6 +92,11 @@ const ActivitiesSlugRoute = ActivitiesSlugRouteImport.update({
 const AgreementSlugRoute = AgreementSlugRouteImport.update({
   id: '/agreement/$slug',
   path: '/agreement/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BankdetailsSlugRoute = BankdetailsSlugRouteImport.update({
+  id: '/bankdetails/$slug',
+  path: '/bankdetails/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckinSlugRoute = CheckinSlugRouteImport.update({
@@ -315,6 +321,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -365,6 +372,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -417,6 +425,7 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
+  '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -469,6 +478,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/bankdetails/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -519,6 +529,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/bankdetails/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -570,6 +581,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/activities/$slug'
     | '/agreement/$slug'
+    | '/bankdetails/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -622,6 +634,7 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
+  BankdetailsSlugRoute: typeof BankdetailsSlugRoute
   CheckinSlugRoute: typeof CheckinSlugRoute
   CostsSlugRoute: typeof CostsSlugRoute
   CoverSlugRoute: typeof CoverSlugRoute
@@ -709,6 +722,13 @@ declare module '@tanstack/react-router' {
       path: '/agreement/$slug'
       fullPath: '/agreement/$slug'
       preLoaderRoute: typeof AgreementSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bankdetails/$slug': {
+      id: '/bankdetails/$slug'
+      path: '/bankdetails/$slug'
+      fullPath: '/bankdetails/$slug'
+      preLoaderRoute: typeof BankdetailsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkin/$slug': {
@@ -1037,6 +1057,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
+  BankdetailsSlugRoute: BankdetailsSlugRoute,
   CheckinSlugRoute: CheckinSlugRoute,
   CostsSlugRoute: CostsSlugRoute,
   CoverSlugRoute: CoverSlugRoute,
