@@ -89,6 +89,30 @@ export const addAgencyStaff = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
+// Owner-only: create a one-time setup/reset link so the owner can send it directly
+// when a staff member's company inbox blocks or strips automated emails.
+export const getStaffSetupLink = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { PUBLIC_SITE_URL } = await import("@/lib/site");
+    const { data: staff } = await supabaseAdmin.from("partner_agency_staff").select("email, user_id, agency_id").eq("id", data.id).maybeSingle();
+    if (!staff) throw new Error("Staff member not found");
+    const { data: agency } = await supabaseAdmin.from("partner_agencies").select("status").eq("id", staff.agency_id).maybeSingle();
+    if (agency?.status !== "active") throw new Error("This agency is paused — reactivate it first");
+    const options = { redirectTo: `${PUBLIC_SITE_URL}/auth?setup=1` };
+    let res = await supabaseAdmin.auth.admin.generateLink({ type: "invite", email: staff.email, options });
+    if (res.error) res = await supabaseAdmin.auth.admin.generateLink({ type: "recovery", email: staff.email, options });
+    const link = res.data?.properties?.action_link;
+    if (res.error || !link) {
+      console.error("setup link failed", res.error?.message);
+      throw new Error("Couldn't create a setup link — please try again");
+    }
+    return { link };
+  });
+
 export const removeAgencyStaff = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
