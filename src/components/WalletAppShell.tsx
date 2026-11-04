@@ -95,6 +95,7 @@ type WalletPath =
   | "/pettycash/$slug"
   | "/messages/$slug"
   | "/housemanual/$slug"
+  | "/bankdetails/$slug"
   | "/kids/$slug";
 
 type NavItem = {
@@ -139,6 +140,7 @@ const walletPrefixes = new Set([
   "pettycash",
   "messages",
   "housemanual",
+  "bankdetails",
   "kids",
 ]);
 
@@ -177,6 +179,7 @@ const navGroups: NavGroup[] = [
       { label: "Holiday & leave", icon: Plane, to: "/leave/$slug" },
       { label: "Handover & expenses", icon: ClipboardCheck, to: "/handover/$slug" },
       { label: "Petty cash float", icon: Wallet, to: "/pettycash/$slug" },
+      { label: "Bank details", icon: Landmark, to: "/bankdetails/$slug" },
       { label: "Payroll setup", icon: Landmark, to: "/payroll/$slug", parentOnly: true },
       { label: "Employment costs", icon: Calculator, to: "/costs/$slug", parentOnly: true },
     ],

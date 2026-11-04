@@ -260,6 +260,13 @@
       "when": 1793698604544,
       "tag": "0036_demo_house_travel",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1793792968710,
+      "tag": "0037_nanny_bank_details",
+      "breakpoints": true
     }
   ]
 }

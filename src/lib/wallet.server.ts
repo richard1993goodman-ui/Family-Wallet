@@ -60,6 +60,8 @@ async function walletSession() {
 }
 
 export async function isUnlocked(slug: string) {
+  // The sample "demo" wallet is fictional and open to anyone — no code needed.
+  if (slug === "demo") return true;
   const session = await walletSession();
   return (session.data.unlocked ?? []).includes(slug);
 }
