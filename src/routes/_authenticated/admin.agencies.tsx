@@ -4,9 +4,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Download, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Copy, Download, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, getStaffSetupLink, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,6 +35,7 @@ function AgenciesPage() {
   const saveFn = useServerFn(savePartnerAgency);
   const addStaffFn = useServerFn(addAgencyStaff);
   const removeStaffFn = useServerFn(removeAgencyStaff);
+  const setupLinkFn = useServerFn(getStaffSetupLink);
   const deleteFn = useServerFn(deletePartnerAgency);
   const exportFn = useServerFn(exportAgencyRecords);
   const logoFn = useServerFn(setAgencyLogo);
@@ -234,6 +235,17 @@ function AgenciesPage() {
                 {a.staff.map((s) => (
                   <li key={s.id} className="flex items-center justify-between gap-2 text-sm">
                     <span>{s.email} <span className="text-xs text-muted-foreground">{s.joined ? "· signed in" : "· not signed in yet"}</span></span>
+                    <span className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                      onClick={() => run(async () => {
+                        const { link } = await setupLinkFn({ data: { id: s.id } });
+                        await navigator.clipboard.writeText(link);
+                      }, `Setup link copied for ${s.email} — paste it into WhatsApp or your own email`)}
+                    >
+                      <Copy className="h-3.5 w-3.5" /> Copy setup link
+                    </button>
                     <button
                       aria-label={`Remove ${s.email}`}
                       className="text-muted-foreground hover:text-destructive"
@@ -241,6 +253,7 @@ function AgenciesPage() {
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
+                    </span>
                   </li>
                 ))}
                 {a.staff.length === 0 && <li className="text-sm text-muted-foreground">Nobody yet.</li>}
