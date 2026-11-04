@@ -163,7 +163,7 @@ function FamilyProfilePage() {
                 )}
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
                   <button
-                    className="font-medium text-primary hover:underline"
+                    className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                     onClick={() =>
                       setEditing({
                         id: child.id,

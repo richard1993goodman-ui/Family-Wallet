@@ -10,6 +10,24 @@ function shortTime(value: string) {
   return value.replace(/:00$/, "").replace(/^0/, "");
 }
 
+/** The day track runs 07:00–21:00; a shift becomes a span of it in percent. */
+const TRACK_START = 7;
+const TRACK_HOURS = 14;
+
+function hours(value: string | null | undefined) {
+  const match = value?.match(/^(\d{1,2}):(\d{2})/);
+  return match ? Number(match[1]) + Number(match[2]) / 60 : null;
+}
+
+function shiftSpan(start: string | null | undefined, end: string | null | undefined) {
+  const from = hours(start);
+  const to = hours(end);
+  if (from === null || to === null || to <= from) return null;
+  const clamp = (h: number) => Math.min(Math.max(h - TRACK_START, 0), TRACK_HOURS);
+  const top = (clamp(from) / TRACK_HOURS) * 100;
+  return { top, height: Math.max((clamp(to) / TRACK_HOURS) * 100 - top, 4) };
+}
+
 export function WeekCalendar({
   slug,
   entries,
@@ -59,31 +77,24 @@ export function WeekCalendar({
   const anyHours = schedules.some((schedule) => schedule.workingDays.some((day) => day.enabled));
 
   return (
-    <div className="surface-card p-6">
+    <div className="surface-card p-5 md:p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Family calendar
-          </p>
-          <p className="heading-display mt-1 text-2xl text-foreground">
+          <p className="heading-display text-xl text-foreground">
             {today.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
           </p>
+          <p className="mt-1 text-[0.8125rem] text-muted-foreground">
+            Agreed hours sync from each nanny agreement
+          </p>
         </div>
-        <Link
-          to="/planner/$slug"
-          params={{ slug }}
-          className="text-sm font-medium text-primary hover:underline"
-        >
-          Open calendar
-        </Link>
+        <Button asChild size="sm" variant="outline">
+          <Link to="/planner/$slug" params={{ slug }}>
+            Open calendar
+          </Link>
+        </Button>
       </div>
 
-      <p className="mt-3 text-sm text-muted-foreground">
-        Each nanny’s agreed days and hours sync from their nanny agreement. Add activities, school
-        dates, notes and one-off shift changes manually.
-      </p>
-
-      <div className="mt-5 grid grid-cols-7 gap-1" aria-label="This week">
+      <div className="mt-5 grid grid-cols-7 gap-1.5" aria-label="This week">
         {weekDays.map((iso) => {
           const date = new Date(`${iso}T00:00:00Z`);
           const isToday = iso === todayIso;
@@ -96,129 +107,164 @@ export function WeekCalendar({
               entry.entry_type === "shift_change" &&
               entry.status === "cancelled",
           );
-          const label =
+          const label: [string, string?] =
             working.length === 0 || dayCancelled
-              ? "\u00A0"
+              ? ["Off"]
               : working.length === 1
-                ? `${shortTime(working[0]!.shift.startTime)}-${shortTime(working[0]!.shift.endTime)}`
-                : `${working.length} on`;
+                ? [shortTime(working[0]!.shift.startTime), shortTime(working[0]!.shift.endTime)]
+                : [`${working.length} on`];
+          const spans = dayCancelled
+            ? []
+            : working.flatMap(({ shift }) => [
+                shiftSpan(shift.startTime, shift.endTime),
+                shiftSpan(shift.startTime2, shift.endTime2),
+              ]);
           return (
-            <Button
+            <button
               key={iso}
               type="button"
-              variant={isSelected ? "default" : "ghost"}
               onClick={() => setSelectedDate(iso)}
               aria-pressed={isSelected}
               aria-label={`${date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}${isToday ? ", today" : ""}`}
-              className={`relative h-auto min-w-0 flex-col gap-1 px-1 py-2 ${isToday && !isSelected ? "ring-1 ring-primary" : ""}`}
+              className={`group flex min-w-0 cursor-pointer flex-col items-center rounded-md px-1 pb-2 pt-2.5 transition-colors ${
+                isSelected ? "bg-accent" : "hover:bg-raised"
+              }`}
             >
-              <span className="text-[10px] font-semibold uppercase">
-                {date
-                  .toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })
-                  .slice(0, 2)}
+              <span className="text-xs text-muted-foreground">
+                {date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })}
               </span>
-              <span className="text-base">{date.getUTCDate()}</span>
-              <span className="text-[9px] leading-tight opacity-80">{label}</span>
               <span
-                className={`h-1 w-1 rounded-full ${hasEntries ? "bg-current" : "bg-transparent"}`}
+                className={`num mt-0.5 flex h-7 w-7 items-center justify-center rounded-full text-[0.9375rem] ${
+                  isToday ? "bg-brand font-medium text-brand-foreground" : "text-foreground"
+                }`}
+              >
+                {date.getUTCDate()}
+              </span>
+              <span
+                className="relative mt-2 h-14 w-2 overflow-hidden rounded-full bg-muted"
+                aria-hidden="true"
+              >
+                {spans.map(
+                  (span, i) =>
+                    span && (
+                      <span
+                        key={i}
+                        className="absolute inset-x-0 rounded-full bg-brand"
+                        style={{ top: `${span.top}%`, height: `${span.height}%` }}
+                      />
+                    ),
+                )}
+              </span>
+              <span
+                className={`num mt-2 flex w-full flex-col items-center text-[11px] leading-[1.3] sm:flex-row sm:justify-center ${
+                  label[0] === "Off" ? "text-muted-foreground/70" : "text-foreground"
+                }`}
+              >
+                <span>{label[0]}</span>
+                {label[1] && (
+                  <>
+                    <span className="hidden sm:inline">–</span>
+                    <span className="text-muted-foreground sm:text-foreground">{label[1]}</span>
+                  </>
+                )}
+              </span>
+              <span
+                className={`mt-1 h-1 w-1 rounded-full ${hasEntries ? "bg-foreground" : "bg-transparent"}`}
+                aria-hidden="true"
               />
-              {isToday && (
-                <span className="absolute -bottom-5 text-[10px] font-semibold text-primary">
-                  Today
-                </span>
-              )}
-            </Button>
+            </button>
           );
         })}
       </div>
 
-      <div className="mt-7">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Agreed nanny hours
-        </p>
-        {anyHours ? (
-          <div className="mt-3 space-y-3">
-            {schedules
-              .filter((schedule) => schedule.workingDays.some((day) => day.enabled))
-              .map((schedule) => (
-                <div key={schedule.nannyId}>
-                  <p className="text-sm font-medium text-foreground">{schedule.nannyName}</p>
-                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {schedule.workingDays
-                      .filter((day) => day.enabled)
-                      .map((day) => (
-                        <span
-                          key={day.day}
-                          className="rounded-full bg-accent px-2.5 py-1 text-xs text-foreground"
-                        >
-                          {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
-                          {day.startTime2 && day.endTime2
-                            ? ` · ${day.startTime2}–${day.endTime2}`
-                            : ""}
-                        </span>
-                      ))}
-                  </div>
-                </div>
-              ))}
-          </div>
-        ) : (
-          <p className="mt-2 text-sm text-muted-foreground">
-            No days set yet — add them in each nanny agreement and they'll appear here.
+      <div className="mt-5 grid gap-5 border-t border-rule pt-5 md:grid-cols-2">
+        <div>
+          <p className="text-sm font-medium text-foreground">
+            {selectedIsToday
+              ? "Today"
+              : selected.toLocaleDateString("en-GB", {
+                  weekday: "long",
+                  day: "numeric",
+                  month: "long",
+                  timeZone: "UTC",
+                })}
           </p>
-        )}
+          {!cancelled &&
+            selectedWorking.map((row) => (
+              <p
+                key={row.nannyName}
+                className="num mt-2 flex items-center gap-2 text-sm text-foreground"
+              >
+                <span className="h-2 w-2 flex-none rounded-full bg-brand" aria-hidden="true" />
+                {row.nannyName} · {row.shift.startTime}–{row.shift.endTime}
+                {row.shift.startTime2 && row.shift.endTime2
+                  ? ` and ${row.shift.startTime2}–${row.shift.endTime2}`
+                  : ""}
+              </p>
+            ))}
+          {cancelled && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              The regular nanny shift is cancelled on this day.
+            </p>
+          )}
+          <div className="mt-2 space-y-1.5">
+            {selectedEntries.length === 0 && selectedWorking.length === 0 && (
+              <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>
+            )}
+            {selectedEntries.map((entry) => (
+              <div key={entry.id} className="flex gap-3 text-sm">
+                <span className="num w-24 flex-shrink-0 text-muted-foreground">
+                  {entry.time_label ?? "Any time"}
+                  {entry.end_time_label ? `–${entry.end_time_label}` : ""}
+                </span>
+                <span className="text-foreground">{entry.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm font-medium text-foreground">Agreed nanny hours</p>
+          {anyHours ? (
+            <div className="mt-2 space-y-3">
+              {schedules
+                .filter((schedule) => schedule.workingDays.some((day) => day.enabled))
+                .map((schedule) => (
+                  <div key={schedule.nannyId}>
+                    <p className="text-sm text-muted-foreground">{schedule.nannyName}</p>
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {schedule.workingDays
+                        .filter((day) => day.enabled)
+                        .map((day) => (
+                          <span
+                            key={day.day}
+                            className="num rounded-sm bg-accent px-2 py-0.5 text-xs text-foreground"
+                          >
+                            {day.day.slice(0, 3)} {day.startTime}–{day.endTime}
+                            {day.startTime2 && day.endTime2
+                              ? ` · ${day.startTime2}–${day.endTime2}`
+                              : ""}
+                          </span>
+                        ))}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <p className="mt-2 text-sm text-muted-foreground">
+              No days set yet. Add them in each nanny agreement and they appear here.
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="mt-6 border-t border-border pt-4">
-        <p className="font-medium text-foreground">
-          {selectedIsToday
-            ? "Today"
-            : selected.toLocaleDateString("en-GB", {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                timeZone: "UTC",
-              })}
-        </p>
-      </div>
-      {!cancelled &&
-        selectedWorking.map((row) => (
-          <p
-            key={row.nannyName}
-            className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-foreground"
-          >
-            {row.nannyName} working · {row.shift.startTime}–{row.shift.endTime}
-            {row.shift.startTime2 && row.shift.endTime2
-              ? ` and ${row.shift.startTime2}–${row.shift.endTime2}`
-              : ""}{" "}
-            · synced from agreement
-          </p>
-        ))}
-      {cancelled && (
-        <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
-          A regular nanny shift has been cancelled on this day.
-        </p>
-      )}
-      <div className="mt-4 space-y-2">
-        {selectedEntries.length === 0 && selectedWorking.length === 0 && (
-          <p className="text-sm text-muted-foreground">Nothing planned for this day yet.</p>
-        )}
-        {selectedEntries.map((entry) => (
-          <div key={entry.id} className="flex gap-3 text-sm">
-            <span className="w-24 flex-shrink-0 font-medium text-primary">
-              {entry.time_label ?? "Any time"}
-              {entry.end_time_label ? `–${entry.end_time_label}` : ""}
-            </span>
-            <span className="text-foreground">{entry.title}</span>
-          </div>
-        ))}
-      </div>
       <div className="mt-5 flex flex-wrap gap-2">
         <Button asChild size="sm">
           <Link to="/planner/$slug" params={{ slug }}>
             Add to calendar
           </Link>
         </Button>
-        <Button asChild size="sm" variant="outline">
+        <Button asChild size="sm" variant="ghost">
           <Link to="/log/$slug" params={{ slug }}>
             Add daily notes
           </Link>

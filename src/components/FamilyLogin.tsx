@@ -74,20 +74,14 @@ export function FamilyLogin({
   }
 
   return (
-    <Card
-      id="sign-in"
-      className={cn("scroll-mt-24 gap-5 rounded-2xl shadow-xl shadow-primary/5", className)}
-    >
-      <CardHeader>
-        <p className="mb-1 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-          <LockKeyhole className="size-3.5" /> Member access
-        </p>
-        <CardTitle className="font-serif text-2xl font-semibold tracking-tight">
-          Open your Family Wallet
+    <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
+      <CardHeader className="p-6 pb-5">
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
         </CardTitle>
-        <CardDescription>Use the private link and access code sent to your family.</CardDescription>
+        <CardDescription>The private link and code your agency sent you.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-6 pb-5">
         <form id="family-login" onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="wallet-link">Your wallet link</Label>
@@ -100,7 +94,7 @@ export function FamilyLogin({
                 placeholder="e.g. smith-4f2a"
                 autoComplete="off"
                 required
-                className="h-11 pl-9"
+                className="h-10 pl-9"
               />
             </div>
           </div>
@@ -116,11 +110,11 @@ export function FamilyLogin({
                 autoComplete="off"
                 maxLength={8}
                 required
-                className="h-11 pl-9 uppercase tracking-widest"
+                className="h-10 pl-9 font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
               />
             </div>
           </div>
-          <div className="flex items-start gap-3 rounded-lg bg-muted/70 p-3">
+          <div className="flex items-start gap-3">
             <Checkbox
               id="wallet-remember"
               checked={remember}
@@ -131,14 +125,14 @@ export function FamilyLogin({
               htmlFor="wallet-remember"
               className="block text-sm font-normal leading-snug text-muted-foreground"
             >
-              <span className="font-medium text-foreground">Remember this device</span> — stay
-              signed in for 12 months and keep my wallet link saved here.
+              <span className="font-medium text-foreground">Remember this device</span> for 12
+              months
             </Label>
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-3">
-        <Button type="submit" form="family-login" size="lg" className="h-11 w-full" disabled={busy}>
+      <CardFooter className="flex-col gap-3 px-6 pb-6">
+        <Button type="submit" form="family-login" size="lg" className="h-10 w-full" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>

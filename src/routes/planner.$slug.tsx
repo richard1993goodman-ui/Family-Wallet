@@ -130,7 +130,7 @@ function PlannerPage() {
       </div>
 
       <div className="mt-5 rounded-xl border border-border bg-card p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <p className="text-[0.8125rem] font-medium text-muted-foreground">
           Agreed nanny hours
         </p>
         {workingDays.some((day) => day.enabled) ? (

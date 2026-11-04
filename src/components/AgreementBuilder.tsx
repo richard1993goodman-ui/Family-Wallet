@@ -158,7 +158,7 @@ export function WorkingDaysEditor({
                 <button
                   type="button"
                   onClick={() => toggleSplit(index)}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                 >
                   {day.startTime2 !== undefined ? (
                     <>

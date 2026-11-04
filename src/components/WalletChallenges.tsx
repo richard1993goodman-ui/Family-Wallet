@@ -25,7 +25,7 @@ export function WalletChallenges({ slug }: { slug: string }) {
     <div className="mt-4 rounded-xl border-2 border-primary bg-card p-5">
       <div className="flex items-center gap-2">
         <Trophy className="h-5 w-5 text-primary" />
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+        <p className="text-[0.8125rem] font-medium text-primary">
           Agency challenge
         </p>
       </div>

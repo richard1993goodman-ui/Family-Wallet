@@ -143,7 +143,7 @@ function AuthPage() {
           <ArrowLeft className="size-4" aria-hidden />
           Back to home page
         </Link>
-        <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="mt-5 text-[0.8125rem] font-medium text-muted-foreground">
           The Family Wallet
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>

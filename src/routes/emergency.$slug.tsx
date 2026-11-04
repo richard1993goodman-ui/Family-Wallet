@@ -130,7 +130,7 @@ function EmergencyPage() {
             className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
           >
             <span>
-              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="block text-[0.8125rem] font-medium text-muted-foreground">
                 {contact.label}
               </span>
               <span className="mt-1 block font-medium text-foreground">

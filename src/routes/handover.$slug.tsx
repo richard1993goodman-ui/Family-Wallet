@@ -142,7 +142,7 @@ function HandoverPage() {
 
       {latest && (
         <Card>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="text-[0.8125rem] font-medium text-muted-foreground">
             Latest handover
           </p>
           <p className="mt-2 font-medium text-foreground">
@@ -431,7 +431,7 @@ function SummaryCard({
     <div className="rounded-xl border border-border bg-card p-4">
       <Icon className="h-5 w-5 text-primary" />
       <p className="heading-display mt-3 text-2xl text-foreground">{value}</p>
-      <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
+      <p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p>
     </div>
   );
 }

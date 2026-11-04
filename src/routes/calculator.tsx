@@ -74,7 +74,7 @@ function CalculatorPage() {
     <main className="min-h-screen bg-background px-4 py-8 sm:py-12">
       <div className="mx-auto max-w-3xl">
         <Link to="/" className="inline-flex items-center gap-1 text-sm text-primary"><ArrowLeft className="h-4 w-4" /> Home</Link>
-        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Plan your budget</p>
+        <p className="mt-6 text-[0.8125rem] font-medium text-primary">Plan your budget</p>
         <h1 className="heading-display mt-2 text-3xl text-foreground sm:text-4xl">What will a nanny really cost?</h1>
         <p className="mt-3 text-muted-foreground">Enter the rate you've discussed — take-home or gross — and see your full monthly outlay, including tax and pension.</p>
 
@@ -99,7 +99,7 @@ function CalculatorPage() {
         <section className="mt-5 grid gap-3 sm:grid-cols-3">
           {[["Per month", gbp(r.monthlyTotal), true], ["Per week (avg)", gbp(r.weeklyTotal), false], ["All-in per hour", gbp2(r.allInHourly), false]].map(([l, v, s]) => (
             <div key={String(l)} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{l}</p>
+              <p className="text-[0.8125rem] font-medium text-muted-foreground">{l}</p>
               <p className={`heading-display mt-2 text-3xl ${s ? "text-primary" : "text-foreground"}`}>{v}</p>
             </div>
           ))}

@@ -150,7 +150,7 @@ function WalletPage() {
       <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
         <div className="surface-card w-full max-w-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="mt-4 text-[0.8125rem] font-medium text-muted-foreground">
             The Family Wallet
           </p>
           <h1 className="heading-display mt-2 text-2xl text-primary">{data.familyName}</h1>

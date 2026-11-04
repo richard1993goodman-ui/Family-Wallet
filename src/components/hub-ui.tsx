@@ -23,8 +23,8 @@ export function PageContainer({
   return (
     <div
       className={cn(
-        "mx-auto w-full px-4 pb-14 pt-6 sm:px-6 md:px-8 md:pt-10",
-        width === "wide" ? "max-w-5xl" : "max-w-3xl",
+        "mx-auto w-full px-4 pb-16 pt-6 sm:px-6 md:px-8 md:pt-9",
+        width === "wide" ? "max-w-6xl" : "max-w-3xl",
         className,
       )}
     >
@@ -47,27 +47,31 @@ export function PageHeader({
   return (
     <header>
       <nav aria-label="Breadcrumb" className="print:hidden">
-        <ol className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
+        <ol className="flex items-center gap-1 text-[0.8125rem] text-muted-foreground">
           <li>
-            <Link to="/w/$slug" params={{ slug }} className="rounded hover:text-foreground">
+            <Link
+              to="/w/$slug"
+              params={{ slug }}
+              className="rounded-sm transition-colors hover:text-foreground"
+            >
               Home
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="h-3.5 w-3.5" />
+            <ChevronRight className="h-3.5 w-3.5 opacity-60" />
           </li>
-          <li aria-current="page" className="truncate text-foreground/80">
+          <li aria-current="page" className="truncate text-foreground">
             {title}
           </li>
         </ol>
       </nav>
-      <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+      <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="heading-display text-3xl leading-tight text-primary md:text-[2.5rem]">
+          <h1 className="heading-display text-[1.625rem] leading-tight text-foreground md:text-[1.875rem]">
             {title}
           </h1>
           {intro && (
-            <p className="mt-2 max-w-2xl text-[0.9375rem] leading-relaxed text-muted-foreground">
+            <p className="mt-1.5 max-w-2xl text-[0.9375rem] leading-relaxed text-muted-foreground">
               {intro}
             </p>
           )}
@@ -104,7 +108,7 @@ export function HubPage({
 /** Only for pages outside the wallet navigation shell (e.g. printable certificates). */
 export function BackToWallet({ slug }: { slug: string }) {
   return (
-    <div className="mt-10 border-t border-border pt-5 print:hidden">
+    <div className="mt-12 border-t border-border pt-5 print:hidden">
       <Link
         to="/w/$slug"
         params={{ slug }}
@@ -121,13 +125,13 @@ export function PageLoading({ label = "Loading…" }: { label?: string }) {
     <PageContainer>
       <div role="status" aria-live="polite">
         <span className="sr-only">{label}</span>
-        <Skeleton className="h-3 w-28" />
-        <Skeleton className="mt-4 h-9 w-2/3" />
+        <Skeleton className="h-3.5 w-28" />
+        <Skeleton className="mt-3 h-8 w-2/3" />
         <Skeleton className="mt-3 h-4 w-1/2" />
         <div className="mt-8 space-y-3">
-          <Skeleton className="h-28 w-full rounded-2xl" />
-          <Skeleton className="h-20 w-full rounded-2xl" />
-          <Skeleton className="h-20 w-full rounded-2xl" />
+          <Skeleton className="h-28 w-full rounded-lg" />
+          <Skeleton className="h-20 w-full rounded-lg" />
+          <Skeleton className="h-20 w-full rounded-lg" />
         </div>
       </div>
     </PageContainer>
@@ -146,12 +150,8 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-dashed border-border bg-card/60 px-6 py-10 text-center">
-      {Icon && (
-        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-          <Icon className="h-5 w-5" />
-        </span>
-      )}
+    <div className="rounded-lg border border-dashed border-input bg-card px-6 py-10 text-center">
+      {Icon && <Icon className="mx-auto h-5 w-5 text-muted-foreground" />}
       <p className="mt-3 font-medium text-foreground">{title}</p>
       {description && (
         <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
@@ -179,17 +179,15 @@ export function LockedNotice({ slug }: { slug: string }) {
     return (
       <PageContainer>
         <div className="surface-card mx-auto max-w-sm p-8 text-center" role="alert">
-          <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-            <CloudOff className="h-5 w-5" />
-          </span>
-          <h1 className="heading-display mt-4 text-2xl text-primary">This page didn't load</h1>
+          <CloudOff className="mx-auto h-5 w-5 text-muted-foreground" />
+          <h1 className="heading-display mt-4 text-2xl text-foreground">This page didn't load</h1>
           <p className="mt-3 text-sm text-muted-foreground">
             Your wallet is safe — we just couldn't reach it. Check your connection and try again.
           </p>
           <button
             type="button"
             onClick={() => void queryClient.refetchQueries({ type: "active" })}
-            className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+            className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/85"
           >
             <RotateCw className="h-4 w-4" /> Try again
           </button>
@@ -199,19 +197,17 @@ export function LockedNotice({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-sand px-5">
+    <div className="flex min-h-screen items-center justify-center bg-background px-5">
       <div className="surface-card max-w-sm p-8 text-center">
-        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-          <Lock className="h-5 w-5" />
-        </span>
-        <h1 className="heading-display mt-4 text-2xl text-primary">Please unlock your wallet</h1>
+        <Lock className="mx-auto h-5 w-5 text-muted-foreground" />
+        <h1 className="heading-display mt-4 text-2xl text-foreground">Please unlock your wallet</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           Enter your access code first, then come back to this page.
         </p>
         <Link
           to="/w/$slug"
           params={{ slug }}
-          className="mt-5 inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          className="mt-5 inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/85"
         >
           Go to my wallet
         </Link>

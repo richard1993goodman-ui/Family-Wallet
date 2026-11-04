@@ -187,7 +187,7 @@ function TrainingPage() {
           </div>
           {TRAINING_QUESTIONS.map((q, i) => (
             <Card key={q.id}>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-[0.8125rem] font-medium text-muted-foreground">
                 {q.section}
               </p>
               <p className="mt-2 font-medium text-foreground">
@@ -248,7 +248,7 @@ function TrainingPage() {
                     <Link
                       to="/certificate/$slug/$id"
                       params={{ slug, id: attempt.id }}
-                      className="text-sm font-medium text-primary hover:underline"
+                      className="text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                     >
                       View certificate
                     </Link>

@@ -9,20 +9,25 @@ export function DashboardHeader({
   eyebrow,
   title,
   subtitle,
+  actions,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string | null;
+  actions?: ReactNode;
 }) {
   return (
-    <header>
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-        {eyebrow}
-      </p>
-      <h1 className="heading-display mt-2 text-3xl leading-tight text-primary md:text-[2.5rem]">
-        {title}
-      </h1>
-      {subtitle && <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">{subtitle}</p>}
+    <header className="flex flex-wrap items-end justify-between gap-4">
+      <div className="min-w-0">
+        <h1 className="heading-serif text-[1.625rem] leading-[1.1] text-foreground sm:text-[2rem]">
+          {title}
+        </h1>
+        <p className="mt-2 text-[0.9375rem] text-muted-foreground">
+          {eyebrow}
+          {subtitle && <span> · {subtitle}</span>}
+        </p>
+      </div>
+      {actions && <div className="flex flex-none flex-wrap gap-2">{actions}</div>}
     </header>
   );
 }
@@ -30,13 +35,16 @@ export function DashboardHeader({
 export function DemoBanner({ slug }: { slug: string }) {
   if (slug !== "demo") return null;
   return (
-    <div className="surface-card mb-6 p-4 text-sm">
-      <p className="font-semibold text-primary">You're viewing a demo Family Wallet</p>
-      <p className="mt-1 text-muted-foreground">
-        The Harrington family, their nanny Jess and everything here are examples. Explore freely —
-        as a member, your own private wallet is set up with your family, your nanny and your
-        agreement.
-      </p>
+    <div className="mb-7 flex gap-3 rounded-lg bg-brand-soft px-4 py-3 text-sm">
+      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-brand" aria-hidden="true" />
+      <div>
+        <p className="font-medium text-foreground">You're viewing a demo Family Wallet</p>
+        <p className="mt-0.5 text-foreground/75">
+          The Harrington family, their nanny Jess and everything here are examples. Explore freely —
+          as a member, your own private wallet is set up with your family, your nanny and your
+          agreement.
+        </p>
+      </div>
     </div>
   );
 }
@@ -46,18 +54,16 @@ export function EmergencyCardLink({ slug }: { slug: string }) {
     <Link
       to="/emergency/$slug"
       params={{ slug }}
-      className="flex items-center gap-4 rounded-2xl border border-destructive/30 bg-card p-4 shadow-[var(--shadow-soft)] transition-colors hover:border-destructive"
+      className="group flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3.5 transition-colors hover:border-destructive/50"
     >
-      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-destructive/10 text-destructive">
-        <Siren className="h-5 w-5" />
-      </span>
+      <Siren className="h-4 w-4 flex-none text-destructive" />
       <span className="min-w-0 flex-1">
         <span className="block font-medium text-foreground">Emergency card</span>
         <span className="block text-sm text-muted-foreground">
           Contacts, allergies, medication, GP and address
         </span>
       </span>
-      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/60" />
+      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
     </Link>
   );
 }
@@ -96,15 +102,15 @@ export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
               <img
                 src={nanny.photoUrl}
                 alt={nanny.name}
-                className="h-14 w-14 flex-none rounded-full border border-border object-cover"
+                className="h-12 w-12 flex-none rounded-full object-cover"
               />
             ) : (
-              <span className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-accent font-serif text-xl font-semibold text-primary">
+              <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-brand-soft font-serif text-xl text-brand">
                 {nanny.name.slice(0, 1)}
               </span>
             )}
             <div className="min-w-0">
-              <p className="heading-display text-lg text-foreground">{nanny.name}</p>
+              <p className="font-medium text-foreground">{nanny.name}</p>
               {nanny.bio && (
                 <p className="mt-0.5 line-clamp-3 text-sm text-muted-foreground">{nanny.bio}</p>
               )}
@@ -118,7 +124,7 @@ export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
 
 export function DashboardFooter({ updatedAt, onLock }: { updatedAt: string; onLock: () => void }) {
   return (
-    <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
+    <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-[0.8125rem] text-muted-foreground">
       <p>
         Wallet last updated{" "}
         {new Date(updatedAt).toLocaleDateString("en-GB", {
@@ -129,7 +135,7 @@ export function DashboardFooter({ updatedAt, onLock }: { updatedAt: string; onLo
       </p>
       <button
         type="button"
-        className="text-sm underline underline-offset-4 hover:text-foreground"
+        className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
         onClick={onLock}
       >
         Lock this wallet on this device
@@ -139,5 +145,5 @@ export function DashboardFooter({ updatedAt, onLock }: { updatedAt: string; onLo
 }
 
 export function Column({ children }: { children: ReactNode }) {
-  return <div className="min-w-0 space-y-8">{children}</div>;
+  return <div className="min-w-0 space-y-9">{children}</div>;
 }

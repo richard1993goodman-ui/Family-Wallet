@@ -4,7 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { Menu, Search, Wallet } from "lucide-react";
+import { Lock, Menu, Search } from "lucide-react";
+
+import { Wordmark } from "@/components/brand";
 
 import { getWalletSummary } from "@/lib/wallet.functions";
 import { cn } from "@/lib/utils";
@@ -94,7 +96,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         agencyName={agencyName}
         activePrefix={location.prefix}
       />
-      <SidebarInset className="min-w-0 bg-sand">
+      <SidebarInset className="min-w-0 bg-background">
         <WalletTopBar
           familyName={wallet.familyName}
           role={role}
@@ -126,23 +128,23 @@ function WalletTopBar({
   onSearch: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur md:px-6">
-      <SidebarTrigger className="h-9 w-9" />
-      <div className="min-w-0">
-        <p className="truncate text-sm font-semibold text-foreground">{familyName}</p>
-        <p className="truncate text-xs text-muted-foreground">
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:px-8">
+      <SidebarTrigger className="-ml-1 h-9 w-9 text-muted-foreground hover:text-foreground" />
+      <div className="flex min-w-0 items-baseline gap-2">
+        <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
+        <p className="hidden truncate text-sm text-muted-foreground sm:block">
           {role === "nanny" ? "Nanny access" : "Parent access"}
         </p>
       </div>
       <button
         type="button"
         onClick={onSearch}
-        className="ml-auto flex h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-sm text-muted-foreground shadow-xs transition-colors hover:text-foreground md:w-64"
+        className="ml-auto flex h-9 items-center gap-2 rounded-md border border-input bg-card px-3 text-sm text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground md:w-72"
         aria-label="Search the wallet"
       >
         <Search className="h-4 w-4" />
-        <span className="hidden md:inline">Search pages…</span>
-        <kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 font-sans text-[10px] font-medium md:inline">
+        <span className="hidden md:inline">Go to a page</span>
+        <kbd className="ml-auto hidden rounded-sm bg-accent px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground md:inline">
           ⌘K
         </kbd>
       </button>
@@ -165,32 +167,25 @@ function WalletNavigation({
 
   return (
     <Sidebar collapsible="icon" className="border-sidebar-border">
-      <SidebarHeader className="border-b border-sidebar-border p-3">
+      <SidebarHeader className="px-3 pb-2 pt-4">
         <Link
           to="/w/$slug"
           params={{ slug }}
           onClick={() => isMobile && setOpenMobile(false)}
-          className="flex min-w-0 items-center gap-3 rounded-md p-1.5 hover:bg-sidebar-accent"
+          className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
         >
-          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-            <Wallet className="h-4 w-4" aria-hidden="true" />
-          </span>
-          <span className="min-w-0 group-data-[collapsible=icon]:hidden">
-            <span className="block truncate font-serif text-[0.9375rem] font-semibold">
-              The Family Wallet
-            </span>
-            {agencyName && (
-              <span className="block truncate text-xs text-sidebar-foreground/65">
-                with {agencyName}
-              </span>
-            )}
-          </span>
+          <Wordmark
+            subline={agencyName ? `with ${agencyName}` : null}
+            className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
+          />
         </Link>
       </SidebarHeader>
-      <SidebarContent className="py-2">
+      <SidebarContent className="gap-1 py-2">
         {navFor(role).map((section) => (
           <SidebarGroup key={section.label}>
-            <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-[0.8125rem] font-normal text-muted-foreground">
+              {section.label}
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {section.items.map((item) => (
@@ -199,6 +194,7 @@ function WalletNavigation({
                       asChild
                       isActive={activePrefix === routePrefix(item.to)}
                       tooltip={item.label}
+                      className="h-8 text-sidebar-foreground [&>svg]:text-muted-foreground data-[active=true]:[&>svg]:text-foreground"
                     >
                       <Link
                         to={item.to}
@@ -219,8 +215,9 @@ function WalletNavigation({
       </SidebarContent>
       <SidebarSeparator />
       <SidebarFooter className="p-3">
-        <p className="px-2 text-xs leading-relaxed text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden">
-          {role === "nanny" ? "Nanny access" : "Parent access"} · Private and secure
+        <p className="flex items-center gap-2 px-2 text-xs leading-relaxed text-muted-foreground group-data-[collapsible=icon]:hidden">
+          <Lock className="h-3.5 w-3.5 flex-none" aria-hidden="true" />
+          {role === "nanny" ? "Nanny access" : "Parent access"} · Private to your household
         </p>
       </SidebarFooter>
       <SidebarRail />
@@ -242,11 +239,8 @@ function SectionNav({
   if (!section || section.items.length < 2) return null;
 
   return (
-    <nav
-      aria-label={section.label}
-      className="border-b border-border bg-background/60 print:hidden"
-    >
-      <div className="flex gap-1.5 overflow-x-auto px-4 py-2 [scrollbar-width:none] md:px-6">
+    <nav aria-label={section.label} className="border-b border-border bg-background print:hidden">
+      <div className="flex gap-6 overflow-x-auto px-4 [scrollbar-width:none] md:px-8">
         {section.items.map((item) => {
           const active = routePrefix(item.to) === activePrefix;
           return (
@@ -257,13 +251,12 @@ function SectionNav({
               preload="intent"
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex flex-none items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                "-mb-px flex h-11 flex-none items-center border-b-2 text-sm transition-colors",
                 active
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  ? "border-foreground font-medium text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
-              <item.icon className="h-3.5 w-3.5" />
               {item.label}
             </Link>
           );
@@ -329,7 +322,7 @@ function MobileTabs({
   return (
     <nav
       aria-label="Wallet navigation"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-18px_var(--foreground)] backdrop-blur md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <div className="grid h-16 grid-cols-5">
         {mobileTabsFor(role).map((tab) => {
@@ -341,11 +334,11 @@ function MobileTabs({
               params={{ slug }}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[10px] font-medium",
-                active ? "text-primary" : "text-muted-foreground",
+                "flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium transition-colors",
+                active ? "text-foreground" : "text-muted-foreground",
               )}
             >
-              <tab.icon className={cn("h-5 w-5", active && "fill-primary/10")} />
+              <tab.icon className={cn("h-5 w-5", active ? "stroke-[2]" : "stroke-[1.5]")} />
               <span className="truncate">{tab.label}</span>
             </Link>
           );
@@ -354,10 +347,10 @@ function MobileTabs({
           type="button"
           variant="ghost"
           onClick={toggleSidebar}
-          className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[10px] font-medium text-muted-foreground"
+          className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[11px] font-medium text-muted-foreground"
           aria-label="Open all wallet pages"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-5 w-5 stroke-[1.5]" />
           <span>More</span>
         </Button>
       </div>

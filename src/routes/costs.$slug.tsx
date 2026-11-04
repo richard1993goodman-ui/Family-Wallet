@@ -29,4 +29,4 @@ function CostsPage() {
     <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Planning estimate only. NI thresholds, pension eligibility, holiday pay and individual circumstances can change the final figure. Confirm your figures with Nannytax or HMRC.</p>
   </HubPage>;
 }
-function Summary({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) { return <Card><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{label}</p><p className={`${strong ? "text-primary" : "text-foreground"} heading-display mt-2 text-2xl`}>{value}</p></Card>; }
+function Summary({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) { return <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p><p className={`${strong ? "text-primary" : "text-foreground"} heading-display mt-2 text-2xl`}>{value}</p></Card>; }

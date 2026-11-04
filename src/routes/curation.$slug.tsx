@@ -21,7 +21,7 @@ function CurationPage() {
   if (!query.data) return <LockedNotice slug={slug} />;
   const current = query.data.service.curation_status; const currentIndex = CURATION_STATUSES.findIndex(([key]) => key === current);
   return <HubPage slug={slug} title="Private nanny curation" intro="No public catalogue and no profile overload — we quietly hand-select the strongest matches for your family.">
-    <Card><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Your search</p><p className="heading-display mt-1 text-xl text-foreground">{statusLabel(CURATION_STATUSES, current)}</p>
+    <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">Your search</p><p className="heading-display mt-1 text-xl text-foreground">{statusLabel(CURATION_STATUSES, current)}</p>
       <ol className="mt-5 space-y-3">{CURATION_STATUSES.slice(1, 6).map(([key, label]) => { const index = CURATION_STATUSES.findIndex(([value]) => value === key); const done = current === "placement_made" || (currentIndex >= index && current !== "paused"); return <li key={key} className="flex gap-3 text-sm">{done ? <Check className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5 text-muted-foreground" />}<span className={done ? "font-medium text-foreground" : "text-muted-foreground"}>{label}</span></li>; })}</ol>
       {query.data.service.curation_notes && <p className="mt-4 rounded-lg bg-muted p-3 text-sm text-foreground">{query.data.service.curation_notes}</p>}
     </Card>

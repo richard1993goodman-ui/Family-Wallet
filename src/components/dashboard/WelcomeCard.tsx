@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { getFirst48 } from "@/lib/welcome.functions";
 
@@ -23,7 +23,7 @@ export function WelcomeCard({ slug }: { slug: string }) {
     <Link
       to="/welcome/$slug"
       params={{ slug }}
-      className="flex items-center justify-between gap-4 rounded-2xl border border-primary/30 bg-accent p-5 hover:border-primary"
+      className="group flex items-center justify-between gap-4 rounded-lg border border-border bg-card px-5 py-4 transition-colors hover:border-foreground/25"
     >
       <span>
         <span className="block font-medium text-foreground">
@@ -35,7 +35,7 @@ export function WelcomeCard({ slug }: { slug: string }) {
             : "Add your nanny, then agree the essentials together."}
         </span>
       </span>
-      <Sparkles className="h-5 w-5 flex-shrink-0 text-primary" />
+      <ArrowRight className="h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
     </Link>
   );
 }

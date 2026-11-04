@@ -147,5 +147,5 @@ function ShiftSection({ title, empty, shifts, isFamily, onReview }: {
 }
 
 function Summary({ label, hours, amount }: { label: string; hours: number; amount: number }) {
-  return <Card><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{label}</p><p className="heading-display mt-2 text-2xl text-foreground">£{amount.toFixed(2)}</p><p className="text-sm text-muted-foreground">{hours.toFixed(2)} hours</p></Card>;
+  return <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p><p className="heading-display mt-2 text-2xl text-foreground">£{amount.toFixed(2)}</p><p className="text-sm text-muted-foreground">{hours.toFixed(2)} hours</p></Card>;
 }

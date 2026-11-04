@@ -19,8 +19,8 @@ type Icon = ComponentType<{ className?: string }>;
 
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
-    <div className="mb-2 flex items-end justify-between gap-3 px-1">
-      <h2 className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+    <div className="mb-2.5 flex items-end justify-between gap-3 px-0.5">
+      <h2 className="text-[0.9375rem] font-semibold tracking-[-0.01em] text-foreground">
         {children}
       </h2>
       {action}
@@ -106,7 +106,7 @@ export function ContactRow({
       {contact.phone && (
         <a
           href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-          className="inline-flex h-9 flex-none items-center gap-1.5 rounded-full bg-accent px-3 text-sm font-medium text-primary hover:bg-accent/70"
+          className="inline-flex h-8 flex-none items-center gap-1.5 rounded-md border border-input bg-card px-3 text-sm font-medium text-foreground transition-colors hover:border-foreground/30"
           aria-label={`Call ${contact.name}`}
         >
           <Phone className="h-3.5 w-3.5" /> Call
@@ -138,31 +138,29 @@ export function ActionRow({
     <Link
       to={to}
       params={{ slug }}
-      className="flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-muted"
+      className="group flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-raised"
     >
-      <span
+      <Icon
         className={cn(
-          "flex h-9 w-9 flex-none items-center justify-center rounded-full",
-          tone === "attention" && "bg-secondary/25 text-foreground",
-          tone === "done" && "bg-emerald-600/10 text-emerald-700",
-          tone === "default" && "bg-accent text-primary",
+          "h-4 w-4 flex-none",
+          tone === "attention" && "text-foreground",
+          tone === "done" && "text-brand",
+          tone === "default" && "text-muted-foreground",
         )}
-      >
-        <Icon className="h-4 w-4" />
-      </span>
+      />
       <span className="min-w-0 flex-1">
         <span className="block font-medium text-foreground">{title}</span>
         {detail && <span className="block truncate text-sm text-muted-foreground">{detail}</span>}
       </span>
       {badge}
-      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/60" />
+      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
     </Link>
   );
 }
 
 export function CountBadge({ count }: { count: number }) {
   return (
-    <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary px-2 text-xs font-semibold text-primary-foreground">
+    <span className="num flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-medium text-primary-foreground">
       {count}
     </span>
   );
@@ -189,26 +187,15 @@ export function QuickAction({
       to={to}
       params={{ slug }}
       className={cn(
-        "surface-card flex min-h-28 flex-col justify-between gap-3 p-4 transition-colors hover:border-primary/40",
-        done && "bg-emerald-600/5",
+        "surface-card flex min-h-28 flex-col justify-between gap-3 p-4 transition-colors hover:border-foreground/25",
       )}
     >
-      <span
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl",
-          done ? "bg-emerald-600/15 text-emerald-700" : "bg-primary text-primary-foreground",
-        )}
-      >
-        <Icon className="h-5 w-5" />
-      </span>
+      <Icon className={cn("h-5 w-5", done ? "text-brand" : "text-foreground")} />
       <span>
         <span className="block font-medium leading-tight text-foreground">{label}</span>
         {status && (
           <span
-            className={cn(
-              "mt-0.5 block text-xs",
-              done ? "text-emerald-700" : "text-muted-foreground",
-            )}
+            className={cn("mt-0.5 block text-xs", done ? "text-brand" : "text-muted-foreground")}
           >
             {status}
           </span>

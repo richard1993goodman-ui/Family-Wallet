@@ -63,7 +63,7 @@ export function NannyDashboard(props: DashboardProps) {
       />
       <WalletTravelBanner slug={slug} />
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
           <TodayShift hub={hub} />
 
@@ -129,9 +129,7 @@ export function NannyDashboard(props: DashboardProps) {
               <div className="ios-group">
                 {doses.map((dose) => (
                   <div key={dose.id} className="flex items-start gap-3 px-4 py-3">
-                    <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-accent text-primary">
-                      <Pill className="h-4 w-4" />
-                    </span>
+                    <Pill className="mt-0.5 h-4 w-4 flex-none text-muted-foreground" />
                     <span className="min-w-0 flex-1 text-sm">
                       <span className="block font-medium text-foreground">
                         {dose.child_name}: {dose.medicine}
@@ -150,19 +148,7 @@ export function NannyDashboard(props: DashboardProps) {
           )}
 
           <section>
-            <SectionTitle
-              action={
-                <Link
-                  to="/planner/$slug"
-                  params={{ slug }}
-                  className="text-sm font-medium text-primary hover:underline"
-                >
-                  Open calendar
-                </Link>
-              }
-            >
-              This week
-            </SectionTitle>
+            <SectionTitle>This week</SectionTitle>
             <WeekCalendar
               slug={slug}
               entries={hub?.entries ?? []}
@@ -325,11 +311,12 @@ function TodayShift({ hub }: { hub: HubSummary | null }) {
 
   return (
     <section className="surface-card overflow-hidden">
-      <div className="bg-primary px-5 py-4 text-primary-foreground">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] opacity-75">
+      <div className="border-b border-rule px-5 py-4">
+        <p className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
+          <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
           Your shift today
         </p>
-        <p className="heading-display mt-1 text-2xl">
+        <p className="num heading-display mt-1 text-[1.75rem] text-foreground">
           {cancelled
             ? "Shift cancelled"
             : shift
@@ -373,7 +360,7 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
           <Link
             to="/emergency/$slug"
             params={{ slug }}
-            className="text-sm font-medium text-primary hover:underline"
+            className="text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
           >
             Emergency card
           </Link>
@@ -384,19 +371,19 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
       <div className="grid gap-3 sm:grid-cols-2">
         {children.map((child) => (
           <div key={child.id} className="surface-card p-4">
-            <p className="heading-display text-lg text-foreground">{child.name}</p>
+            <p className="font-medium text-foreground">{child.name}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {child.allergies ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2.5 py-1 text-xs font-medium text-destructive">
+                <span className="inline-flex items-center gap-1 rounded-sm bg-[#ffedea] px-2 py-0.5 text-xs font-medium text-[#831c1e]">
                   <AlertTriangle className="h-3 w-3" /> {child.allergies}
                 </span>
               ) : (
-                <span className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                <span className="rounded-sm bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                   No allergies noted
                 </span>
               )}
               {child.medication && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-foreground">
+                <span className="inline-flex items-center gap-1 rounded-sm bg-accent px-2 py-0.5 text-xs font-medium text-foreground">
                   <Pill className="h-3 w-3" /> {child.medication}
                 </span>
               )}

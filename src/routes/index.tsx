@@ -1,41 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  Calculator,
-  Check,
-  Clock,
-  FileText,
-  KeyRound,
-  LifeBuoy,
-  LockKeyhole,
-  Mail,
-  Menu,
-  Pill,
-  PlayCircle,
-  ReceiptText,
-  ShieldCheck,
-  Siren,
-  Smartphone,
-  CalendarDays,
-  Heart,
-  HeartHandshake,
-  Wallet,
-} from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Menu } from "lucide-react";
 
+import { Wordmark } from "@/components/brand";
 import { FamilyLogin } from "@/components/FamilyLogin";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -62,10 +34,8 @@ export const Route = createFileRoute("/")({
 
 const benefitGroups = [
   {
-    icon: CalendarDays,
     title: "Today & planning",
-    summary: "Keep every handover, shift and family update in one calm daily view.",
-    featured: ["Weekly planner", "Daily log", "Friday report"],
+    summary: "Every handover, shift and family update in one calm daily view.",
     items: [
       "Weekly planner — what's on each day, Monday to Sunday",
       "Daily log — how each day went",
@@ -77,10 +47,8 @@ const benefitGroups = [
     ],
   },
   {
-    icon: Siren,
     title: "Family & safety",
-    summary: "The essential people, details and safeguards your nanny needs at a glance.",
-    featured: ["Emergency card", "Children's profiles", "Safety records"],
+    summary: "The people, details and safeguards your nanny needs at a glance.",
     items: [
       "Emergency card — key contacts and instructions at a glance",
       "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
@@ -89,16 +57,14 @@ const benefitGroups = [
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
       "Medication log — timestamped doses so nobody double-doses",
-      "Photo moments & milestones — a private photo diary and milestone journal for your children",
-      "First 48 hours — agree routines, pickups and expectations together with a shared parent and nanny checklist",
-      "Insurance & safeguarding record — clear check, training and cover status",
+      "Photo moments & milestones — a private photo diary and milestone journal",
+      "First 48 hours — routines, pickups and expectations agreed together",
+      "Insurance & safeguarding record — check, training and cover status",
     ],
   },
   {
-    icon: FileText,
     title: "Agreement & employment",
-    summary: "Your working arrangement, pay tools and key documents stay together.",
-    featured: ["Nanny agreement", "Employment costs", "Nannytax support"],
+    summary: "Your working arrangement, pay tools and key documents together.",
     items: [
       "Your nanny agreement",
       "Managed Nannytax setup — a guided introduction and visible next steps",
@@ -109,12 +75,10 @@ const benefitGroups = [
     ],
   },
   {
-    icon: HeartHandshake,
     title: "Support & extras",
-    summary: "Trusted ideas, thoughtful extras and everything that makes family life easier.",
-    featured: ["Messages", "Family perks", "Training hub"],
+    summary: "Trusted ideas and thoughtful extras that make family life easier.",
     items: [
-      "Messages — topic conversations between family and nanny, kept in the wallet",
+      "Messages — topic conversations between family and nanny",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -127,56 +91,55 @@ const benefitGroups = [
   },
 ];
 
-const headlineBenefits = [
+const weekClaims = [
   {
-    icon: CalendarDays,
     title: "Everyone sees the same week",
-    detail: "Shifts, school runs and clubs in one shared planner.",
+    detail: "Shifts sync from the nanny agreement; school runs and clubs sit beside them.",
   },
   {
-    icon: Pill,
-    title: "No double-dosing with the medication log",
-    detail: "Every dose timed and signed, so nobody has to text to check.",
+    title: "No double-dosing",
+    detail: "Every dose of medicine is timed and signed, so nobody has to text to check.",
   },
   {
-    icon: ReceiptText,
-    title: "A Friday report ready to print",
+    title: "A Friday report, ready to print",
     detail: "Hours, activities, handovers and expenses, summed up for you.",
   },
   {
-    icon: Siren,
-    title: "Emergency details always to hand",
-    detail: "Key contacts, allergies and instructions in one tap.",
-  },
-  {
-    icon: FileText,
-    title: "Your nanny agreement, signed and filed",
-    detail: "Build it, sign it together and keep it safe.",
-  },
-  {
-    icon: LifeBuoy,
-    title: "Petty cash that always adds up",
-    detail: "Top-ups and receipts logged, so everyone knows what's left.",
-  },
-  {
-    icon: KeyRound,
-    title: "No more ‘what’s the WiFi password?’",
-    detail:
-      "House Manual & Codes keeps access details and household essentials together, with codes hidden until revealed.",
-  },
-  {
-    icon: Heart,
-    title: "Everyone on the same page with the kids",
-    detail:
-      "The Kids' Playbook shares what soothes each child, the house rules you agree on, friends and rainy-day ideas.",
+    title: "Petty cash that adds up",
+    detail: "Top-ups and receipts logged, so everyone knows what is left in the float.",
   },
 ];
 
-const display = "font-serif tracking-tight";
+const credits = [
+  {
+    title: "28–31 Brompton Square, South Kensington",
+    by: "No Swan So Fine",
+    licence: "CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:28-31_Brompton_Square,_South_Kensington,_July_2023.jpg",
+  },
+  {
+    title: "Holland Park, April 2026",
+    by: "The wub",
+    licence: "CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/w/index.php?curid=189002899",
+  },
+  {
+    title: "Pushkin House fanlight",
+    by: "Pushkin House Rafy",
+    licence: "CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Pushkin_House_fanlight.jpg",
+  },
+  {
+    title: "8, 9 and 10 North Terrace, South Kensington",
+    by: "No Swan So Fine",
+    licence: "CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:8,_9_and_10_North_Terrace,_South_Kensington,_July_2023.jpg",
+  },
+];
 
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#included", label: "What's included" },
+  { href: "#week", label: "How it works" },
+  { href: "#included", label: "What's inside" },
 ] as const;
 
 function splitItem(item: string) {
@@ -185,42 +148,41 @@ function splitItem(item: string) {
   return { name, detail: detail ? detail[0]!.toUpperCase() + detail.slice(1) : undefined };
 }
 
-function Logo() {
-  return (
-    <Link to="/" className="flex min-w-0 items-center gap-2.5">
-      <span className="flex size-9 flex-none items-center justify-center rounded-lg bg-primary text-primary-foreground">
-        <Wallet className="h-4.5 w-4.5" aria-hidden="true" />
-      </span>
-      <span className={cn(display, "truncate text-lg font-semibold text-foreground")}>
-        The Family Wallet
-      </span>
-    </Link>
-  );
-}
+/** One frame for every section: 32px margins, 1280px measure. */
+const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";
 
 function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Logo />
-        <nav className="hidden items-center gap-1 md:flex">
+    <header className="sticky top-0 z-40 bg-background">
+      <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
+        <Link to="/" aria-label="The Family Wallet, home">
+          <Wordmark />
+        </Link>
+        <nav className="hidden items-center gap-7 text-[0.9375rem] md:flex">
           {navLinks.map((n) => (
-            <Button key={n.href} variant="ghost" size="sm" asChild>
-              <a href={n.href}>{n.label}</a>
-            </Button>
+            <a
+              key={n.href}
+              href={n.href}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {n.label}
+            </a>
           ))}
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/demo">Demo</Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/calculator">Cost calculator</Link>
-          </Button>
+          <Link
+            to="/demo"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Demo
+          </Link>
+          <Link
+            to="/calculator"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Cost calculator
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
-          <span className="mr-1 hidden items-center gap-1.5 text-xs font-medium text-muted-foreground lg:flex">
-            <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private &amp; secure
-          </span>
-          <Button size="sm" className="hidden sm:inline-flex" asChild>
+          <Button className="hidden sm:inline-flex" asChild>
             <a href="#sign-in">Open my wallet</a>
           </Button>
           <Sheet>
@@ -229,9 +191,11 @@ function SiteHeader() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
+            <SheetContent side="right" className="w-80">
               <SheetHeader>
-                <SheetTitle className={display}>The Family Wallet</SheetTitle>
+                <SheetTitle className="heading-serif text-xl font-normal">
+                  The Family Wallet
+                </SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
                 {navLinks.map((n) => (
@@ -261,338 +225,504 @@ function SiteHeader() {
   );
 }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  body,
-}: {
-  eyebrow: string;
-  title: string;
-  body?: string;
-}) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>
-      <h2 className={cn(display, "mt-3 text-3xl font-semibold text-foreground sm:text-4xl")}>
-        {title}
-      </h2>
-      {body && <p className="mt-4 text-pretty text-muted-foreground">{body}</p>}
-    </div>
-  );
-}
-
-function ItemList({ items }: { items: string[] }) {
-  return (
-    <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-      {items.map((raw) => {
-        const { name, detail } = splitItem(raw);
-        return (
-          <li key={raw} className="flex gap-3">
-            <span className="mt-0.5 flex size-5 flex-none items-center justify-center rounded-full bg-secondary/25 text-primary">
-              <Check className="h-3 w-3" strokeWidth={3} />
-            </span>
-            <div className="text-sm leading-relaxed">
-              <p className="font-medium text-foreground">{name}</p>
-              {detail && <p className="text-muted-foreground">{detail}</p>}
-            </div>
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
 function Index() {
+  useReveal();
+
   return (
-    <div className="min-h-screen overflow-x-clip bg-sand">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <SiteHeader />
 
       <main>
-        {/* Hero + sign-in */}
-        <section className="relative">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-[560px] bg-[radial-gradient(60%_60%_at_15%_0%,color-mix(in_oklch,var(--secondary)_22%,transparent),transparent),radial-gradient(50%_50%_at_90%_10%,color-mix(in_oklch,var(--primary)_12%,transparent),transparent)]"
-          />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-12 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 lg:pb-28 lg:pt-20">
-            <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-              <Badge
-                variant="outline"
-                className="gap-1.5 rounded-full bg-card px-3 py-1 font-medium"
-              >
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Your childcare, safely in
-                one place
-              </Badge>
-              <h1
-                className={cn(
-                  display,
-                  "mt-6 text-4xl font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-6xl dark:text-foreground",
-                )}
-              >
-                Your family and your new nanny,{" "}
-                <span className="text-[oklch(0.56_0.12_68)] dark:text-primary">
-                  beautifully organised.
-                </span>
+        {/* The front door: what this is, and the way in */}
+        <section className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-7 lg:pr-6" data-reveal>
+              <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
+                Family and nanny, one wallet
               </h1>
-              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-                Routines, essential documents, daily notes and messages, together in one private
-                place.
+              <p className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
+                A private home your agency sets up for each household. The week, the nanny
+                agreement, the house codes and every handover sit behind one link and a
+                six-character code.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button size="lg" variant="outline" className="h-11 bg-card" asChild>
+              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <Button size="lg" asChild>
                   <Link to="/demo">
-                    <PlayCircle className="h-4 w-4" /> Explore the demo
+                    Explore the demo wallet <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="ghost" className="h-11" asChild>
-                  <Link to="/calculator">
-                    <Calculator className="h-4 w-4" /> What will a nanny really cost?
-                  </Link>
-                </Button>
+                <Link
+                  to="/calculator"
+                  className="text-[0.9375rem] font-medium text-foreground underline decoration-foreground/25 underline-offset-[6px] transition-colors hover:decoration-foreground"
+                >
+                  What will a nanny really cost?
+                </Link>
               </div>
-              <p className="mt-4 text-sm text-muted-foreground">
-                New to the wallet? Step inside a complete sample Family Wallet with no login.
-                Nothing in the demo is live.
+              <p className="mt-5 text-sm text-muted-foreground">
+                The demo is the Harrington family and their nanny Jess. Nothing in it is live.
               </p>
             </div>
-            <FamilyLogin
-              className="animate-in fade-in slide-in-from-bottom-3 duration-500"
-              footer={
-                <p className="text-center text-xs text-muted-foreground">
-                  Lost your details?{" "}
-                  <a
-                    href="#help"
-                    className="font-medium text-foreground underline-offset-4 hover:underline"
-                  >
-                    Ask your agency
-                  </a>{" "}
-                  ·{" "}
-                  <Link to="/admin" className="underline-offset-4 hover:underline">
-                    Agency sign in
-                  </Link>
-                </p>
-              }
-            />
+
+            <div className="relative lg:col-span-5" data-reveal>
+              <figure className="relative overflow-hidden bg-muted">
+                <img
+                  src="/images/london/brompton-square.jpg"
+                  alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
+                  className="hero-drift aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
+                  fetchPriority="high"
+                />
+              </figure>
+              <div className="mt-4 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:w-[25rem]">
+                <FamilyLogin
+                  className="border-transparent"
+                  footer={
+                    <p className="text-center text-[0.8125rem] text-muted-foreground">
+                      Lost your details?{" "}
+                      <a
+                        href="#help"
+                        className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
+                      >
+                        Ask your agency
+                      </a>{" "}
+                      ·{" "}
+                      <Link to="/admin" className="underline-offset-4 hover:underline">
+                        Agency sign in
+                      </Link>
+                    </p>
+                  }
+                />
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Preview + headline benefits */}
+        {/* The week, as the household sees it */}
+        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-36">
+          <div className={cn(frame, "grid gap-14 lg:grid-cols-12 lg:gap-8")}>
+            <div className="lg:col-span-5" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+                A week at the Harringtons'
+              </h2>
+              <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-foreground">
+                Parents and nanny open the same wallet. The agreed hours, the school run and what
+                happened today are already there when either of you looks.
+              </p>
+              <dl className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {weekClaims.map((claim) => (
+                  <div key={claim.title} data-reveal>
+                    <dt className="text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground">
+                      {claim.title}
+                    </dt>
+                    <dd className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                      {claim.detail}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div className="lg:col-span-7 lg:pl-8" data-reveal>
+              <WeekPreview />
+            </div>
+          </div>
+        </section>
+
+        <figure className="relative">
+          <img
+            src="/images/london/holland-park-morning.jpg"
+            alt="A tree-lined Holland Park street in low morning sun"
+            className="aspect-[4/5] w-full object-cover sm:aspect-[21/9]"
+            loading="lazy"
+          />
+          <figcaption className={cn(frame, "mt-3 text-[0.8125rem] text-muted-foreground")}>
+            Holland Park, early morning. The school run starts at 8:10.
+          </figcaption>
+        </figure>
+
+        {/* Everything in the wallet, set as an index */}
+        <section id="included" className="scroll-mt-16 py-24 lg:py-36">
+          <div className={frame}>
+            <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
+                Everything in the wallet
+              </h2>
+              <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
+                {benefitGroups.reduce((n, g) => n + g.items.length, 0)} tools in four drawers, set
+                up by your agency and shared only with the people in your household.
+              </p>
+            </div>
+
+            <div className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-4">
+              {benefitGroups.map((group) => (
+                <div key={group.title} data-reveal>
+                  <div className="border-t-2 border-foreground pt-5">
+                    <h3 className="flex items-baseline justify-between gap-3 text-xl font-semibold tracking-[-0.015em] text-foreground">
+                      {group.title}
+                      <span className="num text-[0.9375rem] font-normal text-muted-foreground">
+                        {group.items.length}
+                      </span>
+                    </h3>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                      {group.summary}
+                    </p>
+                  </div>
+                  <ul className="mt-6 space-y-4">
+                    {group.items.map((raw) => {
+                      const { name, detail } = splitItem(raw);
+                      return (
+                        <li key={raw} className="text-[0.9375rem] leading-snug">
+                          <p className="font-medium text-foreground">{name}</p>
+                          {detail && <p className="mt-0.5 text-muted-foreground">{detail}</p>}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Codes stay behind the door */}
+        <section className="bg-card py-24 lg:py-36">
+          <div className={cn(frame, "grid items-start gap-12 lg:grid-cols-12 lg:gap-8")}>
+            <figure className="lg:col-span-12" data-reveal>
+              <img
+                src="/images/london/fanlight.jpg"
+                alt="A Georgian fanlight in a white stucco arch"
+                className="aspect-[3/1] w-full object-cover object-[50%_18%]"
+                loading="lazy"
+              />
+            </figure>
+            <div className="lg:col-span-5" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+                Codes stay behind the door
+              </h2>
+              <p className="mt-6 text-lg leading-relaxed text-foreground">
+                The alarm, the lockbox and the WiFi live in the House Manual, hidden until someone
+                in your household taps to reveal them. They are never sent in a message or saved on
+                a phone.
+              </p>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7" data-reveal>
+              <HouseCodes />
+            </div>
+          </div>
+        </section>
+
+        {/* The way in */}
         <section
-          id="features"
-          className="scroll-mt-16 border-y border-border/70 bg-background/65 py-20 lg:py-28"
+          id="help"
+          className="scroll-mt-16 bg-primary py-24 text-primary-foreground lg:py-32"
         >
-          <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <SectionHeading
-              eyebrow="Inside your Family Wallet"
-              title="Everything around your nanny, in one place"
-              body="A practical daily home for parents and nannies, with everything in one private place."
-            />
-            <div className="mt-14 grid gap-6 lg:grid-cols-3">
-              <TodayPreview className="lg:sticky lg:top-24 lg:self-start" />
-              <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
-                {headlineBenefits.map(({ icon: Icon, title, detail }) => (
-                  <li key={title}>
-                    <Card className="h-full rounded-2xl shadow-sm transition-shadow hover:shadow-md">
-                      <CardHeader className="space-y-3 p-5 pb-2">
-                        <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                          <Icon className="h-4.5 w-4.5" />
-                        </span>
-                        <CardTitle className="font-sans text-base leading-snug">{title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-5 pt-0">
-                        <CardDescription className="leading-relaxed">{detail}</CardDescription>
-                      </CardContent>
-                    </Card>
+          <div className={cn(frame, "grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-8")}>
+            <div className="lg:col-span-5" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] sm:text-5xl">
+                Opening your wallet
+              </h2>
+              <ol className="mt-10 space-y-7">
+                {[
+                  [
+                    "Your agency sends two things",
+                    "A personal wallet link and a six-character access code.",
+                  ],
+                  [
+                    "Enter them once",
+                    "On your phone or computer, in the form at the top of this page.",
+                  ],
+                  [
+                    "Choose Remember this device",
+                    "You stay signed in on that device for 12 months.",
+                  ],
+                ].map(([title, detail]) => (
+                  <li key={title} className="border-l border-white/25 pl-5">
+                    <p className="text-[1.0625rem] font-medium">{title}</p>
+                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-white/70">{detail}</p>
                   </li>
                 ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Everything included */}
-        <section id="included" className="scroll-mt-16 py-20 lg:py-28">
-          <div className="mx-auto max-w-5xl px-5 sm:px-8">
-            <SectionHeading
-              eyebrow="The full toolkit"
-              title="See everything included"
-              body="All the tools and support included in your Family Wallet."
-            />
-
-            <Tabs defaultValue={benefitGroups[0]!.title} className="mt-12 hidden md:block">
-              <TabsList className="grid h-auto w-full grid-cols-4 rounded-xl p-1">
-                {benefitGroups.map(({ icon: Icon, title }) => (
-                  <TabsTrigger key={title} value={title} className="h-10 gap-2 rounded-lg">
-                    <Icon className="h-4 w-4" /> {title}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              {benefitGroups.map(({ title, summary, items }) => (
-                <TabsContent key={title} value={title} className="mt-6">
-                  <Card className="rounded-2xl shadow-sm">
-                    <CardContent className="p-6 sm:p-8">
-                      <p className="mb-6 text-sm text-muted-foreground">{summary}</p>
-                      <ItemList items={items} />
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              ))}
-            </Tabs>
-
-            <Accordion
-              type="single"
-              collapsible
-              defaultValue={benefitGroups[0]!.title}
-              className="mt-10 rounded-2xl border bg-card px-4 md:hidden"
-            >
-              {benefitGroups.map(({ icon: Icon, title, items }) => (
-                <AccordionItem key={title} value={title} className="last:border-b-0">
-                  <AccordionTrigger className="hover:no-underline">
-                    <span className="flex items-center gap-2.5">
-                      <Icon className="h-4 w-4 text-primary" /> {title}
-                      <Badge variant="secondary" className="ml-1">
-                        {items.length}
-                      </Badge>
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ItemList items={items} />
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
-
-        {/* Help */}
-        <section id="help" className="scroll-mt-16 px-5 pb-20 sm:px-8 lg:pb-28">
-          <div className="mx-auto grid max-w-6xl gap-8 rounded-3xl bg-primary p-8 text-primary-foreground sm:p-12 lg:grid-cols-2 lg:gap-12 dark:bg-card dark:text-card-foreground">
-            <div className="flex gap-4">
-              <span className="flex size-11 flex-none items-center justify-center rounded-xl bg-white/10">
-                <Smartphone className="h-5 w-5" />
-              </span>
-              <div>
-                <h2 className={cn(display, "text-2xl font-semibold")}>Opening your wallet</h2>
-                <p className="mt-2 text-pretty leading-relaxed opacity-75">
-                  We send your personal wallet link and short access code. Enter them once and
-                  choose “Remember this device” to stay signed in for 12 months.
-                </p>
-                <Button
-                  className="mt-5 bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  asChild
-                >
+              </ol>
+              <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <Button size="lg" className="bg-white text-foreground hover:bg-white/90" asChild>
                   <a href="#sign-in">
                     Open my wallet <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <span className="flex size-11 flex-none items-center justify-center rounded-xl bg-white/10">
-                <Mail className="h-5 w-5" />
-              </span>
-              <div>
-                <h2 className={cn(display, "text-2xl font-semibold")}>Need your details again?</h2>
-                <p className="mt-2 text-pretty leading-relaxed opacity-75">
-                  Contact your agency and they will resend your link and code.
+                <p className="text-[0.9375rem] text-white/70">
+                  Need your details again? Your agency resends them.{" "}
+                  <Link to="/admin" className="text-white underline underline-offset-4">
+                    Agency sign in
+                  </Link>
                 </p>
-                <Button
-                  variant="outline"
-                  className="mt-5 border-white/25 bg-transparent text-inherit hover:bg-white/10 hover:text-inherit"
-                  asChild
-                >
-                  <Link to="/admin">Agency sign in</Link>
-                </Button>
               </div>
             </div>
+            <figure className="lg:col-span-6 lg:col-start-7" data-reveal>
+              <img
+                src="/images/london/north-terrace.jpg"
+                alt="Arched front doors and black railings on North Terrace, South Kensington"
+                className="aspect-[4/3] w-full object-cover"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-border/70">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-muted-foreground sm:flex-row sm:px-8">
-          <Logo />
-          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2">
-            <Link to="/demo" className="hover:text-foreground">
-              Demo wallet
-            </Link>
-            <Link to="/calculator" className="hover:text-foreground">
-              Cost calculator
-            </Link>
-            <Link to="/admin" className="hover:text-foreground">
-              Agency sign in
-            </Link>
-          </nav>
-          <p>© {new Date().getFullYear()} The Family Wallet</p>
+      <footer className="pb-10 pt-20">
+        <div className={frame}>
+          <p className="heading-serif whitespace-nowrap text-[11.4vw] leading-[0.9] tracking-[-0.025em] text-foreground min-[84rem]:text-[10.25rem]">
+            The Family Wallet
+          </p>
+          <div className="mt-12 flex flex-col justify-between gap-6 text-[0.9375rem] text-muted-foreground md:flex-row">
+            <nav className="flex flex-wrap gap-x-7 gap-y-2">
+              <Link to="/demo" className="transition-colors hover:text-foreground">
+                Demo wallet
+              </Link>
+              <Link to="/calculator" className="transition-colors hover:text-foreground">
+                Cost calculator
+              </Link>
+              <Link to="/admin" className="transition-colors hover:text-foreground">
+                Agency sign in
+              </Link>
+            </nav>
+            <p>© {new Date().getFullYear()} The Family Wallet</p>
+          </div>
+          <p className="mt-8 max-w-4xl text-xs leading-relaxed text-muted-foreground">
+            Photographs:{" "}
+            {credits.map((c, i) => (
+              <span key={c.href}>
+                <a href={c.href} className="underline underline-offset-2 hover:text-foreground">
+                  {c.title}
+                </a>{" "}
+                by {c.by}, {c.licence}, via Wikimedia Commons
+                {i < credits.length - 1 ? "; " : "."}
+              </span>
+            ))}
+          </p>
         </div>
       </footer>
     </div>
   );
 }
 
-const PREVIEW_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const PREVIEW_ITEMS = [
-  { time: "3:30pm", title: "School pick-up", note: "Jess (nanny shift 3:30–8pm)" },
-  { time: "4:30pm", title: "Football training", note: "Bring shin pads" },
-  { time: "6:00pm", title: "Dinner from Nanny Fuel", note: "Chicken traybake" },
-];
-const PREVIEW_IDEAS = ["1km family run", "Park cricket", "Reading den"];
+/* ---------------- The live week: a real piece of the wallet ---------------- */
 
-function TodayPreview({ className }: { className?: string }) {
-  const [today, setToday] = useState<number | null>(null);
-  useEffect(() => {
-    setToday((new Date().getDay() + 6) % 7);
-  }, []);
+type PreviewDay = {
+  short: string;
+  date: number;
+  shift: [number, number] | null;
+  items: Array<{ time: string; title: string; who?: string }>;
+};
+
+const PREVIEW_WEEK: PreviewDay[] = [
+  {
+    short: "Mon",
+    date: 2,
+    shift: [7.5, 18.5],
+    items: [
+      { time: "08:10", title: "School run, Holland Park Primary", who: "Olivia" },
+      { time: "16:00", title: "Swimming, Kensington Leisure Centre", who: "Arthur" },
+    ],
+  },
+  {
+    short: "Tue",
+    date: 3,
+    shift: [7.5, 18.5],
+    items: [
+      { time: "08:10", title: "School run", who: "Olivia" },
+      { time: "17:30", title: "Calpol 5ml, signed by Jess", who: "Olivia" },
+    ],
+  },
+  {
+    short: "Wed",
+    date: 4,
+    shift: [12, 19],
+    items: [
+      { time: "15:15", title: "Pick-up, bring the reading folder", who: "Olivia" },
+      { time: "16:30", title: "Football training, shin pads", who: "Arthur" },
+      { time: "18:00", title: "Dinner from Nanny Fuel: chicken traybake" },
+    ],
+  },
+  {
+    short: "Thu",
+    date: 5,
+    shift: [7.5, 18.5],
+    items: [{ time: "10:00", title: "Playdate with the Ashworths", who: "Arthur" }],
+  },
+  {
+    short: "Fri",
+    date: 6,
+    shift: [7.5, 15],
+    items: [
+      { time: "14:30", title: "Friday report sent to Sophie and Tom" },
+      { time: "15:00", title: "Handover at the door" },
+    ],
+  },
+  { short: "Sat", date: 7, shift: null, items: [] },
+  { short: "Sun", date: 8, shift: null, items: [] },
+];
+
+const TRACK_START = 7;
+const TRACK_HOURS = 14;
+const clock = (h: number) =>
+  `${Math.floor(h)}:${String(Math.round((h % 1) * 60)).padStart(2, "0")}`;
+
+function WeekPreview() {
+  const [selected, setSelected] = useState(2);
+  const day = PREVIEW_WEEK[selected]!;
+  const hours = PREVIEW_WEEK.reduce((n, d) => n + (d.shift ? d.shift[1] - d.shift[0] : 0), 0);
+
   return (
-    <Card className={cn("rounded-2xl shadow-sm", className)} aria-label="Sample calendar preview">
-      <CardHeader className="p-6 pb-4">
-        <Badge variant="secondary" className="w-fit">
-          Sample preview
-        </Badge>
-        <CardTitle className={cn(display, "pt-1 text-xl")}>Today at the Harringtons'</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-5 p-6 pt-0">
-        <div className="grid grid-cols-7 gap-1 rounded-lg bg-muted p-1" aria-hidden>
-          {PREVIEW_DAYS.map((d, i) => (
-            <span
-              key={d}
-              className={cn(
-                "rounded-md py-1.5 text-center text-xs font-medium text-muted-foreground",
-                i === today && "bg-primary text-primary-foreground shadow-sm",
-              )}
-            >
-              {d}
-            </span>
-          ))}
-        </div>
-        <ol className="relative space-y-4 border-l border-border pl-5">
-          {PREVIEW_ITEMS.map((it) => (
-            <li key={it.time} className="relative">
-              <span className="absolute -left-[25px] top-1.5 size-2.5 rounded-full border-2 border-card bg-secondary ring-1 ring-secondary" />
-              <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                <Clock className="h-3 w-3" /> {it.time}
-              </p>
-              <p className="text-sm font-medium text-foreground">{it.title}</p>
-              <p className="text-sm text-muted-foreground">{it.note}</p>
-            </li>
-          ))}
-        </ol>
-        <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-            Suggested activities
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {PREVIEW_IDEAS.map((a) => (
-              <span
-                key={a}
-                className="rounded-full border bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
-              >
-                {a}
-              </span>
-            ))}
+    <div data-ui className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="flex items-center justify-between gap-4 border-b border-rule px-5 py-4 sm:px-6">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft font-serif text-[0.9375rem] text-brand">
+            J
+          </span>
+          <div>
+            <p className="text-sm font-medium text-foreground">Jess Okafor</p>
+            <p className="num text-[0.8125rem] text-muted-foreground">
+              {hours} hours agreed this week
+            </p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        <p className="text-sm text-muted-foreground">2–8 November</p>
+      </div>
+
+      <div
+        className="grid grid-cols-7 gap-1 px-3 pt-4 sm:gap-1.5 sm:px-5"
+        role="group"
+        aria-label="Choose a day"
+      >
+        {PREVIEW_WEEK.map((d, i) => {
+          const isSelected = i === selected;
+          const span = d.shift
+            ? {
+                top: ((d.shift[0] - TRACK_START) / TRACK_HOURS) * 100,
+                height: ((d.shift[1] - d.shift[0]) / TRACK_HOURS) * 100,
+              }
+            : null;
+          return (
+            <button
+              key={d.short}
+              type="button"
+              onClick={() => setSelected(i)}
+              aria-pressed={isSelected}
+              aria-label={`${d.short} ${d.date} November${d.shift ? `, Jess ${clock(d.shift[0])} to ${clock(d.shift[1])}` : ", no shift"}`}
+              className={cn(
+                "flex min-h-[9.5rem] cursor-pointer flex-col items-center rounded-md px-1 pb-3 pt-3 transition-colors",
+                isSelected ? "bg-accent" : "hover:bg-raised",
+              )}
+            >
+              <span className="text-xs text-muted-foreground">{d.short}</span>
+              <span
+                className={cn(
+                  "num mt-1 flex h-8 w-8 items-center justify-center rounded-full text-base",
+                  i === 2 ? "bg-brand font-medium text-brand-foreground" : "text-foreground",
+                )}
+              >
+                {d.date}
+              </span>
+              <span className="relative mt-3 h-16 w-2 overflow-hidden rounded-full bg-muted">
+                {span && (
+                  <span
+                    className="absolute inset-x-0 rounded-full bg-brand transition-[top,height] duration-300"
+                    style={{ top: `${span.top}%`, height: `${span.height}%` }}
+                  />
+                )}
+              </span>
+              <span
+                className={cn(
+                  "num mt-2.5 text-[11px] leading-tight",
+                  d.shift ? "text-foreground" : "text-muted-foreground/70",
+                )}
+              >
+                {d.shift ? `${clock(d.shift[0])}–${clock(d.shift[1])}` : "Off"}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-3 border-t border-rule px-5 py-5 sm:px-6" aria-live="polite">
+        <p className="text-sm font-medium text-foreground">
+          {day.short === "Wed" ? "Today" : `${day.short} ${day.date} November`}
+          {day.shift && (
+            <span className="num font-normal text-muted-foreground">
+              {" "}
+              · Jess {clock(day.shift[0])}–{clock(day.shift[1])}
+            </span>
+          )}
+        </p>
+        <ul className="mt-3 min-h-[6.75rem] space-y-2.5">
+          {day.items.length === 0 && (
+            <li className="text-sm text-muted-foreground">
+              A family weekend. Nothing planned in the wallet.
+            </li>
+          )}
+          {day.items.map((item) => (
+            <li key={item.time + item.title} className="flex gap-4 text-sm">
+              <span className="num w-12 flex-none text-muted-foreground">{item.time}</span>
+              <span className="min-w-0 text-foreground">
+                {item.title}
+                {item.who && <span className="text-muted-foreground"> · {item.who}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Tap to reveal: the House Manual's codes ---------------- */
+
+const SAMPLE_CODES = [
+  { label: "Front door lockbox", value: "4719" },
+  { label: "Alarm", value: "2086 then Set" },
+  { label: "WiFi · Harrington-Home", value: "plane-tree-31" },
+];
+
+function HouseCodes({ className }: { className?: string }) {
+  const [shown, setShown] = useState<string | null>(null);
+  useEffect(() => {
+    if (!shown) return;
+    const timer = window.setTimeout(() => setShown(null), 6000);
+    return () => window.clearTimeout(timer);
+  }, [shown]);
+
+  return (
+    <div data-ui className={cn("rounded-lg border border-border bg-background", className)}>
+      {SAMPLE_CODES.map((code, i) => {
+        const visible = shown === code.label;
+        return (
+          <div
+            key={code.label}
+            className={cn(
+              "flex items-center justify-between gap-4 px-4 py-3",
+              i > 0 && "border-t border-rule",
+            )}
+          >
+            <div className="min-w-0">
+              <p className="text-[0.8125rem] text-muted-foreground">{code.label}</p>
+              <p className="num mt-0.5 truncate font-mono text-[0.9375rem] text-foreground">
+                {visible ? code.value : "• • • •"}
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setShown(visible ? null : code.label)}
+              aria-label={`${visible ? "Hide" : "Reveal"} ${code.label}`}
+            >
+              {visible ? <EyeOff /> : <Eye />}
+              {visible ? "Hide" : "Reveal"}
+            </Button>
+          </div>
+        );
+      })}
+      <p className="border-t border-rule px-4 py-2.5 text-xs text-muted-foreground">
+        Sample codes from the demo household. Each one hides again after six seconds.
+      </p>
+    </div>
   );
 }

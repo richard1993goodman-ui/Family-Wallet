@@ -15,31 +15,24 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
   const allDone = done === total;
   const outstanding = items.filter((item) => !item.done);
   if (allDone) return null;
-  const barColour = allDone
-    ? "bg-emerald-600"
-    : done >= total / 2
-      ? "bg-amber-500"
-      : "bg-destructive";
 
   return (
     <div className="surface-card p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Actions to complete
-          </p>
-          <p className="mt-1 font-medium text-foreground">
+          <p className="text-[0.8125rem] font-medium text-muted-foreground">Actions to complete</p>
+          <p className="mt-0.5 font-medium text-foreground">
             {allDone ? "Everything is complete" : `${total - done} still to do`}
           </p>
         </div>
-        <span className="text-sm text-muted-foreground">
-          {done} of {total}
+        <span className="num text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">{done}</span> of {total} done
         </span>
       </div>
 
-      <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-muted">
         <div
-          className={`h-full rounded-full ${barColour}`}
+          className="h-full rounded-full bg-brand"
           style={{ width: `${Math.round((done / total) * 100)}%` }}
         />
       </div>
@@ -50,11 +43,11 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
             <Link
               to={item.to}
               params={{ slug }}
-              className="flex items-start gap-3 rounded-lg px-1 py-1 hover:bg-muted/60"
+              className="flex items-start gap-3 rounded-md px-1.5 py-1.5 transition-colors hover:bg-raised"
             >
               <span
-                className={`mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
-                  item.done ? "bg-emerald-600" : "bg-destructive"
+                className={`mt-[5px] h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+                  item.done ? "bg-brand" : "border border-foreground/40"
                 }`}
               />
               <span className="text-sm">
@@ -72,7 +65,7 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
 
       {(outstanding.length > 3 || open) && (
         <button
-          className="mt-3 text-sm font-medium text-primary hover:underline"
+          className="mt-3 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
           onClick={() => setOpen(!open)}
         >
           {open ? "Show less" : `Show all ${total}`}

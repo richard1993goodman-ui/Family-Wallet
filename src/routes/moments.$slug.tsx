@@ -248,7 +248,7 @@ function MomentsPage() {
         )}
         {groupByDate(data.moments).map(([date, dayMoments]) => (
           <div key={date}>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            <p className="text-[0.8125rem] font-medium text-muted-foreground">
               {formatDate(date)}
             </p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">

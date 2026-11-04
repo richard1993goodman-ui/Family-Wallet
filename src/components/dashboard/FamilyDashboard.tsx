@@ -75,26 +75,14 @@ export function FamilyDashboard(props: DashboardProps) {
       />
       <WalletTravelBanner slug={slug} />
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
           <NeedsAttention {...props} />
           <SetupProgress {...props} />
           <WelcomeCard slug={slug} />
 
           <section>
-            <SectionTitle
-              action={
-                <Link
-                  to="/planner/$slug"
-                  params={{ slug }}
-                  className="text-sm font-medium text-primary hover:underline"
-                >
-                  Open calendar
-                </Link>
-              }
-            >
-              This week
-            </SectionTitle>
+            <SectionTitle>This week</SectionTitle>
             <WeekCalendar
               slug={slug}
               entries={hub?.entries ?? []}
@@ -121,53 +109,6 @@ export function FamilyDashboard(props: DashboardProps) {
               />
             </div>
           </section>
-        </Column>
-
-        <Column>
-          <EmergencyCardLink slug={slug} />
-          <NannyProfiles wallet={wallet} />
-
-          <section>
-            <SectionTitle>Family &amp; home</SectionTitle>
-            <div className="ios-group">
-              <HubTile
-                slug={slug}
-                to="/family/$slug"
-                icon={Users}
-                title="Children & routines"
-                subtitle={
-                  hub?.childCount
-                    ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added`
-                    : "Children, routines, allergies and house rules"
-                }
-              />
-              <HubTile
-                slug={slug}
-                to="/kids/$slug"
-                icon={Heart}
-                title="Kids' playbook"
-                subtitle="Comforts, big moments and rainy-day ideas"
-              />
-              <HubTile
-                slug={slug}
-                to="/housemanual/$slug"
-                icon={KeyRound}
-                title="House manual & codes"
-                subtitle="WiFi, alarm, lockbox and everyday instructions"
-              />
-              <HubTile
-                slug={slug}
-                to="/guide/$slug"
-                icon={BookOpen}
-                title="Nanny quick guide"
-                subtitle="A one-page summary for your nanny"
-              />
-            </div>
-          </section>
-
-          <Documents {...props} />
-          <EmergencyContacts wallet={wallet} />
-          <NannytaxCode code={wallet.nannytaxCode} />
 
           <section>
             <SectionTitle>Employing your nanny</SectionTitle>
@@ -227,6 +168,53 @@ export function FamilyDashboard(props: DashboardProps) {
               </a>
             </div>
           </section>
+        </Column>
+
+        <Column>
+          <EmergencyCardLink slug={slug} />
+          <NannyProfiles wallet={wallet} />
+
+          <section>
+            <SectionTitle>Family &amp; home</SectionTitle>
+            <div className="ios-group">
+              <HubTile
+                slug={slug}
+                to="/family/$slug"
+                icon={Users}
+                title="Children & routines"
+                subtitle={
+                  hub?.childCount
+                    ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added`
+                    : "Children, routines, allergies and house rules"
+                }
+              />
+              <HubTile
+                slug={slug}
+                to="/kids/$slug"
+                icon={Heart}
+                title="Kids' playbook"
+                subtitle="Comforts, big moments and rainy-day ideas"
+              />
+              <HubTile
+                slug={slug}
+                to="/housemanual/$slug"
+                icon={KeyRound}
+                title="House manual & codes"
+                subtitle="WiFi, alarm, lockbox and everyday instructions"
+              />
+              <HubTile
+                slug={slug}
+                to="/guide/$slug"
+                icon={BookOpen}
+                title="Nanny quick guide"
+                subtitle="A one-page summary for your nanny"
+              />
+            </div>
+          </section>
+
+          <Documents {...props} />
+          <EmergencyContacts wallet={wallet} />
+          <NannytaxCode code={wallet.nannytaxCode} />
         </Column>
       </div>
 
@@ -347,9 +335,7 @@ function NeedsAttention({
           rows
         ) : (
           <div className="flex items-center gap-3 px-4 py-4">
-            <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-emerald-600/10 text-emerald-700">
-              <CheckCircle2 className="h-4 w-4" />
-            </span>
+            <CheckCircle2 className="h-4 w-4 flex-none text-brand" />
             <span>
               <span className="block font-medium text-foreground">You're all caught up</span>
               <span className="block text-sm text-muted-foreground">
@@ -530,7 +516,7 @@ function Documents({ slug, wallet, agreementSubtitle, openDoc }: DashboardProps)
             return (
               <div key={check.docType} className="flex items-center gap-3 px-4 py-3">
                 <span className="ios-icon">
-                  <BadgeCheck className="h-4 w-4" />
+                  <BadgeCheck className="h-4 w-4 text-brand" />
                 </span>
                 <span>
                   <span className="block font-medium text-foreground">{meta.title}</span>
@@ -566,7 +552,7 @@ function NannytaxCode({ code }: { code: string | null }) {
           Use this referral code when you set up payroll with Nannytax.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
-          <span className="rounded-lg bg-accent px-3 py-2 font-mono text-base font-semibold tracking-wider text-foreground">
+          <span className="rounded-md bg-accent px-3 py-1.5 font-mono text-[0.9375rem] font-medium tracking-wide text-foreground">
             {code}
           </span>
           <Button
@@ -583,7 +569,7 @@ function NannytaxCode({ code }: { code: string | null }) {
             href="https://www.nannytax.co.uk"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
           >
             Visit Nannytax <ExternalLink className="h-4 w-4" />
           </a>
