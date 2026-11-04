@@ -1338,6 +1338,63 @@ export type Database = {
           },
         ]
       }
+      nanny_bank_details: {
+        Row: {
+          account_name: string
+          account_number: string | null
+          bank_name: string | null
+          family_id: string
+          iban: string | null
+          id: string
+          nanny_id: string
+          payment_reference: string | null
+          sort_code: string | null
+          swift: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_name: string
+          account_number?: string | null
+          bank_name?: string | null
+          family_id: string
+          iban?: string | null
+          id?: string
+          nanny_id: string
+          payment_reference?: string | null
+          sort_code?: string | null
+          swift?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string | null
+          bank_name?: string | null
+          family_id?: string
+          iban?: string | null
+          id?: string
+          nanny_id?: string
+          payment_reference?: string | null
+          sort_code?: string | null
+          swift?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_bank_details_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_bank_details_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nanny_safety_documents: {
         Row: {
           document_type: string
