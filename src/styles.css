@@ -5,13 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: 4px;
-  --radius-md: 6px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
   --radius-lg: var(--radius);
   --radius-xl: var(--radius);
-  --radius-2xl: 10px;
-  --radius-3xl: 12px;
-  --radius-4xl: 16px;
+  --radius-2xl: 14px;
+  --radius-3xl: 16px;
+  --radius-4xl: 20px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -70,10 +70,11 @@
  * Achromatic ledger on London limestone.
  * The chrome is ink on a warm stone ground; cards are white with a 1px edge and no shadow.
  * Kensington green (--brand) is the one hue: today, the week's booked shifts, what is done.
- * Radii are tight (8 cards, 6 controls); the serif is kept for the wordmark and the greeting.
+ * Radii: 12 for cards and panels, 8 for controls; the serif is kept for the wordmark and the greeting.
+ * In the app, three layers: the toned sidebar shell, the limestone canvas panel, white cards.
  */
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   --background: #f4f3f1;
   --foreground: #121211;
   --card: #ffffff;
@@ -109,13 +110,13 @@
   --chart-3: #1e5b45;
   --chart-4: #b9b6b0;
   --chart-5: #4b4a47;
-  --sidebar: #f4f3f1;
+  --sidebar: #eae8e4;
   --sidebar-foreground: #3a3936;
   --sidebar-primary: #161615;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8e6e2;
+  --sidebar-accent: #e0ded9;
   --sidebar-accent-foreground: #121211;
-  --sidebar-border: #e4e2de;
+  --sidebar-border: #dedbd6;
   --sidebar-ring: #161615;
 }
 
@@ -148,7 +149,7 @@
   --positive: #5fb28f;
   --warning: #f0b45a;
   --warning-soft: #2a2215;
-  --sidebar: #0c0c0b;
+  --sidebar: #070706;
   --sidebar-foreground: #d6d4cf;
   --sidebar-primary: #f5f5f4;
   --sidebar-primary-foreground: #0c0c0b;
@@ -165,6 +166,14 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-foreground) 22%, transparent) transparent;
+  }
+
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: var(--color-brand);
   }
 
   body {
@@ -274,6 +283,19 @@
   align-self: flex-start;
   margin-top: 0.125rem;
   color: var(--color-muted-foreground);
+}
+
+/* A tiled set of links in one panel: hairline gaps instead of separate cards. */
+@utility link-grid {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-rule);
+  & > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 @utility ios-section-title {

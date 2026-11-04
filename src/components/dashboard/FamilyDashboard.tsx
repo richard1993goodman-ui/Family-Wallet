@@ -72,6 +72,20 @@ export function FamilyDashboard(props: DashboardProps) {
         eyebrow={longDate(hub?.today.date)}
         title={greeting()}
         subtitle={`${wallet.familyName}${wallet.agencyName ? ` · with ${wallet.agencyName}` : ""}`}
+        actions={
+          <>
+            <Button variant="outline" asChild>
+              <Link to="/report/$slug" params={{ slug }}>
+                <FileBarChart className="h-4 w-4" /> Weekly report
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link to="/messages/$slug" params={{ slug }}>
+                <MessageCircle className="h-4 w-4" /> Message your nanny
+              </Link>
+            </Button>
+          </>
+        }
       />
       <WalletTravelBanner slug={slug} />
 
@@ -112,7 +126,7 @@ export function FamilyDashboard(props: DashboardProps) {
 
           <section>
             <SectionTitle>Employing your nanny</SectionTitle>
-            <div className="ios-group">
+            <div className="link-grid sm:grid-cols-2">
               <HubTile
                 slug={slug}
                 to="/payroll/$slug"
@@ -244,6 +258,7 @@ function NeedsAttention({
           to="/agreement/$slug"
           icon={FileText}
           tone="attention"
+          cta="Continue"
           title={`${nanny.name}'s agreement`}
           detail={
             nanny.agreementStatus === "none"
@@ -263,6 +278,7 @@ function NeedsAttention({
         to="/agreement/$slug"
         icon={FileText}
         tone="attention"
+        cta={agreement.hasContent ? "Continue" : "Start"}
         title={agreement.hasContent ? "Finish your nanny agreement" : "Build your nanny agreement"}
         detail={agreementSubtitle}
       />,
@@ -276,6 +292,7 @@ function NeedsAttention({
         to="/timesheets/$slug"
         icon={Clock3}
         tone="attention"
+        cta="Review"
         title="Timesheets to approve"
         detail="Check the hours, then approve for payment"
         badge={<CountBadge count={attention.shiftsPending} />}
@@ -290,6 +307,7 @@ function NeedsAttention({
         to="/leave/$slug"
         icon={CalendarCheck}
         tone="attention"
+        cta="Review"
         title="Leave requests"
         detail="Your nanny has asked for time off"
         badge={<CountBadge count={attention.leavePending} />}
@@ -304,6 +322,7 @@ function NeedsAttention({
         to="/handover/$slug"
         icon={ReceiptText}
         tone="attention"
+        cta="Review"
         title="Expenses to reimburse"
         detail={`£${(hub?.pendingExpensesTotal ?? 0).toFixed(2)} waiting`}
         badge={<CountBadge count={attention.expensesPending} />}
@@ -318,6 +337,7 @@ function NeedsAttention({
         to="/messages/$slug"
         icon={MessageCircle}
         tone="attention"
+        cta="Read"
         title="Unread messages"
         detail="New replies from your nanny"
         badge={<CountBadge count={attention.unreadThreads} />}

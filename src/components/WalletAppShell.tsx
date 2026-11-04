@@ -96,7 +96,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         agencyName={agencyName}
         activePrefix={location.prefix}
       />
-      <SidebarInset className="min-w-0 bg-background">
+      <SidebarInset className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
         <WalletTopBar
           familyName={wallet.familyName}
           role={role}
@@ -128,7 +128,7 @@ function WalletTopBar({
   onSearch: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:px-8">
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:rounded-t-xl md:px-8">
       <SidebarTrigger className="-ml-1 h-9 w-9 text-muted-foreground hover:text-foreground" />
       <div className="flex min-w-0 items-baseline gap-2">
         <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
@@ -166,7 +166,7 @@ function WalletNavigation({
   const { isMobile, setOpenMobile } = useSidebar();
 
   return (
-    <Sidebar collapsible="icon" className="border-sidebar-border">
+    <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
       <SidebarHeader className="px-3 pb-2 pt-4">
         <Link
           to="/w/$slug"
@@ -194,7 +194,7 @@ function WalletNavigation({
                       asChild
                       isActive={activePrefix === routePrefix(item.to)}
                       tooltip={item.label}
-                      className="h-8 text-sidebar-foreground [&>svg]:text-muted-foreground data-[active=true]:[&>svg]:text-foreground"
+                      className="h-8 text-sidebar-foreground transition-colors [&>svg]:text-muted-foreground data-[active=true]:bg-card data-[active=true]:ring-1 data-[active=true]:ring-sidebar-border data-[active=true]:[&>svg]:text-brand"
                     >
                       <Link
                         to={item.to}

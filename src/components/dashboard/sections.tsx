@@ -35,11 +35,11 @@ export function DashboardHeader({
 export function DemoBanner({ slug }: { slug: string }) {
   if (slug !== "demo") return null;
   return (
-    <div className="mb-7 flex gap-3 rounded-lg bg-brand-soft px-4 py-3 text-sm">
-      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-brand" aria-hidden="true" />
+    <div className="mb-8 flex gap-3 rounded-lg border border-brand/20 bg-brand-soft/60 px-4 py-2.5 text-[0.8125rem] leading-relaxed">
+      <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-brand" aria-hidden="true" />
       <div>
-        <p className="font-medium text-foreground">You're viewing a demo Family Wallet</p>
-        <p className="mt-0.5 text-foreground/75">
+        <p className="text-foreground/80">
+          <span className="font-medium text-foreground">You're viewing a demo Family Wallet. </span>
           The Harrington family, their nanny Jess and everything here are examples. Explore freely —
           as a member, your own private wallet is set up with your family, your nanny and your
           agreement.

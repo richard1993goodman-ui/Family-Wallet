@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 
 import { PageContainer } from "@/components/hub-ui";
+import { Button } from "@/components/ui/button";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
 import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
@@ -59,7 +60,15 @@ export function NannyDashboard(props: DashboardProps) {
       <DashboardHeader
         eyebrow={longDate(hub?.today.date)}
         title={firstName ? `${greeting()}, ${firstName}` : greeting()}
-        subtitle={`The ${wallet.familyName} household`}
+        subtitle={`${/^the\s/i.test(wallet.familyName) ? "" : "The "}${wallet.familyName} household`}
+        actions={
+          <Button asChild>
+            <Link to="/log/$slug" params={{ slug }}>
+              <NotebookPen className="h-4 w-4" />
+              {hub?.today.logged ? "Update today's log" : "Write today's log"}
+            </Link>
+          </Button>
+        }
       />
       <WalletTravelBanner slug={slug} />
 

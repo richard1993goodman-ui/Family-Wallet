@@ -124,6 +124,7 @@ export function ActionRow({
   title,
   detail,
   badge,
+  cta,
   tone = "default",
 }: {
   slug: string;
@@ -132,6 +133,8 @@ export function ActionRow({
   title: string;
   detail?: string | undefined;
   badge?: ReactNode;
+  /** Names the action on the right in place of the chevron, e.g. "Review". */
+  cta?: string;
   tone?: "default" | "attention" | "done";
 }) {
   return (
@@ -153,14 +156,24 @@ export function ActionRow({
         {detail && <span className="block truncate text-sm text-muted-foreground">{detail}</span>}
       </span>
       {badge}
-      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
+      {cta ? (
+        <span className="hidden h-8 flex-none items-center rounded-md border border-input bg-card px-3 text-sm font-medium text-foreground transition-colors group-hover:border-foreground/30 sm:inline-flex">
+          {cta}
+        </span>
+      ) : null}
+      <ChevronRight
+        className={cn(
+          "h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5",
+          cta && "sm:hidden",
+        )}
+      />
     </Link>
   );
 }
 
 export function CountBadge({ count }: { count: number }) {
   return (
-    <span className="num flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-medium text-primary-foreground">
+    <span className="num flex h-6 min-w-6 items-center justify-center rounded-full bg-foreground/[0.07] px-2 text-[0.8125rem] font-medium text-foreground">
       {count}
     </span>
   );
