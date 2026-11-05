@@ -319,7 +319,8 @@ function Index() {
         </section>
 
         {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
-        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
+        <div aria-hidden className="week-seam" />
+        <section id="week" className="week-rise scroll-mt-16 bg-card py-24 lg:py-32">
           <div className={frame}>
             <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
               <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
