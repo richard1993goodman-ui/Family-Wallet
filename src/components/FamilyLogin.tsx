@@ -4,8 +4,18 @@ import { useServerFn } from "@tanstack/react-start";
 import { AlertCircle, ArrowRight, KeyRound, Link2, LockKeyhole } from "lucide-react";
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 function slugFromInput(input: string) {
   const trimmed = input.trim();
@@ -93,7 +103,6 @@ export function FamilyLogin({
     }
   }
 
-
   return (
     <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
       <CardHeader className="p-6 pb-5">
@@ -178,7 +187,8 @@ export function FamilyLogin({
           {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
-      </form>
-    </section>
+        {footer}
+      </CardFooter>
+    </Card>
   );
 }

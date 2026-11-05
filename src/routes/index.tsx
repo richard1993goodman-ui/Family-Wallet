@@ -241,7 +241,10 @@ function SiteHeader() {
             </SheetContent>
           </Sheet>
         </div>
-      </header>
+      </div>
+    </header>
+  );
+}
 
 function Index() {
   useReveal();
@@ -466,6 +469,7 @@ function Index() {
             </figure>
           </div>
         </section>
+      </main>
 
       <FloatingDemoBar />
 
@@ -498,7 +502,7 @@ function Index() {
             ))}
           </p>
         </div>
-      </main>
+      </footer>
     </div>
   );
 }
