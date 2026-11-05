@@ -911,12 +911,6 @@ const STORY: Array<{ time: string; title: string; detail: string; card: ReactNod
   },
 ];
 
-/** Which step of Wednesday the visitor's own clock falls in, so each visit opens somewhere real. */
-function stepForClock(date: Date) {
-  const h = date.getHours() + date.getMinutes() / 60;
-  return h < 14 + 58 / 60 ? 0 : h < 17.5 ? 1 : h < 19 ? 2 : 3;
-}
-
 function DayScrubber() {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
