@@ -464,6 +464,15 @@ function Index() {
                     Agency sign in
                   </Link>
                 </p>
+                <p className="w-full text-[0.9375rem] text-white/70">
+                  Questions about The Family Wallet?{" "}
+                  <a
+                    href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
+                    className="text-white underline underline-offset-4"
+                  >
+                    Get in touch with the team
+                  </a>
+                </p>
               </div>
             </div>
             <figure className="lg:col-span-6 lg:col-start-7" data-reveal>
@@ -495,6 +504,12 @@ function Index() {
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>
+              <a
+                href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
+                className="transition-colors hover:text-foreground"
+              >
+                Get in touch
+              </a>
             </nav>
             <p>© {new Date().getFullYear()} The Family Wallet</p>
           </div>
