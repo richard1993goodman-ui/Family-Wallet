@@ -275,9 +275,6 @@ function Index() {
                     Explore the demo wallet <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Link to="/calculator" className="mt-3 flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline">
-                  What will a nanny really cost? Try the calculator <ArrowRight className="h-4 w-4" />
-                </Link>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">
                 The demo is the Harrington family and their nanny Jess. Nothing in it is live.
