@@ -368,17 +368,88 @@
 @utility material {
   background-color: color-mix(in oklab, var(--color-background) 78%, transparent);
   backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
   @media (prefers-reduced-transparency: reduce) {
     background-color: var(--color-background);
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
   @media (prefers-contrast: more) {
     background-color: var(--color-background);
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     border-color: var(--color-foreground);
+  }
+}
+
+/*
+ * Frosted glass for a panel that floats over a photo.
+ * --glass-alpha = how much photo shows through, --glass-blur = how soft it is.
+ * Phones get a deeper frost (the card is the whole photo); desktop a gentler one.
+ */
+@utility wallet-glass {
+  --glass-tint: 74%;
+  --glass-blur: 26px;
+  position: relative;
+  isolation: isolate;
+  border-color: color-mix(in oklab, var(--color-foreground) 12%, transparent);
+  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 55%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, white 10%, transparent),
+    0 26px 60px -30px color-mix(in oklab, var(--color-foreground) 45%, transparent);
+
+  @media (width >= 40rem) {
+    --glass-tint: 90%;
+    --glass-blur: 14px;
+  }
+
+  /* the tinted pane itself, with light catching the top-left corner */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-color: color-mix(in oklab, var(--color-card) var(--glass-tint), transparent);
+    background-image:
+      linear-gradient(145deg, color-mix(in oklab, white 26%, transparent), transparent 46%),
+      linear-gradient(325deg, color-mix(in oklab, white 10%, transparent), transparent 38%);
+  }
+
+  /* the fields and the toggle sit *inside* the glass rather than on top of it */
+  & :is(input) {
+    border-color: color-mix(in oklab, var(--color-foreground) 16%, transparent);
+    background-color: color-mix(in oklab, var(--color-background) 55%, transparent);
+  }
+  & :is([role="tablist"]) {
+    background-color: color-mix(in oklab, var(--color-background) 45%, transparent);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    backdrop-filter: none;
+    &::before {
+      background: var(--color-card);
+    }
+  }
+  @media (prefers-contrast: more) {
+    backdrop-filter: none;
+    border-color: var(--color-foreground);
+    &::before {
+      background: var(--color-card);
+    }
+  }
+}
+
+/* Smoked glass: a touch more opaque, and the quieter text lifted so it stays readable. */
+.dark .wallet-glass {
+  --glass-tint: 82%;
+  --color-muted-foreground: color-mix(in oklab, var(--color-foreground) 78%, transparent);
+}
+.dark .wallet-glass input::placeholder {
+  color: color-mix(in oklab, var(--color-foreground) 55%, transparent);
+}
+@media (width >= 40rem) {
+  .dark .wallet-glass {
+    --glass-tint: 92%;
   }
 }
 
