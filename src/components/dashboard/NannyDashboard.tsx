@@ -11,6 +11,7 @@ import {
   FileText,
   Heart,
   KeyRound,
+  Landmark,
   MessageCircle,
   NotebookPen,
   Pill,
