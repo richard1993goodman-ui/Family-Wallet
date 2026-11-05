@@ -86,7 +86,8 @@
 /*
  * Nursery morning: warm and calm, made for the grown-ups who look after children.
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
- * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
+ * Navy ink (--foreground/--primary) is the text and button colour; burnt orange
+ * (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
  * Type: Instrument Sans for reading and controls; Newsreader for titles and the greeting.
  */
@@ -120,7 +121,7 @@
   --positive: #2f6b4a;
   --warning: #93511a;
   --warning-soft: #fdf1e2;
-  /* The closing band: deep garden green in both themes. */
+  /* The closing band: deep navy in both themes. */
   --ink-band: oklch(0.25 0.05 262);
   --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
   --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
@@ -155,56 +156,56 @@
 /* Screen only: printing always uses the light colours, whatever the device setting. */
 @media screen {
   .dark {
-    --background: #171412;
-    --foreground: #f4ede4;
-    --card: #211d1a;
-    --card-foreground: #f4ede4;
-    --popover: #27221f;
-    --popover-foreground: #f4ede4;
-    --primary: #8fc7a8;
-    --primary-foreground: #14231b;
-    --secondary: #2b2622;
-    --secondary-foreground: #f4ede4;
-    --muted: #25201d;
-    --muted-foreground: #bcb0a3;
-    --accent: #2d2723;
-    --accent-foreground: #f4ede4;
-    --destructive: #ec7b7b;
-    --destructive-foreground: #171412;
-    --border: #352e29;
-    --input: #4a413a;
-    --ring: #8fc7a8;
-    --sand: #171412;
-    --raised: #27221f;
-    --rule: #2d2723;
-    --brand: #8fc7a8;
-    --brand-foreground: #14231b;
-    --brand-soft: #1f3128;
-    --positive: #8fc7a8;
-    --warning: #f0b673;
-    --warning-soft: #33261a;
-    --ink-band: #1d2b24;
+    --background: oklch(0.129 0.042 264.695);
+    --foreground: oklch(0.984 0.003 247.858);
+    --card: oklch(0.208 0.042 265.755);
+    --card-foreground: oklch(0.984 0.003 247.858);
+    --popover: oklch(0.232 0.044 265);
+    --popover-foreground: oklch(0.984 0.003 247.858);
+    --primary: oklch(0.929 0.013 255.508);
+    --primary-foreground: oklch(0.208 0.042 265.755);
+    --secondary: oklch(0.279 0.041 260.031);
+    --secondary-foreground: oklch(0.984 0.003 247.858);
+    --muted: oklch(0.279 0.041 260.031);
+    --muted-foreground: oklch(0.82 0.028 258);
+    --accent: oklch(0.279 0.041 260.031);
+    --accent-foreground: oklch(0.984 0.003 247.858);
+    --destructive: oklch(0.66 0.21 25);
+    --destructive-foreground: oklch(0.984 0.003 247.858);
+    --border: oklch(0.984 0.003 247.858 / 12%);
+    --input: oklch(0.984 0.003 247.858 / 18%);
+    --ring: oklch(0.68 0.17 48);
+    --sand: oklch(0.129 0.042 264.695);
+    --raised: oklch(0.232 0.044 265);
+    --rule: oklch(0.32 0.042 262);
+    --brand: oklch(0.68 0.17 48);
+    --brand-foreground: oklch(0.17 0.04 265);
+    --brand-soft: oklch(0.37 0.1 45);
+    --positive: oklch(0.75 0.14 165);
+    --warning: oklch(0.83 0.14 78);
+    --warning-soft: oklch(0.37 0.1 62);
+    --ink-band: oklch(0.24 0.045 265);
     --shadow-soft: none;
-    --tint-sage: #1f3128;
-    --tint-sage-ink: #9fd3b4;
-    --tint-apricot: #3a271b;
-    --tint-apricot-ink: #f3b98e;
-    --tint-sky: #1c2b38;
-    --tint-sky-ink: #9cc6ea;
-    --tint-lilac: #2a2338;
-    --tint-lilac-ink: #c5b5ea;
-    --tint-butter: #33291a;
-    --tint-butter-ink: #ecd08a;
-    --tint-rose: #382024;
-    --tint-rose-ink: #f0a9b1;
-    --sidebar: #120f0e;
-    --sidebar-foreground: #ddd3c8;
-    --sidebar-primary: #8fc7a8;
-    --sidebar-primary-foreground: #14231b;
-    --sidebar-accent: #27221f;
-    --sidebar-accent-foreground: #f4ede4;
-    --sidebar-border: #352e29;
-    --sidebar-ring: #8fc7a8;
+    --tint-sage: oklch(0.3 0.07 165);
+    --tint-sage-ink: oklch(0.87 0.1 165);
+    --tint-apricot: oklch(0.37 0.1 45);
+    --tint-apricot-ink: oklch(0.94 0.08 52);
+    --tint-sky: oklch(0.32 0.08 248);
+    --tint-sky-ink: oklch(0.88 0.09 238);
+    --tint-lilac: oklch(0.32 0.08 300);
+    --tint-lilac-ink: oklch(0.89 0.09 305);
+    --tint-butter: oklch(0.37 0.1 85);
+    --tint-butter-ink: oklch(0.94 0.08 86);
+    --tint-rose: oklch(0.32 0.08 15);
+    --tint-rose-ink: oklch(0.89 0.1 15);
+    --sidebar: oklch(0.208 0.042 265.755);
+    --sidebar-foreground: oklch(0.984 0.003 247.858);
+    --sidebar-primary: oklch(0.68 0.17 48);
+    --sidebar-primary-foreground: oklch(0.17 0.04 265);
+    --sidebar-accent: oklch(0.279 0.041 260.031);
+    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.68 0.17 48);
   }
 }
 
@@ -221,11 +222,11 @@
 
 @media screen and (prefers-contrast: more) {
   .dark {
-    --border: #5a5a56;
-    --rule: #444441;
-    --input: #77766f;
-    --muted-foreground: #d4d2cd;
-    --sidebar-border: #5a5a56;
+    --border: oklch(0.984 0.003 247.858 / 22%);
+    --rule: oklch(0.42 0.04 262);
+    --input: oklch(0.984 0.003 247.858 / 30%);
+    --muted-foreground: oklch(0.86 0.02 255);
+    --sidebar-border: oklch(0.984 0.003 247.858 / 20%);
   }
 }
 

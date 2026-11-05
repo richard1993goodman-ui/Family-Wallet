@@ -164,7 +164,7 @@ export function ActionRow({
       ) : null}
       <ChevronRight
         className={cn(
-          "h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5",
+          "h-4 w-4 flex-none text-muted-foreground/70 transition-transform group-hover:translate-x-0.5",
           cta && "sm:hidden",
         )}
       />

@@ -35,14 +35,12 @@ export function Wordmark({
 }) {
   return (
     <span className={cn("flex min-w-0 items-center gap-2.5", className)}>
-      {logoUrl ? (
+      {logoUrl && (
         <img
           src={logoUrl}
           alt={logoAlt ?? "Agency logo"}
           className="h-9 w-auto max-w-[8rem] flex-none object-contain"
         />
-      ) : (
-        <FanlightMark />
       )}
       <span className="min-w-0">
         <span className="heading-serif block truncate text-[1.1875rem] leading-none text-foreground">
