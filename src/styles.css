@@ -127,44 +127,47 @@
   --sidebar-ring: #161615;
 }
 
-.dark {
-  --background: #0c0c0b;
-  --foreground: #f5f5f4;
-  --card: #151514;
-  --card-foreground: #f5f5f4;
-  --popover: #1b1b1a;
-  --popover-foreground: #f5f5f4;
-  --primary: #f5f5f4;
-  --primary-foreground: #0c0c0b;
-  --secondary: #222220;
-  --secondary-foreground: #f5f5f4;
-  --muted: #1d1d1c;
-  --muted-foreground: #b2b0ab;
-  --accent: #222220;
-  --accent-foreground: #f5f5f4;
-  --destructive: #e5566f;
-  --destructive-foreground: #0c0c0b;
-  --border: #2a2a28;
-  --input: #3d3d3a;
-  --ring: #f5f5f4;
-  --sand: #0c0c0b;
-  --raised: #1b1b1a;
-  --rule: #222220;
-  --brand: #5fb28f;
-  --brand-foreground: #0c0c0b;
-  --brand-soft: #16271f;
-  --positive: #5fb28f;
-  --warning: #f0b45a;
-  --warning-soft: #2a2215;
-  --ink-band: #1b1b1a;
-  --sidebar: #070706;
-  --sidebar-foreground: #d6d4cf;
-  --sidebar-primary: #f5f5f4;
-  --sidebar-primary-foreground: #0c0c0b;
-  --sidebar-accent: #1f1f1e;
-  --sidebar-accent-foreground: #f5f5f4;
-  --sidebar-border: #2a2a28;
-  --sidebar-ring: #f5f5f4;
+/* Screen only: printing always uses the light colours, whatever the device setting. */
+@media screen {
+  .dark {
+    --background: #0c0c0b;
+    --foreground: #f5f5f4;
+    --card: #151514;
+    --card-foreground: #f5f5f4;
+    --popover: #1b1b1a;
+    --popover-foreground: #f5f5f4;
+    --primary: #f5f5f4;
+    --primary-foreground: #0c0c0b;
+    --secondary: #222220;
+    --secondary-foreground: #f5f5f4;
+    --muted: #1d1d1c;
+    --muted-foreground: #b2b0ab;
+    --accent: #222220;
+    --accent-foreground: #f5f5f4;
+    --destructive: #e5566f;
+    --destructive-foreground: #0c0c0b;
+    --border: #2a2a28;
+    --input: #3d3d3a;
+    --ring: #f5f5f4;
+    --sand: #0c0c0b;
+    --raised: #1b1b1a;
+    --rule: #222220;
+    --brand: #5fb28f;
+    --brand-foreground: #0c0c0b;
+    --brand-soft: #16271f;
+    --positive: #5fb28f;
+    --warning: #f0b45a;
+    --warning-soft: #2a2215;
+    --ink-band: #1b1b1a;
+    --sidebar: #070706;
+    --sidebar-foreground: #d6d4cf;
+    --sidebar-primary: #f5f5f4;
+    --sidebar-primary-foreground: #0c0c0b;
+    --sidebar-accent: #1f1f1e;
+    --sidebar-accent-foreground: #f5f5f4;
+    --sidebar-border: #2a2a28;
+    --sidebar-ring: #f5f5f4;
+  }
 }
 
 /* "Increase contrast": firmer edges and darker secondary text. */
@@ -176,6 +179,9 @@
     --muted-foreground: #43413d;
     --sidebar-border: #a9a59f;
   }
+}
+
+@media screen and (prefers-contrast: more) {
   .dark {
     --border: #5a5a56;
     --rule: #444441;

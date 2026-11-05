@@ -93,6 +93,11 @@ export function FamilyLogin({
           codeInput.current?.select();
         }
       }
+    } catch {
+      setError({
+        field: "form",
+        message: "Couldn't reach your wallet. Check your connection and try again.",
+      });
     } finally {
       setBusy(false);
     }
@@ -118,7 +123,7 @@ export function FamilyLogin({
                 value={link}
                 onChange={(e) => {
                   setLink(e.target.value);
-                  if (error?.field === "link") setError(null);
+                  if (error && error.field !== "form") setError(null);
                 }}
                 aria-invalid={linkInvalid || undefined}
                 aria-describedby={error?.field === "link" ? "wallet-link-error" : undefined}
@@ -142,7 +147,7 @@ export function FamilyLogin({
                 value={code}
                 onChange={(e) => {
                   setCode(e.target.value.toUpperCase());
-                  if (error?.field === "code") setError(null);
+                  if (error && error.field !== "form") setError(null);
                 }}
                 aria-invalid={codeInvalid || undefined}
                 aria-describedby={codeInvalid ? "wallet-code-error" : undefined}
