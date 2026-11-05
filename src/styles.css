@@ -439,6 +439,20 @@
   }
 }
 
+/* Smoked glass: a touch more opaque, and the quieter text lifted so it stays readable. */
+.dark .wallet-glass {
+  --glass-tint: 82%;
+  --color-muted-foreground: color-mix(in oklab, var(--color-foreground) 78%, transparent);
+}
+.dark .wallet-glass input::placeholder {
+  color: color-mix(in oklab, var(--color-foreground) 55%, transparent);
+}
+@media (width >= 40rem) {
+  .dark .wallet-glass {
+    --glass-tint: 92%;
+  }
+}
+
 /* A tiled set of links in one panel: hairline gaps instead of separate cards. */
 @utility link-grid {
   display: grid;
