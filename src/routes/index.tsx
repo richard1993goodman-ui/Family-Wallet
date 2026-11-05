@@ -237,6 +237,11 @@ function SiteHeader() {
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
                 </Button>
+                <Button variant="ghost" className="mt-2 h-11" asChild>
+                  <a href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet">
+                    Get in touch
+                  </a>
+                </Button>
               </div>
             </SheetContent>
           </Sheet>
