@@ -989,7 +989,7 @@ function DayScrubber() {
         className="relative mt-10 lg:mt-14"
         style={pinned ? { height: `calc(100svh + ${STORY.length * 55}svh)` } : undefined}
       >
-        <div className={cn(frame, pinned && "sticky top-0 flex h-[100svh] flex-col justify-center py-3")}>
+        <div className={cn(frame, pinned && "sticky top-0 flex h-[100svh] flex-col justify-center pb-3 pt-[4.5rem]")}>
         <div className="overflow-hidden rounded-3xl bg-secondary">
           <div className="grid lg:grid-cols-12">
             <div className="p-6 sm:p-10 lg:col-span-5 lg:p-12">
