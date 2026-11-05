@@ -298,7 +298,7 @@ function Index() {
                 <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
                   <FamilyLogin
                     showAgencyTab
-                    className="border-border/60 bg-card/80 shadow-xl backdrop-blur-md sm:border-transparent sm:bg-card sm:shadow-none sm:backdrop-blur-none"
+                    className="wallet-glass"
                     footer={
                       <p className="text-center text-[0.8125rem] text-muted-foreground">
                         Lost your details?{" "}
