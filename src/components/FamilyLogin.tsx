@@ -107,9 +107,9 @@ export function FamilyLogin({
   }
 
   return (
-    <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
+    <Card id="sign-in" className={cn("scroll-mt-24 gap-4 rounded-lg sm:gap-5", className)}>
       {showAgencyTab && (
-        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 grid grid-cols-2 gap-1 rounded-md bg-muted p-1">
+        <div role="tablist" aria-label="Who is signing in" className="mx-5 mt-5 grid grid-cols-2 gap-1 rounded-md bg-muted p-1 sm:mx-6 sm:mt-6">
           {(["family", "agency"] as const).map((m) => (
             <button
               key={m}
@@ -156,13 +156,13 @@ export function FamilyLogin({
         </>
       ) : (
       <>
-      <CardHeader className={cn("p-6 pb-5", showAgencyTab && "pt-0")}>
+      <CardHeader className={cn("p-5 pb-4 sm:p-6 sm:pb-5", showAgencyTab && "pt-0")}>
         <CardTitle className="flex items-center gap-2 text-lg">
           <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
         </CardTitle>
         <CardDescription>The private link and code your agency sent you.</CardDescription>
       </CardHeader>
-      <CardContent className="px-6 pb-5">
+      <CardContent className="px-5 pb-4 sm:px-6 sm:pb-5">
         <form id="family-login" onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="wallet-link">Your wallet link</Label>

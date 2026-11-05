@@ -267,7 +267,7 @@ function Index() {
               <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
                 Family and nanny, one wallet
               </h1>
-              <p className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
+              <p className="mt-6 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
                 Your family's private hub for managing your nanny. Weekly schedules, agreements,
                 household codes and day-to-day childcare, together in one place.
               </p>
@@ -284,7 +284,7 @@ function Index() {
             </div>
 
             <div className="lg:col-span-5" data-reveal>
-              <div className="relative overflow-hidden rounded-lg px-4 pb-10 pt-5 sm:overflow-visible sm:rounded-none sm:p-0">
+              <div className="relative overflow-hidden rounded-lg px-4 pb-10 pt-3 sm:overflow-visible sm:rounded-none sm:p-0">
                 <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
                   <img
                     src="/images/london/brompton-square.jpg"
