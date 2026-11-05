@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { BadgeCheck, ExternalLink, ShieldAlert } from "lucide-react";
-import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { getSafety, getSafetyDocumentUrl } from "@/lib/concierge.functions";
 import { SAFETY_DOCUMENTS } from "@/lib/concierge.types";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/safety/$slug")({ head: () => ({ meta: [
 function SafetyPage() {
   const { slug } = Route.useParams(); const load = useServerFn(getSafety); const open = useServerFn(getSafetyDocumentUrl);
   const query = useQuery({ queryKey: ["safety", slug], queryFn: () => load({ data: { slug } }) });
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   return <HubPage slug={slug} title="Insurance & safeguarding" intro="A clear record of the checks, training and cover held for each nanny.">
     <div className="space-y-5">{query.data.nannies.length === 0 && <Card><p className="text-sm text-muted-foreground">No nanny records have been added yet.</p></Card>}{query.data.nannies.map((nanny) => { const coverEnd = nanny.insurance_cover_until ? new Date(`${nanny.insurance_cover_until}T23:59:59Z`) : null; const coverActive = Boolean(nanny.insurance_provider && coverEnd && coverEnd >= new Date()); return <Card key={nanny.id}><div className="flex items-start justify-between gap-4"><div><h2 className="heading-display text-xl text-foreground">{nanny.name}</h2><p className={`mt-1 text-sm font-medium ${coverActive ? "text-primary" : "text-destructive"}`}>{coverActive ? "Public liability cover recorded" : "Public liability cover not currently verified"}</p></div>{coverActive ? <BadgeCheck className="h-6 w-6 text-primary" /> : <ShieldAlert className="h-6 w-6 text-destructive" />}</div>

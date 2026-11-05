@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Check, Plane, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { cancelLeaveFn, getLeave, requestLeaveFn, reviewLeaveFn } from "@/lib/leave.functions";
 import { LEAVE_TYPES, type LeaveType } from "@/lib/leave.types";
@@ -54,9 +54,7 @@ function LeavePage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!data) return <LockedNotice slug={slug} />;
@@ -115,7 +113,7 @@ function LeavePage() {
               </div>
               <div className="text-right">
                 <p className="heading-display text-2xl text-foreground">{nanny.remainingDays}</p>
-                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">days left</p>
+                <p className="text-[0.8125rem] font-medium text-muted-foreground">days left</p>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-3 text-sm">
@@ -255,7 +253,7 @@ function LeavePage() {
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl bg-muted/60 p-3">
-      <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">{label}</p>
+      <p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p>
       <p className="mt-1 font-medium text-foreground">{value}</p>
     </div>
   );

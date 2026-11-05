@@ -42,7 +42,7 @@ function PerksPage() {
           <Card key={perk.id}>
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{perk.category}</p>
+                <p className="text-[0.8125rem] font-medium text-primary">{perk.category}</p>
                 <h2 className="heading-display mt-1 text-xl text-foreground">{perk.title}</h2>
                 <p className="mt-1 font-medium text-muted-foreground">{perk.partner_name}</p>
               </div>

@@ -3,11 +3,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
+import { NotebookPen, Trash2 } from "lucide-react";
 
 import { addLogFn, deleteLogFn, getLogs } from "@/lib/family.functions";
 import { MOODS } from "@/lib/family.types";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, EmptyState, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/log/$slug")({
@@ -58,9 +58,7 @@ function LogPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -159,7 +157,11 @@ function LogPage() {
 
       <div className="mt-6 space-y-3">
         {query.data.logs.length === 0 && (
-          <p className="text-sm text-muted-foreground">No updates yet.</p>
+          <EmptyState
+            icon={NotebookPen}
+            title="No updates yet"
+            description="End-of-day notes on activities, meals, homework and mood will appear here."
+          />
         )}
         {query.data.logs.map((log) => (
           <Card key={log.id}>

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, Circle } from "lucide-react";
 import { toast } from "sonner";
-import { Card, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { getConcierge, requestConciergeFn } from "@/lib/concierge.functions";
 import { CURATION_STATUSES, statusLabel } from "@/lib/concierge.types";
@@ -17,11 +17,11 @@ export const Route = createFileRoute("/curation/$slug")({ head: () => ({ meta: [
 function CurationPage() {
   const { slug } = Route.useParams(); const client = useQueryClient(); const load = useServerFn(getConcierge); const request = useServerFn(requestConciergeFn);
   const query = useQuery({ queryKey: ["concierge", slug], queryFn: () => load({ data: { slug } }) });
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const current = query.data.service.curation_status; const currentIndex = CURATION_STATUSES.findIndex(([key]) => key === current);
   return <HubPage slug={slug} title="Private nanny curation" intro="No public catalogue and no profile overload — we quietly hand-select the strongest matches for your family.">
-    <Card><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Your search</p><p className="heading-display mt-1 text-xl text-foreground">{statusLabel(CURATION_STATUSES, current)}</p>
+    <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">Your search</p><p className="heading-display mt-1 text-xl text-foreground">{statusLabel(CURATION_STATUSES, current)}</p>
       <ol className="mt-5 space-y-3">{CURATION_STATUSES.slice(1, 6).map(([key, label]) => { const index = CURATION_STATUSES.findIndex(([value]) => value === key); const done = current === "placement_made" || (currentIndex >= index && current !== "paused"); return <li key={key} className="flex gap-3 text-sm">{done ? <Check className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5 text-muted-foreground" />}<span className={done ? "font-medium text-foreground" : "text-muted-foreground"}>{label}</span></li>; })}</ol>
       {query.data.service.curation_notes && <p className="mt-4 rounded-lg bg-muted p-3 text-sm text-foreground">{query.data.service.curation_notes}</p>}
     </Card>

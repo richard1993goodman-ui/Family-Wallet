@@ -58,7 +58,7 @@ function ReportPage() {
           ["Expenses", `£${s.expensesTotal.toFixed(2)}`],
         ].map(([label, value]) => (
           <div key={label} className="rounded-xl border border-border bg-card p-4">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
+            <p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p>
             <p className="heading-display mt-1 text-2xl text-primary">{value}</p>
           </div>
         ))}

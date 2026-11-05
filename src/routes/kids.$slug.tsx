@@ -51,7 +51,7 @@ function KidsPlaybookPage() {
             return <article key={entry.id} className="rounded-lg border border-border bg-card p-4">
               <div className="flex items-start gap-2">
                 <div className="min-w-0 flex-1">
-                  {entry.childName && <p className="text-xs font-semibold uppercase tracking-wide text-primary">{entry.childName}</p>}
+                  {entry.childName && <p className="text-[0.8125rem] font-medium text-primary">{entry.childName}</p>}
                   <h3 className="break-words font-semibold text-foreground">{entry.title}</h3>
                 </div>
                 {canEdit && <>
