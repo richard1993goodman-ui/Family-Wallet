@@ -86,7 +86,8 @@
 /*
  * Nursery morning: warm and calm, made for the grown-ups who look after children.
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
- * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
+ * Navy ink (--foreground/--primary) is the text and button colour; burnt orange
+ * (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
  * Type: Instrument Sans for reading and controls; Newsreader for titles and the greeting.
  */
@@ -120,7 +121,7 @@
   --positive: #2f6b4a;
   --warning: #93511a;
   --warning-soft: #fdf1e2;
-  /* The closing band: deep garden green in both themes. */
+  /* The closing band: deep navy in both themes. */
   --ink-band: oklch(0.25 0.05 262);
   --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
   --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
