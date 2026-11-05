@@ -13,10 +13,10 @@ import {
   FileBarChart,
   FileText,
   GraduationCap,
-  Handshake,
   Heart,
   IdCard,
   KeyRound,
+  Landmark,
   MessageCircle,
   NotebookPen,
   Pill,
@@ -143,10 +143,10 @@ export function FamilyDashboard(props: DashboardProps) {
               />
               <HubTile
                 slug={slug}
-                to="/curation/$slug"
-                icon={Handshake}
-                title="Private nanny search"
-                subtitle="A discreet, personally selected search"
+                to="/bankdetails/$slug"
+                icon={Landmark}
+                title="Nanny bank details"
+                subtitle="Account details for paying your nanny"
               />
               <HubTile
                 slug={slug}

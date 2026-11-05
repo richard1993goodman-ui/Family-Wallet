@@ -289,6 +289,13 @@ export function NannyDashboard(props: DashboardProps) {
               />
               <HubTile
                 slug={slug}
+                to="/bankdetails/$slug"
+                icon={Landmark}
+                title="Your bank details"
+                subtitle="Where your family pays you"
+              />
+              <HubTile
+                slug={slug}
                 to="/training/$slug"
                 icon={BadgeCheck}
                 title="Nanny training"
