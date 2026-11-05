@@ -221,11 +221,11 @@
 
 @media screen and (prefers-contrast: more) {
   .dark {
-    --border: #5a5a56;
-    --rule: #444441;
-    --input: #77766f;
-    --muted-foreground: #d4d2cd;
-    --sidebar-border: #5a5a56;
+    --border: oklch(0.984 0.003 247.858 / 22%);
+    --rule: oklch(0.42 0.04 262);
+    --input: oklch(0.984 0.003 247.858 / 30%);
+    --muted-foreground: oklch(0.86 0.02 255);
+    --sidebar-border: oklch(0.984 0.003 247.858 / 20%);
   }
 }
 
