@@ -390,7 +390,6 @@
   position: relative;
   isolation: isolate;
   border-color: color-mix(in oklab, var(--color-foreground) 12%, transparent);
-  background-color: color-mix(in oklab, var(--color-card) calc(var(--glass-alpha) * 100%), transparent);
   backdrop-filter: blur(var(--glass-blur)) saturate(170%);
   box-shadow:
     inset 0 1px 0 color-mix(in oklab, white 55%, transparent),
@@ -402,7 +401,7 @@
     --glass-blur: 14px;
   }
 
-  /* light catching the top-left corner, the way it does on real glass */
+  /* the tinted pane itself, with light catching the top-left corner */
   &::before {
     content: "";
     position: absolute;
@@ -412,7 +411,8 @@
     pointer-events: none;
     background:
       linear-gradient(145deg, color-mix(in oklab, white 26%, transparent), transparent 46%),
-      linear-gradient(325deg, color-mix(in oklab, white 10%, transparent), transparent 38%);
+      linear-gradient(325deg, color-mix(in oklab, white 10%, transparent), transparent 38%),
+      color-mix(in oklab, var(--color-card) calc(var(--glass-alpha) * 100%), transparent);
   }
 
   /* the fields and the toggle sit *inside* the glass rather than on top of it */
@@ -425,18 +425,16 @@
   }
 
   @media (prefers-reduced-transparency: reduce) {
-    background-color: var(--color-card);
     backdrop-filter: none;
     &::before {
-      display: none;
+      background: var(--color-card);
     }
   }
   @media (prefers-contrast: more) {
-    background-color: var(--color-card);
     backdrop-filter: none;
     border-color: var(--color-foreground);
     &::before {
-      display: none;
+      background: var(--color-card);
     }
   }
 }
