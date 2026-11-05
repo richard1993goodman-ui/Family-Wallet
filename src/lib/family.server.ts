@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { accessLevel, isUnlocked, listNannyRows } from "./wallet.server";
+import { accessLevel, isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
 import { normalizeAgreement, type WorkingDay } from "./agreement.model";
 
 const MAX_CHILDREN = 8;
@@ -626,6 +626,11 @@ export async function loadHubSummary(slug: string) {
     { data: passportEntries },
     { data: handovers },
     { data: expenses },
+    { count: shiftsPending },
+    { data: leavePending },
+    { count: unreadThreads },
+    { data: recentDoses },
+    session,
   ] = await Promise.all([
       supabaseAdmin
         .from("planner_entries")
@@ -674,10 +679,42 @@ export async function loadHubSummary(slug: string) {
         .limit(1),
       supabaseAdmin
         .from("expense_claims")
-        .select("id, amount")
+        .select("id, amount, nanny_id")
         .eq("family_id", family.id)
         .eq("status", "pending"),
+      supabaseAdmin
+        .from("timesheet_shifts")
+        .select("id", { count: "exact", head: true })
+        .eq("family_id", family.id)
+        .eq("status", "pending"),
+      supabaseAdmin
+        .from("leave_requests")
+        .select("id, nanny_id")
+        .eq("family_id", family.id)
+        .eq("status", "pending"),
+      supabaseAdmin
+        .from("household_threads")
+        .select("id", { count: "exact", head: true })
+        .eq("family_id", family.id)
+        .eq(family.access === "nanny" ? "nanny_unread" : "family_unread", true),
+      supabaseAdmin
+        .from("medication_doses")
+        .select("id, child_name, medicine, dose, given_at, given_by_name, next_dose_from")
+        .eq("family_id", family.id)
+        .gte("given_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+        .order("given_at", { ascending: false })
+        .limit(6),
+      sessionAccess(slug),
     ]);
+
+  // A nanny sees only their own leave and expenses; timesheets have no nanny column yet.
+  const nannyId = family.access === "nanny" ? (session?.nannyId ?? null) : null;
+  const mine = <T extends { nanny_id: string | null }>(rows: T[] | null) =>
+    (rows ?? []).filter((row) => !nannyId || row.nanny_id === nannyId);
+  const pendingExpenses = mine(expenses);
+  const todayLondon = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(
+    today,
+  );
 
   const workingDays: WorkingDay[] = schedules[0]?.workingDays ?? [];
 
@@ -692,8 +729,27 @@ export async function loadHubSummary(slug: string) {
     latestPassport: passportEntries?.[0] ?? null,
     latestHandover: handovers?.[0] ?? null,
     pendingExpensesTotal: Number(
-      (expenses ?? []).reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0).toFixed(2),
+      pendingExpenses.reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0).toFixed(2),
     ),
+    attention: {
+      shiftsPending: shiftsPending ?? 0,
+      leavePending: mine(leavePending).length,
+      expensesPending: pendingExpenses.length,
+      unreadThreads: unreadThreads ?? 0,
+    },
+    today: {
+      date: todayLondon,
+      logged: logs?.[0]?.log_date === todayLondon,
+      handedOver: handovers?.[0]?.handover_date === todayLondon,
+    },
+    recentDoses: recentDoses ?? [],
+    children: kids.map((c) => ({
+      id: c.id,
+      name: c.name,
+      allergies: c.allergies,
+      medication: c.medication,
+    })),
+    nannyId,
     workingDays,
     schedules,
     access: family.access,

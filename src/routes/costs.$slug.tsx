@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { getConcierge } from "@/lib/concierge.functions";
 import { calculateEmploymentCost } from "@/lib/employment-cost.model";
 
@@ -18,7 +18,7 @@ function CostsPage() {
   const query = useQuery({ queryKey: ["concierge", slug], queryFn: () => load({ data: { slug } }) });
   const [input, setInput] = useState({ hourlyRate: 0, hoursPerWeek: 0, workingWeeks: 52, employerNiRate: 15, pensionRate: 3, monthlyPayrollFee: 0, annualExtras: 0 });
   useEffect(() => { if (query.data?.agreement) setInput((old) => ({ ...old, hourlyRate: query.data?.agreement?.hourlyRate ?? old.hourlyRate, hoursPerWeek: query.data?.agreement?.weeklyHours ?? old.hoursPerWeek, workingWeeks: query.data?.agreement?.workingWeeks ?? old.workingWeeks })); }, [query.data?.agreement]);
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const total = calculateEmploymentCost(input); const field = (key: keyof typeof input) => (value: string) => setInput({ ...input, [key]: Number(value) });
   return <HubPage slug={slug} title="All-in employment cost" intro="See the likely full cost before you commit, with no surprise extras.">
@@ -29,4 +29,4 @@ function CostsPage() {
     <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Planning estimate only. NI thresholds, pension eligibility, holiday pay and individual circumstances can change the final figure. Confirm your figures with Nannytax or HMRC.</p>
   </HubPage>;
 }
-function Summary({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) { return <Card><p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{label}</p><p className={`${strong ? "text-primary" : "text-foreground"} heading-display mt-2 text-2xl`}>{value}</p></Card>; }
+function Summary({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) { return <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p><p className={`${strong ? "text-primary" : "text-foreground"} heading-display mt-2 text-2xl`}>{value}</p></Card>; }

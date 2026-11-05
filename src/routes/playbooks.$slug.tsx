@@ -46,7 +46,7 @@ function PlaybooksPage() {
             <div className="p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{playbook.season} · {playbook.topic}</p>
+                  <p className="text-[0.8125rem] font-medium text-primary">{playbook.season} · {playbook.topic}</p>
                   <h2 className="heading-display mt-1 text-xl text-foreground">{playbook.title}</h2>
                 </div>
                 {!playbook.readAt ? <span className="rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-accent-foreground">New</span> : playbook.is_featured ? <Sparkles className="h-5 w-5 text-primary" /> : <BookOpen className="h-5 w-5 text-primary" />}

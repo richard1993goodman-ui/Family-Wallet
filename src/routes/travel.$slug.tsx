@@ -108,7 +108,7 @@ function TravelPage() {
       {trip && !form && (
         <div className="space-y-4">
           <div className="rounded-2xl bg-primary p-5 text-primary-foreground">
-            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest opacity-80"><Plane className="h-4 w-4" />{trip.startDate <= data.today && trip.endDate >= data.today ? "Travel mode is on" : trip.startDate > data.today ? "Upcoming trip" : "Past trip"}</p>
+            <p className="flex items-center gap-2 text-[0.8125rem] font-medium opacity-80"><Plane className="h-4 w-4" />{trip.startDate <= data.today && trip.endDate >= data.today ? "Travel mode is on" : trip.startDate > data.today ? "Upcoming trip" : "Past trip"}</p>
             <p className="heading-display mt-1 text-2xl">{trip.destination}</p>
             <p className="mt-1 text-sm opacity-90">{fmt(trip.startDate)} – {fmt(trip.endDate)}{trip.timeDifference ? ` · ${trip.timeDifference}` : ""}</p>
           </div>

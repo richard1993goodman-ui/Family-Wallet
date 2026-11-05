@@ -13,7 +13,7 @@ import {
   uploadChildPhotoFn,
 } from "@/lib/family.functions";
 import type { ChildInput, ProfileInput } from "@/lib/family.types";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/family/$slug")({
@@ -74,9 +74,7 @@ function FamilyProfilePage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -165,7 +163,7 @@ function FamilyProfilePage() {
                 )}
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
                   <button
-                    className="font-medium text-primary hover:underline"
+                    className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                     onClick={() =>
                       setEditing({
                         id: child.id,

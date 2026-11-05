@@ -91,7 +91,7 @@ function SupportInbox() {
                       message.sender === "admin" ? "bg-accent/60" : "bg-muted"
                     }`}
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+                    <p className="text-[0.8125rem] font-medium text-muted-foreground">
                       {message.sender === "admin"
                         ? "You"
                         : message.sender === "nanny"

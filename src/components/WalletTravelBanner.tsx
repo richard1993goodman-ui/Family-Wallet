@@ -25,7 +25,7 @@ export function WalletTravelBanner({ slug }: { slug: string }) {
       params={{ slug }}
       className="mb-6 block rounded-2xl border-2 border-primary bg-primary p-5 text-primary-foreground"
     >
-      <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest opacity-80">
+      <p className="flex items-center gap-2 text-[0.8125rem] font-medium opacity-80">
         <Plane className="h-4 w-4" /> {data.active ? "Travel mode is on" : "Trip coming up"}
       </p>
       <p className="heading-display mt-1 text-2xl">{trip.destination}</p>

@@ -11,7 +11,7 @@ import {
   getPassport,
 } from "@/lib/passport-handover.functions";
 import { BADGES, SKILL_AREAS } from "@/lib/passport-handover.types";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/passport/$slug")({
@@ -64,9 +64,7 @@ function PassportPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -227,7 +225,7 @@ function PassportPage() {
           <Card key={entry.id}>
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                <p className="text-[0.8125rem] font-medium text-muted-foreground">
                   {formatDate(entry.entryDate)} · {entry.childName}
                 </p>
                 <h2 className="heading-display mt-1 text-xl text-foreground">{entry.activity}</h2>
@@ -278,7 +276,7 @@ function Stat({
     <div className="rounded-xl border border-border bg-card p-4">
       <Icon className="h-5 w-5 text-primary" />
       <p className="heading-display mt-3 text-2xl text-foreground">{value}</p>
-      <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
+      <p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p>
     </div>
   );
 }

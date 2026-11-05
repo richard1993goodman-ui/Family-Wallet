@@ -55,7 +55,7 @@ function CertificatePage() {
           <Link
             to="/training/$slug"
             params={{ slug }}
-            className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+            className="mt-4 inline-block text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
           >
             Go to the training hub
           </Link>
@@ -84,7 +84,7 @@ function CertificatePage() {
 
         <div className="mt-6 rounded-xl border-2 border-primary/30 bg-card p-9 text-center">
           <Award className="mx-auto h-10 w-10 text-primary" />
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+          <p className="mt-4 text-[0.8125rem] font-medium text-muted-foreground">
             The Family Wallet
           </p>
           <h1 className="heading-display mt-3 text-3xl text-primary">Certificate of completion</h1>

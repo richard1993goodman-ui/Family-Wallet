@@ -12,7 +12,7 @@ import {
   uploadNannyPhotoFn,
 } from "@/lib/nannies.functions";
 import { getNannyInvite } from "@/lib/agreement.functions";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
@@ -64,9 +64,7 @@ function NanniesPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;

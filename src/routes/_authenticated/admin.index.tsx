@@ -160,7 +160,7 @@ function AdminHome() {
                 className="mb-4 h-14 max-w-[220px] object-contain"
               />
             )}
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-[0.8125rem] font-medium text-muted-foreground">
               {status.data?.agencyName ? `${status.data.agencyName} · Powered by The Family Wallet` : "The Family Wallet"}
             </p>
             <h1 className="heading-display mt-2 text-3xl text-primary">Family Wallets</h1>
