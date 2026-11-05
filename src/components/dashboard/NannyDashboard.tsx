@@ -84,6 +84,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/log/$slug"
                 icon={NotebookPen}
                 label="Daily log"
+                tint="sage"
                 status={hub?.today.logged ? "Done today" : "Not written yet"}
                 done={hub?.today.logged}
               />
@@ -92,6 +93,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/medication/$slug"
                 icon={Pill}
                 label="Log medicine"
+                tint="rose"
                 status={doses.length ? `${doses.length} in last 24h` : "Nothing given today"}
               />
               <QuickAction
@@ -99,6 +101,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/handover/$slug"
                 icon={ClipboardCheck}
                 label="Handover & expenses"
+                tint="apricot"
                 status={hub?.today.handedOver ? "Done today" : "End of day"}
                 done={hub?.today.handedOver}
               />
@@ -107,6 +110,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/messages/$slug"
                 icon={MessageCircle}
                 label="Messages"
+                tint="sky"
                 status={
                   attention?.unreadThreads
                     ? `${attention.unreadThreads} unread`
@@ -118,6 +122,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/timesheets/$slug"
                 icon={Clock3}
                 label="Add hours"
+                tint="lilac"
                 status="Timesheets"
               />
               <QuickAction
@@ -125,6 +130,7 @@ export function NannyDashboard(props: DashboardProps) {
                 to="/moments/$slug"
                 icon={Camera}
                 label="Share a moment"
+                tint="butter"
                 status="Photos & milestones"
               />
             </div>
@@ -135,10 +141,12 @@ export function NannyDashboard(props: DashboardProps) {
           {doses.length > 0 && (
             <section>
               <SectionTitle>Medicine in the last 24 hours</SectionTitle>
-              <div className="ios-group">
+              <div data-tint="rose" className="ios-group">
                 {doses.map((dose) => (
                   <div key={dose.id} className="flex items-start gap-3 px-4 py-3">
-                    <Pill className="mt-0.5 h-4 w-4 flex-none text-muted-foreground" />
+                    <span className="ios-icon">
+                      <Pill className="h-4 w-4" />
+                    </span>
                     <span className="min-w-0 flex-1 text-sm">
                       <span className="block font-medium text-foreground">
                         {dose.child_name}: {dose.medicine}
@@ -223,7 +231,7 @@ export function NannyDashboard(props: DashboardProps) {
 
           <section>
             <SectionTitle>The family</SectionTitle>
-            <div className="ios-group">
+            <div data-tint="apricot" className="ios-group">
               <HubTile
                 slug={slug}
                 to="/housemanual/$slug"
@@ -264,7 +272,7 @@ export function NannyDashboard(props: DashboardProps) {
 
           <section>
             <SectionTitle>My work</SectionTitle>
-            <div className="ios-group">
+            <div data-tint="sky" className="ios-group">
               <HubTile
                 slug={slug}
                 to="/leave/$slug"
@@ -359,6 +367,9 @@ function TodayShift({ hub }: { hub: HubSummary | null }) {
   );
 }
 
+/** Each child gets their own colour, in the order the family added them. */
+const CHILD_TINTS = ["apricot", "sky", "lilac", "butter", "sage", "rose"] as const;
+
 function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null }) {
   const children = hub?.children ?? [];
   if (children.length === 0) return null;
@@ -378,24 +389,33 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
         The children
       </SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2">
-        {children.map((child) => (
-          <div key={child.id} className="surface-card p-4">
-            <p className="font-medium text-foreground">{child.name}</p>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {child.allergies ? (
-                <span className="inline-flex items-center gap-1 rounded-sm bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
-                  <AlertTriangle className="h-3 w-3" /> {child.allergies}
-                </span>
-              ) : (
-                <span className="rounded-sm bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                  No allergies noted
-                </span>
-              )}
-              {child.medication && (
-                <span className="inline-flex items-center gap-1 rounded-sm bg-accent px-2 py-0.5 text-xs font-medium text-foreground">
-                  <Pill className="h-3 w-3" /> {child.medication}
-                </span>
-              )}
+        {children.map((child, i) => (
+          <div
+            key={child.id}
+            data-tint={CHILD_TINTS[i % CHILD_TINTS.length]}
+            className="surface-card flex items-start gap-3 p-4"
+          >
+            <span className="ios-icon h-10 w-10 rounded-full font-serif text-lg" aria-hidden="true">
+              {child.name.slice(0, 1)}
+            </span>
+            <div className="min-w-0">
+              <p className="font-medium text-foreground">{child.name}</p>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {child.allergies ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-medium text-destructive">
+                    <AlertTriangle className="h-3 w-3" /> {child.allergies}
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground">
+                    No allergies noted
+                  </span>
+                )}
+                {child.medication && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-foreground">
+                    <Pill className="h-3 w-3" /> {child.medication}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         ))}

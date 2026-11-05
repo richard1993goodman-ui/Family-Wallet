@@ -109,7 +109,7 @@ export function FamilyDashboard(props: DashboardProps) {
           <section>
             <SectionTitle>Activities</SectionTitle>
             <WalletChallenges slug={slug} />
-            <div className="ios-group mt-2">
+            <div data-tint="butter" className="ios-group mt-2">
               <HubTile
                 slug={slug}
                 to="/passport/$slug"
@@ -126,7 +126,7 @@ export function FamilyDashboard(props: DashboardProps) {
 
           <section>
             <SectionTitle>Employing your nanny</SectionTitle>
-            <div className="link-grid sm:grid-cols-2">
+            <div data-tint="sky" className="link-grid sm:grid-cols-2">
               <HubTile
                 slug={slug}
                 to="/payroll/$slug"
@@ -190,7 +190,7 @@ export function FamilyDashboard(props: DashboardProps) {
 
           <section>
             <SectionTitle>Family &amp; home</SectionTitle>
-            <div className="ios-group">
+            <div data-tint="apricot" className="ios-group">
               <HubTile
                 slug={slug}
                 to="/family/$slug"
@@ -504,7 +504,7 @@ function Documents({ slug, wallet, agreementSubtitle, openDoc }: DashboardProps)
   return (
     <section>
       <SectionTitle>Documents &amp; checks</SectionTitle>
-      <div className="ios-group">
+      <div data-tint="lilac" className="ios-group">
         <HubTile
           slug={slug}
           to="/agreement/$slug"

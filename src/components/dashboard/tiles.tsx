@@ -17,6 +17,9 @@ export type HomeLinkPath =
 
 type Icon = ComponentType<{ className?: string }>;
 
+/** A section's colour, used on its icon tiles (see data-tint in styles.css). */
+export type Tint = "sage" | "apricot" | "sky" | "lilac" | "butter" | "rose";
+
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="mb-2.5 flex items-end justify-between gap-3 px-0.5">
@@ -93,7 +96,7 @@ export function ContactRow({
   contact: { name: string; relationship: string | null; phone: string };
 }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3">
+    <div className="flex min-h-14 items-center gap-3 px-4 py-3">
       <span className="min-w-0 flex-1">
         <span className="block text-xs text-muted-foreground">{label}</span>
         <span className="block truncate font-medium text-foreground">
@@ -106,7 +109,7 @@ export function ContactRow({
       {contact.phone && (
         <a
           href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-          className="inline-flex h-8 flex-none items-center gap-1.5 rounded-md border border-input bg-card px-3 text-sm font-medium text-foreground transition-colors hover:border-foreground/30"
+          className="inline-flex h-9 flex-none items-center gap-1.5 rounded-full border border-input bg-card px-3.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30"
           aria-label={`Call ${contact.name}`}
         >
           <Phone className="h-3.5 w-3.5" /> Call
@@ -143,21 +146,19 @@ export function ActionRow({
       params={{ slug }}
       className="group flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-raised active:bg-accent"
     >
-      <Icon
-        className={cn(
-          "h-4 w-4 flex-none",
-          tone === "attention" && "text-foreground",
-          tone === "done" && "text-brand",
-          tone === "default" && "text-muted-foreground",
-        )}
-      />
+      <span
+        className="ios-icon"
+        data-tint={tone === "attention" ? "apricot" : tone === "done" ? "sage" : "sky"}
+      >
+        <Icon className="h-4 w-4" />
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block font-medium text-foreground">{title}</span>
         {detail && <span className="block truncate text-sm text-muted-foreground">{detail}</span>}
       </span>
       {badge}
       {cta ? (
-        <span className="hidden h-8 flex-none items-center rounded-md border border-input bg-card px-3 text-sm font-medium text-foreground transition-colors group-hover:border-foreground/30 sm:inline-flex">
+        <span className="hidden h-8 flex-none items-center rounded-full border border-input bg-card px-3.5 text-sm font-medium text-foreground transition-colors group-hover:border-foreground/30 sm:inline-flex">
           {cta}
         </span>
       ) : null}
@@ -173,7 +174,7 @@ export function ActionRow({
 
 export function CountBadge({ count }: { count: number }) {
   return (
-    <span className="num flex h-6 min-w-6 items-center justify-center rounded-full bg-foreground/[0.07] px-2 text-[0.8125rem] font-medium text-foreground">
+    <span className="num flex h-6 min-w-6 items-center justify-center rounded-full bg-tint-apricot px-2 text-[0.8125rem] font-semibold text-tint-apricot-ink">
       {count}
     </span>
   );
@@ -187,6 +188,7 @@ export function QuickAction({
   label,
   status,
   done,
+  tint = "sage",
 }: {
   slug: string;
   to: HomeLinkPath;
@@ -194,16 +196,20 @@ export function QuickAction({
   label: string;
   status?: string | undefined;
   done?: boolean | undefined;
+  tint?: Tint;
 }) {
   return (
     <Link
       to={to}
       params={{ slug }}
+      data-tint={tint}
       className={cn(
-        "surface-card flex min-h-28 flex-col justify-between gap-3 p-4 transition-[border-color,transform] duration-150 ease-out hover:border-foreground/25 active:scale-[0.98] motion-reduce:active:scale-100",
+        "surface-card flex min-h-32 flex-col justify-between gap-3 p-4 transition-[border-color,transform] duration-150 ease-out hover:border-foreground/25 active:scale-[0.98] motion-reduce:active:scale-100",
       )}
     >
-      <Icon className={cn("h-5 w-5", done ? "text-brand" : "text-foreground")} />
+      <span className="ios-icon h-10 w-10">
+        <Icon className="h-5 w-5" />
+      </span>
       <span>
         <span className="block font-medium leading-tight text-foreground">{label}</span>
         {status && (
