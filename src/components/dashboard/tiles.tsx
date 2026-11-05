@@ -141,7 +141,7 @@ export function ActionRow({
     <Link
       to={to}
       params={{ slug }}
-      className="group flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-raised"
+      className="group flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-raised active:bg-accent"
     >
       <Icon
         className={cn(
@@ -200,7 +200,7 @@ export function QuickAction({
       to={to}
       params={{ slug }}
       className={cn(
-        "surface-card flex min-h-28 flex-col justify-between gap-3 p-4 transition-colors hover:border-foreground/25",
+        "surface-card flex min-h-28 flex-col justify-between gap-3 p-4 transition-[border-color,transform] duration-150 ease-out hover:border-foreground/25 active:scale-[0.98] motion-reduce:active:scale-100",
       )}
     >
       <Icon className={cn("h-5 w-5", done ? "text-brand" : "text-foreground")} />

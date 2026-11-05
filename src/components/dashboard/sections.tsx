@@ -54,7 +54,7 @@ export function EmergencyCardLink({ slug }: { slug: string }) {
     <Link
       to="/emergency/$slug"
       params={{ slug }}
-      className="group flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3.5 transition-colors hover:border-destructive/50"
+      className="group flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3.5 transition-colors hover:border-destructive/50 active:bg-raised"
     >
       <Siren className="h-4 w-4 flex-none text-destructive" />
       <span className="min-w-0 flex-1">

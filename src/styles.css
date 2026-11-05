@@ -59,6 +59,10 @@
   --font-sans: "Geist", "Inter", system-ui, sans-serif;
   --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
+  /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   /* Nothing at rest casts a shadow; only menus, popovers and dialogs (md and up) float. */
   --shadow-2xs: 0 0 #0000;
   --shadow-xs: 0 0 #0000;
@@ -273,6 +277,9 @@
   transition: background-color 120ms ease;
   &:hover {
     background-color: var(--color-raised);
+  }
+  &:active {
+    background-color: var(--color-accent);
   }
   &::after {
     content: "\203A";

@@ -935,10 +935,11 @@ function DayStory() {
                   key={step.title}
                   aria-hidden={active !== i}
                   className={cn(
-                    "absolute inset-0 flex items-center justify-center px-10 transition-[opacity,transform,filter,visibility] duration-500 ease-out motion-reduce:transition-none",
+                    "absolute inset-0 flex items-center justify-center px-10 transition-[opacity,transform,filter,visibility] ease-out motion-reduce:transition-none",
+                    // Arrive slowly, leave quickly, so the two cards barely overlap.
                     active === i
-                      ? "translate-y-0 opacity-100 blur-0"
-                      : "pointer-events-none invisible translate-y-6 opacity-0 blur-[6px]",
+                      ? "translate-y-0 opacity-100 blur-0 duration-500"
+                      : "pointer-events-none invisible translate-y-6 opacity-0 blur-[6px] duration-200",
                   )}
                 >
                   {step.card}
@@ -1046,7 +1047,7 @@ function DrawerSwitcher() {
       >
         <div
           key={index}
-          className="grid animate-in fade-in-0 slide-in-from-bottom-2 duration-500 motion-reduce:animate-none lg:grid-cols-12"
+          className="grid animate-in fade-in-0 duration-150 ease-out motion-reduce:animate-none lg:grid-cols-12"
         >
           <div className="border-b border-rule p-7 sm:p-10 lg:col-span-4 lg:border-b-0 lg:border-r">
             <h3 className="heading-serif text-[2rem] leading-[1.1] text-foreground sm:text-[2.5rem]">
