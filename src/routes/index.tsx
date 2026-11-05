@@ -911,24 +911,44 @@ const STORY: Array<{ time: string; title: string; detail: string; card: ReactNod
   },
 ];
 
-/** Which step of Wednesday the visitor's own clock falls in, so each visit opens somewhere real. */
-function stepForClock(date: Date) {
-  const h = date.getHours() + date.getMinutes() / 60;
-  return h < 14 + 58 / 60 ? 0 : h < 17.5 ? 1 : h < 19 ? 2 : 3;
-}
-
 function DayScrubber() {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [localTime, setLocalTime] = useState<string | null>(null);
+  const [pinned, setPinned] = useState(false);
+  const track = useRef<HTMLDivElement | null>(null);
   const step = STORY[active]!;
   const last = STORY.length - 1;
 
+  // Pin the card and let vertical scrolling move through the day (skipped for reduced motion).
   useEffect(() => {
-    const now = new Date();
-    setActive(stepForClock(now));
-    setLocalTime(now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
-  }, []);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    setPinned(true);
+    const onScroll = () => {
+      const el = track.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const distance = el.offsetHeight - window.innerHeight;
+      if (distance <= 0) return;
+      const p = Math.min(1, Math.max(0, -r.top / distance));
+      setActive(Math.min(last, Math.floor(p * (last + 1))));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [last]);
+
+  function scrollToStep(i: number) {
+    const el = track.current;
+    if (!pinned || !el) return setActive(i);
+    const distance = el.offsetHeight - window.innerHeight;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + ((i + 0.5) / (last + 1)) * distance, behavior: "smooth" });
+  }
 
   useEffect(() => {
     if (!playing) return;
@@ -936,17 +956,17 @@ function DayScrubber() {
       setPlaying(false);
       return;
     }
-    const timer = window.setTimeout(() => setActive(active + 1), 3200);
+    const timer = window.setTimeout(() => scrollToStep(active + 1), 3200);
     return () => window.clearTimeout(timer);
   }, [playing, active, last]);
 
   function go(i: number) {
     setPlaying(false);
-    setActive(i);
+    scrollToStep(i);
   }
 
   function togglePlay() {
-    if (!playing && active === last) setActive(0);
+    if (!playing && active === last) scrollToStep(0);
     setPlaying(!playing);
   }
 
@@ -963,32 +983,39 @@ function DayScrubber() {
           </p>
         </div>
 
-        <div className="mt-14 overflow-hidden rounded-3xl bg-secondary" data-reveal>
+      </div>
+      <div
+        ref={track}
+        className="relative mt-10 lg:mt-14"
+        style={pinned ? { height: `calc(100svh + ${STORY.length * 55}svh)` } : undefined}
+      >
+        <div className={cn(frame, pinned && "sticky top-0 flex h-[100svh] flex-col justify-center pb-3 pt-[4.5rem]")}>
+        <div className="overflow-hidden rounded-3xl bg-secondary">
           <div className="grid lg:grid-cols-12">
-            <div className="p-7 sm:p-10 lg:col-span-5 lg:p-12">
+            <div className="p-6 sm:p-10 lg:col-span-5 lg:p-12">
               <p
                 aria-hidden
-                className="num heading-display text-[4.5rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
+                className="num heading-display text-[3rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
               >
                 {step.time}
               </p>
               <div
                 key={active}
                 aria-live="polite"
-                className="mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
+                className="mt-4 sm:mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
               >
-                <h3 className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+                <h3 className="text-[1.375rem] sm:text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
                   <span className="sr-only">{step.time}: </span>
                   {step.title}
                 </h3>
-                <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
+                <p className="mt-2 max-w-[28rem] text-base leading-relaxed text-foreground sm:mt-3 sm:text-lg">
                   {step.detail}
                 </p>
               </div>
             </div>
 
             {/* Every card shares one grid cell, so the stage is as tall as the tallest card. */}
-            <div className="grid place-items-center px-5 pb-10 sm:px-10 lg:col-span-7 lg:py-12">
+            <div className="grid place-items-center px-5 pb-6 sm:px-10 sm:pb-10 lg:col-span-7 lg:py-12">
               {STORY.map((s, i) => (
                 <div
                   key={s.title}
@@ -1007,7 +1034,7 @@ function DayScrubber() {
             </div>
           </div>
 
-          <div className="flex items-start gap-4 border-t border-rule px-5 py-5 sm:gap-6 sm:px-10 lg:px-12">
+          <div className="flex items-start gap-4 border-t border-rule px-5 py-3 sm:py-5 sm:gap-6 sm:px-10 lg:px-12">
             <Button
               type="button"
               variant="outline"
@@ -1052,12 +1079,10 @@ function DayScrubber() {
             </div>
           </div>
         </div>
-        {localTime && (
-          <p className="mt-4 text-sm text-muted-foreground">
-            It is <span className="num">{localTime}</span> where you are, so the day opened at the
-            nearest moment.
-          </p>
+        {pinned && (
+          <p className="mt-3 text-center text-sm text-muted-foreground">Keep scrolling to move through the day</p>
         )}
+        </div>
       </div>
     </section>
   );
