@@ -510,3 +510,29 @@
     padding: 0;
   }
 }
+
+/* Homepage: "A week at the Harringtons'" panel rises over the hero as you scroll */
+.week-seam {
+  height: 6rem;
+  margin-bottom: -6rem;
+  background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--card) 60%, transparent));
+  pointer-events: none;
+}
+.week-rise {
+  position: relative;
+  border-radius: 2.5rem 2.5rem 0 0;
+  box-shadow: 0 -24px 60px -30px color-mix(in oklab, var(--foreground) 25%, transparent);
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .week-rise {
+      animation: week-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+    @keyframes week-rise {
+      from { border-radius: 3rem 3rem 0 0; transform: translateY(3rem) scale(0.96); opacity: 0.6; }
+      to { border-radius: 0; transform: none; opacity: 1; }
+    }
+  }
+}
