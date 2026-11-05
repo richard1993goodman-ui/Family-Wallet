@@ -67,9 +67,9 @@
   --color-tint-butter-ink: var(--tint-butter-ink);
   --color-tint-rose: var(--tint-rose);
   --color-tint-rose-ink: var(--tint-rose-ink);
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-display: "Newsreader", Georgia, serif;
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -88,7 +88,7 @@
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
  * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
- * Type: Nunito Sans for reading and controls; Fraunces, softened, for titles and the greeting.
+ * Type: Instrument Sans for reading and controls; Newsreader for titles and the greeting.
  */
 :root {
   --radius: 1rem;
@@ -279,7 +279,6 @@
 @utility heading-display {
   font-family: var(--font-display);
   font-weight: 560;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
   letter-spacing: -0.015em;
 }
 
@@ -287,7 +286,6 @@
 @utility heading-serif {
   font-family: var(--font-serif);
   font-weight: 480;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   letter-spacing: -0.012em;
   font-optical-sizing: auto;
 }
