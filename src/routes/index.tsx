@@ -9,7 +9,9 @@ import {
   FileBarChart,
   Menu,
   MessageCircle,
+  Pause,
   Pill,
+  Play,
 } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
@@ -249,9 +251,15 @@ function Index() {
 
   return (
     <div className="min-h-screen overflow-x-clip bg-background">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2.5 focus:text-sm focus:text-background"
+      >
+        Skip to content
+      </a>
       <SiteHeader />
 
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         {/* The front door: what this is, and the way in */}
         <section id="front" className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
@@ -281,6 +289,8 @@ function Index() {
                 <img
                   src="/images/london/brompton-square.jpg"
                   alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
+                  width={1200}
+                  height={1600}
                   className="hero-drift aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
                   fetchPriority="high"
                 />
@@ -309,20 +319,55 @@ function Index() {
           </div>
         </section>
 
-        {/* The week, as the household sees it */}
-        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-36">
-          <div className={cn(frame, "grid gap-14 lg:grid-cols-12 lg:gap-8")}>
-            <div className="lg:col-span-5" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+        {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
+        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
+          <div className={frame}>
+            <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
                 A week at the Harringtons'
               </h2>
-              <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-foreground">
+              <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
                 Parents and nanny open the same wallet. The agreed hours, the school run and what
                 happened today are already there when either of you looks.
               </p>
-              <dl className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+            </div>
+
+            <div className="mt-14 grid gap-4 lg:grid-cols-12">
+              <div className="lg:col-span-7" data-reveal>
+                <WeekPreview />
+              </div>
+
+              <div className="rounded-lg bg-secondary p-6 sm:p-8 lg:col-span-5" data-reveal>
+                <h3 className="text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+                  Codes stay behind the door
+                </h3>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                  Hidden in the House Manual until someone in your household taps to reveal them.
+                  Never sent in a message or saved on a phone.
+                </p>
+                <HouseCodes className="mt-6" />
+              </div>
+
+              <figure
+                className="relative aspect-[2/1] overflow-hidden rounded-lg bg-muted lg:col-span-5 lg:aspect-auto lg:min-h-64"
+                data-reveal
+              >
+                <img
+                  src="/images/london/fanlight.jpg"
+                  alt="A Georgian fanlight in a white stucco arch"
+                  width={1600}
+                  height={1066}
+                  className="absolute inset-0 h-full w-full origin-top scale-[1.4] object-cover object-top"
+                  loading="lazy"
+                />
+              </figure>
+
+              <dl
+                className="grid gap-x-10 gap-y-8 rounded-lg border border-border p-6 sm:grid-cols-2 sm:p-8 lg:col-span-7"
+                data-reveal
+              >
                 {weekClaims.map((claim) => (
-                  <div key={claim.title} data-reveal>
+                  <div key={claim.title}>
                     <dt className="text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground">
                       {claim.title}
                     </dt>
@@ -333,26 +378,25 @@ function Index() {
                 ))}
               </dl>
             </div>
-            <div className="lg:col-span-7 lg:pl-8" data-reveal>
-              <WeekPreview />
-            </div>
           </div>
         </section>
 
-        <figure className="relative">
+        <figure className={cn(frame, "pt-4 lg:pt-8")}>
           <img
             src="/images/london/holland-park-morning.jpg"
             alt="A tree-lined Holland Park street in low morning sun"
-            className="aspect-[4/5] w-full object-cover sm:aspect-[21/9]"
+            width={1204}
+            height={1600}
+            className="aspect-[4/5] w-full rounded-lg object-cover sm:aspect-[21/9]"
             loading="lazy"
           />
-          <figcaption className={cn(frame, "mt-3 text-[0.8125rem] text-muted-foreground")}>
+          <figcaption className="mt-3 text-[0.8125rem] text-muted-foreground">
             Holland Park, early morning. The school run starts at 8:10.
           </figcaption>
         </figure>
 
-        {/* One day, told as the wallet records it */}
-        <DayStory />
+        {/* One day, scrubbed through as the wallet records it */}
+        <DayScrubber />
 
         {/* Everything in the wallet, set as an index */}
         <section id="included" className="scroll-mt-16 py-24 lg:py-36">
@@ -368,33 +412,6 @@ function Index() {
             </div>
 
             <DrawerSwitcher />
-          </div>
-        </section>
-
-        {/* Codes stay behind the door */}
-        <section className="bg-card py-24 lg:py-36">
-          <div className={cn(frame, "grid items-start gap-12 lg:grid-cols-12 lg:gap-8")}>
-            <figure className="lg:col-span-12" data-reveal>
-              <img
-                src="/images/london/fanlight.jpg"
-                alt="A Georgian fanlight in a white stucco arch"
-                className="aspect-[3/1] w-full object-cover object-[50%_18%]"
-                loading="lazy"
-              />
-            </figure>
-            <div className="lg:col-span-5" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
-                Codes stay behind the door
-              </h2>
-              <p className="mt-6 text-lg leading-relaxed text-foreground">
-                The alarm, the lockbox and the WiFi live in the House Manual, hidden until someone
-                in your household taps to reveal them. They are never sent in a message or saved on
-                a phone.
-              </p>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7" data-reveal>
-              <HouseCodes />
-            </div>
           </div>
         </section>
 
@@ -444,6 +461,8 @@ function Index() {
               <img
                 src="/images/london/north-terrace.jpg"
                 alt="Arched front doors and black railings on North Terrace, South Kensington"
+                width={1200}
+                height={1600}
                 className="aspect-[4/3] w-full object-cover"
                 loading="lazy"
               />
@@ -863,117 +882,153 @@ const STORY: Array<{ time: string; title: string; detail: string; card: ReactNod
   },
 ];
 
-function DayStory() {
+/** Which step of Wednesday the visitor's own clock falls in, so each visit opens somewhere real. */
+function stepForClock(date: Date) {
+  const h = date.getHours() + date.getMinutes() / 60;
+  return h < 14 + 58 / 60 ? 0 : h < 17.5 ? 1 : h < 19 ? 2 : 3;
+}
+
+function DayScrubber() {
   const [active, setActive] = useState(0);
-  const steps = useRef<Array<HTMLLIElement | null>>([]);
+  const [playing, setPlaying] = useState(false);
+  const [localTime, setLocalTime] = useState<string | null>(null);
+  const step = STORY[active]!;
+  const last = STORY.length - 1;
 
   useEffect(() => {
-    // A step is current while it crosses the middle band of the screen.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting)
-            setActive(Number((entry.target as HTMLElement).dataset["step"]));
-        }
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    steps.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+    const now = new Date();
+    setActive(stepForClock(now));
+    setLocalTime(now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
   }, []);
 
+  useEffect(() => {
+    if (!playing) return;
+    if (active === last) {
+      setPlaying(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setActive(active + 1), 3200);
+    return () => window.clearTimeout(timer);
+  }, [playing, active, last]);
+
+  function go(i: number) {
+    setPlaying(false);
+    setActive(i);
+  }
+
+  function togglePlay() {
+    if (!playing && active === last) setActive(0);
+    setPlaying(!playing);
+  }
+
   return (
-    <section id="day" className="scroll-mt-16 py-24 lg:py-36">
-      <div className={cn(frame, "grid gap-x-8 lg:grid-cols-12")}>
-        <div className="lg:col-span-5">
-          <div data-reveal>
-            <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
-              One Wednesday, start to finish
-            </h2>
-            <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-foreground">
-              Jess works noon to seven. What she does lands in the wallet as it happens, so Sophie
-              and Tom see the day without having to ask.
-            </p>
-          </div>
-          <ol className="mt-10 lg:mt-0">
-            {STORY.map((step, i) => (
-              <li
-                key={step.title}
-                ref={(el) => {
-                  steps.current[i] = el;
-                }}
-                data-step={i}
-                className="border-t border-rule py-10 lg:flex lg:min-h-[72vh] lg:items-center lg:border-0 lg:py-0 lg:last:min-h-[56vh]"
-              >
-                <div
-                  className={cn(
-                    "transition-opacity duration-500",
-                    active === i ? "lg:opacity-100" : "lg:opacity-30",
-                  )}
-                >
-                  <p className="num text-[0.9375rem] font-medium text-brand">{step.time}</p>
-                  <h3 className="mt-2 text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
-                    {step.detail}
-                  </p>
-                  <div className="mt-8 flex justify-center rounded-2xl bg-secondary px-5 py-10 lg:hidden">
-                    {step.card}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
+    <section id="day" className="scroll-mt-16 py-24 lg:py-32">
+      <div className={frame}>
+        <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
+          <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
+            One Wednesday, start to finish
+          </h2>
+          <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
+            Jess works noon to seven. Move through her afternoon and see each moment land in the
+            wallet, the way Sophie and Tom see it.
+          </p>
         </div>
 
-        <div className="hidden lg:col-span-6 lg:col-start-7 lg:block">
-          <div className="sticky top-[calc(50vh-17rem)]">
-            <div className="relative flex h-[30rem] items-center justify-center rounded-3xl bg-secondary">
-              {STORY.map((step, i) => (
+        <div className="mt-14 overflow-hidden rounded-3xl bg-secondary" data-reveal>
+          <div className="grid lg:grid-cols-12">
+            <div className="p-7 sm:p-10 lg:col-span-5 lg:p-12">
+              <p
+                aria-hidden
+                className="num heading-display text-[4.5rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
+              >
+                {step.time}
+              </p>
+              <div
+                key={active}
+                aria-live="polite"
+                className="mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
+              >
+                <h3 className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+                  <span className="sr-only">{step.time}: </span>
+                  {step.title}
+                </h3>
+                <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
+                  {step.detail}
+                </p>
+              </div>
+            </div>
+
+            {/* Every card shares one grid cell, so the stage is as tall as the tallest card. */}
+            <div className="grid place-items-center px-5 pb-10 sm:px-10 lg:col-span-7 lg:py-12">
+              {STORY.map((s, i) => (
                 <div
-                  key={step.title}
+                  key={s.title}
                   aria-hidden={active !== i}
                   className={cn(
-                    "absolute inset-0 flex items-center justify-center px-10 transition-[opacity,transform,filter,visibility] ease-out motion-reduce:transition-none",
+                    "flex w-full justify-center [grid-area:1/1] transition-[opacity,transform,filter,visibility] ease-out motion-reduce:transition-none",
                     // Arrive slowly, leave quickly, so the two cards barely overlap.
                     active === i
                       ? "translate-y-0 opacity-100 blur-0 duration-500"
-                      : "pointer-events-none invisible translate-y-6 opacity-0 blur-[6px] duration-200",
+                      : "pointer-events-none invisible translate-y-4 opacity-0 blur-[6px] duration-200",
                   )}
                 >
-                  {step.card}
+                  {s.card}
                 </div>
               ))}
             </div>
-            <div className="mt-5 flex items-center gap-4">
-              <p className="num w-12 flex-none text-sm text-muted-foreground">
-                {active + 1} / {STORY.length}
-              </p>
-              <div className="flex flex-1 gap-1.5">
-                {STORY.map((step, i) => (
+          </div>
+
+          <div className="flex items-start gap-4 border-t border-rule px-5 py-5 sm:gap-6 sm:px-10 lg:px-12">
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={togglePlay}
+              aria-label={playing ? "Pause the day" : "Play the day"}
+              className="size-11 flex-none rounded-full bg-card"
+            >
+              {playing ? <Pause /> : <Play />}
+            </Button>
+            <div className="min-w-0 flex-1">
+              <input
+                type="range"
+                min={0}
+                max={last}
+                step={1}
+                value={active}
+                onChange={(e) => go(Number(e.target.value))}
+                onPointerDown={() => setPlaying(false)}
+                aria-label="Time of day"
+                aria-valuetext={`${step.time}, ${step.title}`}
+                className="h-11 w-full cursor-pointer accent-brand"
+              />
+              <div aria-hidden className="flex justify-between">
+                {STORY.map((s, i) => (
                   <button
-                    key={step.title}
+                    key={s.title}
                     type="button"
-                    onClick={() =>
-                      steps.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" })
-                    }
-                    aria-label={`Go to ${step.time}: ${step.title}`}
-                    aria-current={active === i ? "step" : undefined}
-                    className="group flex h-6 flex-1 cursor-pointer items-center"
+                    tabIndex={-1}
+                    onClick={() => go(i)}
+                    className={cn(
+                      "num -mx-1 cursor-pointer px-1 text-[0.8125rem] transition-colors",
+                      active === i
+                        ? "font-medium text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
                   >
-                    <span
-                      className={cn(
-                        "h-1 w-full rounded-full transition-colors duration-300",
-                        active === i ? "bg-brand" : "bg-input group-hover:bg-foreground/30",
-                      )}
-                    />
+                    {s.time}
                   </button>
                 ))}
               </div>
             </div>
           </div>
         </div>
+        {localTime && (
+          <p className="mt-4 text-sm text-muted-foreground">
+            It is <span className="num">{localTime}</span> where you are, so the day opened at the
+            nearest moment.
+          </p>
+        )}
       </div>
     </section>
   );
@@ -987,10 +1042,15 @@ function DrawerSwitcher() {
   const group = benefitGroups[index]!;
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-    if (!step) return;
+    const n = benefitGroups.length;
+    const next = {
+      ArrowRight: (index + 1) % n,
+      ArrowLeft: (index - 1 + n) % n,
+      Home: 0,
+      End: n - 1,
+    }[e.key];
+    if (next === undefined) return;
     e.preventDefault();
-    const next = (index + step + benefitGroups.length) % benefitGroups.length;
     setIndex(next);
     tabs.current[next]?.focus();
   }
