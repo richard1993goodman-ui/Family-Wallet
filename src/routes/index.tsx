@@ -29,13 +29,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -268,9 +268,8 @@ function Index() {
                 Family and nanny, one wallet
               </h1>
               <p className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
-                A private home your agency sets up for each household. The week, the nanny
-                agreement, the house codes and every handover sit behind one link and a
-                six-character code.
+                Your family's private hub for managing your nanny. Weekly schedules, agreements,
+                household codes and day-to-day childcare, together in one place.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Button size="lg" asChild>
@@ -284,20 +283,24 @@ function Index() {
               </p>
             </div>
 
-            <div className="relative lg:col-span-5" data-reveal>
-              <figure className="relative overflow-hidden bg-muted">
+            <div
+              className="relative overflow-hidden rounded-lg px-4 py-10 sm:overflow-visible sm:rounded-none sm:p-0 lg:col-span-5"
+              data-reveal
+            >
+              <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
                 <img
                   src="/images/london/brompton-square.jpg"
                   alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
                   width={1200}
                   height={1600}
-                  className="hero-drift aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
+                  className="hero-drift h-full w-full object-cover sm:aspect-[4/3] sm:h-auto lg:aspect-[4/5]"
                   fetchPriority="high"
                 />
               </figure>
-              <div className="mt-4 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:w-[25rem]">
+              <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
                 <FamilyLogin
-                  className="border-transparent"
+                  showAgencyTab
+                  className="border-border/60 bg-card/80 shadow-xl backdrop-blur-md sm:border-transparent sm:bg-card sm:shadow-none sm:backdrop-blur-none"
                   footer={
                     <p className="text-center text-[0.8125rem] text-muted-foreground">
                       Lost your details?{" "}
@@ -306,11 +309,7 @@ function Index() {
                         className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                       >
                         Ask your agency
-                      </a>{" "}
-                      ·{" "}
-                      <Link to="/admin" className="underline-offset-4 hover:underline">
-                        Agency sign in
-                      </Link>
+                      </a>
                     </p>
                   }
                 />
@@ -1061,7 +1060,7 @@ function DrawerSwitcher() {
         role="tablist"
         aria-label="Drawers in the wallet"
         onKeyDown={onKeyDown}
-        className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+        className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
       >
         {benefitGroups.map((g, i) => {
           const selected = i === index;
@@ -1079,7 +1078,7 @@ function DrawerSwitcher() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setIndex(i)}
               className={cn(
-                "flex h-11 flex-none cursor-pointer items-center gap-2.5 rounded-full border px-5 text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97]",
+                "flex h-12 w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-full border px-3 text-[0.8125rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97] sm:h-11 sm:w-auto sm:flex-none sm:justify-start sm:gap-2.5 sm:px-5 sm:text-[0.9375rem]",
                 selected
                   ? "border-foreground bg-foreground text-background"
                   : "border-input bg-card text-foreground hover:border-foreground/40",

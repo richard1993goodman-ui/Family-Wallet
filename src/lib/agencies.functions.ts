@@ -43,6 +43,15 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // Every agency always gets its own unique page + demo link: derive a handle from the name when blank.
+    if (!row.short_name) {
+      const base = (data.brandName?.trim() || name).toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 34) || "agency";
+      const { data: taken } = await supabaseAdmin.from("partner_agencies").select("id, short_name").ilike("short_name", `${base}%`);
+      const used = new Set((taken ?? []).filter((t) => t.id !== data.id).map((t) => (t.short_name ?? "").toLowerCase()));
+      let candidate = base;
+      for (let i = 2; used.has(candidate); i++) candidate = `${base}-${i}`;
+      row.short_name = candidate;
+    }
     if (data.id) {
       const { error } = await supabaseAdmin.from("partner_agencies").update(row).eq("id", data.id);
       if (error) throw new Error(error.code === "23505" ? "That web address is already taken" : error.message);
@@ -51,6 +60,20 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
     const { data: inserted, error } = await supabaseAdmin.from("partner_agencies").insert(row).select("id").single();
     if (error) throw new Error(error.message);
     return { id: inserted.id };
+  });
+
+export const setAgencyLogo = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string; logo: string | null }) => {
+    if (d.logo !== null && (!/^data:image\/(png|jpeg|webp|svg\+xml);base64,/.test(d.logo) || d.logo.length > 400000)) throw new Error("Logo must be a PNG, JPG, WebP or SVG under 280KB");
+    return d;
+  })
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partner_agencies").update({ logo_data: data.logo, updated_at: new Date().toISOString() }).eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
 
 export const addAgencyStaff = createServerFn({ method: "POST" })
@@ -64,6 +87,30 @@ export const addAgencyStaff = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin.from("partner_agency_staff").insert({ agency_id: data.agencyId, email });
     if (error) throw new Error(error.code === "23505" ? "That email is already linked to an agency" : error.message);
     return { ok: true as const };
+  });
+
+// Owner-only: create a one-time setup/reset link so the owner can send it directly
+// when a staff member's company inbox blocks or strips automated emails.
+export const getStaffSetupLink = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { PUBLIC_SITE_URL } = await import("@/lib/site");
+    const { data: staff } = await supabaseAdmin.from("partner_agency_staff").select("email, user_id, agency_id").eq("id", data.id).maybeSingle();
+    if (!staff) throw new Error("Staff member not found");
+    const { data: agency } = await supabaseAdmin.from("partner_agencies").select("status").eq("id", staff.agency_id).maybeSingle();
+    if (agency?.status !== "active") throw new Error("This agency is paused — reactivate it first");
+    const options = { redirectTo: `${PUBLIC_SITE_URL}/auth?setup=1` };
+    let res = await supabaseAdmin.auth.admin.generateLink({ type: "invite", email: staff.email, options });
+    if (res.error) res = await supabaseAdmin.auth.admin.generateLink({ type: "recovery", email: staff.email, options });
+    const link = res.data?.properties?.action_link;
+    if (res.error || !link) {
+      console.error("setup link failed", res.error?.message);
+      throw new Error("Couldn't create a setup link — please try again");
+    }
+    return { link };
   });
 
 export const removeAgencyStaff = createServerFn({ method: "POST" })

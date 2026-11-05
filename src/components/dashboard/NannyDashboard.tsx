@@ -11,6 +11,7 @@ import {
   FileText,
   Heart,
   KeyRound,
+  Landmark,
   MessageCircle,
   NotebookPen,
   Pill,
@@ -286,6 +287,13 @@ export function NannyDashboard(props: DashboardProps) {
                 icon={Coins}
                 title="Petty cash"
                 subtitle="Money added, spent and left"
+              />
+              <HubTile
+                slug={slug}
+                to="/bankdetails/$slug"
+                icon={Landmark}
+                title="Your bank details"
+                subtitle="Where your family pays you"
               />
               <HubTile
                 slug={slug}

@@ -95,6 +95,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   const wallet = summaryQuery.data.wallet;
   const role: WalletRole = wallet.access === "nanny" ? "nanny" : "family";
   const agencyName = demoBrand ?? wallet.agencyName ?? null;
+  const agencyLogo = location.slug === "demo" ? null : wallet.agencyLogo ?? null;
 
   return (
     <SidebarProvider>
@@ -102,12 +103,15 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         slug={location.slug}
         role={role}
         agencyName={agencyName}
+        agencyLogo={agencyLogo}
         activePrefix={location.prefix}
       />
       <SidebarInset className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
         <WalletTopBar
           familyName={wallet.familyName}
           role={role}
+          agencyName={agencyName}
+          agencyLogo={agencyLogo}
           onSearch={() => setSearchOpen(true)}
         />
         <SectionNav slug={location.slug} role={role} activePrefix={location.prefix} />
@@ -129,15 +133,26 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 function WalletTopBar({
   familyName,
   role,
+  agencyName,
+  agencyLogo,
   onSearch,
 }: {
   familyName: string;
   role: WalletRole;
+  agencyName: string | null;
+  agencyLogo: string | null;
   onSearch: () => void;
 }) {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:rounded-t-xl md:px-8">
       <SidebarTrigger className="-ml-1 h-9 w-9 text-muted-foreground hover:text-foreground" />
+      {agencyLogo ? (
+        <img
+          src={agencyLogo}
+          alt={`${agencyName ?? "Agency"} logo`}
+          className="h-7 w-auto max-w-[6rem] flex-none object-contain md:hidden"
+        />
+      ) : null}
       <div className="flex min-w-0 items-baseline gap-2">
         <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
         <p className="hidden truncate text-sm text-muted-foreground sm:block">
@@ -164,11 +179,13 @@ function WalletNavigation({
   slug,
   role,
   agencyName,
+  agencyLogo,
   activePrefix,
 }: {
   slug: string;
   role: WalletRole;
   agencyName: string | null;
+  agencyLogo: string | null;
   activePrefix: string;
 }) {
   const { isMobile, setOpenMobile } = useSidebar();
@@ -184,6 +201,8 @@ function WalletNavigation({
         >
           <Wordmark
             subline={agencyName ? `with ${agencyName}` : null}
+            logoUrl={agencyLogo}
+            logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
             className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
           />
         </Link>

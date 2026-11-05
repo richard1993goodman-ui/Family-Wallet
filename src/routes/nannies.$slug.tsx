@@ -13,6 +13,7 @@ import {
 } from "@/lib/nannies.functions";
 import { getNannyInvite } from "@/lib/agreement.functions";
 import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
+import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/nannies/$slug")({
@@ -119,8 +120,7 @@ function NanniesPage() {
     );
   }
 
-  const inviteLink =
-    typeof window !== "undefined" ? `${window.location.origin}/nanny/${slug}` : `/nanny/${slug}`;
+  const inviteLink = siteUrl(`/nanny/${slug}`);
 
   return (
     <HubPage

@@ -19,9 +19,10 @@ import { AgreementDocument } from "@/components/AgreementDocument";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
 import { StatementDocument } from "@/components/StatementDocument";
-import { HubPage, LockedNotice, Card, PageLoading } from "@/components/hub-ui";
+import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
+import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -93,7 +94,9 @@ function AgreementPage() {
 
   if (query.isLoading) {
     return (
-      <PageLoading />
+      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
+        Loading your agreement…
+      </div>
     );
   }
 
@@ -253,8 +256,7 @@ function AgreementPage() {
 
   const signatures = data.signatures.filter((s) => s.docKind === "agreement");
   const issued = data.status === "issued";
-  const inviteLink =
-    typeof window !== "undefined" ? `${window.location.origin}/nanny/${slug}` : `/nanny/${slug}`;
+  const inviteLink = siteUrl(`/nanny/${slug}`);
   const emergency = data.emergency;
   const hasEmergencyDetails = Boolean(
     emergency.homeAddress || emergency.children.length || emergency.contacts.length,
@@ -454,7 +456,7 @@ function AgreementPage() {
     <div className="space-y-6">
       {!isNanny && data.nannies.length > 1 && (
         <Card>
-          <p className="text-[0.8125rem] font-medium text-muted-foreground">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Whose agreement
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -628,13 +630,19 @@ function AgreementPage() {
 
   if (isNanny) {
     return (
-      <HubPage
-        slug={slug}
-        title={`${data.familyName} — nanny agreement`}
-        intro="Read your agreement in full and sign it here. Your signed copy is kept in the family's wallet."
-      >
-        {body}
-      </HubPage>
+      <div className="min-h-screen bg-sand">
+        <div className="mx-auto max-w-2xl px-5 py-8">
+          <h1 className="heading-display text-3xl leading-tight text-primary">
+            {data.familyName} — nanny agreement
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Read your agreement in full and sign it here. Your signed copy is kept in the family's
+            wallet.
+          </p>
+          <div className="mt-6">{body}</div>
+          <BackToWallet slug={slug} />
+        </div>
+      </div>
     );
   }
 

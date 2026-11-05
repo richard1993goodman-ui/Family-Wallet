@@ -1,5 +1,6 @@
 import { requireTwoStepClient } from "@/lib/two-step";
 import { listPartnerAgencies } from "@/lib/agencies.functions";
+import { siteUrl } from "@/lib/site";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -280,7 +281,7 @@ function FamilyDetail() {
                   className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${window.location.origin}/w/${family.slug} — access code ${family.access_code}`,
+                      `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
                     );
                     toast.success("Link and code copied");
                   }}

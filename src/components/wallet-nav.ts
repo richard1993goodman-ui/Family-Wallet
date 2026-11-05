@@ -16,6 +16,7 @@ import {
   Heart,
   Home,
   KeyRound,
+  Landmark,
   MessageCircle,
   NotebookPen,
   Pill,
@@ -54,7 +55,8 @@ export type WalletPath =
   | "/pettycash/$slug"
   | "/messages/$slug"
   | "/housemanual/$slug"
-  | "/kids/$slug";
+  | "/kids/$slug"
+  | "/bankdetails/$slug";
 
 export type NavItem = {
   label: string;
@@ -106,6 +108,11 @@ const payroll = item("Payroll setup", Briefcase, "/payroll/$slug", ["nannytax", 
 const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pension", "ni"]);
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
+const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
+  "account",
+  "sort code",
+  "payment",
+]);
 
 const familyNav: NavSection[] = [
   { label: "Overview", items: [home, calendar, messages, report] },
@@ -116,7 +123,18 @@ const familyNav: NavSection[] = [
   },
   {
     label: "Your nanny",
-    items: [nannies, agreement, timesheets, leave, pettyCash, payroll, costs, training, safety],
+    items: [
+      nannies,
+      agreement,
+      timesheets,
+      leave,
+      pettyCash,
+      bankDetails,
+      payroll,
+      costs,
+      training,
+      safety,
+    ],
   },
 ];
 
@@ -126,7 +144,7 @@ const nannyNav: NavSection[] = [
     label: "The family",
     items: [emergency, houseManual, kids, passport, first48, travel],
   },
-  { label: "My work", items: [timesheets, leave, pettyCash, agreement, training, safety] },
+  { label: "My work", items: [timesheets, leave, pettyCash, bankDetails, agreement, training, safety] },
 ];
 
 export function navFor(role: WalletRole): NavSection[] {
