@@ -67,9 +67,9 @@
   --color-tint-butter-ink: var(--tint-butter-ink);
   --color-tint-rose: var(--tint-rose);
   --color-tint-rose-ink: var(--tint-rose-ink);
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-display: "Newsreader", Georgia, serif;
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
