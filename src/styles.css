@@ -92,41 +92,41 @@
  */
 :root {
   --radius: 1rem;
-  --background: #fbf7f0;
-  --foreground: #2a2420;
-  --card: #ffffff;
-  --card-foreground: #2a2420;
-  --popover: #ffffff;
-  --popover-foreground: #2a2420;
-  --primary: #2f5d4a;
-  --primary-foreground: #ffffff;
-  --secondary: #f3ece1;
-  --secondary-foreground: #2a2420;
-  --muted: #f5efe6;
-  --muted-foreground: #6b5f55;
-  --accent: #f1e9dd;
-  --accent-foreground: #2a2420;
+  --background: oklch(0.968 0.008 85);
+  --foreground: oklch(0.25 0.05 262);
+  --card: oklch(0.99 0.004 85);
+  --card-foreground: oklch(0.25 0.05 262);
+  --popover: oklch(0.99 0.004 85);
+  --popover-foreground: oklch(0.25 0.05 262);
+  --primary: oklch(0.25 0.05 262);
+  --primary-foreground: oklch(0.985 0.004 85);
+  --secondary: oklch(0.937 0.014 80);
+  --secondary-foreground: oklch(0.25 0.05 262);
+  --muted: oklch(0.937 0.014 80);
+  --muted-foreground: oklch(0.46 0.03 258);
+  --accent: oklch(0.937 0.014 80);
+  --accent-foreground: oklch(0.25 0.05 262);
   --destructive: #b83a3a;
   --destructive-foreground: #ffffff;
-  --border: #ece3d6;
-  --input: #ddd2c3;
-  --ring: #2f5d4a;
-  --sand: #fbf7f0;
-  --raised: #fcf9f4;
-  --rule: #f2ebe0;
-  --brand: #2f5d4a;
-  --brand-foreground: #ffffff;
-  --brand-soft: #e4efe7;
+  --border: oklch(0.89 0.012 80);
+  --input: oklch(0.84 0.015 80);
+  --ring: oklch(0.53 0.15 42);
+  --sand: oklch(0.968 0.008 85);
+  --raised: oklch(0.98 0.006 85);
+  --rule: oklch(0.92 0.012 80);
+  --brand: oklch(0.53 0.15 42);
+  --brand-foreground: oklch(0.995 0.002 248);
+  --brand-soft: oklch(0.94 0.04 60);
   --positive: #2f6b4a;
   --warning: #93511a;
   --warning-soft: #fdf1e2;
   /* The closing band: deep garden green in both themes. */
-  --ink-band: #22392f;
+  --ink-band: oklch(0.25 0.05 262);
   --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
   --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
   --tint-sage: #e4efe7;
-  --tint-sage-ink: #2f5d4a;
+  --tint-sage-ink: oklch(0.34 0.05 258);
   --tint-apricot: #fde8d7;
   --tint-apricot-ink: #8e4a1f;
   --tint-sky: #e1edf7;
@@ -137,19 +137,19 @@
   --tint-butter-ink: #76591a;
   --tint-rose: #f9e3e3;
   --tint-rose-ink: #8f3a43;
-  --chart-1: #2f5d4a;
-  --chart-2: #e3965c;
+  --chart-1: oklch(0.25 0.05 262);
+  --chart-2: oklch(0.68 0.17 48);
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: #f5eee3;
-  --sidebar-foreground: #4a3f37;
-  --sidebar-primary: #2f5d4a;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ebe1d2;
-  --sidebar-accent-foreground: #2a2420;
-  --sidebar-border: #e8ddce;
-  --sidebar-ring: #2f5d4a;
+  --sidebar: oklch(0.937 0.014 80);
+  --sidebar-foreground: oklch(0.34 0.05 258);
+  --sidebar-primary: oklch(0.25 0.05 262);
+  --sidebar-primary-foreground: oklch(0.985 0.004 85);
+  --sidebar-accent: oklch(0.91 0.016 80);
+  --sidebar-accent-foreground: oklch(0.25 0.05 262);
+  --sidebar-border: oklch(0.89 0.012 80);
+  --sidebar-ring: oklch(0.53 0.15 42);
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
