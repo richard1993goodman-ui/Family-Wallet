@@ -24,13 +24,26 @@ export function FanlightMark({ className }: { className?: string }) {
 export function Wordmark({
   className,
   subline,
+  logoUrl,
+  logoAlt,
 }: {
   className?: string;
   subline?: string | null | undefined;
+  /** An agency's own logo replaces the fanlight mark when present. */
+  logoUrl?: string | null | undefined;
+  logoAlt?: string | null | undefined;
 }) {
   return (
     <span className={cn("flex min-w-0 items-center gap-2.5", className)}>
-      <FanlightMark />
+      {logoUrl ? (
+        <img
+          src={logoUrl}
+          alt={logoAlt ?? "Agency logo"}
+          className="h-9 w-auto max-w-[8rem] flex-none object-contain"
+        />
+      ) : (
+        <FanlightMark />
+      )}
       <span className="min-w-0">
         <span className="heading-serif block truncate text-[1.1875rem] leading-none text-foreground">
           The Family Wallet
