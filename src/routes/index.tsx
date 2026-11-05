@@ -635,7 +635,7 @@ function WeekPreview() {
               <span
                 className={cn(
                   "num mt-2.5 text-[11px] leading-tight",
-                  d.shift ? "text-foreground" : "text-muted-foreground/70",
+                  d.shift ? "text-foreground" : "text-muted-foreground/85",
                 )}
               >
                 {d.shift ? `${clock(d.shift[0])}–${clock(d.shift[1])}` : "Off"}
