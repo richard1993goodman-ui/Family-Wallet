@@ -279,7 +279,6 @@
 @utility heading-display {
   font-family: var(--font-display);
   font-weight: 560;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
   letter-spacing: -0.015em;
 }
 
@@ -287,7 +286,6 @@
 @utility heading-serif {
   font-family: var(--font-serif);
   font-weight: 480;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   letter-spacing: -0.012em;
   font-optical-sizing: auto;
 }
