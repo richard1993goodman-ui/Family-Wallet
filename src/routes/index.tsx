@@ -284,20 +284,23 @@ function Index() {
               </p>
             </div>
 
-            <div className="relative lg:col-span-5" data-reveal>
-              <figure className="relative overflow-hidden bg-muted">
+            <div
+              className="relative overflow-hidden rounded-lg px-4 py-10 sm:overflow-visible sm:rounded-none sm:p-0 lg:col-span-5"
+              data-reveal
+            >
+              <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
                 <img
                   src="/images/london/brompton-square.jpg"
                   alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
                   width={1200}
                   height={1600}
-                  className="hero-drift aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
+                  className="hero-drift h-full w-full object-cover sm:aspect-[4/3] sm:h-auto lg:aspect-[4/5]"
                   fetchPriority="high"
                 />
               </figure>
-              <div className="mt-4 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:w-[25rem]">
+              <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
                 <FamilyLogin
-                  className="border-transparent"
+                  className="border-border/60 bg-card/80 shadow-xl backdrop-blur-md sm:border-transparent sm:bg-card sm:shadow-none sm:backdrop-blur-none"
                   footer={
                     <p className="text-center text-[0.8125rem] text-muted-foreground">
                       Lost your details?{" "}
