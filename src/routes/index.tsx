@@ -271,48 +271,57 @@ function Index() {
                 Your family's private hub for managing your nanny. Weekly schedules, agreements,
                 household codes and day-to-day childcare, together in one place.
               </p>
-              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <div className="mt-9 hidden flex-wrap items-center gap-x-6 gap-y-4 sm:flex">
                 <Button size="lg" asChild>
                   <Link to="/demo">
                     Explore the demo wallet <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>
-              <p className="mt-5 text-sm text-muted-foreground">
+              <p className="mt-5 hidden text-sm text-muted-foreground sm:block">
                 The demo is the Harrington family and their nanny Jess. Nothing in it is live.
               </p>
             </div>
 
-            <div
-              className="relative overflow-hidden rounded-lg px-4 py-10 sm:overflow-visible sm:rounded-none sm:p-0 lg:col-span-5"
-              data-reveal
-            >
-              <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
-                <img
-                  src="/images/london/brompton-square.jpg"
-                  alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
-                  width={1200}
-                  height={1600}
-                  className="hero-drift h-full w-full object-cover sm:aspect-[4/3] sm:h-auto lg:aspect-[4/5]"
-                  fetchPriority="high"
-                />
-              </figure>
-              <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
-                <FamilyLogin
-                  showAgencyTab
-                  className="border-border/60 bg-card/80 shadow-xl backdrop-blur-md sm:border-transparent sm:bg-card sm:shadow-none sm:backdrop-blur-none"
-                  footer={
-                    <p className="text-center text-[0.8125rem] text-muted-foreground">
-                      Lost your details?{" "}
-                      <a
-                        href="#help"
-                        className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-                      >
-                        Ask your agency
-                      </a>
-                    </p>
-                  }
-                />
+            <div className="lg:col-span-5" data-reveal>
+              <div className="relative overflow-hidden rounded-lg px-4 pb-10 pt-5 sm:overflow-visible sm:rounded-none sm:p-0">
+                <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
+                  <img
+                    src="/images/london/brompton-square.jpg"
+                    alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
+                    width={1200}
+                    height={1600}
+                    className="hero-drift h-full w-full object-cover sm:aspect-[4/3] sm:h-auto lg:aspect-[4/5]"
+                    fetchPriority="high"
+                  />
+                </figure>
+                <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
+                  <FamilyLogin
+                    showAgencyTab
+                    className="border-border/60 bg-card/80 shadow-xl backdrop-blur-md sm:border-transparent sm:bg-card sm:shadow-none sm:backdrop-blur-none"
+                    footer={
+                      <p className="text-center text-[0.8125rem] text-muted-foreground">
+                        Lost your details?{" "}
+                        <a
+                          href="#help"
+                          className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
+                        >
+                          Ask your agency
+                        </a>
+                      </p>
+                    }
+                  />
+                </div>
+              </div>
+              <div className="mt-7 sm:hidden">
+                <Button size="lg" className="w-full" asChild>
+                  <Link to="/demo">
+                    Explore the demo wallet <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <p className="mt-3 text-center text-sm text-muted-foreground">
+                  The demo is the Harrington family and their nanny Jess. Nothing in it is live.
+                </p>
               </div>
             </div>
           </div>
