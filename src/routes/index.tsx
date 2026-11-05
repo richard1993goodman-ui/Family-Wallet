@@ -1063,7 +1063,7 @@ function DrawerSwitcher() {
         role="tablist"
         aria-label="Drawers in the wallet"
         onKeyDown={onKeyDown}
-        className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+        className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
       >
         {benefitGroups.map((g, i) => {
           const selected = i === index;
