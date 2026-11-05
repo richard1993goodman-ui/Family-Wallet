@@ -107,9 +107,9 @@ export function FamilyLogin({
   }
 
   return (
-    <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
+    <Card id="sign-in" className={cn("scroll-mt-24 gap-4 rounded-lg sm:gap-5", className)}>
       {showAgencyTab && (
-        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 grid grid-cols-2 gap-1 rounded-md bg-muted p-1">
+        <div role="tablist" aria-label="Who is signing in" className="mx-5 mt-5 grid grid-cols-2 gap-1 rounded-md bg-muted p-1 sm:mx-6 sm:mt-6">
           {(["family", "agency"] as const).map((m) => (
             <button
               key={m}
@@ -129,7 +129,7 @@ export function FamilyLogin({
       )}
       {showAgencyTab && mode === "agency" ? (
         <>
-          <CardHeader className="px-6 pb-0 pt-0">
+          <CardHeader className="px-5 pb-0 pt-0 sm:px-6">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Building2 className="size-4 text-muted-foreground" /> Agency team
             </CardTitle>
@@ -137,13 +137,13 @@ export function FamilyLogin({
               Manage your families, branding, challenges and materials.
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-3 px-6 text-sm text-muted-foreground">
+          <CardContent className="grid gap-3 px-5 text-sm text-muted-foreground sm:px-6">
             <p className="flex items-start gap-2">
               <ShieldCheck className="mt-0.5 size-4 flex-none text-foreground" />
               Sign in with your work email, password and authenticator app.
             </p>
           </CardContent>
-          <CardFooter className="flex-col gap-3 px-6 pb-6">
+          <CardFooter className="flex-col gap-3 px-5 pb-5 sm:px-6 sm:pb-6">
             <Button asChild size="lg" className="h-10 w-full">
               <Link to="/auth">
                 Agency sign in <ArrowRight className="h-4 w-4" />
@@ -156,13 +156,13 @@ export function FamilyLogin({
         </>
       ) : (
       <>
-      <CardHeader className={cn("p-6 pb-5", showAgencyTab && "pt-0")}>
+      <CardHeader className={cn("p-5 pb-4 sm:p-6 sm:pb-5", showAgencyTab && "pt-0")}>
         <CardTitle className="flex items-center gap-2 text-lg">
           <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
         </CardTitle>
         <CardDescription>The private link and code your agency sent you.</CardDescription>
       </CardHeader>
-      <CardContent className="px-6 pb-5">
+      <CardContent className="px-5 pb-4 sm:px-6 sm:pb-5">
         <form id="family-login" onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="wallet-link">Your wallet link</Label>
@@ -228,7 +228,7 @@ export function FamilyLogin({
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-3 px-6 pb-6">
+      <CardFooter className="flex-col gap-3 px-5 pb-5 sm:px-6 sm:pb-6">
         {error?.field === "form" && (
           <div className="w-full rounded-md bg-destructive/[0.07] px-3 py-2.5">
             <FieldError id="wallet-form-error" message={error.message} />
