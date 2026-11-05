@@ -7,7 +7,7 @@ import { Award, CheckCircle2, XCircle } from "lucide-react";
 
 import { getTraining, submitTrainingFn } from "@/lib/training.functions";
 import { PASS_MARK, TRAINING_QUESTIONS } from "@/lib/training.questions";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/training/$slug")({
@@ -65,9 +65,7 @@ function TrainingPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -189,7 +187,7 @@ function TrainingPage() {
           </div>
           {TRAINING_QUESTIONS.map((q, i) => (
             <Card key={q.id}>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-[0.8125rem] font-medium text-muted-foreground">
                 {q.section}
               </p>
               <p className="mt-2 font-medium text-foreground">
@@ -250,7 +248,7 @@ function TrainingPage() {
                     <Link
                       to="/certificate/$slug/$id"
                       params={{ slug, id: attempt.id }}
-                      className="text-sm font-medium text-primary hover:underline"
+                      className="text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
                     >
                       View certificate
                     </Link>

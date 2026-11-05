@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowLeft, Plus, Send } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { getMessages, markThreadReadFn, replyThreadFn, startThreadFn } from "@/lib/messages.functions";
 import { MESSAGE_TOPICS } from "@/lib/messages.types";
@@ -47,7 +47,7 @@ function MessagesPage() {
   const [reply, setReply] = useState("");
   const [busy, setBusy] = useState(false);
 
-  if (query.isLoading) return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+  if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const data = query.data;
   const refresh = () => client.invalidateQueries({ queryKey: ["household-messages", slug] });

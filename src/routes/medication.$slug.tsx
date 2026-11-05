@@ -6,7 +6,7 @@ import { AlertTriangle, Check, Pill, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, EmptyState, Field, HubPage, LockedNotice } from "@/components/hub-ui";
 import { deleteDoseFn, getMedication, recordDoseFn } from "@/lib/medication.functions";
 import { COMMON_MEDICINES } from "@/lib/medication.types";
 
@@ -265,7 +265,11 @@ function MedicationPage() {
       <h2 className="heading-display mt-8 text-xl text-foreground">Recent doses</h2>
       <div className="mt-3 space-y-3">
         {data.doses.length === 0 && (
-          <p className="text-sm text-muted-foreground">No medicine has been logged yet.</p>
+          <EmptyState
+            icon={Pill}
+            title="No doses logged yet"
+            description="Each dose is timestamped here, so everyone can see what was given and when."
+          />
         )}
         {data.doses.map((d) => (
           <Card key={d.id}>

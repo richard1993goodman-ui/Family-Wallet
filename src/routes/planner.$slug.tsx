@@ -11,7 +11,7 @@ import {
   deletePlannerEntryFn,
   getPlanner,
 } from "@/lib/family.functions";
-import { HubPage, LockedNotice } from "@/components/hub-ui";
+import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -79,9 +79,7 @@ function PlannerPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -132,7 +130,7 @@ function PlannerPage() {
       </div>
 
       <div className="mt-5 rounded-xl border border-border bg-card p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <p className="text-[0.8125rem] font-medium text-muted-foreground">
           Agreed nanny hours
         </p>
         {workingDays.some((day) => day.enabled) ? (

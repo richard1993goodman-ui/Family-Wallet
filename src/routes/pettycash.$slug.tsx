@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { addPettyCashFn, deletePettyCashFn, getPettyCash } from "@/lib/petty-cash.functions";
 import type { PettyCashKind } from "@/lib/petty-cash.types";
@@ -43,7 +43,7 @@ function PettyCashPage() {
   const [saving, setSaving] = useState(false);
 
   if (query.isLoading) {
-    return <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">Loading…</div>;
+    return <PageLoading />;
   }
   if (!query.data) return <LockedNotice slug={slug} />;
   const data = query.data;

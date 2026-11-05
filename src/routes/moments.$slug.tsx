@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Camera, Printer, Sparkles, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Card, Field, HubPage, LockedNotice } from "@/components/hub-ui";
+import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import {
   addMomentFn,
@@ -71,9 +71,7 @@ function MomentsPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading…
-      </div>
+      <PageLoading />
     );
   }
   if (!query.data) return <LockedNotice slug={slug} />;
@@ -250,7 +248,7 @@ function MomentsPage() {
         )}
         {groupByDate(data.moments).map(([date, dayMoments]) => (
           <div key={date}>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            <p className="text-[0.8125rem] font-medium text-muted-foreground">
               {formatDate(date)}
             </p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">

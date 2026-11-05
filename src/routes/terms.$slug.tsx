@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Download } from "lucide-react";
 
 import { getSignatures, signDocumentFn } from "@/lib/agreement.functions";
-import { HubPage, LockedNotice, Card } from "@/components/hub-ui";
+import { HubPage, LockedNotice, Card, PageLoading } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { Button } from "@/components/ui/button";
 
@@ -42,9 +42,7 @@ function TermsPage() {
 
   if (query.isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sand text-sm text-muted-foreground">
-        Loading your terms…
-      </div>
+      <PageLoading />
     );
   }
 

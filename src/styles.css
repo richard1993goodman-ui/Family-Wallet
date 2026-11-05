@@ -5,13 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: 8px;
+  --radius-md: 12px;
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-xl: var(--radius);
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -46,78 +46,187 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-display:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-raised: var(--raised);
+  --color-rule: var(--rule);
+  --color-positive: var(--positive);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-ink-band: var(--ink-band);
+  --color-tint-sage: var(--tint-sage);
+  --color-tint-sage-ink: var(--tint-sage-ink);
+  --color-tint-apricot: var(--tint-apricot);
+  --color-tint-apricot-ink: var(--tint-apricot-ink);
+  --color-tint-sky: var(--tint-sky);
+  --color-tint-sky-ink: var(--tint-sky-ink);
+  --color-tint-lilac: var(--tint-lilac);
+  --color-tint-lilac-ink: var(--tint-lilac-ink);
+  --color-tint-butter: var(--tint-butter);
+  --color-tint-butter-ink: var(--tint-butter-ink);
+  --color-tint-rose: var(--tint-rose);
+  --color-tint-rose-ink: var(--tint-rose-ink);
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Soft, warm-tinted shadows: cards rest on the page, menus and dialogs float. */
+  --shadow-2xs: 0 1px 1px rgb(74 52 30 / 0.03);
+  --shadow-xs: 0 1px 2px rgb(74 52 30 / 0.05);
+  --shadow-sm: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
+  --shadow-md: 0 8px 24px -8px rgb(74 52 30 / 0.16), 0 2px 4px rgb(74 52 30 / 0.05);
+  --shadow-lg: 0 16px 40px -12px rgb(74 52 30 / 0.22), 0 2px 6px rgb(74 52 30 / 0.06);
 }
 
+/*
+ * Nursery morning: warm and calm, made for the grown-ups who look after children.
+ * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
+ * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
+ * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
+ * Type: Nunito Sans for reading and controls; Fraunces, softened, for titles and the greeting.
+ */
 :root {
-  --radius: 0.875rem;
-  --background: oklch(0.965 0.004 260);
-  --foreground: oklch(0.2 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 260);
-  --primary: oklch(0.32 0.08 258);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.8 0.13 80);
-  --secondary-foreground: oklch(0.2 0.02 260);
-  --muted: oklch(0.94 0.004 260);
-  --muted-foreground: oklch(0.52 0.015 260);
-  --accent: oklch(0.95 0.03 85);
-  --accent-foreground: oklch(0.25 0.03 260);
-  --destructive: oklch(0.6 0.21 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.004 260);
-  --input: oklch(0.9 0.004 260);
-  --ring: oklch(0.32 0.08 258);
-  --sand: oklch(0.965 0.004 260);
-  --chart-1: oklch(0.32 0.08 258);
-  --chart-2: oklch(0.8 0.13 80);
-  --chart-3: oklch(0.6 0.08 230);
-  --chart-4: oklch(0.68 0.13 50);
-  --chart-5: oklch(0.6 0.09 160);
-  --sidebar: oklch(0.975 0.003 260);
-  --sidebar-foreground: oklch(0.2 0.02 260);
-  --sidebar-primary: oklch(0.32 0.08 258);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.93 0.006 260);
-  --sidebar-accent-foreground: oklch(0.2 0.02 260);
-  --sidebar-border: oklch(0.9 0.004 260);
-  --sidebar-ring: oklch(0.32 0.08 258);
+  --radius: 1rem;
+  --background: #fbf7f0;
+  --foreground: #2a2420;
+  --card: #ffffff;
+  --card-foreground: #2a2420;
+  --popover: #ffffff;
+  --popover-foreground: #2a2420;
+  --primary: #2f5d4a;
+  --primary-foreground: #ffffff;
+  --secondary: #f3ece1;
+  --secondary-foreground: #2a2420;
+  --muted: #f5efe6;
+  --muted-foreground: #6b5f55;
+  --accent: #f1e9dd;
+  --accent-foreground: #2a2420;
+  --destructive: #b83a3a;
+  --destructive-foreground: #ffffff;
+  --border: #ece3d6;
+  --input: #ddd2c3;
+  --ring: #2f5d4a;
+  --sand: #fbf7f0;
+  --raised: #fcf9f4;
+  --rule: #f2ebe0;
+  --brand: #2f5d4a;
+  --brand-foreground: #ffffff;
+  --brand-soft: #e4efe7;
+  --positive: #2f6b4a;
+  --warning: #93511a;
+  --warning-soft: #fdf1e2;
+  /* The closing band: deep garden green in both themes. */
+  --ink-band: #22392f;
+  --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
+  --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
+  /* Section tints: a pale ground with the dark of the same hue as ink. */
+  --tint-sage: #e4efe7;
+  --tint-sage-ink: #2f5d4a;
+  --tint-apricot: #fde8d7;
+  --tint-apricot-ink: #8e4a1f;
+  --tint-sky: #e1edf7;
+  --tint-sky-ink: #2c5a80;
+  --tint-lilac: #ece6f5;
+  --tint-lilac-ink: #5a4685;
+  --tint-butter: #fbf0cf;
+  --tint-butter-ink: #76591a;
+  --tint-rose: #f9e3e3;
+  --tint-rose-ink: #8f3a43;
+  --chart-1: #2f5d4a;
+  --chart-2: #e3965c;
+  --chart-3: #6a9ac4;
+  --chart-4: #c9bba6;
+  --chart-5: #8a77b5;
+  --sidebar: #f5eee3;
+  --sidebar-foreground: #4a3f37;
+  --sidebar-primary: #2f5d4a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebe1d2;
+  --sidebar-accent-foreground: #2a2420;
+  --sidebar-border: #e8ddce;
+  --sidebar-ring: #2f5d4a;
 }
 
-.dark {
-  --background: hsl(215 30% 10%);
-  --foreground: hsl(210 25% 95%);
-  --card: hsl(215 30% 12%);
-  --card-foreground: hsl(210 25% 95%);
-  --popover: hsl(215 30% 12%);
-  --popover-foreground: hsl(210 25% 95%);
-  --primary: hsl(45 80% 55%);
-  --primary-foreground: hsl(215 30% 10%);
-  --secondary: hsl(215 30% 20%);
-  --secondary-foreground: hsl(210 25% 95%);
-  --muted: hsl(215 30% 18%);
-  --muted-foreground: hsl(215 15% 65%);
-  --accent: hsl(45 80% 55%);
-  --accent-foreground: hsl(215 30% 10%);
-  --destructive: hsl(0 62% 45%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --border: hsl(215 30% 22%);
-  --input: hsl(215 30% 22%);
-  --ring: hsl(45 80% 55%);
-  --sand: hsl(215 30% 12%);
-  --sidebar: hsl(215 30% 12%);
-  --sidebar-foreground: hsl(210 25% 95%);
-  --sidebar-primary: hsl(45 80% 55%);
-  --sidebar-primary-foreground: hsl(215 30% 10%);
-  --sidebar-accent: hsl(215 30% 18%);
-  --sidebar-accent-foreground: hsl(210 25% 95%);
-  --sidebar-border: hsl(215 30% 22%);
-  --sidebar-ring: hsl(45 80% 55%);
+/* Screen only: printing always uses the light colours, whatever the device setting. */
+@media screen {
+  .dark {
+    --background: #171412;
+    --foreground: #f4ede4;
+    --card: #211d1a;
+    --card-foreground: #f4ede4;
+    --popover: #27221f;
+    --popover-foreground: #f4ede4;
+    --primary: #8fc7a8;
+    --primary-foreground: #14231b;
+    --secondary: #2b2622;
+    --secondary-foreground: #f4ede4;
+    --muted: #25201d;
+    --muted-foreground: #bcb0a3;
+    --accent: #2d2723;
+    --accent-foreground: #f4ede4;
+    --destructive: #ec7b7b;
+    --destructive-foreground: #171412;
+    --border: #352e29;
+    --input: #4a413a;
+    --ring: #8fc7a8;
+    --sand: #171412;
+    --raised: #27221f;
+    --rule: #2d2723;
+    --brand: #8fc7a8;
+    --brand-foreground: #14231b;
+    --brand-soft: #1f3128;
+    --positive: #8fc7a8;
+    --warning: #f0b673;
+    --warning-soft: #33261a;
+    --ink-band: #1d2b24;
+    --shadow-soft: none;
+    --tint-sage: #1f3128;
+    --tint-sage-ink: #9fd3b4;
+    --tint-apricot: #3a271b;
+    --tint-apricot-ink: #f3b98e;
+    --tint-sky: #1c2b38;
+    --tint-sky-ink: #9cc6ea;
+    --tint-lilac: #2a2338;
+    --tint-lilac-ink: #c5b5ea;
+    --tint-butter: #33291a;
+    --tint-butter-ink: #ecd08a;
+    --tint-rose: #382024;
+    --tint-rose-ink: #f0a9b1;
+    --sidebar: #120f0e;
+    --sidebar-foreground: #ddd3c8;
+    --sidebar-primary: #8fc7a8;
+    --sidebar-primary-foreground: #14231b;
+    --sidebar-accent: #27221f;
+    --sidebar-accent-foreground: #f4ede4;
+    --sidebar-border: #352e29;
+    --sidebar-ring: #8fc7a8;
+  }
+}
+
+/* "Increase contrast": firmer edges and darker secondary text. */
+@media (prefers-contrast: more) {
+  :root {
+    --border: #ab9d8b;
+    --rule: #cbbfae;
+    --input: #8c7e6d;
+    --muted-foreground: #463b33;
+    --sidebar-border: #ab9d8b;
+  }
+}
+
+@media screen and (prefers-contrast: more) {
+  .dark {
+    --border: #5a5a56;
+    --rule: #444441;
+    --input: #77766f;
+    --muted-foreground: #d4d2cd;
+    --sidebar-border: #5a5a56;
+  }
 }
 
 @layer base {
@@ -125,82 +234,181 @@
     border-color: var(--color-border);
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-foreground) 22%, transparent) transparent;
+  }
+
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: var(--color-brand);
+  }
+
   body {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
+    /* Section titles stay in the text face; page titles opt into the serif with heading-display. */
+    font-family: var(--font-sans);
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
   }
 }
 
+/* Page and section titles: the text face, set tight. */
 @utility heading-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.022em;
+  font-weight: 560;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  letter-spacing: -0.015em;
+}
+
+/* The wordmark and the home greeting only. */
+@utility heading-serif {
+  font-family: var(--font-serif);
+  font-weight: 480;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  letter-spacing: -0.012em;
+  font-optical-sizing: auto;
+}
+
+@utility num {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility surface-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-soft);
 }
 
 @utility ios-group {
   display: block;
   overflow: hidden;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
   & > * + * {
-    border-top: 0.5px solid var(--color-border);
+    border-top: 1px solid var(--color-rule);
   }
 }
 
 @utility ios-row {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: 0.75rem;
   min-height: 3.5rem;
   padding: 0.75rem 1rem;
   background-color: var(--color-card);
   transition: background-color 120ms ease;
   &:hover {
-    background-color: var(--color-muted);
+    background-color: var(--color-raised);
+  }
+  &:active {
+    background-color: var(--color-accent);
   }
   &::after {
     content: "\203A";
     margin-left: auto;
     padding-left: 0.5rem;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     line-height: 1;
     color: var(--color-muted-foreground);
-    opacity: 0.6;
+    opacity: 0.55;
+    transition: transform 160ms ease;
+  }
+  &:hover::after {
+    transform: translateX(2px);
   }
   & > span:not(.ios-icon) > span:last-child {
     font-size: 0.8125rem;
     margin-top: 0.125rem;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 }
 
+/*
+ * A rounded tile behind a row's icon, in its section's tint.
+ * Set the section with data-tint on the group (or the row): sage, apricot, sky, lilac, butter, rose.
+ */
 @utility ios-icon {
   display: flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  width: 1.875rem;
-  height: 1.875rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--tint-bg, var(--tint-sage));
+  color: var(--tint-fg, var(--tint-sage-ink));
+}
+
+/* Frosted chrome that content scrolls under. Goes solid when the device asks for less transparency. */
+@utility material {
+  background-color: color-mix(in oklab, var(--color-background) 78%, transparent);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--color-background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  @media (prefers-contrast: more) {
+    background-color: var(--color-background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--color-foreground);
+  }
+}
+
+/* A tiled set of links in one panel: hairline gaps instead of separate cards. */
+@utility link-grid {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-rule);
+  & > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@layer base {
+  [data-tint="sage"] { --tint-bg: var(--tint-sage); --tint-fg: var(--tint-sage-ink); }
+  [data-tint="apricot"] { --tint-bg: var(--tint-apricot); --tint-fg: var(--tint-apricot-ink); }
+  [data-tint="sky"] { --tint-bg: var(--tint-sky); --tint-fg: var(--tint-sky-ink); }
+  [data-tint="lilac"] { --tint-bg: var(--tint-lilac); --tint-fg: var(--tint-lilac-ink); }
+  [data-tint="butter"] { --tint-bg: var(--tint-butter); --tint-fg: var(--tint-butter-ink); }
+  [data-tint="rose"] { --tint-bg: var(--tint-rose); --tint-fg: var(--tint-rose-ink); }
 }
 
 @utility ios-section-title {
-  padding-left: 1rem;
-  font-size: 0.8125rem;
+  padding-left: 0.25rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
   color: var(--color-muted-foreground);
 }
 
@@ -219,7 +427,7 @@
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.125rem;
-    color: var(--color-primary);
+    color: var(--color-foreground);
     margin-bottom: 0.75rem;
   }
 
@@ -242,7 +450,42 @@
     width: 0.375rem;
     height: 0.375rem;
     border-radius: 9999px;
-    background-color: var(--color-secondary);
+    background-color: var(--color-brand);
+  }
+}
+
+/* Entrances for the public pages; app screens do not perform. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-drift {
+  animation: hero-drift 18s cubic-bezier(0.3, 0, 0.2, 1) both;
+  transform-origin: 60% 40%;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift {
+    animation: none;
   }
 }
 

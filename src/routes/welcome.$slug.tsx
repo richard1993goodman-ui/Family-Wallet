@@ -102,8 +102,8 @@ function WelcomePage() {
         </div>
         <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-primary transition-all"
-            style={{ width: `${pct}%` }}
+            className="h-full w-full rounded-full bg-primary transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${100 - pct}%)` }}
           />
         </div>
       </Card>
