@@ -970,19 +970,6 @@ function DayScrubber() {
     setPlaying(!playing);
   }
 
-  return () => window.clearTimeout(timer);
-  }, [playing, active, last]);
-
-  function go(i: number) {
-    setPlaying(false);
-    setActive(i);
-  }
-
-  function togglePlay() {
-    if (!playing && active === last) setActive(0);
-    setPlaying(!playing);
-  }
-
   return (
     <section id="day" className="scroll-mt-16 py-24 lg:py-32">
       <div className={frame}>
