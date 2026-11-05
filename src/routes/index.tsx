@@ -29,13 +29,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -268,9 +268,8 @@ function Index() {
                 Family and nanny, one wallet
               </h1>
               <p className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
-                A private home your agency sets up for each household. The week, the nanny
-                agreement, the house codes and every handover sit behind one link and a
-                six-character code.
+                Your family's private hub for managing your nanny. Weekly schedules, agreements,
+                household codes and day-to-day childcare, together in one place.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Button size="lg" asChild>
