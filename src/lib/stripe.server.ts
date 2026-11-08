@@ -15,7 +15,7 @@ export async function stripe<T>(
   params: Record<string, unknown> = {},
   method: "GET" | "POST" = "POST",
 ): Promise<T> {
-  const key = process.env["STRIPE_SECRET_KEY"] || process.env["STRIPE_RESTRICTED_API_KEY"];
+  const key = process.env["STRIPE_LIVE_API_KEY"] || process.env["STRIPE_SECRET_KEY"] || process.env["STRIPE_RESTRICTED_API_KEY"];
   if (!key) throw new Error("Stripe key is not set");
   const form = new URLSearchParams();
   toForm(params, "", form);
