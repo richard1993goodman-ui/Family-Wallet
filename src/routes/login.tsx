@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { FamilyLogin } from "@/components/FamilyLogin";
+import { RecoverDetails } from "@/components/RecoverDetails";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -47,6 +48,7 @@ function LoginPage() {
               </p>
             }
           />
+          <RecoverDetails />
         </main>
       </div>
     </div>

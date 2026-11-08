@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { claimSubscription } from "@/lib/billing.functions";
+import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/subscribed")({
   validateSearch: (search: Record<string, unknown>): { session_id?: string } =>
@@ -57,13 +58,16 @@ function Subscribed() {
           </h1>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
             You are signed in on this device. Keep these two things safe: you will need them to open
-            your wallet on another phone or computer, and to invite your nanny.
+            your wallet on another phone or computer.{" "}
+            {result.emailing
+              ? "We are also emailing a copy to you."
+              : "Take a screenshot or copy them somewhere safe."}
           </p>
           <dl className="mt-6 space-y-4">
             <div>
               <dt className="text-sm font-medium text-foreground">Wallet link</dt>
               <dd className="mt-1 break-all rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground">
-                {result.slug}
+                {siteUrl(`/w/${result.slug}`)}
               </dd>
             </div>
             <div>

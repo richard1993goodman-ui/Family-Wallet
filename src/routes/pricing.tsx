@@ -368,7 +368,15 @@ function PricingPage() {
                         : "Excluding VAT."}
                 </p>
                 {t.plan ? (
-                  <form method="post" action="/api/stripe/checkout" className="mt-6" onSubmit={(e) => { if (window.self !== window.top) e.currentTarget.target = "_blank"; }}>
+                  <form
+                    method="post"
+                    action="/api/stripe/checkout"
+                    className="mt-6"
+                    onSubmit={(e) => {
+                      // Stripe's payment page cannot load inside a frame, such as Lovable's preview.
+                      if (window.self !== window.top) e.currentTarget.target = "_blank";
+                    }}
+                  >
                     <input type="hidden" name="plan" value={t.plan} />
                     <input type="hidden" name="interval" value={annual ? "year" : "month"} />
                     <Button
