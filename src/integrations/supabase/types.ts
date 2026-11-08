@@ -410,6 +410,7 @@ export type Database = {
           fee_label: string | null
           id: string
           intro_fee_percent: number | null
+          last_active_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -440,6 +441,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -470,6 +472,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -740,6 +743,7 @@ export type Database = {
           nanny_code: string | null
           nanny_code_hash: string | null
           photo_path: string | null
+          role: string
           sort_order: number
           status: string
           updated_at: string
@@ -761,6 +765,7 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
@@ -782,6 +787,7 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
@@ -885,6 +891,62 @@ export type Database = {
             foreignKeyName: "family_services_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_subscriptions: {
+        Row: {
+          billing_interval: string
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          customer_email: string | null
+          family_id: string | null
+          id: string
+          plan: string
+          status: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_interval: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan: string
+          status?: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_checkout_session_id?: string
+          stripe_customer_id?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
@@ -1044,6 +1106,53 @@ export type Database = {
           },
         ]
       }
+      household_permissions: {
+        Row: {
+          answer: string
+          category: string
+          family_id: string
+          id: string
+          is_custom: boolean
+          label: string
+          note: string
+          permission_key: string
+          updated_at: string
+          updated_by_name: string | null
+        }
+        Insert: {
+          answer: string
+          category?: string
+          family_id: string
+          id?: string
+          is_custom?: boolean
+          label: string
+          note?: string
+          permission_key: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Update: {
+          answer?: string
+          category?: string
+          family_id?: string
+          id?: string
+          is_custom?: boolean
+          label?: string
+          note?: string
+          permission_key?: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_permissions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       household_threads: {
         Row: {
           created_at: string
@@ -1084,6 +1193,65 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "household_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_reports: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by_name: string | null
+          action_taken: string
+          child_name: string
+          created_at: string
+          family_id: string
+          id: string
+          kind: string
+          occurred_at: string
+          parents_told: boolean
+          reported_by: string
+          reported_by_name: string | null
+          severity: string
+          what_happened: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name: string
+          created_at?: string
+          family_id: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name?: string
+          created_at?: string
+          family_id?: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_reports_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
@@ -1461,10 +1629,12 @@ export type Database = {
           contact_email: string | null
           contact_phone: string | null
           created_at: string
+          household_allowance: number | null
           id: string
           intro_pricing: boolean
           logo_data: string | null
           name: string
+          plan: string
           short_name: string | null
           status: string
           updated_at: string
@@ -1477,10 +1647,12 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
@@ -1493,10 +1665,12 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name?: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
