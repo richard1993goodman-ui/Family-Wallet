@@ -172,6 +172,12 @@ function SiteHeader() {
             </a>
           ))}
           <Link
+            to="/pricing"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Pricing
+          </Link>
+          <Link
             to="/demo"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
@@ -206,6 +212,9 @@ function SiteHeader() {
                   </Button>
                 ))}
                 <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
+                  <Link to="/pricing">Pricing</Link>
+                </Button>
+                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
                   <Link to="/demo">Demo wallet</Link>
                 </Button>
                 <Separator className="my-3" />
@@ -214,11 +223,6 @@ function SiteHeader() {
                 </Button>
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
-                </Button>
-                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
-                  <a href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet">
-                    Get in touch
-                  </a>
                 </Button>
               </div>
             </SheetContent>
@@ -245,6 +249,17 @@ function Index() {
       <main id="main" tabIndex={-1} className="outline-none">
         {/* The front door is the wallet itself: a phone you can spin and tap, driven by the page */}
         <WalletHero />
+
+        <figure className={cn(frame, "pb-8 pt-2 lg:pb-12 lg:pt-4")} data-reveal>
+          <img
+            src="/images/kids/camera.jpg"
+            alt="A toddler in a striped top sitting in a red booster seat, holding a purple toy camera up to one eye"
+            width={1600}
+            height={1106}
+            className="aspect-[4/3] w-full rounded-lg object-cover object-[58%_45%] sm:aspect-[3/1] sm:object-[50%_48%]"
+            loading="lazy"
+          />
+        </figure>
 
         {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
         <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
@@ -314,7 +329,7 @@ function Index() {
             alt="A line of children in sun hats and bright backpacks walking away from the camera on the school run"
             width={1600}
             height={1252}
-            className="aspect-[4/5] w-full rounded-lg object-cover object-[68%_45%] sm:aspect-[16/9] sm:object-[50%_42%]"
+            className="aspect-[4/3] w-full rounded-lg object-cover object-[68%_45%] sm:aspect-[3/1] sm:object-[50%_40%]"
             loading="lazy"
           />
           <figcaption className="mt-3 text-[0.8125rem] text-muted-foreground">
@@ -381,13 +396,6 @@ function Index() {
                   <Link to="/admin" className="text-white underline underline-offset-4">
                     Agency sign in
                   </Link>
-                  {" "}·{" "}
-                  <a
-                    href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
-                    className="text-white underline underline-offset-4"
-                  >
-                    Get in touch
-                  </a>
                 </p>
               </div>
             </div>
@@ -414,18 +422,15 @@ function Index() {
           </p>
           <div className="mt-12 flex flex-col justify-between gap-6 text-[0.9375rem] text-muted-foreground md:flex-row">
             <nav className="flex flex-wrap gap-x-7 gap-y-2">
+              <Link to="/pricing" className="transition-colors hover:text-foreground">
+                Pricing
+              </Link>
               <Link to="/demo" className="transition-colors hover:text-foreground">
                 Demo wallet
               </Link>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>
-              <a
-                href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
-                className="transition-colors hover:text-foreground"
-              >
-                Get in touch
-              </a>
             </nav>
             <p>© {new Date().getFullYear()} The Family Wallet</p>
           </div>

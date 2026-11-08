@@ -122,7 +122,16 @@ export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
   );
 }
 
-export function DashboardFooter({ updatedAt, onLock }: { updatedAt: string; onLock: () => void }) {
+export function DashboardFooter({
+  updatedAt,
+  onLock,
+  billingSlug,
+}: {
+  updatedAt: string;
+  onLock: () => void;
+  /** Set for households that pay through Stripe; shows a link to manage the subscription. */
+  billingSlug?: string | undefined;
+}) {
   return (
     <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-[0.8125rem] text-muted-foreground">
       <p>
@@ -140,6 +149,17 @@ export function DashboardFooter({ updatedAt, onLock }: { updatedAt: string; onLo
       >
         Lock this wallet on this device
       </button>
+      {billingSlug && (
+        <form method="post" action="/api/stripe/portal">
+          <input type="hidden" name="slug" value={billingSlug} />
+          <button
+            type="submit"
+            className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
+          >
+            Manage subscription
+          </button>
+        </form>
+      )}
     </div>
   );
 }

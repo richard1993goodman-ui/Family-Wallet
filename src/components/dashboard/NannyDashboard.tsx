@@ -17,6 +17,7 @@ import {
   Pill,
   Plane,
   ReceiptText,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -96,6 +97,14 @@ export function NannyDashboard(props: DashboardProps) {
                 label="Log medicine"
                 tint="rose"
                 status={doses.length ? `${doses.length} in last 24h` : "Nothing given today"}
+              />
+              <QuickAction
+                slug={slug}
+                to="/incidents/$slug"
+                icon={ShieldAlert}
+                label="Report an incident"
+                tint="butter"
+                status="Bumps and accidents"
               />
               <QuickAction
                 slug={slug}
@@ -246,6 +255,13 @@ export function NannyDashboard(props: DashboardProps) {
                 icon={Heart}
                 title="Kids' playbook"
                 subtitle="Comforts, big moments and rainy-day ideas"
+              />
+              <HubTile
+                slug={slug}
+                to="/permissions/$slug"
+                icon={ShieldCheck}
+                title="What's allowed"
+                subtitle="Permissions and who can collect the children"
               />
               <HubTile
                 slug={slug}
