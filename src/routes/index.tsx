@@ -215,6 +215,11 @@ function SiteHeader() {
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
                 </Button>
+                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
+                  <a href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet">
+                    Get in touch
+                  </a>
+                </Button>
               </div>
             </SheetContent>
           </Sheet>
@@ -376,6 +381,13 @@ function Index() {
                   <Link to="/admin" className="text-white underline underline-offset-4">
                     Agency sign in
                   </Link>
+                  {" "}·{" "}
+                  <a
+                    href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
+                    className="text-white underline underline-offset-4"
+                  >
+                    Get in touch
+                  </a>
                 </p>
               </div>
             </div>
@@ -408,6 +420,12 @@ function Index() {
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>
+              <a
+                href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
+                className="transition-colors hover:text-foreground"
+              >
+                Get in touch
+              </a>
             </nav>
             <p>© {new Date().getFullYear()} The Family Wallet</p>
           </div>
