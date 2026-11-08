@@ -37,7 +37,7 @@ export async function stripe<T>(
 const enc = new TextEncoder();
 
 function hex(buffer: ArrayBuffer) {
-  return [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, "0").slice(-2)).join("");
+  return [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 function sameString(a: string, b: string) {
