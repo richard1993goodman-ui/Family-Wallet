@@ -400,6 +400,7 @@ export type Database = {
       }
       families: {
         Row: {
+          last_active_at: string | null
           access_code: string
           access_code_hash: string
           contact_email: string | null
@@ -430,6 +431,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          last_active_at?: string | null
           access_code?: string
           access_code_hash: string
           contact_email?: string | null
@@ -460,6 +462,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          last_active_at?: string | null
           access_code?: string
           access_code_hash?: string
           contact_email?: string | null
@@ -724,6 +727,7 @@ export type Database = {
       }
       family_nannies: {
         Row: {
+          role: string
           bio: string | null
           created_at: string
           emergency_name: string | null
@@ -745,6 +749,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          role?: string
           bio?: string | null
           created_at?: string
           emergency_name?: string | null
@@ -766,6 +771,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          role?: string
           bio?: string | null
           created_at?: string
           emergency_name?: string | null
@@ -1084,6 +1090,62 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "household_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_subscriptions: {
+        Row: {
+          billing_interval: string
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          customer_email: string | null
+          family_id: string | null
+          id: string
+          plan: string
+          status: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_interval: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan: string
+          status?: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_checkout_session_id?: string
+          stripe_customer_id?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_subscriptions_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
@@ -1560,6 +1622,8 @@ export type Database = {
       }
       partner_agencies: {
         Row: {
+          household_allowance: number | null
+          plan: string
           allow_challenges: boolean
           allow_perks: boolean
           allow_playbooks: boolean
@@ -1576,6 +1640,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          household_allowance?: number | null
+          plan?: string
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean
@@ -1592,6 +1658,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          household_allowance?: number | null
+          plan?: string
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean

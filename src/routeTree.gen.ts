@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as SubscribedRouteImport } from './routes/subscribed'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
@@ -56,6 +57,9 @@ import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
+import { Route as ApiStripeCheckoutRouteImport } from './routes/api/stripe/checkout'
+import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
+import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe/webhook'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
 import { Route as PHandleIndexRouteImport } from './routes/p.$handle.index'
 import { Route as PHandleDemoRouteImport } from './routes/p.$handle.demo'
@@ -90,6 +94,11 @@ const LoginRoute = LoginRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscribedRoute = SubscribedRouteImport.update({
+  id: '/subscribed',
+  path: '/subscribed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivitiesSlugRoute = ActivitiesSlugRouteImport.update({
@@ -299,6 +308,21 @@ const AuthenticatedAdminSupportRoute =
     path: '/admin/support',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiStripeCheckoutRoute = ApiStripeCheckoutRouteImport.update({
+  id: '/api/stripe/checkout',
+  path: '/api/stripe/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStripePortalRoute = ApiStripePortalRouteImport.update({
+  id: '/api/stripe/portal',
+  path: '/api/stripe/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
+  id: '/api/stripe/webhook',
+  path: '/api/stripe/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CertificateSlugIdRoute = CertificateSlugIdRouteImport.update({
   id: '/certificate/$slug/$id',
   path: '/certificate/$slug/$id',
@@ -338,6 +362,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -378,6 +403,9 @@ export interface FileRoutesByFullPath {
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
+  '/api/stripe/portal': typeof ApiStripePortalRoute
+  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -392,6 +420,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -432,6 +461,9 @@ export interface FileRoutesByTo {
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
+  '/api/stripe/portal': typeof ApiStripePortalRoute
+  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -448,6 +480,7 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -488,6 +521,9 @@ export interface FileRoutesById {
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
+  '/api/stripe/portal': typeof ApiStripePortalRoute
+  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -504,6 +540,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/login'
     | '/pricing'
+    | '/subscribed'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -544,6 +581,9 @@ export interface FileRouteTypes {
     | '/welcome/$slug'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/stripe/checkout'
+    | '/api/stripe/portal'
+    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/admin/'
@@ -558,6 +598,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/login'
     | '/pricing'
+    | '/subscribed'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -598,6 +639,9 @@ export interface FileRouteTypes {
     | '/welcome/$slug'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/stripe/checkout'
+    | '/api/stripe/portal'
+    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/admin'
@@ -613,6 +657,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/login'
     | '/pricing'
+    | '/subscribed'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -653,6 +698,9 @@ export interface FileRouteTypes {
     | '/welcome/$slug'
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
+    | '/api/stripe/checkout'
+    | '/api/stripe/portal'
+    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/_authenticated/admin/'
@@ -669,6 +717,7 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
+  SubscribedRoute: typeof SubscribedRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
@@ -707,6 +756,9 @@ export interface RootRouteChildren {
   TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
   WelcomeSlugRoute: typeof WelcomeSlugRoute
+  ApiStripeCheckoutRoute: typeof ApiStripeCheckoutRoute
+  ApiStripePortalRoute: typeof ApiStripePortalRoute
+  ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
   PHandleDemoRoute: typeof PHandleDemoRoute
   PHandleIndexRoute: typeof PHandleIndexRoute
@@ -754,6 +806,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscribed': {
+      id: '/subscribed'
+      path: '/subscribed'
+      fullPath: '/subscribed'
+      preLoaderRoute: typeof SubscribedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activities/$slug': {
@@ -1043,6 +1102,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/stripe/checkout': {
+      id: '/api/stripe/checkout'
+      path: '/api/stripe/checkout'
+      fullPath: '/api/stripe/checkout'
+      preLoaderRoute: typeof ApiStripeCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/stripe/portal': {
+      id: '/api/stripe/portal'
+      path: '/api/stripe/portal'
+      fullPath: '/api/stripe/portal'
+      preLoaderRoute: typeof ApiStripePortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/stripe/webhook': {
+      id: '/api/stripe/webhook'
+      path: '/api/stripe/webhook'
+      fullPath: '/api/stripe/webhook'
+      preLoaderRoute: typeof ApiStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/certificate/$slug/$id': {
       id: '/certificate/$slug/$id'
       path: '/certificate/$slug/$id'
@@ -1116,6 +1196,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
+  SubscribedRoute: SubscribedRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
   BankdetailsSlugRoute: BankdetailsSlugRoute,
@@ -1154,6 +1235,9 @@ const rootRouteChildren: RootRouteChildren = {
   TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
   WelcomeSlugRoute: WelcomeSlugRoute,
+  ApiStripeCheckoutRoute: ApiStripeCheckoutRoute,
+  ApiStripePortalRoute: ApiStripePortalRoute,
+  ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
   PHandleDemoRoute: PHandleDemoRoute,
   PHandleIndexRoute: PHandleIndexRoute,

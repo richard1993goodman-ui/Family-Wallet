@@ -44,6 +44,8 @@ type Tier = {
   features: Feature[];
   lead?: string;
   cta: { label: string; href: string };
+  /** Set for plans families can buy themselves; the button then goes to Stripe Checkout. */
+  plan?: "family" | "household";
   popular?: boolean;
 };
 
@@ -61,7 +63,8 @@ const families: Tier[] = [
       { text: "Emergency card and medication log" },
       { text: "Timesheets, expenses and a Friday weekly report" },
     ],
-    cta: { label: "Join the waitlist", href: mail("Family Wallet: Family plan") },
+    cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
+    plan: "family",
     popular: true,
   },
   {
@@ -78,7 +81,8 @@ const families: Tier[] = [
       { text: "Exports for your accountant", soon: true },
       { text: "Priority support" },
     ],
-    cta: { label: "Join the waitlist", href: mail("Family Wallet: Household plan") },
+    cta: { label: "Subscribe", href: mail("Family Wallet: Household plan") },
+    plan: "household",
   },
   {
     name: "Estate",
@@ -185,7 +189,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I switch plans or cancel?",
-      a: "Yes. Move between plans or cancel any time. If you cancel, you can export your agreement and records before your plan ends.",
+      a: "Yes. Cancel any time from your wallet. Your plan stays active until the end of the period you have paid for. To change plan, get in touch and we will switch you.",
     },
     {
       q: "My agency already gave me a wallet. Do I pay?",
@@ -363,16 +367,31 @@ function PricingPage() {
                         ? `Or ${money(t.monthly!)} a month. Excluding VAT.`
                         : "Excluding VAT."}
                 </p>
-                <Button
-                  size="lg"
-                  variant={t.popular ? "default" : "outline"}
-                  className="mt-6 w-full"
-                  asChild
-                >
-                  <a href={t.cta.href}>
-                    {t.cta.label} <ArrowRight aria-hidden />
-                  </a>
-                </Button>
+                {t.plan ? (
+                  <form method="post" action="/api/stripe/checkout" className="mt-6">
+                    <input type="hidden" name="plan" value={t.plan} />
+                    <input type="hidden" name="interval" value={annual ? "year" : "month"} />
+                    <Button
+                      type="submit"
+                      size="lg"
+                      variant={t.popular ? "default" : "outline"}
+                      className="w-full"
+                    >
+                      {t.cta.label} <ArrowRight aria-hidden />
+                    </Button>
+                  </form>
+                ) : (
+                  <Button
+                    size="lg"
+                    variant={t.popular ? "default" : "outline"}
+                    className="mt-6 w-full"
+                    asChild
+                  >
+                    <a href={t.cta.href}>
+                      {t.cta.label} <ArrowRight aria-hidden />
+                    </a>
+                  </Button>
+                )}
                 <div className="mt-7 border-t border-border pt-6">
                   {t.lead && (
                     <p className="mb-3 text-[0.9375rem] font-medium text-foreground">{t.lead}</p>
@@ -461,8 +480,8 @@ function PricingPage() {
         </section>
 
         <p className="mt-16 max-w-[44rem] text-xs leading-relaxed text-muted-foreground">
-          Launch pricing, excluding VAT. Plans marked Soon are on the way and are not in the app
-          yet. Final prices and plans may change before checkout opens.
+          Prices exclude VAT, which is added at checkout. Plans marked Soon are on the way and are not
+          in the app yet.
         </p>
       </main>
     </div>

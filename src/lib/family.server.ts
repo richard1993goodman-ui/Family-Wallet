@@ -17,7 +17,7 @@ export async function requireFamily(slug: string) {
   if (!(await isUnlocked(slug))) return null;
   const { data } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, nanny_name, start_date")
+    .select("id, family_name, nanny_name, start_date, last_active_at")
     .eq("slug", slug)
     .eq("status", "active")
     .maybeSingle();
@@ -29,7 +29,7 @@ export async function requireSharedFamily(slug: string) {
   if (!access) return null;
   const { data } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, nanny_name, start_date")
+    .select("id, family_name, nanny_name, start_date, last_active_at")
     .eq("slug", slug)
     .eq("status", "active")
     .maybeSingle();
@@ -617,6 +617,15 @@ export async function loadHubSummary(slug: string) {
   const weekEnd = new Date(weekStart);
   weekEnd.setUTCDate(weekEnd.getUTCDate() + 6);
 
+  // Note that someone opened the wallet, at most once every six hours. Agencies see this as "active".
+  const SIX_HOURS = 6 * 60 * 60 * 1000;
+  if (!family.last_active_at || Date.now() - new Date(family.last_active_at).getTime() > SIX_HOURS) {
+    await supabaseAdmin
+      .from("families")
+      .update({ last_active_at: new Date().toISOString() })
+      .eq("id", family.id);
+  }
+
   const [
     { data: entries },
     { data: logs },
@@ -635,6 +644,7 @@ export async function loadHubSummary(slug: string) {
     { count: incidentsOpen },
     { data: permissionRows },
     { data: safetyDocs },
+    { count: subscriptionCount },
     session,
   ] = await Promise.all([
       supabaseAdmin
@@ -724,6 +734,10 @@ export async function loadHubSummary(slug: string) {
         .eq("family_id", family.id)
         .neq("visibility", "hidden")
         .not("expires_on", "is", null),
+      supabaseAdmin
+        .from("family_subscriptions")
+        .select("id", { count: "exact", head: true })
+        .eq("family_id", family.id),
       sessionAccess(slug),
     ]);
 
@@ -775,6 +789,8 @@ export async function loadHubSummary(slug: string) {
       handedOver: handovers?.[0]?.handover_date === todayLondon,
     },
     recentDoses: recentDoses ?? [],
+    // True for households that subscribed on the pricing page and can manage billing themselves.
+    hasSubscription: isFamily && (subscriptionCount ?? 0) > 0,
     children: kids.map((c) => ({
       id: c.id,
       name: c.name,

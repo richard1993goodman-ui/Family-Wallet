@@ -247,7 +247,11 @@ export function FamilyDashboard(props: DashboardProps) {
         </Column>
       </div>
 
-      <DashboardFooter updatedAt={wallet.updatedAt} onLock={onLock} />
+      <DashboardFooter
+        updatedAt={wallet.updatedAt}
+        onLock={onLock}
+        billingSlug={hub?.hasSubscription ? slug : undefined}
+      />
     </PageContainer>
   );
 }
