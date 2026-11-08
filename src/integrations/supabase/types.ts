@@ -400,7 +400,6 @@ export type Database = {
       }
       families: {
         Row: {
-          last_active_at: string | null
           access_code: string
           access_code_hash: string
           contact_email: string | null
@@ -411,6 +410,7 @@ export type Database = {
           fee_label: string | null
           id: string
           intro_fee_percent: number | null
+          last_active_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -431,7 +431,6 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          last_active_at?: string | null
           access_code?: string
           access_code_hash: string
           contact_email?: string | null
@@ -442,6 +441,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -462,7 +462,6 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          last_active_at?: string | null
           access_code?: string
           access_code_hash?: string
           contact_email?: string | null
@@ -473,6 +472,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -727,7 +727,6 @@ export type Database = {
       }
       family_nannies: {
         Row: {
-          role: string
           bio: string | null
           created_at: string
           emergency_name: string | null
@@ -744,12 +743,12 @@ export type Database = {
           nanny_code: string | null
           nanny_code_hash: string | null
           photo_path: string | null
+          role: string
           sort_order: number
           status: string
           updated_at: string
         }
         Insert: {
-          role?: string
           bio?: string | null
           created_at?: string
           emergency_name?: string | null
@@ -766,12 +765,12 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
         }
         Update: {
-          role?: string
           bio?: string | null
           created_at?: string
           emergency_name?: string | null
@@ -788,6 +787,7 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
@@ -891,6 +891,62 @@ export type Database = {
             foreignKeyName: "family_services_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_subscriptions: {
+        Row: {
+          billing_interval: string
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          customer_email: string | null
+          family_id: string | null
+          id: string
+          plan: string
+          status: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_interval: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan: string
+          status?: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_checkout_session_id?: string
+          stripe_customer_id?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
@@ -1050,109 +1106,6 @@ export type Database = {
           },
         ]
       }
-      household_threads: {
-        Row: {
-          created_at: string
-          created_by: string
-          family_id: string
-          family_unread: boolean
-          id: string
-          last_sender: string
-          nanny_unread: boolean
-          title: string
-          topic: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          created_by: string
-          family_id: string
-          family_unread?: boolean
-          id?: string
-          last_sender: string
-          nanny_unread?: boolean
-          title: string
-          topic?: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          created_by?: string
-          family_id?: string
-          family_unread?: boolean
-          id?: string
-          last_sender?: string
-          nanny_unread?: boolean
-          title?: string
-          topic?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "household_threads_family_id_fkey"
-            columns: ["family_id"]
-            isOneToOne: false
-            referencedRelation: "families"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      family_subscriptions: {
-        Row: {
-          billing_interval: string
-          cancel_at_period_end: boolean
-          created_at: string
-          current_period_end: string | null
-          customer_email: string | null
-          family_id: string | null
-          id: string
-          plan: string
-          status: string
-          stripe_checkout_session_id: string
-          stripe_customer_id: string
-          stripe_subscription_id: string | null
-          updated_at: string
-        }
-        Insert: {
-          billing_interval: string
-          cancel_at_period_end?: boolean
-          created_at?: string
-          current_period_end?: string | null
-          customer_email?: string | null
-          family_id?: string | null
-          id?: string
-          plan: string
-          status?: string
-          stripe_checkout_session_id: string
-          stripe_customer_id: string
-          stripe_subscription_id?: string | null
-          updated_at?: string
-        }
-        Update: {
-          billing_interval?: string
-          cancel_at_period_end?: boolean
-          created_at?: string
-          current_period_end?: string | null
-          customer_email?: string | null
-          family_id?: string | null
-          id?: string
-          plan?: string
-          status?: string
-          stripe_checkout_session_id?: string
-          stripe_customer_id?: string
-          stripe_subscription_id?: string | null
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "family_subscriptions_family_id_fkey"
-            columns: ["family_id"]
-            isOneToOne: false
-            referencedRelation: "families"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       household_permissions: {
         Row: {
           answer: string
@@ -1193,6 +1146,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "household_permissions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      household_threads: {
+        Row: {
+          created_at: string
+          created_by: string
+          family_id: string
+          family_unread: boolean
+          id: string
+          last_sender: string
+          nanny_unread: boolean
+          title: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          family_id: string
+          family_unread?: boolean
+          id?: string
+          last_sender: string
+          nanny_unread?: boolean
+          title: string
+          topic?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          family_id?: string
+          family_unread?: boolean
+          id?: string
+          last_sender?: string
+          nanny_unread?: boolean
+          title?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_threads_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
@@ -1622,8 +1622,6 @@ export type Database = {
       }
       partner_agencies: {
         Row: {
-          household_allowance: number | null
-          plan: string
           allow_challenges: boolean
           allow_perks: boolean
           allow_playbooks: boolean
@@ -1631,17 +1629,17 @@ export type Database = {
           contact_email: string | null
           contact_phone: string | null
           created_at: string
+          household_allowance: number | null
           id: string
           intro_pricing: boolean
           logo_data: string | null
           name: string
+          plan: string
           short_name: string | null
           status: string
           updated_at: string
         }
         Insert: {
-          household_allowance?: number | null
-          plan?: string
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean
@@ -1649,17 +1647,17 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
         }
         Update: {
-          household_allowance?: number | null
-          plan?: string
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean
@@ -1667,10 +1665,12 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name?: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
