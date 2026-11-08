@@ -281,6 +281,13 @@
       "when": 1794170374291,
       "tag": "0039_household_permissions",
       "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1794170382186,
+      "tag": "0040_family_subscriptions",
+      "breakpoints": true
     }
   ]
 }

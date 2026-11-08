@@ -890,6 +890,62 @@ export type Database = {
           },
         ]
       }
+      family_subscriptions: {
+        Row: {
+          billing_interval: string
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          customer_email: string | null
+          family_id: string | null
+          id: string
+          plan: string
+          status: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_interval: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan: string
+          status?: string
+          stripe_checkout_session_id: string
+          stripe_customer_id: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          customer_email?: string | null
+          family_id?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_checkout_session_id?: string
+          stripe_customer_id?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       handover_checklists: {
         Row: {
           created_at: string
