@@ -28,13 +28,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Every family gets a private wallet holding their nanny agreement, nanny CV, routines and everyday nanny tools.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:title", content: "The Family Wallet" },
       {
         property: "og:description",
         content:
-          "Your nanny agreement, nanny CV, routines and nanny tools, all in one private link.",
+          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -971,7 +971,7 @@ function DrawerSwitcher() {
         role="tablist"
         aria-label="Drawers in the wallet"
         onKeyDown={onKeyDown}
-        className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+        className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
       >
         {benefitGroups.map((g, i) => {
           const selected = i === index;
@@ -989,7 +989,7 @@ function DrawerSwitcher() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setIndex(i)}
               className={cn(
-                "flex h-11 flex-none cursor-pointer items-center gap-2.5 rounded-full border px-5 text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97]",
+                "flex h-12 w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-full border px-3 text-[0.8125rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97] sm:h-11 sm:w-auto sm:flex-none sm:justify-start sm:gap-2.5 sm:px-5 sm:text-[0.9375rem]",
                 selected
                   ? "border-foreground bg-foreground text-background"
                   : "border-input bg-card text-foreground hover:border-foreground/40",

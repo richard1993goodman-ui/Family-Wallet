@@ -1,7 +1,7 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertCircle, ArrowRight, KeyRound, Link2, LockKeyhole } from "lucide-react";
+import { AlertCircle, ArrowRight, Building2, KeyRound, Link2, LockKeyhole, ShieldCheck } from "lucide-react";
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,10 +41,13 @@ function FieldError({ id, message }: { id: string; message: string }) {
 export function FamilyLogin({
   className,
   footer,
+  showAgencyTab = false,
 }: {
   className?: string;
   footer?: React.ReactNode;
+  showAgencyTab?: boolean;
 }) {
+  const [mode, setMode] = useState<"family" | "agency">("family");
   const navigate = useNavigate();
   const unlockFn = useServerFn(unlockWallet);
   const [link, setLink] = useState("");
@@ -105,7 +108,55 @@ export function FamilyLogin({
 
   return (
     <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
-      <CardHeader className="p-6 pb-5">
+      {showAgencyTab && (
+        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 grid grid-cols-2 gap-1 rounded-md bg-muted p-1">
+          {(["family", "agency"] as const).map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="tab"
+              aria-selected={mode === m}
+              onClick={() => setMode(m)}
+              className={cn(
+                "rounded px-3 py-1.5 text-sm font-medium transition-colors",
+                mode === m ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {m === "family" ? "Family & nanny" : "Agency"}
+            </button>
+          ))}
+        </div>
+      )}
+      {showAgencyTab && mode === "agency" ? (
+        <>
+          <CardHeader className="px-6 pb-0 pt-0">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Building2 className="size-4 text-muted-foreground" /> Agency team
+            </CardTitle>
+            <CardDescription>
+              Manage your families, branding, challenges and materials.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3 px-6 text-sm text-muted-foreground">
+            <p className="flex items-start gap-2">
+              <ShieldCheck className="mt-0.5 size-4 flex-none text-foreground" />
+              Sign in with your work email, password and authenticator app.
+            </p>
+          </CardContent>
+          <CardFooter className="flex-col gap-3 px-6 pb-6">
+            <Button asChild size="lg" className="h-10 w-full">
+              <Link to="/auth">
+                Agency sign in <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <p className="text-center text-[0.8125rem] text-muted-foreground">
+              First time? Use the setup email we sent you, or choose "Forgot password?" on the next screen.
+            </p>
+          </CardFooter>
+        </>
+      ) : (
+      <>
+      <CardHeader className={cn("p-6 pb-5", showAgencyTab && "pt-0")}>
         <CardTitle className="flex items-center gap-2 text-lg">
           <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
         </CardTitle>
@@ -189,6 +240,8 @@ export function FamilyLogin({
         </Button>
         {footer}
       </CardFooter>
+      </>
+      )}
     </Card>
   );
 }

@@ -4,13 +4,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Download, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Copy, Download, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, listPartnerAgencies, removeAgencyStaff, savePartnerAgency } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, getStaffSetupLink, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { partnerFee } from "@/lib/partner-tiers";
+import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
@@ -34,8 +35,17 @@ function AgenciesPage() {
   const saveFn = useServerFn(savePartnerAgency);
   const addStaffFn = useServerFn(addAgencyStaff);
   const removeStaffFn = useServerFn(removeAgencyStaff);
+  const setupLinkFn = useServerFn(getStaffSetupLink);
   const deleteFn = useServerFn(deletePartnerAgency);
   const exportFn = useServerFn(exportAgencyRecords);
+  const logoFn = useServerFn(setAgencyLogo);
+  const uploadLogo = (id: string, file: File) => {
+    if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type)) { toast.error("Use a PNG, JPG, WebP or SVG image"); return; }
+    if (file.size > 280_000) { toast.error("Logo must be under 280KB"); return; }
+    const reader = new FileReader();
+    reader.onload = () => void run(() => logoFn({ data: { id, logo: String(reader.result) } }), "Logo updated");
+    reader.readAsDataURL(file);
+  };
   const [brand, setBrand] = useState("");
   type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null; allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean };
   const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string; allowChallenges: boolean; allowPerks: boolean; allowPlaybooks: boolean }>) =>
@@ -105,7 +115,10 @@ function AgenciesPage() {
             <div key={a.id} className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="heading-display text-lg">{a.name}</p>
+                  <div className="flex items-center gap-3">
+                    {a.logo_data ? <img src={a.logo_data} alt={`${a.name} logo`} className="h-10 max-w-[120px] rounded border border-border bg-background object-contain p-1" /> : null}
+                    <p className="heading-display text-lg">{a.name}</p>
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     {a.contact_email ?? ""}
                   </p>
@@ -115,8 +128,8 @@ function AgenciesPage() {
                       {([["Their page", `/p/${a.short_name}`], ["Their demo", `/p/${a.short_name}/demo`]] as const).map(([label, path]) => (
                         <div key={label} className="flex flex-wrap items-center gap-2">
                           <span className="text-muted-foreground">{label}:</span>
-                          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{window.location.origin}{path}</code>
-                          <Button variant="ghost" size="sm" className="h-7 px-2" onClick={() => { void navigator.clipboard.writeText(window.location.origin + path); toast.success("Link copied"); }}>Copy</Button>
+                          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{siteUrl(path)}</code>
+                          <Button variant="ghost" size="sm" className="h-7 px-2" onClick={() => { void navigator.clipboard.writeText(siteUrl(path)); toast.success("Link copied"); }}>Copy</Button>
                         </div>
                       ))}
                     </div>
@@ -162,6 +175,13 @@ function AgenciesPage() {
                 >
                   Rename wallet
                 </Button>
+                <label className="inline-flex h-9 cursor-pointer items-center rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+                  {a.logo_data ? "Replace logo" : "Upload logo"}
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadLogo(a.id, f); e.target.value = ""; }} />
+                </label>
+                {a.logo_data ? (
+                  <Button variant="outline" size="sm" onClick={() => run(() => logoFn({ data: { id: a.id, logo: null } }), "Logo removed")}>Remove logo</Button>
+                ) : null}
                 <Button
                   variant="outline"
                   size="sm"
@@ -215,6 +235,17 @@ function AgenciesPage() {
                 {a.staff.map((s) => (
                   <li key={s.id} className="flex items-center justify-between gap-2 text-sm">
                     <span>{s.email} <span className="text-xs text-muted-foreground">{s.joined ? "· signed in" : "· not signed in yet"}</span></span>
+                    <span className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                      onClick={() => run(async () => {
+                        const { link } = await setupLinkFn({ data: { id: s.id } });
+                        await navigator.clipboard.writeText(link);
+                      }, `Setup link copied for ${s.email} — paste it into WhatsApp or your own email`)}
+                    >
+                      <Copy className="h-3.5 w-3.5" /> Copy setup link
+                    </button>
                     <button
                       aria-label={`Remove ${s.email}`}
                       className="text-muted-foreground hover:text-destructive"
@@ -222,6 +253,7 @@ function AgenciesPage() {
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
+                    </span>
                   </li>
                 ))}
                 {a.staff.length === 0 && <li className="text-sm text-muted-foreground">Nobody yet.</li>}

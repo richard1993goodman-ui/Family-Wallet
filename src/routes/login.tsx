@@ -39,13 +39,11 @@ function LoginPage() {
             The Family Wallet
           </p>
           <FamilyLogin
+            showAgencyTab
             className="border-transparent shadow-sm"
             footer={
               <p className="text-center text-[0.8125rem] text-muted-foreground">
-                Lost your details? Your agency can resend them.{" "}
-                <Link to="/admin" className="underline underline-offset-4 hover:text-foreground">
-                  Agency sign in
-                </Link>
+                Lost your details? Your agency can resend them.
               </p>
             }
           />

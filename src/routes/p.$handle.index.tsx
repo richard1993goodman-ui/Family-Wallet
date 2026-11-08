@@ -51,7 +51,11 @@ function PartnerHome() {
     <div className="min-h-screen bg-sand">
       <header className="border-b border-border/70 bg-background/75">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4 sm:px-8">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">{initials}</span>
+          {brand.logo ? (
+            <img src={brand.logo} alt={`${brand.agencyName} logo`} className="h-10 max-w-[140px] object-contain" />
+          ) : (
+            <span className="flex size-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-semibold text-primary-foreground">{initials}</span>
+          )}
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-foreground">{brand.agencyName}</p>
             <p className="text-xs text-muted-foreground">Powered by The Family Wallet</p>
@@ -62,7 +66,7 @@ function PartnerHome() {
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8">
-        <p className="text-[0.8125rem] font-medium text-primary">Your childcare, beautifully organised</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
         <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">{brand.walletName}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
           Your routines, documents and everyday support from {brand.agencyName}, together in one private place.
@@ -74,7 +78,7 @@ function PartnerHome() {
               <div className="flex items-start gap-3">
                 <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground"><Smartphone className="h-5 w-5" /></span>
                 <div>
-                  <p className="text-[0.8125rem] font-medium text-muted-foreground">New to the wallet?</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
                   <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
                 </div>
               </div>

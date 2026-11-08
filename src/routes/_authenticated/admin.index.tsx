@@ -10,6 +10,7 @@ import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
 import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { siteUrl } from "@/lib/site";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -152,6 +153,13 @@ function AdminHome() {
       <div className="mx-auto max-w-3xl px-5 py-10">
         <div className="flex items-start justify-between gap-4">
           <div>
+            {status.data?.agencyLogo && (
+              <img
+                src={status.data.agencyLogo}
+                alt={`${status.data.agencyName ?? "Agency"} logo`}
+                className="mb-4 h-14 max-w-[220px] object-contain"
+              />
+            )}
             <p className="text-[0.8125rem] font-medium text-muted-foreground">
               {status.data?.agencyName ? `${status.data.agencyName} · Powered by The Family Wallet` : "The Family Wallet"}
             </p>
@@ -318,7 +326,7 @@ function AdminHome() {
                   className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${window.location.origin}/w/${family.slug} — access code ${family.access_code}`,
+                      `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
                     );
                     toast.success("Link and code copied");
                   }}
