@@ -1044,6 +1044,53 @@ export type Database = {
           },
         ]
       }
+      household_permissions: {
+        Row: {
+          answer: string
+          category: string
+          family_id: string
+          id: string
+          is_custom: boolean
+          label: string
+          note: string
+          permission_key: string
+          updated_at: string
+          updated_by_name: string | null
+        }
+        Insert: {
+          answer: string
+          category?: string
+          family_id: string
+          id?: string
+          is_custom?: boolean
+          label: string
+          note?: string
+          permission_key: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Update: {
+          answer?: string
+          category?: string
+          family_id?: string
+          id?: string
+          is_custom?: boolean
+          label?: string
+          note?: string
+          permission_key?: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_permissions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       household_threads: {
         Row: {
           created_at: string
