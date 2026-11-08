@@ -14,8 +14,7 @@ import {
   Play,
 } from "lucide-react";
 
-import { Wordmark } from "@/components/brand";
-import { FamilyLogin } from "@/components/FamilyLogin";
+import { WalletHero } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -48,6 +47,7 @@ const benefitGroups = [
   {
     title: "Today & planning",
     summary: "Every handover, shift and family update in one calm daily view.",
+    photo: { src: "/images/kids/tennis.jpg", alt: "A child in a white t-shirt seen from behind on a clay tennis court, resting a racket by their side" },
     items: [
       "Weekly planner — what's on each day, Monday to Sunday",
       "Daily log — how each day went",
@@ -61,6 +61,7 @@ const benefitGroups = [
   {
     title: "Family & safety",
     summary: "The people, details and safeguards your nanny needs at a glance.",
+    photo: { src: "/images/kids/artwork.jpg", alt: "A wall of children's rainbow, sun and sunset paintings pinned up side by side" },
     items: [
       "Emergency card — key contacts and instructions at a glance",
       "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
@@ -77,6 +78,7 @@ const benefitGroups = [
   {
     title: "Agreement & employment",
     summary: "Your working arrangement, pay tools and key documents together.",
+    photo: { src: "/images/kids/rainbow-craft.jpg", alt: "A child's hand pressing torn coloured paper onto a rainbow outline" },
     items: [
       "Your nanny agreement",
       "Managed Nannytax setup — a guided introduction and visible next steps",
@@ -89,6 +91,7 @@ const benefitGroups = [
   {
     title: "Support & extras",
     summary: "Trusted ideas and thoughtful extras that make family life easier.",
+    photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
     items: [
       "Messages — topic conversations between family and nanny",
       "Private nanny curation — personally selected profiles, never a public catalogue",
@@ -119,33 +122,6 @@ const weekClaims = [
   {
     title: "Petty cash that adds up",
     detail: "Top-ups and receipts logged, so everyone knows what is left in the float.",
-  },
-];
-
-const credits = [
-  {
-    title: "28–31 Brompton Square, South Kensington",
-    by: "No Swan So Fine",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:28-31_Brompton_Square,_South_Kensington,_July_2023.jpg",
-  },
-  {
-    title: "Holland Park, April 2026",
-    by: "The wub",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/w/index.php?curid=189002899",
-  },
-  {
-    title: "Pushkin House fanlight",
-    by: "Pushkin House Rafy",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Pushkin_House_fanlight.jpg",
-  },
-  {
-    title: "8, 9 and 10 North Terrace, South Kensington",
-    by: "No Swan So Fine",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:8,_9_and_10_North_Terrace,_South_Kensington,_July_2023.jpg",
   },
 ];
 
@@ -181,7 +157,9 @@ function SiteHeader() {
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
         <Link to="/" aria-label="The Family Wallet, home">
-          <Wordmark />
+          <span className="heading-serif text-[1.375rem] leading-none text-foreground">
+            The Family Wallet
+          </span>
         </Link>
         <nav className="hidden items-center gap-7 text-[0.9375rem] md:flex">
           {navLinks.map((n) => (
@@ -202,7 +180,7 @@ function SiteHeader() {
         </nav>
         <div className="flex items-center gap-2">
           <Button className="hidden sm:inline-flex" asChild>
-            <a href="#sign-in">Open my wallet</a>
+            <Link to="/login">Open my wallet</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>
@@ -232,15 +210,10 @@ function SiteHeader() {
                 </Button>
                 <Separator className="my-3" />
                 <Button className="h-11" asChild>
-                  <a href="#sign-in">Open my wallet</a>
+                  <Link to="/login">Open my wallet</Link>
                 </Button>
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
-                </Button>
-                <Button variant="ghost" className="mt-2 h-11" asChild>
-                  <a href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet">
-                    Get in touch
-                  </a>
                 </Button>
               </div>
             </SheetContent>
@@ -265,76 +238,11 @@ function Index() {
       <SiteHeader />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        {/* The front door: what this is, and the way in */}
-        <section id="front" className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-7 lg:pr-6" data-reveal>
-              <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
-                Family and nanny, one wallet
-              </h1>
-              <p className="mt-6 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
-                Your family's private hub for managing your nanny. Weekly schedules, agreements,
-                household codes and day-to-day childcare, together in one place.
-              </p>
-              <div className="mt-9 hidden flex-wrap items-center gap-x-6 gap-y-4 sm:flex">
-                <Button size="lg" asChild>
-                  <Link to="/demo">
-                    Explore the demo wallet <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-              <p className="mt-5 hidden text-sm text-muted-foreground sm:block">
-                The demo is the Harrington family and their nanny Jess. Nothing in it is live.
-              </p>
-            </div>
-
-            <div className="lg:col-span-5" data-reveal>
-              <div className="relative overflow-hidden rounded-lg px-4 pb-10 pt-3 sm:overflow-visible sm:rounded-none sm:p-0">
-                <figure className="absolute inset-0 overflow-hidden bg-muted sm:relative sm:inset-auto">
-                  <img
-                    src="/images/london/brompton-square.jpg"
-                    alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
-                    width={1200}
-                    height={1600}
-                    className="hero-drift h-full w-full object-cover sm:aspect-[4/3] sm:h-auto lg:aspect-[4/5]"
-                    fetchPriority="high"
-                  />
-                </figure>
-                <div className="relative sm:absolute sm:bottom-6 sm:left-6 sm:w-[25rem]">
-                  <FamilyLogin
-                    showAgencyTab
-                    className="wallet-glass bg-transparent"
-                    footer={
-                      <p className="text-center text-[0.8125rem] text-muted-foreground">
-                        Lost your details?{" "}
-                        <a
-                          href="#help"
-                          className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-                        >
-                          Ask your agency
-                        </a>
-                      </p>
-                    }
-                  />
-                </div>
-              </div>
-              <div className="mt-7 sm:hidden">
-                <Button size="lg" className="w-full" asChild>
-                  <Link to="/demo">
-                    Explore the demo wallet <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <p className="mt-3 text-center text-sm text-muted-foreground">
-                  The demo is the Harrington family and their nanny Jess. Nothing in it is live.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* The front door is the wallet itself: a phone you can spin and tap, driven by the page */}
+        <WalletHero />
 
         {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
-        <div aria-hidden className="week-seam" />
-        <section id="week" className="week-rise scroll-mt-16 bg-card py-24 lg:py-32">
+        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
           <div className={frame}>
             <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
               <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
@@ -367,11 +275,11 @@ function Index() {
                 data-reveal
               >
                 <img
-                  src="/images/london/fanlight.jpg"
-                  alt="A Georgian fanlight in a white stucco arch"
+                  src="/images/london/colouring.jpg"
+                  alt="Two children colouring in Easter pictures with felt-tip pens at a table in the sun"
                   width={1600}
-                  height={1066}
-                  className="absolute inset-0 h-full w-full origin-top scale-[1.4] object-cover object-top"
+                  height={960}
+                  className="absolute inset-0 h-full w-full object-cover object-[45%_50%]"
                   loading="lazy"
                 />
               </figure>
@@ -397,15 +305,15 @@ function Index() {
 
         <figure className={cn(frame, "pt-4 lg:pt-8")}>
           <img
-            src="/images/london/holland-park-morning.jpg"
-            alt="A tree-lined Holland Park street in low morning sun"
-            width={1204}
-            height={1600}
-            className="aspect-[4/5] w-full rounded-lg object-cover sm:aspect-[21/9]"
+            src="/images/kids/school-run.jpg"
+            alt="A line of children in sun hats and bright backpacks walking away from the camera on the school run"
+            width={1600}
+            height={1252}
+            className="aspect-[4/5] w-full rounded-lg object-cover object-[68%_45%] sm:aspect-[16/9] sm:object-[50%_42%]"
             loading="lazy"
           />
           <figcaption className="mt-3 text-[0.8125rem] text-muted-foreground">
-            Holland Park, early morning. The school run starts at 8:10.
+            The school run, on foot. Every handover goes in the wallet.
           </figcaption>
         </figure>
 
@@ -459,9 +367,9 @@ function Index() {
               </ol>
               <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Button size="lg" className="bg-white text-ink-band hover:bg-white/90" asChild>
-                  <a href="#sign-in">
+                  <Link to="/login">
                     Open my wallet <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
                 <p className="text-[0.9375rem] text-white/70">
                   Need your details again? Your agency resends them.{" "}
@@ -469,24 +377,15 @@ function Index() {
                     Agency sign in
                   </Link>
                 </p>
-                <p className="w-full text-[0.9375rem] text-white/70">
-                  Questions about The Family Wallet?{" "}
-                  <a
-                    href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
-                    className="text-white underline underline-offset-4"
-                  >
-                    Get in touch with the team
-                  </a>
-                </p>
               </div>
             </div>
             <figure className="lg:col-span-6 lg:col-start-7" data-reveal>
               <img
-                src="/images/london/north-terrace.jpg"
-                alt="Arched front doors and black railings on North Terrace, South Kensington"
-                width={1200}
-                height={1600}
-                className="aspect-[4/3] w-full object-cover"
+                src="/images/kids/paint-sticks.jpg"
+                alt="A toddler in profile drawing coloured circles on paper with chunky paint sticks"
+                width={1400}
+                height={1050}
+                className="aspect-[4/3] w-full rounded-2xl object-cover"
                 loading="lazy"
               />
             </figure>
@@ -509,27 +408,9 @@ function Index() {
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>
-              <a
-                href="mailto:Familywallet@mail.co.uk?subject=Enquiry%20about%20The%20Family%20Wallet"
-                className="transition-colors hover:text-foreground"
-              >
-                Get in touch
-              </a>
             </nav>
             <p>© {new Date().getFullYear()} The Family Wallet</p>
           </div>
-          <p className="mt-8 max-w-4xl text-xs leading-relaxed text-muted-foreground">
-            Photographs:{" "}
-            {credits.map((c, i) => (
-              <span key={c.href}>
-                <a href={c.href} className="underline underline-offset-2 hover:text-foreground">
-                  {c.title}
-                </a>{" "}
-                by {c.by}, {c.licence}, via Wikimedia Commons
-                {i < credits.length - 1 ? "; " : "."}
-              </span>
-            ))}
-          </p>
         </div>
       </footer>
     </div>
@@ -665,7 +546,7 @@ function WeekPreview() {
               <span
                 className={cn(
                   "num mt-2.5 text-[11px] leading-tight",
-                  d.shift ? "text-foreground" : "text-muted-foreground/85",
+                  d.shift ? "text-foreground" : "text-muted-foreground/70",
                 )}
               >
                 {d.shift ? `${clock(d.shift[0])}–${clock(d.shift[1])}` : "Off"}
@@ -911,44 +792,24 @@ const STORY: Array<{ time: string; title: string; detail: string; card: ReactNod
   },
 ];
 
+/** Which step of Wednesday the visitor's own clock falls in, so each visit opens somewhere real. */
+function stepForClock(date: Date) {
+  const h = date.getHours() + date.getMinutes() / 60;
+  return h < 14 + 58 / 60 ? 0 : h < 17.5 ? 1 : h < 19 ? 2 : 3;
+}
+
 function DayScrubber() {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [pinned, setPinned] = useState(false);
-  const track = useRef<HTMLDivElement | null>(null);
+  const [localTime, setLocalTime] = useState<string | null>(null);
   const step = STORY[active]!;
   const last = STORY.length - 1;
 
-  // Pin the card and let vertical scrolling move through the day (skipped for reduced motion).
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    setPinned(true);
-    const onScroll = () => {
-      const el = track.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const distance = el.offsetHeight - window.innerHeight;
-      if (distance <= 0) return;
-      const p = Math.min(1, Math.max(0, -r.top / distance));
-      setActive(Math.min(last, Math.floor(p * (last + 1))));
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [last]);
-
-  function scrollToStep(i: number) {
-    const el = track.current;
-    if (!pinned || !el) return setActive(i);
-    const distance = el.offsetHeight - window.innerHeight;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((i + 0.5) / (last + 1)) * distance, behavior: "smooth" });
-  }
+    const now = new Date();
+    setActive(stepForClock(now));
+    setLocalTime(now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
+  }, []);
 
   useEffect(() => {
     if (!playing) return;
@@ -956,17 +817,17 @@ function DayScrubber() {
       setPlaying(false);
       return;
     }
-    const timer = window.setTimeout(() => scrollToStep(active + 1), 3200);
+    const timer = window.setTimeout(() => setActive(active + 1), 3200);
     return () => window.clearTimeout(timer);
   }, [playing, active, last]);
 
   function go(i: number) {
     setPlaying(false);
-    scrollToStep(i);
+    setActive(i);
   }
 
   function togglePlay() {
-    if (!playing && active === last) scrollToStep(0);
+    if (!playing && active === last) setActive(0);
     setPlaying(!playing);
   }
 
@@ -983,39 +844,32 @@ function DayScrubber() {
           </p>
         </div>
 
-      </div>
-      <div
-        ref={track}
-        className="relative mt-10 lg:mt-14"
-        style={pinned ? { height: `calc(100svh + ${STORY.length * 55}svh)` } : undefined}
-      >
-        <div className={cn(frame, pinned && "sticky top-0 flex h-[100svh] flex-col justify-center pb-3 pt-[4.5rem]")}>
-        <div className="overflow-hidden rounded-3xl bg-secondary">
+        <div className="mt-14 overflow-hidden rounded-3xl bg-secondary" data-reveal>
           <div className="grid lg:grid-cols-12">
-            <div className="p-6 sm:p-10 lg:col-span-5 lg:p-12">
+            <div className="p-7 sm:p-10 lg:col-span-5 lg:p-12">
               <p
                 aria-hidden
-                className="num heading-display text-[3rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
+                className="num heading-display text-[4.5rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
               >
                 {step.time}
               </p>
               <div
                 key={active}
                 aria-live="polite"
-                className="mt-4 sm:mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
+                className="mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
               >
-                <h3 className="text-[1.375rem] sm:text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
+                <h3 className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
                   <span className="sr-only">{step.time}: </span>
                   {step.title}
                 </h3>
-                <p className="mt-2 max-w-[28rem] text-base leading-relaxed text-foreground sm:mt-3 sm:text-lg">
+                <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
                   {step.detail}
                 </p>
               </div>
             </div>
 
             {/* Every card shares one grid cell, so the stage is as tall as the tallest card. */}
-            <div className="grid place-items-center px-5 pb-6 sm:px-10 sm:pb-10 lg:col-span-7 lg:py-12">
+            <div className="grid place-items-center px-5 pb-10 sm:px-10 lg:col-span-7 lg:py-12">
               {STORY.map((s, i) => (
                 <div
                   key={s.title}
@@ -1034,7 +888,7 @@ function DayScrubber() {
             </div>
           </div>
 
-          <div className="flex items-start gap-4 border-t border-rule px-5 py-3 sm:py-5 sm:gap-6 sm:px-10 lg:px-12">
+          <div className="flex items-start gap-4 border-t border-rule px-5 py-5 sm:gap-6 sm:px-10 lg:px-12">
             <Button
               type="button"
               variant="outline"
@@ -1079,10 +933,12 @@ function DayScrubber() {
             </div>
           </div>
         </div>
-        {pinned && (
-          <p className="mt-3 text-center text-sm text-muted-foreground">Keep scrolling to move through the day</p>
+        {localTime && (
+          <p className="mt-4 text-sm text-muted-foreground">
+            It is <span className="num">{localTime}</span> where you are, so the day opened at the
+            nearest moment.
+          </p>
         )}
-        </div>
       </div>
     </section>
   );
@@ -1171,6 +1027,16 @@ function DrawerSwitcher() {
             <p className="num mt-8 text-[0.9375rem] text-muted-foreground">
               {group.items.length} tools in this drawer
             </p>
+            {"photo" in group && (
+              <img
+                src={group.photo.src}
+                alt={group.photo.alt}
+                width={1200}
+                height={900}
+                loading="lazy"
+                className="mt-8 aspect-[4/3] w-full rounded-xl object-cover"
+              />
+            )}
           </div>
           <ul className="grid gap-px bg-rule sm:grid-cols-2 lg:col-span-8 [&>li:last-child:nth-child(odd)]:sm:col-span-2">
             {group.items.map((raw) => {

@@ -67,9 +67,9 @@
   --color-tint-butter-ink: var(--tint-butter-ink);
   --color-tint-rose: var(--tint-rose);
   --color-tint-rose-ink: var(--tint-rose-ink);
-  --font-display: "Newsreader", Georgia, serif;
-  --font-sans: "Instrument Sans", system-ui, sans-serif;
-  --font-serif: "Newsreader", Georgia, serif;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -86,48 +86,47 @@
 /*
  * Nursery morning: warm and calm, made for the grown-ups who look after children.
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
- * Navy ink (--foreground/--primary) is the text and button colour; burnt orange
- * (--brand) is the action and "done" colour; each section of the wallet has a
+ * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
- * Type: Instrument Sans for reading and controls; Newsreader for titles and the greeting.
+ * Type: Nunito Sans for reading and controls; Fraunces, softened, for titles and the greeting.
  */
 :root {
   --radius: 1rem;
-  --background: oklch(0.968 0.008 85);
-  --foreground: oklch(0.25 0.05 262);
-  --card: oklch(0.99 0.004 85);
-  --card-foreground: oklch(0.25 0.05 262);
-  --popover: oklch(0.99 0.004 85);
-  --popover-foreground: oklch(0.25 0.05 262);
-  --primary: oklch(0.25 0.05 262);
-  --primary-foreground: oklch(0.985 0.004 85);
-  --secondary: oklch(0.937 0.014 80);
-  --secondary-foreground: oklch(0.25 0.05 262);
-  --muted: oklch(0.937 0.014 80);
-  --muted-foreground: oklch(0.46 0.03 258);
-  --accent: oklch(0.937 0.014 80);
-  --accent-foreground: oklch(0.25 0.05 262);
+  --background: #fbf7f0;
+  --foreground: #2a2420;
+  --card: #ffffff;
+  --card-foreground: #2a2420;
+  --popover: #ffffff;
+  --popover-foreground: #2a2420;
+  --primary: #2f5d4a;
+  --primary-foreground: #ffffff;
+  --secondary: #f3ece1;
+  --secondary-foreground: #2a2420;
+  --muted: #f5efe6;
+  --muted-foreground: #6b5f55;
+  --accent: #f1e9dd;
+  --accent-foreground: #2a2420;
   --destructive: #b83a3a;
   --destructive-foreground: #ffffff;
-  --border: oklch(0.89 0.012 80);
-  --input: oklch(0.84 0.015 80);
-  --ring: oklch(0.53 0.15 42);
-  --sand: oklch(0.968 0.008 85);
-  --raised: oklch(0.98 0.006 85);
-  --rule: oklch(0.92 0.012 80);
-  --brand: oklch(0.53 0.15 42);
-  --brand-foreground: oklch(0.995 0.002 248);
-  --brand-soft: oklch(0.94 0.04 60);
+  --border: #ece3d6;
+  --input: #ddd2c3;
+  --ring: #2f5d4a;
+  --sand: #fbf7f0;
+  --raised: #fcf9f4;
+  --rule: #f2ebe0;
+  --brand: #2f5d4a;
+  --brand-foreground: #ffffff;
+  --brand-soft: #e4efe7;
   --positive: #2f6b4a;
   --warning: #93511a;
   --warning-soft: #fdf1e2;
-  /* The closing band: deep navy in both themes. */
-  --ink-band: oklch(0.25 0.05 262);
+  /* The closing band: deep garden green in both themes. */
+  --ink-band: #22392f;
   --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
   --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
   --tint-sage: #e4efe7;
-  --tint-sage-ink: oklch(0.34 0.05 258);
+  --tint-sage-ink: #2f5d4a;
   --tint-apricot: #fde8d7;
   --tint-apricot-ink: #8e4a1f;
   --tint-sky: #e1edf7;
@@ -138,74 +137,74 @@
   --tint-butter-ink: #76591a;
   --tint-rose: #f9e3e3;
   --tint-rose-ink: #8f3a43;
-  --chart-1: oklch(0.25 0.05 262);
-  --chart-2: oklch(0.68 0.17 48);
+  --chart-1: #2f5d4a;
+  --chart-2: #e3965c;
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: oklch(0.937 0.014 80);
-  --sidebar-foreground: oklch(0.34 0.05 258);
-  --sidebar-primary: oklch(0.25 0.05 262);
-  --sidebar-primary-foreground: oklch(0.985 0.004 85);
-  --sidebar-accent: oklch(0.91 0.016 80);
-  --sidebar-accent-foreground: oklch(0.25 0.05 262);
-  --sidebar-border: oklch(0.89 0.012 80);
-  --sidebar-ring: oklch(0.53 0.15 42);
+  --sidebar: #f5eee3;
+  --sidebar-foreground: #4a3f37;
+  --sidebar-primary: #2f5d4a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebe1d2;
+  --sidebar-accent-foreground: #2a2420;
+  --sidebar-border: #e8ddce;
+  --sidebar-ring: #2f5d4a;
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
 @media screen {
   .dark {
-    --background: oklch(0.129 0.042 264.695);
-    --foreground: oklch(0.984 0.003 247.858);
-    --card: oklch(0.208 0.042 265.755);
-    --card-foreground: oklch(0.984 0.003 247.858);
-    --popover: oklch(0.232 0.044 265);
-    --popover-foreground: oklch(0.984 0.003 247.858);
-    --primary: oklch(0.929 0.013 255.508);
-    --primary-foreground: oklch(0.208 0.042 265.755);
-    --secondary: oklch(0.279 0.041 260.031);
-    --secondary-foreground: oklch(0.984 0.003 247.858);
-    --muted: oklch(0.279 0.041 260.031);
-    --muted-foreground: oklch(0.82 0.028 258);
-    --accent: oklch(0.279 0.041 260.031);
-    --accent-foreground: oklch(0.984 0.003 247.858);
-    --destructive: oklch(0.66 0.21 25);
-    --destructive-foreground: oklch(0.984 0.003 247.858);
-    --border: oklch(0.984 0.003 247.858 / 12%);
-    --input: oklch(0.984 0.003 247.858 / 18%);
-    --ring: oklch(0.68 0.17 48);
-    --sand: oklch(0.129 0.042 264.695);
-    --raised: oklch(0.232 0.044 265);
-    --rule: oklch(0.32 0.042 262);
-    --brand: oklch(0.68 0.17 48);
-    --brand-foreground: oklch(0.17 0.04 265);
-    --brand-soft: oklch(0.37 0.1 45);
-    --positive: oklch(0.75 0.14 165);
-    --warning: oklch(0.83 0.14 78);
-    --warning-soft: oklch(0.37 0.1 62);
-    --ink-band: oklch(0.24 0.045 265);
+    --background: #171412;
+    --foreground: #f4ede4;
+    --card: #211d1a;
+    --card-foreground: #f4ede4;
+    --popover: #27221f;
+    --popover-foreground: #f4ede4;
+    --primary: #8fc7a8;
+    --primary-foreground: #14231b;
+    --secondary: #2b2622;
+    --secondary-foreground: #f4ede4;
+    --muted: #25201d;
+    --muted-foreground: #bcb0a3;
+    --accent: #2d2723;
+    --accent-foreground: #f4ede4;
+    --destructive: #ec7b7b;
+    --destructive-foreground: #171412;
+    --border: #352e29;
+    --input: #4a413a;
+    --ring: #8fc7a8;
+    --sand: #171412;
+    --raised: #27221f;
+    --rule: #2d2723;
+    --brand: #8fc7a8;
+    --brand-foreground: #14231b;
+    --brand-soft: #1f3128;
+    --positive: #8fc7a8;
+    --warning: #f0b673;
+    --warning-soft: #33261a;
+    --ink-band: #1d2b24;
     --shadow-soft: none;
-    --tint-sage: oklch(0.3 0.07 165);
-    --tint-sage-ink: oklch(0.87 0.1 165);
-    --tint-apricot: oklch(0.37 0.1 45);
-    --tint-apricot-ink: oklch(0.94 0.08 52);
-    --tint-sky: oklch(0.32 0.08 248);
-    --tint-sky-ink: oklch(0.88 0.09 238);
-    --tint-lilac: oklch(0.32 0.08 300);
-    --tint-lilac-ink: oklch(0.89 0.09 305);
-    --tint-butter: oklch(0.37 0.1 85);
-    --tint-butter-ink: oklch(0.94 0.08 86);
-    --tint-rose: oklch(0.32 0.08 15);
-    --tint-rose-ink: oklch(0.89 0.1 15);
-    --sidebar: oklch(0.208 0.042 265.755);
-    --sidebar-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-primary: oklch(0.68 0.17 48);
-    --sidebar-primary-foreground: oklch(0.17 0.04 265);
-    --sidebar-accent: oklch(0.279 0.041 260.031);
-    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.68 0.17 48);
+    --tint-sage: #1f3128;
+    --tint-sage-ink: #9fd3b4;
+    --tint-apricot: #3a271b;
+    --tint-apricot-ink: #f3b98e;
+    --tint-sky: #1c2b38;
+    --tint-sky-ink: #9cc6ea;
+    --tint-lilac: #2a2338;
+    --tint-lilac-ink: #c5b5ea;
+    --tint-butter: #33291a;
+    --tint-butter-ink: #ecd08a;
+    --tint-rose: #382024;
+    --tint-rose-ink: #f0a9b1;
+    --sidebar: #120f0e;
+    --sidebar-foreground: #ddd3c8;
+    --sidebar-primary: #8fc7a8;
+    --sidebar-primary-foreground: #14231b;
+    --sidebar-accent: #27221f;
+    --sidebar-accent-foreground: #f4ede4;
+    --sidebar-border: #352e29;
+    --sidebar-ring: #8fc7a8;
   }
 }
 
@@ -222,11 +221,11 @@
 
 @media screen and (prefers-contrast: more) {
   .dark {
-    --border: oklch(0.984 0.003 247.858 / 22%);
-    --rule: oklch(0.42 0.04 262);
-    --input: oklch(0.984 0.003 247.858 / 30%);
-    --muted-foreground: oklch(0.86 0.02 255);
-    --sidebar-border: oklch(0.984 0.003 247.858 / 20%);
+    --border: #5a5a56;
+    --rule: #444441;
+    --input: #77766f;
+    --muted-foreground: #d4d2cd;
+    --sidebar-border: #5a5a56;
   }
 }
 
@@ -280,6 +279,7 @@
 @utility heading-display {
   font-family: var(--font-display);
   font-weight: 560;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
   letter-spacing: -0.015em;
 }
 
@@ -287,6 +287,7 @@
 @utility heading-serif {
   font-family: var(--font-serif);
   font-weight: 480;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
   letter-spacing: -0.012em;
   font-optical-sizing: auto;
 }
@@ -368,88 +369,17 @@
 @utility material {
   background-color: color-mix(in oklab, var(--color-background) 78%, transparent);
   backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
   @media (prefers-reduced-transparency: reduce) {
     background-color: var(--color-background);
     backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   @media (prefers-contrast: more) {
     background-color: var(--color-background);
     backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-color: var(--color-foreground);
-  }
-}
-
-/*
- * Frosted glass for a panel that floats over a photo.
- * --glass-alpha = how much photo shows through, --glass-blur = how soft it is.
- * Phones get a deeper frost (the card is the whole photo); desktop a gentler one.
- */
-@utility wallet-glass {
-  --glass-tint: 74%;
-  --glass-blur: 26px;
-  position: relative;
-  isolation: isolate;
-  border-color: color-mix(in oklab, var(--color-foreground) 12%, transparent);
-  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, white 55%, transparent),
-    inset 0 0 0 1px color-mix(in oklab, white 10%, transparent),
-    0 26px 60px -30px color-mix(in oklab, var(--color-foreground) 45%, transparent);
-
-  @media (width >= 40rem) {
-    --glass-tint: 90%;
-    --glass-blur: 14px;
-  }
-
-  /* the tinted pane itself, with light catching the top-left corner */
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    pointer-events: none;
-    background-color: color-mix(in oklab, var(--color-card) var(--glass-tint), transparent);
-    background-image:
-      linear-gradient(145deg, color-mix(in oklab, white 26%, transparent), transparent 46%),
-      linear-gradient(325deg, color-mix(in oklab, white 10%, transparent), transparent 38%);
-  }
-
-  /* the fields and the toggle sit *inside* the glass rather than on top of it */
-  & :is(input) {
-    border-color: color-mix(in oklab, var(--color-foreground) 16%, transparent);
-    background-color: color-mix(in oklab, var(--color-background) 55%, transparent);
-  }
-  & :is([role="tablist"]) {
-    background-color: color-mix(in oklab, var(--color-background) 45%, transparent);
-  }
-
-  @media (prefers-reduced-transparency: reduce) {
-    backdrop-filter: none;
-    &::before {
-      background: var(--color-card);
-    }
-  }
-  @media (prefers-contrast: more) {
-    backdrop-filter: none;
-    border-color: var(--color-foreground);
-    &::before {
-      background: var(--color-card);
-    }
-  }
-}
-
-/* Smoked glass: a touch more opaque, and the quieter text lifted so it stays readable. */
-.dark .wallet-glass {
-  --glass-tint: 82%;
-  --color-muted-foreground: color-mix(in oklab, var(--color-foreground) 78%, transparent);
-}
-.dark .wallet-glass input::placeholder {
-  color: color-mix(in oklab, var(--color-foreground) 55%, transparent);
-}
-@media (width >= 40rem) {
-  .dark .wallet-glass {
-    --glass-tint: 92%;
   }
 }
 
@@ -582,28 +512,185 @@
   }
 }
 
-/* Homepage: "A week at the Harringtons'" panel rises over the hero as you scroll */
-.week-seam {
-  height: 6rem;
-  margin-bottom: -6rem;
-  background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--card) 60%, transparent));
-  pointer-events: none;
+
+/* Phone palette, fixed so the device looks the same in light and dark mode */
+@theme inline {
+  --color-navy: #22392f;
+  --color-navy-mid: #2f5d4a;
+  --color-energy: #e0793a;
+  --color-energy-ink: #b4531a;
+  --color-paper: #f3ece0;
 }
-.week-rise {
-  position: relative;
-  border-radius: 2.5rem 2.5rem 0 0;
-  box-shadow: 0 -24px 60px -30px color-mix(in oklab, var(--foreground) 25%, transparent);
+@layer components {
+  .wp-light {
+    --background: #fbf7f0;
+    --foreground: #2a2420;
+    --card: #ffffff;
+    --border: #ece3d6;
+    --muted-foreground: #6b5f55;
+    --primary-foreground: #ffffff;
+  }
 }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .week-rise {
-      animation: week-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 70%;
-    }
-    @keyframes week-rise {
-      from { border-radius: 3rem 3rem 0 0; transform: translateY(3rem) scale(0.96); opacity: 0.6; }
-      to { border-radius: 0; transform: none; opacity: 1; }
-    }
+
+/* --- Family Wallet phone on the home page --- */
+@layer components {
+  /* The 3D parts only render while the phone turns, so at rest it's flat, crisp HTML */
+  .wp-edge,
+  .wp-back {
+    display: none;
+  }
+  .wp-body[data-spinning] {
+    transform-style: preserve-3d;
+    pointer-events: none;
+  }
+  .wp-body[data-spinning] > .wp-back,
+  .wp-body[data-spinning]:not([data-armed]) > .wp-edge {
+    display: block;
+  }
+  .wp-body[data-spinning] > .wp-front {
+    backface-visibility: hidden;
+  }
+
+  /* Screens push in from the right and slide back out, like iOS */
+  .wp-layer {
+    scrollbar-width: none;
+    transition: transform 340ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .wp-layer::-webkit-scrollbar {
+    display: none;
+  }
+  .wp-layer[data-state="covered"] {
+    transform: translateX(-28%);
+  }
+  .wp-layer[data-pushed] {
+    animation: wp-push 340ms cubic-bezier(0.32, 0.72, 0, 1);
+    box-shadow: -12px 0 32px -12px rgb(15 20 32 / 0.25);
+  }
+  .wp-layer[data-state="leaving"] {
+    animation: wp-pop 260ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
+  /* Bottom sheet: slower in than out */
+  .wp-sheet-wrap {
+    pointer-events: none;
+  }
+  .wp-sheet-wrap[data-open] > * {
+    pointer-events: auto;
+  }
+  .wp-backdrop {
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+  .wp-sheet-wrap[data-open] .wp-backdrop {
+    opacity: 1;
+  }
+  .wp-sheet {
+    visibility: hidden;
+    transform: translateY(100%);
+    transition:
+      transform 240ms cubic-bezier(0.32, 0.72, 0, 1),
+      visibility 0s 240ms;
+  }
+  .wp-sheet-wrap[data-open] .wp-sheet {
+    visibility: visible;
+    transform: none;
+    transition:
+      transform 380ms cubic-bezier(0.32, 0.72, 0, 1),
+      visibility 0s;
+  }
+
+  .wp-bubble {
+    animation: wp-bubble 280ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+  .wp-dot {
+    animation: wp-dot 1.1s ease-in-out infinite;
+  }
+  .wp-sign {
+    animation: wp-sign 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .wp-tick {
+    animation: wp-tick 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .wp-unblur {
+    animation: wp-unblur 240ms ease-out both;
+  }
+}
+
+@keyframes wp-push {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes wp-pop {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes wp-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes wp-bubble {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+@keyframes wp-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+@keyframes wp-sign {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes wp-tick {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+@keyframes wp-unblur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+/* Reduced motion: no sliding or spinning, short fades instead */
+@media (prefers-reduced-motion: reduce) {
+  .wp-layer,
+  .wp-sheet,
+  .wp-sheet-wrap[data-open] .wp-sheet {
+    transition-duration: 0s;
+  }
+  .wp-layer[data-state="covered"] {
+    transform: none;
+  }
+  .wp-layer[data-pushed] {
+    animation: wp-fade 160ms ease-out;
+  }
+  .wp-layer[data-state="leaving"] {
+    animation: wp-fade 160ms ease-out reverse forwards;
+  }
+  .wp-bubble,
+  .wp-dot,
+  .wp-sign,
+  .wp-tick,
+  .wp-unblur {
+    animation: none;
   }
 }

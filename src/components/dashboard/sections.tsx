@@ -63,7 +63,7 @@ export function EmergencyCardLink({ slug }: { slug: string }) {
           Contacts, allergies, medication, GP and address
         </span>
       </span>
-      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/70 transition-transform group-hover:translate-x-0.5" />
+      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
     </Link>
   );
 }
