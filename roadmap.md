@@ -10,5 +10,5 @@
 - [x] Cost calculator: remove Richard/WhatsApp contact, keep Copy summary
 - [x] Nanny bank details page
 - [x] Demo wallet open to anyone without a code
-- [x] Remove the logo mark from the site header, leaving just the site title at the top
 - [x] Pull the GitHub redesign (role-based navigation, new dashboards, warm design system) and re-apply local features: bank details, agency logo, canonical familywallet.io links, two-week rota, open demo
+- [x] Pull GitHub redesign round 2 (/login page, kids photography, Fraunces + Nunito Sans, new palette) and keep the Get in touch enquiry links in the phone menu, opening-your-wallet band and footer

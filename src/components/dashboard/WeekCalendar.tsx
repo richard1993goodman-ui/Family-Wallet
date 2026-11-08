@@ -157,7 +157,7 @@ export function WeekCalendar({
               </span>
               <span
                 className={`num mt-2 flex w-full flex-col items-center text-[11px] leading-[1.3] sm:flex-row sm:justify-center ${
-                  label[0] === "Off" ? "text-muted-foreground/85" : "text-foreground"
+                  label[0] === "Off" ? "text-muted-foreground/70" : "text-foreground"
                 }`}
               >
                 <span>{label[0]}</span>
