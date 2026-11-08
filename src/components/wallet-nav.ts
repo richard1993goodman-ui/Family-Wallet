@@ -17,10 +17,12 @@ import {
   Home,
   KeyRound,
   Landmark,
+  ListChecks,
   MessageCircle,
   NotebookPen,
   Pill,
   Plane,
+  ShieldAlert,
   ShieldCheck,
   Siren,
   Sparkles,
@@ -56,7 +58,9 @@ export type WalletPath =
   | "/messages/$slug"
   | "/housemanual/$slug"
   | "/kids/$slug"
-  | "/bankdetails/$slug";
+  | "/bankdetails/$slug"
+  | "/incidents/$slug"
+  | "/permissions/$slug";
 
 export type NavItem = {
   label: string;
@@ -84,6 +88,18 @@ const medication = item("Medication log", Pill, "/medication/$slug", [
   "dose",
   "calpol",
 ]);
+const incidents = item("Incident reports", ShieldAlert, "/incidents/$slug", [
+  "accident",
+  "bump",
+  "injury",
+  "report",
+]);
+const permissions = item("Permissions", ListChecks, "/permissions/$slug", [
+  "consent",
+  "sun cream",
+  "collect",
+  "photos",
+]);
 const handover = item("Handover & expenses", ClipboardCheck, "/handover/$slug", ["receipts"]);
 const moments = item("Photo moments", Camera, "/moments/$slug", ["photos", "milestones"]);
 const report = item("Weekly report", FileBarChart, "/report/$slug", ["friday", "summary"]);
@@ -99,7 +115,14 @@ const children = item("Children & routines", Users, "/family/$slug", ["school", 
 const guide = item("Nanny quick guide", BookOpen, "/guide/$slug", ["summary"]);
 const first48 = item("First 48 hours", Sparkles, "/welcome/$slug", ["onboarding", "welcome"]);
 const travel = item("Travel pack", Plane, "/travel/$slug", ["holiday", "villa", "abroad"]);
-const nannies = item("Your nannies", UserPlus, "/nannies/$slug", ["invite", "code"]);
+const nannies = item("Household staff", UserPlus, "/nannies/$slug", [
+  "invite",
+  "code",
+  "nanny",
+  "au pair",
+  "housekeeper",
+  "role",
+]);
 const agreement = item("Nanny agreement", FileText, "/agreement/$slug", ["contract", "sign"]);
 const timesheets = item("Timesheets", Clock3, "/timesheets/$slug", ["hours", "shifts", "pay"]);
 const leave = item("Holiday & leave", CalendarCheck, "/leave/$slug", ["time off", "absence"]);
@@ -116,10 +139,10 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 
 const familyNav: NavSection[] = [
   { label: "Overview", items: [home, calendar, messages, report] },
-  { label: "Day to day", items: [dailyLog, medication, handover, moments, passport] },
+  { label: "Day to day", items: [dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
-    items: [children, kids, houseManual, emergency, guide, first48, travel],
+    items: [children, kids, houseManual, permissions, emergency, guide, first48, travel],
   },
   {
     label: "Your nanny",
@@ -139,10 +162,13 @@ const familyNav: NavSection[] = [
 ];
 
 const nannyNav: NavSection[] = [
-  { label: "My day", items: [home, calendar, messages, dailyLog, medication, handover, moments] },
+  {
+    label: "My day",
+    items: [home, calendar, messages, dailyLog, medication, incidents, handover, moments],
+  },
   {
     label: "The family",
-    items: [emergency, houseManual, kids, passport, first48, travel],
+    items: [emergency, houseManual, permissions, kids, passport, first48, travel],
   },
   { label: "My work", items: [timesheets, leave, pettyCash, bankDetails, agreement, training, safety] },
 ];

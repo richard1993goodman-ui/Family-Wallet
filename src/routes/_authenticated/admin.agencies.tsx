@@ -10,7 +10,7 @@ import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, getStaffSetup
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { partnerFee } from "@/lib/partner-tiers";
+import { AGENCY_PLANS, allowanceUsage, formatPounds, isAgencyPlan, type AgencyPlanId } from "@/lib/agency-plans";
 import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
@@ -47,9 +47,9 @@ function AgenciesPage() {
     reader.readAsDataURL(file);
   };
   const [brand, setBrand] = useState("");
-  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null; allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean };
-  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string; allowChallenges: boolean; allowPerks: boolean; allowPlaybooks: boolean }>) =>
-    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "", allowChallenges: patch.allowChallenges ?? a.allow_challenges, allowPerks: patch.allowPerks ?? a.allow_perks, allowPlaybooks: patch.allowPlaybooks ?? a.allow_playbooks } });
+  type A = { id: string; name: string; contact_email: string | null; contact_phone: string | null; status: string; brand_name: string | null; intro_pricing: boolean; short_name: string | null; allow_challenges: boolean; allow_perks: boolean; allow_playbooks: boolean; plan: string; household_allowance: number | null };
+  const saveAgency = (a: A, patch: Partial<{ status: string; brandName: string; introPricing: boolean; shortName: string; allowChallenges: boolean; allowPerks: boolean; allowPlaybooks: boolean; plan: string; householdAllowance: number | null }>) =>
+    saveFn({ data: { id: a.id, name: a.name, contactEmail: a.contact_email ?? "", contactPhone: a.contact_phone ?? "", status: patch.status ?? a.status, brandName: patch.brandName ?? a.brand_name ?? "", introPricing: patch.introPricing ?? a.intro_pricing, shortName: patch.shortName ?? a.short_name ?? "", allowChallenges: patch.allowChallenges ?? a.allow_challenges, allowPerks: patch.allowPerks ?? a.allow_perks, allowPlaybooks: patch.allowPlaybooks ?? a.allow_playbooks, plan: patch.plan ?? a.plan, householdAllowance: patch.householdAllowance !== undefined ? patch.householdAllowance : a.household_allowance } });
   const agencies = useQuery({ queryKey: ["partner-agencies"], queryFn: () => listFn() });
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -104,7 +104,7 @@ function AgenciesPage() {
           <div>
             <Label htmlFor="abrand">Wallet name families see</Label>
             <Input id="abrand" className="mt-1" placeholder="e.g. Nurture Family Wallet" value={brand} onChange={(e) => setBrand(e.target.value)} />
-            <p className="mt-1 text-xs text-muted-foreground">Shown across their families' wallets with "Powered by The Family Wallet". New agencies start on the £35 per family introductory rate.</p>
+            <p className="mt-1 text-xs text-muted-foreground">Shown across their families' wallets with "Powered by The Family Wallet". New agencies start on the Partner plan: 10 active households included.</p>
           </div>
           <Button type="submit"><Plus className="mr-2 h-4 w-4" /> Add agency</Button>
         </form>
@@ -137,17 +137,21 @@ function AgenciesPage() {
                     <p className="mt-2 text-sm text-muted-foreground">Set a web address to get their branded page and demo links.</p>
                   )}
                   {(() => {
-                    const t = partnerFee(a.activeFamilies, a.intro_pricing);
-                    const pct = t.max ? Math.min(100, (a.activeFamilies / t.max) * 100) : 100;
+                    const u = allowanceUsage(isAgencyPlan(a.plan) ? a.plan : "partner", a.household_allowance, a.activeThisMonth);
+                    const bar = u.level === "over" ? "bg-destructive" : u.level === "near" ? "bg-warning" : "bg-primary";
                     return (
-                      <div className="mt-2 w-64 max-w-full">
+                      <div className="mt-3 w-72 max-w-full">
                         <p className="text-sm font-medium">
-                          {t.max ? `${a.activeFamilies} / ${t.max}` : a.activeFamilies} active families — {t.label}{t.label === "Introductory" ? " (£35 per family)" : " tier"}
-                          <span className="text-muted-foreground"> · {t.monthly !== null ? `£${t.monthly}/month + VAT` : "Bespoke pricing"} · no setup fee</span>
+                          {u.allowance === null ? `${u.used} active` : `${u.used} of ${u.allowance} active households`} · {u.planName} plan
                         </p>
-                        <div className="mt-1 h-2 rounded-full bg-muted">
-                          <div className="h-2 rounded-full bg-primary" style={{ width: `${pct}%` }} />
-                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {u.basePence !== null ? `${formatPounds(u.basePence + u.extraPence)}/month + VAT${u.extraPence > 0 ? ` (includes ${formatPounds(u.extraPence)} extra)` : ""}` : "Priced to their agreement"} · {a.activeFamilies} wallet{a.activeFamilies === 1 ? "" : "s"} in total · no setup fee
+                        </p>
+                        {u.allowance !== null && (
+                          <div className="mt-1.5 h-2 rounded-full bg-muted" role="progressbar" aria-valuemin={0} aria-valuemax={u.allowance} aria-valuenow={Math.min(u.used, u.allowance)} aria-label={`${a.name} allowance used`}>
+                            <div className={`h-2 rounded-full ${bar}`} style={{ width: `${u.percent}%` }} />
+                          </div>
+                        )}
                       </div>
                     );
                   })()}
@@ -192,12 +196,36 @@ function AgenciesPage() {
                 >
                   Web address
                 </Button>
+                <label className="inline-flex h-9 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium">
+                  Plan
+                  <select
+                    aria-label={`${a.name} plan`}
+                    className="bg-transparent text-sm"
+                    value={isAgencyPlan(a.plan) ? a.plan : "partner"}
+                    onChange={(e) => void run(() => saveAgency(a, { plan: e.target.value }), "Plan updated")}
+                  >
+                    {(Object.keys(AGENCY_PLANS) as AgencyPlanId[]).map((id) => (
+                      <option key={id} value={id}>
+                        {AGENCY_PLANS[id].name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => run(() => saveAgency(a, { introPricing: !a.intro_pricing }), a.intro_pricing ? "Introductory rate off" : "Introductory rate on")}
+                  onClick={() => {
+                    const n = window.prompt(
+                      "Households included each month. Leave blank to use the plan's default; type 0 for none.",
+                      a.household_allowance === null ? "" : String(a.household_allowance),
+                    );
+                    if (n === null) return;
+                    const value = n.trim() === "" ? null : Number(n);
+                    if (value !== null && (!Number.isFinite(value) || value < 0)) { toast.error("Enter a number, or leave blank"); return; }
+                    void run(() => saveAgency(a, { householdAllowance: value }), "Allowance updated");
+                  }}
                 >
-                  {a.intro_pricing ? "End intro rate" : "Use intro rate"}
+                  Set allowance
                 </Button>
                 <Button
                   variant="outline"

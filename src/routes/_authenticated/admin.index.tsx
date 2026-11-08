@@ -4,12 +4,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Copy, Plus } from "lucide-react";
+import { Copy, Plus, Search } from "lucide-react";
 
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
-import { claimAdmin, getAdminStatus, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { AllowanceCard } from "@/components/AgencyAllowance";
+import { roleLabel } from "@/lib/staff-roles";
 import { siteUrl } from "@/lib/site";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -61,12 +63,19 @@ function AdminHome() {
   const [introFee, setIntroFee] = useState("");
   const [nanny, setNanny] = useState("");
   const [address, setAddress] = useState("");
-  const [filter, setFilter] = useState<"all" | "active" | "cancelled">("all");
+  const [filter, setFilter] = useState<"all" | "active" | "quiet" | "new" | "cancelled">("all");
+  const [search, setSearch] = useState("");
 
   const status = useQuery({ queryKey: ["admin-status"], queryFn: () => statusFn() });
   const families = useQuery({
     queryKey: ["families"],
     queryFn: () => listFn(),
+    enabled: status.data?.isAdmin === true,
+  });
+  const overviewFn = useServerFn(getAgencyOverview);
+  const overview = useQuery({
+    queryKey: ["agency-overview"],
+    queryFn: () => overviewFn(),
     enabled: status.data?.isAdmin === true,
   });
 
@@ -102,6 +111,7 @@ function AdminHome() {
       setAddress("");
       setIntroFee("");
       await queryClient.invalidateQueries({ queryKey: ["families"] });
+      await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
       navigate({ to: "/admin/family/$id", params: { id: result.id } });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not add the family");
@@ -148,9 +158,54 @@ function AdminHome() {
     );
   }
 
+  const data = overview.data;
+  const usage = data?.agency?.usage ?? null;
+  const households = data?.households ?? [];
+  const matchesFilter = (h: (typeof households)[number]) =>
+    filter === "all"
+      ? true
+      : filter === "cancelled"
+        ? h.status !== "active"
+        : h.status === "active" &&
+          (filter === "active" ? h.activeThisMonth : filter === "new" ? h.notOpened : !h.activeThisMonth && !h.notOpened);
+  const needle = search.trim().toLowerCase();
+  const shown = households.filter(
+    (h) => matchesFilter(h) && (!needle || h.name.toLowerCase().includes(needle) || (h.nannyName ?? "").toLowerCase().includes(needle)),
+  );
+  const chips = [
+    { key: "all", label: "All", count: households.length },
+    { key: "active", label: "Active this month", count: data?.totals.activeThisMonth ?? 0 },
+    { key: "quiet", label: "Quiet", count: data?.totals.quiet ?? 0 },
+    { key: "new", label: "Not opened yet", count: data?.totals.notOpened ?? 0 },
+    { key: "cancelled", label: "Cancelled", count: data?.totals.cancelled ?? 0 },
+  ] as const;
+
+  const lastSeen = (iso: string | null) => {
+    if (!iso) return "Not opened yet";
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
+    return days <= 0 ? "Opened today" : days === 1 ? "Opened yesterday" : `Opened ${days} days ago`;
+  };
+  const rolesText = (roles: string[]) => {
+    if (roles.length === 0) return "No staff added yet";
+    const counts = new Map<string, number>();
+    for (const r of roles) counts.set(r, (counts.get(r) ?? 0) + 1);
+    return [...counts].map(([r, n]) => (n > 1 ? `${n} ${roleLabel(r).toLowerCase()}s` : roleLabel(r))).join(", ");
+  };
+  const copyUnopened = () => {
+    const lines = households
+      .filter((h) => h.notOpened)
+      .map((h) => `${h.name}: ${siteUrl(`/w/${h.slug}`)}  access code ${h.accessCode}`);
+    if (lines.length === 0) {
+      toast.info("Every household has opened their wallet.");
+      return;
+    }
+    void navigator.clipboard.writeText(lines.join("\n"));
+    toast.success(`Copied ${lines.length} link${lines.length === 1 ? "" : "s"} and codes`);
+  };
+
   return (
     <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-3xl px-5 py-10">
+      <div className="mx-auto max-w-4xl px-5 py-10">
         <div className="flex items-start justify-between gap-4">
           <div>
             {status.data?.agencyLogo && (
@@ -163,7 +218,7 @@ function AdminHome() {
             <p className="text-[0.8125rem] font-medium text-muted-foreground">
               {status.data?.agencyName ? `${status.data.agencyName} · Powered by The Family Wallet` : "The Family Wallet"}
             </p>
-            <h1 className="heading-display mt-2 text-3xl text-primary">Family Wallets</h1>
+            <h1 className="heading-display mt-2 text-3xl text-primary">Households</h1>
           </div>
           <button
             onClick={signOut}
@@ -173,146 +228,141 @@ function AdminHome() {
           </button>
         </div>
 
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button className="mt-6">
-              <Plus className="mr-2 h-4 w-4" /> Add a family
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add a family</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={onCreate} className="space-y-4">
-              <div>
-                <Label htmlFor="faddress">Home address</Label>
-                <Input
-                  id="faddress"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="mt-1"
-                  placeholder="House number, street, postcode"
-                />
-              </div>
-              <div>
-                <Label htmlFor="fname">Family name</Label>
-                <Input
-                  id="fname"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="mt-1"
-                  placeholder="The Smith family"
-                />
-              </div>
-              <div>
-                <Label htmlFor="femail">Contact email</Label>
-                <Input
-                  id="femail"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1"
-                />
-              </div>
-              <div>
-                <Label htmlFor="fnanny">Nanny name</Label>
-                <Input
-                  id="fnanny"
-                  value={nanny}
-                  onChange={(e) => setNanny(e.target.value)}
-                  className="mt-1"
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                Create wallet
+        {usage && <AllowanceCard usage={usage} />}
+
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" /> Add a family
               </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-
-        <Link
-          to="/admin/support"
-          className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
-        >
-          <span>
-            <span className="block font-medium text-foreground">Support inbox</span>
-            <span className="mt-1 block text-sm text-muted-foreground">
-              Questions families have sent you
-            </span>
-          </span>
-          <span className="text-primary">→</span>
-        </Link>
-
-        {status.data?.isOwner && (
-          <>
-            <Link
-              to="/admin/agencies"
-              className="mt-3 flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
-            >
-              <span>
-                <span className="block font-medium text-foreground">Partner agencies</span>
-                <span className="mt-1 block text-sm text-muted-foreground">
-                  Agencies using the wallet for their own families, and who can sign in for them
-                </span>
-              </span>
-              <span className="text-primary">→</span>
-            </Link>
-          </>
-        )}
-        {status.data?.features.challenges && (
-          <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-        )}
-        {(status.data?.features.perks || status.data?.features.playbooks) && (
-          <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-        )}
-        <div className="mt-6"><AgencyTermsPanel /></div>
-
-        <div className="mt-8 space-y-3">
-          {families.data?.length === 0 && (
-            <p className="text-sm text-muted-foreground">No families yet.</p>
-          )}
-          {families.data && families.data.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {(["all", "active", "cancelled"] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`rounded-full border px-3 py-1 text-sm ${filter === f ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-muted-foreground"}`}
-                >
-                  {f === "all" ? "All" : f === "active" ? "Active members" : "Cancelled"} (
-                  {f === "all" ? families.data.length : families.data.filter((x) => (x.status === "active") === (f === "active")).length})
-                </button>
-              ))}
-            </div>
-          )}
-          {families.data?.filter((x) => filter === "all" || (x.status === "active") === (filter === "active")).map((family) => (
-            <div key={family.id} className="rounded-xl border border-border bg-card p-5">
-              <div className="flex items-start justify-between gap-4">
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add a family</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={onCreate} className="space-y-4">
                 <div>
+                  <Label htmlFor="faddress">Home address</Label>
+                  <Input
+                    id="faddress"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="mt-1"
+                    placeholder="House number, street, postcode"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="fname">Family name</Label>
+                  <Input
+                    id="fname"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="mt-1"
+                    placeholder="The Smith family"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="femail">Contact email</Label>
+                  <Input
+                    id="femail"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="fnanny">Nanny name</Label>
+                  <Input
+                    id="fnanny"
+                    value={nanny}
+                    onChange={(e) => setNanny(e.target.value)}
+                    className="mt-1"
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  Create wallet
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+          {(data?.totals.notOpened ?? 0) > 0 && (
+            <Button variant="outline" onClick={copyUnopened}>
+              <Copy className="mr-2 h-4 w-4" /> Copy details for {data!.totals.notOpened} not opened yet
+            </Button>
+          )}
+          <Link to="/admin/support" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
+            Support inbox
+          </Link>
+          {status.data?.isOwner && (
+            <Link to="/admin/agencies" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
+              Partner agencies
+            </Link>
+          )}
+        </div>
+
+        <div className="mt-6 space-y-4">
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+            <Input
+              aria-label="Search households"
+              placeholder="Search by family or staff name"
+              className="pl-9"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter households">
+            {chips.map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                aria-pressed={filter === c.key}
+                onClick={() => setFilter(c.key)}
+                className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${filter === c.key ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-muted-foreground hover:text-foreground"}`}
+              >
+                {c.label} <span className="num">{c.count}</span>
+              </button>
+            ))}
+          </div>
+
+          {overview.isLoading && <p className="text-sm text-muted-foreground">Loading households…</p>}
+          {!overview.isLoading && households.length === 0 && (
+            <p className="text-sm text-muted-foreground">No families yet. Add your first one above.</p>
+          )}
+          {!overview.isLoading && households.length > 0 && shown.length === 0 && (
+            <p className="text-sm text-muted-foreground">No households match.</p>
+          )}
+          {shown.map((h) => (
+            <div key={h.id} className="rounded-xl bg-card p-5 ring-1 ring-border">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
                   <Link
                     to="/admin/family/$id"
-                    params={{ id: family.id }}
+                    params={{ id: h.id }}
                     className="heading-display text-lg text-foreground hover:text-primary"
                   >
-                    {family.family_name}
+                    {h.name}
                   </Link>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {family.nanny_name ? `Nanny: ${family.nanny_name}` : "No nanny added yet"}
-                    {status.data?.isOwner && family.partner_agency_id ? " · Partner agency" : ""}
+                    {rolesText(h.staffRoles)}
+                    {status.data?.isOwner && h.partnerAgencyId ? " · Partner agency" : ""}
                   </p>
+                  <p className="mt-0.5 text-sm text-muted-foreground">{lastSeen(h.lastActiveAt)}</p>
                 </div>
-                <div className="flex flex-col items-end gap-1">
-                  {family.status === "active" ? (
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                      Active
-                    </span>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  {h.status !== "active" ? (
+                    <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">Cancelled</span>
+                  ) : h.activeThisMonth ? (
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Active</span>
+                  ) : h.notOpened ? (
+                    <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Not opened</span>
                   ) : (
-                    <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-                      Cancelled
-                    </span>
+                    <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">Quiet</span>
                   )}
-                  {family.dbsExpired && (
+                  {h.dbsExpired && (
                     <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
                       DBS over 3 years old
                     </span>
@@ -320,13 +370,13 @@ function AdminHome() {
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-                <code className="rounded bg-muted px-2 py-1">/w/{family.slug}</code>
-                <code className="rounded bg-muted px-2 py-1">Code {family.access_code}</code>
+                <code className="rounded bg-muted px-2 py-1">/w/{h.slug}</code>
+                <code className="rounded bg-muted px-2 py-1">Code {h.accessCode}</code>
                 <button
                   className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
                   onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
+                    void navigator.clipboard.writeText(
+                      `${siteUrl(`/w/${h.slug}`)} — access code ${h.accessCode}`,
                     );
                     toast.success("Link and code copied");
                   }}
@@ -337,6 +387,14 @@ function AdminHome() {
             </div>
           ))}
         </div>
+
+        {status.data?.features.challenges && (
+          <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+        )}
+        {(status.data?.features.perks || status.data?.features.playbooks) && (
+          <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+        )}
+        <div className="mt-6"><AgencyTermsPanel /></div>
       </div>
     </div>
   );

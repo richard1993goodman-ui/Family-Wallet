@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { isActiveHousehold, isAgencyPlan } from "./agency-plans";
 import { requireOwner } from "./staff.scope";
 
 // Owner-only management of partner agencies and the staff emails allowed into each.
@@ -12,19 +13,20 @@ export const listPartnerAgencies = createServerFn({ method: "GET" })
     const [{ data: agencies, error }, { data: staff }, { data: families }] = await Promise.all([
       supabaseAdmin.from("partner_agencies").select("*").order("created_at", { ascending: true }),
       supabaseAdmin.from("partner_agency_staff").select("id, agency_id, email, user_id").order("created_at"),
-      supabaseAdmin.from("families").select("partner_agency_id, status").not("partner_agency_id", "is", null),
+      supabaseAdmin.from("families").select("partner_agency_id, status, last_active_at").not("partner_agency_id", "is", null),
     ]);
     if (error) throw new Error(error.message);
     return (agencies ?? []).map((a) => ({
       ...a,
       staff: (staff ?? []).filter((s) => s.agency_id === a.id).map((s) => ({ id: s.id, email: s.email, joined: !!s.user_id })),
       activeFamilies: (families ?? []).filter((f) => f.partner_agency_id === a.id && f.status === "active").length,
+      activeThisMonth: (families ?? []).filter((f) => f.partner_agency_id === a.id && f.status === "active" && isActiveHousehold(f.last_active_at)).length,
     }));
   });
 
 export const savePartnerAgency = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string; allowChallenges?: boolean; allowPerks?: boolean; allowPlaybooks?: boolean }) => d)
+  .inputValidator((d: { id?: string; name: string; contactEmail: string; contactPhone: string; status: string; brandName?: string; introPricing?: boolean; shortName?: string; allowChallenges?: boolean; allowPerks?: boolean; allowPlaybooks?: boolean; plan?: string; householdAllowance?: number | null }) => d)
   .handler(async ({ data, context }) => {
     await requireOwner(context);
     const name = data.name.trim().slice(0, 120);
@@ -40,6 +42,11 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
       allow_challenges: true,
       allow_perks: true,
       allow_playbooks: true,
+      // Only touched when the caller sends them, so unrelated saves never reset an agency's plan.
+      ...(data.plan !== undefined ? { plan: isAgencyPlan(data.plan) ? data.plan : "partner" } : {}),
+      ...(data.householdAllowance !== undefined
+        ? { household_allowance: data.householdAllowance === null ? null : Math.max(0, Math.floor(Number(data.householdAllowance)) || 0) }
+        : {}),
       updated_at: new Date().toISOString(),
     };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

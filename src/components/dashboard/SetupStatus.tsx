@@ -5,7 +5,13 @@ export type SetupItem = {
   label: string;
   done: boolean;
   hint: string;
-  to: "/agreement/$slug" | "/terms/$slug" | "/family/$slug" | "/emergency/$slug" | "/nannies/$slug";
+  to:
+    | "/agreement/$slug"
+    | "/terms/$slug"
+    | "/family/$slug"
+    | "/emergency/$slug"
+    | "/nannies/$slug"
+    | "/permissions/$slug";
 };
 
 export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {

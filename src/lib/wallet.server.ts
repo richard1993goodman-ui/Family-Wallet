@@ -66,7 +66,7 @@ export async function isUnlocked(slug: string) {
   return (session.data.unlocked ?? []).includes(slug);
 }
 
-async function markUnlocked(slug: string) {
+export async function markUnlocked(slug: string) {
   const session = await walletSession();
   const current = session.data.unlocked ?? [];
   if (!current.includes(slug)) {
@@ -169,7 +169,7 @@ export async function listNannyRows(familyId: string) {
   const { data } = await supabaseAdmin
     .from("family_nannies")
     .select(
-      "id, name, bio, photo_path, emergency_name, emergency_relationship, emergency_phone, nanny_code, invited_at, status",
+      "id, name, role, bio, photo_path, emergency_name, emergency_relationship, emergency_phone, nanny_code, invited_at, status",
     )
     .eq("family_id", familyId)
     .eq("status", "active")

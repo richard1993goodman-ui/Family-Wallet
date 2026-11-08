@@ -1,26 +1,19 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireFamily } from "./family.server";
+import { isStaffRole, staffLimitFor, type StaffLimit } from "./staff-roles";
 import { listNannyRows } from "./wallet.server";
-
-const MAX_NANNIES = 6;
 
 function clean(value: string | undefined | null, max = 1000) {
   const trimmed = (value ?? "").trim();
   return trimmed ? trimmed.slice(0, max) : null;
 }
 
-export type NannyInput = {
-  id?: string;
-  name: string;
-  bio?: string;
-  emergencyName?: string;
-  emergencyRelationship?: string;
-  emergencyPhone?: string;
-};
-
+export type { NannyInput } from "./nannies.types";
+import type { NannyInput } from "./nannies.types";
 export type NannySummary = {
   id: string;
   name: string;
+  role: string;
   bio: string | null;
   photoUrl: string | null;
   emergencyName: string | null;
@@ -31,6 +24,19 @@ export type NannySummary = {
   agreementStatus: "none" | "draft" | "issued";
   agreementSigned: boolean;
 };
+
+/** Households that bought a plan themselves are capped by it; agency households are not. */
+async function staffLimitForFamily(familyId: string): Promise<StaffLimit> {
+  const { data } = await supabaseAdmin
+    .from("family_subscriptions")
+    .select("plan, status")
+    .eq("family_id", familyId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const plan = data?.plan === "family" || data?.plan === "household" ? data.plan : null;
+  return staffLimitFor(plan);
+}
 
 /** Everyone the family employs through us, with where their agreement has got to. */
 export async function loadNannies(slug: string) {
@@ -66,6 +72,7 @@ export async function loadNannies(slug: string) {
       return {
         id: row.id,
         name: row.name,
+        role: row.role,
         bio: row.bio,
         photoUrl,
         emergencyName: row.emergency_name,
@@ -82,7 +89,12 @@ export async function loadNannies(slug: string) {
     }),
   );
 
-  return { familyName: family.family_name, nannies };
+  const staffLimit = await staffLimitForFamily(family.id);
+  return {
+    familyName: family.family_name,
+    nannies,
+    staffLimit: { ...staffLimit, used: nannies.length, canAdd: nannies.length < staffLimit.limit },
+  };
 }
 
 export async function saveNanny(slug: string, input: NannyInput) {
@@ -91,8 +103,12 @@ export async function saveNanny(slug: string, input: NannyInput) {
   const name = clean(input.name, 120);
   if (!name) throw new Error("Please add a name");
 
+  const role = input.role ?? "nanny";
+  if (!isStaffRole(role)) throw new Error("Please choose a role");
+
   const row = {
     name,
+    role,
     bio: clean(input.bio, 2000),
     emergency_name: clean(input.emergencyName, 80),
     emergency_relationship: clean(input.emergencyRelationship, 80),
@@ -111,7 +127,14 @@ export async function saveNanny(slug: string, input: NannyInput) {
   }
 
   const existing = await listNannyRows(family.id);
-  if (existing.length >= MAX_NANNIES) throw new Error(`Up to ${MAX_NANNIES} nannies per family`);
+  const staffLimit = await staffLimitForFamily(family.id);
+  if (existing.length >= staffLimit.limit) {
+    throw new Error(
+      staffLimit.upgradeable
+        ? `Your ${staffLimit.planName} plan includes ${staffLimit.limit} staff member. Upgrade to Household to add up to 6.`
+        : `Up to ${staffLimit.limit} staff per household`,
+    );
+  }
 
   const { data, error } = await supabaseAdmin
     .from("family_nannies")

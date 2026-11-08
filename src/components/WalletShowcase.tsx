@@ -116,11 +116,11 @@ export function WalletHero() {
 
         {/* On a phone: headline, wallet, then steps; on desktop the wallet stays pinned beside them */}
         <figure className="mt-8 lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1 lg:mt-0">
-          <div className="lg:sticky lg:top-20 lg:flex lg:h-[calc(100svh-5rem)] lg:flex-col lg:items-center lg:justify-center">
-            <div className="grid place-items-center rounded-[28px] bg-tint-sage px-4 py-10 sm:py-14 lg:w-full lg:max-w-[34rem] lg:py-12">
+          <div className="lg:sticky lg:top-[4.5rem] lg:flex lg:flex-col lg:items-center lg:pt-4">
+            <div className="grid place-items-center rounded-[28px] bg-tint-sage px-4 py-10 sm:py-14 lg:w-full lg:max-w-[34rem] lg:py-6">
               <WalletPhone app={app} />
             </div>
-            <figcaption className="mt-5 flex flex-col items-center gap-2 text-center">
+            <figcaption className="mt-3 flex flex-col items-center gap-2 text-center">
               <button
                 type="button"
                 onClick={app.spin}

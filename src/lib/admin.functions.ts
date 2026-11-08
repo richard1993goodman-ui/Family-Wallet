@@ -737,3 +737,85 @@ export const signAsAgency = createServerFn({ method: "POST" })
     const { adminSign } = await import("./agreement.server");
     return adminSign(data.familyId, data.docKind, data.name);
   });
+
+/**
+ * Everything the agency dashboard needs in one call: the plan allowance, headline counts and a
+ * row per household. Partner staff see their own agency; the owner sees every household.
+ */
+export const getAgencyOverview = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const scope = await requireStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { allowanceUsage, isActiveHousehold, isAgencyPlan } = await import("./agency-plans");
+
+    let familyQuery = supabaseAdmin
+      .from("families")
+      .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id")
+      .order("created_at", { ascending: false });
+    if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
+    const { data: families, error } = await familyQuery;
+    if (error) throw new Error(error.message);
+    const rows = families ?? [];
+    const ids = rows.map((f) => f.id);
+
+    const [{ data: staff }, { data: dbsDocs }, agencyRow] = await Promise.all([
+      ids.length
+        ? supabaseAdmin.from("family_nannies").select("family_id, role").in("family_id", ids).eq("status", "active")
+        : Promise.resolve({ data: [] as { family_id: string; role: string }[] }),
+      supabaseAdmin.from("family_documents").select("family_id, issued_on").eq("doc_type", "dbs").not("issued_on", "is", null),
+      scope.kind === "partner"
+        ? supabaseAdmin.from("partner_agencies").select("plan, household_allowance").eq("id", scope.agencyId).maybeSingle()
+        : Promise.resolve({ data: null }),
+    ]);
+
+    const staffByFamily = new Map<string, string[]>();
+    for (const s of staff ?? []) staffByFamily.set(s.family_id, [...(staffByFamily.get(s.family_id) ?? []), s.role]);
+    const dbsIssued = new Map((dbsDocs ?? []).map((d) => [d.family_id, d.issued_on]));
+    const threeYearsAgo = new Date();
+    threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
+
+    const households = rows.map((f) => {
+      const roles = staffByFamily.get(f.id) ?? [];
+      const issued = dbsIssued.get(f.id);
+      return {
+        id: f.id,
+        slug: f.slug,
+        name: f.family_name,
+        status: f.status,
+        accessCode: f.access_code,
+        createdAt: f.created_at,
+        lastActiveAt: f.last_active_at,
+        activeThisMonth: f.status === "active" && isActiveHousehold(f.last_active_at),
+        notOpened: f.status === "active" && !f.last_active_at,
+        staffRoles: roles,
+        staffCount: roles.length,
+        nannyName: f.nanny_name,
+        dbsExpired: !!issued && new Date(issued) < threeYearsAgo,
+        partnerAgencyId: f.partner_agency_id,
+      };
+    });
+
+    const active = households.filter((h) => h.status === "active");
+    const activeThisMonth = households.filter((h) => h.activeThisMonth).length;
+    const plan = agencyRow.data?.plan;
+    return {
+      scope: scope.kind,
+      agency:
+        scope.kind === "partner"
+          ? {
+              name: scope.agencyName,
+              usage: allowanceUsage(isAgencyPlan(plan) ? plan : "partner", agencyRow.data?.household_allowance ?? null, activeThisMonth),
+            }
+          : null,
+      totals: {
+        households: active.length,
+        activeThisMonth,
+        quiet: active.filter((h) => !h.activeThisMonth && !h.notOpened).length,
+        notOpened: active.filter((h) => h.notOpened).length,
+        cancelled: households.length - active.length,
+        staff: active.reduce((n, h) => n + h.staffCount, 0),
+      },
+      households,
+    };
+  });
