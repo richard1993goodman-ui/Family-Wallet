@@ -15,8 +15,11 @@ export async function stripe<T>(
   params: Record<string, unknown> = {},
   method: "GET" | "POST" = "POST",
 ): Promise<T> {
-  // STRIPE_SECRET_KEY wins; the restricted key is what Lovable's own Stripe connection provides.
-  const key = process.env["STRIPE_SECRET_KEY"] || process.env["STRIPE_RESTRICTED_API_KEY"];
+  // STRIPE_SECRET_KEY wins; then the live key saved by the owner; then Lovable's own restricted Stripe key.
+  const key =
+    process.env["STRIPE_SECRET_KEY"] ||
+    process.env["STRIPE_LIVE_API_KEY"] ||
+    process.env["STRIPE_RESTRICTED_API_KEY"];
   if (!key) throw new Error("Stripe key is not set");
   const form = new URLSearchParams();
   toForm(params, "", form);
