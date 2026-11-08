@@ -16,6 +16,7 @@ import {
 
 import { Wordmark } from "@/components/brand";
 import { FamilyLogin } from "@/components/FamilyLogin";
+import { WalletShowcase } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -397,6 +398,9 @@ function Index() {
 
         {/* One day, scrubbed through as the wallet records it */}
         <DayScrubber />
+
+        {/* A working copy of the wallet on a phone you can spin and tap through */}
+        <WalletShowcase />
 
         {/* Everything in the wallet, set as an index */}
         <section id="included" className="scroll-mt-16 py-24 lg:py-36">
