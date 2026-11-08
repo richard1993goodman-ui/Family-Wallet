@@ -16,7 +16,7 @@ import {
 
 import { Wordmark } from "@/components/brand";
 import { FamilyLogin } from "@/components/FamilyLogin";
-import { WalletShowcase } from "@/components/WalletShowcase";
+import { WalletHero } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -261,39 +261,30 @@ function Index() {
       <SiteHeader />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        {/* The front door: what this is, and the way in */}
-        <section id="front" className={cn(frame, "pb-24 pt-8 md:pt-12 lg:pb-36")}>
+        {/* The front door is the wallet itself: a phone you can spin and tap, driven by the page */}
+        <WalletHero />
+
+        {/* The way in, for households that already have a link and code */}
+        <section className={cn(frame, "py-20 lg:py-28")}>
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-7 lg:pr-6" data-reveal>
-              <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
-                Family and nanny, one wallet
-              </h1>
-              <p className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
-                A private home your agency sets up for each household. The week, the nanny
-                agreement, the house codes and every handover sit behind one link and a
-                six-character code.
-              </p>
-              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Button size="lg" asChild>
-                  <Link to="/demo">
-                    Explore the demo wallet <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-              <p className="mt-5 text-sm text-muted-foreground">
-                The demo is the Harrington family and their nanny Jess. Nothing in it is live.
+            <div className="lg:col-span-5" data-reveal>
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+                Already have your link and code?
+              </h2>
+              <p className="mt-6 max-w-[30rem] text-pretty text-lg leading-relaxed text-foreground">
+                Your agency sends them when your household is set up. The week, the nanny agreement,
+                the house codes and every handover sit behind them.
               </p>
             </div>
-
-            <div className="relative lg:col-span-5" data-reveal>
+            <div className="relative lg:col-span-6 lg:col-start-7" data-reveal>
               <figure className="relative overflow-hidden bg-muted">
                 <img
                   src="/images/london/brompton-square.jpg"
                   alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
                   width={1200}
                   height={1600}
-                  className="hero-drift aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
-                  fetchPriority="high"
+                  className="hero-drift aspect-[4/3] w-full object-cover"
+                  loading="lazy"
                 />
               </figure>
               <div className="mt-4 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:w-[25rem]">
@@ -398,9 +389,6 @@ function Index() {
 
         {/* One day, scrubbed through as the wallet records it */}
         <DayScrubber />
-
-        {/* A working copy of the wallet on a phone you can spin and tap through */}
-        <WalletShowcase />
 
         {/* Everything in the wallet, set as an index */}
         <section id="included" className="scroll-mt-16 py-24 lg:py-36">
