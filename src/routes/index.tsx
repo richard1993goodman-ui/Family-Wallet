@@ -14,8 +14,6 @@ import {
   Play,
 } from "lucide-react";
 
-import { Wordmark } from "@/components/brand";
-import { FamilyLogin } from "@/components/FamilyLogin";
 import { WalletHero } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -49,6 +47,7 @@ const benefitGroups = [
   {
     title: "Today & planning",
     summary: "Every handover, shift and family update in one calm daily view.",
+    photo: { src: "/images/kids/tennis.jpg", alt: "A child in a white t-shirt seen from behind on a clay tennis court, resting a racket by their side" },
     items: [
       "Weekly planner — what's on each day, Monday to Sunday",
       "Daily log — how each day went",
@@ -62,6 +61,7 @@ const benefitGroups = [
   {
     title: "Family & safety",
     summary: "The people, details and safeguards your nanny needs at a glance.",
+    photo: { src: "/images/kids/artwork.jpg", alt: "A wall of children's rainbow, sun and sunset paintings pinned up side by side" },
     items: [
       "Emergency card — key contacts and instructions at a glance",
       "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
@@ -78,6 +78,7 @@ const benefitGroups = [
   {
     title: "Agreement & employment",
     summary: "Your working arrangement, pay tools and key documents together.",
+    photo: { src: "/images/kids/rainbow-craft.jpg", alt: "A child's hand pressing torn coloured paper onto a rainbow outline" },
     items: [
       "Your nanny agreement",
       "Managed Nannytax setup — a guided introduction and visible next steps",
@@ -90,6 +91,7 @@ const benefitGroups = [
   {
     title: "Support & extras",
     summary: "Trusted ideas and thoughtful extras that make family life easier.",
+    photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
     items: [
       "Messages — topic conversations between family and nanny",
       "Private nanny curation — personally selected profiles, never a public catalogue",
@@ -120,33 +122,6 @@ const weekClaims = [
   {
     title: "Petty cash that adds up",
     detail: "Top-ups and receipts logged, so everyone knows what is left in the float.",
-  },
-];
-
-const credits = [
-  {
-    title: "28–31 Brompton Square, South Kensington",
-    by: "No Swan So Fine",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:28-31_Brompton_Square,_South_Kensington,_July_2023.jpg",
-  },
-  {
-    title: "Holland Park, April 2026",
-    by: "The wub",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/w/index.php?curid=189002899",
-  },
-  {
-    title: "Pushkin House fanlight",
-    by: "Pushkin House Rafy",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Pushkin_House_fanlight.jpg",
-  },
-  {
-    title: "8, 9 and 10 North Terrace, South Kensington",
-    by: "No Swan So Fine",
-    licence: "CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:8,_9_and_10_North_Terrace,_South_Kensington,_July_2023.jpg",
   },
 ];
 
@@ -182,7 +157,9 @@ function SiteHeader() {
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
         <Link to="/" aria-label="The Family Wallet, home">
-          <Wordmark />
+          <span className="heading-serif text-[1.375rem] leading-none text-foreground">
+            The Family Wallet
+          </span>
         </Link>
         <nav className="hidden items-center gap-7 text-[0.9375rem] md:flex">
           {navLinks.map((n) => (
@@ -203,7 +180,7 @@ function SiteHeader() {
         </nav>
         <div className="flex items-center gap-2">
           <Button className="hidden sm:inline-flex" asChild>
-            <a href="#sign-in">Open my wallet</a>
+            <Link to="/login">Open my wallet</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>
@@ -233,7 +210,7 @@ function SiteHeader() {
                 </Button>
                 <Separator className="my-3" />
                 <Button className="h-11" asChild>
-                  <a href="#sign-in">Open my wallet</a>
+                  <Link to="/login">Open my wallet</Link>
                 </Button>
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
@@ -263,53 +240,6 @@ function Index() {
       <main id="main" tabIndex={-1} className="outline-none">
         {/* The front door is the wallet itself: a phone you can spin and tap, driven by the page */}
         <WalletHero />
-
-        {/* The way in, for households that already have a link and code */}
-        <section className={cn(frame, "py-20 lg:py-28")}>
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-5" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
-                Already have your link and code?
-              </h2>
-              <p className="mt-6 max-w-[30rem] text-pretty text-lg leading-relaxed text-foreground">
-                Your agency sends them when your household is set up. The week, the nanny agreement,
-                the house codes and every handover sit behind them.
-              </p>
-            </div>
-            <div className="relative lg:col-span-6 lg:col-start-7" data-reveal>
-              <figure className="relative overflow-hidden bg-muted">
-                <img
-                  src="/images/london/brompton-square.jpg"
-                  alt="White stucco townhouses on Brompton Square, South Kensington, under a plane tree"
-                  width={1200}
-                  height={1600}
-                  className="hero-drift aspect-[4/3] w-full object-cover"
-                  loading="lazy"
-                />
-              </figure>
-              <div className="mt-4 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:w-[25rem]">
-                <FamilyLogin
-                  className="border-transparent"
-                  footer={
-                    <p className="text-center text-[0.8125rem] text-muted-foreground">
-                      Lost your details?{" "}
-                      <a
-                        href="#help"
-                        className="font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-                      >
-                        Ask your agency
-                      </a>{" "}
-                      ·{" "}
-                      <Link to="/admin" className="underline-offset-4 hover:underline">
-                        Agency sign in
-                      </Link>
-                    </p>
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
         <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
@@ -345,11 +275,11 @@ function Index() {
                 data-reveal
               >
                 <img
-                  src="/images/london/fanlight.jpg"
-                  alt="A Georgian fanlight in a white stucco arch"
+                  src="/images/london/colouring.jpg"
+                  alt="Two children colouring in Easter pictures with felt-tip pens at a table in the sun"
                   width={1600}
-                  height={1066}
-                  className="absolute inset-0 h-full w-full origin-top scale-[1.4] object-cover object-top"
+                  height={960}
+                  className="absolute inset-0 h-full w-full object-cover object-[45%_50%]"
                   loading="lazy"
                 />
               </figure>
@@ -375,15 +305,15 @@ function Index() {
 
         <figure className={cn(frame, "pt-4 lg:pt-8")}>
           <img
-            src="/images/london/holland-park-morning.jpg"
-            alt="A tree-lined Holland Park street in low morning sun"
-            width={1204}
-            height={1600}
-            className="aspect-[4/5] w-full rounded-lg object-cover sm:aspect-[21/9]"
+            src="/images/kids/school-run.jpg"
+            alt="A line of children in sun hats and bright backpacks walking away from the camera on the school run"
+            width={1600}
+            height={1252}
+            className="aspect-[4/5] w-full rounded-lg object-cover object-[68%_45%] sm:aspect-[16/9] sm:object-[50%_42%]"
             loading="lazy"
           />
           <figcaption className="mt-3 text-[0.8125rem] text-muted-foreground">
-            Holland Park, early morning. The school run starts at 8:10.
+            The school run, on foot. Every handover goes in the wallet.
           </figcaption>
         </figure>
 
@@ -437,9 +367,9 @@ function Index() {
               </ol>
               <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Button size="lg" className="bg-white text-ink-band hover:bg-white/90" asChild>
-                  <a href="#sign-in">
+                  <Link to="/login">
                     Open my wallet <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
                 <p className="text-[0.9375rem] text-white/70">
                   Need your details again? Your agency resends them.{" "}
@@ -451,11 +381,11 @@ function Index() {
             </div>
             <figure className="lg:col-span-6 lg:col-start-7" data-reveal>
               <img
-                src="/images/london/north-terrace.jpg"
-                alt="Arched front doors and black railings on North Terrace, South Kensington"
-                width={1200}
-                height={1600}
-                className="aspect-[4/3] w-full object-cover"
+                src="/images/kids/paint-sticks.jpg"
+                alt="A toddler in profile drawing coloured circles on paper with chunky paint sticks"
+                width={1400}
+                height={1050}
+                className="aspect-[4/3] w-full rounded-2xl object-cover"
                 loading="lazy"
               />
             </figure>
@@ -481,18 +411,6 @@ function Index() {
             </nav>
             <p>© {new Date().getFullYear()} The Family Wallet</p>
           </div>
-          <p className="mt-8 max-w-4xl text-xs leading-relaxed text-muted-foreground">
-            Photographs:{" "}
-            {credits.map((c, i) => (
-              <span key={c.href}>
-                <a href={c.href} className="underline underline-offset-2 hover:text-foreground">
-                  {c.title}
-                </a>{" "}
-                by {c.by}, {c.licence}, via Wikimedia Commons
-                {i < credits.length - 1 ? "; " : "."}
-              </span>
-            ))}
-          </p>
         </div>
       </footer>
     </div>
@@ -1109,6 +1027,16 @@ function DrawerSwitcher() {
             <p className="num mt-8 text-[0.9375rem] text-muted-foreground">
               {group.items.length} tools in this drawer
             </p>
+            {"photo" in group && (
+              <img
+                src={group.photo.src}
+                alt={group.photo.alt}
+                width={1200}
+                height={900}
+                loading="lazy"
+                className="mt-8 aspect-[4/3] w-full rounded-xl object-cover"
+              />
+            )}
           </div>
           <ul className="grid gap-px bg-rule sm:grid-cols-2 lg:col-span-8 [&>li:last-child:nth-child(odd)]:sm:col-span-2">
             {group.items.map((raw) => {

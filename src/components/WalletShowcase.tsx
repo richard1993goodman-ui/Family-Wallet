@@ -99,17 +99,17 @@ export function WalletHero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <Link
+              to="/login"
+              className="inline-flex h-12 items-center rounded-full bg-brand px-6 text-[0.9375rem] font-medium text-brand-foreground transition-[scale,opacity] duration-150 hover:opacity-90 active:scale-[0.97]"
+            >
+              Open My Wallet
+            </Link>
+            <Link
               to="/demo"
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-brand px-6 text-[0.9375rem] font-medium text-brand-foreground transition-[scale,opacity] duration-150 hover:opacity-90 active:scale-[0.97]"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-foreground/25 px-6 text-[0.9375rem] font-medium text-foreground transition-[background-color,scale] duration-150 hover:bg-foreground/[0.05] active:scale-[0.97]"
             >
               Explore the demo wallet <ArrowRight className="size-4" aria-hidden />
             </Link>
-            <a
-              href="#sign-in"
-              className="text-[0.9375rem] text-foreground underline decoration-foreground/30 underline-offset-[6px] transition-colors hover:decoration-foreground"
-            >
-              I have a link and code
-            </a>
           </div>
         </div>
 

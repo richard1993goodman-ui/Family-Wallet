@@ -114,7 +114,7 @@ export function FamilyLogin({
       <CardContent className="px-6 pb-5">
         <form id="family-login" onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="wallet-link">Your wallet link</Label>
+            <Label htmlFor="wallet-link">Wallet Link</Label>
             <div className="relative">
               <Link2 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -138,7 +138,7 @@ export function FamilyLogin({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="wallet-code">Access code</Label>
+            <Label htmlFor="wallet-code">Access Code</Label>
             <div className="relative">
               <KeyRound className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
