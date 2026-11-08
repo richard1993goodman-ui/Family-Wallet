@@ -1091,6 +1091,65 @@ export type Database = {
           },
         ]
       }
+      incident_reports: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by_name: string | null
+          action_taken: string
+          child_name: string
+          created_at: string
+          family_id: string
+          id: string
+          kind: string
+          occurred_at: string
+          parents_told: boolean
+          reported_by: string
+          reported_by_name: string | null
+          severity: string
+          what_happened: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name: string
+          created_at?: string
+          family_id: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name?: string
+          created_at?: string
+          family_id?: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_reports_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kids_playbook_entries: {
         Row: {
           added_by: string
