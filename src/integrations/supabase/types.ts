@@ -410,6 +410,7 @@ export type Database = {
           fee_label: string | null
           id: string
           intro_fee_percent: number | null
+          last_active_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -440,6 +441,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -470,6 +472,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -740,6 +743,7 @@ export type Database = {
           nanny_code: string | null
           nanny_code_hash: string | null
           photo_path: string | null
+          role: string
           sort_order: number
           status: string
           updated_at: string
@@ -761,6 +765,7 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
@@ -782,6 +787,7 @@ export type Database = {
           nanny_code?: string | null
           nanny_code_hash?: string | null
           photo_path?: string | null
+          role?: string
           sort_order?: number
           status?: string
           updated_at?: string
@@ -1623,10 +1629,12 @@ export type Database = {
           contact_email: string | null
           contact_phone: string | null
           created_at: string
+          household_allowance: number | null
           id: string
           intro_pricing: boolean
           logo_data: string | null
           name: string
+          plan: string
           short_name: string | null
           status: string
           updated_at: string
@@ -1639,10 +1647,12 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
@@ -1655,10 +1665,12 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          household_allowance?: number | null
           id?: string
           intro_pricing?: boolean
           logo_data?: string | null
           name?: string
+          plan?: string
           short_name?: string | null
           status?: string
           updated_at?: string
