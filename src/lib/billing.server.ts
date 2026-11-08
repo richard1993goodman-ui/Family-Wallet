@@ -1,6 +1,9 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { isInterval, isPlan } from "./billing.config";
+import { sendEmail } from "./email.server";
 import { stripe } from "./stripe.server";
+import { siteUrl } from "./site";
+import { buildWalletEmail } from "./wallet-email";
 import { generateAccessCode, hashCode } from "./wallet.server";
 
 type StripeSubscription = {
@@ -127,6 +130,12 @@ export async function provisionFromSession(sessionId: string) {
     throw new Error(subError.message);
   }
 
+  // Only the call that actually created the wallet gets here, so the email goes out once.
+  if (email) {
+    const message = buildWalletEmail("welcome", [{ familyName, url: siteUrl(`/w/${slug}`), code }]);
+    await sendEmail({ to: email, ...message });
+  }
+
   return { status: "ready" as const, slug, code, familyName, plan };
 }
 
@@ -177,4 +186,56 @@ export async function hasSubscription(familyId: string) {
     .select("id", { count: "exact", head: true })
     .eq("family_id", familyId);
   return (count ?? 0) > 0;
+}
+
+const RECOVERY_LIMITS = { perClient: 5, perEmail: 3, windowMinutes: 60 };
+
+/**
+ * Emails the wallet link and access code to a household that paid on the pricing page.
+ * Always looks the same to the caller, so it cannot be used to discover who has a wallet.
+ */
+export async function sendWalletDetails(rawEmail: string, clientKey: string) {
+  const email = rawEmail.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return;
+
+  // Throttle with the existing access-attempts table, so no one can use this to spam an inbox.
+  const since = new Date(Date.now() - RECOVERY_LIMITS.windowMinutes * 60 * 1000).toISOString();
+  const keys = [
+    { key: `recover|${clientKey}`, limit: RECOVERY_LIMITS.perClient },
+    { key: `recover-email|${email}`, limit: RECOVERY_LIMITS.perEmail },
+  ];
+  for (const { key, limit } of keys) {
+    const { count } = await supabaseAdmin
+      .from("wallet_access_attempts")
+      .select("id", { count: "exact", head: true })
+      .eq("client_key", key)
+      .gte("attempted_at", since);
+    if ((count ?? 0) >= limit) return;
+  }
+  await supabaseAdmin
+    .from("wallet_access_attempts")
+    .insert(keys.map(({ key }) => ({ slug: "recover", client_key: key, succeeded: false })));
+
+  // Only households that bought a plan here. Agency households ask their agency instead.
+  const like = email.replace(/[\\%_]/g, "\\$&");
+  const { data: subs } = await supabaseAdmin
+    .from("family_subscriptions")
+    .select("family_id")
+    .ilike("customer_email", like)
+    .not("family_id", "is", null);
+  const ids = (subs ?? []).map((s) => s.family_id).filter((id): id is string => Boolean(id));
+  if (ids.length === 0) return;
+
+  const { data: families } = await supabaseAdmin
+    .from("families")
+    .select("slug, family_name, access_code")
+    .in("id", ids)
+    .eq("status", "active");
+  if (!families?.length) return;
+
+  const message = buildWalletEmail(
+    "recover",
+    families.map((f) => ({ familyName: f.family_name, url: siteUrl(`/w/${f.slug}`), code: f.access_code })),
+  );
+  await sendEmail({ to: email, ...message });
 }
