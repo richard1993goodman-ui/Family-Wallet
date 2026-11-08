@@ -1,6 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { accessLevel, isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
 import { normalizeAgreement, type WorkingDay } from "./agreement.model";
+import { expiryInfo } from "./expiry";
+import { PRESET_KEYS } from "./permissions.types";
 
 const MAX_CHILDREN = 8;
 const MAX_TEXT = 4000;
@@ -630,6 +632,9 @@ export async function loadHubSummary(slug: string) {
     { data: leavePending },
     { count: unreadThreads },
     { data: recentDoses },
+    { count: incidentsOpen },
+    { data: permissionRows },
+    { data: safetyDocs },
     session,
   ] = await Promise.all([
       supabaseAdmin
@@ -704,6 +709,21 @@ export async function loadHubSummary(slug: string) {
         .gte("given_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
         .order("given_at", { ascending: false })
         .limit(6),
+      supabaseAdmin
+        .from("incident_reports")
+        .select("id", { count: "exact", head: true })
+        .eq("family_id", family.id)
+        .is("acknowledged_at", null),
+      supabaseAdmin
+        .from("household_permissions")
+        .select("permission_key")
+        .eq("family_id", family.id),
+      supabaseAdmin
+        .from("nanny_safety_documents")
+        .select("expires_on")
+        .eq("family_id", family.id)
+        .neq("visibility", "hidden")
+        .not("expires_on", "is", null),
       sessionAccess(slug),
     ]);
 
@@ -717,6 +737,14 @@ export async function loadHubSummary(slug: string) {
   );
 
   const workingDays: WorkingDay[] = schedules[0]?.workingDays ?? [];
+
+  // Parent-only reminders: reports to sign off, unanswered permissions, safety documents running out.
+  const isFamily = family.access === "family";
+  const answeredPresets = new Set(
+    (permissionRows ?? []).map((r) => r.permission_key).filter((k) => PRESET_KEYS.includes(k)),
+  );
+  const permissionsUnset = PRESET_KEYS.length - answeredPresets.size;
+  const expiryStates = (safetyDocs ?? []).map((d) => expiryInfo(d.expires_on).state);
 
   const kids = children ?? [];
 
@@ -736,6 +764,10 @@ export async function loadHubSummary(slug: string) {
       leavePending: mine(leavePending).length,
       expensesPending: pendingExpenses.length,
       unreadThreads: unreadThreads ?? 0,
+      incidentsOpen: isFamily ? (incidentsOpen ?? 0) : 0,
+      permissionsUnset: isFamily ? permissionsUnset : 0,
+      documentsExpired: isFamily ? expiryStates.filter((x) => x === "expired").length : 0,
+      documentsExpiring: isFamily ? expiryStates.filter((x) => x === "soon").length : 0,
     },
     today: {
       date: todayLondon,
@@ -761,6 +793,7 @@ export async function loadHubSummary(slug: string) {
       homeAddress: Boolean(profile?.home_address),
       gp: Boolean(profile?.gp_details),
       houseRules: Boolean(profile?.house_rules),
+      permissions: permissionsUnset === 0,
       nannies: schedules.length > 0,
     },
   };

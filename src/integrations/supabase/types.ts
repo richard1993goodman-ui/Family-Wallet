@@ -1091,6 +1091,112 @@ export type Database = {
           },
         ]
       }
+      household_permissions: {
+        Row: {
+          answer: string
+          category: string
+          family_id: string
+          id: string
+          is_custom: boolean
+          label: string
+          note: string
+          permission_key: string
+          updated_at: string
+          updated_by_name: string | null
+        }
+        Insert: {
+          answer: string
+          category?: string
+          family_id: string
+          id?: string
+          is_custom?: boolean
+          label: string
+          note?: string
+          permission_key: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Update: {
+          answer?: string
+          category?: string
+          family_id?: string
+          id?: string
+          is_custom?: boolean
+          label?: string
+          note?: string
+          permission_key?: string
+          updated_at?: string
+          updated_by_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_permissions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_reports: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by_name: string | null
+          action_taken: string
+          child_name: string
+          created_at: string
+          family_id: string
+          id: string
+          kind: string
+          occurred_at: string
+          parents_told: boolean
+          reported_by: string
+          reported_by_name: string | null
+          severity: string
+          what_happened: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name: string
+          created_at?: string
+          family_id: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by_name?: string | null
+          action_taken?: string
+          child_name?: string
+          created_at?: string
+          family_id?: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          parents_told?: boolean
+          reported_by?: string
+          reported_by_name?: string | null
+          severity?: string
+          what_happened?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_reports_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kids_playbook_entries: {
         Row: {
           added_by: string

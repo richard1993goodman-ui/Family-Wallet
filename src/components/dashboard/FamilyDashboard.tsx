@@ -23,6 +23,7 @@ import {
   CalendarCheck,
   ReceiptText,
   ScrollText,
+  ShieldAlert,
   ShieldCheck,
   Users,
 } from "lucide-react";
@@ -161,6 +162,20 @@ export function FamilyDashboard(props: DashboardProps) {
                 icon={ShieldCheck}
                 title="Insurance & safeguarding"
                 subtitle="Checks, training and insurance records"
+              />
+              <HubTile
+                slug={slug}
+                to="/incidents/$slug"
+                icon={ShieldAlert}
+                title="Accident & incident reports"
+                subtitle="What happened, what was done, signed off"
+              />
+              <HubTile
+                slug={slug}
+                to="/permissions/$slug"
+                icon={ShieldCheck}
+                title="Permissions & consents"
+                subtitle="What is fine, what needs asking, who can collect"
               />
               <a
                 href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
@@ -329,6 +344,57 @@ function NeedsAttention({
       />,
     );
   }
+  if (attention?.incidentsOpen) {
+    rows.push(
+      <ActionRow
+        key="incidents"
+        slug={slug}
+        to="/incidents/$slug"
+        icon={ShieldAlert}
+        tone="attention"
+        cta="Review"
+        title="Incident reports to sign off"
+        detail="Your nanny has logged something for you to see"
+        badge={<CountBadge count={attention.incidentsOpen} />}
+      />,
+    );
+  }
+  if (attention?.documentsExpired || attention?.documentsExpiring) {
+    const expired = attention.documentsExpired ?? 0;
+    const soon = attention.documentsExpiring ?? 0;
+    rows.push(
+      <ActionRow
+        key="documents"
+        slug={slug}
+        to="/safety/$slug"
+        icon={ShieldCheck}
+        tone="attention"
+        cta="Check"
+        title={expired ? "Safety documents have expired" : "Safety documents expiring soon"}
+        detail={
+          expired
+            ? `${expired} expired${soon ? `, ${soon} more running out` : ""}. Ask your agency to renew.`
+            : `${soon} running out in the next 60 days`
+        }
+        badge={<CountBadge count={expired + soon} />}
+      />,
+    );
+  }
+  if (attention?.permissionsUnset) {
+    rows.push(
+      <ActionRow
+        key="permissions"
+        slug={slug}
+        to="/permissions/$slug"
+        icon={ShieldCheck}
+        tone="attention"
+        cta="Set"
+        title="Set your household permissions"
+        detail="Tell your nanny what is fine without asking"
+        badge={<CountBadge count={attention.permissionsUnset} />}
+      />,
+    );
+  }
   if (attention?.unreadThreads) {
     rows.push(
       <ActionRow
@@ -424,6 +490,12 @@ function SetupProgress({ slug, hub, agreementDone, nannyCount }: DashboardProps)
           done: Boolean(hub?.readiness?.gp),
           hint: "Your family doctor's name and number",
           to: "/emergency/$slug",
+        },
+        {
+          label: "Household permissions",
+          done: Boolean(hub?.readiness?.permissions),
+          hint: "Sun cream, photos, who can collect and more",
+          to: "/permissions/$slug",
         },
         {
           label: "House rules",
