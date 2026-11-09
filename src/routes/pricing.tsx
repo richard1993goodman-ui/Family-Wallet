@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 
 type Audience = "families" | "agencies";
@@ -33,8 +34,7 @@ export const Route = createFileRoute("/pricing")({
 });
 
 /* Swap these when checkout and a sales inbox exist */
-const CONTACT = "richard@athletemannies.com";
-const mail = (subject: string) => `mailto:${CONTACT}?subject=${encodeURIComponent(subject)}`;
+const mail = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 
 const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";
 

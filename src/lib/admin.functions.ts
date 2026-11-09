@@ -857,12 +857,12 @@ export const sendFamilyInvite = createServerFn({ method: "POST" })
     const { emailConfigured, sendEmail } = await import("./email.server");
     if (!emailConfigured()) throw new Error("Email isn't set up yet, so copy the link and code instead.");
     const { buildWalletEmail } = await import("./wallet-email");
-    const { siteUrl } = await import("./site");
+    const { CONTACT_EMAIL, siteUrl } = await import("./site");
     const agencyName = family.partner_agency?.brand_name || family.partner_agency?.name || undefined;
     const message = buildWalletEmail(
       "invite",
       [{ familyName: family.family_name, url: siteUrl(`/w/${family.slug}`), code: family.access_code }],
-      { agencyName, supportEmail: process.env["EMAIL_REPLY_TO"] },
+      { agencyName, supportEmail: process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL },
     );
     if (!(await sendEmail({ to, ...message }))) throw new Error("The email couldn't be sent. Try again in a minute.");
     await supabaseAdmin.from("families").update({ invite_sent_at: new Date().toISOString() }).eq("id", data.id);
