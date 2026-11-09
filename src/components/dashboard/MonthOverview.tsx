@@ -97,7 +97,7 @@ export function MonthView({
   data: MonthData;
 }) {
   const [selected, setSelected] = useState(today);
-  const [view, setView] = useState<View>("month");
+  const [view, setView] = useState<View>("week");
   const { days, totals: monthTotals } = useMemo(
     () => buildMonth(month, data, schedules),
     [month, data, schedules],
