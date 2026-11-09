@@ -132,7 +132,9 @@ export async function provisionFromSession(sessionId: string) {
 
   // Only the call that actually created the wallet gets here, so the email goes out once.
   if (email) {
-    const message = buildWalletEmail("welcome", [{ familyName, url: siteUrl(`/w/${slug}`), code }]);
+    const message = buildWalletEmail("welcome", [{ familyName, url: siteUrl(`/w/${slug}`), code }], {
+      supportEmail: process.env["EMAIL_REPLY_TO"],
+    });
     await sendEmail({ to: email, ...message });
   }
 
