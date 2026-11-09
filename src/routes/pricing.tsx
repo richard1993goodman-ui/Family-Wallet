@@ -4,27 +4,31 @@ import { ArrowRight, Check } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 
 type Audience = "families" | "agencies";
 
 export const Route = createFileRoute("/pricing")({
   validateSearch: (search: Record<string, unknown>): { for?: Audience } =>
     search["for"] === "agencies" ? { for: "agencies" } : {},
-  head: () => ({
-    meta: [
-      { title: "Pricing — The Family Wallet" },
-      {
-        name: "description",
-        content:
-          "Plans for families who employ a nanny, au pair or other household staff, and for agencies who want to give every family a wallet.",
-      },
-      { property: "og:title", content: "Pricing — The Family Wallet" },
-      {
-        property: "og:description",
-        content: "Simple pricing for households and agencies. Nannies and au pairs never pay.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Pricing: Family Wallet Plans for Families & Agencies",
+      description:
+        "Family £7.99 a month for one nanny or au pair, Household £14.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+      path: "/pricing",
+      jsonLd: [
+        softwareLd([
+          { name: "Family", price: "7.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Household", price: "14.99", description: "Up to six staff, billed monthly, excluding VAT." },
+        ]),
+        faqLd(faqs.families),
+        breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ]),
+      ],
+    }),
   component: PricingPage,
 });
 
@@ -108,7 +112,8 @@ const agencies: Tier[] = [
       { text: "10 active households" },
       { text: "Extra households £3/mo each" },
       { text: "Your logo, “Powered by The Family Wallet”" },
-      { text: "Invite links and CSV import of existing families" },
+      { text: "Copy each family's link and code in one tap" },
+      { text: "Bulk import of existing families", soon: true },
       { text: "Basic agency dashboard" },
     ],
     cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Partner") },
@@ -211,7 +216,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I bring my existing families on?",
-      a: "Yes. Import them from a spreadsheet, then send each family and nanny a branded invite link.",
+      a: "Yes. Add each family in your dashboard and copy their link and access code to send on. Bulk import from a spreadsheet is on the way."
     },
     {
       q: "What happens when a family leaves my agency?",

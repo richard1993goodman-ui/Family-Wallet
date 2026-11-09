@@ -3,18 +3,16 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { openDemoWallet } from "@/lib/wallet.functions";
 import { setDemoBrand } from "@/lib/demo-brand";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/demo")({
-  head: () => ({
-    meta: [
-      { title: "Demo The Family Wallet" },
-      { name: "description", content: "Explore a sample Family Wallet: agreement, planner, daily logs, sports passport and more." },
-      { property: "og:title", content: "Demo The Family Wallet" },
-      { property: "og:description", content: "See what a private Family Wallet looks like for members." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Demo The Family Wallet",
+      description: "Explore a sample Family Wallet: agreement, planner, daily logs, sports passport and more.",
+      path: "/demo",
+      noindex: true,
+    }),
   component: DemoEntry,
 });
 
