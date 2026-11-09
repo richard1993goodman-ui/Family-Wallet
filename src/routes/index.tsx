@@ -449,14 +449,20 @@ function Index() {
               <Link to="/demo" className="transition-colors hover:text-foreground">
                 Demo wallet
               </Link>
-              <a href={`mailto:${CONTACT_EMAIL}`} onClick={onMailtoClick} className="transition-colors hover:text-foreground">
-                Support
-              </a>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>
             </nav>
-            <p>© {new Date().getFullYear()} The Family Wallet</p>
+            <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span>© {new Date().getFullYear()} The Family Wallet</span>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={onMailtoClick}
+                className="text-[0.8125rem] underline underline-offset-4 transition-colors hover:text-foreground"
+              >
+                Contact support
+              </a>
+            </p>
           </div>
         </div>
       </footer>
