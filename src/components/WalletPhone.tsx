@@ -35,6 +35,7 @@ import {
   Signal,
   Siren,
   Sparkles,
+  StickyNote,
   UserPlus,
   Users,
   Wifi,
@@ -262,6 +263,7 @@ const TINTS = {
   sage: "bg-[#e4efe7] text-[#2f6b4a]",
   rose: "bg-[#f9e3e3] text-[#8f3a43]",
   butter: "bg-[#fbf0cf] text-[#76591a]",
+  sky: "bg-[#e1edf7] text-[#2c5a80]",
 } as const;
 
 function Title({ children, sub }: { children: ReactNode; sub?: string }) {
@@ -423,8 +425,134 @@ function WeekStrip({
 
 /* ---------- Tabs ---------- */
 
+/** Notes the parents left for Jess, by weekday (Monday is 0). */
+const PARENT_NOTES: Record<number, string> = {
+  0: "Spellings test on Friday. The list is on the fridge",
+  3: "Swimming at 16:30. Leo's kit is in the hall cupboard",
+  4: "Film night. Popcorn is in the top cupboard",
+};
+const SHIFT_HOURS = 4.5;
+
+/** The home screen's month: Jess works weekdays 15:00 to 19:30, and every past shift has hours and an update. */
+function MonthCard({ app }: ScreenProps) {
+  const today = app.today;
+  const [picked, setPicked] = useState<number | null>(null);
+  const first = new Date(today.getFullYear(), today.getMonth(), 1);
+  const count = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+  const days = Array.from({ length: count }, (_, i) => addDays(first, i));
+  const working = days.filter((d) => weekday(d) < 5);
+  const worked = working.filter((d) => d.getDate() < today.getDate());
+  const day = days[(picked ?? today.getDate()) - 1]!;
+  const isToday = day.getDate() === today.getDate();
+  const works = weekday(day) < 5;
+  const logged = works && day.getDate() < today.getDate();
+  const log = LOGS[day.getDate() % LOGS.length]!;
+  const note = PARENT_NOTES[weekday(day)];
+  const stats = [
+    [
+      "Hours logged",
+      String(worked.length * SHIFT_HOURS),
+      `of ${working.length * SHIFT_HOURS} agreed`,
+    ],
+    ["Updates", String(worked.length), "from Jess"],
+    ["Notes", String(days.filter((d) => PARENT_NOTES[weekday(d)]).length), "from you"],
+  ];
+  return (
+    <>
+      <div className={card}>
+        <p className="font-display text-[16px] text-navy">{monthYear(today)}</p>
+        <dl className="mt-2 grid grid-cols-[1.4fr_1fr_1fr] gap-2">
+          {stats.map(([label, value, sub]) => (
+            <div key={label}>
+              <dt className="text-[9.5px] text-muted-foreground">{label}</dt>
+              <dd className="font-display text-[19px] leading-tight tabular-nums text-navy">
+                {value}
+                <span className="block font-sans text-[9px] text-muted-foreground">{sub}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-3 grid grid-cols-7 gap-y-0.5 border-t border-border pt-2.5">
+          {["M", "T", "W", "T", "F", "S", "S"].map((letter, i) => (
+            <span key={i} className="pb-1 text-center text-[9px] text-muted-foreground" aria-hidden>
+              {letter}
+            </span>
+          ))}
+          {days.map((d) => {
+            const past = d.getDate() < today.getDate();
+            const on = weekday(d) < 5;
+            return (
+              <button
+                key={d.getDate()}
+                type="button"
+                aria-pressed={d === day}
+                aria-label={longDate(d)}
+                onClick={() => setPicked(d.getDate())}
+                style={d.getDate() === 1 ? { gridColumnStart: weekday(d) + 1 } : undefined}
+                className={cn(
+                  "flex flex-col items-center gap-0.5 rounded-[10px] py-1",
+                  d === day && "bg-paper",
+                  press,
+                )}
+              >
+                <span
+                  className={cn(
+                    "grid size-[20px] place-items-center rounded-full text-[10.5px] tabular-nums",
+                    d.getDate() === today.getDate() ? "bg-energy-ink text-white" : "text-navy",
+                  )}
+                >
+                  {d.getDate()}
+                </span>
+                <span
+                  className={cn(
+                    "h-2.5 w-1 rounded-full",
+                    !on ? "bg-transparent" : past ? "bg-energy-ink" : "bg-energy-ink/25",
+                  )}
+                />
+                <span className="flex h-1 gap-px">
+                  {on && past && <span className="size-1 rounded-full bg-[#2c5a80]" />}
+                  {PARENT_NOTES[weekday(d)] && (
+                    <span className="size-1 rounded-full bg-[#8e4a1f]" />
+                  )}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <Label>{isToday ? "Today" : longDate(day)}</Label>
+      <List>
+        <Row
+          icon={Clock3}
+          tint="sage"
+          title={works ? "15:00 to 19:30" : "Day off"}
+          sub={
+            works
+              ? `${SHIFT_HOURS} hours ${logged ? "logged and approved" : "agreed"}`
+              : "No nanny hours"
+          }
+          onClick={() => app.tab("calendar")}
+        />
+        <Row
+          icon={NotebookPen}
+          tint="sky"
+          title={logged ? log.mood : "No update yet"}
+          sub={logged ? log.notes[0]![1]! : "Jess writes one at the end of each shift"}
+          onClick={() => app.push("log")}
+        />
+        <Row
+          icon={StickyNote}
+          title={note ? "Your note" : "No notes for this day"}
+          sub={note ?? "Add one from the calendar"}
+          onClick={() => app.tab("calendar")}
+        />
+      </List>
+    </>
+  );
+}
+
 function HomeScreen({ app }: ScreenProps) {
-  const [lastShift] = workedDays(app.today, 1);
   return (
     <>
       <div>
@@ -469,53 +597,7 @@ function HomeScreen({ app }: ScreenProps) {
         )}
       </List>
 
-      <Label>This week</Label>
-      <button
-        type="button"
-        onClick={() => app.tab("calendar")}
-        className={cn(card, "block w-full text-left", press)}
-      >
-        <span className="flex items-center justify-between">
-          <span className="font-display text-[16px] text-navy">{monthYear(app.today)}</span>
-          <span className="rounded-full border border-border px-2.5 py-1 text-[10px] text-navy">
-            Open calendar
-          </span>
-        </span>
-        <WeekStrip today={app.today} />
-      </button>
-
-      <Label>Latest from your nanny</Label>
-      <List>
-        <Row
-          icon={NotebookPen}
-          title="Great — lots of laughs"
-          sub={`Daily log · ${DAYS[lastShift!.getDay()]}`}
-          onClick={() => app.push("log")}
-        />
-        <Row
-          icon={Medal}
-          tint="butter"
-          title="Oscar earned Dribble Master"
-          sub="Ten keepy-uppies in a row!"
-          onClick={() => app.push("passport")}
-        />
-      </List>
-
-      <Label>Family and home</Label>
-      <List>
-        <Row
-          icon={Users}
-          title="Children & routines"
-          sub="Oscar and Leo"
-          onClick={() => app.tab("family")}
-        />
-        <Row
-          icon={KeyRound}
-          title="House manual & codes"
-          sub="WiFi, alarm, key safe and the house rules"
-          onClick={() => app.push("house")}
-        />
-      </List>
+      <MonthCard app={app} />
     </>
   );
 }
@@ -1516,8 +1598,7 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                 <a
                   ref={sheetAction}
                   href="/demo"
-                  
-                  
+
                   className={cn(btnPrimary, "mt-4 w-full")}
                 >
                   Open the full demo
