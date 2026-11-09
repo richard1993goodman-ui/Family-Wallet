@@ -38,6 +38,31 @@ export async function loadBadges(slug: string): Promise<Record<string, number>> 
   return countUnseen(family.access, activity ?? [], seen ?? []);
 }
 
+export type InboxItem = { id: string; feature: string; summary: string; createdAt: string };
+
+/** Unread notifications for the bell: what the other person did since you last opened or ticked that page. */
+export async function loadInbox(slug: string): Promise<InboxItem[]> {
+  const family = await requireSharedFamily(slug);
+  if (!family) return [];
+  const since = new Date(Date.now() - 14 * DAY).toISOString();
+  const [{ data: activity }, { data: seen }] = await Promise.all([
+    supabaseAdmin
+      .from("wallet_activity")
+      .select("id, feature, summary, created_at")
+      .eq("family_id", family.id)
+      .neq("actor", family.access)
+      .gt("created_at", since)
+      .order("created_at", { ascending: false })
+      .limit(200),
+    supabaseAdmin.from("wallet_seen").select("feature, seen_at").eq("family_id", family.id).eq("role", family.access),
+  ]);
+  const seenAt = new Map((seen ?? []).map((s) => [s.feature, new Date(s.seen_at).getTime()]));
+  return (activity ?? [])
+    .filter((a) => new Date(a.created_at).getTime() > (seenAt.get(a.feature) ?? 0))
+    .slice(0, 30)
+    .map((a) => ({ id: String(a.id), feature: a.feature, summary: a.summary, createdAt: a.created_at }));
+}
+
 export async function markSeen(slug: string, feature: string) {
   const family = await requireSharedFamily(slug);
   if (!family || !FEATURE.test(feature)) return;

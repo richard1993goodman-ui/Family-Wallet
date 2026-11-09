@@ -7,6 +7,13 @@ export const getBadges = createServerFn({ method: "GET" })
     return loadBadges(data.slug);
   });
 
+export const getInbox = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadInbox } = await import("./notifications.server");
+    return loadInbox(data.slug);
+  });
+
 export const markSeenFn = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; feature: string }) => data)
   .handler(async ({ data }) => {

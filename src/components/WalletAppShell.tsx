@@ -7,6 +7,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Lock, LogOut, Menu, Search } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
+import { NotificationBell } from "@/components/NotificationBell";
 
 import { getBadges, markSeenFn } from "@/lib/notifications.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
@@ -229,6 +230,7 @@ function WalletTopBar({
           ⌘K
         </kbd>
       </button>
+      <NotificationBell slug={slug} />
       {slug === "demo" && (
         <Link
           to="/"
