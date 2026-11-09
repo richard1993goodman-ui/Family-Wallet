@@ -91,7 +91,7 @@ export function WalletHero() {
       <div className="mx-auto grid w-full max-w-[84rem] gap-x-10 px-4 sm:px-8 lg:grid-cols-12 lg:gap-x-8">
         <div className="pt-10 sm:pt-14 lg:col-span-6 lg:pt-20">
           <h1 className="heading-serif text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[4.75rem]">
-            Family and nanny, one wallet
+            Your household, in one wallet
           </h1>
           <p className="mt-7 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
             Your family's private hub for your nanny, au pair or household staff. Schedules,
