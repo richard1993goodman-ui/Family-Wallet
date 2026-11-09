@@ -3,6 +3,9 @@
 // so every link we generate or copy uses this canonical site instead.
 export const PUBLIC_SITE_URL = "https://familywallet.io";
 
+/** Where "Talk to us" and pricing enquiries go. */
+export const CONTACT_EMAIL = "info@familywallet.io";
+
 export function siteUrl(path: string): string {
   const suffix = path.startsWith("/") ? path : `/${path}`;
   return `${PUBLIC_SITE_URL}${suffix}`;

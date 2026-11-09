@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
+import { SupportBox } from "@/components/SupportBox";
 import { NextStep } from "@/components/dashboard/NextStep";
 import { hasHours } from "@/lib/work-hours";
 import {
@@ -248,6 +249,7 @@ export function FamilyDashboard(props: DashboardProps) {
           </section>
 
           <Documents {...props} />
+          <SupportBox slug={slug} familyName={wallet.familyName} />
           <EmergencyContacts wallet={wallet} />
           <NannytaxCode code={wallet.nannytaxCode} />
         </Column>

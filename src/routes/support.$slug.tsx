@@ -6,6 +6,7 @@ import { toast } from "sonner";
 
 import { askSupportFn, getSupport, markThreadReadFn, replyAsFamilyFn } from "@/lib/family.functions";
 import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
+import { SupportBox } from "@/components/SupportBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -86,9 +87,12 @@ function SupportPage() {
   return (
     <HubPage
       slug={slug}
-      title="Ask your agency"
-      intro="Anything at all — pay, holidays, behaviour, a replacement nanny. We answer here in your wallet."
+      title="Help & support"
+      intro="Email us any time, or ask your agency a question here in your wallet: pay, holidays, behaviour, a replacement nanny."
     >
+      <div className="mb-6">
+        <SupportBox slug={slug} familyName={support.familyName} showInWalletLink={false} />
+      </div>
       <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
         <Input
           placeholder="Subject (optional)"

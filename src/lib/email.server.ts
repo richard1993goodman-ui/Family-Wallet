@@ -4,6 +4,8 @@
 
 const DEFAULT_FROM = "The Family Wallet <wallet@familywallet.io>";
 
+import { CONTACT_EMAIL } from "./site";
+
 export type EmailMessage = { to: string; subject: string; html: string; text: string };
 
 export const emailConfigured = () => Boolean(process.env["RESEND_API_KEY"]);
@@ -16,7 +18,7 @@ export async function sendEmail(message: EmailMessage): Promise<boolean> {
     return false;
   }
   try {
-    const replyTo = process.env["EMAIL_REPLY_TO"];
+    const replyTo = process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL;
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },

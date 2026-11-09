@@ -1,3 +1,4 @@
+import { CONTACT_EMAIL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
@@ -447,6 +448,9 @@ function Index() {
               <Link to="/demo" className="transition-colors hover:text-foreground">
                 Demo wallet
               </Link>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors hover:text-foreground">
+                Support
+              </a>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
               </Link>

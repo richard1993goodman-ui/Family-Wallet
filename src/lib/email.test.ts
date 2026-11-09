@@ -88,6 +88,17 @@ describe("sendEmail", () => {
     expect(JSON.parse(String(init!.body)).to).toEqual(["a@b.co"]);
   });
 
+  it("sends replies to the support address unless another reply address is set", async () => {
+    vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubEnv("EMAIL_REPLY_TO", "");
+    vi.mocked(fetch).mockResolvedValue(new Response("{}", { status: 200 }));
+    await sendEmail(message);
+    expect(JSON.parse(String(vi.mocked(fetch).mock.calls[0]![1]!.body)).reply_to).toBe("info@familywallet.io");
+    vi.stubEnv("EMAIL_REPLY_TO", "me@example.com");
+    await sendEmail(message);
+    expect(JSON.parse(String(vi.mocked(fetch).mock.calls[1]![1]!.body)).reply_to).toBe("me@example.com");
+  });
+
   it("reports failure when Resend refuses, instead of throwing", async () => {
     vi.stubEnv("RESEND_API_KEY", "re_test");
     vi.mocked(fetch).mockResolvedValue(new Response("nope", { status: 403 }));
