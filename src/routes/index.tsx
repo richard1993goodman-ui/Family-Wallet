@@ -96,7 +96,7 @@ const benefitGroups = [
     photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
     items: [
       "Messages — topic conversations between family and nanny",
-      "Phone alerts — messages, photos and daily updates reach the other person's phone, with quiet hours",
+      "Phone alerts — parents are notified when notes, photos, key information, schedule changes or holiday requests are added, with quiet hours",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -123,8 +123,8 @@ const weekClaims = [
     detail: "Hours, activities, handovers and expenses, summed up for you.",
   },
   {
-    title: "Messages, photos and updates reach you",
-    detail: "A quiet phone alert when your nanny or family adds something. Nothing private shows on the lock screen.",
+    title: "You're told the moment anything changes",
+    detail: "When your nanny, au pair or household staff add notes, photos or key information, or ask to change the schedule or book holiday, you get an alert. Nothing private shows on the lock screen.",
   },
   {
     title: "Alerts you control",

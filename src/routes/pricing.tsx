@@ -63,6 +63,7 @@ const families: Tier[] = [
     features: [
       { text: "1 nanny or au pair (extra staff £3/mo each)" },
       { text: "Shared week calendar, daily log and messages" },
+      { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
       { text: "Agreement signed by both of you" },
       { text: "House manual and codes, hidden until revealed" },
       { text: "Emergency card and medication log" },

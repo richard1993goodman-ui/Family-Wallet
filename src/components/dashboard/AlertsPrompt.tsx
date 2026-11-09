@@ -44,7 +44,7 @@ export function AlertsPrompt({ slug }: { slug: string }) {
       <div className="min-w-0 flex-1">
         <p className="font-medium text-foreground">Know the moment something new arrives</p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Get a quiet phone alert for messages, photos and daily updates. Nothing private shows on the lock screen.
+          Get a quiet phone alert when notes, photos, key information, schedule changes or holiday requests are added. Nothing private shows on the lock screen.
         </p>
         <div className="mt-3 flex items-center gap-3">
           <Button asChild size="sm">
