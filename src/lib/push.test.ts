@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { countUnseen, inQuietHours } from "./push";
+import { countUnseen, inQuietHours, isPushFeature } from "./push";
 
 vi.mock("@/integrations/supabase/client.server", () => ({ supabaseAdmin: {} }));
 
@@ -20,6 +20,15 @@ describe("inQuietHours", () => {
   it("is off when either end is missing or both are equal", () => {
     expect(inQuietHours(new Date(), "UTC", null, 7)).toBe(false);
     expect(inQuietHours(new Date(), "UTC", 8, 8)).toBe(false);
+  });
+});
+
+describe("push features", () => {
+  it("alerts for messages, photos and daily updates", () => {
+    for (const key of ["messages", "moments", "log", "planner"]) expect(isPushFeature(key)).toBe(true);
+  });
+  it("keeps the chatty Today log to a badge", () => {
+    expect(isPushFeature("today")).toBe(false);
   });
 });
 

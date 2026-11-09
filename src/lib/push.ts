@@ -3,6 +3,9 @@
 /** Features that send a phone push (everything else only shows a badge). Keys are the page route prefixes. */
 export const PUSH_FEATURES = [
   { key: "messages", label: "New messages" },
+  { key: "moments", label: "New photos and milestones" },
+  { key: "log", label: "Daily updates" },
+  { key: "planner", label: "Changes to the week plan" },
   { key: "incidents", label: "Incident reports" },
   { key: "timesheets", label: "Shifts to approve or reviewed" },
   { key: "leave", label: "Leave requests and answers" },
