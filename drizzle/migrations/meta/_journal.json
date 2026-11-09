@@ -299,8 +299,43 @@
     {
       "idx": 42,
       "version": "7",
-      "when": 1793810968710,
+      "when": 1794210709648,
       "tag": "0042_care_events",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1794232446674,
+      "tag": "0043_wallet_activity_and_push",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1794232469750,
+      "tag": "0044_remove_admin_family_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "7",
+      "when": 1794235434314,
+      "tag": "0045_agreement_choice_and_work_hours",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "7",
+      "when": 1794241683862,
+      "tag": "0046_family_invite_sent",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1794242372388,
+      "tag": "0047_family_agreement_policy",
       "breakpoints": true
     }
   ]

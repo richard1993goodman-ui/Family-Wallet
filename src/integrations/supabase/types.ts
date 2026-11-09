@@ -456,6 +456,7 @@ export type Database = {
         Row: {
           access_code: string
           access_code_hash: string
+          agreement_policy: string
           contact_email: string | null
           contact_phone: string | null
           created_at: string
@@ -464,6 +465,7 @@ export type Database = {
           fee_label: string | null
           id: string
           intro_fee_percent: number | null
+          invite_sent_at: string | null
           last_active_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
@@ -484,12 +486,11 @@ export type Database = {
           tier_band: string
           updated_at: string
           use_agreement: boolean
-          invite_sent_at: string | null
-          agreement_policy: string
         }
         Insert: {
           access_code?: string
           access_code_hash: string
+          agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -498,6 +499,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          invite_sent_at?: string | null
           last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
@@ -518,12 +520,11 @@ export type Database = {
           tier_band?: string
           updated_at?: string
           use_agreement?: boolean
-          invite_sent_at?: string | null
-          agreement_policy?: string
         }
         Update: {
           access_code?: string
           access_code_hash?: string
+          agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -532,6 +533,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          invite_sent_at?: string | null
           last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
@@ -552,8 +554,6 @@ export type Database = {
           tier_band?: string
           updated_at?: string
           use_agreement?: boolean
-          invite_sent_at?: string | null
-          agreement_policy?: string
         }
         Relationships: [
           {
@@ -1724,6 +1724,7 @@ export type Database = {
       }
       partner_agencies: {
         Row: {
+          agreements_enabled: boolean
           allow_challenges: boolean
           allow_perks: boolean
           allow_playbooks: boolean
@@ -1740,9 +1741,9 @@ export type Database = {
           short_name: string | null
           status: string
           updated_at: string
-          agreements_enabled: boolean
         }
         Insert: {
+          agreements_enabled?: boolean
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean
@@ -1759,9 +1760,9 @@ export type Database = {
           short_name?: string | null
           status?: string
           updated_at?: string
-          agreements_enabled?: boolean
         }
         Update: {
+          agreements_enabled?: boolean
           allow_challenges?: boolean
           allow_perks?: boolean
           allow_playbooks?: boolean
@@ -1778,7 +1779,6 @@ export type Database = {
           short_name?: string | null
           status?: string
           updated_at?: string
-          agreements_enabled?: boolean
         }
         Relationships: []
       }
@@ -2625,54 +2625,6 @@ export type Database = {
         }
         Relationships: []
       }
-      welcome_checkins: {
-        Row: {
-          confirmed_at: string | null
-          confirmed_by: string
-          family_id: string
-          id: string
-          nanny_id: string
-          note: string
-          step_id: string
-          updated_at: string
-        }
-        Insert: {
-          confirmed_at?: string | null
-          confirmed_by: string
-          family_id: string
-          id?: string
-          nanny_id: string
-          note?: string
-          step_id: string
-          updated_at?: string
-        }
-        Update: {
-          confirmed_at?: string | null
-          confirmed_by?: string
-          family_id?: string
-          id?: string
-          nanny_id?: string
-          note?: string
-          step_id?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "welcome_checkins_family_id_fkey"
-            columns: ["family_id"]
-            isOneToOne: false
-            referencedRelation: "families"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "welcome_checkins_nanny_id_fkey"
-            columns: ["nanny_id"]
-            isOneToOne: false
-            referencedRelation: "family_nannies"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       wallet_activity: {
         Row: {
           actor: string
@@ -2733,6 +2685,54 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      welcome_checkins: {
+        Row: {
+          confirmed_at: string | null
+          confirmed_by: string
+          family_id: string
+          id: string
+          nanny_id: string
+          note: string
+          step_id: string
+          updated_at: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          confirmed_by: string
+          family_id: string
+          id?: string
+          nanny_id: string
+          note?: string
+          step_id: string
+          updated_at?: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          confirmed_by?: string
+          family_id?: string
+          id?: string
+          nanny_id?: string
+          note?: string
+          step_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "welcome_checkins_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "welcome_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
             referencedColumns: ["id"]
           },
         ]

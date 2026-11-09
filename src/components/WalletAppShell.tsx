@@ -259,23 +259,9 @@ function WalletNavigation({
 
   return (
     <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
+      {slug === "demo" ? null : (
       <SidebarHeader className="px-3 pb-2 pt-4">
-        {slug === "demo" ? (
-          // In the demo the logo leads back to the main site, so visitors can always leave.
-          <Link
-            to="/"
-            aria-label="Back to The Family Wallet home page"
-            className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
-          >
-            <Wordmark
-              subline={agencyName ? `with ${agencyName}` : null}
-              logoUrl={agencyLogo}
-              logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
-              className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
-            />
-          </Link>
-        ) : (
-          <Link
+        <Link
             to="/w/$slug"
             params={{ slug }}
             onClick={() => isMobile && setOpenMobile(false)}
@@ -288,8 +274,8 @@ function WalletNavigation({
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
             />
           </Link>
-        )}
       </SidebarHeader>
+      )}
       <SidebarContent className="gap-1 py-2">
         {navFor(role, agreements).map((section) => (
           <SidebarGroup key={section.label}>
