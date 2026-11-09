@@ -4,9 +4,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Copy, Download, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Copy, Plus, Trash2 } from "lucide-react";
 
-import { addAgencyStaff, deletePartnerAgency, exportAgencyRecords, getStaffSetupLink, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
+import { addAgencyStaff, deletePartnerAgency, getStaffSetupLink, listPartnerAgencies, removeAgencyStaff, savePartnerAgency, setAgencyLogo } from "@/lib/agencies.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,7 +37,6 @@ function AgenciesPage() {
   const removeStaffFn = useServerFn(removeAgencyStaff);
   const setupLinkFn = useServerFn(getStaffSetupLink);
   const deleteFn = useServerFn(deletePartnerAgency);
-  const exportFn = useServerFn(exportAgencyRecords);
   const logoFn = useServerFn(setAgencyLogo);
   const uploadLogo = (id: string, file: File) => {
     if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type)) { toast.error("Use a PNG, JPG, WebP or SVG image"); return; }
@@ -226,21 +225,6 @@ function AgenciesPage() {
                   }}
                 >
                   Set allowance
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => run(async () => {
-                    const json = await exportFn({ data: { id: a.id } });
-                    const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.download = `${(a.brand_name || a.name).replace(/[^a-z0-9]+/gi, "-")}-records.json`;
-                    document.body.appendChild(link); link.click(); link.remove();
-                    setTimeout(() => URL.revokeObjectURL(url), 30000);
-                  }, "Export downloaded")}
-                >
-                  <Download className="mr-1 h-4 w-4" /> Export
                 </Button>
                 <Button
                   variant="outline"

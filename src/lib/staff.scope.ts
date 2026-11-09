@@ -1,5 +1,6 @@
-// Agency staff scope: the the owner agency owner (admin role) sees every family;
-// partner-agency staff see only families whose partner_agency_id matches theirs.
+// Agency staff scope: the owner (admin role) runs the owner agency and sees only families with no
+// partner_agency_id; partner-agency staff see only families whose partner_agency_id matches theirs.
+// Nobody, including the owner, can read a partner agency's families.
 export type StaffScope =
   | { kind: "owner" }
   | { kind: "partner"; agencyId: string; agencyName: string };
@@ -65,11 +66,10 @@ export async function requireOwner(context: unknown): Promise<void> {
 }
 
 export function canSeeFamily(scope: StaffScope, familyAgencyId: string | null): boolean {
-  return scope.kind === "owner" || familyAgencyId === scope.agencyId;
+  return scope.kind === "owner" ? familyAgencyId === null : familyAgencyId === scope.agencyId;
 }
 
 export async function assertFamilyInScope(scope: StaffScope, familyId: string): Promise<void> {
-  if (scope.kind === "owner") return;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin
     .from("families")
@@ -82,7 +82,6 @@ export async function assertFamilyInScope(scope: StaffScope, familyId: string): 
 type FamilyOwnedTable = "family_documents" | "family_contacts" | "support_threads";
 
 export async function assertRowInScope(scope: StaffScope, table: FamilyOwnedTable, id: string): Promise<void> {
-  if (scope.kind === "owner") return;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin.from(table).select("family_id").eq("id", id).maybeSingle();
   if (!data) throw new Error("Not found");
@@ -91,7 +90,6 @@ export async function assertRowInScope(scope: StaffScope, table: FamilyOwnedTabl
 
 /** Storage paths are always `<familyId>/...`. */
 export async function assertPathInScope(scope: StaffScope, storagePath: string): Promise<void> {
-  if (scope.kind === "owner") return;
   const familyId = storagePath.split("/")[0] ?? "";
   if (!/^[0-9a-f-]{36}$/i.test(familyId) || storagePath.includes("..")) throw new Error("Not found");
   await assertFamilyInScope(scope, familyId);
