@@ -464,6 +464,7 @@ export type Database = {
           fee_label: string | null
           id: string
           intro_fee_percent: number | null
+          invite_sent_at: string | null
           last_active_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
@@ -496,6 +497,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          invite_sent_at?: string | null
           last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
@@ -528,6 +530,7 @@ export type Database = {
           fee_label?: string | null
           id?: string
           intro_fee_percent?: number | null
+          invite_sent_at?: string | null
           last_active_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
