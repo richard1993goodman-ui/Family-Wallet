@@ -456,6 +456,7 @@ export type Database = {
         Row: {
           access_code: string
           access_code_hash: string
+          agreement_policy: string
           contact_email: string | null
           contact_phone: string | null
           created_at: string
@@ -489,6 +490,7 @@ export type Database = {
         Insert: {
           access_code?: string
           access_code_hash: string
+          agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -522,6 +524,7 @@ export type Database = {
         Update: {
           access_code?: string
           access_code_hash?: string
+          agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
