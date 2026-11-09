@@ -484,6 +484,7 @@ export type Database = {
           tier_band: string
           updated_at: string
           use_agreement: boolean
+          invite_sent_at: string | null
         }
         Insert: {
           access_code?: string
@@ -516,6 +517,7 @@ export type Database = {
           tier_band?: string
           updated_at?: string
           use_agreement?: boolean
+          invite_sent_at?: string | null
         }
         Update: {
           access_code?: string
@@ -548,6 +550,7 @@ export type Database = {
           tier_band?: string
           updated_at?: string
           use_agreement?: boolean
+          invite_sent_at?: string | null
         }
         Relationships: [
           {

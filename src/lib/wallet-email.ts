@@ -35,15 +35,18 @@ export function nextSteps(walletUrl: string) {
 }
 
 /**
- * @param kind "welcome" right after paying, "recover" when someone asks for their details again.
+ * @param kind "welcome" right after paying, "invite" when an agency sends a family its wallet, "recover" when someone asks for their details again.
  * @param options.supportEmail An address people can reply to for help; without one, the wallet's Support page is offered.
  */
 export function buildWalletEmail(
-  kind: "welcome" | "recover",
+  kind: "welcome" | "recover" | "invite",
   wallets: WalletDetails[],
-  options: { supportEmail?: string | undefined } = {},
+  options: { supportEmail?: string | undefined; agencyName?: string | undefined } = {},
 ) {
   if (kind === "welcome" && wallets.length === 1) return buildWelcomeEmail(wallets[0]!, options.supportEmail);
+  if (kind === "invite" && wallets.length === 1) {
+    return buildWelcomeEmail(wallets[0]!, options.supportEmail, options.agencyName ?? "Your agency");
+  }
   const many = wallets.length > 1;
   const subject =
     kind === "welcome"
@@ -91,14 +94,19 @@ ${blocks}
   return { subject, html, text };
 }
 
-function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string) {
-  const subject = "Welcome to The Family Wallet: your link and access code";
+/** @param agencyName set when an agency is sending the wallet to a family, rather than the family paying for it. */
+function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string, agencyName?: string) {
+  const subject = agencyName
+    ? `${agencyName} has set up your Family Wallet: your link and access code`
+    : "Welcome to The Family Wallet: your link and access code";
   const steps = nextSteps(wallet.url);
   const supportUrl = pageUrl(wallet.url, "support");
   const help = supportEmail
     ? `Stuck, or not sure where to start? Reply to this email or write to ${supportEmail}, and we'll help.`
     : `Stuck, or not sure where to start? Message us from the Support page in your wallet: ${supportUrl}`;
-  const welcome = `Welcome, and thank you for subscribing. Your private wallet for ${wallet.familyName} is ready, and you're already signed in on the device you paid from.`;
+  const welcome = agencyName
+    ? `${agencyName} has set up a private Family Wallet for ${wallet.familyName}. To open it, go to the wallet link below and enter your access code.`
+    : `Welcome, and thank you for subscribing. Your private wallet for ${wallet.familyName} is ready, and you're already signed in on the device you paid from.`;
   const keep =
     "Please save this email, or copy these two details into your Notes app or a password manager. There is no separate password: your access code is your password. You'll need both to open your wallet on another phone or computer, and they can't be shown again if lost (we can resend them from the sign-in page).";
 
@@ -116,8 +124,7 @@ function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string) {
     ...steps.flatMap((step, i) => [`${i + 1}. ${step.title}`, `   ${step.body}`, `   ${step.url}`, ""]),
     help,
     "",
-    "You can manage or cancel your subscription from the footer of your wallet.",
-    "",
+    ...(agencyName ? [] : ["You can manage or cancel your subscription from the footer of your wallet.", ""]),
     "The Family Wallet",
   ].join("\n");
 
@@ -151,7 +158,7 @@ function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string) {
 ${stepHtml}
 </table>
 <p style="margin:8px 0 20px;font-size:14px">${helpHtml}</p>
-<p style="margin:0 0 8px;font-size:13px;color:#6b5f55">You can manage or cancel your subscription from the footer of your wallet.</p>
+${agencyName ? "" : '<p style="margin:0 0 8px;font-size:13px;color:#6b5f55">You can manage or cancel your subscription from the footer of your wallet.</p>'}
 <p style="margin:0;font-size:13px;color:#6b5f55">If you did not expect this email you can ignore it.</p>
 </div></body></html>`;
 
