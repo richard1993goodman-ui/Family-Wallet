@@ -66,6 +66,7 @@ export async function startThread(slug: string, input: { topic: string; title: s
     .single();
   if (error || !data) throw new Error("Couldn't start that conversation.");
   await supabaseAdmin.from("household_messages").insert({ thread_id: data.id, sender: family.access, sender_name: senderName(family), body });
+  await (await import("./notifications.server")).notifyOther(family, "messages", "New message");
   return data.id;
 }
 
@@ -89,6 +90,7 @@ export async function replyThread(slug: string, threadId: string, body: string) 
       ...(family.access === "family" ? { nanny_unread: true, family_unread: false } : { family_unread: true, nanny_unread: false }),
     })
     .eq("id", threadId);
+  await (await import("./notifications.server")).notifyOther(family, "messages", "New message");
 }
 
 export async function markThreadRead(slug: string, threadId: string) {

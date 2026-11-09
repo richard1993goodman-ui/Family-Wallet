@@ -157,6 +157,7 @@ export async function requestLeave(slug: string, input: LeaveInput) {
   });
   if (error) throw new Error(error.message);
   if (family.access === "family") await addLeaveToPlanner(family.id, nanny.nannyName, input, days);
+  await (await import("./notifications.server")).notifyOther(family, "leave", "New leave request");
   return { days, autoApproved: family.access === "family" };
 }
 
@@ -202,6 +203,7 @@ export async function reviewLeave(slug: string, id: string, status: "approved" |
       Number(row.days),
     );
   }
+  await (await import("./notifications.server")).notifyOther(family, "leave", "A leave request was answered");
 }
 
 export async function cancelLeave(slug: string, id: string) {

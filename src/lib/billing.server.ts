@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { isInterval, isPlan } from "./billing.config";
+import { isInterval, isPlan, planFromLookupKey } from "./billing.config";
 import { sendEmail } from "./email.server";
 import { stripe } from "./stripe.server";
 import { siteUrl } from "./site";
@@ -11,7 +11,7 @@ type StripeSubscription = {
   status: string;
   cancel_at_period_end?: boolean;
   current_period_end?: number;
-  items?: { data?: { current_period_end?: number }[] };
+  items?: { data?: { current_period_end?: number; price?: { lookup_key?: string | null } }[] };
 };
 
 type CheckoutSession = {
@@ -141,10 +141,13 @@ export async function provisionFromSession(sessionId: string) {
 
 /** Keeps the subscription row, and the household's access, in step with Stripe. */
 export async function applySubscription(sub: StripeSubscription) {
+  const newPlan = planFromLookupKey(sub.items?.data?.[0]?.price?.lookup_key);
   const { data: row } = await supabaseAdmin
     .from("family_subscriptions")
     .update({
       status: sub.status,
+      // An upgrade or downgrade in Stripe arrives here as a new price on the subscription.
+      ...(newPlan ? { plan: newPlan } : {}),
       current_period_end: periodEnd(sub),
       cancel_at_period_end: sub.cancel_at_period_end ?? false,
       updated_at: new Date().toISOString(),

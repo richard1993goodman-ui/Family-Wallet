@@ -193,6 +193,7 @@ export async function submitShift(slug: string, input: ShiftInput) {
     added_by: family.access,
     notes: input.notes?.trim().slice(0, 1000) || null,
   });
+  await (await import("./notifications.server")).notifyOther(family, "timesheets", "A shift is waiting to be reviewed");
   return data;
 }
 
@@ -201,4 +202,5 @@ export async function reviewShift(slug: string, id: string, status: "approved" |
   if (!family || family.access !== "family") throw new Error("Only a parent can review shifts.");
   const { error } = await supabaseAdmin.from("timesheet_shifts").update({ status, reviewed_at: new Date().toISOString(), updated_at: new Date().toISOString() }).eq("id", id).eq("family_id", family.id);
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "timesheets", "A shift was reviewed");
 }

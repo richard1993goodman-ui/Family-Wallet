@@ -18,6 +18,7 @@ import {
   Home,
   KeyRound,
   Landmark,
+  Bell,
   ListChecks,
   MessageCircle,
   NotebookPen,
@@ -62,7 +63,8 @@ export type WalletPath =
   | "/kids/$slug"
   | "/bankdetails/$slug"
   | "/incidents/$slug"
-  | "/permissions/$slug";
+  | "/permissions/$slug"
+  | "/notifications/$slug";
 
 export type NavItem = {
   label: string;
@@ -134,6 +136,7 @@ const payroll = item("Payroll setup", Briefcase, "/payroll/$slug", ["nannytax", 
 const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pension", "ni"]);
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
+const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
 const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "account",
   "sort code",
@@ -141,7 +144,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 ]);
 
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report] },
+  { label: "Overview", items: [home, calendar, messages, report, notifications] },
   { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
@@ -167,7 +170,7 @@ const familyNav: NavSection[] = [
 const nannyNav: NavSection[] = [
   {
     label: "My day",
-    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments],
+    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications],
   },
   {
     label: "The family",
