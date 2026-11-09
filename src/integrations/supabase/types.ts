@@ -90,6 +90,60 @@ export type Database = {
           },
         ]
       }
+      care_events: {
+        Row: {
+          added_by: string
+          amount_ml: number | null
+          child_id: string | null
+          created_at: string
+          detail: string | null
+          ended_at: string | null
+          family_id: string
+          id: string
+          kind: string
+          started_at: string
+        }
+        Insert: {
+          added_by: string
+          amount_ml?: number | null
+          child_id?: string | null
+          created_at?: string
+          detail?: string | null
+          ended_at?: string | null
+          family_id: string
+          id?: string
+          kind: string
+          started_at?: string
+        }
+        Update: {
+          added_by?: string
+          amount_ml?: number | null
+          child_id?: string | null
+          created_at?: string
+          detail?: string | null
+          ended_at?: string | null
+          family_id?: string
+          id?: string
+          kind?: string
+          started_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "care_events_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "family_children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "care_events_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       challenge_completions: {
         Row: {
           challenge_id: string

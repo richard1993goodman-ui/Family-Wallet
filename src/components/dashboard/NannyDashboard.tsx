@@ -13,6 +13,7 @@ import {
   KeyRound,
   Landmark,
   MessageCircle,
+  Baby,
   NotebookPen,
   Pill,
   Plane,
@@ -134,6 +135,14 @@ export function NannyDashboard(props: DashboardProps) {
                 label="Add hours"
                 tint="lilac"
                 status="Timesheets"
+              />
+              <QuickAction
+                slug={slug}
+                to="/today/$slug"
+                icon={Baby}
+                label="Log the day"
+                tint="butter"
+                status="Naps, bottles, nappies"
               />
               <QuickAction
                 slug={slug}

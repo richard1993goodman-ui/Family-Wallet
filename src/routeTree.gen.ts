@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ForAgenciesRouteImport } from './routes/for-agencies'
 import { Route as HouseholdStaffAppRouteImport } from './routes/household-staff-app'
@@ -55,6 +56,7 @@ import { Route as SafetySlugRouteImport } from './routes/safety.$slug'
 import { Route as SupportSlugRouteImport } from './routes/support.$slug'
 import { Route as TermsSlugRouteImport } from './routes/terms.$slug'
 import { Route as TimesheetsSlugRouteImport } from './routes/timesheets.$slug'
+import { Route as TodaySlugRouteImport } from './routes/today.$slug'
 import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
 import { Route as TravelSlugRouteImport } from './routes/travel.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
@@ -84,6 +86,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoRoute = DemoRouteImport.update({
@@ -301,6 +308,11 @@ const TimesheetsSlugRoute = TimesheetsSlugRouteImport.update({
   path: '/timesheets/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TodaySlugRoute = TodaySlugRouteImport.update({
+  id: '/today/$slug',
+  path: '/today/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrainingSlugRoute = TrainingSlugRouteImport.update({
   id: '/training/$slug',
   path: '/training/$slug',
@@ -389,6 +401,7 @@ const AuthenticatedAdminHubIdRoute = AuthenticatedAdminHubIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
@@ -431,6 +444,7 @@ export interface FileRoutesByFullPath {
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
+  '/today/$slug': typeof TodaySlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
@@ -452,6 +466,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
@@ -494,6 +509,7 @@ export interface FileRoutesByTo {
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
+  '/today/$slug': typeof TodaySlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
@@ -517,6 +533,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
@@ -559,6 +576,7 @@ export interface FileRoutesById {
   '/support/$slug': typeof SupportSlugRoute
   '/terms/$slug': typeof TermsSlugRoute
   '/timesheets/$slug': typeof TimesheetsSlugRoute
+  '/today/$slug': typeof TodaySlugRoute
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
@@ -582,6 +600,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/compare'
     | '/demo'
     | '/for-agencies'
     | '/household-staff-app'
@@ -624,6 +643,7 @@ export interface FileRouteTypes {
     | '/support/$slug'
     | '/terms/$slug'
     | '/timesheets/$slug'
+    | '/today/$slug'
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
@@ -645,6 +665,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/compare'
     | '/demo'
     | '/for-agencies'
     | '/household-staff-app'
@@ -687,6 +708,7 @@ export interface FileRouteTypes {
     | '/support/$slug'
     | '/terms/$slug'
     | '/timesheets/$slug'
+    | '/today/$slug'
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
@@ -709,6 +731,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/compare'
     | '/demo'
     | '/for-agencies'
     | '/household-staff-app'
@@ -751,6 +774,7 @@ export interface FileRouteTypes {
     | '/support/$slug'
     | '/terms/$slug'
     | '/timesheets/$slug'
+    | '/today/$slug'
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
@@ -774,6 +798,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  CompareRoute: typeof CompareRoute
   DemoRoute: typeof DemoRoute
   ForAgenciesRoute: typeof ForAgenciesRoute
   HouseholdStaffAppRoute: typeof HouseholdStaffAppRoute
@@ -816,6 +841,7 @@ export interface RootRouteChildren {
   SupportSlugRoute: typeof SupportSlugRoute
   TermsSlugRoute: typeof TermsSlugRoute
   TimesheetsSlugRoute: typeof TimesheetsSlugRoute
+  TodaySlugRoute: typeof TodaySlugRoute
   TrainingSlugRoute: typeof TrainingSlugRoute
   TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
@@ -850,6 +876,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo': {
@@ -1153,6 +1186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimesheetsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/today/$slug': {
+      id: '/today/$slug'
+      path: '/today/$slug'
+      fullPath: '/today/$slug'
+      preLoaderRoute: typeof TodaySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/training/$slug': {
       id: '/training/$slug'
       path: '/training/$slug'
@@ -1293,6 +1333,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  CompareRoute: CompareRoute,
   DemoRoute: DemoRoute,
   ForAgenciesRoute: ForAgenciesRoute,
   HouseholdStaffAppRoute: HouseholdStaffAppRoute,
@@ -1335,6 +1376,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportSlugRoute: SupportSlugRoute,
   TermsSlugRoute: TermsSlugRoute,
   TimesheetsSlugRoute: TimesheetsSlugRoute,
+  TodaySlugRoute: TodaySlugRoute,
   TrainingSlugRoute: TrainingSlugRoute,
   TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
