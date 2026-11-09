@@ -21,5 +21,11 @@ export const PLANS: Record<PlanId, { name: string; description: string; pence: R
 
 export const priceLookupKey = (plan: PlanId, interval: Interval) => `fw_${plan}_${interval}`;
 
+/** The plan a Stripe price belongs to, read back from its lookup key (fw_<plan>_<interval>). */
+export function planFromLookupKey(key: unknown): PlanId | null {
+  const plan = typeof key === "string" ? key.split("_")[1] : undefined;
+  return isPlan(plan) && typeof key === "string" && key.startsWith("fw_") ? plan : null;
+}
+
 export const isPlan = (value: unknown): value is PlanId => value === "family" || value === "household";
 export const isInterval = (value: unknown): value is Interval => value === "month" || value === "year";
