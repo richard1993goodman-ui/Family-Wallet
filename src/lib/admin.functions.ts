@@ -763,7 +763,7 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
 
     let familyQuery = supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id, contact_email, invite_sent_at")
+      .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id, contact_email, invite_sent_at, agreement_policy")
       .order("created_at", { ascending: false });
     familyQuery = scope.kind === "partner" ? familyQuery.eq("partner_agency_id", scope.agencyId) : familyQuery.is("partner_agency_id", null);
     const { data: families, error } = await familyQuery;
@@ -809,6 +809,7 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
         partnerAgencyId: f.partner_agency_id,
         contactEmail: f.contact_email,
         inviteSentAt: f.invite_sent_at,
+        agreementPolicy: f.agreement_policy,
       };
     });
 
@@ -866,4 +867,24 @@ export const sendFamilyInvite = createServerFn({ method: "POST" })
     if (!(await sendEmail({ to, ...message }))) throw new Error("The email couldn't be sent. Try again in a minute.");
     await supabaseAdmin.from("families").update({ invite_sent_at: new Date().toISOString() }).eq("id", data.id);
     return { ok: true as const };
+  });
+
+/** Sets the nanny agreement on, off, or "family decides" for the families an agency has chosen. */
+export const setFamiliesAgreement = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { ids: string[]; policy: "family" | "on" | "off" }) => data)
+  .handler(async ({ data, context }) => {
+    const scope = await requireStaff(context);
+    const { isAgreementPolicy } = await import("./agreement-mode");
+    if (!isAgreementPolicy(data.policy)) throw new Error("Choose on, off, or family decides.");
+    const ids = [...new Set(Array.isArray(data.ids) ? data.ids : [])].slice(0, 200);
+    if (!ids.length) throw new Error("Choose at least one family.");
+    for (const id of ids) await assertFamilyInScope(scope, id);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({ agreement_policy: data.policy, updated_at: new Date().toISOString() })
+      .in("id", ids);
+    if (error) throw new Error("Couldn't save that.");
+    return { count: ids.length };
   });

@@ -60,7 +60,7 @@ export async function setUseAgreement(slug: string, use: boolean) {
   const family = await requireFamily(slug);
   if (!family) throw new Error("Only the family can change this.");
   const { lockedByAgency } = await agreementMode(family.id);
-  if (lockedByAgency) throw new Error("Your agency looks after the agreement outside the wallet.");
+  if (lockedByAgency) throw new Error("Your agency has set this for your household, so it can't be changed here.");
   const { error } = await supabaseAdmin.from("families").update({ use_agreement: use }).eq("id", family.id);
   if (error) throw new Error("Couldn't save that choice.");
 }
