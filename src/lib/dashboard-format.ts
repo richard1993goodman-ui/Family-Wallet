@@ -36,3 +36,8 @@ export function timeOf(iso: string) {
     timeZone: "Europe/London",
   });
 }
+
+/** Today's date in UK time, "YYYY-MM-DD". */
+export function londonToday(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(now);
+}

@@ -148,6 +148,13 @@ export const copyPreviousWeekFn = createServerFn({ method: "POST" })
     return copyPreviousWeek(data.slug, data.weekStart);
   });
 
+export const getMonth = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string; month: string }) => data)
+  .handler(async ({ data }) => {
+    const { loadMonth } = await import("./family.server");
+    return loadMonth(data.slug, data.month);
+  });
+
 export const getLogs = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {

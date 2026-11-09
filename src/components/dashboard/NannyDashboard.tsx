@@ -28,7 +28,7 @@ import {
 import { PageContainer } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
-import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
+import { MonthOverview } from "@/components/dashboard/MonthOverview";
 import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
 import {
   Column,
@@ -45,7 +45,7 @@ import {
   QuickAction,
   SectionTitle,
 } from "@/components/dashboard/tiles";
-import { greeting, longDate, timeOf } from "@/lib/dashboard-format";
+import { greeting, londonToday, longDate, timeOf } from "@/lib/dashboard-format";
 import type { DashboardProps, HubSummary } from "@/components/dashboard/types";
 
 export function NannyDashboard(props: DashboardProps) {
@@ -185,14 +185,12 @@ export function NannyDashboard(props: DashboardProps) {
             </section>
           )}
 
-          <section>
-            <SectionTitle>This week</SectionTitle>
-            <WeekCalendar
-              slug={slug}
-              entries={hub?.entries ?? []}
-              schedules={hub?.schedules ?? []}
-            />
-          </section>
+          <MonthOverview
+            slug={slug}
+            schedules={hub?.schedules ?? []}
+            today={hub?.today.date ?? londonToday()}
+            role="nanny"
+          />
         </Column>
 
         <Column>
@@ -250,95 +248,6 @@ export function NannyDashboard(props: DashboardProps) {
           )}
 
           <WelcomeCard slug={slug} />
-
-          <section>
-            <SectionTitle>The family</SectionTitle>
-            <div data-tint="apricot" className="ios-group">
-              <HubTile
-                slug={slug}
-                to="/housemanual/$slug"
-                icon={KeyRound}
-                title="House manual & codes"
-                subtitle="WiFi, alarm, lockbox and everyday instructions"
-              />
-              <HubTile
-                slug={slug}
-                to="/kids/$slug"
-                icon={Heart}
-                title="Kids' playbook"
-                subtitle="Comforts, big moments and rainy-day ideas"
-              />
-              <HubTile
-                slug={slug}
-                to="/permissions/$slug"
-                icon={ShieldCheck}
-                title="What's allowed"
-                subtitle="Permissions and who can collect the children"
-              />
-              <HubTile
-                slug={slug}
-                to="/passport/$slug"
-                icon={Dumbbell}
-                title="Active Kids Passport"
-                subtitle="Sports skills, challenges and confidence wins"
-              />
-              <HubTile
-                slug={slug}
-                to="/welcome/$slug"
-                icon={Sparkles}
-                title="First 48 hours"
-                subtitle="Routines, pickups and your first handover"
-              />
-              <HubTile
-                slug={slug}
-                to="/travel/$slug"
-                icon={Plane}
-                title="Travel pack"
-                subtitle="Checklists and local emergency info"
-              />
-            </div>
-          </section>
-
-          <section>
-            <SectionTitle>My work</SectionTitle>
-            <div data-tint="sky" className="ios-group">
-              <HubTile
-                slug={slug}
-                to="/leave/$slug"
-                icon={CalendarCheck}
-                title="Holiday & leave"
-                subtitle="Your entitlement and time off"
-              />
-              <HubTile
-                slug={slug}
-                to="/pettycash/$slug"
-                icon={Coins}
-                title="Petty cash"
-                subtitle="Money added, spent and left"
-              />
-              <HubTile
-                slug={slug}
-                to="/bankdetails/$slug"
-                icon={Landmark}
-                title="Your bank details"
-                subtitle="Where your family pays you"
-              />
-              <HubTile
-                slug={slug}
-                to="/training/$slug"
-                icon={BadgeCheck}
-                title="Nanny training"
-                subtitle="20 questions, with a certificate"
-              />
-              <HubTile
-                slug={slug}
-                to="/safety/$slug"
-                icon={ShieldCheck}
-                title="Safety records"
-                subtitle="Your checks, training and insurance"
-              />
-            </div>
-          </section>
 
           <EmergencyContacts wallet={wallet} />
           <SupportBox slug={slug} familyName={wallet.familyName} />

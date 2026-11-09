@@ -456,6 +456,42 @@ export async function copyPreviousWeek(slug: string, weekStart: string) {
   return { copied: rows.length };
 }
 
+/** Everything the home month view shows for one calendar month ("YYYY-MM"). */
+export async function loadMonth(slug: string, month: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family || !/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) return null;
+  // Whole weeks around the month, so the grid's leading and trailing days are filled too.
+  const from = new Date(`${month}-01T00:00:00Z`);
+  const to = new Date(from);
+  from.setUTCDate(from.getUTCDate() - 6);
+  to.setUTCDate(to.getUTCDate() + 37);
+  const range = [from.toISOString().slice(0, 10), to.toISOString().slice(0, 10)] as const;
+  const [{ data: entries }, { data: logs }, { data: shifts }] = await Promise.all([
+    supabaseAdmin
+      .from("planner_entries")
+      .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
+      .eq("family_id", family.id)
+      .gte("entry_date", range[0])
+      .lte("entry_date", range[1])
+      .order("time_label", { ascending: true }),
+    supabaseAdmin
+      .from("daily_logs")
+      .select("id, log_date, activities, food, homework, mood, notes, tomorrow")
+      .eq("family_id", family.id)
+      .gte("log_date", range[0])
+      .lte("log_date", range[1])
+      .order("created_at", { ascending: true }),
+    supabaseAdmin
+      .from("timesheet_shifts")
+      .select("id, shift_date, start_time, end_time, break_minutes, is_overnight, status, shift_type, notes")
+      .eq("family_id", family.id)
+      .gte("shift_date", range[0])
+      .lte("shift_date", range[1])
+      .order("start_time", { ascending: true }),
+  ]);
+  return { entries: entries ?? [], logs: logs ?? [], shifts: shifts ?? [] };
+}
+
 /* ---------------- Daily log ---------------- */
 
 export async function loadLogs(slug: string, limit = 30) {
