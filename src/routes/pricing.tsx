@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 
@@ -400,7 +401,7 @@ function PricingPage() {
                     className="mt-6 w-full"
                     asChild
                   >
-                    <a href={t.cta.href}>
+                    <a href={t.cta.href} onClick={t.cta.href.startsWith("mailto:") ? onMailtoClick : undefined}>
                       {t.cta.label} <ArrowRight aria-hidden />
                     </a>
                   </Button>
@@ -445,7 +446,7 @@ function PricingPage() {
               </p>
             </div>
             <Button size="lg" variant="outline" className="shrink-0" asChild>
-              <a href={mail("Family Wallet: Network")}>Talk to us</a>
+              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Talk to us</a>
             </Button>
           </aside>
         )}

@@ -1,4 +1,5 @@
 import { formatPounds, type AllowanceUsage } from "@/lib/agency-plans";
+import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 const SALES_EMAIL = `mailto:${CONTACT_EMAIL}?subject=Family%20Wallet%20for%20agencies%3A%20more%20seats`;
@@ -60,7 +61,7 @@ export function AllowanceCard({ usage }: { usage: AllowanceUsage }) {
         {(usage.level === "near" || usage.level === "over" || (usage.remaining ?? 1) === 0) && (
           <>
             {" "}
-            <a className="underline underline-offset-4" href={SALES_EMAIL}>
+            <a className="underline underline-offset-4" href={SALES_EMAIL} onClick={onMailtoClick}>
               Talk to us about more seats
             </a>
             .

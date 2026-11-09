@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { FamilyLogin } from "@/components/FamilyLogin";
 import { RecoverDetails } from "@/components/RecoverDetails";
+import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 export const Route = createFileRoute("/login")({
@@ -46,7 +47,7 @@ function LoginPage() {
             footer={
               <p className="text-center text-[0.8125rem] text-muted-foreground">
                 Lost your details? Your agency can resend them, or email us at{" "}
-                <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
+                <a href={`mailto:${CONTACT_EMAIL}`} onClick={onMailtoClick} className="underline underline-offset-4">
                   {CONTACT_EMAIL}
                 </a>
                 .
