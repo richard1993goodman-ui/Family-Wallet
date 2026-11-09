@@ -437,7 +437,7 @@ const SHIFT_HOURS = 4.5;
 function MonthCard({ app }: ScreenProps) {
   const today = app.today;
   const [picked, setPicked] = useState<number | null>(null);
-  const [view, setView] = useState<"day" | "week" | "month">("month");
+  const [view, setView] = useState<"day" | "week" | "month">("week");
   const first = new Date(today.getFullYear(), today.getMonth(), 1);
   const count = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const days = Array.from({ length: count }, (_, i) => addDays(first, i));
