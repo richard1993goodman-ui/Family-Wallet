@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
 import {
   BadgeCheck,
   BookOpen,
@@ -93,6 +94,7 @@ export function FamilyDashboard(props: DashboardProps) {
 
       <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
+          <AlertsPrompt slug={slug} />
           <NeedsAttention {...props} />
           <SetupProgress {...props} />
           <WelcomeCard slug={slug} />
