@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { LifeBuoy, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL, siteUrl } from "@/lib/site";
 
 /** "Need help?" card: email support, with the family's name and wallet link filled in (never the access code). */
@@ -21,7 +22,7 @@ export function SupportBox({ slug, familyName, showInWalletLink = true }: { slug
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <Button asChild size="sm">
-            <a href={href}>
+            <a href={href} onClick={onMailtoClick}>
               <Mail aria-hidden /> Email support
             </a>
           </Button>
