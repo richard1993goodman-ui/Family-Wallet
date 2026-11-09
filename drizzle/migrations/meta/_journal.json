@@ -302,6 +302,20 @@
       "when": 1794210709648,
       "tag": "0042_care_events",
       "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1794232446674,
+      "tag": "0043_wallet_activity_and_push",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1794232469750,
+      "tag": "0044_remove_admin_family_policies",
+      "breakpoints": true
     }
   ]
 }

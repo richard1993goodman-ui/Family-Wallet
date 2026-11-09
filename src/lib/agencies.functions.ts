@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { isActiveHousehold, isAgencyPlan } from "./agency-plans";
-import { requireOwner } from "./staff.scope";
+import { requireOwner, requireStaff } from "./staff.scope";
 
 // Owner-only management of partner agencies and the staff emails allowed into each.
 
@@ -149,7 +149,7 @@ export const deletePartnerAgency = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
-// Owner-only export of every record held for one partner agency (supports the 30-day exit export).
+// Each agency exports its own records (30-day exit export). The platform owner cannot export a partner agency's families.
 const EXPORT_TABLES = [
   "family_children", "family_contacts", "family_profile", "family_nannies", "nanny_agreements",
   "document_signatures", "family_documents", "nanny_safety_documents", "timesheet_shifts", "leave_requests",
@@ -157,18 +157,19 @@ const EXPORT_TABLES = [
   "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments", "care_events",
 ] as const;
 
-export const exportAgencyRecords = createServerFn({ method: "POST" })
+export const exportMyAgencyRecords = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => d)
-  .handler(async ({ data, context }) => {
-    await requireOwner(context);
+  .handler(async ({ context }) => {
+    const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: agency } = await supabaseAdmin.from("partner_agencies").select("*").eq("id", data.id).maybeSingle();
-    if (!agency) throw new Error("Agency not found");
-    const { data: families } = await supabaseAdmin
+    const agencyId = scope.kind === "partner" ? scope.agencyId : null;
+    const { data: agency } = agencyId
+      ? await supabaseAdmin.from("partner_agencies").select("*").eq("id", agencyId).maybeSingle()
+      : { data: null };
+    const familyQuery = supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, contact_email, contact_phone, tier_band, nanny_name, start_date, status, notes, created_at, updated_at")
-      .eq("partner_agency_id", data.id);
+      .select("id, slug, family_name, contact_email, contact_phone, tier_band, nanny_name, start_date, status, notes, created_at, updated_at");
+    const { data: families } = await (agencyId ? familyQuery.eq("partner_agency_id", agencyId) : familyQuery.is("partner_agency_id", null));
     const ids = (families ?? []).map((f) => f.id);
     const records: Record<string, unknown[]> = {};
     for (const t of EXPORT_TABLES) {

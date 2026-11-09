@@ -10,6 +10,7 @@ import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
 import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
 import { roleLabel } from "@/lib/staff-roles";
 import { siteUrl } from "@/lib/site";
@@ -56,6 +57,7 @@ function AdminHome() {
   const listFn = useServerFn(listFamilies);
   const claimFn = useServerFn(claimAdmin);
   const saveFn = useServerFn(saveFamily);
+  const exportFn = useServerFn(exportMyAgencyRecords);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -296,6 +298,25 @@ function AdminHome() {
           <Link to="/admin/support" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
             Support inbox
           </Link>
+          <button
+            type="button"
+            className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            onClick={async () => {
+              try {
+                const json = await exportFn();
+                const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "household-records.json";
+                document.body.appendChild(link); link.click(); link.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 30000);
+              } catch (e) {
+                toast.error(e instanceof Error ? e.message : "Export failed");
+              }
+            }}
+          >
+            Export my records
+          </button>
           {status.data?.isOwner && (
             <Link to="/admin/agencies" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
               Partner agencies

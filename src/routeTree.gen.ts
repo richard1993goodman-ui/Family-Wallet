@@ -44,6 +44,7 @@ import { Route as MessagesSlugRouteImport } from './routes/messages.$slug'
 import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
+import { Route as NotificationsSlugRouteImport } from './routes/notifications.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
 import { Route as PayrollSlugRouteImport } from './routes/payroll.$slug'
 import { Route as PerksSlugRouteImport } from './routes/perks.$slug'
@@ -64,6 +65,7 @@ import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
+import { Route as ApiPushLatestRouteImport } from './routes/api/push/latest'
 import { Route as ApiStripeCheckoutRouteImport } from './routes/api/stripe/checkout'
 import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe/webhook'
@@ -248,6 +250,11 @@ const NannySlugRoute = NannySlugRouteImport.update({
   path: '/nanny/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsSlugRoute = NotificationsSlugRouteImport.update({
+  id: '/notifications/$slug',
+  path: '/notifications/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PassportSlugRoute = PassportSlugRouteImport.update({
   id: '/passport/$slug',
   path: '/passport/$slug',
@@ -350,6 +357,11 @@ const AuthenticatedAdminSupportRoute =
     path: '/admin/support',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPushLatestRoute = ApiPushLatestRouteImport.update({
+  id: '/api/push/latest',
+  path: '/api/push/latest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiStripeCheckoutRoute = ApiStripeCheckoutRouteImport.update({
   id: '/api/stripe/checkout',
   path: '/api/stripe/checkout',
@@ -432,6 +444,7 @@ export interface FileRoutesByFullPath {
   '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/notifications/$slug': typeof NotificationsSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -452,6 +465,7 @@ export interface FileRoutesByFullPath {
   '/guides/': typeof GuidesIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
@@ -497,6 +511,7 @@ export interface FileRoutesByTo {
   '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/notifications/$slug': typeof NotificationsSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -517,6 +532,7 @@ export interface FileRoutesByTo {
   '/guides': typeof GuidesIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
@@ -564,6 +580,7 @@ export interface FileRoutesById {
   '/moments/$slug': typeof MomentsSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
+  '/notifications/$slug': typeof NotificationsSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -584,6 +601,7 @@ export interface FileRoutesById {
   '/guides/': typeof GuidesIndexRoute
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
@@ -631,6 +649,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/notifications/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -651,6 +670,7 @@ export interface FileRouteTypes {
     | '/guides/'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/push/latest'
     | '/api/stripe/checkout'
     | '/api/stripe/portal'
     | '/api/stripe/webhook'
@@ -696,6 +716,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/notifications/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -716,6 +737,7 @@ export interface FileRouteTypes {
     | '/guides'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/push/latest'
     | '/api/stripe/checkout'
     | '/api/stripe/portal'
     | '/api/stripe/webhook'
@@ -762,6 +784,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
+    | '/notifications/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -782,6 +805,7 @@ export interface FileRouteTypes {
     | '/guides/'
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
+    | '/api/push/latest'
     | '/api/stripe/checkout'
     | '/api/stripe/portal'
     | '/api/stripe/webhook'
@@ -829,6 +853,7 @@ export interface RootRouteChildren {
   MomentsSlugRoute: typeof MomentsSlugRoute
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
+  NotificationsSlugRoute: typeof NotificationsSlugRoute
   PassportSlugRoute: typeof PassportSlugRoute
   PayrollSlugRoute: typeof PayrollSlugRoute
   PerksSlugRoute: typeof PerksSlugRoute
@@ -847,6 +872,7 @@ export interface RootRouteChildren {
   WSlugRoute: typeof WSlugRoute
   WelcomeSlugRoute: typeof WelcomeSlugRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
+  ApiPushLatestRoute: typeof ApiPushLatestRoute
   ApiStripeCheckoutRoute: typeof ApiStripeCheckoutRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
@@ -1102,6 +1128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NannySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications/$slug': {
+      id: '/notifications/$slug'
+      path: '/notifications/$slug'
+      fullPath: '/notifications/$slug'
+      preLoaderRoute: typeof NotificationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/passport/$slug': {
       id: '/passport/$slug'
       path: '/passport/$slug'
@@ -1242,6 +1275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/push/latest': {
+      id: '/api/push/latest'
+      path: '/api/push/latest'
+      fullPath: '/api/push/latest'
+      preLoaderRoute: typeof ApiPushLatestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/stripe/checkout': {
       id: '/api/stripe/checkout'
       path: '/api/stripe/checkout'
@@ -1364,6 +1404,7 @@ const rootRouteChildren: RootRouteChildren = {
   MomentsSlugRoute: MomentsSlugRoute,
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
+  NotificationsSlugRoute: NotificationsSlugRoute,
   PassportSlugRoute: PassportSlugRoute,
   PayrollSlugRoute: PayrollSlugRoute,
   PerksSlugRoute: PerksSlugRoute,
@@ -1382,6 +1423,7 @@ const rootRouteChildren: RootRouteChildren = {
   WSlugRoute: WSlugRoute,
   WelcomeSlugRoute: WelcomeSlugRoute,
   GuidesIndexRoute: GuidesIndexRoute,
+  ApiPushLatestRoute: ApiPushLatestRoute,
   ApiStripeCheckoutRoute: ApiStripeCheckoutRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,

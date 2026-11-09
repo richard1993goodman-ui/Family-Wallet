@@ -72,6 +72,7 @@ export async function setPermission(slug: string, input: PermissionInput) {
     { onConflict: "family_id,permission_key" },
   );
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "permissions", "Permissions were updated");
 }
 
 export async function removePermission(slug: string, key: string) {

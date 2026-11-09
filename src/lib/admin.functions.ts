@@ -54,7 +54,7 @@ export const listFamilies = createServerFn({ method: "GET" })
       .from("families")
       .select("id, slug, family_name, tier_band, intro_fee_percent, fee_label, fee_amount, nanny_name, status, access_code, created_at, partner_agency_id")
       .order("created_at", { ascending: false });
-    if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
+    familyQuery = scope.kind === "partner" ? familyQuery.eq("partner_agency_id", scope.agencyId) : familyQuery.is("partner_agency_id", null);
     const { data, error } = await familyQuery;
     if (error) throw new Error(error.message);
     const families = data ?? [];
@@ -593,12 +593,11 @@ export const listSupportThreads = createServerFn({ method: "GET" })
       .select("id, family_id, subject, status, last_sender, created_at, updated_at")
       .order("updated_at", { ascending: false })
       .limit(100);
-    if (scope.kind === "partner") {
-      const { data: own } = await supabaseAdmin.from("families").select("id").eq("partner_agency_id", scope.agencyId);
-      const ownIds = (own ?? []).map((f) => f.id);
-      if (ownIds.length === 0) return [];
-      threadQuery = threadQuery.in("family_id", ownIds);
-    }
+    const ownQuery = supabaseAdmin.from("families").select("id");
+    const { data: own } = await (scope.kind === "partner" ? ownQuery.eq("partner_agency_id", scope.agencyId) : ownQuery.is("partner_agency_id", null));
+    const ownIds = (own ?? []).map((f) => f.id);
+    if (ownIds.length === 0) return [];
+    threadQuery = threadQuery.in("family_id", ownIds);
     const { data: threads, error } = await threadQuery;
     if (error) throw new Error(error.message);
     const ids = (threads ?? []).map((t) => t.id);
@@ -753,7 +752,7 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
       .from("families")
       .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id")
       .order("created_at", { ascending: false });
-    if (scope.kind === "partner") familyQuery = familyQuery.eq("partner_agency_id", scope.agencyId);
+    familyQuery = scope.kind === "partner" ? familyQuery.eq("partner_agency_id", scope.agencyId) : familyQuery.is("partner_agency_id", null);
     const { data: families, error } = await familyQuery;
     if (error) throw new Error(error.message);
     const rows = families ?? [];
@@ -763,7 +762,9 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
       ids.length
         ? supabaseAdmin.from("family_nannies").select("family_id, role").in("family_id", ids).eq("status", "active")
         : Promise.resolve({ data: [] as { family_id: string; role: string }[] }),
-      supabaseAdmin.from("family_documents").select("family_id, issued_on").eq("doc_type", "dbs").not("issued_on", "is", null),
+      ids.length
+        ? supabaseAdmin.from("family_documents").select("family_id, issued_on").in("family_id", ids).eq("doc_type", "dbs").not("issued_on", "is", null)
+        : Promise.resolve({ data: [] as { family_id: string; issued_on: string | null }[] }),
       scope.kind === "partner"
         ? supabaseAdmin.from("partner_agencies").select("plan, household_allowance").eq("id", scope.agencyId).maybeSingle()
         : Promise.resolve({ data: null }),

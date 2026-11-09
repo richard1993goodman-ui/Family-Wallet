@@ -98,6 +98,7 @@ export async function saveCheckin(slug: string, input: CheckinInput) {
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "checkin", "New check-in");
   return { id: data.id };
 }
 

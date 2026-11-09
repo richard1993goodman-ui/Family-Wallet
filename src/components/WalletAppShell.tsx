@@ -1,13 +1,14 @@
 import { readDemoBrand } from "@/lib/demo-brand";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Lock, Menu, Search } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
 
+import { getBadges, markSeenFn } from "@/lib/notifications.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
 import { cn } from "@/lib/utils";
 import {
@@ -61,6 +62,25 @@ function getWalletLocation(pathname: string) {
   return { prefix, slug };
 }
 
+/** Unread counts keyed by page route prefix, shared with every nav component below. */
+const BadgeContext = createContext<Record<string, number>>({});
+
+function NavBadge({ prefix, className }: { prefix: string; className?: string }) {
+  const count = useContext(BadgeContext)[prefix] ?? 0;
+  if (count <= 0) return null;
+  return (
+    <span
+      className={cn(
+        "num flex h-5 min-w-5 items-center justify-center rounded-full bg-tint-apricot px-1.5 text-[0.6875rem] font-semibold text-tint-apricot-ink",
+        className,
+      )}
+    >
+      <span className="sr-only">{count} new: </span>
+      {count > 9 ? "9+" : count}
+    </span>
+  );
+}
+
 export function WalletAppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const location = getWalletLocation(pathname);
@@ -78,6 +98,35 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const unlocked = Boolean(location && summaryQuery.data?.unlocked);
+
+  // Unread badges: what the other person changed since you last opened each page. The demo wallet has none.
+  const queryClient = useQueryClient();
+  const badgesFn = useServerFn(getBadges);
+  const seenFn = useServerFn(markSeenFn);
+  const badgeSlug = location?.slug ?? "";
+  const badgeQuery = useQuery({
+    queryKey: ["badges", badgeSlug],
+    queryFn: () => badgesFn({ data: { slug: badgeSlug } }),
+    enabled: unlocked && badgeSlug !== "demo",
+    refetchInterval: 60_000,
+  });
+  const badges = badgeQuery.data ?? {};
+  const onPage = location?.prefix ?? "";
+  const unseenHere = badges[onPage] ?? 0;
+  useEffect(() => {
+    // Opening a page (or new activity arriving while you are on it) counts as seeing it.
+    if (!unlocked || badgeSlug === "demo") return;
+    void seenFn({ data: { slug: badgeSlug, feature: onPage } })
+      .then(() => queryClient.invalidateQueries({ queryKey: ["badges", badgeSlug] }))
+      .catch(() => undefined);
+  }, [unlocked, badgeSlug, onPage, unseenHere, seenFn, queryClient]);
+  const totalUnseen = Object.entries(badges).reduce((sum, [key, n]) => (key === onPage ? sum : sum + n), 0);
+  useEffect(() => {
+    // The app-icon badge on installed phones; a no-op where the Badging API is missing.
+    const nav = navigator as Navigator & { setAppBadge?: (n: number) => Promise<void>; clearAppBadge?: () => Promise<void> };
+    if (totalUnseen > 0) void nav.setAppBadge?.(totalUnseen).catch(() => undefined);
+    else void nav.clearAppBadge?.().catch(() => undefined);
+  }, [totalUnseen]);
   useEffect(() => {
     if (!unlocked) return;
     function onKey(e: KeyboardEvent) {
@@ -98,6 +147,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   const agencyLogo = location.slug === "demo" ? null : wallet.agencyLogo ?? null;
 
   return (
+    <BadgeContext.Provider value={badges}>
     <SidebarProvider>
       <WalletNavigation
         slug={location.slug}
@@ -127,6 +177,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         onOpenChange={setSearchOpen}
       />
     </SidebarProvider>
+    </BadgeContext.Provider>
   );
 }
 
@@ -231,6 +282,7 @@ function WalletNavigation({
                       >
                         <item.icon />
                         <span>{item.label}</span>
+                        <NavBadge prefix={routePrefix(item.to)} className="ml-auto" />
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -278,13 +330,14 @@ function SectionNav({
               preload="intent"
               aria-current={active ? "page" : undefined}
               className={cn(
-                "-mb-px flex h-11 flex-none items-center border-b-2 text-sm transition-colors",
+                "-mb-px flex h-11 flex-none items-center gap-1.5 border-b-2 text-sm transition-colors",
                 active
                   ? "border-foreground font-medium text-foreground"
                   : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               {item.label}
+              <NavBadge prefix={routePrefix(item.to)} />
             </Link>
           );
         })}
@@ -361,12 +414,13 @@ function MobileTabs({
               params={{ slug }}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium transition-colors",
+                "relative flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium transition-colors",
                 active ? "text-foreground" : "text-muted-foreground",
               )}
             >
               <tab.icon className={cn("h-5 w-5", active ? "stroke-[2]" : "stroke-[1.5]")} />
               <span className="truncate">{tab.label}</span>
+              <NavBadge prefix={routePrefix(tab.to)} className="absolute right-[18%] top-1.5" />
             </Link>
           );
         })}
