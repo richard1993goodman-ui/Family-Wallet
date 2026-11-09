@@ -6,6 +6,7 @@ import {
   Calculator,
   CalendarCheck,
   CalendarDays,
+  Baby,
   Camera,
   ClipboardCheck,
   Clock3,
@@ -54,6 +55,7 @@ export type WalletPath =
   | "/safety/$slug"
   | "/welcome/$slug"
   | "/moments/$slug"
+  | "/today/$slug"
   | "/pettycash/$slug"
   | "/messages/$slug"
   | "/housemanual/$slug"
@@ -101,6 +103,7 @@ const permissions = item("Permissions", ListChecks, "/permissions/$slug", [
   "photos",
 ]);
 const handover = item("Handover & expenses", ClipboardCheck, "/handover/$slug", ["receipts"]);
+const today = item("Today", Baby, "/today/$slug", ["nap", "bottle", "nappy", "feed", "meal", "potty"]);
 const moments = item("Photo moments", Camera, "/moments/$slug", ["photos", "milestones"]);
 const report = item("Weekly report", FileBarChart, "/report/$slug", ["friday", "summary"]);
 const passport = item("Active Kids Passport", Dumbbell, "/passport/$slug", ["sport", "activities"]);
@@ -139,7 +142,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 
 const familyNav: NavSection[] = [
   { label: "Overview", items: [home, calendar, messages, report] },
-  { label: "Day to day", items: [dailyLog, medication, incidents, handover, moments, passport] },
+  { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
     items: [children, kids, houseManual, permissions, emergency, guide, first48, travel],
@@ -164,7 +167,7 @@ const familyNav: NavSection[] = [
 const nannyNav: NavSection[] = [
   {
     label: "My day",
-    items: [home, calendar, messages, dailyLog, medication, incidents, handover, moments],
+    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments],
   },
   {
     label: "The family",

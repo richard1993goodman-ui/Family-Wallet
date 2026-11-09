@@ -35,7 +35,7 @@ const FAMILY_FEATURES = [
   "A Friday weekly report you can read in a minute",
 ];
 
-export const LANDING: Record<"nanny" | "staff" | "agencies", PageContent> = {
+export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageContent> = {
   nanny: {
     path: "/nanny-management-app",
     title: "Nanny Management App for Parents | Family Wallet",
@@ -293,6 +293,84 @@ export const LANDING: Record<"nanny" | "staff" | "agencies", PageContent> = {
       { label: "Pricing", to: "/pricing?for=agencies" },
       { label: "Household staff app", to: "/household-staff-app" },
       { label: "Guides", to: "/guides" },
+    ],
+  },
+  compare: {
+    path: "/compare",
+    title: "Family Wallet vs Daily Nanny, Pebbi and Brightwheel | Compared",
+    description:
+      "How the Family Wallet compares with Daily Nanny, Pebbi and Brightwheel: what each is for, what it costs, and which suits a UK family that employs a nanny.",
+    h1: "Family Wallet compared with Daily Nanny, Pebbi and Brightwheel",
+    intro:
+      "These apps look similar from a distance, but they solve different problems. Some track a baby's day, one runs nurseries, and the Family Wallet looks after the employment side of having a nanny. Here is an honest side-by-side, so you can pick the right one or use two together.",
+    sections: [
+      {
+        heading: "At a glance",
+        table: {
+          caption: "What each app is built for, from each company's own website (checked 9 November 2026)",
+          head: ["", "Family Wallet", "Daily Nanny", "Pebbi", "Brightwheel"],
+          rows: [
+            ["Built for", "A family and its nanny or household staff, plus agencies", "Parents and nannies sharing a child's day", "Parents and carers tracking a baby", "Nurseries and childcare centres"],
+            ["Day-to-day tracking", "Naps, bottles, meals, nappies, daily log, photos, messages", "Feed, photos, messages, nap, bottle and potty charts, AI summaries", "Feeds, sleep, nappies, pumping, medicines, growth, insights", "Attendance, activities, messages"],
+            ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
+            ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
+            ["Agencies", "Branded wallet for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
+            ["Price shown", "From £7.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
+            ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
+          ],
+        },
+      },
+      {
+        heading: "Family Wallet vs Daily Nanny",
+        paragraphs: [
+          "Daily Nanny is a shared diary of the child's day: a feed, photos, messages and charts. The Family Wallet also has a quick daily log, but adds what an employer needs: a signed agreement, approved timesheets, expenses, leave, a house manual and an incident record.",
+          "If all you want is a nice feed of the day, Daily Nanny is simpler and cheaper. If you employ someone and want the paperwork in order, the Family Wallet covers that.",
+        ],
+      },
+      {
+        heading: "Family Wallet vs Pebbi",
+        paragraphs: [
+          "Pebbi is a detailed baby tracker, with breastfeeding, pumping, growth and insights, and it is generous on its free plan. It is built around the baby and the people who care for them, not around a nanny as an employee.",
+          "The Family Wallet is lighter on baby-specific detail and heavier on the household arrangement. Plenty of families will happily use Pebbi for feeds and the Family Wallet for the nanny relationship.",
+        ],
+      },
+      {
+        heading: "Family Wallet vs Brightwheel",
+        paragraphs: [
+          "Brightwheel is management software for nurseries, preschools and childcare centres, mostly in the United States, with enrolment, billing and room ratios. It is not designed for a family with a nanny at home, and it does not publish a price.",
+          "If you run a nursery, look at Brightwheel. If you are a family or a nanny agency, the Family Wallet is the closer fit.",
+        ],
+      },
+      {
+        heading: "Which should you choose?",
+        bullets: [
+          "You want a baby log with no employment admin: Pebbi or Daily Nanny.",
+          "You employ a nanny and want the agreement, hours, expenses and safety records in one place: the Family Wallet.",
+          "You run a nanny agency and want every client family on a branded wallet: the Family Wallet for agencies.",
+          "You run a nursery: Brightwheel.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I use the Family Wallet and a baby tracker together?", a: "Yes. They do different jobs. Many families log feeds in a baby tracker and keep the nanny agreement, hours and expenses in the Family Wallet." },
+      { q: "Is the Family Wallet a baby tracker?", a: "It has a quick daily log for naps, bottles, meals and nappies, photos and an end-of-day handover. It is not a full baby tracker: there is no breastfeeding, pumping or growth charting." },
+      { q: "Is the Family Wallet only for the UK?", a: "It is built for UK families: prices are in pounds and the guides cover UK employment rules." },
+    ],
+    cta: {
+      heading: "See it for yourself",
+      body: "Open the demo wallet to try the shared week, the daily log and the agreement before you pay anything.",
+      label: "Open the demo wallet",
+      to: "/demo",
+    },
+    related: [
+      { label: "Nanny management app", to: "/nanny-management-app" },
+      { label: "Pricing", to: "/pricing" },
+      { label: "For agencies", to: "/for-agencies" },
+    ],
+    sources: [
+      { label: "Daily Nanny", href: "https://dailynanny.app" },
+      { label: "Pebbi", href: "https://pebbi.co" },
+      { label: "Brightwheel", href: "https://mybrightwheel.com" },
     ],
   },
 };

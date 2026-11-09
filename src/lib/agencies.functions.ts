@@ -154,7 +154,7 @@ const EXPORT_TABLES = [
   "family_children", "family_contacts", "family_profile", "family_nannies", "nanny_agreements",
   "document_signatures", "family_documents", "nanny_safety_documents", "timesheet_shifts", "leave_requests",
   "expense_claims", "medication_doses", "handover_checklists", "daily_logs", "planner_entries",
-  "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments",
+  "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments", "care_events",
 ] as const;
 
 export const exportAgencyRecords = createServerFn({ method: "POST" })

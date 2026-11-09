@@ -18,6 +18,7 @@ import {
   KeyRound,
   Landmark,
   MessageCircle,
+  Baby,
   NotebookPen,
   Pill,
   CalendarCheck,
@@ -555,6 +556,13 @@ function LatestUpdates({ slug, hub }: DashboardProps) {
               ? `${doses.length} dose${doses.length === 1 ? "" : "s"} in the last 24 hours · latest ${doses[0]!.medicine} for ${doses[0]!.child_name}`
               : "No doses in the last 24 hours"
           }
+        />
+        <ActionRow
+          slug={slug}
+          to="/today/$slug"
+          icon={Baby}
+          title="Today"
+          detail="Naps, bottles, meals and nappies"
         />
         <ActionRow
           slug={slug}
