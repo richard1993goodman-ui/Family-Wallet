@@ -8,6 +8,7 @@ import { Lock, LogOut, Menu, Search } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
 import { NotificationBell } from "@/components/NotificationBell";
+import { AccountMenu, QuickAddMenu, useLogout } from "@/components/HeaderMenus";
 
 import { getBadges, markSeenFn } from "@/lib/notifications.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
@@ -230,7 +231,13 @@ function WalletTopBar({
           ⌘K
         </kbd>
       </button>
+      <QuickAddMenu slug={slug} />
       <NotificationBell slug={slug} />
+      <AccountMenu
+        slug={slug}
+        familyName={familyName}
+        roleLabel={role === "nanny" ? "Nanny access" : "Parent access"}
+      />
       {slug === "demo" && (
         <Link
           to="/"
