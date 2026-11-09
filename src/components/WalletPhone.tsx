@@ -88,8 +88,6 @@ const longDate = (d: Date) => `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.get
 const shortDate = (d: Date) =>
   `${DAYS[d.getDay()]!.slice(0, 3)} ${d.getDate()} ${MONTHS[d.getMonth()]!.slice(0, 3)}`;
 const monthYear = (d: Date) => `${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-const greeting = (d: Date) =>
-  d.getHours() < 12 ? "Good morning" : d.getHours() < 18 ? "Good afternoon" : "Good evening";
 const addDays = (d: Date, n: number) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
 const weekday = (d: Date) => (d.getDay() + 6) % 7; // Monday is 0
 const weekOf = (d: Date) => Array.from({ length: 7 }, (_, i) => addDays(d, i - weekday(d)));
