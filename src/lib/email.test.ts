@@ -8,11 +8,30 @@ describe("buildWalletEmail", () => {
 
   it("puts the link and code in both the text and html versions", () => {
     const m = buildWalletEmail("welcome", [wallet]);
-    expect(m.subject).toBe("Your Family Wallet is ready");
+    expect(m.subject).toContain("Welcome to The Family Wallet");
     for (const body of [m.text, m.html]) {
       expect(body).toContain("https://familywallet.io/w/smith-4f2a");
       expect(body).toContain("K7M2PQ");
     }
+  });
+
+  it("welcomes a new family with save advice, the first steps and where to get help", () => {
+    const m = buildWalletEmail("welcome", [wallet]);
+    for (const body of [m.text, m.html]) {
+      expect(body).toContain("no separate password");
+      expect(body).toContain("Add your nanny");
+      expect(body).toContain("https://familywallet.io/nannies/smith-4f2a");
+      expect(body).toContain("https://familywallet.io/hours/smith-4f2a");
+      expect(body).toContain("https://familywallet.io/notifications/smith-4f2a");
+      expect(body).toContain("https://familywallet.io/support/smith-4f2a");
+    }
+  });
+
+  it("offers a reply address for help when one is set", () => {
+    const m = buildWalletEmail("welcome", [wallet], { supportEmail: "help@example.com" });
+    expect(m.text).toContain("help@example.com");
+    expect(m.html).toContain("mailto:help@example.com");
+    expect(m.text).not.toContain("/support/");
   });
 
   it("escapes anything a household could type into its name", () => {
