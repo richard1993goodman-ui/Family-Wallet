@@ -80,6 +80,7 @@ export async function addIncident(slug: string, input: IncidentInput) {
       : {}),
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "incidents", "New incident report");
   return { ok: true as const };
 }
 
@@ -93,6 +94,7 @@ export async function acknowledgeIncident(slug: string, id: string) {
     .eq("id", id)
     .eq("family_id", family.id);
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "incidents", "An incident report was signed off");
 }
 
 export async function deleteIncident(slug: string, id: string) {

@@ -398,6 +398,7 @@ export async function addPlannerEntry(
     notes: clean(input.notes, 1000),
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "planner", "The week plan changed");
 }
 
 export async function deletePlannerEntry(slug: string, id: string) {
@@ -489,6 +490,7 @@ export async function addLog(
     tomorrow: clean(input.tomorrow),
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "log", "New daily log");
 }
 
 export async function deleteLog(slug: string, id: string) {

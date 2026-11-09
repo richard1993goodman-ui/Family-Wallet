@@ -230,6 +230,7 @@ export async function saveHandover(slug: string, input: HandoverInput) {
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "handover", "Handover notes updated");
   return { id: data.id };
 }
 
@@ -273,6 +274,7 @@ export async function addExpense(slug: string, input: ExpenseInput) {
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "handover", "New expense claim");
   return { id: data.id };
 }
 
@@ -285,6 +287,7 @@ export async function reviewExpense(slug: string, id: string, status: "reimburse
     .eq("id", id)
     .eq("family_id", family.id);
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "handover", "An expense claim was updated");
 }
 
 export async function deleteExpense(slug: string, id: string) {

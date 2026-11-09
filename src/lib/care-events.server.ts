@@ -57,6 +57,7 @@ export async function addCareEvent(slug: string, input: CareEventInput) {
     added_by: family.access,
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "today", "New entry in Today");
 }
 
 export async function endNap(slug: string, id: string) {

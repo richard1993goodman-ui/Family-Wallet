@@ -72,6 +72,7 @@ export async function recordDose(slug: string, input: DoseInput) {
     notes: clean(input.notes, 600),
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "medication", "A medicine dose was logged");
   return { ok: true as const };
 }
 
