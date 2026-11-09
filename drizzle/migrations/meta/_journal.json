@@ -295,6 +295,13 @@
       "when": 1793807368710,
       "tag": "0041_agency_allowance_and_staff_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1794210709648,
+      "tag": "0042_care_events",
+      "breakpoints": true
     }
   ]
 }
