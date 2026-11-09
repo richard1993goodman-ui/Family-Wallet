@@ -9,6 +9,7 @@ import {
   Eye,
   EyeOff,
   FileBarChart,
+  Mail,
   Menu,
   MessageCircle,
   Pause,
@@ -232,6 +233,12 @@ function SiteHeader() {
                 </Button>
                 <Button variant="outline" className="mt-2 h-11" asChild>
                   <Link to="/admin">Agency sign in</Link>
+                </Button>
+                <Button variant="outline" className="mt-2 h-11" asChild>
+                  <a href={`mailto:${CONTACT_EMAIL}`} onClick={onMailtoClick}>
+                    <Mail className="mr-2 h-4 w-4" />
+                    Contact support
+                  </a>
                 </Button>
               </div>
             </SheetContent>
