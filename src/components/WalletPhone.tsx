@@ -691,7 +691,7 @@ function HomeScreen({ app }: ScreenProps) {
       <div className="flex items-start justify-between gap-2">
         <div>
           <h3 data-title tabIndex={-1} className={cn(titleCls, "text-[25px]")}>
-            {greeting(app.today)}
+            Welcome
           </h3>
           <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
         </div>
