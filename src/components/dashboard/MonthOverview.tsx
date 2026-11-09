@@ -97,11 +97,24 @@ export function MonthView({
   data: MonthData;
 }) {
   const [selected, setSelected] = useState(today);
-  const { days, totals } = useMemo(
+  const [view, setView] = useState<View>("month");
+  const { days, totals: monthTotals } = useMemo(
     () => buildMonth(month, data, schedules),
     [month, data, schedules],
   );
   const day = days.find((d) => d.iso === selected) ?? days.find((d) => d.inMonth)!;
+  const dayIndex = days.indexOf(day);
+  const weekDays = days.slice(dayIndex - (dayIndex % 7), dayIndex - (dayIndex % 7) + 7);
+  const visible = view === "month" ? days.filter((d) => d.inMonth) : view === "week" ? weekDays : [day];
+  const totals =
+    view === "month"
+      ? monthTotals
+      : {
+          agreedHours: visible.reduce((t, d) => t + d.agreedHours, 0),
+          loggedHours: visible.reduce((t, d) => t + d.loggedHours, 0),
+          updates: visible.filter((d) => d.logs.length).length,
+          parentNotes: visible.reduce((t, d) => t + d.parentNotes.length, 0),
+        };
   const nanny = schedules.length === 1 ? schedules[0]!.nannyName.split(" ")[0]! : null;
 
   function go(next: string) {
@@ -109,19 +122,70 @@ export function MonthView({
     setSelected(next === today.slice(0, 7) ? today : `${next}-01`);
   }
 
+  function step(by: number) {
+    if (view === "month") return go(shiftMonth(month, by));
+    const next = addDays(day.iso, by * (view === "week" ? 7 : 1));
+    if (next.slice(0, 7) !== month) onMonth(next.slice(0, 7));
+    setSelected(next);
+  }
+
+  function goToday() {
+    onMonth(today.slice(0, 7));
+    setSelected(today);
+  }
+
+  const onToday =
+    view === "month"
+      ? month === today.slice(0, 7)
+      : view === "week"
+        ? weekDays.some((d) => d.iso === today)
+        : day.iso === today;
+  const title =
+    view === "month"
+      ? dateLabel(`${month}-01`, { month: "long", year: "numeric" })
+      : view === "week"
+        ? `${dateLabel(weekDays[0]!.iso, { day: "numeric", month: "short" })} – ${dateLabel(weekDays[6]!.iso, { day: "numeric", month: "short" })}`
+        : dateLabel(day.iso, { weekday: "short", day: "numeric", month: "short" });
+  const unit = view === "month" ? "month" : view === "week" ? "week" : "day";
+
   const progress = totals.agreedHours ? Math.min(totals.loggedHours / totals.agreedHours, 1) : 0;
 
   return (
     <section className="surface-card overflow-hidden" aria-label="This month">
-      <header className="flex items-center justify-between gap-3 px-5 pt-5 md:px-6">
+      <div className="px-5 pt-5 md:px-6">
+        <div
+          role="tablist"
+          aria-label="Calendar view"
+          className="inline-flex rounded-full bg-muted p-1"
+        >
+          {(["day", "week", "month"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              role="tab"
+              aria-selected={view === v}
+              onClick={() => setView(v)}
+              className={cn(
+                "h-8 rounded-full px-4 text-sm font-medium capitalize transition-colors duration-150",
+                view === v
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+      </div>
+      <header className="flex items-center justify-between gap-3 px-5 pt-4 md:px-6">
         <h2 className="heading-display text-[1.375rem] leading-tight tracking-[-0.02em] text-foreground">
-          {dateLabel(`${month}-01`, { month: "long", year: "numeric" })}
+          {title}
         </h2>
         <div className="flex items-center gap-1.5">
-          {month !== today.slice(0, 7) && (
+          {!onToday && (
             <button
               type="button"
-              onClick={() => go(today.slice(0, 7))}
+              onClick={goToday}
               className={cn(PILL, "px-3.5")}
             >
               Today
@@ -129,16 +193,16 @@ export function MonthView({
           )}
           <button
             type="button"
-            onClick={() => go(shiftMonth(month, -1))}
-            aria-label="Previous month"
+            onClick={() => step(-1)}
+            aria-label={`Previous ${unit}`}
             className={cn(PILL, "w-9")}
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             type="button"
-            onClick={() => go(shiftMonth(month, 1))}
-            aria-label="Next month"
+            onClick={() => step(1)}
+            aria-label={`Next ${unit}`}
             className={cn(PILL, "w-9")}
           >
             <ChevronRight className="h-4 w-4" />
@@ -166,7 +230,10 @@ export function MonthView({
         <Stat label="Notes" value={String(totals.parentNotes)} dot="bg-tint-apricot-ink" />
       </dl>
 
-      <div className="mt-5 grid border-t border-rule lg:grid-cols-2">
+      <div
+        className={cn("mt-5 grid border-t border-rule", view !== "day" && "lg:grid-cols-2")}
+      >
+        {view !== "day" && (
         <div className="p-3 sm:p-5 md:px-6">
           <div className="grid grid-cols-7" aria-hidden="true">
             {WEEKDAYS.map((letter, i) => (
@@ -179,7 +246,7 @@ export function MonthView({
             ))}
           </div>
           <div className="grid grid-cols-7 gap-y-1">
-            {days.map((d) => (
+            {(view === "week" ? weekDays : days).map((d) => (
               <DayCell
                 key={d.iso}
                 day={d}
@@ -196,6 +263,7 @@ export function MonthView({
             <Key swatch="h-1.5 w-1.5 bg-tint-apricot-ink">Parent note</Key>
           </p>
         </div>
+        )}
 
         <DayView
           key={day.iso}
@@ -208,6 +276,14 @@ export function MonthView({
       </div>
     </section>
   );
+}
+
+type View = "day" | "week" | "month";
+
+function addDays(isoDate: string, by: number) {
+  const d = utc(isoDate);
+  d.setUTCDate(d.getUTCDate() + by);
+  return d.toISOString().slice(0, 10);
 }
 
 const PILL =
@@ -325,7 +401,7 @@ function DayView({
 }) {
   const pending = day.shifts.some((s) => s.status === "pending");
   return (
-    <div className="animate-in fade-in border-t border-rule p-5 duration-200 md:px-6 lg:border-l lg:border-t-0">
+    <div className="animate-in fade-in border-t border-rule p-5 duration-200 first:border-t-0 md:px-6 lg:border-l lg:border-t-0 lg:first:border-l-0">
       <p className="text-[0.8125rem] font-medium text-brand">
         {today ? "Today" : dateLabel(day.iso, { weekday: "long" })}
       </p>
