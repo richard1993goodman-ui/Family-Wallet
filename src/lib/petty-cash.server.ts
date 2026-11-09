@@ -44,6 +44,7 @@ export async function addPettyCash(slug: string, input: PettyCashInput) {
     added_by_name: family.access === "family" ? "Parent" : family.nanny_name ?? "Nanny",
   });
   if (error) throw new Error("Couldn't save that entry.");
+  await (await import("./notifications.server")).notifyOther(family, "pettycash", "Petty cash updated");
 }
 
 export async function deletePettyCash(slug: string, id: string) {

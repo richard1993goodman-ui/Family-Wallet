@@ -13,8 +13,8 @@ describe("partner agency isolation", () => {
   it("partner staff cannot see the owner's own families", () => {
     expect(canSeeFamily(partner, null)).toBe(false);
   });
-  it("the owner sees every family", () => {
-    expect(canSeeFamily({ kind: "owner" }, "agency-b")).toBe(true);
+  it("the owner sees only families with no partner agency", () => {
+    expect(canSeeFamily({ kind: "owner" }, "agency-b")).toBe(false);
     expect(canSeeFamily({ kind: "owner" }, null)).toBe(true);
   });
 });

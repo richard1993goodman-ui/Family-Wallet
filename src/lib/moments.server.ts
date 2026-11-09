@@ -87,6 +87,7 @@ export async function addMoment(slug: string, input: MomentInput) {
     added_by: family.access,
   });
   if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(family, "moments", "New photo moment");
 }
 
 export async function saveMomentPhoto(slug: string, input: MomentPhotoInput) {
