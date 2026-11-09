@@ -9,7 +9,7 @@ import { Copy, Plus, Search } from "lucide-react";
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
-import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily } from "@/lib/admin.functions";
+import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily, sendFamilyInvite } from "@/lib/admin.functions";
 import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
 import { AgencyAgreementSetting } from "@/components/AgencyAgreementSetting";
@@ -59,6 +59,11 @@ function AdminHome() {
   const claimFn = useServerFn(claimAdmin);
   const saveFn = useServerFn(saveFamily);
   const exportFn = useServerFn(exportMyAgencyRecords);
+  const inviteFn = useServerFn(sendFamilyInvite);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkText, setBulkText] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
+  const [inviting, setInviting] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -194,6 +199,73 @@ function AdminHome() {
     for (const r of roles) counts.set(r, (counts.get(r) ?? 0) + 1);
     return [...counts].map(([r, n]) => (n > 1 ? `${n} ${roleLabel(r).toLowerCase()}s` : roleLabel(r))).join(", ");
   };
+  const inviteable = households.filter((h) => h.status === "active" && h.contactEmail && !h.inviteSentAt && h.notOpened);
+
+  async function onBulkAdd() {
+    const lines = bulkText.split("\n").map((l) => l.trim()).filter(Boolean);
+    setBulkBusy(true);
+    let added = 0;
+    try {
+      for (const line of lines) {
+        const [rawName, rawEmail] = line.split(/[,;\t]/).map((p) => p.trim());
+        if (!rawName) continue;
+        await saveFn({
+          data: {
+            familyName: rawName,
+            contactEmail: rawEmail ?? "",
+            contactPhone: "",
+            tierBand: band,
+            introFeePercent: "",
+            nannyName: "",
+            startDate: "",
+            termsAcceptedOn: "",
+            notes: "",
+            status: "active",
+          },
+        });
+        added += 1;
+      }
+      toast.success(`Added ${added} ${added === 1 ? "family" : "families"}`);
+      setBulkText("");
+      setBulkOpen(false);
+    } catch (error) {
+      toast.error(`${added > 0 ? `Added ${added}, then stopped: ` : ""}${error instanceof Error ? error.message : "Could not add the families"}`);
+    } finally {
+      setBulkBusy(false);
+      await queryClient.invalidateQueries({ queryKey: ["families"] });
+      await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
+    }
+  }
+
+  async function sendInvite(id: string) {
+    setInviting(id);
+    try {
+      await inviteFn({ data: { id } });
+      toast.success("Invite emailed");
+      await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not send the invite");
+    } finally {
+      setInviting(null);
+    }
+  }
+
+  async function onEmailAll() {
+    if (!window.confirm(`Email ${inviteable.length} ${inviteable.length === 1 ? "family" : "families"} their wallet link and access code?`)) return;
+    let sent = 0;
+    for (const h of inviteable) {
+      try {
+        await inviteFn({ data: { id: h.id } });
+        sent += 1;
+      } catch (error) {
+        toast.error(`${h.name}: ${error instanceof Error ? error.message : "could not send"}`);
+        break;
+      }
+    }
+    if (sent > 0) toast.success(`Emailed ${sent} ${sent === 1 ? "invite" : "invites"}`);
+    await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
+  }
+
   const copyUnopened = () => {
     const lines = households
       .filter((h) => h.notOpened)
@@ -294,6 +366,34 @@ function AdminHome() {
               </form>
             </DialogContent>
           </Dialog>
+          <Dialog open={bulkOpen} onOpenChange={setBulkOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline">Paste a list</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add several families</DialogTitle>
+              </DialogHeader>
+              <p className="text-sm text-muted-foreground">
+                One family per line: the family name, then a comma, then their email. Each uses one seat and gets its own link and
+                access code. You can email the invites afterwards.
+              </p>
+              <textarea
+                className="min-h-40 w-full rounded-md border border-border bg-background p-3 text-sm"
+                placeholder={"The Smiths, smith@example.com\nThe Joneses, jones@example.com"}
+                value={bulkText}
+                onChange={(e) => setBulkText(e.target.value)}
+              />
+              <Button disabled={bulkBusy || !bulkText.trim()} onClick={() => void onBulkAdd()}>
+                {bulkBusy ? "Adding…" : "Add these families"}
+              </Button>
+            </DialogContent>
+          </Dialog>
+          {inviteable.length > 0 && (
+            <Button variant="outline" onClick={() => void onEmailAll()}>
+              Email {inviteable.length} not yet invited
+            </Button>
+          )}
           {(data?.totals.notOpened ?? 0) > 0 && (
             <Button variant="outline" onClick={copyUnopened}>
               <Copy className="mr-2 h-4 w-4" /> Copy details for {data!.totals.notOpened} not opened yet
@@ -408,18 +508,41 @@ function AdminHome() {
                 >
                   <Copy className="h-3.5 w-3.5" /> Copy link &amp; code
                 </button>
+                {h.status === "active" &&
+                  (h.contactEmail ? (
+                    <button
+                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground disabled:opacity-50"
+                      disabled={inviting === h.id}
+                      onClick={() => void sendInvite(h.id)}
+                    >
+                      {inviting === h.id ? "Sending…" : h.inviteSentAt ? "Resend invite" : "Email invite"}
+                    </button>
+                  ) : (
+                    <span className="text-muted-foreground">No email yet</span>
+                  ))}
+                {h.inviteSentAt && (
+                  <span className="text-muted-foreground">
+                    Invite sent {new Date(h.inviteSentAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
+                  </span>
+                )}
               </div>
             </div>
           ))}
         </div>
 
-        {status.data?.features.challenges && (
-          <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-        )}
-        {(status.data?.features.perks || status.data?.features.playbooks) && (
-          <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
-        )}
-        <div className="mt-6"><AgencyTermsPanel /></div>
+        <details className="mt-10 rounded-xl bg-card p-5 ring-1 ring-border">
+          <summary className="cursor-pointer font-semibold text-foreground">More tools</summary>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Challenges, perks, seasonal playbooks and your terms and conditions. You don't need these to get families started.
+          </p>
+          {status.data?.features.challenges && (
+            <ChallengesPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+          )}
+          {(status.data?.features.perks || status.data?.features.playbooks) && (
+            <PremiumContentPanel families={(families.data ?? []).filter((f) => f.status === "active")} />
+          )}
+          <div className="mt-6"><AgencyTermsPanel /></div>
+        </details>
       </div>
     </div>
   );

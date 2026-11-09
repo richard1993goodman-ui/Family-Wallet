@@ -1,0 +1,1 @@
+ALTER TABLE public.families ADD COLUMN IF NOT EXISTS invite_sent_at timestamptz;

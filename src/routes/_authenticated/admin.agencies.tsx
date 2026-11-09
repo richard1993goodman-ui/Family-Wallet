@@ -136,18 +136,18 @@ function AgenciesPage() {
                     <p className="mt-2 text-sm text-muted-foreground">Set a web address to get their branded page and demo links.</p>
                   )}
                   {(() => {
-                    const u = allowanceUsage(isAgencyPlan(a.plan) ? a.plan : "partner", a.household_allowance, a.activeThisMonth);
+                    const u = allowanceUsage(isAgencyPlan(a.plan) ? a.plan : "partner", a.household_allowance, a.activeFamilies);
                     const bar = u.level === "over" ? "bg-destructive" : u.level === "near" ? "bg-warning" : "bg-primary";
                     return (
                       <div className="mt-3 w-72 max-w-full">
                         <p className="text-sm font-medium">
-                          {u.allowance === null ? `${u.used} active` : `${u.used} of ${u.allowance} active households`} · {u.planName} plan
+                          {u.allowance === null ? `${u.used} seats in use` : `${u.used} of ${u.allowance} seats used`} · {u.planName} plan
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {u.basePence !== null ? `${formatPounds(u.basePence + u.extraPence)}/month + VAT${u.extraPence > 0 ? ` (includes ${formatPounds(u.extraPence)} extra)` : ""}` : "Priced to their agreement"} · {a.activeFamilies} wallet{a.activeFamilies === 1 ? "" : "s"} in total · no setup fee
                         </p>
                         {u.allowance !== null && (
-                          <div className="mt-1.5 h-2 rounded-full bg-muted" role="progressbar" aria-valuemin={0} aria-valuemax={u.allowance} aria-valuenow={Math.min(u.used, u.allowance)} aria-label={`${a.name} allowance used`}>
+                          <div className="mt-1.5 h-2 rounded-full bg-muted" role="progressbar" aria-valuemin={0} aria-valuemax={u.allowance} aria-valuenow={Math.min(u.used, u.allowance)} aria-label={`${a.name} seats used`}>
                             <div className={`h-2 rounded-full ${bar}`} style={{ width: `${u.percent}%` }} />
                           </div>
                         )}

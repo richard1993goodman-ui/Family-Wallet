@@ -230,12 +230,18 @@ export const saveFamily = createServerFn({ method: "POST" })
 
     if (data.id) {
       await assertFamilyInScope(scope, data.id);
+      if (scope.kind === "partner" && data.status === "active") {
+        const { data: current } = await supabaseAdmin.from("families").select("status").eq("id", data.id).maybeSingle();
+        if (current?.status !== "active") await (await import("./seats.server")).assertSeatAvailable(scope.agencyId);
+      }
       const { error } = await supabaseAdmin.from("families").update(row).eq("id", data.id);
       if (error) throw new Error(error.message);
       await syncPrimaryNanny(data.id);
       await syncAddress(data.id);
       return { id: data.id };
     }
+
+    if (scope.kind === "partner") await (await import("./seats.server")).assertSeatAvailable(scope.agencyId);
 
     const base =
       data.familyName
@@ -271,6 +277,10 @@ export const setFamilyStatus = createServerFn({ method: "POST" })
     await assertFamilyInScope(scope, data.id);
     const status = data.status === "cancelled" ? "cancelled" : "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    if (status === "active" && scope.kind === "partner") {
+      const { data: current } = await supabaseAdmin.from("families").select("status").eq("id", data.id).maybeSingle();
+      if (current?.status !== "active") await (await import("./seats.server")).assertSeatAvailable(scope.agencyId);
+    }
     const { error } = await supabaseAdmin
       .from("families")
       .update({ status, updated_at: new Date().toISOString() })
@@ -753,7 +763,7 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
 
     let familyQuery = supabaseAdmin
       .from("families")
-      .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id")
+      .select("id, slug, family_name, nanny_name, status, access_code, created_at, last_active_at, partner_agency_id, contact_email, invite_sent_at")
       .order("created_at", { ascending: false });
     familyQuery = scope.kind === "partner" ? familyQuery.eq("partner_agency_id", scope.agencyId) : familyQuery.is("partner_agency_id", null);
     const { data: families, error } = await familyQuery;
@@ -797,6 +807,8 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
         nannyName: f.nanny_name,
         dbsExpired: !!issued && new Date(issued) < threeYearsAgo,
         partnerAgencyId: f.partner_agency_id,
+        contactEmail: f.contact_email,
+        inviteSentAt: f.invite_sent_at,
       };
     });
 
@@ -809,7 +821,7 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
         scope.kind === "partner"
           ? {
               name: scope.agencyName,
-              usage: allowanceUsage(isAgencyPlan(plan) ? plan : "partner", agencyRow.data?.household_allowance ?? null, activeThisMonth),
+              usage: allowanceUsage(isAgencyPlan(plan) ? plan : "partner", agencyRow.data?.household_allowance ?? null, active.length),
             }
           : null,
       totals: {
@@ -822,4 +834,36 @@ export const getAgencyOverview = createServerFn({ method: "GET" })
       },
       households,
     };
+  });
+
+/** Emails a family its wallet link and access code on the agency's behalf. */
+export const sendFamilyInvite = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data, context }) => {
+    const scope = await requireStaff(context);
+    await assertFamilyInScope(scope, data.id);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: family } = await supabaseAdmin
+      .from("families")
+      .select("slug, family_name, access_code, contact_email, status, partner_agency:partner_agencies(name, brand_name)")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (!family) throw new Error("Family not found");
+    if (family.status !== "active") throw new Error("That family is cancelled.");
+    const to = (family.contact_email ?? "").trim();
+    if (!to) throw new Error("Add an email address for this family first.");
+    const { emailConfigured, sendEmail } = await import("./email.server");
+    if (!emailConfigured()) throw new Error("Email isn't set up yet, so copy the link and code instead.");
+    const { buildWalletEmail } = await import("./wallet-email");
+    const { siteUrl } = await import("./site");
+    const agencyName = family.partner_agency?.brand_name || family.partner_agency?.name || undefined;
+    const message = buildWalletEmail(
+      "invite",
+      [{ familyName: family.family_name, url: siteUrl(`/w/${family.slug}`), code: family.access_code }],
+      { agencyName, supportEmail: process.env["EMAIL_REPLY_TO"] },
+    );
+    if (!(await sendEmail({ to, ...message }))) throw new Error("The email couldn't be sent. Try again in a minute.");
+    await supabaseAdmin.from("families").update({ invite_sent_at: new Date().toISOString() }).eq("id", data.id);
+    return { ok: true as const };
   });
