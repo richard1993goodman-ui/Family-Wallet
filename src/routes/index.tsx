@@ -4,6 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
   ArrowRight,
+  ArrowUp,
   ClipboardCheck,
   Clock3,
   Eye,
@@ -430,6 +431,7 @@ function Index() {
       </main>
 
       <FloatingDemoBar />
+      <BackToTop />
 
       <footer id="site-footer" className="pb-10 pt-20">
         <div className={frame}>
@@ -1156,5 +1158,42 @@ function FloatingDemoBar() {
         </Button>
       </div>
     </div>
+  );
+}
+
+/* ---------------- A phone-only jump back to the top ---------------- */
+
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Appears once the reader is past the opening screen, where the way back is no longer obvious.
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  function toTop() {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    // Keyboard and screen-reader users should carry on from the top of the page, not from a button that just vanished.
+    document.getElementById("main")?.focus({ preventScroll: true });
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toTop}
+      aria-label="Back to top"
+      aria-hidden={!visible}
+      inert={!visible}
+      className={cn(
+        "material fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-transparent text-foreground shadow-[var(--shadow-float)] transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none md:hidden",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
+      )}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
   );
 }
