@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
+import { NextStep } from "@/components/dashboard/NextStep";
+import { hasHours } from "@/lib/work-hours";
 import {
   BadgeCheck,
   BookOpen,
@@ -94,6 +96,7 @@ export function FamilyDashboard(props: DashboardProps) {
 
       <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
+          <NextStep {...props} />
           <AlertsPrompt slug={slug} />
           <NeedsAttention {...props} />
           <SetupProgress {...props} />
@@ -451,7 +454,7 @@ function NeedsAttention({
   );
 }
 
-function SetupProgress({ slug, hub, agreementDone, nannyCount }: DashboardProps) {
+function SetupProgress({ slug, hub, agreementDone, nannyCount, agreementsEnabled }: DashboardProps) {
   return (
     <SetupStatus
       slug={slug}
@@ -462,12 +465,19 @@ function SetupProgress({ slug, hub, agreementDone, nannyCount }: DashboardProps)
           hint: "Add everyone you employ with us",
           to: "/nannies/$slug",
         },
-        {
-          label: nannyCount > 1 ? "Every nanny agreement signed" : "Nanny agreement signed",
-          done: agreementDone,
-          hint: "Build it, then both of you sign it",
-          to: "/agreement/$slug",
-        },
+        agreementsEnabled
+          ? {
+              label: nannyCount > 1 ? "Every nanny agreement signed" : "Nanny agreement signed",
+              done: agreementDone,
+              hint: "Build it, then both of you sign it",
+              to: "/agreement/$slug" as const,
+            }
+          : {
+              label: "Working hours set",
+              done: (hub?.schedules ?? []).some((s) => hasHours(s.workingDays)),
+              hint: "The days and hours your nanny works",
+              to: "/hours/$slug" as const,
+            },
         {
           label: "Children added",
           done: Boolean(hub?.readiness?.children),
@@ -585,19 +595,21 @@ function LatestUpdates({ slug, hub }: DashboardProps) {
   );
 }
 
-function Documents({ slug, wallet, agreementSubtitle, openDoc }: DashboardProps) {
+function Documents({ slug, wallet, agreementSubtitle, agreementsEnabled, openDoc }: DashboardProps) {
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
   return (
     <section>
       <SectionTitle>Documents &amp; checks</SectionTitle>
       <div data-tint="lilac" className="ios-group">
-        <HubTile
-          slug={slug}
-          to="/agreement/$slug"
-          icon={FileText}
-          title="Nanny agreement"
-          subtitle={agreementSubtitle}
-        />
+        {agreementsEnabled && (
+          <HubTile
+            slug={slug}
+            to="/agreement/$slug"
+            icon={FileText}
+            title="Nanny agreement"
+            subtitle={agreementSubtitle}
+          />
+        )}
         <DocTile
           icon={IdCard}
           title="Your nanny's CV"

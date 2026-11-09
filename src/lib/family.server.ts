@@ -1,6 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { accessLevel, isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
 import { normalizeAgreement, type WorkingDay } from "./agreement.model";
+import { agreementMode } from "./agreement-mode.server";
+import { cleanWorkingDays, effectiveWorkingDays } from "./work-hours";
 import { expiryInfo } from "./expiry";
 import { PRESET_KEYS } from "./permissions.types";
 
@@ -317,16 +319,20 @@ export type NannySchedule = { nannyId: string; nannyName: string; workingDays: W
 
 /** Each nanny's agreed days come from their own agreement. */
 export async function loadNannySchedules(familyId: string): Promise<NannySchedule[]> {
-  const [rows, { data: agreements }] = await Promise.all([
+  const [rows, { data: agreements }, { data: manual }, mode] = await Promise.all([
     listNannyRows(familyId),
     supabaseAdmin.from("nanny_agreements").select("nanny_id, agreement_data").eq("family_id", familyId),
+    supabaseAdmin.from("nanny_work_hours").select("nanny_id, working_days").eq("family_id", familyId),
+    agreementMode(familyId),
   ]);
   return rows.map((row) => {
     const agreement = (agreements ?? []).find((a) => a.nanny_id === row.id);
+    const agreementDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
+    const typed = (manual ?? []).find((m) => m.nanny_id === row.id)?.working_days;
     return {
       nannyId: row.id,
       nannyName: row.name,
-      workingDays: agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [],
+      workingDays: effectiveWorkingDays(mode.enabled, agreementDays, typed ? cleanWorkingDays(typed) : null),
     };
   });
 }

@@ -1,0 +1,53 @@
+import { describe, expect, it } from "vitest";
+import { defaultWorkingDays, type WorkingDay } from "./agreement.model";
+import { navFor } from "../components/wallet-nav";
+import { cleanWorkingDays, effectiveWorkingDays, hasHours, weeklyHours } from "./work-hours";
+
+const mon = (enabled = true): WorkingDay[] =>
+  defaultWorkingDays.map((d) => (d.day === "Monday" ? { ...d, enabled, startTime: "08:00", endTime: "16:30" } : d));
+
+describe("cleanWorkingDays", () => {
+  it("always returns seven days, Monday first, with only the given days on", () => {
+    const days = cleanWorkingDays([{ day: "Wednesday", enabled: true, startTime: "07:30", endTime: "18:00" }]);
+    expect(days.map((d) => d.day)).toEqual(defaultWorkingDays.map((d) => d.day));
+    expect(days.filter((d) => d.enabled).map((d) => d.day)).toEqual(["Wednesday"]);
+    expect(weeklyHours(days)).toBe(10.5);
+  });
+  it("rejects bad or backwards times on a working day", () => {
+    expect(() => cleanWorkingDays([{ day: "Monday", enabled: true, startTime: "9am", endTime: "17:00" }])).toThrow("Monday");
+    expect(() => cleanWorkingDays([{ day: "Friday", enabled: true, startTime: "17:00", endTime: "09:00" }])).toThrow("Friday");
+  });
+  it("ignores the times on a day that is switched off, and non-lists", () => {
+    expect(cleanWorkingDays([{ day: "Monday", enabled: false, startTime: "nonsense", endTime: "x" }]).some((d) => d.enabled)).toBe(false);
+    expect(hasHours(cleanWorkingDays("rubbish"))).toBe(false);
+  });
+});
+
+describe("effectiveWorkingDays", () => {
+  const agreement = mon();
+  const typed = cleanWorkingDays([{ day: "Tuesday", enabled: true, startTime: "09:00", endTime: "17:00" }]);
+  it("uses the agreement's days when the agreement is on and has some", () => {
+    expect(effectiveWorkingDays(true, agreement, typed)).toBe(agreement);
+  });
+  it("uses typed hours when the agreement is off", () => {
+    expect(effectiveWorkingDays(false, agreement, typed)).toBe(typed);
+  });
+  it("uses typed hours when the agreement exists but has no days", () => {
+    expect(effectiveWorkingDays(true, mon(false), typed)).toBe(typed);
+  });
+  it("falls back to the agreement when nothing was typed", () => {
+    expect(effectiveWorkingDays(false, agreement, null)).toBe(agreement);
+  });
+});
+
+describe("navFor", () => {
+  const hasAgreement = (agreements: boolean, role: "family" | "nanny") =>
+    navFor(role, agreements).some((s) => s.items.some((i) => i.to === "/agreement/$slug"));
+  it("hides the agreement page when it is off, for both roles, but keeps working hours", () => {
+    for (const role of ["family", "nanny"] as const) {
+      expect(hasAgreement(true, role)).toBe(true);
+      expect(hasAgreement(false, role)).toBe(false);
+      expect(navFor(role, false).some((s) => s.items.some((i) => i.to === "/hours/$slug"))).toBe(true);
+    }
+  });
+});

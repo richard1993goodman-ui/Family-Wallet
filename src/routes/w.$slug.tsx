@@ -179,15 +179,18 @@ function WalletPage() {
 
   if (!data?.unlocked) return null;
 
+  // Without the agreement there is nothing to build or sign, so nothing is chased on the home screen.
+  const agreementsEnabled = data.wallet.agreementsEnabled;
   const props = {
     slug,
     wallet: data.wallet,
     hub,
-    agreement,
-    agreementDone,
+    agreement: agreementsEnabled ? agreement : null,
+    agreementDone: agreementsEnabled ? agreementDone : true,
     agreementSubtitle,
     nannyCount: nannies.length,
-    outstandingAgreements,
+    agreementsEnabled,
+    outstandingAgreements: agreementsEnabled ? outstandingAgreements : [],
     openDoc: (docType: string) => void openDoc(docType),
     onLock: () => {
       void lockFn({ data: { slug } }).then(() =>

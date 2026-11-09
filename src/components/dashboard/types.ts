@@ -23,6 +23,8 @@ export type DashboardProps = {
   agreementDone: boolean;
   agreementSubtitle: string;
   nannyCount: number;
+  /** False when this household (or its agency) isn't using the nanny agreement. */
+  agreementsEnabled: boolean;
   outstandingAgreements: OutstandingAgreement[];
   openDoc: (docType: string) => void;
   onLock: () => void;

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertCircle, ArrowRight, Building2, KeyRound, Link2, LockKeyhole, ShieldCheck } from "lucide-react";
+import { AlertCircle, ArrowRight, Building2, Eye, EyeOff, KeyRound, Link2, LockKeyhole, ShieldCheck } from "lucide-react";
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,6 +53,7 @@ export function FamilyLogin({
   const [link, setLink] = useState("");
   const [code, setCode] = useState("");
   const [remember, setRemember] = useState(true);
+  const [showCode, setShowCode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<LoginError | null>(null);
   const linkInput = useRef<HTMLInputElement>(null);
@@ -179,7 +180,10 @@ export function FamilyLogin({
                 aria-invalid={linkInvalid || undefined}
                 aria-describedby={error?.field === "link" ? "wallet-link-error" : undefined}
                 placeholder="e.g. smith-4f2a"
-                autoComplete="off"
+                name="username"
+                autoComplete="username"
+                autoCapitalize="none"
+                spellCheck={false}
                 required
                 className="h-10 pl-9"
               />
@@ -203,11 +207,21 @@ export function FamilyLogin({
                 aria-invalid={codeInvalid || undefined}
                 aria-describedby={codeInvalid ? "wallet-code-error" : undefined}
                 placeholder="6-character code"
-                autoComplete="off"
+                name="password"
+                type={showCode ? "text" : "password"}
+                autoComplete="current-password"
                 maxLength={8}
                 required
-                className="h-10 pl-9 font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
+                className="h-10 pl-9 pr-10 font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
               />
+              <button
+                type="button"
+                onClick={() => setShowCode((v) => !v)}
+                aria-label={showCode ? "Hide access code" : "Show access code"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                {showCode ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
             </div>
             {codeInvalid && <FieldError id="wallet-code-error" message={error.message} />}
           </div>
@@ -226,6 +240,9 @@ export function FamilyLogin({
               months
             </Label>
           </div>
+          <p className="text-[0.8125rem] leading-snug text-muted-foreground">
+            When your browser offers to save your password, say yes. Your link and code will then fill in for you next time you sign in.
+          </p>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-3 px-6 pb-6">

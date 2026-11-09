@@ -320,6 +320,10 @@ export type WalletData = {
   startDate: string | null;
   termsAcceptedOn: string | null;
   hasTerms: boolean;
+  /** The nanny agreement is in use for this household. */
+  agreementsEnabled: boolean;
+  /** The agency turned agreements off, so the family cannot switch them on. */
+  agreementsLockedByAgency: boolean;
   updatedAt: string;
   contacts: WalletContact[];
   documents: { docType: string; fileName: string }[];
@@ -335,7 +339,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, partner_agency:partner_agencies(name, brand_name, logo_data)")
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, partner_agency:partner_agencies(name, brand_name, logo_data, agreements_enabled)")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -394,6 +398,8 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     startDate: access === "family" ? family.start_date : null,
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
     hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
+    agreementsEnabled: family.use_agreement !== false && family.partner_agency?.agreements_enabled !== false,
+    agreementsLockedByAgency: family.partner_agency?.agreements_enabled === false,
     updatedAt: family.updated_at,
     contacts: (contactRows ?? []).map((c) => ({
       name: c.name,

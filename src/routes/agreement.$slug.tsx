@@ -15,7 +15,9 @@ import {
 } from "@/lib/agreement.functions";
 import type { AgreementData, DocumentStyle } from "@/lib/agreement.model";
 import { DOCUMENT_STYLE_LABELS } from "@/lib/agreement.model";
+import { AgreementChoice } from "@/components/AgreementChoice";
 import { AgreementDocument } from "@/components/AgreementDocument";
+import { getWalletSummary } from "@/lib/wallet.functions";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
 import { StatementDocument } from "@/components/StatementDocument";
@@ -50,7 +52,7 @@ export const Route = createFileRoute("/agreement/$slug")({
   component: AgreementPage,
 });
 
-function AgreementPage() {
+function AgreementPageInner() {
   const { slug } = Route.useParams();
   const search = Route.useSearch();
   const queryClient = useQueryClient();
@@ -655,4 +657,23 @@ function AgreementPage() {
       {body}
     </HubPage>
   );
+}
+
+function AgreementPage() {
+  const { slug } = Route.useParams();
+  const summaryFn = useServerFn(getWalletSummary);
+  const summary = useQuery({ queryKey: ["wallet", slug], queryFn: () => summaryFn({ data: { slug } }) });
+  const wallet = summary.data?.unlocked ? summary.data.wallet : null;
+  if (wallet && !wallet.agreementsEnabled) {
+    return (
+      <HubPage
+        slug={slug}
+        title="Nanny agreement"
+        intro="This household isn't using the nanny agreement in the wallet."
+      >
+        <AgreementChoice slug={slug} />
+      </HubPage>
+    );
+  }
+  return <AgreementPageInner />;
 }

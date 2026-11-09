@@ -5,6 +5,7 @@ import {
   Briefcase,
   Calculator,
   CalendarCheck,
+  CalendarClock,
   CalendarDays,
   Baby,
   Camera,
@@ -64,7 +65,8 @@ export type WalletPath =
   | "/bankdetails/$slug"
   | "/incidents/$slug"
   | "/permissions/$slug"
-  | "/notifications/$slug";
+  | "/notifications/$slug"
+  | "/hours/$slug";
 
 export type NavItem = {
   label: string;
@@ -128,6 +130,7 @@ const nannies = item("Household staff", UserPlus, "/nannies/$slug", [
   "housekeeper",
   "role",
 ]);
+const workHours = item("Working hours", CalendarClock, "/hours/$slug", ["schedule", "rota", "shifts", "days"]);
 const agreement = item("Nanny agreement", FileText, "/agreement/$slug", ["contract", "sign"]);
 const timesheets = item("Timesheets", Clock3, "/timesheets/$slug", ["hours", "shifts", "pay"]);
 const leave = item("Holiday & leave", CalendarCheck, "/leave/$slug", ["time off", "absence"]);
@@ -154,6 +157,7 @@ const familyNav: NavSection[] = [
     label: "Your nanny",
     items: [
       nannies,
+      workHours,
       agreement,
       timesheets,
       leave,
@@ -176,11 +180,14 @@ const nannyNav: NavSection[] = [
     label: "The family",
     items: [emergency, houseManual, permissions, kids, passport, first48, travel],
   },
-  { label: "My work", items: [timesheets, leave, pettyCash, bankDetails, agreement, training, safety] },
+  { label: "My work", items: [workHours, timesheets, leave, pettyCash, bankDetails, agreement, training, safety] },
 ];
 
-export function navFor(role: WalletRole): NavSection[] {
-  return role === "nanny" ? nannyNav : familyNav;
+/** The nav for a role. Households that don't use the nanny agreement don't see its page. */
+export function navFor(role: WalletRole, agreements = true): NavSection[] {
+  const sections = role === "nanny" ? nannyNav : familyNav;
+  if (agreements) return sections;
+  return sections.map((s) => ({ ...s, items: s.items.filter((i) => i.to !== "/agreement/$slug") }));
 }
 
 export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath };
@@ -206,8 +213,8 @@ export function routePrefix(to: string) {
 }
 
 /** The nav section containing this page, if any. */
-export function sectionFor(role: WalletRole, prefix: string): NavSection | null {
-  return navFor(role).find((s) => s.items.some((i) => routePrefix(i.to) === prefix)) ?? null;
+export function sectionFor(role: WalletRole, prefix: string, agreements = true): NavSection | null {
+  return navFor(role, agreements).find((s) => s.items.some((i) => routePrefix(i.to) === prefix)) ?? null;
 }
 
 /**
