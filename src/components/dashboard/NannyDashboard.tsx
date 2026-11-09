@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
+import { SupportBox } from "@/components/SupportBox";
 import {
   AlertTriangle,
   BadgeCheck,
@@ -340,6 +341,7 @@ export function NannyDashboard(props: DashboardProps) {
           </section>
 
           <EmergencyContacts wallet={wallet} />
+          <SupportBox slug={slug} familyName={wallet.familyName} />
         </Column>
       </div>
 

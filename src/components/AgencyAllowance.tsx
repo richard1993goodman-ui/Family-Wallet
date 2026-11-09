@@ -1,7 +1,7 @@
 import { formatPounds, type AllowanceUsage } from "@/lib/agency-plans";
+import { CONTACT_EMAIL } from "@/lib/site";
 
-const SALES_EMAIL =
-  "mailto:richard@athletemannies.com?subject=Family%20Wallet%20for%20agencies%3A%20upgrade";
+const SALES_EMAIL = `mailto:${CONTACT_EMAIL}?subject=Family%20Wallet%20for%20agencies%3A%20more%20seats`;
 
 /** The agency's seats: one seat per active family wallet. Cancelling a family frees its seat. */
 export function AllowanceCard({ usage }: { usage: AllowanceUsage }) {

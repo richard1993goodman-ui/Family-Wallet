@@ -18,6 +18,7 @@ import {
   Heart,
   Home,
   KeyRound,
+  LifeBuoy,
   Landmark,
   Bell,
   ListChecks,
@@ -66,7 +67,8 @@ export type WalletPath =
   | "/incidents/$slug"
   | "/permissions/$slug"
   | "/notifications/$slug"
-  | "/hours/$slug";
+  | "/hours/$slug"
+  | "/support/$slug";
 
 export type NavItem = {
   label: string;
@@ -140,6 +142,7 @@ const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pens
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
 const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
+const helpSupport = item("Help & support", LifeBuoy, "/support/$slug", ["email", "contact", "question", "help"]);
 const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "account",
   "sort code",
@@ -147,7 +150,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 ]);
 
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report, notifications] },
+  { label: "Overview", items: [home, calendar, messages, report, notifications, helpSupport] },
   { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
@@ -174,7 +177,7 @@ const familyNav: NavSection[] = [
 const nannyNav: NavSection[] = [
   {
     label: "My day",
-    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications],
+    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications, helpSupport],
   },
   {
     label: "The family",

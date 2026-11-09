@@ -2,7 +2,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { isInterval, isPlan, planFromLookupKey } from "./billing.config";
 import { sendEmail } from "./email.server";
 import { stripe } from "./stripe.server";
-import { siteUrl } from "./site";
+import { CONTACT_EMAIL, siteUrl } from "./site";
 import { buildWalletEmail } from "./wallet-email";
 import { generateAccessCode, hashCode } from "./wallet.server";
 
@@ -133,7 +133,7 @@ export async function provisionFromSession(sessionId: string) {
   // Only the call that actually created the wallet gets here, so the email goes out once.
   if (email) {
     const message = buildWalletEmail("welcome", [{ familyName, url: siteUrl(`/w/${slug}`), code }], {
-      supportEmail: process.env["EMAIL_REPLY_TO"],
+      supportEmail: process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL,
     });
     await sendEmail({ to: email, ...message });
   }
