@@ -2003,6 +2003,56 @@ export type Database = {
           },
         ]
       }
+      push_subscriptions: {
+        Row: {
+          created_at: string
+          endpoint: string
+          family_id: string
+          id: string
+          last_delivered_at: string
+          muted_features: string[]
+          quiet_end: number | null
+          quiet_start: number | null
+          role: string
+          slug: string
+          tz: string
+        }
+        Insert: {
+          created_at?: string
+          endpoint: string
+          family_id: string
+          id?: string
+          last_delivered_at?: string
+          muted_features?: string[]
+          quiet_end?: number | null
+          quiet_start?: number | null
+          role: string
+          slug: string
+          tz?: string
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string
+          family_id?: string
+          id?: string
+          last_delivered_at?: string
+          muted_features?: string[]
+          quiet_end?: number | null
+          quiet_start?: number | null
+          role?: string
+          slug?: string
+          tz?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "push_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       review_checkins: {
         Row: {
           answers: Json
@@ -2523,6 +2573,70 @@ export type Database = {
           succeeded?: boolean
         }
         Relationships: []
+      }
+      wallet_activity: {
+        Row: {
+          actor: string
+          created_at: string
+          family_id: string
+          feature: string
+          id: string
+          summary: string
+        }
+        Insert: {
+          actor: string
+          created_at?: string
+          family_id: string
+          feature: string
+          id?: string
+          summary: string
+        }
+        Update: {
+          actor?: string
+          created_at?: string
+          family_id?: string
+          feature?: string
+          id?: string
+          summary?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_activity_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallet_seen: {
+        Row: {
+          family_id: string
+          feature: string
+          role: string
+          seen_at: string
+        }
+        Insert: {
+          family_id: string
+          feature: string
+          role: string
+          seen_at?: string
+        }
+        Update: {
+          family_id?: string
+          feature?: string
+          role?: string
+          seen_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_seen_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       welcome_checkins: {
         Row: {
