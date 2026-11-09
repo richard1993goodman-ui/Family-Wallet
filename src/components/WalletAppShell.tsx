@@ -274,8 +274,8 @@ function WalletNavigation({
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
             />
           </Link>
-        )}
       </SidebarHeader>
+      )}
       <SidebarContent className="gap-1 py-2">
         {navFor(role, agreements).map((section) => (
           <SidebarGroup key={section.label}>
