@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   BadgeCheck,
   BatteryFull,
+  Bell,
   BookOpen,
   Briefcase,
   Calculator,
@@ -578,14 +579,70 @@ function MonthCard({ app }: ScreenProps) {
   );
 }
 
+const PHONE_ALERTS = [
+  { id: 1, text: "Jess added 3 photos from the park", sub: "Photos · 12 min ago" },
+  { id: 2, text: "Jess asked to swap Thursday's shift", sub: "Week plan · 3 hr ago" },
+  { id: 3, text: "New holiday request for half term", sub: "Leave · 1 d ago" },
+];
+
+function PhoneBell() {
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState(PHONE_ALERTS);
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-label={items.length ? `Notifications, ${items.length} unread` : "Notifications"}
+        className="relative flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-navy"
+      >
+        <Bell className="h-4 w-4" aria-hidden />
+        {items.length > 0 && (
+          <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-primary px-0.5 text-[8px] font-semibold text-primary-foreground">
+            {items.length}
+          </span>
+        )}
+      </button>
+      {open && (
+        <div className="absolute right-0 top-10 z-20 w-56 overflow-hidden rounded-xl border border-border bg-card shadow-lg">
+          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">Notifications</p>
+          {items.length === 0 ? (
+            <p className="px-3 py-4 text-center text-[11px] text-muted-foreground">You're all caught up.</p>
+          ) : (
+            items.map((n) => (
+              <div key={n.id} className="flex items-start gap-2 border-b border-border px-3 py-2 last:border-0">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] leading-snug text-foreground">{n.text}</p>
+                  <p className="text-[9px] text-muted-foreground">{n.sub}</p>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Mark as read"
+                  onClick={() => setItems((l) => l.filter((x) => x.id !== n.id))}
+                  className="flex h-5 w-5 flex-none items-center justify-center rounded-full border border-border text-muted-foreground"
+                >
+                  <Check className="h-3 w-3" aria-hidden />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HomeScreen({ app }: ScreenProps) {
   return (
     <>
-      <div>
-        <h3 data-title tabIndex={-1} className={cn(titleCls, "text-[25px]")}>
-          {greeting(app.today)}
-        </h3>
-        <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 data-title tabIndex={-1} className={cn(titleCls, "text-[25px]")}>
+            {greeting(app.today)}
+          </h3>
+          <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
+        </div>
+        <PhoneBell />
       </div>
       <MonthCard app={app} />
       <div className="flex gap-2">
