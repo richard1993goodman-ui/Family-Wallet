@@ -96,7 +96,7 @@ const benefitGroups = [
     photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
     items: [
       "Messages — topic conversations between family and nanny",
-      "Phone alerts — messages, photos and daily updates reach the other person's phone, with quiet hours",
+      "Phone alerts — parents are notified when notes, photos, key information, schedule changes or holiday requests are added, with quiet hours",
       "Private nanny curation — personally selected profiles, never a public catalogue",
       "Family perks & London Partner Concierge — private offers and trusted recommendations",
       "Agency Materials — audiobooks, digital books, activity and family guides",
@@ -123,8 +123,8 @@ const weekClaims = [
     detail: "Hours, activities, handovers and expenses, summed up for you.",
   },
   {
-    title: "Messages, photos and updates reach you",
-    detail: "A quiet phone alert when your nanny or family adds something. Nothing private shows on the lock screen.",
+    title: "You're told the moment anything changes",
+    detail: "When your nanny, au pair or household staff add notes, photos or key information, or ask to change the schedule or book holiday, you get an alert. Nothing private shows on the lock screen.",
   },
   {
     title: "Alerts you control",
@@ -365,8 +365,8 @@ function Index() {
                 Everything in the wallet
               </h2>
               <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
-                {benefitGroups.reduce((n, g) => n + g.items.length, 0)} tools in four drawers, set
-                up by your agency and shared only with the people in your household.
+                {benefitGroups.reduce((n, g) => n + g.items.length, 0)} tools in four drawers, ready
+                in minutes and shared only with the people in your household.
               </p>
             </div>
 
@@ -384,16 +384,16 @@ function Index() {
               <ol className="mt-10 space-y-7">
                 {[
                   [
-                    "Your agency sends two things",
-                    "A personal wallet link and a six-character access code.",
+                    "Subscribing directly?",
+                    "Pick a plan on our pricing page. Your private wallet link and access code are created straight away and emailed to you.",
                   ],
                   [
-                    "Enter them once",
-                    "On your phone or computer, in the form at the top of this page.",
+                    "Joined through an agency?",
+                    "Open the private link and six-character code sent by your agency team.",
                   ],
                   [
-                    "Choose Remember this device",
-                    "You stay signed in on that device for 12 months.",
+                    "Enter once and save",
+                    "Choose Remember this device to stay signed in for 12 months.",
                   ],
                 ].map(([title, detail]) => (
                   <li key={title} className="border-l border-white/25 pl-5">
@@ -409,7 +409,11 @@ function Index() {
                   </Link>
                 </Button>
                 <p className="text-[0.9375rem] text-white/70">
-                  Need your details again? Your agency resends them.{" "}
+                  New here?{" "}
+                  <Link to="/pricing" className="text-white underline underline-offset-4">
+                    See plans
+                  </Link>
+                  . Through an agency?{" "}
                   <Link to="/admin" className="text-white underline underline-offset-4">
                     Agency sign in
                   </Link>

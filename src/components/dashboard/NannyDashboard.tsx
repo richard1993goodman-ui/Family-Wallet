@@ -77,6 +77,15 @@ export function NannyDashboard(props: DashboardProps) {
       />
       <WalletTravelBanner slug={slug} />
 
+      <div className="mt-8">
+        <MonthOverview
+          slug={slug}
+          schedules={hub?.schedules ?? []}
+          today={hub?.today.date ?? londonToday()}
+          role="nanny"
+        />
+      </div>
+
       <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
           <TodayShift hub={hub} />
@@ -185,12 +194,6 @@ export function NannyDashboard(props: DashboardProps) {
             </section>
           )}
 
-          <MonthOverview
-            slug={slug}
-            schedules={hub?.schedules ?? []}
-            today={hub?.today.date ?? londonToday()}
-            role="nanny"
-          />
         </Column>
 
         <Column>
