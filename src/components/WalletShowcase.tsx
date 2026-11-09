@@ -94,9 +94,8 @@ export function WalletHero() {
             Family and nanny, one wallet
           </h1>
           <p className="mt-7 max-w-[34rem] text-pretty text-lg leading-relaxed text-foreground sm:text-xl">
-            Your family's private hub for managing your nanny. Weekly schedules, agreements,
-            household codes and day-to-day childcare, together in one place. Tap around the phone,
-            or scroll and it will show you.
+            Your family's private hub for your nanny, au pair or household staff. Schedules,
+            agreements, household codes and day-to-day childcare, together in one place.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <Link
