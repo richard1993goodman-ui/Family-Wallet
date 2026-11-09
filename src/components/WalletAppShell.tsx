@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import { Lock, Menu, Search } from "lucide-react";
+import { Lock, LogOut, Menu, Search } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
 
@@ -161,6 +161,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
       />
       <SidebarInset className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
         <WalletTopBar
+          slug={location.slug}
           familyName={wallet.familyName}
           role={role}
           agencyName={agencyName}
@@ -186,12 +187,14 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 }
 
 function WalletTopBar({
+  slug,
   familyName,
   role,
   agencyName,
   agencyLogo,
   onSearch,
 }: {
+  slug: string;
   familyName: string;
   role: WalletRole;
   agencyName: string | null;
@@ -226,6 +229,14 @@ function WalletTopBar({
           ⌘K
         </kbd>
       </button>
+      {slug === "demo" && (
+        <Link
+          to="/"
+          className="flex h-9 flex-none items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          <LogOut className="h-4 w-4" aria-hidden /> Exit demo
+        </Link>
+      )}
     </header>
   );
 }
@@ -249,19 +260,35 @@ function WalletNavigation({
   return (
     <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
       <SidebarHeader className="px-3 pb-2 pt-4">
-        <Link
-          to="/w/$slug"
-          params={{ slug }}
-          onClick={() => isMobile && setOpenMobile(false)}
-          className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
-        >
-          <Wordmark
-            subline={agencyName ? `with ${agencyName}` : null}
-            logoUrl={agencyLogo}
-            logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
-            className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
-          />
-        </Link>
+        {slug === "demo" ? (
+          // In the demo the logo leads back to the main site, so visitors can always leave.
+          <Link
+            to="/"
+            aria-label="Back to The Family Wallet home page"
+            className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
+          >
+            <Wordmark
+              subline={agencyName ? `with ${agencyName}` : null}
+              logoUrl={agencyLogo}
+              logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
+              className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
+            />
+          </Link>
+        ) : (
+          <Link
+            to="/w/$slug"
+            params={{ slug }}
+            onClick={() => isMobile && setOpenMobile(false)}
+            className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
+          >
+            <Wordmark
+              subline={agencyName ? `with ${agencyName}` : null}
+              logoUrl={agencyLogo}
+              logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
+              className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
+            />
+          </Link>
+        )}
       </SidebarHeader>
       <SidebarContent className="gap-1 py-2">
         {navFor(role, agreements).map((section) => (

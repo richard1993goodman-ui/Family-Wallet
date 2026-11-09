@@ -42,7 +42,10 @@ export function DemoBanner({ slug }: { slug: string }) {
           <span className="font-medium text-foreground">You're viewing a demo Family Wallet. </span>
           The Harrington family, their nanny Jess and everything here are examples. Explore freely —
           as a member, your own private wallet is set up with your family, your nanny and your
-          agreement.
+          agreement.{" "}
+          <Link to="/" className="font-medium text-foreground underline underline-offset-4">
+            Exit the demo
+          </Link>
         </p>
       </div>
     </div>
