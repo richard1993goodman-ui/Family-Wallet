@@ -19,6 +19,8 @@ export function AgreementChoice({ slug }: { slug: string }) {
   const [busy, setBusy] = useState(false);
   const wallet = summary.data?.unlocked ? summary.data.wallet : null;
   if (!wallet || wallet.access !== "family") return null;
+  // The agency switched it on for this household: nothing for the parents to choose.
+  if (wallet.agreementsLockedByAgency && wallet.agreementsEnabled) return null;
 
   const choose = async (use: boolean) => {
     setBusy(true);

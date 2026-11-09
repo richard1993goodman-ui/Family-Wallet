@@ -485,6 +485,7 @@ export type Database = {
           updated_at: string
           use_agreement: boolean
           invite_sent_at: string | null
+          agreement_policy: string
         }
         Insert: {
           access_code?: string
@@ -518,6 +519,7 @@ export type Database = {
           updated_at?: string
           use_agreement?: boolean
           invite_sent_at?: string | null
+          agreement_policy?: string
         }
         Update: {
           access_code?: string
@@ -551,6 +553,7 @@ export type Database = {
           updated_at?: string
           use_agreement?: boolean
           invite_sent_at?: string | null
+          agreement_policy?: string
         }
         Relationships: [
           {

@@ -30,11 +30,12 @@ export function AgencyAgreementSetting({ enabled, statusKey }: { enabled: boolea
       <h2 className="font-semibold text-foreground">Nanny agreements</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         {enabled
-          ? "Your families can build and sign their nanny agreement in the wallet, or choose to skip it."
-          : "Off for all your families. They won't see the agreement and will add working hours by hand instead. Use this if you give families an agreement yourselves."}
+          ? "The default for your families: they can build and sign their nanny agreement in the wallet, or choose to skip it."
+          : "The default for your families is off: they won't see the agreement and will add working hours by hand instead. Use this if you give families an agreement yourselves."}
+        {" "}To set it for particular families, tick them in the list below and choose On or Off.
       </p>
       <Button className="mt-3" size="sm" variant="outline" disabled={busy} onClick={() => void change(!enabled)}>
-        {enabled ? "Don't use agreements in the wallet" : "Use agreements in the wallet"}
+        {enabled ? "Default: don't use agreements" : "Default: use agreements"}
       </Button>
     </section>
   );

@@ -1,3 +1,4 @@
+import { resolveAgreementMode } from "./agreement-mode";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { useSession, getRequest } from "@tanstack/react-start/server";
 
@@ -339,11 +340,16 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, partner_agency:partner_agencies(name, brand_name, logo_data, agreements_enabled)")
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, agreement_policy, partner_agency:partner_agencies(name, brand_name, logo_data, agreements_enabled)")
     .eq("slug", slug)
     .maybeSingle();
 
   if (!family || family.status !== "active") return null;
+  const agreement = resolveAgreementMode({
+    policy: family.agreement_policy,
+    useAgreement: family.use_agreement,
+    agencyEnabled: family.partner_agency?.agreements_enabled,
+  });
 
   const [{ data: docs }, { data: contactRows }, nannyRows] = await Promise.all([
     supabaseAdmin
@@ -398,8 +404,8 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     startDate: access === "family" ? family.start_date : null,
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
     hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
-    agreementsEnabled: family.use_agreement !== false && family.partner_agency?.agreements_enabled !== false,
-    agreementsLockedByAgency: family.partner_agency?.agreements_enabled === false,
+    agreementsEnabled: agreement.enabled,
+    agreementsLockedByAgency: agreement.lockedByAgency,
     updatedAt: family.updated_at,
     contacts: (contactRows ?? []).map((c) => ({
       name: c.name,

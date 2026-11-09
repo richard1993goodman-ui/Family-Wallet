@@ -9,7 +9,7 @@ import { Copy, Plus, Search } from "lucide-react";
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
-import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily, sendFamilyInvite } from "@/lib/admin.functions";
+import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily, sendFamilyInvite, setFamiliesAgreement } from "@/lib/admin.functions";
 import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
 import { AgencyAgreementSetting } from "@/components/AgencyAgreementSetting";
@@ -60,6 +60,9 @@ function AdminHome() {
   const saveFn = useServerFn(saveFamily);
   const exportFn = useServerFn(exportMyAgencyRecords);
   const inviteFn = useServerFn(sendFamilyInvite);
+  const agreementFn = useServerFn(setFamiliesAgreement);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [agreementBusy, setAgreementBusy] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
   const [bulkText, setBulkText] = useState("");
   const [bulkBusy, setBulkBusy] = useState(false);
@@ -234,6 +237,24 @@ function AdminHome() {
       setBulkBusy(false);
       await queryClient.invalidateQueries({ queryKey: ["families"] });
       await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
+    }
+  }
+
+  const toggleSelected = (id: string) =>
+    setSelected((current) => (current.includes(id) ? current.filter((x) => x !== id) : [...current, id]));
+
+  async function setAgreement(policy: "family" | "on" | "off") {
+    setAgreementBusy(true);
+    try {
+      const { count } = await agreementFn({ data: { ids: selected, policy } });
+      const what = policy === "on" ? "on" : policy === "off" ? "off" : "up to the family";
+      toast.success(`Nanny agreement set ${what} for ${count} ${count === 1 ? "family" : "families"}`);
+      setSelected([]);
+      await queryClient.invalidateQueries({ queryKey: ["agency-overview"] });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not save that");
+    } finally {
+      setAgreementBusy(false);
     }
   }
 
@@ -453,6 +474,30 @@ function AdminHome() {
             ))}
           </div>
 
+          {shown.length > 0 && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+              <button
+                type="button"
+                className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                onClick={() =>
+                  setSelected(selected.length === shown.length ? [] : shown.filter((h) => h.status === "active").map((h) => h.id))
+                }
+              >
+                {selected.length > 0 ? "Clear selection" : "Select all shown"}
+              </button>
+              {selected.length > 0 && (
+                <span className="flex flex-wrap items-center gap-2 rounded-lg bg-card px-3 py-2 ring-1 ring-border">
+                  <span className="font-medium text-foreground">
+                    {selected.length} selected · Nanny agreement:
+                  </span>
+                  <Button size="sm" variant="outline" disabled={agreementBusy} onClick={() => void setAgreement("on")}>On</Button>
+                  <Button size="sm" variant="outline" disabled={agreementBusy} onClick={() => void setAgreement("off")}>Off</Button>
+                  <Button size="sm" variant="ghost" disabled={agreementBusy} onClick={() => void setAgreement("family")}>Let the family choose</Button>
+                </span>
+              )}
+            </div>
+          )}
+
           {overview.isLoading && <p className="text-sm text-muted-foreground">Loading households…</p>}
           {!overview.isLoading && households.length === 0 && (
             <p className="text-sm text-muted-foreground">No families yet. Add your first one above.</p>
@@ -463,6 +508,14 @@ function AdminHome() {
           {shown.map((h) => (
             <div key={h.id} className="rounded-xl bg-card p-5 ring-1 ring-border">
               <div className="flex items-start justify-between gap-4">
+                <div className="flex min-w-0 items-start gap-3">
+                <input
+                  type="checkbox"
+                  className="mt-1.5 h-4 w-4 flex-none"
+                  aria-label={`Select ${h.name}`}
+                  checked={selected.includes(h.id)}
+                  onChange={() => toggleSelected(h.id)}
+                />
                 <div className="min-w-0">
                   <Link
                     to="/admin/family/$id"
@@ -477,6 +530,7 @@ function AdminHome() {
                   </p>
                   <p className="mt-0.5 text-sm text-muted-foreground">{lastSeen(h.lastActiveAt)}</p>
                 </div>
+                </div>
                 <div className="flex shrink-0 flex-col items-end gap-1">
                   {h.status !== "active" ? (
                     <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">Cancelled</span>
@@ -486,6 +540,11 @@ function AdminHome() {
                     <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">Not opened</span>
                   ) : (
                     <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">Quiet</span>
+                  )}
+                  {h.agreementPolicy !== "family" && (
+                    <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
+                      Agreement {h.agreementPolicy === "on" ? "on" : "off"}
+                    </span>
                   )}
                   {h.dbsExpired && (
                     <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-foreground">
