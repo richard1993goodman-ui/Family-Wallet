@@ -441,15 +441,14 @@ function MonthCard({ app }: ScreenProps) {
   const first = new Date(today.getFullYear(), today.getMonth(), 1);
   const count = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const days = Array.from({ length: count }, (_, i) => addDays(first, i));
-  const working = days.filter((d) => weekday(d) < 5);
-  const worked = working.filter((d) => d.getDate() < today.getDate());
   const day = days[(picked ?? today.getDate()) - 1]!;
   const isToday = day.getDate() === today.getDate();
   const works = weekday(day) < 5;
   const logged = works && day.getDate() < today.getDate();
   const log = LOGS[day.getDate() % LOGS.length]!;
   const note = PARENT_NOTES[weekday(day)];
-  const week = weekOf(day).filter((d) => d.getMonth() === today.getMonth());
+  const weekStart = day.getDate() - weekday(day);
+  const week = days.filter((d) => d.getDate() >= weekStart && d.getDate() < weekStart + 7);
   const scope = view === "month" ? days : view === "week" ? week : [day];
   const sWorking = scope.filter((d) => weekday(d) < 5);
   const sWorked = sWorking.filter((d) => d.getDate() < today.getDate());
@@ -462,8 +461,6 @@ function MonthCard({ app }: ScreenProps) {
     ["Updates", String(sWorked.length), "from Jess"],
     ["Notes", String(scope.filter((d) => PARENT_NOTES[weekday(d)]).length), "from you"],
   ];
-  void working;
-  void worked;
   return (
     <>
       <div className={card}>
