@@ -1365,7 +1365,7 @@ export function WalletPhone({ app }: { app: WalletApp }) {
             <span className="size-10 rounded-full bg-[#0b0f19] ring-[5px] ring-white/10" />
           </span>
           <span className="absolute inset-x-0 top-[46%] text-center font-display text-[22px] tracking-[-0.01em] text-white/35">
-            Athlete Mannies
+            The Family Wallet
           </span>
         </div>
 
