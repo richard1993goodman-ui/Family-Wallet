@@ -40,7 +40,7 @@ import { WalletChallenges } from "@/components/WalletChallenges";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { Button } from "@/components/ui/button";
 import { SetupStatus } from "@/components/dashboard/SetupStatus";
-import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
+import { MonthOverview } from "@/components/dashboard/MonthOverview";
 import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
 import {
   Column,
@@ -58,7 +58,7 @@ import {
   HubTile,
   SectionTitle,
 } from "@/components/dashboard/tiles";
-import { greeting, longDate, shortDate } from "@/lib/dashboard-format";
+import { greeting, londonToday, longDate } from "@/lib/dashboard-format";
 import type { DashboardProps } from "@/components/dashboard/types";
 
 const CHECK_LABELS: Record<string, { title: string }> = {
@@ -95,163 +95,33 @@ export function FamilyDashboard(props: DashboardProps) {
       />
       <WalletTravelBanner slug={slug} />
 
+      <div className="mt-8 space-y-6">
+        <NextStep {...props} />
+        <NeedsAttention {...props} />
+        <MonthOverview
+          slug={slug}
+          schedules={hub?.schedules ?? []}
+          today={hub?.today.date ?? londonToday()}
+          role="family"
+        />
+      </div>
+
+      {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
       <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
-          <NextStep {...props} />
           <AlertsPrompt slug={slug} />
-          <NeedsAttention {...props} />
           <SetupProgress {...props} />
           <WelcomeCard slug={slug} />
-
-          <section>
-            <SectionTitle>This week</SectionTitle>
-            <WeekCalendar
-              slug={slug}
-              entries={hub?.entries ?? []}
-              schedules={hub?.schedules ?? []}
-            />
-          </section>
-
-          <LatestUpdates {...props} />
-
-          <section>
-            <SectionTitle>Activities</SectionTitle>
-            <WalletChallenges slug={slug} />
-            <div data-tint="butter" className="ios-group mt-2">
-              <HubTile
-                slug={slug}
-                to="/passport/$slug"
-                icon={Dumbbell}
-                title="Active Kids Passport"
-                subtitle={
-                  hub?.latestPassport
-                    ? `${hub.latestPassport.child_name}: ${hub.latestPassport.activity}`
-                    : "Sports skills, challenges and confidence wins"
-                }
-              />
-            </div>
-          </section>
-
-          <section>
-            <SectionTitle>Employing your nanny</SectionTitle>
-            <div data-tint="sky" className="link-grid sm:grid-cols-2">
-              <HubTile
-                slug={slug}
-                to="/payroll/$slug"
-                icon={Briefcase}
-                title="Payroll setup"
-                subtitle="A guided Nannytax introduction"
-              />
-              <HubTile
-                slug={slug}
-                to="/costs/$slug"
-                icon={Calculator}
-                title="Employment costs"
-                subtitle="Pay, employer NI and pension"
-              />
-              <HubTile
-                slug={slug}
-                to="/bankdetails/$slug"
-                icon={Landmark}
-                title="Nanny bank details"
-                subtitle="Account details for paying your nanny"
-              />
-              <HubTile
-                slug={slug}
-                to="/training/$slug"
-                icon={GraduationCap}
-                title="Nanny training"
-                subtitle="Routine, safeguarding and emergencies"
-              />
-              <HubTile
-                slug={slug}
-                to="/safety/$slug"
-                icon={ShieldCheck}
-                title="Insurance & safeguarding"
-                subtitle="Checks, training and insurance records"
-              />
-              <HubTile
-                slug={slug}
-                to="/incidents/$slug"
-                icon={ShieldAlert}
-                title="Accident & incident reports"
-                subtitle="What happened, what was done, signed off"
-              />
-              <HubTile
-                slug={slug}
-                to="/permissions/$slug"
-                icon={ShieldCheck}
-                title="Permissions & consents"
-                subtitle="What is fine, what needs asking, who can collect"
-              />
-              <a
-                href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ios-row"
-              >
-                <span className="ios-icon">
-                  <ScrollText className="h-4 w-4" />
-                </span>
-                <span>
-                  <span className="flex items-center gap-1.5 font-medium text-foreground">
-                    ACAS disciplinary guidance <ExternalLink className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="mt-1 block text-sm text-muted-foreground">
-                    Official step-by-step guidance
-                  </span>
-                </span>
-              </a>
-            </div>
-          </section>
+          <WalletChallenges slug={slug} />
+          <Documents {...props} />
+          <NannytaxCode code={wallet.nannytaxCode} />
         </Column>
 
         <Column>
           <EmergencyCardLink slug={slug} />
           <NannyProfiles wallet={wallet} />
-
-          <section>
-            <SectionTitle>Family &amp; home</SectionTitle>
-            <div data-tint="apricot" className="ios-group">
-              <HubTile
-                slug={slug}
-                to="/family/$slug"
-                icon={Users}
-                title="Children & routines"
-                subtitle={
-                  hub?.childCount
-                    ? `${hub.childCount} child${hub.childCount === 1 ? "" : "ren"} added`
-                    : "Children, routines, allergies and house rules"
-                }
-              />
-              <HubTile
-                slug={slug}
-                to="/kids/$slug"
-                icon={Heart}
-                title="Kids' playbook"
-                subtitle="Comforts, big moments and rainy-day ideas"
-              />
-              <HubTile
-                slug={slug}
-                to="/housemanual/$slug"
-                icon={KeyRound}
-                title="House manual & codes"
-                subtitle="WiFi, alarm, lockbox and everyday instructions"
-              />
-              <HubTile
-                slug={slug}
-                to="/guide/$slug"
-                icon={BookOpen}
-                title="Nanny quick guide"
-                subtitle="A one-page summary for your nanny"
-              />
-            </div>
-          </section>
-
-          <Documents {...props} />
-          <SupportBox slug={slug} familyName={wallet.familyName} />
           <EmergencyContacts wallet={wallet} />
-          <NannytaxCode code={wallet.nannytaxCode} />
+          <SupportBox slug={slug} familyName={wallet.familyName} />
         </Column>
       </div>
 
@@ -424,25 +294,12 @@ function NeedsAttention({
   }
 
   const showSigning = nannyCount <= 1 && agreement && agreement.hasContent && !agreementDone;
+  if (rows.length === 0 && !showSigning) return null;
 
   return (
     <section>
       <SectionTitle>Needs your attention</SectionTitle>
-      <div className="ios-group">
-        {rows.length > 0 ? (
-          rows
-        ) : (
-          <div className="flex items-center gap-3 px-4 py-4">
-            <CheckCircle2 className="h-4 w-4 flex-none text-brand" />
-            <span>
-              <span className="block font-medium text-foreground">You're all caught up</span>
-              <span className="block text-sm text-muted-foreground">
-                Approvals, requests and new messages will appear here.
-              </span>
-            </span>
-          </div>
-        )}
-      </div>
+      <div className="ios-group">{rows}</div>
       {showSigning && (
         <div className="mt-3">
           <SigningProgress
@@ -456,7 +313,13 @@ function NeedsAttention({
   );
 }
 
-function SetupProgress({ slug, hub, agreementDone, nannyCount, agreementsEnabled }: DashboardProps) {
+function SetupProgress({
+  slug,
+  hub,
+  agreementDone,
+  nannyCount,
+  agreementsEnabled,
+}: DashboardProps) {
   return (
     <SetupStatus
       slug={slug}
@@ -527,77 +390,13 @@ function SetupProgress({ slug, hub, agreementDone, nannyCount, agreementsEnabled
   );
 }
 
-function LatestUpdates({ slug, hub }: DashboardProps) {
-  const log = hub?.latestLog;
-  const doses = hub?.recentDoses ?? [];
-  return (
-    <section>
-      <SectionTitle>Latest from your nanny</SectionTitle>
-      <div className="ios-group">
-        <ActionRow
-          slug={slug}
-          to="/log/$slug"
-          icon={NotebookPen}
-          title="Daily log"
-          detail={
-            log
-              ? `${hub?.today.logged ? "Today" : shortDate(log.log_date)}${log.mood ? ` · ${log.mood}` : ""}${log.activities ? ` · ${log.activities}` : ""}`
-              : "End-of-day updates will appear here"
-          }
-          tone={hub?.today.logged ? "done" : "default"}
-        />
-        <ActionRow
-          slug={slug}
-          to="/handover/$slug"
-          icon={ClipboardCheck}
-          title="Handover"
-          detail={
-            hub?.latestHandover
-              ? hub.today.handedOver
-                ? "Handed over today"
-                : `Last handover ${shortDate(hub.latestHandover.handover_date)}`
-              : "Doorstep wrap-up and tomorrow's kit"
-          }
-          tone={hub?.today.handedOver ? "done" : "default"}
-        />
-        <ActionRow
-          slug={slug}
-          to="/medication/$slug"
-          icon={Pill}
-          title="Medication"
-          detail={
-            doses.length
-              ? `${doses.length} dose${doses.length === 1 ? "" : "s"} in the last 24 hours · latest ${doses[0]!.medicine} for ${doses[0]!.child_name}`
-              : "No doses in the last 24 hours"
-          }
-        />
-        <ActionRow
-          slug={slug}
-          to="/today/$slug"
-          icon={Baby}
-          title="Today"
-          detail="Naps, bottles, meals and nappies"
-        />
-        <ActionRow
-          slug={slug}
-          to="/moments/$slug"
-          icon={Camera}
-          title="Photo moments"
-          detail="Photos and milestones from the week"
-        />
-        <ActionRow
-          slug={slug}
-          to="/report/$slug"
-          icon={FileBarChart}
-          title="Weekly report"
-          detail="Hours, activities, handovers and expenses"
-        />
-      </div>
-    </section>
-  );
-}
-
-function Documents({ slug, wallet, agreementSubtitle, agreementsEnabled, openDoc }: DashboardProps) {
+function Documents({
+  slug,
+  wallet,
+  agreementSubtitle,
+  agreementsEnabled,
+  openDoc,
+}: DashboardProps) {
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
   return (
     <section>
@@ -657,6 +456,24 @@ function Documents({ slug, wallet, agreementSubtitle, agreementsEnabled, openDoc
             />
           );
         })}
+        <a
+          href="https://www.acas.org.uk/disciplinary-procedure-step-by-step"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ios-row"
+        >
+          <span className="ios-icon">
+            <ScrollText className="h-4 w-4" />
+          </span>
+          <span>
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              ACAS disciplinary guidance <ExternalLink className="h-3.5 w-3.5" />
+            </span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              Official step-by-step guidance
+            </span>
+          </span>
+        </a>
       </div>
     </section>
   );
