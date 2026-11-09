@@ -7,6 +7,7 @@ export type SetupItem = {
   hint: string;
   to:
     | "/agreement/$slug"
+    | "/hours/$slug"
     | "/terms/$slug"
     | "/family/$slug"
     | "/emergency/$slug"

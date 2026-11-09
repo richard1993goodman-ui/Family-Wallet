@@ -64,6 +64,8 @@ function getWalletLocation(pathname: string) {
 
 /** Unread counts keyed by page route prefix, shared with every nav component below. */
 const BadgeContext = createContext<Record<string, number>>({});
+/** False when this household has chosen not to use the nanny agreement. */
+const AgreementsContext = createContext(true);
 
 function NavBadge({ prefix, className }: { prefix: string; className?: string }) {
   const count = useContext(BadgeContext)[prefix] ?? 0;
@@ -148,6 +150,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 
   return (
     <BadgeContext.Provider value={badges}>
+    <AgreementsContext.Provider value={wallet.agreementsEnabled}>
     <SidebarProvider>
       <WalletNavigation
         slug={location.slug}
@@ -177,6 +180,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         onOpenChange={setSearchOpen}
       />
     </SidebarProvider>
+    </AgreementsContext.Provider>
     </BadgeContext.Provider>
   );
 }
@@ -239,6 +243,7 @@ function WalletNavigation({
   agencyLogo: string | null;
   activePrefix: string;
 }) {
+  const agreements = useContext(AgreementsContext);
   const { isMobile, setOpenMobile } = useSidebar();
 
   return (
@@ -259,7 +264,7 @@ function WalletNavigation({
         </Link>
       </SidebarHeader>
       <SidebarContent className="gap-1 py-2">
-        {navFor(role).map((section) => (
+        {navFor(role, agreements).map((section) => (
           <SidebarGroup key={section.label}>
             <SidebarGroupLabel className="text-[0.8125rem] font-normal text-muted-foreground">
               {section.label}
@@ -314,7 +319,8 @@ function SectionNav({
   role: WalletRole;
   activePrefix: string;
 }) {
-  const section = activePrefix === "w" ? null : sectionFor(role, activePrefix);
+  const agreements = useContext(AgreementsContext);
+  const section = activePrefix === "w" ? null : sectionFor(role, activePrefix, agreements);
   if (!section || section.items.length < 2) return null;
 
   return (
@@ -357,6 +363,7 @@ function WalletSearch({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const agreements = useContext(AgreementsContext);
   const navigate = useNavigate();
 
   return (
@@ -365,7 +372,7 @@ function WalletSearch({
       <CommandInput placeholder="Where do you want to go?" />
       <CommandList>
         <CommandEmpty>No matching pages.</CommandEmpty>
-        {navFor(role).map((section) => (
+        {navFor(role, agreements).map((section) => (
           <CommandGroup key={section.label} heading={section.label}>
             {section.items.map((item) => (
               <CommandItem
@@ -397,6 +404,7 @@ function MobileTabs({
   role: WalletRole;
   activePrefix: string;
 }) {
+  const agreements = useContext(AgreementsContext);
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
@@ -444,7 +452,7 @@ function MobileTabs({
               </DrawerDescription>
             </DrawerHeader>
             <div className="overflow-y-auto px-3 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-              {navFor(role).map((section) => (
+              {navFor(role, agreements).map((section) => (
                 <section key={section.label} className="pt-3">
                   <h3 className="px-2 pb-1 text-[0.8125rem] font-normal text-muted-foreground">
                     {section.label}

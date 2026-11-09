@@ -12,6 +12,7 @@ import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
 import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily } from "@/lib/admin.functions";
 import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
+import { AgencyAgreementSetting } from "@/components/AgencyAgreementSetting";
 import { roleLabel } from "@/lib/staff-roles";
 import { siteUrl } from "@/lib/site";
 
@@ -231,6 +232,9 @@ function AdminHome() {
         </div>
 
         {usage && <AllowanceCard usage={usage} />}
+        {status.data && !status.data.isOwner && status.data.agencyName && (
+          <AgencyAgreementSetting enabled={status.data.agreementsEnabled} statusKey={["admin-status"]} />
+        )}
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Dialog open={open} onOpenChange={setOpen}>

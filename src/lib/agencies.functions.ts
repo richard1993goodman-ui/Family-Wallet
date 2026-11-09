@@ -157,6 +157,21 @@ const EXPORT_TABLES = [
   "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments", "care_events",
 ] as const;
 
+export const setMyAgencyAgreements = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { enabled: boolean }) => d)
+  .handler(async ({ data, context }) => {
+    const scope = await requireStaff(context);
+    if (scope.kind !== "partner") throw new Error("Your own households choose this themselves.");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("partner_agencies")
+      .update({ agreements_enabled: data.enabled === true })
+      .eq("id", scope.agencyId);
+    if (error) throw new Error("Couldn't save that.");
+    return { ok: true as const };
+  });
+
 export const exportMyAgencyRecords = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

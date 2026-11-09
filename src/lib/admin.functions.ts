@@ -15,9 +15,11 @@ export const getAdminStatus = createServerFn({ method: "GET" })
     const scope = await resolveStaffScope(context);
     const features = { challenges: scope !== null, perks: scope !== null, playbooks: scope !== null };
     let agencyLogo: string | null = null;
+    let agreementsEnabled = true;
     if (scope?.kind === "partner") {
-      const { data: agency } = await supabaseAdmin.from("partner_agencies").select("logo_data").eq("id", scope.agencyId).maybeSingle();
+      const { data: agency } = await supabaseAdmin.from("partner_agencies").select("logo_data, agreements_enabled").eq("id", scope.agencyId).maybeSingle();
       agencyLogo = agency?.logo_data ?? null;
+      agreementsEnabled = agency?.agreements_enabled !== false;
     }
     return {
       features,
@@ -25,6 +27,7 @@ export const getAdminStatus = createServerFn({ method: "GET" })
       isOwner: scope?.kind === "owner",
       agencyName: scope?.kind === "partner" ? scope.agencyName : null,
       agencyLogo,
+      agreementsEnabled,
       adminExists: (count ?? 0) > 0,
     };
   });
