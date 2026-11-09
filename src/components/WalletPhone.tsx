@@ -437,30 +437,54 @@ const SHIFT_HOURS = 4.5;
 function MonthCard({ app }: ScreenProps) {
   const today = app.today;
   const [picked, setPicked] = useState<number | null>(null);
+  const [view, setView] = useState<"day" | "week" | "month">("month");
   const first = new Date(today.getFullYear(), today.getMonth(), 1);
   const count = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const days = Array.from({ length: count }, (_, i) => addDays(first, i));
-  const working = days.filter((d) => weekday(d) < 5);
-  const worked = working.filter((d) => d.getDate() < today.getDate());
   const day = days[(picked ?? today.getDate()) - 1]!;
   const isToday = day.getDate() === today.getDate();
   const works = weekday(day) < 5;
   const logged = works && day.getDate() < today.getDate();
   const log = LOGS[day.getDate() % LOGS.length]!;
   const note = PARENT_NOTES[weekday(day)];
+  const weekStart = day.getDate() - weekday(day);
+  const week = days.filter((d) => d.getDate() >= weekStart && d.getDate() < weekStart + 7);
+  const scope = view === "month" ? days : view === "week" ? week : [day];
+  const sWorking = scope.filter((d) => weekday(d) < 5);
+  const sWorked = sWorking.filter((d) => d.getDate() < today.getDate());
   const stats = [
     [
       "Hours logged",
-      String(worked.length * SHIFT_HOURS),
-      `of ${working.length * SHIFT_HOURS} agreed`,
+      String(sWorked.length * SHIFT_HOURS),
+      `of ${sWorking.length * SHIFT_HOURS} agreed`,
     ],
-    ["Updates", String(worked.length), "from Jess"],
-    ["Notes", String(days.filter((d) => PARENT_NOTES[weekday(d)]).length), "from you"],
+    ["Updates", String(sWorked.length), "from Jess"],
+    ["Notes", String(scope.filter((d) => PARENT_NOTES[weekday(d)]).length), "from you"],
   ];
   return (
     <>
       <div className={card}>
-        <p className="font-display text-[16px] text-navy">{monthYear(today)}</p>
+        <div className="mb-2 inline-flex rounded-full bg-navy/[0.06] p-0.5" role="tablist" aria-label="Calendar view">
+          {(["day", "week", "month"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              role="tab"
+              aria-selected={view === v}
+              onClick={() => setView(v)}
+              className={cn(
+                "h-6 rounded-full px-2.5 text-[10px] font-medium capitalize",
+                view === v ? "bg-white text-navy shadow-sm" : "text-muted-foreground",
+                press,
+              )}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+        <p className="font-display text-[16px] text-navy">
+          {view === "month" ? monthYear(today) : view === "week" ? `Week of ${shortDate(weekOf(day)[0]!)}` : longDate(day)}
+        </p>
         <dl className="mt-2 grid grid-cols-[1.4fr_1fr_1fr] gap-2">
           {stats.map(([label, value, sub]) => (
             <div key={label}>
@@ -472,13 +496,14 @@ function MonthCard({ app }: ScreenProps) {
             </div>
           ))}
         </dl>
+        {view !== "day" && (
         <div className="mt-3 grid grid-cols-7 gap-y-0.5 border-t border-border pt-2.5">
           {["M", "T", "W", "T", "F", "S", "S"].map((letter, i) => (
             <span key={i} className="pb-1 text-center text-[9px] text-muted-foreground" aria-hidden>
               {letter}
             </span>
           ))}
-          {days.map((d) => {
+          {(view === "week" ? week : days).map((d) => {
             const past = d.getDate() < today.getDate();
             const on = weekday(d) < 5;
             return (
@@ -488,7 +513,7 @@ function MonthCard({ app }: ScreenProps) {
                 aria-pressed={d === day}
                 aria-label={longDate(d)}
                 onClick={() => setPicked(d.getDate())}
-                style={d.getDate() === 1 ? { gridColumnStart: weekday(d) + 1 } : undefined}
+                style={d.getDate() === 1 || (view === "week" && d === week[0]) ? { gridColumnStart: weekday(d) + 1 } : undefined}
                 className={cn(
                   "flex flex-col items-center gap-0.5 rounded-[10px] py-1",
                   d === day && "bg-paper",
@@ -519,6 +544,7 @@ function MonthCard({ app }: ScreenProps) {
             );
           })}
         </div>
+        )}
       </div>
 
       <Label>{isToday ? "Today" : longDate(day)}</Label>
@@ -561,6 +587,7 @@ function HomeScreen({ app }: ScreenProps) {
         </h3>
         <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
       </div>
+      <MonthCard app={app} />
       <div className="flex gap-2">
         <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>
           <FileChartColumn aria-hidden />
@@ -596,8 +623,6 @@ function HomeScreen({ app }: ScreenProps) {
           />
         )}
       </List>
-
-      <MonthCard app={app} />
     </>
   );
 }

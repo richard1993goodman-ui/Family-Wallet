@@ -96,14 +96,14 @@ export function FamilyDashboard(props: DashboardProps) {
       <WalletTravelBanner slug={slug} />
 
       <div className="mt-8 space-y-6">
-        <NextStep {...props} />
-        <NeedsAttention {...props} />
         <MonthOverview
           slug={slug}
           schedules={hub?.schedules ?? []}
           today={hub?.today.date ?? londonToday()}
           role="family"
         />
+        <NextStep {...props} />
+        <NeedsAttention {...props} />
       </div>
 
       {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
