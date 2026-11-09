@@ -587,6 +587,7 @@ function HomeScreen({ app }: ScreenProps) {
         </h3>
         <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
       </div>
+      <MonthCard app={app} />
       <div className="flex gap-2">
         <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>
           <FileChartColumn aria-hidden />
@@ -622,8 +623,6 @@ function HomeScreen({ app }: ScreenProps) {
           />
         )}
       </List>
-
-      <MonthCard app={app} />
     </>
   );
 }
