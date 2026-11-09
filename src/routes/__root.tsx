@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "The private Family Wallet from your agency: your nanny agreement, nanny CV and everyday nanny tools in one place.",
+          "A private app for families who employ a nanny, au pair or household staff: shared week, signed agreement, daily log, timesheets and house codes in one place.",
       },
       { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#fbf7f0", media: "(prefers-color-scheme: light)" },
@@ -118,7 +118,7 @@ const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-GB" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <HeadContent />

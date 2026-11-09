@@ -20,26 +20,24 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
+import { organizationLd, pageHead, softwareLd, websiteLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "The Family Wallet" },
-      {
-        name: "description",
-        content:
-          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
-      },
-      { property: "og:title", content: "The Family Wallet" },
-      {
-        property: "og:description",
-        content:
-          "Your family's private hub for managing your nanny. Weekly schedules, agreements, household codes and day-to-day childcare, together in one place.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Family Wallet: Nanny & Household Staff Management App",
+      description:
+        "A private app for families who employ a nanny, au pair or household staff. Shared week, signed agreement, daily log, timesheets and house codes in one place.",
+      path: "/",
+      jsonLd: [
+        organizationLd(),
+        websiteLd(),
+        softwareLd([
+          { name: "Family", price: "7.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Household", price: "14.99", description: "Up to six staff, billed monthly, excluding VAT." },
+        ]),
+      ],
+    }),
   component: Index,
 });
 
@@ -424,6 +422,18 @@ function Index() {
             <nav className="flex flex-wrap gap-x-7 gap-y-2">
               <Link to="/pricing" className="transition-colors hover:text-foreground">
                 Pricing
+              </Link>
+              <Link to="/nanny-management-app" className="transition-colors hover:text-foreground">
+                Nanny app
+              </Link>
+              <Link to="/household-staff-app" className="transition-colors hover:text-foreground">
+                Household staff
+              </Link>
+              <Link to="/for-agencies" className="transition-colors hover:text-foreground">
+                For agencies
+              </Link>
+              <Link to="/guides" className="transition-colors hover:text-foreground">
+                Guides
               </Link>
               <Link to="/demo" className="transition-colors hover:text-foreground">
                 Demo wallet
