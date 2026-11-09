@@ -243,7 +243,7 @@ function WalletTopBar({
           to="/"
           className="flex h-9 flex-none items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
-          <LogOut className="h-4 w-4" aria-hidden /> Exit demo
+          <LogOut className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">Exit demo</span>
         </Link>
       )}
     </header>
@@ -321,6 +321,7 @@ function WalletNavigation({
       </SidebarContent>
       <SidebarSeparator />
       <SidebarFooter className="p-3">
+        <SidebarLogout slug={slug} />
         <p className="flex items-center gap-2 px-2 text-xs leading-relaxed text-muted-foreground group-data-[collapsible=icon]:hidden">
           <Lock className="h-3.5 w-3.5 flex-none" aria-hidden="true" />
           {role === "nanny" ? "Nanny access" : "Parent access"} · Private to your household
@@ -328,6 +329,24 @@ function WalletNavigation({
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
+  );
+}
+
+function SidebarLogout({ slug }: { slug: string }) {
+  const logout = useLogout(slug);
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          tooltip={slug === "demo" ? "Exit demo" : "Lock & log out"}
+          onClick={() => void logout()}
+          className="h-11 text-[0.9375rem] text-sidebar-foreground md:h-8 md:text-sm [&>svg]:text-muted-foreground"
+        >
+          <LogOut />
+          <span>{slug === "demo" ? "Exit demo" : "Lock & log out"}</span>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 }
 
