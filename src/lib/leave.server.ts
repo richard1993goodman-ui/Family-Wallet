@@ -1,6 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { calculateHoliday, rotaWeek2, normalizeAgreement, type WorkingDay } from "./agreement.model";
+import { agreementMode } from "./agreement-mode.server";
 import { requireSharedFamily } from "./family.server";
+import { cleanWorkingDays, effectiveWorkingDays } from "./work-hours";
 import { listNannyRows } from "./wallet.server";
 
 export type LeaveType = "holiday" | "sick" | "unpaid" | "other";
@@ -49,17 +51,20 @@ export function countLeaveDays(startDate: string, endDate: string, workingDays: 
 }
 
 async function schedulesWithEntitlement(familyId: string) {
-  const [rows, { data: agreements }] = await Promise.all([
+  const [rows, { data: agreements }, { data: manual }, mode] = await Promise.all([
     listNannyRows(familyId),
     supabaseAdmin
       .from("nanny_agreements")
       .select("nanny_id, agreement_data")
       .eq("family_id", familyId),
+    supabaseAdmin.from("nanny_work_hours").select("nanny_id, working_days").eq("family_id", familyId),
+    agreementMode(familyId),
   ]);
   return rows.map((row) => {
     const agreementRow = (agreements ?? []).find((a) => a.nanny_id === row.id);
     const agreement = agreementRow ? normalizeAgreement(agreementRow.agreement_data) : null;
-    const workingDays = agreement?.workingDays ?? [];
+    const typed = (manual ?? []).find((m) => m.nanny_id === row.id)?.working_days;
+    const workingDays = effectiveWorkingDays(mode.enabled, agreement?.workingDays ?? [], typed ? cleanWorkingDays(typed) : null);
     const holiday = agreement
       ? calculateHoliday(workingDays, agreement.contractType, agreement.weeksPerYear, rotaWeek2(agreement))
       : null;

@@ -483,6 +483,7 @@ export type Database = {
           terms_accepted_on: string | null
           tier_band: string
           updated_at: string
+          use_agreement: boolean
         }
         Insert: {
           access_code?: string
@@ -514,6 +515,7 @@ export type Database = {
           terms_accepted_on?: string | null
           tier_band?: string
           updated_at?: string
+          use_agreement?: boolean
         }
         Update: {
           access_code?: string
@@ -545,6 +547,7 @@ export type Database = {
           terms_accepted_on?: string | null
           tier_band?: string
           updated_at?: string
+          use_agreement?: boolean
         }
         Relationships: [
           {
@@ -1674,6 +1677,45 @@ export type Database = {
           },
         ]
       }
+      nanny_work_hours: {
+        Row: {
+          family_id: string
+          id: string
+          nanny_id: string
+          updated_at: string
+          working_days: Json
+        }
+        Insert: {
+          family_id: string
+          id?: string
+          nanny_id: string
+          updated_at?: string
+          working_days?: Json
+        }
+        Update: {
+          family_id?: string
+          id?: string
+          nanny_id?: string
+          updated_at?: string
+          working_days?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_work_hours_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_work_hours_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_agencies: {
         Row: {
           allow_challenges: boolean
@@ -1692,6 +1734,7 @@ export type Database = {
           short_name: string | null
           status: string
           updated_at: string
+          agreements_enabled: boolean
         }
         Insert: {
           allow_challenges?: boolean
@@ -1710,6 +1753,7 @@ export type Database = {
           short_name?: string | null
           status?: string
           updated_at?: string
+          agreements_enabled?: boolean
         }
         Update: {
           allow_challenges?: boolean
@@ -1728,6 +1772,7 @@ export type Database = {
           short_name?: string | null
           status?: string
           updated_at?: string
+          agreements_enabled?: boolean
         }
         Relationships: []
       }

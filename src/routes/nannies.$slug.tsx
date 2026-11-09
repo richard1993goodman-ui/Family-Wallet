@@ -14,6 +14,7 @@ import {
   uploadNannyPhotoFn,
 } from "@/lib/nannies.functions";
 import { getNannyInvite } from "@/lib/agreement.functions";
+import { AgreementChoice } from "@/components/AgreementChoice";
 import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
@@ -149,9 +150,10 @@ function NanniesPage() {
     <HubPage
       slug={slug}
       title="Household staff"
-      intro="Add everyone who works with your family. Each one gets their own sign-in code and their own agreement."
+      intro="Add everyone who works with your family. Each one gets their own sign-in code, and their own agreement if you choose to use one."
     >
       <div className="space-y-4">
+        <AgreementChoice slug={slug} />
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-tint-sage px-4 py-3 text-sm text-foreground">
           <p>
             <span className="font-medium">
