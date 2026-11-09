@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DemoRouteImport } from './routes/demo'
+import { Route as ForAgenciesRouteImport } from './routes/for-agencies'
+import { Route as HouseholdStaffAppRouteImport } from './routes/household-staff-app'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as NannyManagementAppRouteImport } from './routes/nanny-management-app'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as SubscribedRouteImport } from './routes/subscribed'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
@@ -27,6 +30,8 @@ import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as FuelSlugRouteImport } from './routes/fuel.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
+import { Route as GuidesIndexRouteImport } from './routes/guides.index'
+import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
 import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as HousemanualSlugRouteImport } from './routes/housemanual.$slug'
 import { Route as IncidentsSlugRouteImport } from './routes/incidents.$slug'
@@ -86,9 +91,24 @@ const DemoRoute = DemoRouteImport.update({
   path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForAgenciesRoute = ForAgenciesRouteImport.update({
+  id: '/for-agencies',
+  path: '/for-agencies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseholdStaffAppRoute = HouseholdStaffAppRouteImport.update({
+  id: '/household-staff-app',
+  path: '/household-staff-app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NannyManagementAppRoute = NannyManagementAppRouteImport.update({
+  id: '/nanny-management-app',
+  path: '/nanny-management-app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -154,6 +174,16 @@ const FuelSlugRoute = FuelSlugRouteImport.update({
 const GuideSlugRoute = GuideSlugRouteImport.update({
   id: '/guide/$slug',
   path: '/guide/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugRoute = GuidesSlugRouteImport.update({
+  id: '/guides/$slug',
+  path: '/guides/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HandoverSlugRoute = HandoverSlugRouteImport.update({
@@ -360,7 +390,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/for-agencies': typeof ForAgenciesRoute
+  '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
+  '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
   '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
@@ -374,6 +407,7 @@ export interface FileRoutesByFullPath {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
@@ -401,6 +435,7 @@ export interface FileRoutesByFullPath {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
@@ -418,7 +453,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/for-agencies': typeof ForAgenciesRoute
+  '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
+  '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
   '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
@@ -432,6 +470,7 @@ export interface FileRoutesByTo {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
@@ -459,6 +498,7 @@ export interface FileRoutesByTo {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/guides': typeof GuidesIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
@@ -478,7 +518,10 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/for-agencies': typeof ForAgenciesRoute
+  '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
+  '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
   '/subscribed': typeof SubscribedRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
@@ -492,6 +535,7 @@ export interface FileRoutesById {
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/handover/$slug': typeof HandoverSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
@@ -519,6 +563,7 @@ export interface FileRoutesById {
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
@@ -538,7 +583,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/demo'
+    | '/for-agencies'
+    | '/household-staff-app'
     | '/login'
+    | '/nanny-management-app'
     | '/pricing'
     | '/subscribed'
     | '/activities/$slug'
@@ -552,6 +600,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/guides/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
@@ -579,6 +628,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/guides/'
     | '/admin/agencies'
     | '/admin/support'
     | '/api/stripe/checkout'
@@ -596,7 +646,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/demo'
+    | '/for-agencies'
+    | '/household-staff-app'
     | '/login'
+    | '/nanny-management-app'
     | '/pricing'
     | '/subscribed'
     | '/activities/$slug'
@@ -610,6 +663,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/guides/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
@@ -637,6 +691,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/guides'
     | '/admin/agencies'
     | '/admin/support'
     | '/api/stripe/checkout'
@@ -655,7 +710,10 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/demo'
+    | '/for-agencies'
+    | '/household-staff-app'
     | '/login'
+    | '/nanny-management-app'
     | '/pricing'
     | '/subscribed'
     | '/activities/$slug'
@@ -669,6 +727,7 @@ export interface FileRouteTypes {
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
+    | '/guides/$slug'
     | '/handover/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
@@ -696,6 +755,7 @@ export interface FileRouteTypes {
     | '/travel/$slug'
     | '/w/$slug'
     | '/welcome/$slug'
+    | '/guides/'
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
     | '/api/stripe/checkout'
@@ -715,7 +775,10 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   DemoRoute: typeof DemoRoute
+  ForAgenciesRoute: typeof ForAgenciesRoute
+  HouseholdStaffAppRoute: typeof HouseholdStaffAppRoute
   LoginRoute: typeof LoginRoute
+  NannyManagementAppRoute: typeof NannyManagementAppRoute
   PricingRoute: typeof PricingRoute
   SubscribedRoute: typeof SubscribedRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
@@ -729,6 +792,7 @@ export interface RootRouteChildren {
   FamilySlugRoute: typeof FamilySlugRoute
   FuelSlugRoute: typeof FuelSlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
+  GuidesSlugRoute: typeof GuidesSlugRoute
   HandoverSlugRoute: typeof HandoverSlugRoute
   HousemanualSlugRoute: typeof HousemanualSlugRoute
   IncidentsSlugRoute: typeof IncidentsSlugRoute
@@ -756,6 +820,7 @@ export interface RootRouteChildren {
   TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
   WelcomeSlugRoute: typeof WelcomeSlugRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   ApiStripeCheckoutRoute: typeof ApiStripeCheckoutRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
@@ -794,11 +859,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/for-agencies': {
+      id: '/for-agencies'
+      path: '/for-agencies'
+      fullPath: '/for-agencies'
+      preLoaderRoute: typeof ForAgenciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/household-staff-app': {
+      id: '/household-staff-app'
+      path: '/household-staff-app'
+      fullPath: '/household-staff-app'
+      preLoaderRoute: typeof HouseholdStaffAppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nanny-management-app': {
+      id: '/nanny-management-app'
+      path: '/nanny-management-app'
+      fullPath: '/nanny-management-app'
+      preLoaderRoute: typeof NannyManagementAppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -890,6 +976,20 @@ declare module '@tanstack/react-router' {
       path: '/guide/$slug'
       fullPath: '/guide/$slug'
       preLoaderRoute: typeof GuideSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/$slug': {
+      id: '/guides/$slug'
+      path: '/guides/$slug'
+      fullPath: '/guides/$slug'
+      preLoaderRoute: typeof GuidesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/handover/$slug': {
@@ -1194,7 +1294,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   DemoRoute: DemoRoute,
+  ForAgenciesRoute: ForAgenciesRoute,
+  HouseholdStaffAppRoute: HouseholdStaffAppRoute,
   LoginRoute: LoginRoute,
+  NannyManagementAppRoute: NannyManagementAppRoute,
   PricingRoute: PricingRoute,
   SubscribedRoute: SubscribedRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
@@ -1208,6 +1311,7 @@ const rootRouteChildren: RootRouteChildren = {
   FamilySlugRoute: FamilySlugRoute,
   FuelSlugRoute: FuelSlugRoute,
   GuideSlugRoute: GuideSlugRoute,
+  GuidesSlugRoute: GuidesSlugRoute,
   HandoverSlugRoute: HandoverSlugRoute,
   HousemanualSlugRoute: HousemanualSlugRoute,
   IncidentsSlugRoute: IncidentsSlugRoute,
@@ -1235,6 +1339,7 @@ const rootRouteChildren: RootRouteChildren = {
   TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
   WelcomeSlugRoute: WelcomeSlugRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   ApiStripeCheckoutRoute: ApiStripeCheckoutRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
