@@ -1,5 +1,8 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
+  Plus as PlusIcon,
+  UserRound as UserIcon,
+  LogOut as LogOutIcon,
   ArrowLeft,
   BadgeCheck,
   BatteryFull,
@@ -632,6 +635,56 @@ function PhoneBell() {
   );
 }
 
+function PhoneMenu({
+  label,
+  icon,
+  title,
+  items,
+  onPick,
+}: {
+  label: string;
+  icon: ReactNode;
+  title: string;
+  items: string[];
+  onPick: (item: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-label={label}
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-navy"
+      >
+        {icon}
+      </button>
+      {open && (
+        <div className="absolute right-0 top-10 z-20 w-52 overflow-hidden rounded-xl border border-border bg-card shadow-lg">
+          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">{title}</p>
+          {items.map((item) => (
+            <button
+              key={item}
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onPick(item);
+              }}
+              className={cn(
+                "flex w-full items-center gap-2 border-b border-border px-3 py-2 text-left text-[11px] last:border-0",
+                item === "Lock & log out" ? "text-destructive" : "text-foreground",
+              )}
+            >
+              {item === "Lock & log out" && <LogOutIcon className="h-3 w-3" aria-hidden />}
+              {item}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HomeScreen({ app }: ScreenProps) {
   return (
     <>
@@ -642,7 +695,23 @@ function HomeScreen({ app }: ScreenProps) {
           </h3>
           <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
         </div>
-        <PhoneBell />
+        <div className="flex gap-1.5">
+          <PhoneMenu
+            label="Quick add"
+            icon={<PlusIcon className="h-4 w-4" aria-hidden />}
+            title="Quick add"
+            items={["Calendar event or playdate", "Note or message", "Medicine dose", "Expense"]}
+            onPick={(i) => app.openSheet(i)}
+          />
+          <PhoneBell />
+          <PhoneMenu
+            label="Account and log out"
+            icon={<UserIcon className="h-4 w-4" aria-hidden />}
+            title="The Harrington Family · Parent access"
+            items={["Emergency contacts", "Health & medicine", "Lock & log out"]}
+            onPick={(i) => app.openSheet(i)}
+          />
+        </div>
       </div>
       <MonthCard app={app} />
       <div className="flex gap-2">
