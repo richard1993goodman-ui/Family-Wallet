@@ -53,10 +53,12 @@ function NotificationsPage() {
   const [endpoint, setEndpoint] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const supported = typeof window !== "undefined" && "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
-  const iosNeedsInstall =
+  // iPhones and iPads only offer notifications to a wallet opened from the Home Screen, so a normal
+  // Safari tab looks "unsupported". IPads can report themselves as a Mac, hence the touch check.
+  const isApple =
     typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-    !(navigator as Navigator & { standalone?: boolean }).standalone;
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+  const iosNeedsInstall = isApple && !(navigator as Navigator & { standalone?: boolean }).standalone;
 
   useEffect(() => {
     if (!supported) return;
@@ -141,13 +143,13 @@ function NotificationsPage() {
     >
       <Card>
         <h2 className="font-semibold text-foreground">Alerts on this device</h2>
-        {!supported ? (
+        {iosNeedsInstall ? (
           <p className="mt-2 text-sm text-muted-foreground">
-            This browser can't receive alerts. The numbers in the menu still work.
+            On iPhone and iPad, add the wallet to your Home Screen first: tap Share, then Add to Home Screen. Then open the wallet from the new icon and come back to this page to turn alerts on.
           </p>
-        ) : iosNeedsInstall ? (
+        ) : !supported ? (
           <p className="mt-2 text-sm text-muted-foreground">
-            On iPhone, add the wallet to your Home Screen first (Share, then Add to Home Screen), then open it from there to turn alerts on.
+            This browser can't receive alerts. Try Safari or Chrome rather than a browser inside another app (such as the one that opens from an email or WhatsApp link). The numbers in the menu still work.
           </p>
         ) : !config.data?.publicKey ? (
           <p className="mt-2 text-sm text-muted-foreground">Alerts aren't switched on for this wallet yet.</p>
