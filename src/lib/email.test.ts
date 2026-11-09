@@ -27,6 +27,17 @@ describe("buildWalletEmail", () => {
     }
   });
 
+  it("an agency invite names the agency and leaves out subscription wording", () => {
+    const m = buildWalletEmail("invite", [wallet], { agencyName: "Bright Nannies" });
+    expect(m.subject).toContain("Bright Nannies has set up your Family Wallet");
+    for (const body of [m.text, m.html]) {
+      expect(body).toContain("K7M2PQ");
+      expect(body).toContain("Add your nanny");
+      expect(body).not.toContain("thank you for subscribing");
+      expect(body).not.toContain("cancel your subscription");
+    }
+  });
+
   it("offers a reply address for help when one is set", () => {
     const m = buildWalletEmail("welcome", [wallet], { supportEmail: "help@example.com" });
     expect(m.text).toContain("help@example.com");
