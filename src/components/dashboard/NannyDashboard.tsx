@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
 import {
   AlertTriangle,
   BadgeCheck,
@@ -194,6 +195,7 @@ export function NannyDashboard(props: DashboardProps) {
         </Column>
 
         <Column>
+          <AlertsPrompt slug={slug} />
           <EmergencyCardLink slug={slug} />
 
           {(awaiting > 0 || (agreement && !agreementDone)) && (

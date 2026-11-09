@@ -490,7 +490,7 @@ export async function addLog(
     tomorrow: clean(input.tomorrow),
   });
   if (error) throw new Error(error.message);
-  await (await import("./notifications.server")).notifyOther(family, "log", "New daily log");
+  await (await import("./notifications.server")).notifyOther(family, "log", "New daily update");
 }
 
 export async function deleteLog(slug: string, id: string) {
