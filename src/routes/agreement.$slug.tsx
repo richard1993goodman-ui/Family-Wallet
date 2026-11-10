@@ -458,7 +458,7 @@ function AgreementPageInner() {
     <div className="space-y-6">
       {!isNanny && data.nannies.length > 1 && (
         <Card>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="text-xs font-medium text-muted-foreground">
             Whose agreement
           </p>
           <div className="mt-3 flex flex-wrap gap-2">

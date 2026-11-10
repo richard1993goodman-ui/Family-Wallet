@@ -66,7 +66,7 @@ function PartnerHome() {
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Your childcare, beautifully organised</p>
+        <p className="text-xs font-medium text-primary">Your childcare, beautifully organised</p>
         <h1 className="heading-display mt-3 text-4xl leading-tight text-primary sm:text-5xl">{brand.walletName}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/80 sm:text-lg">
           Your routines, documents and everyday support from {brand.agencyName}, together in one private place.
@@ -78,7 +78,7 @@ function PartnerHome() {
               <div className="flex items-start gap-3">
                 <span className="flex size-10 flex-none items-center justify-center rounded-lg bg-secondary text-secondary-foreground"><Smartphone className="h-5 w-5" /></span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">New to the wallet?</p>
+                  <p className="text-xs font-medium text-muted-foreground">New to the wallet?</p>
                   <h2 className="heading-display mt-1 text-xl text-foreground">Explore the demo</h2>
                 </div>
               </div>

@@ -243,6 +243,22 @@ function money(n: number) {
 }
 
 function PricingPage() {
+  const [native, setNative] = useState(false);
+  useEffect(() => setNative(document.documentElement.classList.contains("native-app")), []);
+  if (native) {
+    return (
+      <main className="mx-auto max-w-md px-6 py-24 text-center">
+        <h1 className="font-display text-2xl">Plans are managed on our website</h1>
+        <p className="mt-3 text-muted-foreground">
+          Sign in with your wallet link and access code to use your family wallet here.
+        </p>
+      </main>
+    );
+  }
+  return <PricingPageInner />;
+}
+
+function PricingPageInner() {
   const audience: Audience = Route.useSearch().for ?? "families";
   const navigate = useNavigate({ from: Route.fullPath });
   const [annual, setAnnual] = useState(true);

@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "The Family Wallet" },
       {
         name: "description",
@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 /** Follows the device's light or dark setting before first paint, and live after that. */
-const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}a();m.addEventListener("change",a)})()`;
+const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}if(/FamilyWalletApp/.test(navigator.userAgent))document.documentElement.classList.add("native-app");a();m.addEventListener("change",a)})()`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
