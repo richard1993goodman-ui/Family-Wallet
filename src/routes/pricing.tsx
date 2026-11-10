@@ -483,7 +483,7 @@ function PricingPage() {
                       </li>
                     ))}
                   </ul>
-                  {tierIncludes[t.name] && <TierDetails groups={tierIncludes[t.name]} />}
+                  {tierIncludes[t.name] ? <TierDetails groups={tierIncludes[t.name]!} /> : null}
                 </div>
               </article>
             );
