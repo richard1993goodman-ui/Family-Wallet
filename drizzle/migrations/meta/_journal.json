@@ -365,6 +365,13 @@
       "when": 1794300533393,
       "tag": "0051_live_in_tools",
       "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1794338580151,
+      "tag": "0052_repair_subscription_environment",
+      "breakpoints": true
     }
   ]
 }
