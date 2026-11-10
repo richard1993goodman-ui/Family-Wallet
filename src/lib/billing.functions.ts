@@ -77,7 +77,27 @@ export const claimSubscription = createServerFn({ method: "POST" })
     if (result.status === "ready" && result.kind === "family") {
       await markUnlocked(result.slug);
     }
-    return { ...result, emailing: emailConfigured() };
+    const emailing = emailConfigured();
+    // Built per case so the shape the page reads stays exactly the one it narrows on.
+    if (result.status === "pending") return { status: "pending" as const, emailing };
+    if (result.kind === "agency")
+      return {
+        status: "ready" as const,
+        kind: "agency" as const,
+        agencyName: result.agencyName,
+        allowance: result.allowance,
+        plan: result.plan,
+        emailing,
+      };
+    return {
+      status: "ready" as const,
+      kind: "family" as const,
+      slug: result.slug,
+      code: result.code,
+      familyName: result.familyName,
+      plan: result.plan,
+      emailing,
+    };
   });
 
 /** "Send me my details again". Replies the same way whether or not the address has a wallet. */

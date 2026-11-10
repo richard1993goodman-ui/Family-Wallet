@@ -84,16 +84,16 @@ async function existingRow(sessionId: string) {
   return { ...row, plan: row.plan as PlanId };
 }
 
-async function familyWallet(familyId: string, plan: PlanId) {
+async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned> {
   const { data: family } = await supabaseAdmin
     .from("families")
     .select("slug, access_code, family_name")
     .eq("id", familyId)
     .maybeSingle();
-  if (!family) return null;
+  if (!family) throw new Error("We could not find the wallet for that payment.");
   return {
-    status: "ready" as const,
-    kind: "family" as const,
+    status: "ready",
+    kind: "family",
     slug: family.slug,
     code: family.access_code,
     familyName: family.family_name,
@@ -101,16 +101,16 @@ async function familyWallet(familyId: string, plan: PlanId) {
   };
 }
 
-async function agencyAccount(agencyId: string, plan: PlanId) {
+async function agencyAccount(agencyId: string, plan: PlanId): Promise<Provisioned> {
   const { data: agency } = await supabaseAdmin
     .from("partner_agencies")
     .select("name, household_allowance")
     .eq("id", agencyId)
     .maybeSingle();
-  if (!agency) return null;
+  if (!agency) throw new Error("We could not find the agency account for that payment.");
   return {
-    status: "ready" as const,
-    kind: "agency" as const,
+    status: "ready",
+    kind: "agency",
     agencyName: agency.name,
     allowance: agency.household_allowance ?? PLANS[plan].allowance ?? 0,
     plan,
@@ -122,7 +122,10 @@ async function agencyAccount(agencyId: string, plan: PlanId) {
  * once for the same session: the success page and the webhook both call it, and the second
  * call just returns the first result.
  */
-export async function provisionFromSession(sessionId: string, environment: StripeEnv) {
+export async function provisionFromSession(
+  sessionId: string,
+  environment: StripeEnv,
+): Promise<Provisioned> {
   if (!/^cs_[A-Za-z0-9_]+$/.test(sessionId)) throw new Error("That payment link is not valid.");
 
   const already = await existingRow(sessionId);
