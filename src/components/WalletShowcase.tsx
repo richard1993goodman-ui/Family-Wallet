@@ -12,7 +12,7 @@ const tour: { title: string; body: string; tab: Tab; page?: Page }[] = [
     tab: "calendar",
   },
   {
-    title: "A daily log from your nanny",
+    title: "A daily log from your nanny or Au Pair",
     body: "What they did, what they ate and how the homework went, before you're home.",
     tab: "home",
     page: "log",
