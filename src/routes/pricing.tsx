@@ -121,7 +121,8 @@ const agencies: Tier[] = [
       { text: "Bulk import of existing families", soon: true },
       { text: "Basic agency dashboard" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Partner") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
+    plan: "agency_partner",
   },
   {
     name: "Growth",
@@ -136,7 +137,8 @@ const agencies: Tier[] = [
       { text: "Manage your own perks and playbooks" },
       { text: "One set-up call" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Growth") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
+    plan: "agency_growth",
     popular: true,
   },
   {
@@ -151,7 +153,8 @@ const agencies: Tier[] = [
       { text: "Staff roles and permissions" },
       { text: "Priority support" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Scale") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
+    plan: "agency_scale",
   },
   {
     name: "Enterprise",
@@ -164,7 +167,7 @@ const agencies: Tier[] = [
       { text: "API and single sign-on", soon: true },
       { text: "Dedicated account manager" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Enterprise") },
+    cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
   },
 ];
 
@@ -477,7 +480,7 @@ function PricingPage() {
               </p>
             </div>
             <Button size="lg" variant="outline" className="shrink-0" asChild>
-              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Talk to us</a>
+              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Get a quote</a>
             </Button>
           </aside>
         )}

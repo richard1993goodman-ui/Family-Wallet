@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import { isInterval, isPlan, priceLookupKey, type Interval, type PlanId } from "./billing.config";
+import { isInterval, isPlan, intervalsFor, priceLookupKey, type Interval, type PlanId } from "./billing.config";
 import { siteUrl } from "./site";
 import type { StripeEnv } from "./stripe";
 
@@ -14,6 +14,9 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
   .inputValidator((data: { plan: unknown; interval: unknown; environment: unknown }) => {
     if (!isPlan(data.plan)) throw new Error("Unknown plan.");
     if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
+    // Agency plans are monthly only, so a yearly request never reaches Stripe.
+    if (!intervalsFor(data.plan).includes(data.interval))
+      throw new Error("That plan is not billed that way.");
     if (data.environment !== "sandbox" && data.environment !== "live")
       throw new Error("Unknown payment environment.");
     return {

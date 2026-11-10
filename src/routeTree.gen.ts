@@ -67,9 +67,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as ApiPushLatestRouteImport } from './routes/api/push/latest'
-import { Route as ApiStripeCheckoutRouteImport } from './routes/api/stripe/checkout'
 import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
-import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe/webhook'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
 import { Route as PHandleIndexRouteImport } from './routes/p.$handle.index'
 import { Route as PHandleDemoRouteImport } from './routes/p.$handle.demo'
@@ -369,19 +367,9 @@ const ApiPushLatestRoute = ApiPushLatestRouteImport.update({
   path: '/api/push/latest',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiStripeCheckoutRoute = ApiStripeCheckoutRouteImport.update({
-  id: '/api/stripe/checkout',
-  path: '/api/stripe/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiStripePortalRoute = ApiStripePortalRouteImport.update({
   id: '/api/stripe/portal',
   path: '/api/stripe/portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
-  id: '/api/stripe/webhook',
-  path: '/api/stripe/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CertificateSlugIdRoute = CertificateSlugIdRouteImport.update({
@@ -480,9 +468,7 @@ export interface FileRoutesByFullPath {
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
-  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
-  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -549,9 +535,7 @@ export interface FileRoutesByTo {
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
-  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
-  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -620,9 +604,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
-  '/api/stripe/checkout': typeof ApiStripeCheckoutRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
-  '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
   '/p/$handle/demo': typeof PHandleDemoRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -691,9 +673,7 @@ export interface FileRouteTypes {
     | '/admin/agencies'
     | '/admin/support'
     | '/api/push/latest'
-    | '/api/stripe/checkout'
     | '/api/stripe/portal'
-    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/admin/'
@@ -760,9 +740,7 @@ export interface FileRouteTypes {
     | '/admin/agencies'
     | '/admin/support'
     | '/api/push/latest'
-    | '/api/stripe/checkout'
     | '/api/stripe/portal'
-    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/admin'
@@ -830,9 +808,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
     | '/api/push/latest'
-    | '/api/stripe/checkout'
     | '/api/stripe/portal'
-    | '/api/stripe/webhook'
     | '/certificate/$slug/$id'
     | '/p/$handle/demo'
     | '/_authenticated/admin/'
@@ -899,9 +875,7 @@ export interface RootRouteChildren {
   WelcomeSlugRoute: typeof WelcomeSlugRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   ApiPushLatestRoute: typeof ApiPushLatestRoute
-  ApiStripeCheckoutRoute: typeof ApiStripeCheckoutRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
-  ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
   PHandleDemoRoute: typeof PHandleDemoRoute
   PHandleIndexRoute: typeof PHandleIndexRoute
@@ -1316,25 +1290,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPushLatestRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/stripe/checkout': {
-      id: '/api/stripe/checkout'
-      path: '/api/stripe/checkout'
-      fullPath: '/api/stripe/checkout'
-      preLoaderRoute: typeof ApiStripeCheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/stripe/portal': {
       id: '/api/stripe/portal'
       path: '/api/stripe/portal'
       fullPath: '/api/stripe/portal'
       preLoaderRoute: typeof ApiStripePortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/stripe/webhook': {
-      id: '/api/stripe/webhook'
-      path: '/api/stripe/webhook'
-      fullPath: '/api/stripe/webhook'
-      preLoaderRoute: typeof ApiStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/certificate/$slug/$id': {
@@ -1466,9 +1426,7 @@ const rootRouteChildren: RootRouteChildren = {
   WelcomeSlugRoute: WelcomeSlugRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   ApiPushLatestRoute: ApiPushLatestRoute,
-  ApiStripeCheckoutRoute: ApiStripeCheckoutRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
-  ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
   PHandleDemoRoute: PHandleDemoRoute,
   PHandleIndexRoute: PHandleIndexRoute,
