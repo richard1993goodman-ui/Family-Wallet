@@ -1,12 +1,73 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import { isInterval, isPlan, priceLookupKey, type Interval, type PlanId } from "./billing.config";
+import { siteUrl } from "./site";
+import type { StripeEnv } from "./stripe";
+
+type CheckoutResult = { clientSecret: string } | { error: string };
+
+/**
+ * Starts an embedded Stripe checkout for one of the two self-serve plans.
+ * The Stripe SDK is loaded inside the handler so it never reaches the browser bundle.
+ */
+export const createCheckoutSession = createServerFn({ method: "POST" })
+  .inputValidator((data: { plan: unknown; interval: unknown; environment: unknown }) => {
+    if (!isPlan(data.plan)) throw new Error("Unknown plan.");
+    if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
+    if (data.environment !== "sandbox" && data.environment !== "live")
+      throw new Error("Unknown payment environment.");
+    return {
+      plan: data.plan as PlanId,
+      interval: data.interval as Interval,
+      environment: data.environment as StripeEnv,
+    };
+  })
+  .handler(async ({ data }): Promise<CheckoutResult> => {
+    const { createStripeClient, getStripeErrorMessage } = await import("./stripe.server");
+    try {
+      const stripe = createStripeClient(data.environment);
+      const prices = await stripe.prices.list({
+        lookup_keys: [priceLookupKey(data.plan, data.interval)],
+        active: true,
+      });
+      const price = prices.data[0];
+      if (!price) {
+        return {
+          error: `No price found for the ${data.plan} plan billed ${data.interval}ly. Check the plan was created in this payment environment.`,
+        };
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        line_items: [{ price: price.id, quantity: 1 }],
+        ui_mode: "embedded_page",
+        return_url: `${siteUrl("/subscribed")}?session_id={CHECKOUT_SESSION_ID}`,
+        // Lovable's Stripe connection takes care of tax, fraud, disputes and transaction
+        // support for buyers in the countries it covers; elsewhere it still collects tax.
+        managed_payments: { enabled: true },
+        billing_address_collection: "required",
+        allow_promotion_codes: true,
+        metadata: { app: "family_wallet", plan: data.plan, interval: data.interval },
+        subscription_data: { metadata: { plan: data.plan, interval: data.interval } },
+      } as Parameters<typeof stripe.checkout.sessions.create>[0]);
+
+      return { clientSecret: session.client_secret ?? "" };
+    } catch (error) {
+      return { error: getStripeErrorMessage(error) };
+    }
+  });
+
 export const claimSubscription = createServerFn({ method: "POST" })
-  .inputValidator((data: { sessionId: string }) => data)
+  .inputValidator((data: { sessionId: string; environment: unknown }) => {
+    if (data.environment !== "sandbox" && data.environment !== "live")
+      throw new Error("Unknown payment environment.");
+    return { sessionId: data.sessionId, environment: data.environment as StripeEnv };
+  })
   .handler(async ({ data }) => {
     const { provisionFromSession } = await import("./billing.server");
     const { markUnlocked } = await import("./wallet.server");
     const { emailConfigured } = await import("./email.server");
-    const result = await provisionFromSession(data.sessionId);
+    const result = await provisionFromSession(data.sessionId, data.environment);
     if (result.status === "ready") {
       // Payment is verified with Stripe above, so the buyer goes straight in.
       await markUnlocked(result.slug);
