@@ -67,9 +67,9 @@
   --color-tint-butter-ink: var(--tint-butter-ink);
   --color-tint-rose: var(--tint-rose);
   --color-tint-rose-ink: var(--tint-rose-ink);
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -88,47 +88,47 @@
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
  * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
- * Type: Nunito Sans for reading and controls; Fraunces, softened, for titles and the greeting.
+ * Type: Plus Jakarta Sans for reading and controls; Playfair Display for titles and the greeting.
  */
 :root {
   --radius: 1rem;
-  --background: #fbf7f0;
-  --foreground: #2a2420;
+  --background: #fbf9f4;
+  --foreground: #1a1715;
   --card: #ffffff;
-  --card-foreground: #2a2420;
+  --card-foreground: #1a1715;
   --popover: #ffffff;
-  --popover-foreground: #2a2420;
-  --primary: #2f5d4a;
+  --popover-foreground: #1a1715;
+  --primary: #132a20;
   --primary-foreground: #ffffff;
-  --secondary: #f3ece1;
-  --secondary-foreground: #2a2420;
-  --muted: #f5efe6;
-  --muted-foreground: #6b5f55;
-  --accent: #f1e9dd;
-  --accent-foreground: #2a2420;
-  --destructive: #b83a3a;
+  --secondary: #f3efe6;
+  --secondary-foreground: #1a1715;
+  --muted: #f5f3ee;
+  --muted-foreground: #57534e;
+  --accent: #ebe5d8;
+  --accent-foreground: #1a1715;
+  --destructive: #ba1a1a;
   --destructive-foreground: #ffffff;
-  --border: #ece3d6;
-  --input: #ddd2c3;
-  --ring: #2f5d4a;
-  --sand: #fbf7f0;
-  --raised: #fcf9f4;
-  --rule: #f2ebe0;
-  --brand: #2f5d4a;
+  --border: #e6dfc5;
+  --input: #ddd5c7;
+  --ring: #264e3d;
+  --sand: #fbf9f4;
+  --raised: #ffffff;
+  --rule: #f0eee9;
+  --brand: #264e3d;
   --brand-foreground: #ffffff;
-  --brand-soft: #e4efe7;
-  --positive: #2f6b4a;
-  --warning: #93511a;
-  --warning-soft: #fdf1e2;
+  --brand-soft: #e4ece5;
+  --positive: #234b38;
+  --warning: #b45309;
+  --warning-soft: #fef3c7;
   /* The closing band: deep garden green in both themes. */
-  --ink-band: #22392f;
+  --ink-band: #132a20;
   --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
   --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
-  --tint-sage: #e4efe7;
-  --tint-sage-ink: #2f5d4a;
-  --tint-apricot: #fde8d7;
-  --tint-apricot-ink: #8e4a1f;
+  --tint-sage: #e4ece5;
+  --tint-sage-ink: #234b38;
+  --tint-apricot: #ffdcbf;
+  --tint-apricot-ink: #6a3b00;
   --tint-sky: #e1edf7;
   --tint-sky-ink: #2c5a80;
   --tint-lilac: #ece6f5;
@@ -137,19 +137,19 @@
   --tint-butter-ink: #76591a;
   --tint-rose: #f9e3e3;
   --tint-rose-ink: #8f3a43;
-  --chart-1: #2f5d4a;
-  --chart-2: #e3965c;
+  --chart-1: #264e3d;
+  --chart-2: #feb874;
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: #f5eee3;
-  --sidebar-foreground: #4a3f37;
-  --sidebar-primary: #2f5d4a;
+  --sidebar: #f3efe6;
+  --sidebar-foreground: #424844;
+  --sidebar-primary: #132a20;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ebe1d2;
-  --sidebar-accent-foreground: #2a2420;
-  --sidebar-border: #e8ddce;
-  --sidebar-ring: #2f5d4a;
+  --sidebar-accent: #e4ece5;
+  --sidebar-accent-foreground: #1a1715;
+  --sidebar-border: #e6dfc5;
+  --sidebar-ring: #264e3d;
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
