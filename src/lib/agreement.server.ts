@@ -1,3 +1,5 @@
+import { familyHasFeature } from "./plan-access.server";
+import { UPGRADE_MESSAGE } from "./plan-access";
 import { getRequest } from "@tanstack/react-start/server";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -177,6 +179,7 @@ export async function loadAgreement(
   const resolved = await resolveNanny(slug, requestedNannyId);
   if (!resolved) return null;
   const { family, access, nannyId, nannyName, nannies } = resolved;
+  if (!(await familyHasFeature(family.id, "agreement"))) throw new Error(UPGRADE_MESSAGE);
 
   const [{ data: agreement }, signatures, emergency] = await Promise.all([
     nannyId
@@ -229,6 +232,7 @@ export async function saveAgreementFromWallet(
   if (!(await isUnlocked(slug))) return { ok: false as const, reason: "locked" as const };
   const resolved = await resolveNanny(slug, nannyId);
   if (!resolved || !resolved.nannyId) return { ok: false as const, reason: "locked" as const };
+  if (!(await familyHasFeature(resolved.family.id, "agreement"))) throw new Error(UPGRADE_MESSAGE);
   await adminSaveAgreement(resolved.family.id, input, publish, resolved.nannyId);
   return { ok: true as const };
 }
@@ -260,6 +264,7 @@ export async function signDocument(
   const resolved = await resolveNanny(slug, nannyId);
   if (!resolved) return { ok: false as const, reason: "locked" as const };
   const { access, family } = resolved;
+  if (docKind === "agreement" && !(await familyHasFeature(family.id, "agreement"))) throw new Error(UPGRADE_MESSAGE);
   // An invited nanny may sign as the nanny only.
   if (signerRole === "parent" && access !== "family") {
     return { ok: false as const, reason: "locked" as const };

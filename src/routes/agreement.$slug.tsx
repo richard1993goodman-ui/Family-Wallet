@@ -18,6 +18,8 @@ import { DOCUMENT_STYLE_LABELS } from "@/lib/agreement.model";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { AgreementDocument } from "@/components/AgreementDocument";
 import { getWalletSummary } from "@/lib/wallet.functions";
+import { getPlanAccessFn } from "@/lib/plan-access.functions";
+import { UpgradeToHousehold } from "@/components/UpgradeToHousehold";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
 import { StatementDocument } from "@/components/StatementDocument";
@@ -663,6 +665,8 @@ function AgreementPage() {
   const { slug } = Route.useParams();
   const summaryFn = useServerFn(getWalletSummary);
   const summary = useQuery({ queryKey: ["wallet", slug], queryFn: () => summaryFn({ data: { slug } }) });
+  const planFn = useServerFn(getPlanAccessFn);
+  const plan = useQuery({ queryKey: ["plan-access", slug, "agreement"], queryFn: () => planFn({ data: { slug, feature: "agreement" } }) });
   const wallet = summary.data?.unlocked ? summary.data.wallet : null;
   if (wallet && !wallet.agreementsEnabled) {
     return (
@@ -675,5 +679,10 @@ function AgreementPage() {
       </HubPage>
     );
   }
+  if (plan.data && !plan.data.allowed) {
+    return <UpgradeToHousehold slug={slug} title="Nanny agreement" isNanny={plan.data.access === "nanny"}
+      what="Build, sign and store your carer's employment agreement in the wallet." />;
+  }
+  if (plan.isLoading) return null;
   return <AgreementPageInner />;
 }
