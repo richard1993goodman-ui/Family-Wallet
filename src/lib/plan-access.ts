@@ -2,9 +2,9 @@
 // tools; the Household plan adds the agreement builder and the house manual & codes.
 // Wallets with no self-serve plan (agency families, the demo) keep every tool.
 
-export type GatedFeature = "agreement" | "house_manual";
+export type GatedFeature = "agreement" | "house_manual" | "live_in";
 
-export const HOUSEHOLD_FEATURES: GatedFeature[] = ["agreement", "house_manual"];
+export const HOUSEHOLD_FEATURES: GatedFeature[] = ["agreement", "house_manual", "live_in"];
 
 /** True when a wallet on this plan (null = no self-serve plan) may use the feature. */
 export function planIncludes(plan: string | null, feature: GatedFeature): boolean {
