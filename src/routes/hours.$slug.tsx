@@ -185,7 +185,15 @@ function NannyHours({
                       <button
                         type="button"
                         className="text-xs underline underline-offset-4"
-                        onClick={() => change(i, { startTime2: undefined, endTime2: undefined })}
+                        onClick={() =>
+                          setDays((current) =>
+                            current.map((x, j) => {
+                              if (j !== i) return x;
+                              const { startTime2: _s, endTime2: _e, ...rest } = x;
+                              return rest;
+                            }),
+                          )
+                        }
                       >
                         Remove split
                       </button>
