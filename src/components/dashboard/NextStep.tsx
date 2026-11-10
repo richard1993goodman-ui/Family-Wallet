@@ -38,7 +38,7 @@ export function NextStep({ slug, hub, nannyCount, agreementsEnabled }: Dashboard
           <Icon className="h-5 w-5" aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[0.8125rem] font-medium uppercase tracking-wide text-muted-foreground">Next step</p>
+          <p className="text-[0.8125rem] font-medium text-muted-foreground">Next step</p>
           <h2 className="heading-display mt-0.5 text-xl text-foreground">{step.title}</h2>
           <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
           <Button className="mt-4" size="lg" asChild>

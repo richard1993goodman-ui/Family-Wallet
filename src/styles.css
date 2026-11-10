@@ -694,3 +694,15 @@
     animation: none;
   }
 }
+
+/* Native iOS/Android shell (user agent marker set in capacitor.config.ts): subscribing happens on the website. */
+.native-app a[href^="/pricing"] {
+  display: none;
+}
+.native-app {
+  overscroll-behavior: none;
+}
+.native-app body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
