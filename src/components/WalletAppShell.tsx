@@ -268,7 +268,7 @@ function WalletNavigation({
 
   return (
     <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
-      {slug === "demo" ? null : (
+      {(
       <SidebarHeader className="px-3 pb-2 pt-4">
         <Link
             to="/w/$slug"
@@ -277,7 +277,7 @@ function WalletNavigation({
             className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
           >
             <Wordmark
-              subline={agencyName ? `with ${agencyName}` : null}
+              subline={slug === "demo" ? "Demo wallet" : agencyName ? `with ${agencyName}` : null}
               logoUrl={agencyLogo}
               logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"

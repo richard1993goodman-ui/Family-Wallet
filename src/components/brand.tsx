@@ -1,4 +1,10 @@
 import { cn } from "@/lib/utils";
+import markUrl from "@/assets/family-wallet-mark.png";
+
+/** The Family Wallet logo mark (two overlapping houses). */
+export function LogoMark({ className }: { className?: string }) {
+  return <img src={markUrl} alt="" aria-hidden="true" className={cn("h-7 w-7 flex-none object-contain", className)} />;
+}
 
 /** The fanlight over a London front door: the wallet's mark. */
 export function FanlightMark({ className }: { className?: string }) {
@@ -42,7 +48,7 @@ export function Wordmark({
           className="h-9 w-auto max-w-[8rem] flex-none object-contain"
         />
       ) : (
-        <FanlightMark />
+        <LogoMark />
       )}
       <span className="min-w-0">
         <span className="heading-serif block truncate text-[1.1875rem] leading-none text-foreground">

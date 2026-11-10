@@ -20,6 +20,7 @@ import {
 
 import { WalletHero } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/brand";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useReveal } from "@/hooks/use-reveal";
@@ -167,7 +168,8 @@ function SiteHeader() {
       )}
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-        <Link to="/" aria-label="The Family Wallet, home">
+        <Link to="/" aria-label="The Family Wallet, home" className="flex items-center gap-2.5">
+          <LogoMark />
           <span className="heading-serif text-[1.375rem] leading-none text-foreground">
             The Family Wallet
           </span>
