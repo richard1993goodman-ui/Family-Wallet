@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { LogoMark } from "@/components/brand";
 import {
   Plus as PlusIcon,
   UserRound as UserIcon,
