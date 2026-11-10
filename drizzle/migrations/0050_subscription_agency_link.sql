@@ -1,0 +1,1 @@
+ALTER TABLE public.family_subscriptions ADD COLUMN IF NOT EXISTS agency_id uuid REFERENCES public.partner_agencies(id) ON DELETE SET NULL; CREATE INDEX IF NOT EXISTS family_subscriptions_agency_idx ON public.family_subscriptions(agency_id);
