@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Lock, LogOut, Menu, Search } from "lucide-react";
 
-import { Wordmark } from "@/components/brand";
+import { LogoMark, Wordmark } from "@/components/brand";
 import { NotificationBell } from "@/components/NotificationBell";
 import { AccountMenu, QuickAddMenu, useLogout } from "@/components/HeaderMenus";
 
