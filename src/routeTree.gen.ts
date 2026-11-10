@@ -23,6 +23,7 @@ import { Route as SubscribedRouteImport } from './routes/subscribed'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
+import { Route as BillingSlugRouteImport } from './routes/billing.$slug'
 import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
 import { Route as CostsSlugRouteImport } from './routes/costs.$slug'
 import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
@@ -144,6 +145,11 @@ const AgreementSlugRoute = AgreementSlugRouteImport.update({
 const BankdetailsSlugRoute = BankdetailsSlugRouteImport.update({
   id: '/bankdetails/$slug',
   path: '/bankdetails/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingSlugRoute = BillingSlugRouteImport.update({
+  id: '/billing/$slug',
+  path: '/billing/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckinSlugRoute = CheckinSlugRouteImport.update({
@@ -431,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -499,6 +506,7 @@ export interface FileRoutesByTo {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -569,6 +577,7 @@ export interface FileRoutesById {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -639,6 +648,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -707,6 +717,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -776,6 +787,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -846,6 +858,7 @@ export interface RootRouteChildren {
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
+  BillingSlugRoute: typeof BillingSlugRoute
   CheckinSlugRoute: typeof CheckinSlugRoute
   CostsSlugRoute: typeof CostsSlugRoute
   CoverSlugRoute: typeof CoverSlugRoute
@@ -993,6 +1006,13 @@ declare module '@tanstack/react-router' {
       path: '/bankdetails/$slug'
       fullPath: '/bankdetails/$slug'
       preLoaderRoute: typeof BankdetailsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing/$slug': {
+      id: '/billing/$slug'
+      path: '/billing/$slug'
+      fullPath: '/billing/$slug'
+      preLoaderRoute: typeof BillingSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkin/$slug': {
@@ -1405,6 +1425,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
   BankdetailsSlugRoute: BankdetailsSlugRoute,
+  BillingSlugRoute: BillingSlugRoute,
   CheckinSlugRoute: CheckinSlugRoute,
   CostsSlugRoute: CostsSlugRoute,
   CoverSlugRoute: CoverSlugRoute,

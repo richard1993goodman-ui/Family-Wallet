@@ -70,7 +70,8 @@ export type WalletPath =
   | "/permissions/$slug"
   | "/notifications/$slug"
   | "/hours/$slug"
-  | "/support/$slug";
+  | "/support/$slug"
+  | "/billing/$slug";
 
 export type NavItem = {
   label: string;
@@ -145,6 +146,7 @@ const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pens
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
 const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
+const billing = item("Plan & billing", Coins, "/billing/$slug", ["subscription", "upgrade", "invoice", "card", "plan"]);
 const helpSupport = item("Help & support", LifeBuoy, "/support/$slug", ["email", "contact", "question", "help"]);
 const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "account",
@@ -153,7 +155,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 ]);
 
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report, notifications, helpSupport] },
+  { label: "Overview", items: [home, calendar, messages, report, notifications, billing, helpSupport] },
   { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
