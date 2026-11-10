@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import { isInterval, isPlan, priceLookupKey, type Interval, type PlanId } from "./billing.config";
+import { isInterval, isPlan, intervalsFor, priceLookupKey, type Interval, type PlanId } from "./billing.config";
+import type { Provisioned } from "./billing.server";
 import { siteUrl } from "./site";
 import type { StripeEnv } from "./stripe";
 
@@ -14,6 +15,9 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
   .inputValidator((data: { plan: unknown; interval: unknown; environment: unknown }) => {
     if (!isPlan(data.plan)) throw new Error("Unknown plan.");
     if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
+    // Agency plans are monthly only, so a yearly request never reaches Stripe.
+    if (!intervalsFor(data.plan).includes(data.interval))
+      throw new Error("That plan is not billed that way.");
     if (data.environment !== "sandbox" && data.environment !== "live")
       throw new Error("Unknown payment environment.");
     return {
@@ -63,16 +67,37 @@ export const claimSubscription = createServerFn({ method: "POST" })
       throw new Error("Unknown payment environment.");
     return { sessionId: data.sessionId, environment: data.environment as StripeEnv };
   })
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<Provisioned & { emailing: boolean }> => {
     const { provisionFromSession } = await import("./billing.server");
     const { markUnlocked } = await import("./wallet.server");
     const { emailConfigured } = await import("./email.server");
     const result = await provisionFromSession(data.sessionId, data.environment);
-    if (result.status === "ready") {
-      // Payment is verified with Stripe above, so the buyer goes straight in.
+    // Payment is verified with Stripe above, so the family goes straight in. An agency
+    // account has no wallet to unlock; its login is set up by the account owner.
+    if (result.status === "ready" && result.kind === "family") {
       await markUnlocked(result.slug);
     }
-    return { ...result, emailing: emailConfigured() };
+    const emailing = emailConfigured();
+    // Built per case so the shape the page reads stays exactly the one it narrows on.
+    if (result.status === "pending") return { status: "pending" as const, emailing };
+    if (result.kind === "agency")
+      return {
+        status: "ready" as const,
+        kind: "agency" as const,
+        agencyName: result.agencyName,
+        allowance: result.allowance,
+        plan: result.plan,
+        emailing,
+      };
+    return {
+      status: "ready" as const,
+      kind: "family" as const,
+      slug: result.slug,
+      code: result.code,
+      familyName: result.familyName,
+      plan: result.plan,
+      emailing,
+    };
   });
 
 /** "Send me my details again". Replies the same way whether or not the address has a wallet. */

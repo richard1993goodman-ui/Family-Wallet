@@ -9,6 +9,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import type { Interval, PlanId } from "@/lib/billing.config";
+import { intervalsFor } from "@/lib/billing.config";
 import { paymentsConfigured } from "@/lib/stripe";
 
 type Audience = "families" | "agencies";
@@ -52,8 +53,8 @@ type Tier = {
   features: Feature[];
   lead?: string;
   cta: { label: string; href: string };
-  /** Set for plans families can buy themselves; the button then goes to Stripe Checkout. */
-  plan?: "family" | "household";
+  /** Set for plans people can buy themselves; the button then opens the payment form. */
+  plan?: PlanId;
   popular?: boolean;
 };
 
@@ -121,7 +122,8 @@ const agencies: Tier[] = [
       { text: "Bulk import of existing families", soon: true },
       { text: "Basic agency dashboard" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Partner") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
+    plan: "agency_partner",
   },
   {
     name: "Growth",
@@ -136,7 +138,8 @@ const agencies: Tier[] = [
       { text: "Manage your own perks and playbooks" },
       { text: "One set-up call" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Growth") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
+    plan: "agency_growth",
     popular: true,
   },
   {
@@ -151,7 +154,8 @@ const agencies: Tier[] = [
       { text: "Staff roles and permissions" },
       { text: "Priority support" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Scale") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
+    plan: "agency_scale",
   },
   {
     name: "Enterprise",
@@ -164,7 +168,7 @@ const agencies: Tier[] = [
       { text: "API and single sign-on", soon: true },
       { text: "Dedicated account manager" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Enterprise") },
+    cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
   },
 ];
 
@@ -254,7 +258,12 @@ function PricingPage() {
     if (checkout) checkoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [checkout]);
 
-  const pick = (a: Audience) => navigate({ search: { for: a }, replace: true });
+  const pick = (a: Audience) => {
+    // Leaving the tab that holds the payment form closes it, so it is never left open
+    // showing a plan from the other side.
+    setCheckout(null);
+    navigate({ search: { for: a }, replace: true });
+  };
 
   return (
     <div className="min-h-svh overflow-x-clip bg-background">
@@ -394,7 +403,12 @@ function PricingPage() {
                     variant={t.popular ? "default" : "outline"}
                     className="mt-6 w-full"
                     onClick={() =>
-                      setCheckout({ plan, interval: annual ? "year" : "month" })
+                      // Agency plans are monthly only, so the yearly toggle is ignored for them.
+                      setCheckout({
+                        plan,
+                        interval:
+                          annual && intervalsFor(plan).includes("year") ? "year" : "month",
+                      })
                     }
                   >
                     {t.cta.label} <ArrowRight aria-hidden />
@@ -460,7 +474,13 @@ function PricingPage() {
               </Button>
             </div>
             <div className="mt-5">
-              <StripeEmbeddedCheckout plan={checkout.plan} interval={checkout.interval} />
+              {/* A new key per plan: Stripe's form fetches its payment details once when it
+                  mounts, so reusing it for a different plan would keep the old one. */}
+              <StripeEmbeddedCheckout
+                key={`${checkout.plan}-${checkout.interval}`}
+                plan={checkout.plan}
+                interval={checkout.interval}
+              />
             </div>
           </section>
         )}
@@ -477,7 +497,7 @@ function PricingPage() {
               </p>
             </div>
             <Button size="lg" variant="outline" className="shrink-0" asChild>
-              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Talk to us</a>
+              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Get a quote</a>
             </Button>
           </aside>
         )}

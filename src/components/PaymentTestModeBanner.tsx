@@ -1,4 +1,4 @@
-const clientToken = import.meta.env.VITE_PAYMENTS_CLIENT_TOKEN as string | undefined;
+const clientToken = import.meta.env["VITE_PAYMENTS_CLIENT_TOKEN"] as string | undefined;
 
 /**
  * Sits at the very top of the page. Renders nothing once real payments are live;

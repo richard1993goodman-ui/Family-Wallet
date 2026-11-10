@@ -1,10 +1,25 @@
 // The self-serve plans. Amounts are in pence, excluding VAT, and must match the pricing page.
-// scripts/stripe-seed.ts creates a Stripe Price for each, found again by its lookup key.
+// The plans are created in the payment provider by Lovable's payments tooling, and found
+// again by their lookup key (fw_<plan>_<interval>).
 
-export type PlanId = "family" | "household";
+export type PlanId =
+  | "family"
+  | "household"
+  | "agency_partner"
+  | "agency_growth"
+  | "agency_scale";
 export type Interval = "month" | "year";
 
-export const PLANS: Record<PlanId, { name: string; description: string; pence: Record<Interval, number> }> = {
+export const PLANS: Record<
+  PlanId,
+  {
+    name: string;
+    description: string;
+    pence: Record<Interval, number>;
+    /** Agency plans are billed monthly only, and carry a household allowance. */
+    allowance?: number;
+  }
+> = {
   family: {
     name: "The Family Wallet: Family",
     description:
@@ -17,15 +32,54 @@ export const PLANS: Record<PlanId, { name: string; description: string; pence: R
       "Everything in Family for up to six staff, plus the employment cost calculator and priority support.",
     pence: { month: 1499, year: 14900 },
   },
+  agency_partner: {
+    name: "The Family Wallet: Agency Partner",
+    description:
+      "Give your first families a wallet: 10 active households, your logo, and copy each family's link and code in one tap.",
+    pence: { month: 3900, year: 3900 },
+    allowance: 10,
+  },
+  agency_growth: {
+    name: "The Family Wallet: Agency Growth",
+    description:
+      "Make it part of your membership: 50 active households, your logo, colours and subdomain, and an agency dashboard.",
+    pence: { month: 11900, year: 11900 },
+    allowance: 50,
+  },
+  agency_scale: {
+    name: "The Family Wallet: Agency Scale",
+    description:
+      "A growing client base across a team: 100 active households, your own domain, fully white-labelled, with staff roles and permissions.",
+    pence: { month: 19900, year: 19900 },
+    allowance: 100,
+  },
 };
+
+export const AGENCY_PLANS = ["agency_partner", "agency_growth", "agency_scale"] as const;
+export type AgencyPlanId = (typeof AGENCY_PLANS)[number];
+
+export const isAgencyPlan = (value: unknown): value is AgencyPlanId =>
+  AGENCY_PLANS.includes(value as AgencyPlanId);
+
+/** Agency plans are monthly only, so the pricing page and checkout never offer a year. */
+export const intervalsFor = (plan: PlanId): Interval[] =>
+  isAgencyPlan(plan) ? ["month"] : ["month", "year"];
 
 export const priceLookupKey = (plan: PlanId, interval: Interval) => `fw_${plan}_${interval}`;
 
+/** Every lookup key this app sells, so a Stripe price can be traced back to its plan. */
+const LOOKUP_KEYS = new Map<string, PlanId>(
+  (Object.keys(PLANS) as PlanId[]).flatMap((plan) =>
+    intervalsFor(plan).map((interval) => [priceLookupKey(plan, interval), plan] as const),
+  ),
+);
+
 /** The plan a Stripe price belongs to, read back from its lookup key (fw_<plan>_<interval>). */
 export function planFromLookupKey(key: unknown): PlanId | null {
-  const plan = typeof key === "string" ? key.split("_")[1] : undefined;
-  return isPlan(plan) && typeof key === "string" && key.startsWith("fw_") ? plan : null;
+  return typeof key === "string" ? LOOKUP_KEYS.get(key) ?? null : null;
 }
 
-export const isPlan = (value: unknown): value is PlanId => value === "family" || value === "household";
-export const isInterval = (value: unknown): value is Interval => value === "month" || value === "year";
+export const isPlan = (value: unknown): value is PlanId =>
+  typeof value === "string" && value in PLANS;
+export const isInterval = (value: unknown): value is Interval =>
+  value === "month" || value === "year";

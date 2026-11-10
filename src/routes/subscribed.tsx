@@ -61,7 +61,24 @@ function Subscribed() {
         <Message title="Confirming your payment" body="Your bank is still checking. This page will update on its own." />
       )}
 
-      {result?.status === "ready" && (
+      {result?.status === "ready" && result.kind === "agency" && (
+        <div className="mt-8 rounded-2xl bg-card p-7 ring-1 ring-border">
+          <h1 className="heading-serif text-[2rem] leading-tight text-foreground">
+            Your agency account is set up
+          </h1>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+            {result.agencyName} now has room for {result.allowance} active households. We have emailed
+            a setup link to the address you paid with, and your account owner has been asked to
+            create your agency login.
+          </p>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+            Nothing else to do for now. If you have not heard from us within a working day, get in
+            touch and we will sort it out.
+          </p>
+        </div>
+      )}
+
+      {result?.status === "ready" && result.kind === "family" && (
         <div className="mt-8 rounded-2xl bg-card p-7 ring-1 ring-border">
           <h1 className="heading-serif text-[2rem] leading-tight text-foreground">
             Your wallet is ready

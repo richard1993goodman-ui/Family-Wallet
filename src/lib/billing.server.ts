@@ -1,6 +1,15 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { isInterval, isPlan, planFromLookupKey } from "./billing.config";
+import {
+  isAgencyPlan,
+  isInterval,
+  isPlan,
+  planFromLookupKey,
+  PLANS,
+  type AgencyPlanId,
+  type PlanId,
+} from "./billing.config";
 import { sendEmail } from "./email.server";
+import { buildAgencyOwnerEmail, buildAgencyWelcomeEmail } from "./agency-email";
 import { CONTACT_EMAIL, siteUrl } from "./site";
 import type { StripeEnv } from "./stripe.server";
 import { buildWalletEmail } from "./wallet-email";
@@ -25,6 +34,25 @@ type CheckoutSession = {
   subscription: StripeSubscription | string | null;
 };
 
+/** What a paid session turns into: a family's own wallet, or an agency account. */
+export type Provisioned =
+  | {
+      status: "ready";
+      kind: "family";
+      slug: string;
+      code: string;
+      familyName: string;
+      plan: PlanId;
+    }
+  | {
+      status: "ready";
+      kind: "agency";
+      agencyName: string;
+      allowance: number;
+      plan: PlanId;
+    }
+  | { status: "pending" };
+
 // Statuses where the household should no longer have access. past_due keeps access while Stripe retries.
 const ENDED = new Set(["canceled", "unpaid", "incomplete_expired"]);
 const LIVE = new Set(["active", "trialing", "past_due"]);
@@ -45,30 +73,64 @@ function slugFor(name: string) {
   return `${base}-${generateAccessCode().slice(0, 4).toLowerCase()}`;
 }
 
-async function existingWallet(sessionId: string) {
+/** The subscription row for a session, if one was already written by the other caller. */
+async function existingRow(sessionId: string) {
   const { data: row } = await supabaseAdmin
     .from("family_subscriptions")
-    .select("family_id, plan")
+    .select("family_id, plan, agency_id")
     .eq("stripe_checkout_session_id", sessionId)
     .maybeSingle();
-  if (!row?.family_id) return null;
+  if (!row || !isPlan(row.plan)) return null;
+  return { ...row, plan: row.plan as PlanId };
+}
+
+async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned> {
   const { data: family } = await supabaseAdmin
     .from("families")
     .select("slug, access_code, family_name")
-    .eq("id", row.family_id)
+    .eq("id", familyId)
     .maybeSingle();
-  return family ? { slug: family.slug, code: family.access_code, familyName: family.family_name, plan: row.plan } : null;
+  if (!family) throw new Error("We could not find the wallet for that payment.");
+  return {
+    status: "ready",
+    kind: "family",
+    slug: family.slug,
+    code: family.access_code,
+    familyName: family.family_name,
+    plan,
+  };
+}
+
+async function agencyAccount(agencyId: string, plan: PlanId): Promise<Provisioned> {
+  const { data: agency } = await supabaseAdmin
+    .from("partner_agencies")
+    .select("name, household_allowance")
+    .eq("id", agencyId)
+    .maybeSingle();
+  if (!agency) throw new Error("We could not find the agency account for that payment.");
+  return {
+    status: "ready",
+    kind: "agency",
+    agencyName: agency.name,
+    allowance: agency.household_allowance ?? PLANS[plan].allowance ?? 0,
+    plan,
+  };
 }
 
 /**
- * Turns a paid Checkout Session into a wallet. Safe to call more than once for the same session:
- * the success page and the webhook both call it, and the second call just returns the first result.
+ * Turns a paid Checkout Session into a wallet or an agency account. Safe to call more than
+ * once for the same session: the success page and the webhook both call it, and the second
+ * call just returns the first result.
  */
-export async function provisionFromSession(sessionId: string, environment: StripeEnv) {
+export async function provisionFromSession(
+  sessionId: string,
+  environment: StripeEnv,
+): Promise<Provisioned> {
   if (!/^cs_[A-Za-z0-9_]+$/.test(sessionId)) throw new Error("That payment link is not valid.");
 
-  const already = await existingWallet(sessionId);
-  if (already) return { status: "ready" as const, ...already };
+  const already = await existingRow(sessionId);
+  if (already?.family_id) return familyWallet(already.family_id, already.plan);
+  if (already?.agency_id) return agencyAccount(already.agency_id, already.plan);
 
   const { createStripeClient } = await import("./stripe.server");
   const stripe = createStripeClient(environment);
@@ -87,9 +149,39 @@ export async function provisionFromSession(sessionId: string, environment: Strip
   }
   const sub = typeof session.subscription === "object" ? session.subscription : null;
   const email = session.customer_details?.email ?? session.customer_email ?? null;
-  const familyName =
-    session.customer_details?.name?.trim() || email?.split("@")[0] || "Your household";
+  const named = session.customer_details?.name?.trim() || email?.split("@")[0] || "Your household";
 
+  return isAgencyPlan(plan)
+    ? provisionAgency({ sessionId, plan, sub, email, customerId: session.customer, agencyName: named })
+    : provisionFamily({
+        sessionId,
+        plan,
+        interval,
+        sub,
+        email,
+        customerId: session.customer,
+        familyName: named,
+      });
+}
+
+/** A family that bought a plan for their own household. */
+async function provisionFamily({
+  sessionId,
+  plan,
+  interval,
+  sub,
+  email,
+  customerId,
+  familyName,
+}: {
+  sessionId: string;
+  plan: PlanId;
+  interval: string;
+  sub: StripeSubscription | null;
+  email: string | null;
+  customerId: string;
+  familyName: string;
+}): Promise<Provisioned> {
   const slug = slugFor(familyName);
   const code = generateAccessCode();
   const { data: family, error } = await supabaseAdmin
@@ -100,7 +192,7 @@ export async function provisionFromSession(sessionId: string, environment: Strip
       contact_email: email,
       tier_band: "3",
       status: "active",
-      notes: `Self-serve ${plan} plan, billed per ${interval}. Stripe customer ${session.customer}.`,
+      notes: `Self-serve ${plan} plan, billed per ${interval}. Stripe customer ${customerId}.`,
       access_code: code,
       access_code_hash: hashCode(slug, code),
     })
@@ -110,23 +202,23 @@ export async function provisionFromSession(sessionId: string, environment: Strip
 
   const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: family.id,
-    stripe_customer_id: session.customer,
+    stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
-    stripe_checkout_session_id: session.id,
+    stripe_checkout_session_id: sessionId,
     plan,
     billing_interval: interval,
     status: sub?.status ?? "active",
     current_period_end: sub ? periodEnd(sub) : null,
     cancel_at_period_end: sub?.cancel_at_period_end ?? false,
     customer_email: email,
-    environment,
   });
   if (subError) {
     // 23505: the other caller (webhook or success page) got there first. Drop our copy and use theirs.
     await supabaseAdmin.from("families").delete().eq("id", family.id);
     if (subError.code === "23505") {
-      const winner = await existingWallet(sessionId);
-      if (winner) return { status: "ready" as const, ...winner };
+      const winner = await existingRow(sessionId);
+      const won = winner?.family_id ? await familyWallet(winner.family_id, winner.plan) : null;
+      if (won) return won;
     }
     throw new Error(subError.message);
   }
@@ -139,7 +231,73 @@ export async function provisionFromSession(sessionId: string, environment: Strip
     await sendEmail({ to: email, ...message });
   }
 
-  return { status: "ready" as const, slug, code, familyName, plan };
+  return { status: "ready", kind: "family", slug, code, familyName, plan };
+}
+
+/** An agency that bought a plan for the families it places with. */
+async function provisionAgency({
+  sessionId,
+  plan,
+  sub,
+  email,
+  customerId,
+  agencyName,
+}: {
+  sessionId: string;
+  plan: AgencyPlanId;
+  sub: StripeSubscription | null;
+  email: string | null;
+  customerId: string;
+  agencyName: string;
+}): Promise<Provisioned> {
+  const allowance = PLANS[plan].allowance ?? 0;
+  const { data: agency, error } = await supabaseAdmin
+    .from("partner_agencies")
+    .insert({
+      name: agencyName,
+      brand_name: agencyName,
+      contact_email: email,
+      plan: plan.replace("agency_", ""),
+      household_allowance: allowance,
+      status: "active",
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+
+  const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
+    agency_id: agency.id,
+    stripe_customer_id: customerId,
+    stripe_subscription_id: sub?.id ?? null,
+    stripe_checkout_session_id: sessionId,
+    plan,
+    billing_interval: "month",
+    status: sub?.status ?? "active",
+    current_period_end: sub ? periodEnd(sub) : null,
+    cancel_at_period_end: sub?.cancel_at_period_end ?? false,
+    customer_email: email,
+  });
+  if (subError) {
+    // The webhook got there first: keep its row and use the agency it already created.
+    await supabaseAdmin.from("partner_agencies").delete().eq("id", agency.id);
+    if (subError.code === "23505") {
+      const winner = await existingRow(sessionId);
+      const won = winner?.agency_id ? await agencyAccount(winner.agency_id, winner.plan) : null;
+      if (won) return won;
+    }
+    throw new Error(subError.message);
+  }
+
+  const details = { agencyName, plan, allowance, contactEmail: email ?? CONTACT_EMAIL };
+  if (email) {
+    const message = buildAgencyWelcomeEmail(details);
+    await sendEmail({ to: email, ...message });
+  }
+  // The owner has to create the agency's staff login, so they hear about it the same moment.
+  const owner = buildAgencyOwnerEmail(details);
+  await sendEmail({ to: CONTACT_EMAIL, ...owner });
+
+  return { status: "ready", kind: "agency", agencyName, allowance, plan };
 }
 
 /** Keeps the subscription row, and the household's access, in step with Stripe. */

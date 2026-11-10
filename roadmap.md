@@ -12,3 +12,7 @@
 - [x] Demo wallet open to anyone without a code
 - [x] Pull the GitHub redesign (role-based navigation, new dashboards, warm design system) and re-apply local features: bank details, agency logo, canonical familywallet.io links, two-week rota, open demo
 - [x] Move calendar to top under welcome message: wallet (family + nanny), demo, homepage phone
+
+- [x] Stripe: switch checkout to Lovable-managed embedded checkout (test/live env, gateway client, webhook, banner)
+- [x] Agency Partner/Growth/Scale on Stripe at £39/£119/£199 monthly (10/50/100 households); remove "Talk to us"; Enterprise/Network stay quote-only
+- [x] Verify every plan opens its own payment form in the preview (family yearly + monthly, Partner, Growth)
