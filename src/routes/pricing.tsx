@@ -21,12 +21,12 @@ export const Route = createFileRoute("/pricing")({
     pageHead({
       title: "Pricing: Family Wallet Plans for Families & Agencies",
       description:
-        "Family £7.99 a month for one nanny or au pair, Household £14.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+        "Family £9.99 a month for one nanny or au pair, Household £19.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
       path: "/pricing",
       jsonLd: [
         softwareLd([
-          { name: "Family", price: "7.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
-          { name: "Household", price: "14.99", description: "Up to six staff, billed monthly, excluding VAT." },
+          { name: "Family", price: "9.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Household", price: "19.99", description: "Up to six staff, billed monthly, excluding VAT." },
         ]),
         faqLd(faqs.families),
         breadcrumbLd([
@@ -61,15 +61,13 @@ type Tier = {
 const families: Tier[] = [
   {
     name: "Family",
-    monthly: 7.99,
-    annual: 79,
+    monthly: 9.99,
+    annual: 99,
     who: "One nanny or au pair, run properly.",
     features: [
       { text: "1 nanny or au pair (extra staff £3/mo each)" },
       { text: "Shared week calendar, daily log and messages" },
       { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
-      { text: "Agreement signed by both of you" },
-      { text: "House manual and codes, hidden until revealed" },
       { text: "Emergency card and medication log" },
       { text: "Timesheets, expenses and a Friday weekly report" },
     ],
@@ -79,12 +77,14 @@ const families: Tier[] = [
   },
   {
     name: "Household",
-    monthly: 14.99,
-    annual: 149,
+    monthly: 19.99,
+    annual: 199,
     who: "A nanny, an au pair, a housekeeper, a driver.",
     lead: "Everything in Family, plus",
     features: [
       { text: "Up to 6 staff (extra staff £3/mo each)" },
+      { text: "Agreement builder, signed by both of you" },
+      { text: "House manual and codes, hidden until revealed" },
       { text: "Employment cost calculator" },
       { text: "Au pair and live-in tools: hours and days off", soon: true },
       { text: "More than one property", soon: true },
@@ -105,14 +105,14 @@ const families: Tier[] = [
       { text: "A named contact" },
       { text: "Help setting up and importing records" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet: Estate") },
+    cta: { label: "Get a quote", href: mail("Family Wallet: Estate") },
   },
 ];
 
 const agencies: Tier[] = [
   {
     name: "Partner",
-    monthly: 39,
+    monthly: 69,
     who: "Give your first families a wallet.",
     features: [
       { text: "10 active households" },
@@ -127,7 +127,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Growth",
-    monthly: 119,
+    monthly: 149,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [
@@ -144,7 +144,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Scale",
-    monthly: 199,
+    monthly: 249,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [
@@ -175,11 +175,11 @@ const agencies: Tier[] = [
 const payOptions = [
   {
     title: "You include it in the membership",
-    body: "You pay per active household. At Growth with 40 families that is about £3 a family a month, a small part of a £50 membership.",
+    body: "You pay per active household. At Growth with 40 families that is under £4 a family a month, a small part of a £50 membership.",
   },
   {
     title: "You resell it",
-    body: "You pay the household rate and charge your families whatever you like, for example £7.99 to £9.99 a month.",
+    body: "You pay the household rate and charge your families whatever you like, for example £9.99 to £12.99 a month.",
   },
   {
     title: "You refer families",
