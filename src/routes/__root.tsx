@@ -121,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 /** Follows the device's light or dark setting before first paint, and live after that. */
-const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}if(/FamilyWalletApp/.test(navigator.userAgent))document.documentElement.classList.add("native-app");a();m.addEventListener("change",a)})()`;
+const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}if(/FamilyWalletApp/.test(navigator.userAgent)){document.documentElement.classList.add("native-app");if(location.pathname==="/")location.replace("/login")}a();m.addEventListener("change",a)})()`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
