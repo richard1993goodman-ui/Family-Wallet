@@ -257,7 +257,12 @@ function PricingPage() {
     if (checkout) checkoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [checkout]);
 
-  const pick = (a: Audience) => navigate({ search: { for: a }, replace: true });
+  const pick = (a: Audience) => {
+    // Leaving the tab that holds the payment form closes it, so it is never left open
+    // showing a plan from the other side.
+    setCheckout(null);
+    navigate({ search: { for: a }, replace: true });
+  };
 
   return (
     <div className="min-h-svh overflow-x-clip bg-background">
@@ -463,7 +468,13 @@ function PricingPage() {
               </Button>
             </div>
             <div className="mt-5">
-              <StripeEmbeddedCheckout plan={checkout.plan} interval={checkout.interval} />
+              {/* A new key per plan: Stripe's form fetches its payment details once when it
+                  mounts, so reusing it for a different plan would keep the old one. */}
+              <StripeEmbeddedCheckout
+                key={`${checkout.plan}-${checkout.interval}`}
+                plan={checkout.plan}
+                interval={checkout.interval}
+              />
             </div>
           </section>
         )}
