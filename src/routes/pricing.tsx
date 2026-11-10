@@ -1,12 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check, X } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
+import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
+import type { Interval, PlanId } from "@/lib/billing.config";
+import { paymentsConfigured } from "@/lib/stripe";
 
 type Audience = "families" | "agencies";
 
@@ -239,7 +242,17 @@ function PricingPage() {
   const audience: Audience = Route.useSearch().for ?? "families";
   const navigate = useNavigate({ from: Route.fullPath });
   const [annual, setAnnual] = useState(true);
+  const [checkout, setCheckout] = useState<{ plan: PlanId; interval: Interval } | null>(null);
+  const checkoutRef = useRef<HTMLDivElement>(null);
   const tiers = audience === "families" ? families : agencies;
+
+  // Paying is only possible once this build has a Stripe token; until then the buttons
+  // fall back to the "talk to us" email.
+  const canPay = paymentsConfigured();
+
+  useEffect(() => {
+    if (checkout) checkoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [checkout]);
 
   const pick = (a: Audience) => navigate({ search: { for: a }, replace: true });
 
@@ -334,6 +347,7 @@ function PricingPage() {
           {tiers.map((t) => {
             const showAnnual = audience === "families" && annual && t.annual !== undefined;
             const price = t.monthly === null ? null : showAnnual ? t.annual! : t.monthly;
+            const plan = t.plan;
             return (
               <article
                 key={t.name}
@@ -374,27 +388,17 @@ function PricingPage() {
                         ? `Or ${money(t.monthly!)} a month. Excluding VAT.`
                         : "Excluding VAT."}
                 </p>
-                {t.plan ? (
-                  <form
-                    method="post"
-                    action="/api/stripe/checkout"
-                    className="mt-6"
-                    onSubmit={(e) => {
-                      // Stripe's payment page cannot load inside a frame, such as Lovable's preview.
-                      if (window.self !== window.top) e.currentTarget.target = "_blank";
-                    }}
+                {plan && canPay ? (
+                  <Button
+                    size="lg"
+                    variant={t.popular ? "default" : "outline"}
+                    className="mt-6 w-full"
+                    onClick={() =>
+                      setCheckout({ plan, interval: annual ? "year" : "month" })
+                    }
                   >
-                    <input type="hidden" name="plan" value={t.plan} />
-                    <input type="hidden" name="interval" value={annual ? "year" : "month"} />
-                    <Button
-                      type="submit"
-                      size="lg"
-                      variant={t.popular ? "default" : "outline"}
-                      className="w-full"
-                    >
-                      {t.cta.label} <ArrowRight aria-hidden />
-                    </Button>
-                  </form>
+                    {t.cta.label} <ArrowRight aria-hidden />
+                  </Button>
                 ) : (
                   <Button
                     size="lg"
@@ -434,6 +438,32 @@ function PricingPage() {
             );
           })}
         </section>
+
+        {checkout && (
+          <section
+            ref={checkoutRef}
+            aria-label="Payment"
+            className="mt-8 rounded-2xl bg-card p-6 ring-1 ring-border sm:p-8"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="heading-serif text-[1.5rem] leading-tight text-foreground">
+                  {checkout.plan === "family" ? "Family" : "Household"} plan
+                </h2>
+                <p className="mt-1 text-[0.9375rem] text-muted-foreground">
+                  Billed {checkout.interval === "year" ? "yearly" : "monthly"}. Your wallet is
+                  created the moment the payment goes through.
+                </p>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setCheckout(null)}>
+                <X aria-hidden /> Close
+              </Button>
+            </div>
+            <div className="mt-5">
+              <StripeEmbeddedCheckout plan={checkout.plan} interval={checkout.interval} />
+            </div>
+          </section>
+        )}
 
         {audience === "agencies" && (
           <aside className="mt-5 flex flex-col gap-4 rounded-2xl bg-tint-sage p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
