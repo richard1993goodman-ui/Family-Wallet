@@ -699,6 +699,9 @@
 .native-app a[href^="/pricing"] {
   display: none;
 }
+.native-app .web-only {
+  display: none;
+}
 .native-app {
   overscroll-behavior: none;
 }
