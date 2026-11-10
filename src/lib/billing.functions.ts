@@ -67,7 +67,7 @@ export const claimSubscription = createServerFn({ method: "POST" })
       throw new Error("Unknown payment environment.");
     return { sessionId: data.sessionId, environment: data.environment as StripeEnv };
   })
-  .handler(async ({ data }): Promise<Provisioned & { emailing: boolean }> => {
+  .handler(async ({ data }): Promise<(Provisioned & { emailing: boolean }) | (Extract<Provisioned, { kind: "agency" }> & { setupLink: string | null; emailing: boolean })> => {
     const { provisionFromSession } = await import("./billing.server");
     const { markUnlocked } = await import("./wallet.server");
     const { emailConfigured } = await import("./email.server");
@@ -80,15 +80,19 @@ export const claimSubscription = createServerFn({ method: "POST" })
     const emailing = emailConfigured();
     // Built per case so the shape the page reads stays exactly the one it narrows on.
     if (result.status === "pending") return { status: "pending" as const, emailing };
-    if (result.kind === "agency")
+    if (result.kind === "agency") {
+      const { agencyOwnerSetupLink } = await import("./billing.server");
+      const setupLink = await agencyOwnerSetupLink(data.sessionId).catch(() => null);
       return {
         status: "ready" as const,
         kind: "agency" as const,
         agencyName: result.agencyName,
         allowance: result.allowance,
         plan: result.plan,
+        setupLink,
         emailing,
       };
+    }
     return {
       status: "ready" as const,
       kind: "family" as const,
