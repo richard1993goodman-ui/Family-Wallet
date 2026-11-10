@@ -52,8 +52,8 @@ type Tier = {
   features: Feature[];
   lead?: string;
   cta: { label: string; href: string };
-  /** Set for plans families can buy themselves; the button then goes to Stripe Checkout. */
-  plan?: "family" | "household";
+  /** Set for plans people can buy themselves; the button then opens the payment form. */
+  plan?: PlanId;
   popular?: boolean;
 };
 

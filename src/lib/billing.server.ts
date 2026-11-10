@@ -80,7 +80,8 @@ async function existingRow(sessionId: string) {
     .select("family_id, plan, agency_id")
     .eq("stripe_checkout_session_id", sessionId)
     .maybeSingle();
-  return row ?? null;
+  if (!row || !isPlan(row.plan)) return null;
+  return { ...row, plan: row.plan as PlanId };
 }
 
 async function familyWallet(familyId: string, plan: PlanId) {
