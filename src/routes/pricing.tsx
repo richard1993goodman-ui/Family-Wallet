@@ -9,6 +9,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import type { Interval, PlanId } from "@/lib/billing.config";
+import { intervalsFor } from "@/lib/billing.config";
 import { paymentsConfigured } from "@/lib/stripe";
 
 type Audience = "families" | "agencies";
@@ -402,7 +403,12 @@ function PricingPage() {
                     variant={t.popular ? "default" : "outline"}
                     className="mt-6 w-full"
                     onClick={() =>
-                      setCheckout({ plan, interval: annual ? "year" : "month" })
+                      // Agency plans are monthly only, so the yearly toggle is ignored for them.
+                      setCheckout({
+                        plan,
+                        interval:
+                          annual && intervalsFor(plan).includes("year") ? "year" : "month",
+                      })
                     }
                   >
                     {t.cta.label} <ArrowRight aria-hidden />
