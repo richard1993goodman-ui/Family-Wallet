@@ -167,7 +167,8 @@ function SiteHeader() {
       )}
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-        <Link to="/" aria-label="The Family Wallet, home">
+        <Link to="/" aria-label="The Family Wallet, home" className="flex items-center gap-2.5">
+          <LogoMark />
           <span className="heading-serif text-[1.375rem] leading-none text-foreground">
             The Family Wallet
           </span>

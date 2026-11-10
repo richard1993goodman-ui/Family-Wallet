@@ -20,7 +20,8 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
     <div className="min-h-svh overflow-x-clip bg-background">
       <header className="border-b border-border/70">
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-          <Link to="/" className="heading-serif text-[1.375rem] leading-none text-foreground">
+          <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
+            <LogoMark />
             The Family Wallet
           </Link>
           <nav aria-label="Main" className="hidden items-center gap-6 text-[0.9375rem] lg:flex">
