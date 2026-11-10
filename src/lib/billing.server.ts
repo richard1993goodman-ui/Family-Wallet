@@ -151,6 +151,12 @@ export async function provisionFromSession(
   const email = session.customer_details?.email ?? session.customer_email ?? null;
   const named = session.customer_details?.name?.trim() || email?.split("@")[0] || "Your household";
 
+  // Bought from inside an existing wallet: attach the plan to that household, no new wallet.
+  const existingFamilyId = session.metadata["family_id"];
+  if (existingFamilyId && !isAgencyPlan(plan)) {
+    return attachToFamily({ sessionId, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer });
+  }
+
   return isAgencyPlan(plan)
     ? provisionAgency({ sessionId, plan, sub, email, customerId: session.customer, agencyName: named })
     : provisionFamily({
@@ -162,6 +168,70 @@ export async function provisionFromSession(
         customerId: session.customer,
         familyName: named,
       });
+}
+
+/** A household already in the wallet that started paying (or upgraded) from its Plan & billing page. */
+async function attachToFamily({
+  sessionId,
+  familyId,
+  plan,
+  interval,
+  sub,
+  email,
+  customerId,
+}: {
+  sessionId: string;
+  familyId: string;
+  plan: PlanId;
+  interval: string;
+  sub: StripeSubscription | null;
+  email: string | null;
+  customerId: string;
+}): Promise<Provisioned> {
+  const { error } = await supabaseAdmin.from("family_subscriptions").insert({
+    family_id: familyId,
+    stripe_customer_id: customerId,
+    stripe_subscription_id: sub?.id ?? null,
+    stripe_checkout_session_id: sessionId,
+    plan,
+    billing_interval: interval,
+    status: sub?.status ?? "active",
+    current_period_end: sub ? periodEnd(sub) : null,
+    cancel_at_period_end: sub?.cancel_at_period_end ?? false,
+    customer_email: email,
+  });
+  // 23505: the webhook or the return page already recorded it.
+  if (error && error.code !== "23505") throw new Error(error.message);
+  await supabaseAdmin.from("families").update({ status: "active" }).eq("id", familyId);
+  return familyWallet(familyId, plan);
+}
+
+/** What the parent-only Plan & billing page shows. */
+export async function billingSummary(familyId: string) {
+  const [{ data: fam }, { data: row }] = await Promise.all([
+    supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle(),
+    supabaseAdmin
+      .from("family_subscriptions")
+      .select("plan, status, billing_interval, current_period_end, cancel_at_period_end")
+      .eq("family_id", familyId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+  const live = !!row && LIVE.has(row.status);
+  return {
+    agencyManaged: !!fam?.partner_agency_id && !row,
+    subscription: row
+      ? {
+          plan: row.plan,
+          status: row.status,
+          interval: row.billing_interval,
+          renews: row.current_period_end,
+          cancelling: !!row.cancel_at_period_end,
+          live,
+        }
+      : null,
+  };
 }
 
 /** A family that bought a plan for their own household. */

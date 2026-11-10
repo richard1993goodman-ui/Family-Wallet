@@ -15,7 +15,7 @@ export function UpgradeToHousehold({ slug, title, what, isNanny }: { slug: strin
         </p>
         {!isNanny && (
           <Button asChild className="mt-6">
-            <Link to="/pricing">See the Household plan</Link>
+            <Link to="/billing/$slug" params={{ slug }}>Upgrade to Household</Link>
           </Button>
         )}
       </div>
