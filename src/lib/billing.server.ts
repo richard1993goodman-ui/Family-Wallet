@@ -148,12 +148,21 @@ export async function provisionFromSession(sessionId: string, environment: Strip
   const named = session.customer_details?.name?.trim() || email?.split("@")[0] || "Your household";
 
   return isAgencyPlan(plan)
-    ? provisionAgency({ plan, sub, email, customerId: session.customer, agencyName: named, environment })
-    : provisionFamily({ plan, interval, sub, email, customerId: session.customer, familyName: named });
+    ? provisionAgency({ sessionId, plan, sub, email, customerId: session.customer, agencyName: named })
+    : provisionFamily({
+        sessionId,
+        plan,
+        interval,
+        sub,
+        email,
+        customerId: session.customer,
+        familyName: named,
+      });
 }
 
 /** A family that bought a plan for their own household. */
 async function provisionFamily({
+  sessionId,
   plan,
   interval,
   sub,
@@ -161,6 +170,7 @@ async function provisionFamily({
   customerId,
   familyName,
 }: {
+  sessionId: string;
   plan: PlanId;
   interval: string;
   sub: StripeSubscription | null;
@@ -190,7 +200,7 @@ async function provisionFamily({
     family_id: family.id,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
-    stripe_checkout_session_id: sub ? null : null, // set below
+    stripe_checkout_session_id: sessionId,
     plan,
     billing_interval: interval,
     status: sub?.status ?? "active",
@@ -202,7 +212,7 @@ async function provisionFamily({
     // 23505: the other caller (webhook or success page) got there first. Drop our copy and use theirs.
     await supabaseAdmin.from("families").delete().eq("id", family.id);
     if (subError.code === "23505") {
-      const winner = await existingRow(sessionIdFor(sub));
+      const winner = await existingRow(sessionId);
       const won = winner?.family_id ? await familyWallet(winner.family_id, winner.plan) : null;
       if (won) return won;
     }
@@ -222,12 +232,14 @@ async function provisionFamily({
 
 /** An agency that bought a plan for the families it places with. */
 async function provisionAgency({
+  sessionId,
   plan,
   sub,
   email,
   customerId,
   agencyName,
 }: {
+  sessionId: string;
   plan: AgencyPlanId;
   sub: StripeSubscription | null;
   email: string | null;
@@ -253,6 +265,7 @@ async function provisionAgency({
     agency_id: agency.id,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
+    stripe_checkout_session_id: sessionId,
     plan,
     billing_interval: "month",
     status: sub?.status ?? "active",
@@ -261,7 +274,13 @@ async function provisionAgency({
     customer_email: email,
   });
   if (subError) {
+    // The webhook got there first: keep its row and use the agency it already created.
     await supabaseAdmin.from("partner_agencies").delete().eq("id", agency.id);
+    if (subError.code === "23505") {
+      const winner = await existingRow(sessionId);
+      const won = winner?.agency_id ? await agencyAccount(winner.agency_id, winner.plan) : null;
+      if (won) return won;
+    }
     throw new Error(subError.message);
   }
 
