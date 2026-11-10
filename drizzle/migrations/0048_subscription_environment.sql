@@ -1,0 +1,1 @@
+ALTER TABLE public.family_subscriptions ADD COLUMN IF NOT EXISTS environment text NOT NULL DEFAULT 'sandbox' CHECK (environment IN ('sandbox','live')); COMMENT ON COLUMN public.family_subscriptions.environment IS 'Stripe environment that created this subscription: sandbox (test) or live.';
