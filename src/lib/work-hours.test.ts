@@ -17,6 +17,18 @@ describe("cleanWorkingDays", () => {
     expect(() => cleanWorkingDays([{ day: "Monday", enabled: true, startTime: "9am", endTime: "17:00" }])).toThrow("Monday");
     expect(() => cleanWorkingDays([{ day: "Friday", enabled: true, startTime: "17:00", endTime: "09:00" }])).toThrow("Friday");
   });
+  it("keeps a split shift and counts both blocks", () => {
+    const days = cleanWorkingDays([
+      { day: "Monday", enabled: true, startTime: "07:00", endTime: "09:00", startTime2: "15:00", endTime2: "19:00" },
+    ]);
+    expect(days[0]?.startTime2).toBe("15:00");
+    expect(weeklyHours(days)).toBe(6);
+  });
+  it("rejects a second shift that overlaps the first", () => {
+    expect(() =>
+      cleanWorkingDays([{ day: "Monday", enabled: true, startTime: "07:00", endTime: "16:00", startTime2: "15:00", endTime2: "19:00" }]),
+    ).toThrow("Monday");
+  });
   it("ignores the times on a day that is switched off, and non-lists", () => {
     expect(cleanWorkingDays([{ day: "Monday", enabled: false, startTime: "nonsense", endTime: "x" }]).some((d) => d.enabled)).toBe(false);
     expect(hasHours(cleanWorkingDays("rubbish"))).toBe(false);
