@@ -7,6 +7,7 @@ import { useState } from "react";
 import { CopyButton } from "@/components/CopyButton";
 import { Button } from "@/components/ui/button";
 import { claimSubscription } from "@/lib/billing.functions";
+import { getStripeEnvironment, paymentsConfigured } from "@/lib/stripe";
 import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/subscribed")({
@@ -24,7 +25,13 @@ function Subscribed() {
   const query = useQuery({
     queryKey: ["claim", sessionId],
     enabled: Boolean(sessionId),
-    queryFn: () => claim({ data: { sessionId: sessionId! } }),
+    queryFn: () =>
+      claim({
+        data: {
+          sessionId: sessionId!,
+          environment: paymentsConfigured() ? getStripeEnvironment() : "sandbox",
+        },
+      }),
     // Cards that need extra checking can take a moment to settle.
     refetchInterval: (q) => (q.state.data?.status === "pending" ? 3000 : false),
     retry: false,
