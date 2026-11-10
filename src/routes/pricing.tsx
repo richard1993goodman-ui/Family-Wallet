@@ -70,6 +70,7 @@ const families: Tier[] = [
       { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
       { text: "Emergency card and medication log" },
       { text: "Timesheets, expenses and a Friday weekly report" },
+      { text: "Customer support by email" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
     plan: "family",
@@ -104,6 +105,7 @@ const families: Tier[] = [
       { text: "Several properties and teams" },
       { text: "A named contact" },
       { text: "Help setting up and importing records" },
+      { text: "Dedicated customer support" },
     ],
     cta: { label: "Get a quote", href: mail("Family Wallet: Estate") },
   },
@@ -121,6 +123,7 @@ const agencies: Tier[] = [
       { text: "Copy each family's link and code in one tap" },
       { text: "Bulk import of existing families", soon: true },
       { text: "Basic agency dashboard" },
+      { text: "Ongoing customer support" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
     plan: "agency_partner",
@@ -136,7 +139,7 @@ const agencies: Tier[] = [
       { text: "Your logo, colours and subdomain" },
       { text: "Dashboard: set-up status, signed agreements, expiring checks" },
       { text: "Manage your own perks and playbooks" },
-      { text: "One set-up call" },
+      { text: "Continued support, from set-up onwards" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
     plan: "agency_growth",
@@ -151,8 +154,8 @@ const agencies: Tier[] = [
       { text: "100 active households" },
       { text: "Extra households £1.50/mo each" },
       { text: "Your own domain, fully white-labelled" },
+      { text: "Continued priority support" },
       { text: "Staff roles and permissions" },
-      { text: "Priority support" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
     plan: "agency_scale",
@@ -166,14 +169,14 @@ const agencies: Tier[] = [
       { text: "100+ active households, priced to your volume" },
       { text: "Help moving your existing families across" },
       { text: "API and single sign-on", soon: true },
-      { text: "Dedicated account manager" },
+      { text: "Dedicated account manager and continued support" },
     ],
     cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
   },
 ];
 
 /* Everything inside the wallet, per tier, for the expandable list under each card. */
-const DAY_TO_DAY = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax"];
+const DAY_TO_DAY = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax", "Customer support by email"];
 const HOUSEHOLD_EXTRA = ["Up to 6 staff with their own roles and sign-ins", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", "Priority support"];
 type Group = { title: string; items: string[] };
 const tierIncludes: Record<string, Group[]> = {
