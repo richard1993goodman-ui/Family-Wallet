@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/brand";
 import { cn } from "@/lib/utils";
 
 export const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";

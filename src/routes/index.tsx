@@ -20,6 +20,7 @@ import {
 
 import { WalletHero } from "@/components/WalletShowcase";
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/brand";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useReveal } from "@/hooks/use-reveal";
