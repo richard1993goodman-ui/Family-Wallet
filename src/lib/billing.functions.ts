@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
 import { isInterval, isPlan, intervalsFor, priceLookupKey, type Interval, type PlanId } from "./billing.config";
+import type { Provisioned } from "./billing.server";
 import { siteUrl } from "./site";
 import type { StripeEnv } from "./stripe";
 
@@ -66,13 +67,14 @@ export const claimSubscription = createServerFn({ method: "POST" })
       throw new Error("Unknown payment environment.");
     return { sessionId: data.sessionId, environment: data.environment as StripeEnv };
   })
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<Provisioned & { emailing: boolean }> => {
     const { provisionFromSession } = await import("./billing.server");
     const { markUnlocked } = await import("./wallet.server");
     const { emailConfigured } = await import("./email.server");
     const result = await provisionFromSession(data.sessionId, data.environment);
-    if (result.status === "ready") {
-      // Payment is verified with Stripe above, so the buyer goes straight in.
+    // Payment is verified with Stripe above, so the family goes straight in. An agency
+    // account has no wallet to unlock; its login is set up by the account owner.
+    if (result.status === "ready" && result.kind === "family") {
       await markUnlocked(result.slug);
     }
     return { ...result, emailing: emailConfigured() };
