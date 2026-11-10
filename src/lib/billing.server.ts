@@ -1,8 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { isInterval, isPlan, planFromLookupKey } from "./billing.config";
 import { sendEmail } from "./email.server";
-import { stripe } from "./stripe.server";
 import { CONTACT_EMAIL, siteUrl } from "./site";
+import type { StripeEnv } from "./stripe.server";
 import { buildWalletEmail } from "./wallet-email";
 import { generateAccessCode, hashCode } from "./wallet.server";
 
@@ -64,17 +64,17 @@ async function existingWallet(sessionId: string) {
  * Turns a paid Checkout Session into a wallet. Safe to call more than once for the same session:
  * the success page and the webhook both call it, and the second call just returns the first result.
  */
-export async function provisionFromSession(sessionId: string) {
+export async function provisionFromSession(sessionId: string, environment: StripeEnv) {
   if (!/^cs_[A-Za-z0-9_]+$/.test(sessionId)) throw new Error("That payment link is not valid.");
 
   const already = await existingWallet(sessionId);
   if (already) return { status: "ready" as const, ...already };
 
-  const session = await stripe<CheckoutSession>(
-    `/checkout/sessions/${sessionId}`,
-    { expand: ["subscription"] },
-    "GET",
-  );
+  const { createStripeClient } = await import("./stripe.server");
+  const stripe = createStripeClient(environment);
+  const session = (await stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ["subscription"],
+  })) as unknown as CheckoutSession;
   if (session.metadata?.["app"] !== "family_wallet" || session.mode !== "subscription") {
     throw new Error("That payment was not for a Family Wallet plan.");
   }
@@ -119,6 +119,7 @@ export async function provisionFromSession(sessionId: string) {
     current_period_end: sub ? periodEnd(sub) : null,
     cancel_at_period_end: sub?.cancel_at_period_end ?? false,
     customer_email: email,
+    environment,
   });
   if (subError) {
     // 23505: the other caller (webhook or success page) got there first. Drop our copy and use theirs.
@@ -169,16 +170,24 @@ export async function applySubscription(sub: StripeSubscription) {
   }
 }
 
+/**
+ * Stripe's billing portal for a household that paid here. The row says which payment
+ * environment created it, so a test subscription is never opened against the live one.
+ */
 export async function portalUrlFor(familyId: string, returnUrl: string) {
   const { data: row } = await supabaseAdmin
     .from("family_subscriptions")
-    .select("stripe_customer_id")
+    .select("stripe_customer_id, environment")
     .eq("family_id", familyId)
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (!row) return null;
-  const session = await stripe<{ url: string }>("/billing_portal/sessions", {
+
+  const environment: StripeEnv = row.environment === "live" ? "live" : "sandbox";
+  const { createStripeClient } = await import("./stripe.server");
+  const stripe = createStripeClient(environment);
+  const session = await stripe.billingPortal.sessions.create({
     customer: row.stripe_customer_id,
     return_url: returnUrl,
   });

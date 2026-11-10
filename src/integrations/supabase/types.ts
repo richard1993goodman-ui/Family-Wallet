@@ -966,6 +966,7 @@ export type Database = {
           created_at: string
           current_period_end: string | null
           customer_email: string | null
+          environment: string
           family_id: string | null
           id: string
           plan: string
@@ -981,6 +982,7 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           customer_email?: string | null
+          environment?: string
           family_id?: string | null
           id?: string
           plan: string
@@ -996,6 +998,7 @@ export type Database = {
           created_at?: string
           current_period_end?: string | null
           customer_email?: string | null
+          environment?: string
           family_id?: string | null
           id?: string
           plan?: string
