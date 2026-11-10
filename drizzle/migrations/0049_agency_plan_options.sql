@@ -1,0 +1,1 @@
+ALTER TABLE public.family_subscriptions DROP CONSTRAINT family_subscriptions_plan_check; ALTER TABLE public.family_subscriptions ADD CONSTRAINT family_subscriptions_plan_check CHECK (plan IN ('family','household','agency_partner','agency_growth','agency_scale'));

@@ -961,11 +961,13 @@ export type Database = {
       }
       family_subscriptions: {
         Row: {
+          agency_id: string | null
           billing_interval: string
           cancel_at_period_end: boolean
           created_at: string
           current_period_end: string | null
           customer_email: string | null
+          environment: string
           family_id: string | null
           id: string
           plan: string
@@ -976,11 +978,13 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          agency_id?: string | null
           billing_interval: string
           cancel_at_period_end?: boolean
           created_at?: string
           current_period_end?: string | null
           customer_email?: string | null
+          environment?: string
           family_id?: string | null
           id?: string
           plan: string
@@ -991,11 +995,13 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          agency_id?: string | null
           billing_interval?: string
           cancel_at_period_end?: boolean
           created_at?: string
           current_period_end?: string | null
           customer_email?: string | null
+          environment?: string
           family_id?: string | null
           id?: string
           plan?: string
@@ -1006,6 +1012,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "family_subscriptions_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "family_subscriptions_family_id_fkey"
             columns: ["family_id"]
