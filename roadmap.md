@@ -1,7 +1,7 @@
 # Roadmap
 
-- [ ] Correct subscription payment environments, repair existing live rows, and verify billing portal selection
-- [ ] Route email through the linked Resend connection and verify delivery
+- [x] Correct subscription payment environments, repair existing live rows, and verify billing portal selection
+- [x] Route email through the linked Resend connection and verify delivery
 
 - [x] House Manual & Codes: private household entries, tap-to-reveal codes, family editing and nanny viewing
 - [x] Add House Manual & Codes to homepage, wallet home and shared navigation
