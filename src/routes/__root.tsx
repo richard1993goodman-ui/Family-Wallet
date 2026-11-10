@@ -83,11 +83,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Family Wallet" },
+      { title: "The Family Wallet | Private Hub for Nannies & Household Staff" },
       {
         name: "description",
         content:
-          "A private app for families who employ a nanny, au pair or household staff: shared week, signed agreement, daily log, timesheets and house codes in one place.",
+          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
+      },
+      { property: "og:title", content: "The Family Wallet | Private Hub for Nannies & Household Staff" },
+      {
+        property: "og:description",
+        content:
+          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
       { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#fbf7f0", media: "(prefers-color-scheme: light)" },
