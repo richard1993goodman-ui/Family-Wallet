@@ -1655,6 +1655,7 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                 >
                   <PanelLeft className="size-4" aria-hidden />
                 </button>
+                <LogoMark className="h-5 w-5" />
                 <p className="truncate text-[12.5px] font-medium text-navy">
                   The Harrington Family
                 </p>

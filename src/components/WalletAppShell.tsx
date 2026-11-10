@@ -212,6 +212,8 @@ function WalletTopBar({
           alt={`${agencyName ?? "Agency"} logo`}
           className="h-7 w-auto max-w-[6rem] flex-none object-contain md:hidden"
         />
+      ) : slug === "demo" ? (
+        <LogoMark className="h-6 w-6 md:hidden" />
       ) : null}
       <div className="flex min-w-0 items-baseline gap-2">
         <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
