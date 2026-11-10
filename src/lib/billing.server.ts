@@ -411,3 +411,42 @@ export async function sendWalletDetails(rawEmail: string, clientKey: string) {
   );
   await sendEmail({ to: email, ...message });
 }
+
+/**
+ * The person who paid for an agency plan becomes its first staff login. Returns a one-time
+ * link to set their password and authenticator app, or null once they have already joined
+ * (so a leaked confirmation URL cannot be reused to take over the login).
+ */
+export async function agencyOwnerSetupLink(sessionId: string): Promise<string | null> {
+  const { data: row } = await supabaseAdmin
+    .from("family_subscriptions")
+    .select("agency_id, customer_email")
+    .eq("stripe_checkout_session_id", sessionId)
+    .maybeSingle();
+  const email = row?.customer_email?.trim().toLowerCase();
+  if (!row?.agency_id || !email) return null;
+
+  const { data: staff } = await supabaseAdmin
+    .from("partner_agency_staff")
+    .select("agency_id, user_id")
+    .eq("email", email)
+    .maybeSingle();
+  if (staff && staff.agency_id !== row.agency_id) return null; // email already belongs to another agency
+  if (staff?.user_id) return null;
+  if (!staff) {
+    const { error } = await supabaseAdmin
+      .from("partner_agency_staff")
+      .insert({ agency_id: row.agency_id, email });
+    if (error && error.code !== "23505") throw new Error(error.message);
+  }
+
+  const options = { redirectTo: siteUrl("/auth?setup=1") };
+  let res = await supabaseAdmin.auth.admin.generateLink({ type: "invite", email, options });
+  if (res.error) res = await supabaseAdmin.auth.admin.generateLink({ type: "recovery", email, options });
+  const link = res.data?.properties?.action_link;
+  if (res.error || !link) {
+    console.error("agency setup link failed", res.error?.message);
+    return null;
+  }
+  return link;
+}
