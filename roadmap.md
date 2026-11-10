@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Correct subscription payment environments, repair existing live rows, and verify billing portal selection
+- [ ] Route email through the linked Resend connection and verify delivery
+
 - [x] House Manual & Codes: private household entries, tap-to-reveal codes, family editing and nanny viewing
 - [x] Add House Manual & Codes to homepage, wallet home and shared navigation
 - [x] Verify demo saving/readback/edit/delete, reveal/hide, signed-out blocking and permission/privacy tests (real household and nanny-session flows not exercised)

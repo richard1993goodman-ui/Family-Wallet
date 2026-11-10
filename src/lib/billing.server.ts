@@ -154,13 +154,14 @@ export async function provisionFromSession(
   // Bought from inside an existing wallet: attach the plan to that household, no new wallet.
   const existingFamilyId = session.metadata["family_id"];
   if (existingFamilyId && !isAgencyPlan(plan)) {
-    return attachToFamily({ sessionId, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer });
+    return attachToFamily({ sessionId, environment, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer });
   }
 
   return isAgencyPlan(plan)
-    ? provisionAgency({ sessionId, plan, sub, email, customerId: session.customer, agencyName: named })
+    ? provisionAgency({ sessionId, environment, plan, sub, email, customerId: session.customer, agencyName: named })
     : provisionFamily({
         sessionId,
+        environment,
         plan,
         interval,
         sub,
@@ -173,6 +174,7 @@ export async function provisionFromSession(
 /** A household already in the wallet that started paying (or upgraded) from its Plan & billing page. */
 async function attachToFamily({
   sessionId,
+  environment,
   familyId,
   plan,
   interval,
@@ -181,6 +183,7 @@ async function attachToFamily({
   customerId,
 }: {
   sessionId: string;
+  environment: StripeEnv;
   familyId: string;
   plan: PlanId;
   interval: string;
@@ -190,6 +193,7 @@ async function attachToFamily({
 }): Promise<Provisioned> {
   const { error } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: familyId,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
@@ -237,6 +241,7 @@ export async function billingSummary(familyId: string) {
 /** A family that bought a plan for their own household. */
 async function provisionFamily({
   sessionId,
+  environment,
   plan,
   interval,
   sub,
@@ -245,6 +250,7 @@ async function provisionFamily({
   familyName,
 }: {
   sessionId: string;
+  environment: StripeEnv;
   plan: PlanId;
   interval: string;
   sub: StripeSubscription | null;
@@ -272,6 +278,7 @@ async function provisionFamily({
 
   const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: family.id,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
@@ -307,6 +314,7 @@ async function provisionFamily({
 /** An agency that bought a plan for the families it places with. */
 async function provisionAgency({
   sessionId,
+  environment,
   plan,
   sub,
   email,
@@ -314,6 +322,7 @@ async function provisionAgency({
   agencyName,
 }: {
   sessionId: string;
+  environment: StripeEnv;
   plan: AgencyPlanId;
   sub: StripeSubscription | null;
   email: string | null;
@@ -337,6 +346,7 @@ async function provisionAgency({
 
   const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
     agency_id: agency.id,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
