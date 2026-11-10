@@ -65,7 +65,7 @@ const families: Tier[] = [
     annual: 99,
     who: "One nanny or au pair, run properly.",
     features: [
-      { text: "1 nanny or au pair (extra staff £3/mo each)" },
+      { text: "1 nanny or au pair (need more? move to Household)" },
       { text: "Shared week calendar, daily log and messages" },
       { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
       { text: "Emergency card and medication log" },
@@ -82,11 +82,11 @@ const families: Tier[] = [
     who: "A nanny, an au pair, a housekeeper, a driver.",
     lead: "Everything in Family, plus",
     features: [
-      { text: "Up to 6 staff (extra staff £3/mo each)" },
+      { text: "Up to 6 staff, each with their own sign-in" },
       { text: "Agreement builder, signed by both of you" },
       { text: "House manual and codes, hidden until revealed" },
       { text: "Employment cost calculator" },
-      { text: "Au pair and live-in tools: hours and days off", soon: true },
+      { text: "Au pair and live-in tools: pocket money, hours cap, days off and house rules" },
       { text: "More than one property", soon: true },
       { text: "Exports for your accountant", soon: true },
       { text: "Priority support" },
@@ -172,6 +172,38 @@ const agencies: Tier[] = [
   },
 ];
 
+/* Everything inside the wallet, per tier, for the expandable list under each card. */
+const DAY_TO_DAY = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax"];
+const HOUSEHOLD_EXTRA = ["Up to 6 staff with their own roles and sign-ins", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", "Priority support"];
+type Group = { title: string; items: string[] };
+const tierIncludes: Record<string, Group[]> = {
+  Family: [{ title: "Day to day (1 carer)", items: DAY_TO_DAY }],
+  Household: [{ title: "Everything in Family", items: DAY_TO_DAY }, { title: "Household extras", items: HOUSEHOLD_EXTRA }],
+  Estate: [{ title: "Everything in Household", items: [...DAY_TO_DAY, ...HOUSEHOLD_EXTRA] }, { title: "Estate extras", items: ["Unlimited staff", "Several properties and teams", "A named contact", "Help importing records"] }],
+};
+
+function TierDetails({ groups }: { groups: Group[] }) {
+  const total = groups.reduce((n, g) => n + g.items.length, 0);
+  return (
+    <details className="group mt-6 rounded-xl bg-muted/50 p-4">
+      <summary className="cursor-pointer list-none text-[0.9375rem] font-medium text-foreground">
+        <span className="group-open:hidden">See everything included ({total})</span>
+        <span className="hidden group-open:inline">Hide full list</span>
+      </summary>
+      {groups.map((g) => (
+        <div key={g.title} className="mt-4">
+          <p className="text-[0.8125rem] font-semibold uppercase tracking-wide text-muted-foreground">{g.title}</p>
+          <ul className="mt-2 space-y-1.5">
+            {g.items.map((i) => (
+              <li key={i} className="flex gap-2 text-sm text-foreground"><Check className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden />{i}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </details>
+  );
+}
+
 const payOptions = [
   {
     title: "You include it in the membership",
@@ -194,6 +226,10 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
       a: "No. The wallet is a paid plan for your household. Explore the demo wallet first, a sample family with their nanny, to see exactly what you would get.",
     },
     {
+      q: "What if I need more staff than my plan includes?",
+      a: "Move up a plan. Family covers one nanny or au pair; Household covers up to six staff; Estate covers unlimited. You can upgrade any time from Manage subscription and the difference is worked out for you.",
+    },
+    {
       q: "Does my nanny or au pair pay?",
       a: "No. Nannies, au pairs and other staff always join free. You pay for the household.",
     },
@@ -211,7 +247,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Is this payroll?",
-      a: "No. The wallet holds your agreement, week, logs and costs, and works alongside whichever payroll service you use.",
+      a: "No. The wallet holds your agreement, hours and records. For payroll, contact support and we'll connect you with our partners at Nannytax and send you a unique referral code.",
     },
   ],
   agencies: [
@@ -447,6 +483,7 @@ function PricingPage() {
                       </li>
                     ))}
                   </ul>
+                  {tierIncludes[t.name] && <TierDetails groups={tierIncludes[t.name]} />}
                 </div>
               </article>
             );

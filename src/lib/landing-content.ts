@@ -164,7 +164,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Au pairs and live-in help",
         paragraphs: [
-          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. Dedicated tools for au pair hours and days off are coming, and are marked as coming soon on the pricing page.",
+          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. On the Household plan they also get dedicated live-in tools: weekly pocket money, an hours cap, protected days off, room and board and house rules.",
         ],
       },
       {
@@ -189,7 +189,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Does it handle payroll for each person?",
-        a: "No. It keeps agreements, hours and records, and includes an employment cost calculator. Use it alongside your payroll provider.",
+        a: "No. It keeps agreements, hours and records. For payroll, contact support and we'll connect you with our partners at Nannytax with a unique referral code.",
       },
     ],
     cta: {
