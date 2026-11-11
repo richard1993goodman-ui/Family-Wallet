@@ -214,7 +214,7 @@ export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath }
 export function mobileTabsFor(role: WalletRole): MobileTab[] {
   return role === "nanny"
     ? [
-        { label: "Today", icon: Home, to: "/w/$slug" },
+        { label: "Today", icon: Clock3, to: "/today/$slug" },
         { label: "Log", icon: NotebookPen, to: "/log/$slug" },
         { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
         { label: "Hours", icon: Clock3, to: "/timesheets/$slug" },

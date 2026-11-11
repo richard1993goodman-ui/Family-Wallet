@@ -2795,6 +2795,36 @@ export type Database = {
         }
         Relationships: []
       }
+      shift_sessions: {
+        Row: {
+          break_minutes: number
+          ended_at: string | null
+          family_id: string
+          id: string
+          nanny_id: string | null
+          started_at: string
+          timesheet_shift_id: string | null
+        }
+        Insert: {
+          break_minutes?: number
+          ended_at?: string | null
+          family_id: string
+          id?: string
+          nanny_id?: string | null
+          started_at?: string
+          timesheet_shift_id?: string | null
+        }
+        Update: {
+          break_minutes?: number
+          ended_at?: string | null
+          family_id?: string
+          id?: string
+          nanny_id?: string | null
+          started_at?: string
+          timesheet_shift_id?: string | null
+        }
+        Relationships: []
+      }
       wallet_documents: {
         Row: {
           category: string

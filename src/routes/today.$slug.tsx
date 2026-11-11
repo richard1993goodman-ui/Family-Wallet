@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Baby, Milk, Moon, Trash2, Utensils } from "lucide-react";
 import { toast } from "sonner";
 
+import { TodayTimeline } from "@/components/TodayTimeline";
 import { Card, EmptyState, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import {
@@ -85,7 +86,11 @@ function TodayPage() {
   const canDelete = (e: CareEventRow) => data.access === "family" || e.addedBy === data.access;
 
   return (
-    <HubPage slug={slug} title="Today" intro="Tap to log naps, bottles, meals and nappies. Everyone in the household sees it straight away.">
+    <HubPage slug={slug} title="Today" intro="The whole shift in one place: what's coming up, what's been done, and quick buttons to log it. Everyone in the household sees it straight away.">
+      <TodayTimeline slug={slug} />
+      <details className="mt-10 rounded-2xl bg-card p-4 shadow-sm">
+        <summary className="cursor-pointer text-base font-medium text-foreground">Baby &amp; toddler log (naps, bottles, nappies)</summary>
+        <div className="mt-4">
       {data.children.length > 1 && (
         <label className="mb-4 block">
           <span className="text-sm font-medium text-foreground">Who is this for?</span>
@@ -163,6 +168,8 @@ function TodayPage() {
           ))}
         </ul>
       )}
+        </div>
+      </details>
     </HubPage>
   );
 }
