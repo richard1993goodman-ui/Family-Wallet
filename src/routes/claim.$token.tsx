@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { finishAccountClaim } from "@/lib/account.functions";
 
 export const Route = createFileRoute("/claim/$token")({
-  head: () => ({ meta: [{ title: "Create your Family Wallet login" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [{ title: "Create your Family Wallet login" }, { name: "robots", content: "noindex" }],
+  }),
   component: ClaimPage,
 });
 
@@ -22,7 +24,9 @@ function ClaimPage() {
     started.current = true;
     finish({ data: { token } })
       .then((result) => window.location.assign(result.actionLink))
-      .catch((e: unknown) => setError(e instanceof Error ? e.message : "This link couldn't be used."));
+      .catch((e: unknown) =>
+        setError(e instanceof Error ? e.message : "This link couldn't be used."),
+      );
   }, [finish, token]);
 
   return (
@@ -30,7 +34,9 @@ function ClaimPage() {
       <div className="rounded-2xl bg-card p-6 text-center shadow-sm">
         {error ? (
           <>
-            <h1 className="heading-display text-2xl text-foreground">We couldn't create your login</h1>
+            <h1 className="heading-display text-2xl text-foreground">
+              We couldn't create your login
+            </h1>
             <p className="mt-2 text-sm text-muted-foreground">{error}</p>
           </>
         ) : (

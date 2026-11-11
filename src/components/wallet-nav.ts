@@ -73,6 +73,7 @@ export type WalletPath =
   | "/hours/$slug"
   | "/support/$slug"
   | "/billing/$slug"
+  | "/mylogin/$slug"
   | "/documents/$slug";
 
 export type NavItem = {
@@ -150,6 +151,7 @@ const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "ins
 const documents = item("Documents", FolderLock, "/documents/$slug", ["dbs", "id", "passport", "right to work", "files", "upload", "visa"]);
 const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
 const billing = item("Plan & billing", Coins, "/billing/$slug", ["subscription", "upgrade", "invoice", "card", "plan"]);
+const myLogin = item("My login", KeyRound, "/mylogin/$slug", ["account", "email", "sign in", "password"]);
 const helpSupport = item("Help & support", LifeBuoy, "/support/$slug", ["email", "contact", "question", "help"]);
 const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "account",
@@ -158,7 +160,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 ]);
 
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report, notifications, billing, helpSupport] },
+  { label: "Overview", items: [home, calendar, messages, report, notifications, billing, myLogin, helpSupport] },
   { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
@@ -187,7 +189,7 @@ const familyNav: NavSection[] = [
 const nannyNav: NavSection[] = [
   {
     label: "My day",
-    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications, helpSupport],
+    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications, myLogin, helpSupport],
   },
   {
     label: "The family",
@@ -217,8 +219,10 @@ export function navFor(role: WalletRole, agreements = true, noun = "nanny"): Nav
     ...s,
     items: s.items.map((i) => (i.label.startsWith("Nanny ") ? { ...i, label: relabel(i.label) } : i)),
   }));
-  if (agreements) return sections;
-  return sections.map((s) => ({ ...s, items: s.items.filter((i) => i.to !== "/agreement/$slug") }));
+  // "My login" only appears once accounts are switched on for the build (VITE_ACCOUNTS_ENABLED=true).
+  const accounts = import.meta.env["VITE_ACCOUNTS_ENABLED"] === "true";
+  const hidden = (to: string) => (!agreements && to === "/agreement/$slug") || (!accounts && to === "/mylogin/$slug");
+  return sections.map((s) => ({ ...s, items: s.items.filter((i) => !hidden(i.to)) }));
 }
 
 export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath };

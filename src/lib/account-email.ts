@@ -1,7 +1,11 @@
 // The email that lets someone turn their code login into their own account. Pure, so it is easy to test.
 export type ClaimEmailDetails = { name: string; familyName: string; url: string; minutes: number };
 
-const esc = (t: string) => t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+const esc = (t: string) =>
+  t.replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!,
+  );
 
 export function buildClaimEmail(d: ClaimEmailDetails) {
   const subject = "Create your Family Wallet login";

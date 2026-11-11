@@ -11,7 +11,9 @@ import { myHouseholds } from "@/lib/account.functions";
 import { siteUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/account")({
-  head: () => ({ meta: [{ title: "Your Family Wallet account" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [{ title: "Your Family Wallet account" }, { name: "robots", content: "noindex" }],
+  }),
   component: AccountPage,
 });
 
@@ -26,7 +28,13 @@ function AccountPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-5 py-10">
       <div className="rounded-2xl bg-card p-6 shadow-sm">
-        {signedIn === null ? <p className="text-sm text-muted-foreground">One moment…</p> : signedIn ? <Households /> : <SignIn />}
+        {signedIn === null ? (
+          <p className="text-sm text-muted-foreground">One moment…</p>
+        ) : signedIn ? (
+          <Households />
+        ) : (
+          <SignIn />
+        )}
       </div>
     </main>
   );
@@ -46,20 +54,31 @@ function SignIn() {
     });
     setBusy(false);
     // Say the same thing either way, so this page can't be used to find out who has a login.
-    if (error && error.status !== 400 && error.status !== 422) toast.error("We couldn't send that. Please try again.");
+    if (error && error.status !== 400 && error.status !== 422)
+      toast.error("We couldn't send that. Please try again.");
     else setSent(true);
   };
 
   return sent ? (
     <>
       <h1 className="heading-display text-2xl text-foreground">Check your email</h1>
-      <p className="mt-2 text-sm text-muted-foreground">If that address has a Family Wallet login, we've sent a sign-in link to it.</p>
+      <p className="mt-2 text-sm text-muted-foreground">
+        If that address has a Family Wallet login, we've sent a sign-in link to it.
+      </p>
     </>
   ) : (
     <>
       <h1 className="heading-display text-2xl text-foreground">Sign in</h1>
-      <p className="mt-2 text-sm text-muted-foreground">We'll email you a link. No password needed.</p>
-      <Input className="mt-4" type="email" value={email} placeholder="you@example.com" onChange={(e) => setEmail(e.target.value)} />
+      <p className="mt-2 text-sm text-muted-foreground">
+        We'll email you a link. No password needed.
+      </p>
+      <Input
+        className="mt-4"
+        type="email"
+        value={email}
+        placeholder="you@example.com"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <Button className="mt-3 w-full" disabled={busy || !email.includes("@")} onClick={send}>
         Email me a link
       </Button>
@@ -87,7 +106,9 @@ function Households() {
           ))}
         </ul>
       ) : (
-        <p className="mt-3 text-sm text-muted-foreground">No households yet. Open your wallet with its code and choose "Create your own login".</p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          No households yet. Open your wallet with its code and choose "Create your own login".
+        </p>
       )}
       <Button variant="ghost" className="mt-4" onClick={() => void supabase.auth.signOut()}>
         Sign out

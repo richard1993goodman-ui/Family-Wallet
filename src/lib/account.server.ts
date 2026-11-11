@@ -13,7 +13,8 @@ const CLAIMS_PER_HOUR = 5;
 
 export const newClaimToken = () => randomBytes(32).toString("base64url");
 export const hashClaimToken = (token: string) => createHash("sha256").update(token).digest("hex");
-export const isEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) && value.length <= 254;
+export const isEmail = (value: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) && value.length <= 254;
 
 type Member = Membership & { id: string; familyId: string };
 
@@ -28,7 +29,11 @@ async function personForRequest(): Promise<string | null> {
     found = (async () => {
       const { data } = await supabaseAdmin.auth.getUser(token);
       if (!data.user) return null;
-      const { data: person } = await supabaseAdmin.from("people").select("id").eq("user_id", data.user.id).maybeSingle();
+      const { data: person } = await supabaseAdmin
+        .from("people")
+        .select("id")
+        .eq("user_id", data.user.id)
+        .maybeSingle();
       return person?.id ?? null;
     })();
     people.set(request, found);
@@ -41,7 +46,11 @@ export async function accountMember(slug: string): Promise<Member | null> {
   if (!accountsEnabled() || slug === "demo") return null;
   const personId = await personForRequest();
   if (!personId) return null;
-  const { data: family } = await supabaseAdmin.from("families").select("id").eq("slug", slug).maybeSingle();
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("id")
+    .eq("slug", slug)
+    .maybeSingle();
   if (!family) return null;
   const { data } = await supabaseAdmin
     .from("household_members")
@@ -50,7 +59,13 @@ export async function accountMember(slug: string): Promise<Member | null> {
     .eq("person_id", personId)
     .maybeSingle();
   if (!data) return null;
-  return { id: data.id, familyId: data.family_id, role: data.role as Member["role"], status: data.status as Member["status"], nannyId: data.nanny_id };
+  return {
+    id: data.id,
+    familyId: data.family_id,
+    role: data.role as Member["role"],
+    status: data.status as Member["status"],
+    nannyId: data.nanny_id,
+  };
 }
 
 /** What the account login grants in this household, or null. */
@@ -63,9 +78,16 @@ async function codeSessionMember(slug: string) {
   const { sessionAccess } = await import("./wallet.server");
   const access = await sessionAccess(slug);
   if (!access) return null;
-  const { data: family } = await supabaseAdmin.from("families").select("id, family_name").eq("slug", slug).maybeSingle();
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("id, family_name")
+    .eq("slug", slug)
+    .maybeSingle();
   if (!family) return null;
-  const query = supabaseAdmin.from("household_members").select("id, person_id").eq("family_id", family.id);
+  const query = supabaseAdmin
+    .from("household_members")
+    .select("id, person_id")
+    .eq("family_id", family.id);
   const { data: member } =
     access.level === "nanny" && access.nannyId
       ? await query.eq("nanny_id", access.nannyId).maybeSingle()
@@ -73,7 +95,11 @@ async function codeSessionMember(slug: string) {
   if (!member) return null;
   let name = family.family_name;
   if (access.level === "nanny" && access.nannyId) {
-    const { data: nanny } = await supabaseAdmin.from("family_nannies").select("name").eq("id", access.nannyId).maybeSingle();
+    const { data: nanny } = await supabaseAdmin
+      .from("family_nannies")
+      .select("name")
+      .eq("id", access.nannyId)
+      .maybeSingle();
     name = nanny?.name ?? name;
   }
   return { id: member.id, claimed: !!member.person_id, familyName: family.family_name, name };
@@ -83,7 +109,11 @@ async function codeSessionMember(slug: string) {
 export async function accountStatus(slug: string) {
   if (!accountsEnabled()) return { enabled: false as const };
   const member = await codeSessionMember(slug);
-  return { enabled: true as const, canClaim: !!member && !member.claimed, claimed: !!member?.claimed };
+  return {
+    enabled: true as const,
+    canClaim: !!member && !member.claimed,
+    claimed: !!member?.claimed,
+  };
 }
 
 /** Emails a one-time link to the address given. Needs an unlocked wallet on this device. */
@@ -101,10 +131,12 @@ export async function startClaim(slug: string, rawEmail: string) {
     .select("id", { count: "exact", head: true })
     .eq("member_id", member.id)
     .gte("created_at", since);
-  if ((count ?? 0) >= CLAIMS_PER_HOUR) throw new Error("That's a lot of emails. Please try again in an hour.");
+  if ((count ?? 0) >= CLAIMS_PER_HOUR)
+    throw new Error("That's a lot of emails. Please try again in an hour.");
 
   const { emailConfigured, sendEmail } = await import("./email.server");
-  if (!emailConfigured()) throw new Error("Email isn't set up yet, so a login can't be created right now.");
+  if (!emailConfigured())
+    throw new Error("Email isn't set up yet, so a login can't be created right now.");
 
   const token = newClaimToken();
   const { error } = await supabaseAdmin.from("account_claims").insert({
@@ -116,8 +148,14 @@ export async function startClaim(slug: string, rawEmail: string) {
   if (error) throw new Error("We couldn't start that. Please try again.");
 
   const { siteUrl } = await import("./site");
-  const message = buildClaimEmail({ name: member.name, familyName: member.familyName, url: siteUrl(`/claim/${token}`), minutes: CLAIM_MINUTES });
-  if (!(await sendEmail({ to: email, ...message }))) throw new Error("The email couldn't be sent. Check the address and try again.");
+  const message = buildClaimEmail({
+    name: member.name,
+    familyName: member.familyName,
+    url: siteUrl(`/claim/${token}`),
+    minutes: CLAIM_MINUTES,
+  });
+  if (!(await sendEmail({ to: email, ...message })))
+    throw new Error("The email couldn't be sent. Check the address and try again.");
   return { ok: true as const };
 }
 
@@ -129,8 +167,15 @@ export async function completeClaim(token: string) {
     .select("id, member_id, email, expires_at, used_at")
     .eq("token_hash", hashClaimToken(token))
     .maybeSingle();
-  if (!claim || claim.used_at || !claim.email || new Date(claim.expires_at).getTime() < Date.now()) {
-    throw new Error("This link has expired or was already used. Ask for a new one from inside your wallet.");
+  if (
+    !claim ||
+    claim.used_at ||
+    !claim.email ||
+    new Date(claim.expires_at).getTime() < Date.now()
+  ) {
+    throw new Error(
+      "This link has expired or was already used. Ask for a new one from inside your wallet.",
+    );
   }
   // Single use: only one request can flip used_at.
   const { data: used } = await supabaseAdmin
@@ -156,33 +201,62 @@ export async function completeClaim(token: string) {
   });
   if (linkError || !link.user) throw new Error("We couldn't create your login. Please try again.");
 
-  let { data: person } = await supabaseAdmin.from("people").select("id").eq("user_id", link.user.id).maybeSingle();
+  let { data: person } = await supabaseAdmin
+    .from("people")
+    .select("id")
+    .eq("user_id", link.user.id)
+    .maybeSingle();
   if (!person) {
     const name = await displayName(member);
-    const inserted = await supabaseAdmin.from("people").insert({ user_id: link.user.id, display_name: name }).select("id").single();
+    const inserted = await supabaseAdmin
+      .from("people")
+      .insert({ user_id: link.user.id, display_name: name })
+      .select("id")
+      .single();
     if (inserted.error) throw new Error("We couldn't create your login. Please try again.");
     person = inserted.data;
   }
-  const { error } = await supabaseAdmin.from("household_members").update({ person_id: person.id }).eq("id", member.id).is("person_id", null);
+  const { error } = await supabaseAdmin
+    .from("household_members")
+    .update({ person_id: person.id })
+    .eq("id", member.id)
+    .is("person_id", null);
   if (error) throw new Error("You already belong to this household with another login.");
 
   const { audit } = await import("./audit.server");
-  await audit({ actorKind: member.role === "staff" ? "nanny" : "parent", actorId: person.id, action: "account_claimed", familyId: member.family_id });
+  await audit({
+    actorKind: member.role === "staff" ? "nanny" : "parent",
+    actorId: person.id,
+    action: "account_claimed",
+    familyId: member.family_id,
+  });
   return { actionLink: link.properties.action_link };
 }
 
 async function displayName(member: { family_id: string; nanny_id: string | null }) {
   if (member.nanny_id) {
-    const { data } = await supabaseAdmin.from("family_nannies").select("name").eq("id", member.nanny_id).maybeSingle();
+    const { data } = await supabaseAdmin
+      .from("family_nannies")
+      .select("name")
+      .eq("id", member.nanny_id)
+      .maybeSingle();
     if (data?.name) return data.name;
   }
-  const { data } = await supabaseAdmin.from("families").select("family_name").eq("id", member.family_id).maybeSingle();
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("family_name")
+    .eq("id", member.family_id)
+    .maybeSingle();
   return data?.family_name ?? "Family Wallet member";
 }
 
 /** Every household the signed-in person belongs to, for the account home page. */
 export async function householdsFor(userId: string) {
-  const { data: person } = await supabaseAdmin.from("people").select("id").eq("user_id", userId).maybeSingle();
+  const { data: person } = await supabaseAdmin
+    .from("people")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
   if (!person) return [];
   const { data } = await supabaseAdmin
     .from("household_members")

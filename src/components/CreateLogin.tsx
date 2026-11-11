@@ -12,7 +12,10 @@ import { getAccountStatus, startAccountClaim } from "@/lib/account.functions";
 export function CreateLogin({ slug }: { slug: string }) {
   const statusFn = useServerFn(getAccountStatus);
   const claim = useServerFn(startAccountClaim);
-  const status = useQuery({ queryKey: ["account-status", slug], queryFn: () => statusFn({ data: { slug } }) });
+  const status = useQuery({
+    queryKey: ["account-status", slug],
+    queryFn: () => statusFn({ data: { slug } }),
+  });
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -22,7 +25,11 @@ export function CreateLogin({ slug }: { slug: string }) {
     return (
       <Card className="mt-4">
         <p className="text-sm text-muted-foreground">
-          You have your own login. Sign in with your email any time at <a className="underline" href="/account">/account</a>.
+          You have your own login. Sign in with your email any time at{" "}
+          <a className="underline" href="/account">
+            /account
+          </a>
+          .
         </p>
       </Card>
     );
@@ -45,13 +52,20 @@ export function CreateLogin({ slug }: { slug: string }) {
     <Card className="mt-4">
       <h2 className="font-medium text-foreground">Create your own login</h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Optional. Sign in with your email on any device, and keep your code as a backup. We'll email you a link that works once.
+        Optional. Sign in with your email on any device, and keep your code as a backup. We'll email
+        you a link that works once.
       </p>
       {sent ? (
         <p className="mt-3 text-sm text-foreground">Check your email for the link.</p>
       ) : (
         <div className="mt-3 flex flex-wrap gap-2">
-          <Input className="min-w-0 flex-1" type="email" value={email} placeholder="you@example.com" onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            className="min-w-0 flex-1"
+            type="email"
+            value={email}
+            placeholder="you@example.com"
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Button disabled={busy || !email.includes("@")} onClick={send}>
             Email me a link
           </Button>
