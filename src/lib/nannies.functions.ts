@@ -39,3 +39,10 @@ export const uploadNannyPhotoFn = createServerFn({ method: "POST" })
     await uploadNannyPhoto(data.slug, data.nannyId, data.fileName, data.contentType, data.base64);
     return { ok: true as const };
   });
+
+export const emailStaffLoginFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; nannyId: string; email: string }) => data)
+  .handler(async ({ data }) => {
+    const { emailStaffLogin } = await import("./nannies.server");
+    return emailStaffLogin(data.slug, data.nannyId, String(data.email ?? ""));
+  });

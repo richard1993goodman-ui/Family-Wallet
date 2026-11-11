@@ -21,6 +21,17 @@ export function roleLabel(value: string | null | undefined) {
   return STAFF_ROLES.find((r) => r.value === value)?.label ?? "Staff";
 }
 
+/**
+ * What to call the household's staff in labels: the one role they all share ("nanny", "au pair"), or "staff"
+ * when there are several kinds. A household with nobody added yet is shown "nanny", the most common first hire.
+ */
+export function staffNoun(roles: (string | null | undefined)[]) {
+  const kinds = [...new Set(roles.filter((r): r is string => !!r))];
+  if (kinds.length === 0) return "nanny";
+  if (kinds.length > 1 || kinds[0] === "other") return "staff";
+  return roleLabel(kinds[0]).toLowerCase();
+}
+
 /** Staff included on a plan the family bought themselves. Households added by an agency have no plan limit. */
 export const SELF_SERVE_STAFF_LIMIT: Record<"family" | "household", number> = {
   family: 2,

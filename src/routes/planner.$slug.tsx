@@ -10,6 +10,7 @@ import {
   copyPreviousWeekFn,
   deletePlannerEntryFn,
   getPlanner,
+  reviewShiftChangeFn,
 } from "@/lib/family.functions";
 import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
@@ -64,6 +65,7 @@ function PlannerPage() {
   const loadFn = useServerFn(getPlanner);
   const addFn = useServerFn(addPlannerEntryFn);
   const removeFn = useServerFn(deletePlannerEntryFn);
+  const reviewFn = useServerFn(reviewShiftChangeFn);
   const copyFn = useServerFn(copyPreviousWeekFn);
 
   const [weekStart, setWeekStart] = useState(() => mondayOf(new Date()));
@@ -184,7 +186,7 @@ function PlannerPage() {
                 </button>
               </div>
 
-              {regular && !dayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled") && (
+              {regular && !dayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled" && (entry.approval ?? "approved") === "approved") && (
                 <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
                   <CalendarDays className="h-4 w-4 text-primary" /> Regular nanny day · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}
                 </div>
@@ -208,6 +210,38 @@ function PlannerPage() {
                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs capitalize text-muted-foreground">{entry.entry_type.replace("_", " ")}</span>
                       {entry.child_name && (
                         <span className="text-muted-foreground"> · {entry.child_name}</span>
+                      )}
+                      {entry.entry_type === "shift_change" && (entry.approval ?? "approved") === "pending" && (
+                        <span className="mt-1 block">
+                          <span className="rounded-full bg-warning-soft px-2 py-0.5 text-xs font-medium text-warning">
+                            Awaiting approval · regular hours stand until then
+                          </span>
+                          {entry.added_by !== (isParent ? "family" : "nanny") && (
+                            <span className="ml-2 inline-flex gap-1.5">
+                              {(["approved", "declined"] as const).map((decision) => (
+                                <button
+                                  key={decision}
+                                  type="button"
+                                  className="rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-foreground hover:bg-accent"
+                                  onClick={async () => {
+                                    try {
+                                      await reviewFn({ data: { slug, id: entry.id, decision } });
+                                      await refresh();
+                                      toast.success(decision === "approved" ? "Change approved" : "Change declined");
+                                    } catch (e) {
+                                      toast.error(e instanceof Error ? e.message : "Couldn't save that");
+                                    }
+                                  }}
+                                >
+                                  {decision === "approved" ? "Approve" : "Decline"}
+                                </button>
+                              ))}
+                            </span>
+                          )}
+                        </span>
+                      )}
+                      {entry.entry_type === "shift_change" && entry.approval === "declined" && (
+                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">Declined</span>
                       )}
                       {entry.entry_type === "playdate" && entry.notes && <span className="mt-1 block whitespace-pre-wrap text-xs text-muted-foreground">{entry.notes}</span>}
                     </span>

@@ -164,6 +164,41 @@ export async function loadTimesheets(slug: string) {
   return { access: family.access, shifts: data ?? [] };
 }
 
+/**
+ * Shifts the timesheet expects from the last fortnight: the regular hours, with approved changes applied and
+ * pending ones ignored. Days already on the timesheet are left out. Nothing is recorded until someone confirms it.
+ */
+export async function loadExpectedShifts(slug: string) {
+  const family = await sharedFamily(slug);
+  if (!family) return null;
+  const { loadNannySchedules } = await import("./family.server");
+  const { expectedShifts } = await import("./expected-shifts");
+  const { normalizeAgreement } = await import("./agreement.model");
+
+  const to = new Date().toISOString().slice(0, 10);
+  const from = new Date(Date.now() - 13 * 86400000).toISOString().slice(0, 10);
+  const [schedules, { data: entries }, { data: done }, { data: agreements }] = await Promise.all([
+    loadNannySchedules(family.id),
+    supabaseAdmin.from("planner_entries").select("*").eq("family_id", family.id).eq("entry_type", "shift_change").gte("entry_date", from).lte("entry_date", to),
+    supabaseAdmin.from("timesheet_shifts").select("shift_date, shift_type, status").eq("family_id", family.id).gte("shift_date", from).lte("shift_date", to),
+    supabaseAdmin.from("nanny_agreements").select("nanny_id, agreement_data").eq("family_id", family.id),
+  ]);
+  const first = schedules[0];
+  if (!first) return { rate: 0, shifts: [] };
+
+  const changes = (entries ?? []).map((e) => ({
+    date: e.entry_date,
+    kind: e.status === "cancelled" ? ("cancelled" as const) : ("changed" as const),
+    start: e.time_label,
+    end: e.end_time_label,
+    approval: ((e as { approval?: string }).approval ?? "approved") as "pending" | "approved" | "declined",
+  }));
+  const recorded = new Set((done ?? []).filter((s) => s.shift_type !== "babysitting" && s.status !== "declined").map((s) => s.shift_date));
+  const agreement = (agreements ?? []).find((a) => a.nanny_id === first.nannyId);
+  const rate = agreement ? Number(normalizeAgreement(agreement.agreement_data).hourlyRate) || 0 : 0;
+  return { rate, shifts: expectedShifts({ from, to, days: first.workingDays, schedule: first.schedule, changes, recorded }) };
+}
+
 export async function submitShift(slug: string, input: ShiftInput) {
   const family = await sharedFamily(slug);
   if (!family) throw new Error("Please sign in again.");

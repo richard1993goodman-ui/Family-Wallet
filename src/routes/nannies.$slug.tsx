@@ -1,19 +1,21 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Copy, Plus, Trash2 } from "lucide-react";
+import { Camera, Copy, Mail, Plus, Trash2 } from "lucide-react";
 
 import { STAFF_ROLES, roleLabel } from "@/lib/staff-roles";
 
 import {
   archiveNannyFn,
+  emailStaffLoginFn,
   getNannies,
   saveNannyFn,
   uploadNannyPhotoFn,
 } from "@/lib/nannies.functions";
 import { getNannyInvite } from "@/lib/agreement.functions";
+import { Input } from "@/components/ui/input";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { siteUrl } from "@/lib/site";
@@ -73,18 +75,21 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (value: stri
 function NanniesPage() {
   const { slug } = Route.useParams();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const loadFn = useServerFn(getNannies);
   const saveFn = useServerFn(saveNannyFn);
   const archiveFn = useServerFn(archiveNannyFn);
   const photoFn = useServerFn(uploadNannyPhotoFn);
   const inviteFn = useServerFn(getNannyInvite);
+  const emailFn = useServerFn(emailStaffLoginFn);
 
   const query = useQuery({ queryKey: ["nannies", slug], queryFn: () => loadFn({ data: { slug } }) });
   const [form, setForm] = useState(emptyForm);
   const [adding, setAdding] = useState(false);
   const [busy, setBusy] = useState(false);
   const [codes, setCodes] = useState<Record<string, string>>({});
+  const [newPhoto, setNewPhoto] = useState<File | null>(null);
+  const [emailOpen, setEmailOpen] = useState<string | null>(null);
+  const [emailTo, setEmailTo] = useState("");
 
   if (query.isLoading) {
     return (
@@ -132,17 +137,41 @@ function NanniesPage() {
     }
   }
 
+  /** Shrinks to a 256px square so a phone photo uploads in a moment. */
+  async function squarePhoto(file: File) {
+    const bitmap = await createImageBitmap(file);
+    const side = Math.min(bitmap.width, bitmap.height);
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 256;
+    canvas.getContext("2d")!.drawImage(bitmap, (bitmap.width - side) / 2, (bitmap.height - side) / 2, side, side, 0, 0, 256, 256);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
+    if (!blob) throw new Error("Couldn't read that photo");
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    let binary = "";
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return btoa(binary);
+  }
+
   async function uploadPhoto(nannyId: string, file: File) {
-    const base64 = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result).split(",")[1] ?? "");
-      reader.onerror = () => reject(new Error("Couldn't read that file"));
-      reader.readAsDataURL(file);
-    });
+    const base64 = await squarePhoto(file);
     await run(
-      () => photoFn({ data: { slug, nannyId, fileName: file.name, contentType: file.type, base64 } }),
+      () => photoFn({ data: { slug, nannyId, fileName: "photo.jpg", contentType: "image/jpeg", base64 } }),
       "Photo saved",
     );
+  }
+
+  async function sendLogin(nannyId: string) {
+    setBusy(true);
+    try {
+      await emailFn({ data: { slug, nannyId, email: emailTo } });
+      toast.success("Login sent");
+      setEmailOpen(null);
+      setEmailTo("");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't send that");
+    } finally {
+      setBusy(false);
+    }
   }
 
   const inviteLink = siteUrl(`/nanny/${slug}`);
@@ -151,7 +180,7 @@ function NanniesPage() {
     <HubPage
       slug={slug}
       title="Household staff"
-      intro="Add everyone who works with your family. Each one gets their own sign-in code, and their own agreement if you choose to use one."
+      intro="Add everyone who works with your family. Each person gets their own sign-in as soon as you add them: email it to them, or copy it and send it yourself."
     >
       <div className="space-y-4">
         <AgreementChoice slug={slug} />
@@ -183,13 +212,29 @@ function NanniesPage() {
           return (
             <Card key={nanny.id}>
               <div className="flex items-start gap-4">
-                {nanny.photoUrl && (
-                  <img
-                    src={nanny.photoUrl}
-                    alt={nanny.name}
-                    className="h-16 w-16 flex-shrink-0 rounded-full border border-border object-cover"
+                <label className="group relative h-16 w-16 flex-shrink-0 cursor-pointer" title="Add or change their photo">
+                  {nanny.photoUrl ? (
+                    <img src={nanny.photoUrl} alt={nanny.name} className="h-16 w-16 rounded-full object-cover" />
+                  ) : (
+                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-xl font-semibold text-foreground">
+                      {nanny.name.trim().charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                  <span className="absolute -bottom-0.5 -right-0.5 grid h-6 w-6 place-items-center rounded-full bg-primary text-primary-foreground ring-2 ring-background">
+                    <Camera className="h-3 w-3" aria-hidden />
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    aria-label={`Add a photo for ${nanny.name}`}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) void uploadPhoto(nanny.id, file);
+                      e.target.value = "";
+                    }}
                   />
-                )}
+                </label>
                 <div className="min-w-0 flex-1">
                   <p className="heading-display text-xl text-foreground">{nanny.name}</p>
                   <p className="mt-0.5 text-sm font-medium text-primary">{roleLabel(nanny.role)}</p>
@@ -220,13 +265,10 @@ function NanniesPage() {
                     Open agreement
                   </Link>
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  disabled={busy}
-                  onClick={() => showCode(nanny.id, false)}
-                >
-                  {code ? "Show sign-in code" : "Create sign-in code"}
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/hours/$slug" params={{ slug }} search={{ edit: nanny.id }}>
+                    Working hours
+                  </Link>
                 </Button>
                 <Button
                   size="sm"
@@ -263,21 +305,31 @@ function NanniesPage() {
               </div>
 
               {code && (
-                <div className="mt-4 space-y-2 rounded-lg bg-muted p-3">
+                <div className="mt-4 space-y-2 rounded-2xl bg-muted p-4">
+                  <p className="text-[0.8125rem] font-medium text-muted-foreground">{nanny.name}'s login</p>
                   <p className="break-all text-sm">{inviteLink}</p>
                   <p className="font-mono text-lg tracking-[0.3em]">{code}</p>
                   <div className="flex flex-wrap gap-2">
                     <Button
                       size="sm"
+                      onClick={() => {
+                        setEmailOpen(emailOpen === nanny.id ? null : nanny.id);
+                        setEmailTo("");
+                      }}
+                    >
+                      <Mail className="mr-2 h-4 w-4" /> Email their login
+                    </Button>
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => {
                         void navigator.clipboard.writeText(
-                          `Your nanny agreement is ready: ${inviteLink}\nYour code: ${code}`,
+                          `Your Family Wallet login: ${inviteLink}\nYour access code: ${code}`,
                         );
-                        toast.success("Invitation copied — paste it into a message or email.");
+                        toast.success("Link and code copied. Paste them into a message.");
                       }}
                     >
-                      <Copy className="mr-2 h-4 w-4" /> Copy invitation
+                      <Copy className="mr-2 h-4 w-4" /> Copy link &amp; code
                     </Button>
                     <Button
                       size="sm"
@@ -288,6 +340,26 @@ function NanniesPage() {
                       New code
                     </Button>
                   </div>
+                  {emailOpen === nanny.id && (
+                    <form
+                      className="flex flex-wrap gap-2 pt-1"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        void sendLogin(nanny.id);
+                      }}
+                    >
+                      <Input
+                        type="email"
+                        required
+                        autoFocus
+                        placeholder={`${nanny.name}'s email address`}
+                        value={emailTo}
+                        onChange={(e) => setEmailTo(e.target.value)}
+                        className="min-w-0 flex-1"
+                      />
+                      <Button type="submit" disabled={busy}>Send</Button>
+                    </form>
+                  )}
                 </div>
               )}
 
@@ -371,6 +443,18 @@ function NanniesPage() {
                 value={form.id ? "" : form.bio}
                 onChange={(value) => setForm({ ...form, id: "", bio: value })}
               />
+              <label className="block">
+                <span className="text-sm font-medium text-foreground">Photo (optional)</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="mt-1.5 block w-full text-sm text-muted-foreground"
+                  onChange={(e) => setNewPhoto(e.target.files?.[0] ?? null)}
+                />
+              </label>
+              <p className="text-sm text-muted-foreground">
+                Their sign-in is created as soon as you add them. You can then email it to them or copy it.
+              </p>
               <div className="flex flex-wrap gap-2">
                 <Button
                   disabled={busy || Boolean(form.id) || !form.name.trim()}
@@ -381,11 +465,20 @@ function NanniesPage() {
                         data: { slug, nanny: { name: form.name, role: form.role, bio: form.bio } },
                       });
                       newId = created.id;
+                      if (newPhoto) {
+                        // A photo that fails to upload should not undo adding the person.
+                        try {
+                          await photoFn({ data: { slug, nannyId: created.id, fileName: "photo.jpg", contentType: "image/jpeg", base64: await squarePhoto(newPhoto) } });
+                        } catch {
+                          toast.error("Added, but the photo didn't upload. You can add it from their card.");
+                        }
+                      }
+                      setNewPhoto(null);
                       setForm(emptyForm);
                       setAdding(false);
                     }, `${roleLabel(form.role)} added`);
-                    // Straight on to their working hours, with the editor already open.
-                    if (newId) void navigate({ to: "/hours/$slug", params: { slug }, search: { edit: newId } });
+                    // Stay here so the new person's login is on screen to email or copy.
+                    void newId;
                   }}
                 >
                   <Plus className="mr-1.5 h-4 w-4" /> Add {roleLabel(form.role).toLowerCase()}

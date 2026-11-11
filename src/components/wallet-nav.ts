@@ -162,7 +162,7 @@ const familyNav: NavSection[] = [
     items: [children, kids, houseManual, permissions, emergency, guide, first48, travel],
   },
   {
-    label: "Your nanny",
+    label: "Household staff",
     items: [
       nannies,
       workHours,
@@ -193,8 +193,14 @@ const nannyNav: NavSection[] = [
 ];
 
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */
-export function navFor(role: WalletRole, agreements = true): NavSection[] {
-  const sections = role === "nanny" ? nannyNav : familyNav;
+export function navFor(role: WalletRole, agreements = true, noun = "nanny"): NavSection[] {
+  const Noun = noun.charAt(0).toUpperCase() + noun.slice(1);
+  // Labels follow who the household actually employs: "Au pair agreement", "Housekeeper quick guide"...
+  const relabel = (label: string) => label.replace(/^Nanny /, `${Noun} `);
+  const sections = (role === "nanny" ? nannyNav : familyNav).map((s) => ({
+    ...s,
+    items: s.items.map((i) => (i.label.startsWith("Nanny ") ? { ...i, label: relabel(i.label) } : i)),
+  }));
   if (agreements) return sections;
   return sections.map((s) => ({ ...s, items: s.items.filter((i) => i.to !== "/agreement/$slug") }));
 }
@@ -222,8 +228,8 @@ export function routePrefix(to: string) {
 }
 
 /** The nav section containing this page, if any. */
-export function sectionFor(role: WalletRole, prefix: string, agreements = true): NavSection | null {
-  return navFor(role, agreements).find((s) => s.items.some((i) => routePrefix(i.to) === prefix)) ?? null;
+export function sectionFor(role: WalletRole, prefix: string, agreements = true, noun = "nanny"): NavSection | null {
+  return navFor(role, agreements, noun).find((s) => s.items.some((i) => routePrefix(i.to) === prefix)) ?? null;
 }
 
 /**

@@ -735,7 +735,7 @@ function HomeScreen({ app }: ScreenProps) {
           <PhoneMenu
             label="Account and log out"
             icon={<UserIcon className="h-4 w-4" aria-hidden />}
-            title="The Harrington Family · Parent access"
+            title="The Harrington Family"
             items={["Emergency contacts", "Health & medicine", "Lock & log out"]}
             onPick={(i) => app.openSheet(i)}
           />

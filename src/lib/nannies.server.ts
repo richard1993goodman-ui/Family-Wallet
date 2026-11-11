@@ -1,7 +1,9 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireFamily } from "./family.server";
 import { isStaffRole, staffLimitFor, type StaffLimit } from "./staff-roles";
-import { listNannyRows } from "./wallet.server";
+import { ensureNannyInvite, listNannyRows } from "./wallet.server";
+import { buildNannyInviteEmail } from "./nanny-invite-email";
+import { isValidEmail, normaliseEmail } from "./seat-invites";
 
 function clean(value: string | undefined | null, max = 1000) {
   const trimmed = (value ?? "").trim();
@@ -78,7 +80,8 @@ export async function loadNannies(slug: string) {
         emergencyName: row.emergency_name,
         emergencyRelationship: row.emergency_relationship,
         emergencyPhone: row.emergency_phone,
-        code: row.nanny_code,
+        // Every staff member has a sign-in from the moment they are added: the family copies or emails it.
+        code: row.nanny_code ?? (await ensureNannyInvite(slug, row.id))?.code ?? null,
         invitedAt: row.invited_at,
         agreementStatus: (agreement?.status as "draft" | "issued") ?? "none",
         agreementSigned:
@@ -142,7 +145,44 @@ export async function saveNanny(slug: string, input: NannyInput) {
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+  // Their sign-in code is made straight away, so the family can send it without an extra step.
+  await ensureNannyInvite(slug, data.id).catch(() => null);
   return { id: data.id };
+}
+
+const EMAILS_PER_HOUR = 10;
+
+/** Emails a staff member their own wallet link and access code. The family never has to create anything first. */
+export async function emailStaffLogin(slug: string, nannyId: string, rawEmail: string) {
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Only the family can send a login.");
+  const to = normaliseEmail(rawEmail);
+  if (!isValidEmail(to)) throw new Error("Enter a valid email address.");
+
+  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const key = `staff-login|${slug}`;
+  const { count } = await supabaseAdmin
+    .from("wallet_access_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("client_key", key)
+    .gte("attempted_at", since);
+  if ((count ?? 0) >= EMAILS_PER_HOUR) throw new Error("That's a lot of emails. Please try again in an hour.");
+
+  const invite = await ensureNannyInvite(slug, nannyId);
+  if (!invite) throw new Error("That person isn't in your household.");
+  const { emailConfigured, sendEmail } = await import("./email.server");
+  if (!emailConfigured()) throw new Error("Email isn't set up yet. Copy the link and code instead.");
+  const { siteUrl, CONTACT_EMAIL } = await import("./site");
+  const message = buildNannyInviteEmail({
+    nannyName: invite.nannyName,
+    familyName: family.family_name,
+    url: siteUrl(`/nanny/${slug}`),
+    code: invite.code,
+    supportEmail: process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL,
+  });
+  if (!(await sendEmail({ to, ...message }))) throw new Error("The email couldn't be sent. Check the address and try again.");
+  await supabaseAdmin.from("wallet_access_attempts").insert({ slug: "staff-login", client_key: key, succeeded: true });
+  return { ok: true as const };
 }
 
 /** Archived rather than deleted so signed agreements are never lost. */

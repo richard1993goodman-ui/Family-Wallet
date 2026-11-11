@@ -232,3 +232,11 @@ export const getEmergencyCard = createServerFn({ method: "GET" })
     const { loadEmergencyCard } = await import("./family.server");
     return loadEmergencyCard(data.slug);
   });
+
+export const reviewShiftChangeFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string; decision: "approved" | "declined" }) => data)
+  .handler(async ({ data }) => {
+    const { reviewShiftChange } = await import("./family.server");
+    await reviewShiftChange(data.slug, data.id, data.decision);
+    return { ok: true as const };
+  });

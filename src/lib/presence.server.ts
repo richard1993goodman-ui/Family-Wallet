@@ -33,34 +33,50 @@ export async function heartbeat(slug: string) {
 export async function loadPeople(slug: string) {
   const access = await sessionAccess(slug);
   if (!access) return null;
-  const { data: family } = await supabaseAdmin
+  const full = await supabaseAdmin
     .from("families")
     .select("id, family_name, parent_photo_path, parent_last_seen_at")
     .eq("slug", slug)
     .eq("status", "active")
     .maybeSingle();
+  // If the presence columns are not there yet, still show everyone with their initials.
+  const family = full.error
+    ? ((await supabaseAdmin.from("families").select("id, family_name").eq("slug", slug).eq("status", "active").maybeSingle()).data as
+        | { id: string; family_name: string; parent_photo_path?: null; parent_last_seen_at?: null }
+        | null)
+    : full.data;
   if (!family) return null;
-  const { data: nannies } = await supabaseAdmin
+  const nannyFull = await supabaseAdmin
     .from("family_nannies")
     .select("id, name, photo_path, last_seen_at")
     .eq("family_id", family.id)
     .eq("status", "active")
     .order("sort_order", { ascending: true });
+  const nannies = nannyFull.error
+    ? ((
+        await supabaseAdmin
+          .from("family_nannies")
+          .select("id, name, photo_path")
+          .eq("family_id", family.id)
+          .eq("status", "active")
+          .order("sort_order", { ascending: true })
+      ).data as { id: string; name: string; photo_path: string | null; last_seen_at?: null }[] | null)
+    : nannyFull.data;
 
   const parent = {
     key: "parent",
     name: family.family_name,
-    photoUrl: await signed(family.parent_photo_path),
-    online: online(family.parent_last_seen_at),
+    photoUrl: await signed(family.parent_photo_path ?? null),
+    online: online(family.parent_last_seen_at ?? null),
     isYou: access.level === "family",
   };
   const nannyList = await Promise.all(
     (nannies ?? []).map(async (n) => ({
       key: n.id,
       name: n.name,
-      photoUrl: await signed(n.photo_path),
+      photoUrl: await signed(n.photo_path ?? null),
       // The sample wallet shows the nanny as online so visitors can see what the red dot means.
-      online: slug === "demo" ? true : online(n.last_seen_at),
+      online: slug === "demo" ? true : online(n.last_seen_at ?? null),
       isYou: access.level === "nanny" && access.nannyId === n.id,
     })),
   );

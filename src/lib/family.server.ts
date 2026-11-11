@@ -351,7 +351,7 @@ export async function loadPlanner(slug: string, weekStart: string) {
   const [{ data }, schedules] = await Promise.all([
     supabaseAdmin
       .from("planner_entries")
-      .select("id, entry_date, time_label, end_time_label, title, child_name, entry_type, status, added_by, notes")
+      .select("*")
       .eq("family_id", family.id)
       .gte("entry_date", weekStart)
       .lte("entry_date", endStr)
@@ -395,7 +395,7 @@ export async function addPlannerEntry(
     .eq("family_id", family.id)
     .eq("entry_date", input.entryDate);
   if ((count ?? 0) >= 12) throw new Error("That day is full");
-  const { error } = await supabaseAdmin.from("planner_entries").insert({
+  const row = {
     family_id: family.id,
     entry_date: input.entryDate,
     time_label: clean(input.timeLabel, 20),
@@ -406,9 +406,42 @@ export async function addPlannerEntry(
     status: clean(input.status, 20) ?? "active",
     added_by: family.access,
     notes: clean(input.notes, 1000),
-  });
+  };
+  // A changed or cancelled shift waits for the other person to approve it before it counts anywhere.
+  const needsApproval = row.entry_type === "shift_change";
+  const payload: typeof row & { approval?: string } = needsApproval ? { ...row, approval: "pending" } : row;
+  let { error } = await supabaseAdmin.from("planner_entries").insert(payload);
+  // Before the approval column exists, fall back to the old behaviour rather than losing the change.
+  if (error && /approval/i.test(error.message)) ({ error } = await supabaseAdmin.from("planner_entries").insert(row));
   if (error) throw new Error(error.message);
-  await (await import("./notifications.server")).notifyOther(family, "planner", "The week plan changed");
+  await (await import("./notifications.server")).notifyOther(
+    family,
+    "planner",
+    needsApproval ? "A shift change is waiting for your approval" : "The week plan changed",
+  );
+}
+
+/** The other person approves or declines a changed or cancelled shift. Nobody approves their own change. */
+export async function reviewShiftChange(slug: string, id: string, decision: "approved" | "declined") {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Locked");
+  if (decision !== "approved" && decision !== "declined") throw new Error("Choose approve or decline.");
+  const { data: entry } = await supabaseAdmin
+    .from("planner_entries")
+    .select("id, entry_type, added_by, approval")
+    .eq("id", id)
+    .eq("family_id", family.id)
+    .maybeSingle();
+  if (!entry || entry.entry_type !== "shift_change") throw new Error("That isn't a shift change.");
+  if (entry.approval !== "pending") throw new Error("That change has already been decided.");
+  if (entry.added_by === family.access) throw new Error("The other person needs to approve this change.");
+  const { error } = await supabaseAdmin.from("planner_entries").update({ approval: decision }).eq("id", id);
+  if (error) throw new Error(error.message);
+  await (await import("./notifications.server")).notifyOther(
+    family,
+    "planner",
+    decision === "approved" ? "A shift change was approved" : "A shift change was declined",
+  );
 }
 
 export async function deletePlannerEntry(slug: string, id: string) {

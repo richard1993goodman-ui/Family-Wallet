@@ -1,3 +1,4 @@
+import { staffNoun } from "@/lib/staff-roles";
 import { readDemoBrand } from "@/lib/demo-brand";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -71,6 +72,8 @@ function getWalletLocation(pathname: string) {
 const BadgeContext = createContext<Record<string, number>>({});
 /** False when this household has chosen not to use the nanny agreement. */
 const AgreementsContext = createContext(true);
+/** What the household calls its staff in the menu: "nanny", "au pair", "staff". */
+const StaffNounContext = createContext("nanny");
 
 function NavBadge({ prefix, className }: { prefix: string; className?: string }) {
   const count = useContext(BadgeContext)[prefix] ?? 0;
@@ -156,6 +159,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   return (
     <BadgeContext.Provider value={badges}>
     <AgreementsContext.Provider value={wallet.agreementsEnabled}>
+    <StaffNounContext.Provider value={staffNoun(wallet.nannies.map((n) => n.role))}>
     <SidebarProvider>
       <WalletNavigation
         slug={location.slug}
@@ -187,6 +191,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         onOpenChange={setSearchOpen}
       />
     </SidebarProvider>
+    </StaffNounContext.Provider>
     </AgreementsContext.Provider>
     </BadgeContext.Provider>
   );
@@ -219,11 +224,9 @@ function WalletTopBar({
       ) : slug === "demo" ? (
         <LogoMark className="h-6 w-6 md:hidden" />
       ) : null}
+      {/* The wallet belongs to the household: parents and staff both use it, and the avatars show who is in. */}
       <div className="flex min-w-0 items-baseline gap-2">
         <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
-        <p className="hidden truncate text-sm text-muted-foreground sm:block">
-          {role === "nanny" ? "Nanny access" : "Parent access"}
-        </p>
       </div>
       <button
         type="button"
@@ -243,7 +246,7 @@ function WalletTopBar({
       <AccountMenu
         slug={slug}
         familyName={familyName}
-        roleLabel={role === "nanny" ? "Nanny access" : "Parent access"}
+        roleLabel={role === "nanny" ? "Signed in as household staff" : "Signed in as a parent"}
       />
       {slug === "demo" && (
         <Link
@@ -271,6 +274,7 @@ function WalletNavigation({
   activePrefix: string;
 }) {
   const agreements = useContext(AgreementsContext);
+  const noun = useContext(StaffNounContext);
   const { isMobile, setOpenMobile } = useSidebar();
 
   return (
@@ -293,7 +297,7 @@ function WalletNavigation({
       </SidebarHeader>
       )}
       <SidebarContent className="gap-1 py-2">
-        {navFor(role, agreements).map((section) => (
+        {navFor(role, agreements, noun).map((section) => (
           <SidebarGroup key={section.label}>
             <SidebarGroupLabel className="text-[0.8125rem] font-normal text-muted-foreground">
               {section.label}
@@ -331,7 +335,7 @@ function WalletNavigation({
         <SidebarLogout slug={slug} />
         <p className="flex items-center gap-2 px-2 text-xs leading-relaxed text-muted-foreground group-data-[collapsible=icon]:hidden">
           <Lock className="h-3.5 w-3.5 flex-none" aria-hidden="true" />
-          {role === "nanny" ? "Nanny access" : "Parent access"} · Private to your household
+          Private to your household
         </p>
       </SidebarFooter>
       <SidebarRail />
@@ -368,7 +372,8 @@ function SectionNav({
   activePrefix: string;
 }) {
   const agreements = useContext(AgreementsContext);
-  const section = activePrefix === "w" ? null : sectionFor(role, activePrefix, agreements);
+  const noun = useContext(StaffNounContext);
+  const section = activePrefix === "w" ? null : sectionFor(role, activePrefix, agreements, noun);
   if (!section || section.items.length < 2) return null;
 
   return (
@@ -412,6 +417,7 @@ function WalletSearch({
   onOpenChange: (open: boolean) => void;
 }) {
   const agreements = useContext(AgreementsContext);
+  const noun = useContext(StaffNounContext);
   const navigate = useNavigate();
 
   return (
@@ -420,7 +426,7 @@ function WalletSearch({
       <CommandInput placeholder="Where do you want to go?" />
       <CommandList>
         <CommandEmpty>No matching pages.</CommandEmpty>
-        {navFor(role, agreements).map((section) => (
+        {navFor(role, agreements, noun).map((section) => (
           <CommandGroup key={section.label} heading={section.label}>
             {section.items.map((item) => (
               <CommandItem
@@ -453,6 +459,7 @@ function MobileTabs({
   activePrefix: string;
 }) {
   const agreements = useContext(AgreementsContext);
+  const noun = useContext(StaffNounContext);
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
@@ -506,9 +513,9 @@ function MobileTabs({
             >
               <Accordion
                 type="multiple"
-                defaultValue={[sectionFor(role, activePrefix, agreements)?.label ?? "Overview"]}
+                defaultValue={[sectionFor(role, activePrefix, agreements, noun)?.label ?? "Overview"]}
               >
-                {navFor(role, agreements).map((section) => (
+                {navFor(role, agreements, noun).map((section) => (
                   <AccordionItem key={section.label} value={section.label} className="border-b-0">
                     <AccordionTrigger className="px-2 py-3 text-[0.9375rem] font-medium hover:no-underline">
                       {section.label}

@@ -368,6 +368,8 @@ export type WalletNanny = {
   name: string;
   bio: string | null;
   photoUrl: string | null;
+  /** What they do in the household: nanny, au_pair, housekeeper and so on. */
+  role: string;
   emergency: WalletContact | null;
   isYou: boolean;
 };
@@ -446,6 +448,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
         name: row.name,
         bio: row.bio,
         photoUrl,
+        role: row.role,
         emergency: row.emergency_name
           ? {
               name: row.emergency_name,

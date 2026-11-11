@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
-import { getTimesheets, reviewShiftFn, submitShiftFn } from "@/lib/work-tools.functions";
+import { getExpectedShifts, getTimesheets, reviewShiftFn, submitShiftFn } from "@/lib/work-tools.functions";
 import { isBabysitting, shiftAmount, shiftHours, shiftTotals, type ShiftInput, type ShiftType } from "@/lib/work-tools.model";
 
 export const Route = createFileRoute("/timesheets/$slug")({
@@ -40,8 +40,11 @@ function TimesheetsPage() {
   const loadFn = useServerFn(getTimesheets);
   const submitFn = useServerFn(submitShiftFn);
   const reviewFn = useServerFn(reviewShiftFn);
+  const expectedFn = useServerFn(getExpectedShifts);
   const [draft, setDraft] = useState<ShiftInput>(freshShift);
+  const [confirming, setConfirming] = useState(false);
   const query = useQuery({ queryKey: ["timesheets", slug], queryFn: () => loadFn({ data: { slug } }) });
+  const expected = useQuery({ queryKey: ["expected-shifts", slug], queryFn: () => expectedFn({ data: { slug } }) });
   if (query.isLoading) return <PageLoading />;
   if (!query.data) return <LockedNotice slug={slug} />;
   const isFamily = query.data.access === "family";
@@ -59,7 +62,42 @@ function TimesheetsPage() {
   }));
   const nannyShifts = mapped.filter((s) => !isBabysitting(s));
   const babysittingShifts = mapped.filter((s) => isBabysitting(s));
-  const refresh = () => client.invalidateQueries({ queryKey: ["timesheets", slug] });
+  const refresh = () =>
+    Promise.all([
+      client.invalidateQueries({ queryKey: ["timesheets", slug] }),
+      client.invalidateQueries({ queryKey: ["expected-shifts", slug] }),
+    ]);
+  const rate = expected.data?.rate ?? 0;
+  const scheduled = expected.data?.shifts ?? [];
+
+  const confirmShifts = async (list: typeof scheduled) => {
+    setConfirming(true);
+    try {
+      for (const s of list) {
+        await submitFn({
+          data: {
+            slug,
+            shift: {
+              shiftDate: s.date,
+              startTime: s.startTime,
+              endTime: s.endTime,
+              breakMinutes: 0,
+              isOvernight: false,
+              hourlyRate: rate,
+              notes: s.source === "amended" ? "Amended hours (approved)" : "Scheduled hours",
+              shiftType: "nanny",
+            },
+          },
+        });
+      }
+      await refresh();
+      toast.success(isFamily ? `${list.length} shift${list.length === 1 ? "" : "s"} confirmed` : `${list.length} shift${list.length === 1 ? "" : "s"} sent for approval`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't add those shifts");
+    } finally {
+      setConfirming(false);
+    }
+  };
 
   const review = async (id: string, status: "approved" | "declined") => {
     await reviewFn({ data: { slug, id, status } });
@@ -67,6 +105,39 @@ function TimesheetsPage() {
   };
 
   return <HubPage slug={slug} title="Timesheets" intro="Record worked shifts here. Babysitting (evenings and one-off sits) is kept separate from day-to-day nannying. Parents approve payment; nannies can always see its status.">
+    {scheduled.length > 0 && (
+      <div className="mt-6"><Card>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="heading-display text-lg text-foreground">Scheduled hours to confirm</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              From your calendar over the last two weeks. Hours that were changed show the amended times once the change was approved.
+              {rate > 0 ? ` At £${rate.toFixed(2)} an hour.` : " Add an hourly rate in the agreement to price these."}
+            </p>
+          </div>
+          <Button size="sm" disabled={confirming} onClick={() => confirmShifts(scheduled)}>
+            <Check className="h-4 w-4" /> Confirm all ({scheduled.length})
+          </Button>
+        </div>
+        <ul className="mt-4 divide-y divide-border">
+          {scheduled.map((s) => (
+            <li key={`${s.date}-${s.startTime}`} className="flex flex-wrap items-center justify-between gap-3 py-2.5 text-sm">
+              <span>
+                <span className="font-medium text-foreground">
+                  {new Date(`${s.date}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}
+                </span>
+                <span className="ml-2 text-muted-foreground">{s.startTime}–{s.endTime}</span>
+                {s.source === "amended" && (
+                  <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs text-foreground">Amended</span>
+                )}
+              </span>
+              <Button size="sm" variant="outline" disabled={confirming} onClick={() => confirmShifts([s])}>Confirm</Button>
+            </li>
+          ))}
+        </ul>
+      </Card></div>
+    )}
+
     <div className="mt-6"><Card>
       <h2 className="heading-display text-lg text-foreground">Add a worked shift</h2>
       <div className="mt-4 grid grid-cols-2 gap-2" role="group" aria-label="Shift type">
@@ -84,16 +155,16 @@ function TimesheetsPage() {
       </div>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Field label="Date" type="date" value={draft.shiftDate} onChange={(shiftDate) => setDraft({ ...draft, shiftDate })} />
-        <Field label="Hourly rate (£)" type="number" value={String(draft.hourlyRate || "")} onChange={(v) => setDraft({ ...draft, hourlyRate: Number(v) })} />
+        <Field label="Hourly rate (£)" type="number" value={String(draft.hourlyRate || rate || "")} onChange={(v) => setDraft({ ...draft, hourlyRate: Number(v) })} />
         <Field label="Start" type="time" value={draft.startTime} onChange={(startTime) => setDraft({ ...draft, startTime })} />
         <Field label="Finish" type="time" value={draft.endTime} onChange={(endTime) => setDraft({ ...draft, endTime })} />
         <Field label="Unpaid break (minutes)" type="number" value={String(draft.breakMinutes)} onChange={(v) => setDraft({ ...draft, breakMinutes: Number(v) })} />
         <label className="flex items-end gap-2 pb-2 text-sm text-foreground"><input type="checkbox" checked={draft.isOvernight} onChange={(e) => setDraft({ ...draft, isOvernight: e.target.checked })} /> Overnight shift</label>
       </div>
       <div className="mt-4"><Field label="Notes" textarea value={draft.notes ?? ""} onChange={(notes) => setDraft({ ...draft, notes })} /></div>
-      <p className="mt-3 text-sm text-muted-foreground">{shiftHours(draft).toFixed(2)} hours · £{shiftAmount(draft).toFixed(2)}</p>
+      <p className="mt-3 text-sm text-muted-foreground">{shiftHours(draft).toFixed(2)} hours · £{shiftAmount({ ...draft, hourlyRate: draft.hourlyRate || rate }).toFixed(2)}</p>
       <Button className="mt-4" onClick={async () => {
-        await submitFn({ data: { slug, shift: draft } });
+        await submitFn({ data: { slug, shift: { ...draft, hourlyRate: draft.hourlyRate || rate } } });
         setDraft(freshShift(draft.shiftType));
         await refresh();
         toast.success(isFamily ? "Shift added and approved" : "Shift sent for approval");

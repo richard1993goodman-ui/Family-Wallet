@@ -42,3 +42,8 @@ export const reviewShiftFn = createServerFn({ method: "POST" }).inputValidator((
   await reviewShift(data.slug, data.id, data.status);
   return { ok: true as const };
 });
+
+export const getExpectedShifts = createServerFn({ method: "GET" }).inputValidator((data: { slug: string }) => data).handler(async ({ data }) => {
+  const { loadExpectedShifts } = await import("./work-tools.server");
+  return loadExpectedShifts(data.slug);
+});

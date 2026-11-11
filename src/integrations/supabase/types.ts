@@ -2048,6 +2048,7 @@ export type Database = {
       planner_entries: {
         Row: {
           added_by: string
+          approval: string
           child_name: string | null
           created_at: string
           end_time_label: string | null
@@ -2062,6 +2063,7 @@ export type Database = {
         }
         Insert: {
           added_by?: string
+          approval?: string
           child_name?: string | null
           created_at?: string
           end_time_label?: string | null
@@ -2076,6 +2078,7 @@ export type Database = {
         }
         Update: {
           added_by?: string
+          approval?: string
           child_name?: string | null
           created_at?: string
           end_time_label?: string | null
