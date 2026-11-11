@@ -26,6 +26,8 @@ export function AgencySeats() {
   const board = useQuery({ queryKey: ["seat-board"], queryFn: () => boardFn() });
   const [picked, setPicked] = useState<number | null>(null);
   const [email, setEmail] = useState("");
+  const [nannyName, setNannyName] = useState("");
+  const [nannyEmail, setNannyEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
   const run = async (work: () => Promise<unknown>, done: string) => {
@@ -63,7 +65,7 @@ export function AgencySeats() {
             <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 font-medium text-foreground">Family {seat.slot}</span>
               <span className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
-                {seat.state === "available" ? "Available" : seat.email}
+                {seat.state === "available" ? "Available" : seat.email}{seat.nannyEmail && ` · nanny: ${seat.nannyEmail}`}
                 {seat.state === "invited" && ` · invited ${date(seat.invitedAt)}, expires ${date(seat.expiresAt)}`}
                 {seat.state === "occupied" && ` · active since ${date(seat.invitedAt)}`}
               </span>
@@ -75,7 +77,7 @@ export function AgencySeats() {
                 {seat.state === "occupied" ? "Active" : seat.state === "invited" ? "Invited" : "Available"}
               </span>
               {seat.state === "available" && (
-                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setEmail(""); }}>
+                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setEmail(""); setNannyName(""); setNannyEmail(""); }}>
                   Invite
                 </Button>
               )}
@@ -104,10 +106,15 @@ export function AgencySeats() {
                 className="mt-3 flex flex-wrap gap-2"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  if (await run(() => sendFn({ data: { slot: seat.slot, email } }), "Invitation sent")) setPicked(null);
+                  if (await run(() => sendFn({ data: { slot: seat.slot, email, nannyName, nannyEmail } }), "Invitation sent")) setPicked(null);
                 }}
               >
-                <Input type="email" required autoFocus placeholder="Family's email address" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1" />
+                <Input type="email" required autoFocus placeholder="Family's email address" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1 basis-full" />
+                <Input placeholder="Nanny's name (optional)" value={nannyName} onChange={(e) => setNannyName(e.target.value)} className="min-w-0 flex-1" />
+                <Input type="email" placeholder="Nanny's email (optional)" value={nannyEmail} onChange={(e) => setNannyEmail(e.target.value)} className="min-w-0 flex-1" />
+                <p className="basis-full text-xs text-muted-foreground">
+                  If you add the nanny, they get their own sign-in link and access code by email when the family activates. You won't see either.
+                </p>
                 <Button type="submit" disabled={busy}>Send invitation</Button>
               </form>
             )}

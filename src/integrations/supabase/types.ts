@@ -2668,6 +2668,8 @@ export type Database = {
           family_id: string | null
           id: string
           invited_at: string
+          nanny_email: string | null
+          nanny_name: string | null
           released_at: string | null
           slot: number
           status: string
@@ -2681,6 +2683,8 @@ export type Database = {
           family_id?: string | null
           id?: string
           invited_at?: string
+          nanny_email?: string | null
+          nanny_name?: string | null
           released_at?: string | null
           slot: number
           status?: string
@@ -2694,6 +2698,8 @@ export type Database = {
           family_id?: string | null
           id?: string
           invited_at?: string
+          nanny_email?: string | null
+          nanny_name?: string | null
           released_at?: string | null
           slot?: number
           status?: string

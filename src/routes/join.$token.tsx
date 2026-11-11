@@ -21,7 +21,7 @@ function JoinPage() {
   const invite = useQuery({ queryKey: ["invite", token], queryFn: () => lookup({ data: { token } }), retry: false });
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState<{ url: string; code: string } | null>(null);
+  const [done, setDone] = useState<{ url: string; code: string; nannyName: string | null } | null>(null);
 
   const submit = async () => {
     setBusy(true);
@@ -43,6 +43,7 @@ function JoinPage() {
           <h1 className="heading-display text-2xl text-foreground">Your wallet is ready</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Save these now. We've also emailed them to you. Only your family can open your wallet.
+            {done.nannyName && ` ${done.nannyName} has been added to your household staff and has been emailed their own sign-in.`}
           </p>
           <p className="mt-4 text-xs font-medium text-muted-foreground">Your private link</p>
           <p className="break-all text-sm text-foreground">{done.url}</p>
@@ -60,6 +61,7 @@ function JoinPage() {
           <h1 className="heading-display text-2xl text-foreground">Activate your Family Wallet</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {invite.data.agencyName} has set you up with a Family Wallet. It's private to your family: {invite.data.agencyName} can't see what you add.
+            {invite.data.nannyName && ` ${invite.data.nannyName} will be added to your household and get their own sign-in.`}
           </p>
           <label className="mt-5 block text-sm font-medium text-foreground">
             Your family name

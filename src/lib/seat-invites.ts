@@ -12,8 +12,8 @@ export const normaliseEmail = (email: string) => email.trim().toLowerCase();
 export const isValidEmail = (email: string) => email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export type SeatState = "available" | "invited" | "occupied";
-export type InviteRow = { id: string; slot: number; email: string; status: string; invited_at: string; expires_at: string | null };
-export type Seat = { slot: number; state: SeatState; inviteId: string | null; email: string | null; invitedAt: string | null; expiresAt: string | null };
+export type InviteRow = { id: string; slot: number; email: string; nanny_email?: string | null; status: string; invited_at: string; expires_at: string | null };
+export type Seat = { slot: number; state: SeatState; inviteId: string | null; email: string | null; nannyEmail: string | null; invitedAt: string | null; expiresAt: string | null };
 
 /** Fixed-size agencies show exactly their allowance; open-ended ones show a few spare slots. */
 export function seatCount(allowance: number | null, rows: InviteRow[]) {
@@ -28,7 +28,7 @@ export function buildSeats(allowance: number | null, rows: InviteRow[], now = Da
   return Array.from({ length: seatCount(allowance, rows) }, (_, i) => {
     const row = bySlot.get(i + 1);
     return row
-      ? { slot: i + 1, state: row.status === "accepted" ? "occupied" : "invited", inviteId: row.id, email: row.email, invitedAt: row.invited_at, expiresAt: row.expires_at }
-      : { slot: i + 1, state: "available", inviteId: null, email: null, invitedAt: null, expiresAt: null };
+      ? { slot: i + 1, state: row.status === "accepted" ? "occupied" : "invited", inviteId: row.id, email: row.email, nannyEmail: row.nanny_email ?? null, invitedAt: row.invited_at, expiresAt: row.expires_at }
+      : { slot: i + 1, state: "available", inviteId: null, email: null, nannyEmail: null, invitedAt: null, expiresAt: null };
   });
 }

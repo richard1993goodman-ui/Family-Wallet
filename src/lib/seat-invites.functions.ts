@@ -15,8 +15,13 @@ export const getSeatBoardFn = createServerFn({ method: "GET" })
 
 export const sendSeatInviteFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { slot: number; email: string }) => d)
-  .handler(async ({ data, context }) => (await import("./seat-invites.server")).sendSeatInvite(await partnerAgencyId(context), Number(data.slot), String(data.email ?? "")));
+  .inputValidator((d: { slot: number; email: string; nannyName?: string; nannyEmail?: string }) => d)
+  .handler(async ({ data, context }) =>
+    (await import("./seat-invites.server")).sendSeatInvite(await partnerAgencyId(context), Number(data.slot), String(data.email ?? ""), {
+      name: String(data.nannyName ?? ""),
+      email: String(data.nannyEmail ?? ""),
+    }),
+  );
 
 export const resendSeatInviteFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
