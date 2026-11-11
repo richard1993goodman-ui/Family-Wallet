@@ -11,9 +11,12 @@ describe("accessFromMembership", () => {
   it("gives active staff access as that staff member", () => {
     expect(accessFromMembership(staff)).toEqual({ level: "nanny", nannyId: "n1" });
   });
-  it.each(["invited", "revoked", "ended"] as const)("gives nothing for a %s membership", (status) => {
-    expect(accessFromMembership({ ...staff, status })).toBeNull();
-  });
+  it.each(["invited", "revoked", "ended"] as const)(
+    "gives nothing for a %s membership",
+    (status) => {
+      expect(accessFromMembership({ ...staff, status })).toBeNull();
+    },
+  );
   it("gives nothing without a membership", () => {
     expect(accessFromMembership(null)).toBeNull();
   });

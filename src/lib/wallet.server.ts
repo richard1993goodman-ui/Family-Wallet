@@ -94,7 +94,11 @@ export async function isUnlocked(slug: string) {
   // The sample "demo" wallet is fictional and open to anyone — no code needed.
   if (slug === "demo") return true;
   const session = await walletSession();
-  if (!(session.data.unlocked ?? []).includes(slug)) return false;
+  if (!(session.data.unlocked ?? []).includes(slug)) {
+    // No code on this device: an account login with an active owner membership opens it just the same.
+    const { accountAccess } = await import("./account.server");
+    if ((await accountAccess(slug))?.level !== "family") return false;
+  }
   return fundingOpen(slug);
 }
 
@@ -246,6 +250,11 @@ export async function listNannyRows(familyId: string) {
 
 /** Which nanny (if any) this device is signed in as. */
 async function sessionNannyId(slug: string, familyId: string): Promise<string | null> {
+  const { accountAccess } = await import("./account.server");
+  const account = await accountAccess(slug);
+  if (account?.level === "nanny" && account.nannyId && (await listNannyRows(familyId)).some((r) => r.id === account.nannyId)) {
+    return account.nannyId;
+  }
   const session = await walletSession();
   const unlocked = session.data.unlocked ?? [];
   const prefix = `${nannySessionKey(slug, "")}`;

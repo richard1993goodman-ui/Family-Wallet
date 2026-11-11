@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Smartphone } from "lucide-react";
 import { toast } from "sonner";
 
+import { CreateLogin } from "@/components/CreateLogin";
 import { Card, HubPage, PageContainer, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -82,6 +83,7 @@ function Create({ slug }: { slug: string }) {
           <Smartphone className="h-4 w-4" /> {live ? "Make a new PIN" : "Make a PIN"}
         </Button>
       </Card>
+      <CreateLogin slug={slug} />
     </HubPage>
   );
 }

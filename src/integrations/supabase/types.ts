@@ -2773,6 +2773,110 @@ export type Database = {
         Update: never
         Relationships: []
       }
+      people: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          preferred_language: string
+          time_zone: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          preferred_language?: string
+          time_zone?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          preferred_language?: string
+          time_zone?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      household_members: {
+        Row: {
+          ended_at: string | null
+          family_id: string
+          id: string
+          nanny_id: string | null
+          permissions: Json
+          person_id: string | null
+          revoked_by: string | null
+          role: string
+          started_at: string
+          status: string
+        }
+        Insert: {
+          ended_at?: string | null
+          family_id: string
+          id?: string
+          nanny_id?: string | null
+          permissions?: Json
+          person_id?: string | null
+          revoked_by?: string | null
+          role: string
+          started_at?: string
+          status?: string
+        }
+        Update: {
+          ended_at?: string | null
+          family_id?: string
+          id?: string
+          nanny_id?: string | null
+          permissions?: Json
+          person_id?: string | null
+          revoked_by?: string | null
+          role?: string
+          started_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_members_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      account_claims: {
+        Row: {
+          created_at: string
+          email: string | null
+          expires_at: string
+          id: string
+          member_id: string
+          token_hash: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          expires_at: string
+          id?: string
+          member_id: string
+          token_hash: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          expires_at?: string
+          id?: string
+          member_id?: string
+          token_hash?: string
+          used_at?: string | null
+        }
+        Relationships: []
+      }
       agency_invites: {
         Row: {
           accepted_at: string | null

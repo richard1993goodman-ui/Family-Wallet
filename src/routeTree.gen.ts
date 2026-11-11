@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DemoRouteImport } from './routes/demo'
@@ -25,6 +26,7 @@ import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
 import { Route as BillingSlugRouteImport } from './routes/billing.$slug'
 import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
+import { Route as ClaimTokenRouteImport } from './routes/claim.$token'
 import { Route as ContinueSlugRouteImport } from './routes/continue.$slug'
 import { Route as CostsSlugRouteImport } from './routes/costs.$slug'
 import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
@@ -87,6 +89,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -157,6 +164,11 @@ const BillingSlugRoute = BillingSlugRouteImport.update({
 const CheckinSlugRoute = CheckinSlugRouteImport.update({
   id: '/checkin/$slug',
   path: '/checkin/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClaimTokenRoute = ClaimTokenRouteImport.update({
+  id: '/claim/$token',
+  path: '/claim/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContinueSlugRoute = ContinueSlugRouteImport.update({
@@ -437,6 +449,7 @@ const ApiPublicPaymentsWebhookRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
@@ -451,6 +464,7 @@ export interface FileRoutesByFullPath {
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -508,6 +522,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
@@ -522,6 +537,7 @@ export interface FileRoutesByTo {
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -581,6 +597,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
@@ -595,6 +612,7 @@ export interface FileRoutesById {
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/claim/$token': typeof ClaimTokenRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
@@ -654,6 +672,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/account'
     | '/auth'
     | '/compare'
     | '/demo'
@@ -668,6 +687,7 @@ export interface FileRouteTypes {
     | '/bankdetails/$slug'
     | '/billing/$slug'
     | '/checkin/$slug'
+    | '/claim/$token'
     | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -725,6 +745,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/account'
     | '/auth'
     | '/compare'
     | '/demo'
@@ -739,6 +760,7 @@ export interface FileRouteTypes {
     | '/bankdetails/$slug'
     | '/billing/$slug'
     | '/checkin/$slug'
+    | '/claim/$token'
     | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -797,6 +819,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/account'
     | '/auth'
     | '/compare'
     | '/demo'
@@ -811,6 +834,7 @@ export interface FileRouteTypes {
     | '/bankdetails/$slug'
     | '/billing/$slug'
     | '/checkin/$slug'
+    | '/claim/$token'
     | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
@@ -870,6 +894,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AccountRoute: typeof AccountRoute
   AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
   DemoRoute: typeof DemoRoute
@@ -884,6 +909,7 @@ export interface RootRouteChildren {
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
   BillingSlugRoute: typeof BillingSlugRoute
   CheckinSlugRoute: typeof CheckinSlugRoute
+  ClaimTokenRoute: typeof ClaimTokenRoute
   ContinueSlugRoute: typeof ContinueSlugRoute
   CostsSlugRoute: typeof CostsSlugRoute
   CoverSlugRoute: typeof CoverSlugRoute
@@ -948,6 +974,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -1046,6 +1079,13 @@ declare module '@tanstack/react-router' {
       path: '/checkin/$slug'
       fullPath: '/checkin/$slug'
       preLoaderRoute: typeof CheckinSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/claim/$token': {
+      id: '/claim/$token'
+      path: '/claim/$token'
+      fullPath: '/claim/$token'
+      preLoaderRoute: typeof ClaimTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/continue/$slug': {
@@ -1453,6 +1493,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AccountRoute: AccountRoute,
   AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
   DemoRoute: DemoRoute,
@@ -1467,6 +1508,7 @@ const rootRouteChildren: RootRouteChildren = {
   BankdetailsSlugRoute: BankdetailsSlugRoute,
   BillingSlugRoute: BillingSlugRoute,
   CheckinSlugRoute: CheckinSlugRoute,
+  ClaimTokenRoute: ClaimTokenRoute,
   ContinueSlugRoute: ContinueSlugRoute,
   CostsSlugRoute: CostsSlugRoute,
   CoverSlugRoute: CoverSlugRoute,
