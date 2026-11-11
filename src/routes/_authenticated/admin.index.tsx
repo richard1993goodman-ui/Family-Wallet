@@ -9,6 +9,7 @@ import { Copy, Plus, Search } from "lucide-react";
 import { ChallengesPanel } from "@/components/ChallengesPanel";
 import { PremiumContentPanel } from "@/components/PremiumContentPanel";
 import { AgencyTermsPanel } from "@/components/AgencyTermsPanel";
+import { AgencySeats } from "@/components/AgencySeats";
 import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily, sendFamilyInvite, setFamiliesAgreement } from "@/lib/admin.functions";
 import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
@@ -314,7 +315,7 @@ function AdminHome() {
             </div>
             <button onClick={signOut} className="mt-2 text-sm text-muted-foreground underline underline-offset-4">Sign out</button>
           </div>
-          {usage && <AllowanceCard usage={usage} />}
+          <AgencySeats />
           <div className="mt-6 rounded-2xl bg-card p-5 shadow-sm">
             <p className="font-medium text-foreground">Families own their wallets</p>
             <p className="mt-1 text-sm text-muted-foreground">

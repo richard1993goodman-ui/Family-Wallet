@@ -8,9 +8,10 @@ vi.mock("@/integrations/supabase/client.server", () => ({
       const query: Record<string, unknown> = {
         select: () => query,
         eq: () => query,
+        in: () => query,
         maybeSingle: async () => ({ data: { plan: state.plan, household_allowance: state.allowance } }),
-        // The families count is awaited directly.
-        then: (resolve: (v: { count: number }) => void) => resolve({ count: table === "families" ? state.used : 0 }),
+        // The open-seat count (invites) is awaited directly.
+        then: (resolve: (v: { count: number }) => void) => resolve({ count: table === "agency_invites" ? state.used : 0 }),
       };
       return query;
     },

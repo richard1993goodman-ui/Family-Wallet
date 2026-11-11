@@ -1,15 +1,15 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { AGENCY_PLANS, isAgencyPlan } from "./agency-plans";
 
-/** One seat is one active family wallet. Cancelling a family frees its seat. */
+/** One seat is one open invitation or one household the agency funds. Released and expired seats are free. */
 export async function seatsFor(agencyId: string) {
   const [{ data: agency }, { count }] = await Promise.all([
     supabaseAdmin.from("partner_agencies").select("plan, household_allowance").eq("id", agencyId).maybeSingle(),
     supabaseAdmin
-      .from("families")
+      .from("agency_invites")
       .select("id", { count: "exact", head: true })
-      .eq("partner_agency_id", agencyId)
-      .eq("status", "active"),
+      .eq("agency_id", agencyId)
+      .in("status", ["pending", "accepted"]),
   ]);
   const plan = isAgencyPlan(agency?.plan) ? agency.plan : "partner";
   const seats = agency?.household_allowance ?? AGENCY_PLANS[plan].allowance;

@@ -37,6 +37,7 @@ import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as HoursSlugRouteImport } from './routes/hours.$slug'
 import { Route as HousemanualSlugRouteImport } from './routes/housemanual.$slug'
 import { Route as IncidentsSlugRouteImport } from './routes/incidents.$slug'
+import { Route as JoinTokenRouteImport } from './routes/join.$token'
 import { Route as KidsSlugRouteImport } from './routes/kids.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
@@ -214,6 +215,11 @@ const HousemanualSlugRoute = HousemanualSlugRouteImport.update({
 const IncidentsSlugRoute = IncidentsSlugRouteImport.update({
   id: '/incidents/$slug',
   path: '/incidents/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinTokenRoute = JoinTokenRouteImport.update({
+  id: '/join/$token',
+  path: '/join/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KidsSlugRoute = KidsSlugRouteImport.update({
@@ -444,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/hours/$slug': typeof HoursSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
+  '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
@@ -512,6 +519,7 @@ export interface FileRoutesByTo {
   '/hours/$slug': typeof HoursSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
+  '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
@@ -582,6 +590,7 @@ export interface FileRoutesById {
   '/hours/$slug': typeof HoursSlugRoute
   '/housemanual/$slug': typeof HousemanualSlugRoute
   '/incidents/$slug': typeof IncidentsSlugRoute
+  '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
   '/log/$slug': typeof LogSlugRoute
@@ -652,6 +661,7 @@ export interface FileRouteTypes {
     | '/hours/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
+    | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
@@ -720,6 +730,7 @@ export interface FileRouteTypes {
     | '/hours/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
+    | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
@@ -789,6 +800,7 @@ export interface FileRouteTypes {
     | '/hours/$slug'
     | '/housemanual/$slug'
     | '/incidents/$slug'
+    | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
     | '/log/$slug'
@@ -859,6 +871,7 @@ export interface RootRouteChildren {
   HoursSlugRoute: typeof HoursSlugRoute
   HousemanualSlugRoute: typeof HousemanualSlugRoute
   IncidentsSlugRoute: typeof IncidentsSlugRoute
+  JoinTokenRoute: typeof JoinTokenRoute
   KidsSlugRoute: typeof KidsSlugRoute
   LeaveSlugRoute: typeof LeaveSlugRoute
   LogSlugRoute: typeof LogSlugRoute
@@ -1091,6 +1104,13 @@ declare module '@tanstack/react-router' {
       path: '/incidents/$slug'
       fullPath: '/incidents/$slug'
       preLoaderRoute: typeof IncidentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join/$token': {
+      id: '/join/$token'
+      path: '/join/$token'
+      fullPath: '/join/$token'
+      preLoaderRoute: typeof JoinTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kids/$slug': {
@@ -1418,6 +1438,7 @@ const rootRouteChildren: RootRouteChildren = {
   HoursSlugRoute: HoursSlugRoute,
   HousemanualSlugRoute: HousemanualSlugRoute,
   IncidentsSlugRoute: IncidentsSlugRoute,
+  JoinTokenRoute: JoinTokenRoute,
   KidsSlugRoute: KidsSlugRoute,
   LeaveSlugRoute: LeaveSlugRoute,
   LogSlugRoute: LogSlugRoute,

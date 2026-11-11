@@ -467,6 +467,7 @@ export type Database = {
           intro_fee_percent: number | null
           invite_sent_at: string | null
           last_active_at: string | null
+          agency_released_at: string | null
           parent_last_seen_at: string | null
           parent_photo_path: string | null
           nanny_bio: string | null
@@ -503,6 +504,7 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
+          agency_released_at?: string | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           nanny_bio?: string | null
@@ -539,6 +541,7 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
+          agency_released_at?: string | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           nanny_bio?: string | null
@@ -2647,6 +2650,48 @@ export type Database = {
           id?: string
           slug?: string
           succeeded?: boolean
+        }
+        Relationships: []
+      }
+      agency_invites: {
+        Row: {
+          accepted_at: string | null
+          agency_id: string
+          email: string
+          expires_at: string | null
+          family_id: string | null
+          id: string
+          invited_at: string
+          released_at: string | null
+          slot: number
+          status: string
+          token_hash: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          agency_id: string
+          email: string
+          expires_at?: string | null
+          family_id?: string | null
+          id?: string
+          invited_at?: string
+          released_at?: string | null
+          slot: number
+          status?: string
+          token_hash?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          agency_id?: string
+          email?: string
+          expires_at?: string | null
+          family_id?: string | null
+          id?: string
+          invited_at?: string
+          released_at?: string | null
+          slot?: number
+          status?: string
+          token_hash?: string | null
         }
         Relationships: []
       }
