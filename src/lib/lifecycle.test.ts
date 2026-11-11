@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { addDays, buildLifecycleEmail, daysLeft, deleteAfterFor, dueReminder, FINAL_REMINDER, isLockedStatus, purgeDecision, REMINDER_DAYS } from "./lifecycle";
+import {
+  addDays,
+  buildLifecycleEmail,
+  daysLeft,
+  deleteAfterFor,
+  dueReminder,
+  FINAL_REMINDER,
+  isLockedStatus,
+  purgeDecision,
+  REMINDER_DAYS,
+} from "./lifecycle";
 
 const locked = new Date("2026-11-01T09:00:00Z");
 
@@ -37,29 +47,56 @@ describe("reminders", () => {
 });
 
 describe("when deletion is allowed", () => {
-  const base = { now: addDays(locked, 31), status: "cancelled", deleteAfter: deleteAfterFor(locked), hold: false, noticesSent: [0, 14, 25, 29], ownerConfirmed: false };
+  const base = {
+    now: addDays(locked, 31),
+    status: "cancelled",
+    deleteAfter: deleteAfterFor(locked),
+    hold: false,
+    noticesSent: [0, 14, 25, 29],
+    ownerConfirmed: false,
+  };
 
   it("is allowed only when locked, the window is over, no hold and the final notice was sent", () => {
     expect(purgeDecision(base)).toEqual({ purge: true, reason: "ready" });
   });
   it("waits while the 30 days are still running", () => {
-    expect(purgeDecision({ ...base, now: addDays(locked, 29) })).toEqual({ purge: false, reason: "window_open" });
+    expect(purgeDecision({ ...base, now: addDays(locked, 29) })).toEqual({
+      purge: false,
+      reason: "window_open",
+    });
   });
   it("never deletes an active wallet, even with a stale date", () => {
-    expect(purgeDecision({ ...base, status: "active" })).toEqual({ purge: false, reason: "not_locked" });
-    expect(purgeDecision({ ...base, deleteAfter: null })).toEqual({ purge: false, reason: "not_locked" });
+    expect(purgeDecision({ ...base, status: "active" })).toEqual({
+      purge: false,
+      reason: "not_locked",
+    });
+    expect(purgeDecision({ ...base, deleteAfter: null })).toEqual({
+      purge: false,
+      reason: "not_locked",
+    });
   });
   it("respects a hold", () => {
     expect(purgeDecision({ ...base, hold: true })).toEqual({ purge: false, reason: "on_hold" });
   });
   it("refuses when the final warning never went out, unless the owner confirms", () => {
-    expect(purgeDecision({ ...base, noticesSent: [0, 14, 25] })).toEqual({ purge: false, reason: "no_final_notice" });
-    expect(purgeDecision({ ...base, noticesSent: [], ownerConfirmed: true })).toEqual({ purge: true, reason: "ready" });
+    expect(purgeDecision({ ...base, noticesSent: [0, 14, 25] })).toEqual({
+      purge: false,
+      reason: "no_final_notice",
+    });
+    expect(purgeDecision({ ...base, noticesSent: [], ownerConfirmed: true })).toEqual({
+      purge: true,
+      reason: "ready",
+    });
   });
 });
 
 describe("reminder emails", () => {
-  const args = { familyName: "Harrington", deleteOn: deleteAfterFor(locked), daysLeft: 16, exportUrl: "https://familywallet.io/export/harrington-ab12" };
+  const args = {
+    familyName: "Harrington",
+    deleteOn: deleteAfterFor(locked),
+    daysLeft: 16,
+    exportUrl: "https://familywallet.io/export/harrington-ab12",
+  };
   it("tell the household the date and where to download, without any code or private detail", () => {
     for (const day of REMINDER_DAYS) {
       const mail = buildLifecycleEmail({ ...args, day });
@@ -74,6 +111,8 @@ describe("reminder emails", () => {
     expect(buildLifecycleEmail({ ...args, day: 14 }).subject).toContain("16 days");
   });
   it("escape the family name", () => {
-    expect(buildLifecycleEmail({ ...args, day: 0, familyName: "<b>x</b>" }).html).not.toContain("<b>x</b>");
+    expect(buildLifecycleEmail({ ...args, day: 0, familyName: "<b>x</b>" }).html).not.toContain(
+      "<b>x</b>",
+    );
   });
 });

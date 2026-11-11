@@ -13,7 +13,8 @@ export const FINAL_REMINDER: ReminderDay = 29;
 const DAY = 24 * 60 * 60 * 1000;
 export const addDays = (from: Date, days: number) => new Date(from.getTime() + days * DAY);
 export const deleteAfterFor = (lockedAt: Date) => addDays(lockedAt, EXPORT_WINDOW_DAYS);
-export const isLockedStatus = (status: string | null | undefined) => status === "suspended" || status === "cancelled";
+export const isLockedStatus = (status: string | null | undefined) =>
+  status === "suspended" || status === "cancelled";
 
 /** Whole days left before deletion, never below zero. */
 export function daysLeft(now: Date, deleteAfter: Date) {
@@ -24,7 +25,11 @@ export function daysLeft(now: Date, deleteAfter: Date) {
  * The reminder to send now, or null. Only the most recent one that is due and not yet sent, so a household locked a
  * long time ago (or a missed run) gets one clear email, not a burst of old ones.
  */
-export function dueReminder(now: Date, lockedAt: Date, sent: readonly number[]): ReminderDay | null {
+export function dueReminder(
+  now: Date,
+  lockedAt: Date,
+  sent: readonly number[],
+): ReminderDay | null {
   const elapsed = Math.floor((now.getTime() - lockedAt.getTime()) / DAY);
   const due = REMINDER_DAYS.filter((d) => d <= elapsed && !sent.includes(d));
   return due.length ? due[due.length - 1]! : null;
@@ -39,7 +44,10 @@ export type PurgeInput = {
   /** The owner has looked at a household that could not be emailed and confirmed it may be deleted. */
   ownerConfirmed: boolean;
 };
-export type PurgeDecision = { purge: boolean; reason: "not_locked" | "window_open" | "on_hold" | "no_final_notice" | "ready" };
+export type PurgeDecision = {
+  purge: boolean;
+  reason: "not_locked" | "window_open" | "on_hold" | "no_final_notice" | "ready";
+};
 
 /**
  * Whether a locked household's data may now be permanently deleted. Deletion needs all of: still locked, the 30 days
@@ -49,14 +57,25 @@ export function purgeDecision(i: PurgeInput): PurgeDecision {
   if (!isLockedStatus(i.status) || !i.deleteAfter) return { purge: false, reason: "not_locked" };
   if (i.hold) return { purge: false, reason: "on_hold" };
   if (i.now.getTime() < i.deleteAfter.getTime()) return { purge: false, reason: "window_open" };
-  if (!i.noticesSent.includes(FINAL_REMINDER) && !i.ownerConfirmed) return { purge: false, reason: "no_final_notice" };
+  if (!i.noticesSent.includes(FINAL_REMINDER) && !i.ownerConfirmed)
+    return { purge: false, reason: "no_final_notice" };
   return { purge: true, reason: "ready" };
 }
 
-const esc = (t: string) => t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+const esc = (t: string) =>
+  t.replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!,
+  );
 
 /** The reminder emails. Generic by design: no names of children, no wording from agreements, no codes. */
-export function buildLifecycleEmail(d: { day: ReminderDay; familyName: string; deleteOn: Date; daysLeft: number; exportUrl: string }) {
+export function buildLifecycleEmail(d: {
+  day: ReminderDay;
+  familyName: string;
+  deleteOn: Date;
+  daysLeft: number;
+  exportUrl: string;
+}) {
   const date = d.deleteOn.toISOString().slice(0, 10);
   const subject =
     d.day === 0

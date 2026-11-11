@@ -33,6 +33,7 @@ import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
 import { Route as CurationSlugRouteImport } from './routes/curation.$slug'
 import { Route as DocumentsSlugRouteImport } from './routes/documents.$slug'
 import { Route as EmergencySlugRouteImport } from './routes/emergency.$slug'
+import { Route as ExportSlugRouteImport } from './routes/export.$slug'
 import { Route as FamilySlugRouteImport } from './routes/family.$slug'
 import { Route as FuelSlugRouteImport } from './routes/fuel.$slug'
 import { Route as GuideSlugRouteImport } from './routes/guide.$slug'
@@ -201,6 +202,11 @@ const DocumentsSlugRoute = DocumentsSlugRouteImport.update({
 const EmergencySlugRoute = EmergencySlugRouteImport.update({
   id: '/emergency/$slug',
   path: '/emergency/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExportSlugRoute = ExportSlugRouteImport.update({
+  id: '/export/$slug',
+  path: '/export/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FamilySlugRoute = FamilySlugRouteImport.update({
@@ -483,6 +489,7 @@ export interface FileRoutesByFullPath {
   '/curation/$slug': typeof CurationSlugRoute
   '/documents/$slug': typeof DocumentsSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
+  '/export/$slug': typeof ExportSlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
@@ -558,6 +565,7 @@ export interface FileRoutesByTo {
   '/curation/$slug': typeof CurationSlugRoute
   '/documents/$slug': typeof DocumentsSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
+  '/export/$slug': typeof ExportSlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
@@ -635,6 +643,7 @@ export interface FileRoutesById {
   '/curation/$slug': typeof CurationSlugRoute
   '/documents/$slug': typeof DocumentsSlugRoute
   '/emergency/$slug': typeof EmergencySlugRoute
+  '/export/$slug': typeof ExportSlugRoute
   '/family/$slug': typeof FamilySlugRoute
   '/fuel/$slug': typeof FuelSlugRoute
   '/guide/$slug': typeof GuideSlugRoute
@@ -712,6 +721,7 @@ export interface FileRouteTypes {
     | '/curation/$slug'
     | '/documents/$slug'
     | '/emergency/$slug'
+    | '/export/$slug'
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
@@ -787,6 +797,7 @@ export interface FileRouteTypes {
     | '/curation/$slug'
     | '/documents/$slug'
     | '/emergency/$slug'
+    | '/export/$slug'
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
@@ -863,6 +874,7 @@ export interface FileRouteTypes {
     | '/curation/$slug'
     | '/documents/$slug'
     | '/emergency/$slug'
+    | '/export/$slug'
     | '/family/$slug'
     | '/fuel/$slug'
     | '/guide/$slug'
@@ -940,6 +952,7 @@ export interface RootRouteChildren {
   CurationSlugRoute: typeof CurationSlugRoute
   DocumentsSlugRoute: typeof DocumentsSlugRoute
   EmergencySlugRoute: typeof EmergencySlugRoute
+  ExportSlugRoute: typeof ExportSlugRoute
   FamilySlugRoute: typeof FamilySlugRoute
   FuelSlugRoute: typeof FuelSlugRoute
   GuideSlugRoute: typeof GuideSlugRoute
@@ -1154,6 +1167,13 @@ declare module '@tanstack/react-router' {
       path: '/emergency/$slug'
       fullPath: '/emergency/$slug'
       preLoaderRoute: typeof EmergencySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/export/$slug': {
+      id: '/export/$slug'
+      path: '/export/$slug'
+      fullPath: '/export/$slug'
+      preLoaderRoute: typeof ExportSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/family/$slug': {
@@ -1555,6 +1575,7 @@ const rootRouteChildren: RootRouteChildren = {
   CurationSlugRoute: CurationSlugRoute,
   DocumentsSlugRoute: DocumentsSlugRoute,
   EmergencySlugRoute: EmergencySlugRoute,
+  ExportSlugRoute: ExportSlugRoute,
   FamilySlugRoute: FamilySlugRoute,
   FuelSlugRoute: FuelSlugRoute,
   GuideSlugRoute: GuideSlugRoute,
