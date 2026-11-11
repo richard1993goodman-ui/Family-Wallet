@@ -67,7 +67,7 @@ export function buildWalletEmail(
     ...wallets.flatMap((w) => [w.familyName, `Wallet link: ${w.url}`, `Access code: ${w.code}`, ""]),
     outro,
     "",
-    "The Family Wallet",
+    "Family Wallet",
   ].join("\n");
 
   const blocks = wallets
@@ -84,7 +84,7 @@ export function buildWalletEmail(
 
   const html = `<!doctype html><html lang="en"><body style="margin:0;padding:24px;background:#fbf7f0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#2a2420;line-height:1.6">
 <div style="max-width:32rem;margin:0 auto">
-<p style="font-size:22px;margin:0 0 20px;font-family:Georgia,serif">The Family Wallet</p>
+<p style="font-size:22px;margin:0 0 20px;font-family:Georgia,serif">Family Wallet</p>
 <p style="margin:0 0 20px">${escapeHtml(intro)}</p>
 ${blocks}
 <p style="margin:0 0 20px;font-size:14px">${escapeHtml(outro)}</p>
@@ -98,7 +98,7 @@ ${blocks}
 function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string, agencyName?: string) {
   const subject = agencyName
     ? `${agencyName} has set up your Family Wallet: your link and access code`
-    : "Welcome to The Family Wallet: your link and access code";
+    : "Welcome to Family Wallet: your link and access code";
   const steps = nextSteps(wallet.url);
   const supportUrl = pageUrl(wallet.url, "support");
   const help = supportEmail
@@ -111,7 +111,7 @@ function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string, agencyN
     "Please save this email, or copy these two details into your Notes app or a password manager. There is no separate password: your access code is your password. You'll need both to open your wallet on another phone or computer, and they can't be shown again if lost (we can resend them from the sign-in page).";
 
   const text = [
-    "Welcome to The Family Wallet",
+    "Welcome to Family Wallet",
     "",
     welcome,
     "",
@@ -125,7 +125,7 @@ function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string, agencyN
     help,
     "",
     ...(agencyName ? [] : ["You can manage or cancel your subscription from the footer of your wallet.", ""]),
-    "The Family Wallet",
+    "Family Wallet",
   ].join("\n");
 
   const stepHtml = steps
@@ -143,7 +143,7 @@ function buildWelcomeEmail(wallet: WalletDetails, supportEmail?: string, agencyN
 
   const html = `<!doctype html><html lang="en"><body style="margin:0;padding:24px;background:#fbf7f0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#2a2420;line-height:1.6">
 <div style="max-width:32rem;margin:0 auto">
-<p style="font-size:22px;margin:0 0 20px;font-family:Georgia,serif">The Family Wallet</p>
+<p style="font-size:22px;margin:0 0 20px;font-family:Georgia,serif">Family Wallet</p>
 <p style="font-size:20px;margin:0 0 12px;font-family:Georgia,serif">Welcome, ${escapeHtml(wallet.familyName)}</p>
 <p style="margin:0 0 20px">${escapeHtml(welcome)}</p>
 <div style="margin:0 0 12px;padding:18px 20px;border:2px solid #2f5d4a;border-radius:12px;background:#ffffff">

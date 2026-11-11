@@ -13,9 +13,9 @@ import { DEFAULT_LIVE_IN, mondayOf, weekWarnings, type LiveInSettings } from "@/
 export const Route = createFileRoute("/livein/$slug")({
   head: () => ({
     meta: [
-      { title: "Au pair & live-in — The Family Wallet" },
+      { title: "Au pair & live-in — Family Wallet" },
       { name: "description", content: "Pocket money, weekly hours cap, days off, room and board and house rules for au pairs and live-in staff." },
-      { property: "og:title", content: "Au pair & live-in — The Family Wallet" },
+      { property: "og:title", content: "Au pair & live-in — Family Wallet" },
       { property: "og:description", content: "Keep live-in hours, days off and pocket money fair and clear." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

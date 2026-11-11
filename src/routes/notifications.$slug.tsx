@@ -18,9 +18,9 @@ import { getWalletSummary } from "@/lib/wallet.functions";
 export const Route = createFileRoute("/notifications/$slug")({
   head: () => ({
     meta: [
-      { title: "Notifications — The Family Wallet" },
+      { title: "Notifications — Family Wallet" },
       { name: "description", content: "Choose which updates send an alert to this phone." },
-      { property: "og:title", content: "Notifications — The Family Wallet" },
+      { property: "og:title", content: "Notifications — Family Wallet" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

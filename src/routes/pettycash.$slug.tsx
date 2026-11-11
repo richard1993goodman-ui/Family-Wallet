@@ -13,9 +13,9 @@ import type { PettyCashKind } from "@/lib/petty-cash.types";
 export const Route = createFileRoute("/pettycash/$slug")({
   head: () => ({
     meta: [
-      { title: "Petty cash float — The Family Wallet" },
+      { title: "Petty cash float — Family Wallet" },
       { name: "description", content: "Track the household cash float: money added by the family and what the nanny spends." },
-      { property: "og:title", content: "Petty cash float — The Family Wallet" },
+      { property: "og:title", content: "Petty cash float — Family Wallet" },
       { property: "og:description", content: "A shared running balance for nanny spending money." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

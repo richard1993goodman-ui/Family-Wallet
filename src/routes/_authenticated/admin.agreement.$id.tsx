@@ -19,12 +19,12 @@ export const Route = createFileRoute("/_authenticated/admin/agreement/$id")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Nanny agreement builder — The Family Wallet admin" },
+      { title: "Nanny agreement builder — Family Wallet admin" },
       {
         name: "description",
         content: "Build, issue and countersign a family's full nanny employment contract.",
       },
-      { property: "og:title", content: "Nanny agreement builder — The Family Wallet admin" },
+      { property: "og:title", content: "Nanny agreement builder — Family Wallet admin" },
       { property: "og:description", content: "Build, issue and countersign a nanny contract." },
       { name: "robots", content: "noindex" },
     ],

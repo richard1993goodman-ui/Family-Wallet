@@ -1,4 +1,4 @@
-# The Family Wallet. Public pages are open to every search engine and AI crawler.
+# Family Wallet. Public pages are open to every search engine and AI crawler.
 # Private wallets, the agency admin and the API are not for crawling.
 User-agent: *
 Allow: /

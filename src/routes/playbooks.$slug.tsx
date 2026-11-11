@@ -10,9 +10,9 @@ import { getPlaybooks, markPlaybookRead } from "@/lib/premium-content.functions"
 
 export const Route = createFileRoute("/playbooks/$slug")({
   head: () => ({ meta: [
-    { title: "Agency Materials — The Family Wallet" },
+    { title: "Agency Materials — Family Wallet" },
     { name: "description", content: "Audiobooks, digital books, activity guides and seasonal packs for your family." },
-    { property: "og:title", content: "Agency Materials — The Family Wallet" },
+    { property: "og:title", content: "Agency Materials — Family Wallet" },
     { property: "og:description", content: "Audiobooks, digital books, guides and seasonal packs for families and nannies." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },

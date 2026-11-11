@@ -168,7 +168,7 @@ function WalletPage() {
         <div className="surface-card w-full max-w-sm p-7 text-center">
           <Lock className="mx-auto h-7 w-7 text-primary" />
           <p className="mt-4 text-[0.8125rem] font-medium text-muted-foreground">
-            The Family Wallet
+            Family Wallet
           </p>
           <h1 className="heading-display mt-2 text-2xl text-primary">{data.familyName}</h1>
           <p className="mt-3 text-sm text-muted-foreground">

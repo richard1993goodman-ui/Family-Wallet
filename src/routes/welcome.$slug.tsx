@@ -18,7 +18,7 @@ export const Route = createFileRoute("/welcome/$slug")({
   loader: async ({ context, params }) => { await Promise.all([context.queryClient.ensureQueryData(welcomeOptions(params.slug)), context.queryClient.ensureQueryData(first48Options(params.slug))]); },
   head: () => ({
     meta: [
-      { title: "First 48 hours — The Family Wallet" },
+      { title: "First 48 hours — Family Wallet" },
       {
         name: "description",
         content: "A shared parent and nanny checklist for a confident first two days, with confirmations, routines and settling-in notes.",

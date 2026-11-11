@@ -23,7 +23,7 @@ import {
 export const Route = createFileRoute("/incidents/$slug")({
   head: () => ({
     meta: [
-      { title: "Accident & incident reports | The Family Wallet" },
+      { title: "Accident & incident reports | Family Wallet" },
       {
         name: "description",
         content:

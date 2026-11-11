@@ -13,7 +13,7 @@ import { formatPounds } from "@/lib/agency-plans";
 export const Route = createFileRoute("/_authenticated/admin/agencies")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
-    meta: [{ title: "Partner agencies — The Family Wallet" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Partner agencies — Family Wallet" }, { name: "robots", content: "noindex" }],
   }),
   component: AgenciesPage,
 });

@@ -13,7 +13,7 @@ import { COMMON_MEDICINES } from "@/lib/medication.types";
 export const Route = createFileRoute("/medication/$slug")({
   head: () => ({
     meta: [
-      { title: "Medication log | The Family Wallet" },
+      { title: "Medication log | Family Wallet" },
       {
         name: "description",
         content:

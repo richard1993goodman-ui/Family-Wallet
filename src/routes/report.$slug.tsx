@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/report/$slug")({
   head: () => ({
     meta: [
-      { title: "Friday Weekly Report — The Family Wallet" },
+      { title: "Friday Weekly Report — Family Wallet" },
       { name: "description", content: "A polished weekly recap of hours, handovers, activities, sports progress and expenses from your Family Wallet." },
-      { property: "og:title", content: "Friday Weekly Report — The Family Wallet" },
+      { property: "og:title", content: "Friday Weekly Report — Family Wallet" },
       { property: "og:description", content: "Your family's week at a glance, ready to review or print." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

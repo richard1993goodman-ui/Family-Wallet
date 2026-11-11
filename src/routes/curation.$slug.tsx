@@ -9,8 +9,8 @@ import { getConcierge, requestConciergeFn } from "@/lib/concierge.functions";
 import { CURATION_STATUSES, statusLabel } from "@/lib/concierge.types";
 
 export const Route = createFileRoute("/curation/$slug")({ head: () => ({ meta: [
-  { title: "Private Nanny Curation — The Family Wallet" }, { name: "description", content: "Your private, hand-selected nanny search with your agency." },
-  { property: "og:title", content: "Private Nanny Curation — The Family Wallet" }, { property: "og:description", content: "A discreet, hand-selected nanny search without a public catalogue." },
+  { title: "Private Nanny Curation — Family Wallet" }, { name: "description", content: "Your private, hand-selected nanny search with your agency." },
+  { property: "og:title", content: "Private Nanny Curation — Family Wallet" }, { property: "og:description", content: "A discreet, hand-selected nanny search without a public catalogue." },
   { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
 ] }), component: CurationPage });
 

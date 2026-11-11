@@ -15,9 +15,9 @@ export const Route = createFileRoute("/billing/$slug")({
   }),
   head: () => ({
     meta: [
-      { title: "Plan & billing — The Family Wallet" },
+      { title: "Plan & billing — Family Wallet" },
       { name: "description", content: "See your household plan, upgrade, and manage your card and invoices." },
-      { property: "og:title", content: "Plan & billing — The Family Wallet" },
+      { property: "og:title", content: "Plan & billing — Family Wallet" },
       { property: "og:description", content: "Your household plan, upgrades, card and invoices in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

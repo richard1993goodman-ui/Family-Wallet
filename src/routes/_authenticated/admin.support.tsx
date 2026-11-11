@@ -14,9 +14,9 @@ export const Route = createFileRoute("/_authenticated/admin/support")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Support inbox — The Family Wallet admin" },
+      { title: "Support inbox — Family Wallet admin" },
       { name: "description", content: "Questions from your families, newest first." },
-      { property: "og:title", content: "Support inbox — The Family Wallet admin" },
+      { property: "og:title", content: "Support inbox — Family Wallet admin" },
       { property: "og:description", content: "Answer family questions from one place." },
       { name: "robots", content: "noindex" },
     ],

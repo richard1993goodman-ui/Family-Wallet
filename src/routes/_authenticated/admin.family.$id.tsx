@@ -41,9 +41,9 @@ export const Route = createFileRoute("/_authenticated/admin/family/$id")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Family details — The Family Wallet" },
+      { title: "Family details — Family Wallet" },
       { name: "description", content: "Edit a family's wallet, documents and nanny details." },
-      { property: "og:title", content: "Family details — The Family Wallet" },
+      { property: "og:title", content: "Family details — Family Wallet" },
       { property: "og:description", content: "Edit a family's wallet, documents and nanny details." },
       { name: "robots", content: "noindex" },
     ],

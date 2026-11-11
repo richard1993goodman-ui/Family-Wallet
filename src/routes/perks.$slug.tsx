@@ -11,9 +11,9 @@ import { getPerks } from "@/lib/premium-content.functions";
 
 export const Route = createFileRoute("/perks/$slug")({
   head: () => ({ meta: [
-    { title: "Family perks — The Family Wallet" },
+    { title: "Family perks — Family Wallet" },
     { name: "description", content: "Private London partner offers and family concierge recommendations for your family." },
-    { property: "og:title", content: "Family perks — The Family Wallet" },
+    { property: "og:title", content: "Family perks — Family Wallet" },
     { property: "og:description", content: "Private London partner offers and family concierge recommendations." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },

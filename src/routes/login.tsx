@@ -9,7 +9,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Open your wallet — The Family Wallet" },
+      { title: "Open your wallet — Family Wallet" },
       { name: "description", content: "Enter your wallet link and access code to open your Family Wallet." },
       { name: "robots", content: "noindex" },
     ],
@@ -42,7 +42,7 @@ function LoginPage() {
           <div className="mb-8 flex flex-col items-center gap-4">
             <HouseMark className="h-14 w-14" />
             <p className="heading-serif text-center text-[1.75rem] leading-none text-foreground">
-              The Family Wallet
+              Family Wallet
             </p>
           </div>
           <FamilyLogin

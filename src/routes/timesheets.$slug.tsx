@@ -12,9 +12,9 @@ import { isBabysitting, shiftAmount, shiftHours, shiftTotals, type ShiftInput, t
 
 export const Route = createFileRoute("/timesheets/$slug")({
   head: () => ({ meta: [
-    { title: "Timesheets — The Family Wallet" },
+    { title: "Timesheets — Family Wallet" },
     { name: "description", content: "Record nanny shifts and babysitting, and review payment in the private Family Wallet." },
-    { property: "og:title", content: "Timesheets — The Family Wallet" },
+    { property: "og:title", content: "Timesheets — Family Wallet" },
     { property: "og:description", content: "Record and approve nanny shifts and babysitting." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
   ] }),

@@ -35,13 +35,13 @@ export const Route = createFileRoute("/agreement/$slug")({
     typeof search["nanny"] === "string" ? { nanny: search["nanny"] as string } : {},
   head: () => ({
     meta: [
-      { title: "Your nanny agreement — The Family Wallet" },
+      { title: "Your nanny agreement — Family Wallet" },
       {
         name: "description",
         content:
           "Build, read and sign your full nanny employment contract inside your Family Wallet — no printing, no email attachments.",
       },
-      { property: "og:title", content: "Your nanny agreement — The Family Wallet" },
+      { property: "og:title", content: "Your nanny agreement — Family Wallet" },
       {
         property: "og:description",
         content: "Build, read and sign your nanny employment contract inside your Family Wallet.",

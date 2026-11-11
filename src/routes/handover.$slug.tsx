@@ -20,13 +20,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/handover/$slug")({
   head: () => ({
     meta: [
-      { title: "Handover & Expenses — The Family Wallet" },
+      { title: "Handover & Expenses — Family Wallet" },
       {
         name: "description",
         content:
-          "A quick end-of-day handover for homework, dinner, mood and kit, plus petty cash and expenses in the Family Wallet.",
+          "A quick end-of-day handover for homework, dinner, mood and kit, plus petty cash and expenses in Family Wallet.",
       },
-      { property: "og:title", content: "Handover & Expenses — The Family Wallet" },
+      { property: "og:title", content: "Handover & Expenses — Family Wallet" },
       {
         property: "og:description",
         content: "End-of-day updates and small expenses in your Family Wallet.",

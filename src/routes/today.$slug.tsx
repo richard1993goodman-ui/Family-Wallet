@@ -18,7 +18,7 @@ import { CARE_LABELS, dayTotals, napMinutes, type CareEventInput, type CareEvent
 export const Route = createFileRoute("/today/$slug")({
   head: () => ({
     meta: [
-      { title: "Today — The Family Wallet" },
+      { title: "Today — Family Wallet" },
       { name: "description", content: "Quick-tap naps, bottles, meals and nappies, shared between family and nanny." },
       { name: "robots", content: "noindex" },
     ],

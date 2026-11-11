@@ -12,13 +12,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/terms/$slug")({
   head: () => ({
     meta: [
-      { title: "Agency terms — The Family Wallet" },
+      { title: "Agency terms — Family Wallet" },
       {
         name: "description",
         content:
           "Read and sign your agency terms and conditions inside your Family Wallet.",
       },
-      { property: "og:title", content: "Agency terms — The Family Wallet" },
+      { property: "og:title", content: "Agency terms — Family Wallet" },
       {
         property: "og:description",
         content: "Read and sign your agency terms inside your Family Wallet.",

@@ -8,7 +8,7 @@ describe("buildWalletEmail", () => {
 
   it("puts the link and code in both the text and html versions", () => {
     const m = buildWalletEmail("welcome", [wallet]);
-    expect(m.subject).toContain("Welcome to The Family Wallet");
+    expect(m.subject).toContain("Welcome to Family Wallet");
     for (const body of [m.text, m.html]) {
       expect(body).toContain("https://familywallet.io/w/smith-4f2a");
       expect(body).toContain("K7M2PQ");

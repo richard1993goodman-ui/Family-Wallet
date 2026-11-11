@@ -15,9 +15,9 @@ import { bankDetailsSchema, type BankDetailsFull, type BankSummary } from "@/lib
 const bankQuery = (slug: string) => queryOptions({ queryKey: ["bank-details", slug], queryFn: () => getBankSummaries({ data: { slug } }), gcTime: 0 });
 export const Route = createFileRoute("/bankdetails/$slug")({
   head: () => ({ meta: [
-    { title: "Nanny Bank Details — The Family Wallet" },
+    { title: "Nanny Bank Details — Family Wallet" },
     { name: "description", content: "A private place for your nanny to save the bank details parents use to pay them." },
-    { property: "og:title", content: "Nanny Bank Details — The Family Wallet" },
+    { property: "og:title", content: "Nanny Bank Details — Family Wallet" },
     { property: "og:description", content: "Nanny payment details kept hidden until you need them." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
   ] }),

@@ -80,7 +80,7 @@ function ContinuePage() {
           <div className="mt-4 grid gap-3">
             {OFFERED.map((p) => (
               <button key={p} type="button" onClick={() => setPlan(p)} className={`rounded-2xl bg-card p-4 text-left shadow-sm ring-2 ${plan === p ? "ring-primary" : "ring-transparent"}`}>
-                <span className="block font-medium text-foreground">{PLANS[p].name.replace("The Family Wallet: ", "")}</span>
+                <span className="block font-medium text-foreground">{PLANS[p].name.replace("Family Wallet: ", "")}</span>
                 <span className="mt-0.5 block text-sm text-muted-foreground">{price(p, interval)}</span>
               </button>
             ))}

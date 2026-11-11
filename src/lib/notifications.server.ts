@@ -143,7 +143,7 @@ export async function savePushPrefs(
  * service know, so it stands in for a login. Returns generic text if nothing new, since Safari needs every push shown.
  */
 export async function latestForEndpoint(endpoint: string) {
-  const fallback = { title: "The Family Wallet", body: "Open the wallet to see what's new.", url: "/" };
+  const fallback = { title: "Family Wallet", body: "Open the wallet to see what's new.", url: "/" };
   if (!validEndpoint(endpoint)) return fallback;
   const { data: sub } = await supabaseAdmin
     .from("push_subscriptions")
@@ -164,7 +164,7 @@ export async function latestForEndpoint(endpoint: string) {
   await supabaseAdmin.from("push_subscriptions").update({ last_delivered_at: new Date().toISOString() }).eq("id", sub.id);
   const first = items[0]!;
   return {
-    title: "The Family Wallet",
+    title: "Family Wallet",
     body: items.length === 1 ? first.summary : `${items.length} new updates`,
     url: items.length === 1 ? `/${first.feature}/${sub.slug}` : `/w/${sub.slug}`,
   };

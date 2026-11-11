@@ -168,10 +168,10 @@ function SiteHeader() {
       )}
     >
       <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-        <Link to="/" aria-label="The Family Wallet, home" className="flex items-center gap-2.5">
+        <Link to="/" aria-label="Family Wallet, home" className="flex items-center gap-2.5">
           <LogoMark />
           <span className="heading-serif text-[1.375rem] leading-none text-foreground">
-            The Family Wallet
+            Family Wallet
           </span>
         </Link>
         <nav className="hidden items-center gap-7 text-[0.9375rem] md:flex">
@@ -210,7 +210,7 @@ function SiteHeader() {
             <SheetContent side="right" className="w-80">
               <SheetHeader>
                 <SheetTitle className="heading-serif text-xl font-normal">
-                  The Family Wallet
+                  Family Wallet
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
@@ -442,7 +442,7 @@ function Index() {
       <footer id="site-footer" className="pb-10 pt-20">
         <div className={frame}>
           <p className="heading-serif whitespace-nowrap text-[11.4vw] leading-[0.9] tracking-[-0.025em] text-foreground min-[84rem]:text-[10.25rem]">
-            The Family Wallet
+            Family Wallet
           </p>
           <div className="mt-12 flex flex-col justify-between gap-6 text-[0.9375rem] text-muted-foreground md:flex-row">
             <nav className="flex flex-wrap gap-x-7 gap-y-2">
@@ -469,7 +469,7 @@ function Index() {
               </Link>
             </nav>
             <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span>© 2026 The Family Wallet. Built in London.</span>
+              <span>© 2026 Family Wallet. Built in London.</span>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 onClick={onMailtoClick}

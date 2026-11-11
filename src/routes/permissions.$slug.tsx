@@ -22,7 +22,7 @@ import {
 export const Route = createFileRoute("/permissions/$slug")({
   head: () => ({
     meta: [
-      { title: "Permissions & consents | The Family Wallet" },
+      { title: "Permissions & consents | Family Wallet" },
       {
         name: "description",
         content:

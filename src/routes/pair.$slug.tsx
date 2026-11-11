@@ -14,7 +14,7 @@ import { createPairPinFn, getWalletSummary, redeemPairPinFn } from "@/lib/wallet
 export const Route = createFileRoute("/pair/$slug")({
   head: () => ({
     meta: [
-      { title: "Add a device — The Family Wallet" },
+      { title: "Add a device — Family Wallet" },
       { name: "robots", content: "noindex" },
     ],
   }),

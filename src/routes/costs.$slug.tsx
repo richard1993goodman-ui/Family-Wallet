@@ -7,8 +7,8 @@ import { getConcierge } from "@/lib/concierge.functions";
 import { calculateEmploymentCost } from "@/lib/employment-cost.model";
 
 export const Route = createFileRoute("/costs/$slug")({ head: () => ({ meta: [
-  { title: "All-In Nanny Cost Calculator — The Family Wallet" }, { name: "description", content: "Estimate the complete cost of employing your nanny." },
-  { property: "og:title", content: "All-In Nanny Cost Calculator — The Family Wallet" }, { property: "og:description", content: "A clear employment-cost estimate for your agency families." },
+  { title: "All-In Nanny Cost Calculator — Family Wallet" }, { name: "description", content: "Estimate the complete cost of employing your nanny." },
+  { property: "og:title", content: "All-In Nanny Cost Calculator — Family Wallet" }, { property: "og:description", content: "A clear employment-cost estimate for your agency families." },
   { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
 ] }), component: CostsPage });
 

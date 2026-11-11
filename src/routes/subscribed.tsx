@@ -14,7 +14,7 @@ export const Route = createFileRoute("/subscribed")({
   validateSearch: (search: Record<string, unknown>): { session_id?: string } =>
     typeof search["session_id"] === "string" ? { session_id: search["session_id"] } : {},
   head: () => ({
-    meta: [{ title: "Your wallet is ready | The Family Wallet" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Your wallet is ready | Family Wallet" }, { name: "robots", content: "noindex" }],
   }),
   component: Subscribed,
 });
@@ -42,7 +42,7 @@ function Subscribed() {
   return (
     <main className="mx-auto flex min-h-svh max-w-lg flex-col justify-center px-4 py-16">
       <p className="heading-serif text-center text-[1.75rem] leading-none text-foreground">
-        The Family Wallet
+        Family Wallet
       </p>
 
       {!sessionId && (
@@ -134,14 +134,14 @@ function Subscribed() {
           <div className="mt-4 flex flex-wrap gap-3">
             <CopyButton
               label="Copy both"
-              text={`The Family Wallet\nWallet link: ${siteUrl(`/w/${result.slug}`)}\nAccess code: ${result.code}`}
+              text={`Family Wallet\nWallet link: ${siteUrl(`/w/${result.slug}`)}\nAccess code: ${result.code}`}
             />
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => {
-                const text = `The Family Wallet\r\nWallet link: ${siteUrl(`/w/${result.slug}`)}\r\nAccess code: ${result.code}\r\n`;
+                const text = `Family Wallet\r\nWallet link: ${siteUrl(`/w/${result.slug}`)}\r\nAccess code: ${result.code}\r\n`;
                 const url = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
                 const link = document.createElement("a");
                 link.href = url;

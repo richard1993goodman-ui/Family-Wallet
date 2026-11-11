@@ -39,9 +39,9 @@ export const Route = createFileRoute("/_authenticated/admin/")({
   beforeLoad: () => requireTwoStepClient(),
   head: () => ({
     meta: [
-      { title: "Families — The Family Wallet" },
+      { title: "Families — Family Wallet" },
       { name: "description", content: "Create and manage private Family Wallets." },
-      { property: "og:title", content: "Families — The Family Wallet" },
+      { property: "og:title", content: "Families — Family Wallet" },
       { property: "og:description", content: "Create and manage private Family Wallets." },
       { name: "robots", content: "noindex" },
       { property: "og:type", content: "website" },
@@ -336,7 +336,7 @@ function AdminHome() {
               />
             )}
             <p className="text-[0.8125rem] font-medium text-muted-foreground">
-              {status.data?.agencyName ?? "The Family Wallet"}
+              {status.data?.agencyName ?? "Family Wallet"}
             </p>
             <h1 className="heading-display mt-2 text-3xl text-primary">Households</h1>
           </div>

@@ -2,7 +2,7 @@
 self.addEventListener("push", (event) => {
   event.waitUntil(
     (async () => {
-      let title = "The Family Wallet";
+      let title = "Family Wallet";
       let body = "Open the wallet to see what's new.";
       let url = "/";
       try {

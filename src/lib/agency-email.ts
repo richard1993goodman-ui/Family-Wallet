@@ -31,7 +31,7 @@ What happens next:
 
 If anything above is not what you expected, just reply to this email.
 
-The Family Wallet
+Family Wallet
 ${CONTACT_EMAIL}`;
 
   const html = `<div style="font-family:system-ui,sans-serif;max-width:34rem;line-height:1.6;color:#2a2420">
@@ -44,7 +44,7 @@ ${CONTACT_EMAIL}`;
   <li>You invite your families by email. Each one creates its own private wallet, which you never see.</li>
 </ol>
 <p>If anything above is not what you expected, just reply to this email.</p>
-<p style="color:#6b5f55">The Family Wallet<br>${escapeHtml(CONTACT_EMAIL)}</p>
+<p style="color:#6b5f55">Family Wallet<br>${escapeHtml(CONTACT_EMAIL)}</p>
 </div>`;
 
   return { subject, text, html };

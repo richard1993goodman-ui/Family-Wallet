@@ -19,13 +19,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/emergency/$slug")({
   head: () => ({
     meta: [
-      { title: "Emergency Card — The Family Wallet" },
+      { title: "Emergency Card — Family Wallet" },
       {
         name: "description",
         content:
           "One screen with your family's emergency contacts, allergies, medication, GP and home address.",
       },
-      { property: "og:title", content: "Emergency Card — The Family Wallet" },
+      { property: "og:title", content: "Emergency Card — Family Wallet" },
       {
         property: "og:description",
         content: "Key emergency information for your nanny, in one tap.",

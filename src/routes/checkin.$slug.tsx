@@ -19,7 +19,7 @@ import { CHECKIN_KINDS, CHECKIN_PROMPTS, type CheckinKind } from "@/lib/checkin.
 export const Route = createFileRoute("/checkin/$slug")({
   head: () => ({
     meta: [
-      { title: "Reviews & check-ins | The Family Wallet" },
+      { title: "Reviews & check-ins | Family Wallet" },
       {
         name: "description",
         content:

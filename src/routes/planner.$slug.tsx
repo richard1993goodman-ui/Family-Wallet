@@ -19,13 +19,13 @@ import { offPeriodOn, regularHoursApply } from "@/lib/work-hours";
 export const Route = createFileRoute("/planner/$slug")({
   head: () => ({
     meta: [
-      { title: "Weekly Planner — The Family Wallet" },
+      { title: "Weekly Planner — Family Wallet" },
       {
         name: "description",
         content:
           "Your shared week with your nanny: pickups, clubs, homework and activities, day by day.",
       },
-      { property: "og:title", content: "Weekly Planner — The Family Wallet" },
+      { property: "og:title", content: "Weekly Planner — Family Wallet" },
       {
         property: "og:description",
         content: "Plan the week together with your nanny, from any phone.",

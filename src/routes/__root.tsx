@@ -83,19 +83,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "The Family Wallet | Private Hub for Nannies & Household Staff" },
+      { title: "Family Wallet | Private Hub for Nannies & Household Staff" },
       {
         name: "description",
         content:
-          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
+          "Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
-      { property: "og:title", content: "The Family Wallet | Private Hub for Nannies & Household Staff" },
+      { property: "og:title", content: "Family Wallet | Private Hub for Nannies & Household Staff" },
       {
         property: "og:description",
         content:
-          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
+          "Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
-      { name: "author", content: "The Family Wallet" },
+      { name: "author", content: "Family Wallet" },
       { name: "theme-color", content: "#fbf7f0", media: "(prefers-color-scheme: light)" },
       { name: "theme-color", content: "#171412", media: "(prefers-color-scheme: dark)" },
       { property: "og:type", content: "website" },

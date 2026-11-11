@@ -2,7 +2,7 @@
 // Needs RESEND_API_KEY, plus a sender address on a domain verified in Resend (EMAIL_FROM).
 // Without a key this does nothing, so payments and wallet creation never depend on email.
 
-const DEFAULT_FROM = "The Family Wallet <wallet@familywallet.io>";
+const DEFAULT_FROM = "Family Wallet <wallet@familywallet.io>";
 
 import { CONTACT_EMAIL } from "./site";
 

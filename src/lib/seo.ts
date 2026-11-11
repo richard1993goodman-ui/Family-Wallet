@@ -2,7 +2,7 @@
 // share cards and structured data. Pages call pageHead() from their route's head().
 
 export const SITE_URL = "https://familywallet.io";
-export const SITE_NAME = "The Family Wallet";
+export const SITE_NAME = "Family Wallet";
 export const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 export type JsonLd = Record<string, unknown>;

@@ -13,9 +13,9 @@ import { MESSAGE_TOPICS } from "@/lib/messages.types";
 export const Route = createFileRoute("/messages/$slug")({
   head: () => ({
     meta: [
-      { title: "Messages — The Family Wallet" },
+      { title: "Messages — Family Wallet" },
       { name: "description", content: "Private conversations between parents and your nanny, organised by topic." },
-      { property: "og:title", content: "Messages — The Family Wallet" },
+      { property: "og:title", content: "Messages — Family Wallet" },
       { property: "og:description", content: "Chat about specific things — children, school, meals, pay — in one private place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

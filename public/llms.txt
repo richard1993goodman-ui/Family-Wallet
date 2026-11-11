@@ -1,9 +1,9 @@
-# The Family Wallet
+# Family Wallet
 
-> The Family Wallet is a private app for families who employ a nanny, au pair or other household staff, and for nanny agencies who want to give every family a wallet. Families keep the shared week, the signed agreement, daily logs, timesheets, the house manual and an emergency card in one private place. Built in London. © 2026.
+> Family Wallet is a private app for families who employ a nanny, au pair or other household staff, and for nanny agencies who want to give every family a wallet. Families keep the shared week, the signed agreement, daily logs, timesheets, the house manual and an emergency card in one private place. Built in London. © 2026.
 
 ## Key pages
-- [Home](https://familywallet.io/): what the Family Wallet is and a spin-and-tap phone demo
+- [Home](https://familywallet.io/): what Family Wallet is and a spin-and-tap phone demo
 - [Pricing](https://familywallet.io/pricing): Family £9.99/month and Household £19.99/month for families (excluding VAT); Partner, Growth, Scale and Enterprise plans for agencies
 - [Nanny management app](https://familywallet.io/nanny-management-app): what a family gets, day to day
 - [Household staff app](https://familywallet.io/household-staff-app): nanny, au pair, housekeeper, cook, driver and more under one roof

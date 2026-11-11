@@ -13,12 +13,12 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Agency sign in — The Family Wallet" },
+      { title: "Agency sign in — Family Wallet" },
       {
         name: "description",
         content: "Sign in to manage Family Wallets, documents and nanny tools.",
       },
-      { property: "og:title", content: "Agency sign in — The Family Wallet" },
+      { property: "og:title", content: "Agency sign in — Family Wallet" },
       { property: "og:description", content: "Private sign in for your agency team." },
       { name: "robots", content: "noindex" },
     ],
@@ -155,7 +155,7 @@ function AuthPage() {
           Back to home page
         </Link>
         <p className="mt-5 text-xs font-medium text-muted-foreground">
-          The Family Wallet
+          Family Wallet
         </p>
         <h1 className="heading-display mt-2 text-2xl text-primary">Agency sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">

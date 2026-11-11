@@ -24,12 +24,12 @@ import { termPresets, weeklyHours, type OffPeriod, type WorkSchedule } from "@/l
 export const Route = createFileRoute("/hours/$slug")({
   head: () => ({
     meta: [
-      { title: "Working hours — The Family Wallet" },
+      { title: "Working hours — Family Wallet" },
       {
         name: "description",
         content: "Set the days and hours each nanny works so the weekly schedule fits your family.",
       },
-      { property: "og:title", content: "Working hours — The Family Wallet" },
+      { property: "og:title", content: "Working hours — Family Wallet" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

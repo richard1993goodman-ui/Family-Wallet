@@ -23,7 +23,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
           <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
             <LogoMark />
-            The Family Wallet
+            Family Wallet
           </Link>
           <nav aria-label="Main" className="hidden items-center gap-6 text-[0.9375rem] lg:flex">
             {nav.map((n) => (
@@ -46,7 +46,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
       <footer className="border-t border-border/70 pb-12 pt-12">
         <div className={cn(frame, "grid gap-10 sm:grid-cols-2 lg:grid-cols-4")}>
           <div>
-            <p className="heading-serif text-xl text-foreground">The Family Wallet</p>
+            <p className="heading-serif text-xl text-foreground">Family Wallet</p>
             <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-muted-foreground">
               A private app for families who employ a nanny, au pair or household staff.
             </p>
@@ -78,7 +78,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
           />
         </div>
         <div className={cn(frame, "mt-10 text-xs text-muted-foreground")}>
-          © 2026 The Family Wallet. Built in London. Guides are general information, not legal or tax advice.
+          © 2026 Family Wallet. Built in London. Guides are general information, not legal or tax advice.
         </div>
       </footer>
     </div>

@@ -17,9 +17,9 @@ import { canManageManual, MANUAL_CATEGORIES, manualEntrySchema, type ManualInput
 const manualQuery = (slug: string) => queryOptions({ queryKey: ["house-manual", slug], queryFn: () => getHouseManual({ data: { slug } }) });
 export const Route = createFileRoute("/housemanual/$slug")({
   head: () => ({ meta: [
-    { title: "House Manual & Codes — The Family Wallet" },
+    { title: "House Manual & Codes — Family Wallet" },
     { name: "description", content: "Your household's WiFi, access instructions, utilities, house rules and appliance notes in one private place." },
-    { property: "og:title", content: "House Manual & Codes — The Family Wallet" },
+    { property: "og:title", content: "House Manual & Codes — Family Wallet" },
     { property: "og:description", content: "Private household essentials shared between your family and nanny." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
   ] }),

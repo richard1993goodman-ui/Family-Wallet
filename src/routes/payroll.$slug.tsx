@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { getConcierge, requestConciergeFn } from "@/lib/concierge.functions";
 
 export const Route = createFileRoute("/payroll/$slug")({ head: () => ({ meta: [
-  { title: "Payroll setup — The Family Wallet" }, { name: "description", content: "Get set up with payroll through our partner Nannytax, with a unique referral code." },
-  { property: "og:title", content: "Payroll setup — The Family Wallet" }, { property: "og:description", content: "Contact support and we'll connect you with Nannytax for payroll." },
+  { title: "Payroll setup — Family Wallet" }, { name: "description", content: "Get set up with payroll through our partner Nannytax, with a unique referral code." },
+  { property: "og:title", content: "Payroll setup — Family Wallet" }, { property: "og:description", content: "Contact support and we'll connect you with Nannytax for payroll." },
   { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
 ] }), component: PayrollPage });
 
@@ -31,7 +31,7 @@ function PayrollPage() {
       toast.success("Sent to support. We'll email your referral code.");
     } catch { toast.error("Couldn't send. Please try again."); } finally { setSending(false); }
   };
-  return <HubPage slug={slug} title="Payroll setup" intro="The Family Wallet keeps your agreement, hours and records. For payroll, payslips and HMRC, we connect you with our partners at Nannytax.">
+  return <HubPage slug={slug} title="Payroll setup" intro="Family Wallet keeps your agreement, hours and records. For payroll, payslips and HMRC, we connect you with our partners at Nannytax.">
     {code ? (
       <Card>
         <h2 className="font-medium text-foreground">Your Nannytax referral code</h2>
@@ -53,6 +53,6 @@ function PayrollPage() {
         <Button className="mt-4" disabled={sending || requested} onClick={ask}>{requested ? "Request sent, we'll be in touch" : sending ? "Sending…" : "Contact support"}</Button>
       </Card>
     )}
-    <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Nannytax is an independent payroll provider. The Family Wallet does not run payroll or file tax returns.</p>
+    <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Nannytax is an independent payroll provider. Family Wallet does not run payroll or file tax returns.</p>
   </HubPage>;
 }

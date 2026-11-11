@@ -8,7 +8,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/demo")({
   head: () =>
     pageHead({
-      title: "Demo The Family Wallet",
+      title: "Demo Family Wallet",
       description: "Explore a sample Family Wallet: agreement, planner, daily logs, sports passport and more.",
       path: "/demo",
       noindex: true,

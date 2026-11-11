@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import markUrl from "@/assets/family-wallet-mark.png";
 
-/** The Family Wallet logo mark (two overlapping houses). */
+/** Family Wallet logo mark (two overlapping houses). */
 export function LogoMark({ className }: { className?: string }) {
   return <img src={markUrl} alt="" aria-hidden="true" className={cn("h-7 w-7 flex-none object-contain", className)} />;
 }
@@ -52,7 +52,7 @@ export function Wordmark({
       )}
       <span className="min-w-0">
         <span className="heading-serif block truncate text-[1.1875rem] leading-none text-foreground">
-          The Family Wallet
+          Family Wallet
         </span>
         {subline && (
           <span className="mt-1 block truncate text-xs text-muted-foreground">{subline}</span>

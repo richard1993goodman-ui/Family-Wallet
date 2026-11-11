@@ -50,7 +50,7 @@ import {
 import { cn } from "@/lib/utils";
 
 /*
- * A working copy of the Family Wallet for the landing page. Names and details come from the
+ * A working copy of Family Wallet for the landing page. Names and details come from the
  * public demo wallet, and nothing here talks to a server.
  */
 
@@ -1834,7 +1834,7 @@ export function WalletPhone({ app }: { app: WalletApp }) {
             <span className="size-10 rounded-full bg-[#0b0f19] ring-[5px] ring-white/10" />
           </span>
           <span className="absolute inset-x-0 top-[46%] text-center font-display text-[22px] tracking-[-0.01em] text-white/35">
-            The Family Wallet
+            Family Wallet
           </span>
         </div>
 

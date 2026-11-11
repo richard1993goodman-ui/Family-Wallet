@@ -310,7 +310,7 @@ function PricingPageInner() {
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
           <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
             <LogoMark />
-            The Family Wallet
+            Family Wallet
           </Link>
           <div className="flex items-center gap-2">
             <Button variant="ghost" className="hidden sm:inline-flex" asChild>

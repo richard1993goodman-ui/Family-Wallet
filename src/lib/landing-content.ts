@@ -43,7 +43,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. From £9.99 a month.",
     h1: "The nanny management app for parents",
     intro:
-      "If your nanny arrangement lives across WhatsApp, a spreadsheet and a contract buried in your email, the Family Wallet puts it in one private place that both of you can open from your phones.",
+      "If your nanny arrangement lives across WhatsApp, a spreadsheet and a contract buried in your email, Family Wallet puts it in one private place that both of you can open from your phones.",
     image: {
       src: "/images/kids/school-run.jpg",
       alt: "A line of children in sun hats and bright backpacks walking away from the camera on the school run",
@@ -52,7 +52,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "What you stop doing",
         paragraphs: [
-          "Most families start with good intentions and a group chat. A few months in, the hours are in one place, the house rules in another, and nobody can find the signed contract. The Family Wallet is built for the family you already have, not for finding a new nanny.",
+          "Most families start with good intentions and a group chat. A few months in, the hours are in one place, the house rules in another, and nobody can find the signed contract. Family Wallet is built for the family you already have, not for finding a new nanny.",
         ],
         bullets: [
           "Scrolling a chat to find what time pick-up changed to",
@@ -79,7 +79,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Works alongside your payroll",
         paragraphs: [
-          "The Family Wallet is not a payroll service. It keeps the agreement, the hours and the records tidy, and includes an employment cost calculator, so you know what a nanny really costs before you hire. Use it with whichever payroll provider you already trust.",
+          "Family Wallet is not a payroll service. It keeps the agreement, the hours and the records tidy, and includes an employment cost calculator, so you know what a nanny really costs before you hire. Use it with whichever payroll provider you already trust.",
         ],
       },
     ],
@@ -125,7 +125,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       "One private app for your nanny, au pair, housekeeper, cook, driver and PA. Roles, agreements, rotas and timesheets for every member of your household team.",
     h1: "One app for your whole household team",
     intro:
-      "A busy home often has more than one person helping: a nanny, an au pair, a housekeeper, a driver. The Family Wallet gives each of them a role and their own sign-in, and keeps everyone's week, hours and agreement in one private place.",
+      "A busy home often has more than one person helping: a nanny, an au pair, a housekeeper, a driver. Family Wallet gives each of them a role and their own sign-in, and keeps everyone's week, hours and agreement in one private place.",
     image: {
       src: "/images/kids/chef.jpg",
       alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen",
@@ -207,12 +207,12 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
 
   agencies: {
     path: "/for-agencies",
-    title: "Family App for Nanny Agencies | The Family Wallet",
+    title: "Family App for Nanny Agencies | Family Wallet",
     description:
       "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £79 a month, nannies free.",
     h1: "Give every family you place a private wallet",
     intro:
-      "Your families remember how the first month went. The Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",
+      "Your families remember how the first month went. Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",
     image: {
       src: "/images/london/colouring.jpg",
       alt: "Two children colouring in Easter pictures with felt-tip pens at a table in the sun",
@@ -299,10 +299,10 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/compare",
     title: "Family Wallet vs Daily Nanny, Pebbi and Brightwheel | Compared",
     description:
-      "How the Family Wallet compares with Daily Nanny, Pebbi and Brightwheel: what each is for, what it costs, and which suits a UK family that employs a nanny.",
+      "How Family Wallet compares with Daily Nanny, Pebbi and Brightwheel: what each is for, what it costs, and which suits a UK family that employs a nanny.",
     h1: "Family Wallet compared with Daily Nanny, Pebbi and Brightwheel",
     intro:
-      "These apps look similar from a distance, but they solve different problems. Some track a baby's day, one runs nurseries, and the Family Wallet looks after the employment side of having a nanny. Here is an honest side-by-side, so you can pick the right one or use two together.",
+      "These apps look similar from a distance, but they solve different problems. Some track a baby's day, one runs nurseries, and Family Wallet looks after the employment side of having a nanny. Here is an honest side-by-side, so you can pick the right one or use two together.",
     sections: [
       {
         heading: "At a glance",
@@ -323,38 +323,38 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Family Wallet vs Daily Nanny",
         paragraphs: [
-          "Daily Nanny is a shared diary of the child's day: a feed, photos, messages and charts. The Family Wallet also has a quick daily log, but adds what an employer needs: a signed agreement, approved timesheets, expenses, leave, a house manual and an incident record.",
-          "If all you want is a nice feed of the day, Daily Nanny is simpler and cheaper. If you employ someone and want the paperwork in order, the Family Wallet covers that.",
+          "Daily Nanny is a shared diary of the child's day: a feed, photos, messages and charts. Family Wallet also has a quick daily log, but adds what an employer needs: a signed agreement, approved timesheets, expenses, leave, a house manual and an incident record.",
+          "If all you want is a nice feed of the day, Daily Nanny is simpler and cheaper. If you employ someone and want the paperwork in order, Family Wallet covers that.",
         ],
       },
       {
         heading: "Family Wallet vs Pebbi",
         paragraphs: [
           "Pebbi is a detailed baby tracker, with breastfeeding, pumping, growth and insights, and it is generous on its free plan. It is built around the baby and the people who care for them, not around a nanny as an employee.",
-          "The Family Wallet is lighter on baby-specific detail and heavier on the household arrangement. Plenty of families will happily use Pebbi for feeds and the Family Wallet for the nanny relationship.",
+          "Family Wallet is lighter on baby-specific detail and heavier on the household arrangement. Plenty of families will happily use Pebbi for feeds and Family Wallet for the nanny relationship.",
         ],
       },
       {
         heading: "Family Wallet vs Brightwheel",
         paragraphs: [
           "Brightwheel is management software for nurseries, preschools and childcare centres, mostly in the United States, with enrolment, billing and room ratios. It is not designed for a family with a nanny at home, and it does not publish a price.",
-          "If you run a nursery, look at Brightwheel. If you are a family or a nanny agency, the Family Wallet is the closer fit.",
+          "If you run a nursery, look at Brightwheel. If you are a family or a nanny agency, Family Wallet is the closer fit.",
         ],
       },
       {
         heading: "Which should you choose?",
         bullets: [
           "You want a baby log with no employment admin: Pebbi or Daily Nanny.",
-          "You employ a nanny and want the agreement, hours, expenses and safety records in one place: the Family Wallet.",
-          "You run a nanny agency and want every client family on a funded wallet: the Family Wallet for agencies.",
+          "You employ a nanny and want the agreement, hours, expenses and safety records in one place: Family Wallet.",
+          "You run a nanny agency and want every client family on a funded wallet: Family Wallet for agencies.",
           "You run a nursery: Brightwheel.",
         ],
       },
     ],
     faqs: [
-      { q: "Can I use the Family Wallet and a baby tracker together?", a: "Yes. They do different jobs. Many families log feeds in a baby tracker and keep the nanny agreement, hours and expenses in the Family Wallet." },
-      { q: "Is the Family Wallet a baby tracker?", a: "It has a quick daily log for naps, bottles, meals and nappies, photos and an end-of-day handover. It is not a full baby tracker: there is no breastfeeding, pumping or growth charting." },
-      { q: "Is the Family Wallet only for the UK?", a: "It is built for UK families: prices are in pounds and the guides cover UK employment rules." },
+      { q: "Can I use Family Wallet and a baby tracker together?", a: "Yes. They do different jobs. Many families log feeds in a baby tracker and keep the nanny agreement, hours and expenses in Family Wallet." },
+      { q: "Is Family Wallet a baby tracker?", a: "It has a quick daily log for naps, bottles, meals and nappies, photos and an end-of-day handover. It is not a full baby tracker: there is no breastfeeding, pumping or growth charting." },
+      { q: "Is Family Wallet only for the UK?", a: "It is built for UK families: prices are in pounds and the guides cover UK employment rules." },
     ],
     cta: {
       heading: "See it for yourself",
@@ -418,7 +418,7 @@ export const GUIDES: Record<string, PageContent> = {
       {
         heading: "Pay, tax and payslips",
         paragraphs: [
-          "As an employer you will usually need to register with HMRC, run PAYE, deduct tax and National Insurance, and give your nanny a payslip each time they are paid. Many families use a payroll service for this. The Family Wallet is not a payroll service, but it keeps the agreement, the hours and the records in one place and includes an employment cost calculator so you know the true cost before you hire.",
+          "As an employer you will usually need to register with HMRC, run PAYE, deduct tax and National Insurance, and give your nanny a payslip each time they are paid. Many families use a payroll service for this. Family Wallet is not a payroll service, but it keeps the agreement, the hours and the records in one place and includes an employment cost calculator so you know the true cost before you hire.",
         ],
       },
       {
@@ -430,7 +430,7 @@ export const GUIDES: Record<string, PageContent> = {
       {
         heading: "Build and sign yours online",
         paragraphs: [
-          "The Family Wallet includes an agreement builder. You choose the clauses that fit your family, and you and your nanny both sign in the app. The signed agreement is stored next to your shared week, timesheets and daily log, so you can always find it.",
+          "Family Wallet includes an agreement builder. You choose the clauses that fit your family, and you and your nanny both sign in the app. The signed agreement is stored next to your shared week, timesheets and daily log, so you can always find it.",
         ],
       },
     ],
@@ -445,7 +445,7 @@ export const GUIDES: Record<string, PageContent> = {
       },
       {
         q: "Who should sign it?",
-        a: "The employer, which is you or both parents, and the nanny, ideally before the first day of work. In the Family Wallet both of you sign in the app.",
+        a: "The employer, which is you or both parents, and the nanny, ideally before the first day of work. In Family Wallet both of you sign in the app.",
       },
       {
         q: "What if the terms change later?",
@@ -453,7 +453,7 @@ export const GUIDES: Record<string, PageContent> = {
       },
     ],
     cta: {
-      heading: "Build your agreement in the Family Wallet",
+      heading: "Build your agreement in Family Wallet",
       body: "Choose your clauses, then both sign in the app. Plans start at £9.99 a month.",
       label: "See pricing",
       to: "/pricing",
@@ -514,7 +514,7 @@ export const GUIDES: Record<string, PageContent> = {
       {
         heading: "Work out the true cost",
         paragraphs: [
-          "Start with the gross hourly rate and the weekly hours, then add employer National Insurance, pension, holiday and payroll fees. The Family Wallet includes an employment cost calculator that does this for you, and you can try it in the demo wallet.",
+          "Start with the gross hourly rate and the weekly hours, then add employer National Insurance, pension, holiday and payroll fees. Family Wallet includes an employment cost calculator that does this for you, and you can try it in the demo wallet.",
         ],
       },
     ],
