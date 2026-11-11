@@ -13,6 +13,7 @@ import { addPlannerEntryFn } from "@/lib/family.functions";
 import { saveMomentPhotoFn } from "@/lib/moments.functions";
 import { endShiftFn, getTodayFn, startShiftFn } from "@/lib/shift.functions";
 import type { TimelineItem, TimelineKind } from "@/lib/today-timeline";
+import { useT } from "@/lib/i18n/provider";
 
 const ICONS: Record<TimelineKind, typeof Clock3> = {
   shift: Clock3,
@@ -53,6 +54,7 @@ async function shrink(file: File) {
 
 /** The shift as one timeline, with one-tap start and end and quick capture. */
 export function TodayTimeline({ slug }: { slug: string }) {
+  const t = useT();
   const client = useQueryClient();
   const todayFn = useServerFn(getTodayFn);
   const startFn = useServerFn(startShiftFn);
@@ -74,7 +76,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
   const isNanny = data.access === "nanny";
   const refresh = () => Promise.all([client.invalidateQueries({ queryKey: ["today", slug] }), client.invalidateQueries({ queryKey: ["expected-shifts", slug] }), client.invalidateQueries({ queryKey: ["timesheets", slug] })]);
 
-  const run = async (job: () => Promise<unknown>, done: string) => {
+  const run = async (job: ()  => Promise<unknown>, done: string) => {
     setBusy(true);
     try {
       await job();
@@ -82,7 +84,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
       toast.success(done);
       return true;
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "That didn't save");
+      toast.error(e instanceof Error ? e.message : t("tl.thatDidnTSave"));
       return false;
     } finally {
       setBusy(false);
@@ -99,7 +101,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
       await photoFn({
         data: { slug, moment: { kind: "photo", momentDate: data.today, caption: photo.caption, childId: photo.child || undefined, fileName: "photo.jpg", contentType: "image/jpeg", base64 } },
       });
-    }, "Photo shared");
+    }, t("tl.photoShared"));
     if (ok) {
       setPhoto(null);
       if (fileRef.current) fileRef.current.value = "";
@@ -110,7 +112,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
     if (!note?.text.trim()) return;
     const ok = await run(
       () => plannerFn({ data: { slug, entryDate: data.today, timeLabel: data.now, title: note.text.trim(), entryType: note.type } }),
-      note.type === "activity" ? "Activity added" : "Note added",
+      note.type === "activity" ? t("tl.activityAdded") : t("tl.noteAdded"),
     );
     if (ok) setNote(null);
   };
@@ -133,18 +135,16 @@ export function TodayTimeline({ slug }: { slug: string }) {
             </p>
             <p className="heading-display mt-0.5 text-xl text-foreground">{status}</p>
             {data.shift && !data.shift.open && isNanny && (
-              <p className="mt-1 text-sm text-muted-foreground">Sent to your timesheet for a parent to approve.</p>
+              <p className="mt-1 text-sm text-muted-foreground">{t("tl.sentToYourTimesheetFor")}</p>
             )}
           </div>
           {isNanny && !data.shift && (
-            <Button size="lg" disabled={busy} onClick={() => void run(() => startFn({ data: { slug } }), "Shift started")}>
-              <Play className="h-4 w-4" /> Start shift
-            </Button>
+            <Button size="lg" disabled={busy} onClick={() => void run(() => startFn({ data: { slug } }), t("tl.shiftStarted"))}>
+              <Play className="h-4 w-4" />{t("tl.startShift")}</Button>
           )}
           {isNanny && data.shift?.open && !ending && (
             <Button size="lg" variant="outline" disabled={busy} onClick={() => setEnding(true)}>
-              <Square className="h-4 w-4" /> End shift
-            </Button>
+              <Square className="h-4 w-4" />{t("tl.endShift")}</Button>
           )}
         </div>
         {ending && (
@@ -152,20 +152,18 @@ export function TodayTimeline({ slug }: { slug: string }) {
             className="mt-4 flex flex-wrap items-end gap-3 border-t border-border pt-4"
             onSubmit={(e) => {
               e.preventDefault();
-              void run(() => endFn({ data: { slug, breakMinutes: Number(breakMins) || 0 } }), "Shift finished and sent for approval").then((ok) => ok && setEnding(false));
+              void run(() => endFn({ data: { slug, breakMinutes: Number(breakMins) || 0 } }), t("tl.shiftFinishedAndSentFor")).then((ok) => ok && setEnding(false));
             }}
           >
-            <label className="block text-sm font-medium text-foreground">
-              Unpaid break (minutes)
-              <Input className="mt-1.5 w-32" type="number" min="0" max="720" value={breakMins} onChange={(e) => setBreakMins(e.target.value)} />
+            <label className="block text-sm font-medium text-foreground">{t("tl.unpaidBreakMinutes")}<Input className="mt-1.5 w-32" type="number" min="0" max="720" value={breakMins} onChange={(e) => setBreakMins(e.target.value)} />
             </label>
-            <Button type="submit" disabled={busy}>Finish and send hours</Button>
-            <Button type="button" variant="ghost" onClick={() => setEnding(false)}>Cancel</Button>
+            <Button type="submit" disabled={busy}>{t("tl.finishAndSendHours")}</Button>
+            <Button type="button" variant="ghost" onClick={() => setEnding(false)}>{t("tl.cancel")}</Button>
           </form>
         )}
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Quick capture">
+      <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label={t("tl.quickCapture")}>
         <input
           ref={fileRef}
           type="file"
@@ -177,13 +175,13 @@ export function TodayTimeline({ slug }: { slug: string }) {
             if (file) setPhoto({ file, caption: "", child: "" });
           }}
         />
-        <Chip icon={Camera} label="Photo" onClick={() => fileRef.current?.click()} />
-        <Chip icon={Utensils} label="Snack" disabled={busy} onClick={() => void log("Snack", "Snack")} />
-        <Chip icon={Utensils} label="Dinner" disabled={busy} onClick={() => void log("Dinner", "Dinner")} />
-        <Chip icon={CalendarClock} label="Activity" onClick={() => setNote({ type: "activity", text: "" })} />
-        <Chip icon={StickyNote} label="Note" onClick={() => setNote({ type: "note", text: "" })} />
-        <ChipLink icon={Pill} label="Medicine" to="/medication/$slug" slug={slug} />
-        <ChipLink icon={Receipt} label="Expense" to="/handover/$slug" slug={slug} />
+        <Chip icon={Camera} label={t("tl.photo")} onClick={() => fileRef.current?.click()} />
+        <Chip icon={Utensils} label={t("tl.snack")} disabled={busy} onClick={() => void log("Snack", t("tl.snack"))} />
+        <Chip icon={Utensils} label={t("tl.dinner")} disabled={busy} onClick={() => void log("Dinner", t("tl.dinner"))} />
+        <Chip icon={CalendarClock} label={t("tl.activity")} onClick={() => setNote({ type: "activity", text: "" })} />
+        <Chip icon={StickyNote} label={t("tl.note")} onClick={() => setNote({ type: "note", text: "" })} />
+        <ChipLink icon={Pill} label={t("tl.medicine")} to="/medication/$slug" slug={slug} />
+        <ChipLink icon={Receipt} label={t("tl.expense")} to="/handover/$slug" slug={slug} />
       </div>
 
       {note && (
@@ -197,28 +195,28 @@ export function TodayTimeline({ slug }: { slug: string }) {
           <Input
             autoFocus
             className="min-w-0 flex-1"
-            placeholder={note.type === "activity" ? "What are you doing? e.g. Football at the park" : "A note for today"}
+            placeholder={note.type === "activity" ? t("tl.whatAreYouDoingE") : t("tl.aNoteForToday")}
             value={note.text}
             onChange={(e) => setNote({ ...note, text: e.target.value })}
           />
-          <Button type="submit" disabled={busy || !note.text.trim()}>Add</Button>
-          <Button type="button" variant="ghost" onClick={() => setNote(null)}>Cancel</Button>
+          <Button type="submit" disabled={busy || !note.text.trim()}>{t("tl.add")}</Button>
+          <Button type="button" variant="ghost" onClick={() => setNote(null)}>{t("tl.cancel")}</Button>
         </form>
       )}
 
       {photo && (
         <Card>
-          <p className="text-sm font-medium text-foreground">Share this photo</p>
+          <p className="text-sm font-medium text-foreground">{t("tl.shareThisPhoto")}</p>
           <img src={URL.createObjectURL(photo.file)} alt="Preview" className="mt-3 max-h-56 rounded-xl object-cover" />
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <Input placeholder="Add a caption (optional)" value={photo.caption} onChange={(e) => setPhoto({ ...photo, caption: e.target.value })} />
+            <Input placeholder={t("tl.addACaptionOptional")} value={photo.caption} onChange={(e) => setPhoto({ ...photo, caption: e.target.value })} />
             {data.children.length > 0 && (
               <select
                 className="rounded-md border border-input bg-background px-3 py-2 text-sm"
                 value={photo.child}
                 onChange={(e) => setPhoto({ ...photo, child: e.target.value })}
               >
-                <option value="">All of the children</option>
+                <option value="">{t("tl.allOfTheChildren")}</option>
                 {data.children.map((c) => (
                   <option key={c.id} value={c.id}>{c.name}</option>
                 ))}
@@ -226,15 +224,15 @@ export function TodayTimeline({ slug }: { slug: string }) {
             )}
           </div>
           <div className="mt-3 flex gap-2">
-            <Button disabled={busy} onClick={() => void sharePhoto()}>Share</Button>
-            <Button variant="ghost" onClick={() => setPhoto(null)}>Cancel</Button>
+            <Button disabled={busy} onClick={() => void sharePhoto()}>{t("tl.share")}</Button>
+            <Button variant="ghost" onClick={() => setPhoto(null)}>{t("tl.cancel")}</Button>
           </div>
         </Card>
       )}
 
       {data.summary && (
         <div data-tint="butter" className="tint-card rounded-2xl p-5">
-          <h2 className="heading-display text-lg text-foreground">End-of-day summary</h2>
+          <h2 className="heading-display text-lg text-foreground">{t("tl.endOfDaySummary")}</h2>
           <ul className="mt-2 space-y-1 text-sm text-foreground">
             {data.summary.map((line) => (
               <li key={line}>{line}</li>
@@ -243,9 +241,9 @@ export function TodayTimeline({ slug }: { slug: string }) {
         </div>
       )}
 
-      <section aria-label="Timeline">
+      <section aria-label={t("tl.timeline")}>
         {data.timeline.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Nothing yet today. Start the shift and log things as they happen, and the day fills in here.</p>
+          <p className="text-sm text-muted-foreground">{t("tl.nothingYetTodayStartThe")}</p>
         ) : (
           <ol className="relative space-y-1 border-l border-border pl-5">
             {data.timeline.map((item) => (
@@ -259,6 +257,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
 }
 
 function TimelineRow({ item }: { item: TimelineItem }) {
+  const t = useT();
   const Icon = ICONS[item.kind];
   const next = item.state === "next";
   const upcoming = item.state === "upcoming";
@@ -277,8 +276,8 @@ function TimelineRow({ item }: { item: TimelineItem }) {
         <div className="flex flex-wrap items-baseline gap-x-2">
           <span className="num text-sm font-semibold text-foreground">{item.at ?? "Today"}</span>
           <span className={`text-sm ${upcoming ? "text-muted-foreground" : "text-foreground"}`}>{item.title}</span>
-          {next && <span className="rounded-full bg-primary px-2 py-0.5 text-[0.6875rem] font-medium text-primary-foreground">Next</span>}
-          {item.attention && <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[0.6875rem] font-medium text-warning">Check</span>}
+          {next && <span className="rounded-full bg-primary px-2 py-0.5 text-[0.6875rem] font-medium text-primary-foreground">{t("tl.next")}</span>}
+          {item.attention && <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[0.6875rem] font-medium text-warning">{t("tl.check")}</span>}
         </div>
         {(item.detail || item.childName) && (
           <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{[item.childName, item.detail].filter(Boolean).join(" · ")}</p>

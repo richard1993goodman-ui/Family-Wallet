@@ -15,6 +15,7 @@ import {
   getCareEvents,
 } from "@/lib/care-events.functions";
 import { CARE_LABELS, dayTotals, napMinutes, type CareEventInput, type CareEventRow } from "@/lib/care-events.types";
+import { useT } from "@/lib/i18n/provider";
 
 export const Route = createFileRoute("/today/$slug")({
   head: () => ({
@@ -41,6 +42,7 @@ function describe(e: CareEventRow) {
 }
 
 function TodayPage() {
+  const t = useT();
   const { slug } = Route.useParams();
   const client = useQueryClient();
   const load = useServerFn(getCareEvents);
@@ -57,14 +59,14 @@ function TodayPage() {
   if (!query.data) return <LockedNotice slug={slug} />;
   const data = query.data;
 
-  const run = async (job: () => Promise<unknown>, done?: string) => {
+  const run = async (job: ()  => Promise<unknown>, done?: string) => {
     setBusy(true);
     try {
       await job();
       await client.invalidateQueries({ queryKey: ["care-events", slug] });
       if (done) toast.success(done);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "That could not be saved.");
+      toast.error(error instanceof Error ? error.message : t("today.thatCouldNotBeSaved"));
     } finally {
       setBusy(false);
     }
@@ -86,16 +88,16 @@ function TodayPage() {
   const canDelete = (e: CareEventRow) => data.access === "family" || e.addedBy === data.access;
 
   return (
-    <HubPage slug={slug} title="Today" intro="The whole shift in one place: what's coming up, what's been done, and quick buttons to log it. Everyone in the household sees it straight away.">
+    <HubPage slug={slug} title={t("today.today")} intro="The whole shift in one place: what's coming up, what's been done, and quick buttons to log it. Everyone in the household sees it straight away.">
       <TodayTimeline slug={slug} />
       <details className="mt-10 rounded-2xl bg-card p-4 shadow-sm">
-        <summary className="cursor-pointer text-base font-medium text-foreground">Baby &amp; toddler log (naps, bottles, nappies)</summary>
+        <summary className="cursor-pointer text-base font-medium text-foreground">{t("today.babyToddlerLogNapsBottles")}</summary>
         <div className="mt-4">
       {data.children.length > 1 && (
         <label className="mb-4 block">
-          <span className="text-sm font-medium text-foreground">Who is this for?</span>
+          <span className="text-sm font-medium text-foreground">{t("today.whoIsThisFor")}</span>
           <select value={childId} onChange={(e) => setChildId(e.target.value)} className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
-            <option value="">All of the children</option>
+            <option value="">{t("tl.allOfTheChildren")}</option>
             {data.children.map((c) => (<option key={c.id} value={c.id}>{c.name}</option>))}
           </select>
         </label>
@@ -104,37 +106,31 @@ function TodayPage() {
       <Card>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {sleeping ? (
-            <Button disabled={busy} onClick={() => run(() => endNap({ data: { slug, id: sleeping.id } }), "Nap ended")} className="h-16 flex-col gap-1">
-              <Moon className="h-5 w-5" /> Woke up
-            </Button>
+            <Button disabled={busy} onClick={() => run(() => endNap({ data: { slug, id: sleeping.id } }), t("today.napEnded"))} className="h-16 flex-col gap-1">
+              <Moon className="h-5 w-5" />{t("today.wokeUp")}</Button>
           ) : (
-            <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nap" }, "Nap started")} className="h-16 flex-col gap-1">
-              <Moon className="h-5 w-5" /> Start nap
-            </Button>
+            <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nap" }, t("today.napStarted"))} className="h-16 flex-col gap-1">
+              <Moon className="h-5 w-5" />{t("today.startNap")}</Button>
           )}
-          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "meal" }, "Meal logged")} className="h-16 flex-col gap-1">
-            <Utensils className="h-5 w-5" /> Meal
-          </Button>
-          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nappy", detail: "wet" }, "Wet nappy logged")} className="h-16 flex-col gap-1">
-            <Baby className="h-5 w-5" /> Wet nappy
-          </Button>
-          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nappy", detail: "dirty" }, "Dirty nappy logged")} className="h-16 flex-col gap-1">
-            <Baby className="h-5 w-5" /> Dirty nappy
-          </Button>
+          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "meal" }, t("today.mealLogged"))} className="h-16 flex-col gap-1">
+            <Utensils className="h-5 w-5" />{t("today.meal")}</Button>
+          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nappy", detail: "wet" }, t("today.wetNappyLogged"))} className="h-16 flex-col gap-1">
+            <Baby className="h-5 w-5" />{t("today.wetNappy")}</Button>
+          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "nappy", detail: "dirty" }, t("today.dirtyNappyLogged"))} className="h-16 flex-col gap-1">
+            <Baby className="h-5 w-5" />{t("today.dirtyNappy")}</Button>
         </div>
         <div className="mt-3 flex flex-wrap items-end gap-3">
           <label className="block">
-            <span className="text-sm font-medium text-foreground">Bottle (ml)</span>
+            <span className="text-sm font-medium text-foreground">{t("today.bottleMl")}</span>
             <input type="number" inputMode="numeric" min={1} max={1000} value={ml} onChange={(e) => setMl(e.target.value)} className="mt-1.5 w-28 rounded-md border border-border bg-background px-3 py-2 text-sm" />
           </label>
-          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "bottle", amountMl: Number(ml) }, "Bottle logged")}>
-            <Milk className="mr-2 h-4 w-4" /> Log bottle
-          </Button>
-          <Button disabled={busy} variant="ghost" onClick={() => log({ kind: "potty" }, "Potty logged")}>Potty</Button>
+          <Button disabled={busy} variant="outline" onClick={() => log({ kind: "bottle", amountMl: Number(ml) }, t("today.bottleLogged"))}>
+            <Milk className="mr-2 h-4 w-4" />{t("today.logBottle")}</Button>
+          <Button disabled={busy} variant="ghost" onClick={() => log({ kind: "potty" }, t("today.pottyLogged"))}>{t("today.potty")}</Button>
         </div>
       </Card>
 
-      <h2 className="heading-display mt-8 text-lg text-foreground">Last 7 days</h2>
+      <h2 className="heading-display mt-8 text-lg text-foreground">{t("today.last7Days")}</h2>
       <Card>
         <div className="grid grid-cols-7 gap-2 text-center text-xs text-muted-foreground">
           {totals.map((t) => (
@@ -151,16 +147,16 @@ function TodayPage() {
         <p className="mt-3 text-xs text-muted-foreground">Dark bars: nap time. Light bars: milk. Today so far: {hm(totals[6]!.napMins)} napping, {totals[6]!.bottleMl}ml milk, {totals[6]!.nappies} nappy or potty changes.</p>
       </Card>
 
-      <h2 className="heading-display mt-8 text-lg text-foreground">Today</h2>
+      <h2 className="heading-display mt-8 text-lg text-foreground">{t("today.today")}</h2>
       {todayEvents.length === 0 ? (
-        <EmptyState title="Nothing logged yet" description="Tap a button above and it shows up here for everyone." />
+        <EmptyState title={t("today.nothingLoggedYet")} description={t("today.tapAButtonAboveAnd")} />
       ) : (
         <ul className="mt-3 divide-y divide-border rounded-lg border border-border">
           {todayEvents.map((e) => (
             <li key={e.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
               <span>{describe(e)}</span>
               {canDelete(e) && (
-                <button aria-label="Remove entry" disabled={busy} onClick={() => run(() => remove({ data: { slug, id: e.id } }))} className="text-muted-foreground hover:text-foreground">
+                <button aria-label={t("today.removeEntry")} disabled={busy} onClick={() => run(() => remove({ data: { slug, id: e.id } }))} className="text-muted-foreground hover:text-foreground">
                   <Trash2 className="h-4 w-4" />
                 </button>
               )}

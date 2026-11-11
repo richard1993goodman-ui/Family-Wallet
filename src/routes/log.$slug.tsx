@@ -9,6 +9,7 @@ import { addLogFn, deleteLogFn, getLogs } from "@/lib/family.functions";
 import { MOODS } from "@/lib/family.types";
 import { Card, EmptyState, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
+import { useT } from "@/lib/i18n/provider";
 
 export const Route = createFileRoute("/log/$slug")({
   head: () => ({
@@ -41,6 +42,7 @@ const emptyDraft = {
 };
 
 function LogPage() {
+  const t = useT();
   const { slug } = Route.useParams();
   const queryClient = useQueryClient();
   const loadFn = useServerFn(getLogs);
@@ -70,9 +72,9 @@ function LogPage() {
       setDraft({ ...emptyDraft });
       setOpen(false);
       await queryClient.invalidateQueries({ queryKey: ["logs", slug] });
-      toast.success("Update added");
+      toast.success(t("log.updateAdded"));
     } catch {
-      toast.error("Couldn't save that update");
+      toast.error(t("log.couldnTSaveThatUpdate"));
     } finally {
       setBusy(false);
     }
@@ -81,37 +83,37 @@ function LogPage() {
   return (
     <HubPage
       slug={slug}
-      title="Daily log"
+      title={t("log.dailyLog")}
       intro="A quick note at the end of a shift. One line is plenty — nothing here is compulsory."
     >
       {open ? (
         <Card>
           <div className="space-y-4">
             <Field
-              label="Date"
+              label={t("log.date")}
               type="date"
               value={draft.logDate}
               onChange={(v) => setDraft({ ...draft, logDate: v })}
             />
             <Field
-              label="What we did"
+              label={t("log.whatWeDid")}
               textarea
               value={draft.activities}
               onChange={(v) => setDraft({ ...draft, activities: v })}
             />
             <Field
-              label="What we ate"
+              label={t("log.whatWeAte")}
               textarea
               value={draft.food}
               onChange={(v) => setDraft({ ...draft, food: v })}
             />
             <Field
-              label="Homework"
+              label={t("log.homework")}
               value={draft.homework}
               onChange={(v) => setDraft({ ...draft, homework: v })}
             />
             <div>
-              <span className="text-sm font-medium text-foreground">Mood</span>
+              <span className="text-sm font-medium text-foreground">{t("log.mood")}</span>
               <div className="mt-2 flex flex-wrap gap-2">
                 {MOODS.map((mood) => (
                   <button
@@ -130,37 +132,35 @@ function LogPage() {
               </div>
             </div>
             <Field
-              label="Anything noteworthy"
+              label={t("log.anythingNoteworthy")}
               textarea
               value={draft.notes}
               onChange={(v) => setDraft({ ...draft, notes: v })}
             />
             <Field
-              label="Tomorrow's requirements"
+              label={t("log.tomorrowSRequirements")}
               textarea
               value={draft.tomorrow}
               onChange={(v) => setDraft({ ...draft, tomorrow: v })}
             />
             <div className="flex gap-3">
               <Button onClick={onSave} disabled={busy}>
-                {busy ? "Saving…" : "Save update"}
+                {busy ? t("log.saving") : t("log.saveUpdate")}
               </Button>
-              <Button variant="outline" onClick={() => setOpen(false)}>
-                Cancel
-              </Button>
+              <Button variant="outline" onClick={() => setOpen(false)}>{t("tl.cancel")}</Button>
             </div>
           </div>
         </Card>
       ) : (
-        <Button onClick={() => setOpen(true)}>Add today's update</Button>
+        <Button onClick={() => setOpen(true)}>{t("log.addTodaySUpdate")}</Button>
       )}
 
       <div className="mt-6 space-y-3">
         {query.data.logs.length === 0 && (
           <EmptyState
             icon={NotebookPen}
-            title="No updates yet"
-            description="End-of-day notes on activities, meals, homework and mood will appear here."
+            title={t("log.noUpdatesYet")}
+            description={t("log.endOfDayNotesOn")}
           />
         )}
         {query.data.logs.map((log) => (
@@ -185,11 +185,11 @@ function LogPage() {
               </button>
             </div>
             {log.mood && <p className="mt-1 text-sm text-foreground">{log.mood}</p>}
-            <LogLine label="What we did" value={log.activities} />
-            <LogLine label="What we ate" value={log.food} />
-            <LogLine label="Homework" value={log.homework} />
-            <LogLine label="Noteworthy" value={log.notes} />
-            <LogLine label="Tomorrow" value={log.tomorrow} />
+            <LogLine label={t("log.whatWeDid")} value={log.activities} />
+            <LogLine label={t("log.whatWeAte")} value={log.food} />
+            <LogLine label={t("log.homework")} value={log.homework} />
+            <LogLine label={t("log.noteworthy")} value={log.notes} />
+            <LogLine label={t("log.tomorrow")} value={log.tomorrow} />
           </Card>
         ))}
       </div>

@@ -16,6 +16,7 @@ import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { offPeriodOn, regularHoursApply } from "@/lib/work-hours";
+import { useT } from "@/lib/i18n/provider";
 
 export const Route = createFileRoute("/planner/$slug")({
   head: () => ({
@@ -60,6 +61,7 @@ function formatDay(iso: string) {
 }
 
 function PlannerPage() {
+  const t = useT();
   const { slug } = Route.useParams();
   const queryClient = useQueryClient();
   const loadFn = useServerFn(getPlanner);
@@ -106,20 +108,19 @@ function PlannerPage() {
       setDraft(null);
       await refresh();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Couldn't add that");
+      toast.error(error instanceof Error ? error.message : t("cal.couldnTAddThat"));
     }
   }
 
   return (
     <HubPage
       slug={slug}
-      title="Family calendar"
+      title={t("cal.familyCalendar")}
       intro="Your agreement sets normal working hours. Add school dates, plans or one-off shift changes here."
     >
       <div className="flex items-center justify-between gap-3">
         <Button variant="outline" size="sm" onClick={() => setWeekStart(addDays(weekStart, -7))}>
-          <ChevronLeft className="h-4 w-4" /> Previous
-        </Button>
+          <ChevronLeft className="h-4 w-4" />{t("cal.previous")}</Button>
         <span className="text-sm font-medium text-foreground">
           Week of{" "}
           {new Date(`${weekStart}T00:00:00Z`).toLocaleDateString("en-GB", {
@@ -128,15 +129,12 @@ function PlannerPage() {
             timeZone: "UTC",
           })}
         </span>
-        <Button variant="outline" size="sm" onClick={() => setWeekStart(addDays(weekStart, 7))}>
-          Next <ChevronRight className="h-4 w-4" />
+        <Button variant="outline" size="sm" onClick={() => setWeekStart(addDays(weekStart, 7))}>{t("tl.next")}<ChevronRight className="h-4 w-4" />
         </Button>
       </div>
 
       <div className="mt-5 rounded-xl border border-border bg-card p-4">
-        <p className="text-[0.8125rem] font-medium text-muted-foreground">
-          Agreed nanny hours
-        </p>
+        <p className="text-[0.8125rem] font-medium text-muted-foreground">{t("cal.agreedNannyHours")}</p>
         {workingDays.some((day) => day.enabled) ? (
           <div className="mt-2 flex flex-wrap gap-1.5">
             {workingDays
@@ -152,9 +150,7 @@ function PlannerPage() {
               ))}
           </div>
         ) : (
-          <p className="mt-2 text-sm text-muted-foreground">
-            No days set yet — add them in your nanny agreement and they'll appear here.
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("cal.noDaysSetYetAdd")}</p>
         )}
       </div>
 
@@ -175,15 +171,14 @@ function PlannerPage() {
                 <p className="font-medium text-foreground">
                   {formatDay(day)}
                   {day === todayIso && (
-                    <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs">Today</span>
+                    <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs">{t("today.today")}</span>
                   )}
                 </p>
                 <button
                   className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
                    onClick={() => setDraft({ date: day, time: "", endTime: "", title: "", child: "", entryType: "note", status: "active", notes: "" })}
                 >
-                  <Plus className="h-3.5 w-3.5" /> Add
-                </button>
+                  <Plus className="h-3.5 w-3.5" />{t("tl.add")}</button>
               </div>
 
               {regular && !dayEntries.some((entry) => entry.entry_type === "shift_change" && entry.status === "cancelled" && (entry.approval ?? "approved") === "approved") && (
@@ -197,7 +192,7 @@ function PlannerPage() {
                 </div>
               )}
               {dayEntries.length === 0 && !regular && !(off && workingDays.some((w) => w.day === weekday && w.enabled)) && (
-                <p className="mt-2 text-sm text-muted-foreground">Nothing planned yet.</p>
+                <p className="mt-2 text-sm text-muted-foreground">{t("cal.nothingPlannedYet")}</p>
               )}
               <ul className="mt-2 space-y-2">
                 {dayEntries.map((entry) => (
@@ -213,9 +208,7 @@ function PlannerPage() {
                       )}
                       {entry.entry_type === "shift_change" && (entry.approval ?? "approved") === "pending" && (
                         <span className="mt-1 block">
-                          <span className="rounded-full bg-warning-soft px-2 py-0.5 text-xs font-medium text-warning">
-                            Awaiting approval · regular hours stand until then
-                          </span>
+                          <span className="rounded-full bg-warning-soft px-2 py-0.5 text-xs font-medium text-warning">{t("cal.awaitingApprovalRegularHoursStand")}</span>
                           {entry.added_by !== (isParent ? "family" : "nanny") && (
                             <span className="ml-2 inline-flex gap-1.5">
                               {(["approved", "declined"] as const).map((decision) => (
@@ -227,13 +220,13 @@ function PlannerPage() {
                                     try {
                                       await reviewFn({ data: { slug, id: entry.id, decision } });
                                       await refresh();
-                                      toast.success(decision === "approved" ? "Change approved" : "Change declined");
+                                      toast.success(decision === "approved" ? t("cal.changeApproved") : t("cal.changeDeclined"));
                                     } catch (e) {
-                                      toast.error(e instanceof Error ? e.message : "Couldn't save that");
+                                      toast.error(e instanceof Error ? e.message : t("cal.couldnTSaveThat"));
                                     }
                                   }}
                                 >
-                                  {decision === "approved" ? "Approve" : "Decline"}
+                                  {decision === "approved" ? t("cal.approve") : t("ts.decline")}
                                 </button>
                               ))}
                             </span>
@@ -241,7 +234,7 @@ function PlannerPage() {
                         </span>
                       )}
                       {entry.entry_type === "shift_change" && entry.approval === "declined" && (
-                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">Declined</span>
+                        <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">{t("cal.declined")}</span>
                       )}
                       {entry.entry_type === "playdate" && entry.notes && <span className="mt-1 block whitespace-pre-wrap text-xs text-muted-foreground">{entry.notes}</span>}
                     </span>
@@ -274,37 +267,35 @@ function PlannerPage() {
                       onChange={(e) => setDraft({ ...draft, endTime: e.target.value })}
                     />
                     <Input
-                      placeholder="School pickup"
+                      placeholder={t("cal.schoolPickup")}
                       value={draft.title}
                       onChange={(e) => setDraft({ ...draft, title: e.target.value })}
                     />
                   </div>
                   <Input
-                    placeholder="Which child? (optional)"
+                    placeholder={t("cal.whichChildOptional")}
                     value={draft.child}
                     onChange={(e) => setDraft({ ...draft, child: e.target.value })}
                   />
                   <div className="grid gap-2 sm:grid-cols-2">
                     <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.entryType} onChange={(e) => setDraft({ ...draft, entryType: e.target.value, title: e.target.value === "school_holiday" ? "School holiday" : e.target.value === "inset_day" ? "Inset day" : draft.title })}>
-                      <option value="note">Note</option><option value="activity">Activity</option><option value="meal">Meal</option><option value="school_holiday">School holiday</option><option value="inset_day">Inset day</option><option value="shift_change">Shift change</option>{isParent && <option value="playdate">Playdate</option>}
+                      <option value="note">{t("tl.note")}</option><option value="activity">{t("tl.activity")}</option><option value="meal">{t("today.meal")}</option><option value="school_holiday">{t("cal.schoolHoliday")}</option><option value="inset_day">{t("cal.insetDay")}</option><option value="shift_change">{t("cal.shiftChange")}</option>{isParent && <option value="playdate">{t("cal.playdate")}</option>}
                     </select>
-                    {draft.entryType === "playdate" && <p className="self-center text-xs text-muted-foreground">Add the friend, where it is and who to call in an emergency.</p>}
-                    {draft.entryType === "shift_change" && <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.status} onChange={(e) => setDraft({ ...draft, status: e.target.value, title: e.target.value === "cancelled" ? "Nanny shift cancelled" : "Changed nanny shift" })}><option value="active">Changed shift</option><option value="cancelled">Cancel regular shift</option></select>}
+                    {draft.entryType === "playdate" && <p className="self-center text-xs text-muted-foreground">{t("cal.addTheFriendWhereIt")}</p>}
+                    {draft.entryType === "shift_change" && <select className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={draft.status} onChange={(e) => setDraft({ ...draft, status: e.target.value, title: e.target.value === "cancelled" ? t("cal.nannyShiftCancelled") : t("cal.changedNannyShift") })}><option value="active">{t("cal.changedShift")}</option><option value="cancelled">{t("cal.cancelRegularShift")}</option></select>}
                   </div>
                   {draft.entryType === "playdate" && <div className="grid gap-2 sm:grid-cols-2">
-                    <Input placeholder="Friend's name" value={draft.friend ?? ""} onChange={(e) => setDraft({ ...draft, friend: e.target.value })} />
-                    <Input placeholder="Address" value={draft.address ?? ""} onChange={(e) => setDraft({ ...draft, address: e.target.value })} />
-                    <Input placeholder="Emergency contact (e.g. Sarah, Leo's mum)" value={draft.contactName ?? ""} onChange={(e) => setDraft({ ...draft, contactName: e.target.value })} />
-                    <Input type="tel" placeholder="Emergency phone" value={draft.contactPhone ?? ""} onChange={(e) => setDraft({ ...draft, contactPhone: e.target.value })} />
+                    <Input placeholder={t("cal.friendSName")} value={draft.friend ?? ""} onChange={(e) => setDraft({ ...draft, friend: e.target.value })} />
+                    <Input placeholder={t("cal.address")} value={draft.address ?? ""} onChange={(e) => setDraft({ ...draft, address: e.target.value })} />
+                    <Input placeholder={t("cal.emergencyContactEGSarah")} value={draft.contactName ?? ""} onChange={(e) => setDraft({ ...draft, contactName: e.target.value })} />
+                    <Input type="tel" placeholder={t("cal.emergencyPhone")} value={draft.contactPhone ?? ""} onChange={(e) => setDraft({ ...draft, contactPhone: e.target.value })} />
                   </div>}
-                  <Input placeholder="Extra notes (optional)" value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} />
+                  <Input placeholder={t("cal.extraNotesOptional")} value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} />
                   <div className="flex gap-2">
                     <Button size="sm" onClick={onAdd}>
                       Add to {formatDay(day).split(" ")[0]}
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => setDraft(null)}>
-                      Cancel
-                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => setDraft(null)}>{t("tl.cancel")}</Button>
                   </div>
                 </div>
               )}
@@ -323,9 +314,7 @@ function PlannerPage() {
           );
           await refresh();
         }}
-      >
-        Copy last week into this week
-      </Button>
+      >{t("cal.copyLastWeekIntoThis")}</Button>
     </HubPage>
   );
 }
