@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { AGENCY_PLANS, isAgencyPlan } from "./agency-plans";
+import { AGENCY_PLANS, isAgencyPlan, nextAgencyPlan } from "./agency-plans";
 import { graceDays, transitionEnd } from "./entitlement";
 import { buildSeats, hashInviteToken, INVITE_DAYS, isValidEmail, newInviteToken, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
 
@@ -13,7 +13,7 @@ async function agencyInfo(agencyId: string) {
     .maybeSingle();
   if (!data) throw new Error("Agency not found");
   const plan = isAgencyPlan(data.plan) ? data.plan : "partner";
-  return { ...data, allowance: data.household_allowance ?? AGENCY_PLANS[plan].allowance, planName: AGENCY_PLANS[plan].name };
+  return { ...data, planId: plan, allowance: data.household_allowance ?? AGENCY_PLANS[plan].allowance, planName: AGENCY_PLANS[plan].name };
 }
 
 /** Frees the seats held by invites that ran out, so a new invite can reuse them. */
@@ -46,8 +46,14 @@ export async function getSeatBoard(agencyId: string) {
   await expireOld(agencyId);
   const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);
   const seats = buildSeats(agency.allowance, rows);
+  // The next tier up, so the dashboard can offer more seats with an instant upgrade.
+  const nextId = nextAgencyPlan(agency.planId);
+  const next = nextId
+    ? { name: AGENCY_PLANS[nextId].name, seats: AGENCY_PLANS[nextId].allowance, pence: AGENCY_PLANS[nextId].pence }
+    : null;
   return {
     plan: agency.planName,
+    next,
     total: seats.length,
     occupied: seats.filter((s) => s.state === "occupied").length,
     invited: seats.filter((s) => s.state === "invited").length,

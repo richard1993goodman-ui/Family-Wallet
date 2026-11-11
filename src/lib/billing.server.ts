@@ -401,8 +401,17 @@ export async function applySubscription(sub: StripeSubscription) {
       updated_at: new Date().toISOString(),
     })
     .eq("stripe_subscription_id", sub.id)
-    .select("family_id")
+    .select("family_id, agency_id")
     .maybeSingle();
+
+  // An agency that paid for a bigger plan gets its extra seats straight away. household_allowance is
+  // cleared so the new plan's own seat count applies.
+  if (row?.agency_id && newPlan && isAgencyPlan(newPlan) && LIVE.has(sub.status)) {
+    await supabaseAdmin
+      .from("partner_agencies")
+      .update({ plan: newPlan.replace("agency_", ""), household_allowance: null })
+      .eq("id", row.agency_id);
+  }
   // No row yet means the checkout event has not been processed; it will carry the latest state.
   if (!row?.family_id) return;
 
@@ -437,6 +446,60 @@ export async function portalUrlFor(familyId: string, returnUrl: string) {
     return_url: returnUrl,
   });
   return session.url;
+}
+
+/**
+ * A Stripe-hosted page for an agency's billing. "upgrade" opens a confirm-and-pay screen for the next tier
+ * (the difference is worked out and charged straight away); "manage" opens the general billing portal.
+ * If the confirm screen isn't available on this Stripe setup, it falls back to the general portal.
+ */
+export async function agencyBillingUrl(agencyId: string, mode: "upgrade" | "manage", returnUrl: string) {
+  const { data: row } = await supabaseAdmin
+    .from("family_subscriptions")
+    .select("stripe_customer_id, stripe_subscription_id, environment")
+    .eq("agency_id", agencyId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!row) throw new Error("Billing isn't linked to this account yet. Please contact support and we'll sort it out.");
+
+  const environment: StripeEnv = row.environment === "live" ? "live" : "sandbox";
+  const { createStripeClient } = await import("./stripe.server");
+  const stripe = createStripeClient(environment);
+  const plain = () => stripe.billingPortal.sessions.create({ customer: row.stripe_customer_id, return_url: returnUrl });
+
+  if (mode === "manage" || !row.stripe_subscription_id) return { url: (await plain()).url, fallback: mode === "upgrade" };
+
+  const { data: agency } = await supabaseAdmin.from("partner_agencies").select("plan").eq("id", agencyId).maybeSingle();
+  const { nextAgencyPlan, isAgencyPlan: isTier } = await import("./agency-plans");
+  const current = isTier(agency?.plan) ? agency.plan : "partner";
+  const next = nextAgencyPlan(current);
+  if (!next) throw new Error("You're on the top self-serve plan. Contact us about Enterprise.");
+
+  try {
+    const prices = await stripe.prices.list({ lookup_keys: [`fw_agency_${next}_month`], active: true });
+    const price = prices.data[0];
+    if (!price) throw new Error("price missing");
+    const live = await stripe.subscriptions.retrieve(row.stripe_subscription_id);
+    const item = live.items.data[0];
+    if (!item) throw new Error("item missing");
+    const session = await stripe.billingPortal.sessions.create({
+      customer: row.stripe_customer_id,
+      return_url: returnUrl,
+      flow_data: {
+        type: "subscription_update_confirm",
+        subscription_update_confirm: {
+          subscription: row.stripe_subscription_id,
+          items: [{ id: item.id, price: price.id, quantity: 1 }],
+        },
+        after_completion: { type: "redirect", redirect: { return_url: returnUrl } },
+      },
+    });
+    return { url: session.url, fallback: false };
+  } catch (error) {
+    console.error("Upgrade confirm screen unavailable, using the billing portal", error);
+    return { url: (await plain()).url, fallback: true };
+  }
 }
 
 export async function hasSubscription(familyId: string) {

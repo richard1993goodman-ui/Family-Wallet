@@ -1,11 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { formatPounds } from "@/lib/agency-plans";
 import {
+  agencyBillingLinkFn,
   getSeatBoardFn,
   releaseSeatFn,
   resendSeatInviteFn,
@@ -23,11 +25,38 @@ export function AgencySeats() {
   const resendFn = useServerFn(resendSeatInviteFn);
   const revokeFn = useServerFn(revokeSeatInviteFn);
   const releaseFn = useServerFn(releaseSeatFn);
+  const billingFn = useServerFn(agencyBillingLinkFn);
   const board = useQuery({ queryKey: ["seat-board"], queryFn: () => boardFn() });
   const [picked, setPicked] = useState<number | null>(null);
   const [email, setEmail] = useState("");
   const [nannyEmail, setNannyEmail] = useState("");
   const [busy, setBusy] = useState(false);
+
+  // Back from Stripe after paying: the new seats arrive once the payment is confirmed, so check a few times.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("billing") !== "done") return;
+    params.delete("billing");
+    window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`);
+    toast.success("Thank you. Your new seats appear as soon as the payment is confirmed.");
+    let tries = 0;
+    const timer = setInterval(() => {
+      void client.invalidateQueries({ queryKey: ["seat-board"] });
+      if (++tries >= 6) clearInterval(timer);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [client]);
+
+  const goToBilling = async (mode: "upgrade" | "manage") => {
+    setBusy(true);
+    try {
+      const { url } = await billingFn({ data: { mode } });
+      window.location.assign(url);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't open billing");
+      setBusy(false);
+    }
+  };
 
   const run = async (work: () => Promise<unknown>, done: string) => {
     setBusy(true);
@@ -46,7 +75,8 @@ export function AgencySeats() {
 
   if (board.isLoading) return <p className="mt-6 text-sm text-muted-foreground">Loading seats…</p>;
   if (!board.data) return null;
-  const { seats, total, occupied, invited, plan } = board.data;
+  const { seats, total, occupied, invited, plan, next } = board.data;
+  const free = total - occupied - invited;
 
   return (
     <div className="mt-6">
@@ -55,7 +85,25 @@ export function AgencySeats() {
         <p className="heading-display mt-1 text-3xl text-primary">
           {occupied} of {total} seats in use
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">{total - occupied - invited} available · {invited} invited</p>
+        <p className="mt-1 text-sm text-muted-foreground">{free} available · {invited} invited</p>
+        {next && (
+          <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-border pt-4">
+            <Button disabled={busy} variant={free <= Math.max(1, Math.round(total * 0.2)) ? "default" : "outline"} onClick={() => void goToBilling("upgrade")}>
+              Upgrade to {next.name}{next.seats ? ` · ${next.seats} seats` : ""}
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              {formatPounds(next.pence ?? 0)} a month. You pay the difference now and the extra seats are released straight away.
+            </p>
+          </div>
+        )}
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => void goToBilling("manage")}
+          className="mt-3 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+        >
+          Manage billing and invoices
+        </button>
       </div>
 
       <div className="mt-4 divide-y divide-border overflow-hidden rounded-2xl bg-card shadow-sm">

@@ -46,3 +46,15 @@ export const lookupInviteFn = createServerFn({ method: "GET" })
 export const acceptInviteFn = createServerFn({ method: "POST" })
   .inputValidator((d: { token: string; familyName: string }) => d)
   .handler(async ({ data }) => (await import("./seat-invites.server")).acceptInvite(String(data.token ?? ""), String(data.familyName ?? "")));
+
+/** A Stripe-hosted page to upgrade to the next tier (pays the difference now) or to manage billing. */
+export const agencyBillingLinkFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { mode: "upgrade" | "manage" }) => d)
+  .handler(async ({ data, context }) => {
+    const agencyId = await partnerAgencyId(context);
+    const { agencyBillingUrl } = await import("./billing.server");
+    const { siteUrl } = await import("./site");
+    const mode = data.mode === "manage" ? "manage" : "upgrade";
+    return agencyBillingUrl(agencyId, mode, siteUrl(mode === "upgrade" ? "/admin?billing=done" : "/admin"));
+  });
