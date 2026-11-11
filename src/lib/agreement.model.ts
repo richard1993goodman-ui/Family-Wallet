@@ -55,12 +55,16 @@ export const RATE_BASIS_LABELS: Record<RateBasis, string> = {
   net: "Net (take-home)",
 };
 
-/** Which kind of document the family has chosen: the full formal contract, or a short written statement. */
-export type DocumentStyle = "full" | "statement";
+/**
+ * Which document the family has chosen: the full formal employment contract, a short written statement of
+ * employment particulars, or a self-employed services agreement (for a nanny who genuinely runs their own business).
+ */
+export type DocumentStyle = "full" | "statement" | "self_employed";
 
 export const DOCUMENT_STYLE_LABELS: Record<DocumentStyle, string> = {
   full: "Full nanny contract",
   statement: "Written statement of particulars",
+  self_employed: "Self-employed services agreement",
 };
 
 export interface AgreementData {
@@ -125,6 +129,18 @@ export interface AgreementData {
 
   probationNotice: string;
   standardNotice: string;
+
+  /* Self-employed services agreement only. */
+  /** What the nanny will do for the family, in plain words. */
+  servicesDescription: string;
+  /** Days within which an invoice is paid, e.g. "14". */
+  invoiceDays: string;
+  /** How much notice is needed to cancel a booked session without paying for it, e.g. "24 hours". */
+  cancellationNotice: string;
+  /** The nanny's own insurance, e.g. "Public liability insurance of £1m". */
+  ownInsurance: string;
+  /** Whether the nanny may send an agreed, suitably checked substitute. */
+  allowSubstitute: boolean;
 }
 
 export interface HolidayCalculation {
@@ -373,6 +389,12 @@ export const defaultAgreementData: AgreementData = {
 
   probationNotice: "1 week",
   standardNotice: "4 weeks",
+
+  servicesDescription: "",
+  invoiceDays: "14",
+  cancellationNotice: "24 hours",
+  ownInsurance: "",
+  allowSubstitute: true,
 };
 
 const CONTRACT_TYPES: ContractType[] = ["year-round", "term-time", "part-time-term-time"];
@@ -420,7 +442,7 @@ export function normalizeAgreement(raw: unknown): AgreementData {
   const text = (key: keyof AgreementData) => str(r[key], "");
 
   return {
-    documentStyle: str(r["documentStyle"], "full") === "statement" ? "statement" : "full",
+    documentStyle: ((v) => (v === "statement" || v === "self_employed" ? v : "full"))(str(r["documentStyle"], "full")) as DocumentStyle,
     statementBody: str(r["statementBody"]).slice(0, 20000),
     employerName: text("employerName"),
     employerAddress: text("employerAddress"),
@@ -463,6 +485,11 @@ export function normalizeAgreement(raw: unknown): AgreementData {
     gardenLeave: text("gardenLeave"),
     probationNotice: text("probationNotice"),
     standardNotice: text("standardNotice"),
+    servicesDescription: text("servicesDescription").slice(0, 3000),
+    invoiceDays: str(r["invoiceDays"], base.invoiceDays).slice(0, 10),
+    cancellationNotice: str(r["cancellationNotice"], base.cancellationNotice).slice(0, 60),
+    ownInsurance: text("ownInsurance").slice(0, 300),
+    allowSubstitute: r["allowSubstitute"] !== false,
   };
 }
 

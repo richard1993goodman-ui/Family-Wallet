@@ -22,3 +22,11 @@ export const setUseAgreementFn = createServerFn({ method: "POST" })
     await setUseAgreement(data.slug, data.use === true);
     return { ok: true as const };
   });
+
+export const setAgreementChoiceFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; choice: string }) => data)
+  .handler(async ({ data }) => {
+    const { setAgreementChoice } = await import("./work-hours.server");
+    await setAgreementChoice(data.slug, data.choice);
+    return { ok: true as const };
+  });

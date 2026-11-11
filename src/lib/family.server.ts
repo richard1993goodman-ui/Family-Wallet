@@ -330,11 +330,12 @@ export async function loadNannySchedules(familyId: string): Promise<NannySchedul
     const agreementDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
     const manualRow = (manual ?? []).find((m) => m.nanny_id === row.id);
     const typed = manualRow?.working_days;
+    const schedule = cleanSchedule(manualRow?.schedule);
     return {
       nannyId: row.id,
       nannyName: row.name,
-      workingDays: effectiveWorkingDays(mode.enabled, agreementDays, typed ? cleanWorkingDays(typed) : null),
-      schedule: cleanSchedule(manualRow?.schedule),
+      workingDays: effectiveWorkingDays(mode.enabled, agreementDays, typed ? cleanWorkingDays(typed) : null, schedule),
+      schedule,
     };
   });
 }

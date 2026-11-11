@@ -23,6 +23,8 @@ import { UpgradeToHousehold } from "@/components/UpgradeToHousehold";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { StatementBuilder } from "@/components/StatementBuilder";
 import { StatementDocument } from "@/components/StatementDocument";
+import { SelfEmployedBuilder } from "@/components/SelfEmployedBuilder";
+import { SelfEmployedDocument } from "@/components/SelfEmployedDocument";
 import { HubPage, LockedNotice, Card, BackToWallet } from "@/components/hub-ui";
 import { SignForm, SignatureList } from "@/components/SignBlock";
 import { SigningProgress } from "@/components/SigningProgress";
@@ -31,8 +33,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/agreement/$slug")({
-  validateSearch: (search: Record<string, unknown>): { nanny?: string } =>
-    typeof search["nanny"] === "string" ? { nanny: search["nanny"] as string } : {},
+  validateSearch: (search: Record<string, unknown>): { nanny?: string; start?: "employed" | "self_employed" } => ({
+    ...(typeof search["nanny"] === "string" ? { nanny: search["nanny"] as string } : {}),
+    ...(search["start"] === "employed" || search["start"] === "self_employed" ? { start: search["start"] } : {}),
+  }),
   head: () => ({
     meta: [
       { title: "Your nanny agreement — Family Wallet" },
@@ -87,11 +91,16 @@ function AgreementPageInner() {
 
   useEffect(() => {
     if (!data) return;
-    setDraft(data.data);
+    setDraft(
+      !data.hasContent && data.access === "family" && search.start === "self_employed"
+        ? { ...data.data, documentStyle: "self_employed", standardNotice: data.data.standardNotice === "4 weeks" ? "2 weeks" : data.data.standardNotice }
+        : data.data,
+    );
     if (data.nannyId && !nannyId) setNannyId(data.nannyId);
     if (!data.hasContent && data.access === "family") {
       setEditing(true);
-      setChoosing(true);
+      // Already chosen on the sign-in screen? Go straight to the builder.
+      setChoosing(!search.start);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -211,7 +220,16 @@ function AgreementPageInner() {
   }
 
   function chooseStyle(style: DocumentStyle) {
-    setDraft((current) => (current ? { ...current, documentStyle: style } : current));
+    setDraft((current) =>
+      current
+        ? {
+            ...current,
+            documentStyle: style,
+            // The employed default of 4 weeks is too long for a services agreement.
+            ...(style === "self_employed" && current.standardNotice === "4 weeks" ? { standardNotice: "2 weeks" } : {}),
+          }
+        : current,
+    );
     setChoosing(false);
     setEditing(true);
   }
@@ -272,9 +290,9 @@ function AgreementPageInner() {
       <HubPage
         slug={slug}
         title="How would you like your agreement written?"
-        intro="Both options are proper written terms your nanny can sign. Pick whichever suits your family — you can change your mind later."
+        intro="Each is proper written terms your nanny can sign. Pick whichever suits your family. You can change your mind later."
       >
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <Card>
             <h2 className="heading-display text-lg text-foreground">Full nanny contract</h2>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -296,6 +314,16 @@ function AgreementPageInner() {
               Write a simple statement
             </Button>
           </Card>
+          <Card>
+            <h2 className="heading-display text-lg text-foreground">Self-employed agreement</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              For a nanny who is genuinely in business for themselves: they invoice you, carry their own insurance and can send a
+              substitute. Most live-out nannies are employees, so check first.
+            </p>
+            <Button className="mt-4" variant="outline" onClick={() => chooseStyle("self_employed")}>
+              Use the self-employed agreement
+            </Button>
+          </Card>
         </div>
         {data.hasContent && (
           <div className="mt-5">
@@ -308,6 +336,36 @@ function AgreementPageInner() {
             </Button>
           </div>
         )}
+      </HubPage>
+    );
+  }
+
+  if (editing && draft && !isNanny && draft.documentStyle === "self_employed") {
+    return (
+      <HubPage
+        slug={slug}
+        title="Your self-employed agreement"
+        intro="Fill this in with your nanny. The sessions fill in your family calendar. You can save and come back at any time."
+      >
+        <div className="space-y-5">
+          <SelfEmployedBuilder data={draft} onChange={setDraft} />
+          <div className="flex flex-wrap gap-3">
+            <Button variant="outline" disabled={busy} onClick={() => save(false)}>
+              Save and finish later
+            </Button>
+            <Button disabled={busy} onClick={() => save(true)}>
+              {issued ? "Save and re-issue for signing" : "Done — ready to sign"}
+            </Button>
+            <Button variant="ghost" disabled={busy} onClick={() => setChoosing(true)}>
+              Choose a different agreement
+            </Button>
+            {data.hasContent && (
+              <Button variant="ghost" disabled={busy} onClick={() => setEditing(false)}>
+                Cancel
+              </Button>
+            )}
+          </div>
+        </div>
       </HubPage>
     );
   }
@@ -566,7 +624,14 @@ function AgreementPageInner() {
       )}
 
       <div className="print-area space-y-6">
-        {data.data.documentStyle === "statement" ? (
+        {data.data.documentStyle === "self_employed" ? (
+          <SelfEmployedDocument
+            data={data.data}
+            version={data.version}
+            issuedAt={data.issuedAt}
+            familyName={data.familyName}
+          />
+        ) : data.data.documentStyle === "statement" ? (
           <StatementDocument
             data={data.data}
             version={data.version}

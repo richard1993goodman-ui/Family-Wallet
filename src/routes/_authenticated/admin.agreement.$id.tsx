@@ -10,6 +10,7 @@ import { getAgreementAdmin, saveAgreementAdmin, signAsAgency } from "@/lib/admin
 import { defaultAgreementData, type AgreementData } from "@/lib/agreement.model";
 import { AgreementBuilder } from "@/components/AgreementBuilder";
 import { AgreementDocument } from "@/components/AgreementDocument";
+import { SelfEmployedDocument } from "@/components/SelfEmployedDocument";
 import { Card } from "@/components/hub-ui";
 import { SignatureList } from "@/components/SignBlock";
 import { Button } from "@/components/ui/button";
@@ -127,7 +128,11 @@ function AdminAgreementPage() {
         <div className="mt-6 space-y-6">
           {preview ? (
             <div className="print-area">
-              <AgreementDocument data={data} familyName={record.family.familyName} />
+              {data.documentStyle === "self_employed" ? (
+                <SelfEmployedDocument data={data} familyName={record.family.familyName} />
+              ) : (
+                <AgreementDocument data={data} familyName={record.family.familyName} />
+              )}
             </div>
           ) : (
             <AgreementBuilder data={data} onChange={setData} />

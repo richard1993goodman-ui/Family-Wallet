@@ -68,11 +68,16 @@ async function walletSession() {
  * stops working the next time it asks for anything. Unmanaged (null entitlement) families pass.
  */
 async function fundingOpen(slug: string) {
-  const { data } = await supabaseAdmin
+  const { data, error } = await supabaseAdmin
     .from("families")
     .select("id, status, entitlement, transition_ends_at")
     .eq("slug", slug)
     .maybeSingle();
+  if (error) {
+    // The funding columns may not exist yet (migration not applied): fall back to the plain status check.
+    const { data: plain } = await supabaseAdmin.from("families").select("status").eq("slug", slug).maybeSingle();
+    return plain?.status === "active";
+  }
   if (!data) return false;
   if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active") {
     await supabaseAdmin
@@ -381,6 +386,8 @@ export type WalletData = {
   hasTerms: boolean;
   /** The nanny agreement is in use for this household. */
   agreementsEnabled: boolean;
+  /** How the parents chose to handle the nanny arrangement; null until they choose on first sign-in. */
+  agreementChoice: "template" | "self_employed" | "none" | null;
   /** The agency turned agreements off, so the family cannot switch them on. */
   agreementsLockedByAgency: boolean;
   updatedAt: string;
@@ -403,6 +410,8 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     .maybeSingle();
 
   if (!family || family.status !== "active") return null;
+  // Read separately so a wallet still opens if this column has not been added yet.
+  const { data: choiceRow } = await supabaseAdmin.from("families").select("agreement_choice").eq("id", family.id).maybeSingle();
   const agreement = resolveAgreementMode({
     policy: family.agreement_policy,
     useAgreement: family.use_agreement,
@@ -464,6 +473,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
     hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
     agreementsEnabled: agreement.enabled,
+    agreementChoice: ((c) => (c === "template" || c === "self_employed" || c === "none" ? c : null))(choiceRow?.agreement_choice),
     agreementsLockedByAgency: agreement.lockedByAgency,
     updatedAt: family.updated_at,
     contacts: (contactRows ?? []).map((c) => ({

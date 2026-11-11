@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { Card, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import type { WorkingDay } from "@/lib/agreement.model";
 import { getWorkHours, saveWorkHoursFn } from "@/lib/work-hours.functions";
-import { termPresets, weeklyHours, type OffPeriod, type WorkSchedule } from "@/lib/work-hours";
+import { keyDatePresets, termPresets, weeklyHours, type OffPeriod, type WorkSchedule } from "@/lib/work-hours";
 
 export const Route = createFileRoute("/hours/$slug")({
   head: () => ({
@@ -109,7 +110,7 @@ function HoursPage() {
         </Card>
       ) : (
         <div className="space-y-6">
-          {data.nannies.map((nanny) => (
+          {data.nannies.map((nanny, index) => (
             <NannyHours
               key={`${nanny.nannyId}-${JSON.stringify([nanny.days, nanny.schedule])}`}
               slug={slug}
@@ -117,8 +118,9 @@ function HoursPage() {
               name={nanny.nannyName}
               days={nanny.days}
               schedule={nanny.schedule}
-              startOpen={edit === nanny.nannyId}
+              startOpen={edit === nanny.nannyId || (edit === "first" && index === 0)}
               fromAgreement={nanny.source === "agreement"}
+              agreementHasHours={nanny.agreementHasHours}
               canEdit={data.access === "family"}
             />
           ))}
@@ -155,6 +157,7 @@ function NannyHours({
   schedule: initialSchedule,
   startOpen,
   fromAgreement,
+  agreementHasHours,
   canEdit,
 }: {
   slug: string;
@@ -164,15 +167,19 @@ function NannyHours({
   schedule: WorkSchedule;
   startOpen: boolean;
   fromAgreement: boolean;
+  /** The nanny also has an agreement with hours, so the parent can choose between the two. */
+  agreementHasHours: boolean;
   canEdit: boolean;
 }) {
   const client = useQueryClient();
   const saveFn = useServerFn(saveWorkHoursFn);
-  const [open, setOpen] = useState(startOpen && canEdit && !fromAgreement);
+  const [open, setOpen] = useState(startOpen && canEdit);
   const [days, setDays] = useState(initial);
   const [schedule, setSchedule] = useState(initialSchedule);
   const [saving, setSaving] = useState(false);
-  const editable = canEdit && !fromAgreement;
+  // With an agreement, its hours stay in charge until the parent chooses their own shift pattern.
+  const agreementLocked = agreementHasHours && schedule.hoursSource !== "manual";
+  const editable = canEdit;
   const total = weeklyHours(initial);
   const shown = initial.filter((d) => d.enabled);
 
@@ -234,13 +241,13 @@ function NannyHours({
             variant={total > 0 ? "outline" : "default"}
             onClick={() => setOpen(true)}
           >
-            {total > 0 ? "Edit hours" : "Add hours"}
+            {agreementLocked ? "Holidays & key dates" : total > 0 ? "Edit hours" : "Add hours"}
           </Button>
         )}
       </div>
       {fromAgreement && (
         <p className="mt-2 text-sm text-muted-foreground">
-          These come from the signed nanny agreement. To change them, update the agreement.
+          These come from your nanny agreement. To use a different shift pattern, choose Holidays &amp; key dates, then use your own.
         </p>
       )}
       {shown.length > 0 && (
@@ -286,7 +293,38 @@ function NannyHours({
             </DialogDescription>
           </DialogHeader>
           <div className="min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-contain px-6 pb-4">
-            <div className="divide-y divide-border">
+            {agreementHasHours && (
+              <fieldset>
+                <legend className="text-sm font-medium text-foreground">Which hours should the calendar use?</legend>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  {(
+                    [
+                      ["agreement", "The agreement's hours", "The days and times in your signed or draft agreement"],
+                      ["manual", "My own shift pattern", "Set your own days and split shifts instead"],
+                    ] as const
+                  ).map(([value, label, hint]) => (
+                    <label
+                      key={value}
+                      className={`cursor-pointer rounded-lg border p-3 text-sm transition-colors ${
+                        schedule.hoursSource === value ? "border-foreground bg-card" : "border-border"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name={`hours-source-${nannyId}`}
+                        className="sr-only"
+                        checked={schedule.hoursSource === value}
+                        onChange={() => patchSchedule({ hoursSource: value })}
+                      />
+                      <span className="block font-medium text-foreground">{label}</span>
+                      <span className="mt-0.5 block text-muted-foreground">{hint}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
+
+            <div className={cn("divide-y divide-border", agreementLocked && "pointer-events-none opacity-60")} aria-disabled={agreementLocked}>
               {days.map((d, i) => (
                 <div key={d.day} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
                   <label className="flex w-32 items-center gap-2 text-sm font-medium text-foreground">
@@ -510,6 +548,14 @@ function NannyHours({
                   type="button"
                   size="sm"
                   variant="outline"
+                  onClick={() => addPeriods(keyDatePresets())}
+                >
+                  <CalendarClock className="mr-1.5 h-4 w-4" /> Add bank holidays, Christmas &amp; Easter
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
                   onClick={() => addBlank("Inset day")}
                 >
                   <Plus className="mr-1.5 h-4 w-4" /> Inset day
@@ -524,8 +570,8 @@ function NannyHours({
                 </Button>
               </div>
               <p className="mt-2 text-[0.8125rem] text-muted-foreground">
-                School holidays are typical England dates for 2026/27. Check your school's calendar
-                and change them to match.
+                School holidays are typical England dates for 2026/27, and bank holidays are for England
+                and Wales. Check your school's calendar and change any date to match.
               </p>
             </div>
           </div>

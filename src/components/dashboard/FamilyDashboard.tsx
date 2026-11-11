@@ -1,3 +1,4 @@
+import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
 import { SupportBox } from "@/components/SupportBox";
@@ -96,6 +97,7 @@ export function FamilyDashboard(props: DashboardProps) {
       <WalletTravelBanner slug={slug} />
 
       <div className="mt-8 space-y-6">
+        <AgreementChoice slug={slug} firstSignIn />
         <MonthOverview
           slug={slug}
           schedules={hub?.schedules ?? []}

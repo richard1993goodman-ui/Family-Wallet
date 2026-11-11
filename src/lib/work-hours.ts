@@ -38,7 +38,10 @@ export function effectiveWorkingDays(
   agreementsOn: boolean,
   agreementDays: WorkingDay[],
   manualDays: WorkingDay[] | null,
+  schedule?: Pick<WorkSchedule, "hoursSource"> | null,
 ): WorkingDay[] {
+  // A parent who chose their own shift pattern over the agreement's hours keeps it.
+  if (schedule?.hoursSource === "manual" && manualDays && hasHours(manualDays)) return manualDays;
   if (agreementsOn && hasHours(agreementDays)) return agreementDays;
   return manualDays ?? agreementDays;
 }
@@ -51,6 +54,8 @@ export type WorkSchedule = {
   repeat: boolean;
   onlyWeek: string | null;
   offPeriods: OffPeriod[];
+  /** Whose hours the calendar uses when the family also has an agreement: the agreement's, or the parent's own pattern. */
+  hoursSource: "agreement" | "manual";
 };
 
 export const defaultSchedule: WorkSchedule = {
@@ -58,6 +63,7 @@ export const defaultSchedule: WorkSchedule = {
   repeat: true,
   onlyWeek: null,
   offPeriods: [],
+  hoursSource: "agreement",
 };
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -94,6 +100,7 @@ export function cleanSchedule(input: unknown): WorkSchedule {
     repeat,
     onlyWeek: repeat ? null : mondayOfIso(raw.onlyWeek as string),
     offPeriods: offPeriods.sort((a, b) => a.start.localeCompare(b.start)),
+    hoursSource: raw.hoursSource === "manual" ? "manual" : "agreement",
   };
 }
 
@@ -116,3 +123,68 @@ export const termPresets: OffPeriod[] = [
   { label: "May half term", start: "2027-05-31", end: "2027-06-04" },
   { label: "Summer holidays", start: "2027-07-26", end: "2027-09-03" },
 ];
+
+/* ---------------- Key dates: bank holidays, Christmas and Easter ---------------- */
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const iso = (d: Date) => `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
+const utc = (y: number, m: number, d: number) => new Date(Date.UTC(y, m - 1, d));
+const addDaysUtc = (d: Date, n: number) => new Date(d.getTime() + n * 86400000);
+/** First Monday on or after this date. */
+const mondayOnOrAfter = (d: Date) => addDaysUtc(d, (8 - d.getUTCDay()) % 7);
+/** Last Monday on or before this date. */
+const lastMondayOnOrBefore = (d: Date) => addDaysUtc(d, -((d.getUTCDay() + 6) % 7));
+
+/** Easter Sunday (Gregorian), by the anonymous algorithm. */
+export function easterSunday(year: number) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return utc(year, month, day);
+}
+
+/**
+ * The England and Wales bank holidays for a year, with the Christmas, Boxing Day and New Year's Day
+ * substitutes when they fall on a weekend. Dates in Scotland and Northern Ireland differ, and the family can edit every one.
+ */
+export function bankHolidays(year: number): OffPeriod[] {
+  const easter = easterSunday(year);
+  const dow = (d: Date) => d.getUTCDay();
+  const out: OffPeriod[] = [];
+  const add = (label: string, d: Date) => out.push({ label, start: iso(d), end: iso(d) });
+
+  // New Year's Day: the next Monday if it falls on a weekend.
+  const ny = utc(year, 1, 1);
+  add("New Year's Day", dow(ny) === 6 ? addDaysUtc(ny, 2) : dow(ny) === 0 ? addDaysUtc(ny, 1) : ny);
+  add("Good Friday", addDaysUtc(easter, -2));
+  add("Easter Monday", addDaysUtc(easter, 1));
+  add("Early May bank holiday", mondayOnOrAfter(utc(year, 5, 1)));
+  add("Spring bank holiday", lastMondayOnOrBefore(utc(year, 5, 31)));
+  add("Summer bank holiday", lastMondayOnOrBefore(utc(year, 8, 31)));
+
+  // Christmas Day and Boxing Day: when either lands on a weekend, the next free weekdays stand in.
+  const xd = dow(utc(year, 12, 25));
+  const christmasDay = xd === 0 ? utc(year, 12, 27) : xd === 6 ? utc(year, 12, 27) : utc(year, 12, 25);
+  const boxingDay = xd === 5 || xd === 6 ? utc(year, 12, 28) : utc(year, 12, 26);
+  add("Christmas Day", christmasDay);
+  add("Boxing Day", boxingDay);
+  return out.sort((a, b) => a.start.localeCompare(b.start));
+}
+
+/** Key dates from today for the next two calendar years, so the calendar has the holidays coming up. */
+export function keyDatePresets(today = new Date()): OffPeriod[] {
+  const from = iso(today);
+  const year = today.getUTCFullYear();
+  return [...bankHolidays(year), ...bankHolidays(year + 1)].filter((p) => p.end >= from);
+}

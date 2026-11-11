@@ -95,7 +95,12 @@ describe("cleanSchedule", () => {
       repeat: true,
       onlyWeek: null,
       offPeriods: [],
+      hoursSource: "agreement",
     });
+  });
+  it("remembers when a parent chose their own shift pattern", () => {
+    expect(cleanSchedule({ hoursSource: "manual" }).hoursSource).toBe("manual");
+    expect(cleanSchedule({ hoursSource: "nonsense" }).hoursSource).toBe("agreement");
   });
   it("sorts holidays and finds the one covering a date", () => {
     const s = cleanSchedule({
@@ -123,5 +128,55 @@ describe("cleanSchedule", () => {
       cleanSchedule({ offPeriods: [{ label: "x", start: "2027-02-02", end: "2027-02-01" }] }),
     ).toThrow("x");
     expect(() => cleanSchedule({ repeat: false })).toThrow("week");
+  });
+});
+
+import { bankHolidays, easterSunday, keyDatePresets } from "./work-hours";
+
+describe("key dates", () => {
+  it("finds Easter", () => {
+    expect(easterSunday(2026).toISOString().slice(0, 10)).toBe("2026-04-05");
+    expect(easterSunday(2027).toISOString().slice(0, 10)).toBe("2027-03-28");
+  });
+
+  it("lists the 2026 bank holidays, moving Boxing Day to the substitute Monday", () => {
+    const byName = Object.fromEntries(bankHolidays(2026).map((p) => [p.label, p.start]));
+    expect(byName["New Year's Day"]).toBe("2026-01-01");
+    expect(byName["Good Friday"]).toBe("2026-04-03");
+    expect(byName["Easter Monday"]).toBe("2026-04-06");
+    expect(byName["Early May bank holiday"]).toBe("2026-05-04");
+    expect(byName["Spring bank holiday"]).toBe("2026-05-25");
+    expect(byName["Summer bank holiday"]).toBe("2026-08-31");
+    expect(byName["Christmas Day"]).toBe("2026-12-25");
+    expect(byName["Boxing Day"]).toBe("2026-12-28");
+  });
+
+  it("moves a weekend New Year's Day and Christmas to the weekdays that follow", () => {
+    const y2022 = Object.fromEntries(bankHolidays(2022).map((p) => [p.label, p.start]));
+    expect(y2022["New Year's Day"]).toBe("2022-01-03");
+    expect(y2022["Christmas Day"]).toBe("2022-12-27");
+    expect(y2022["Boxing Day"]).toBe("2022-12-26");
+  });
+
+  it("only offers dates still to come", () => {
+    const upcoming = keyDatePresets(new Date(Date.UTC(2026, 11, 1)));
+    expect(upcoming[0]!.start >= "2026-12-01").toBe(true);
+    expect(upcoming.some((p) => p.label === "Christmas Day" && p.start === "2026-12-25")).toBe(true);
+  });
+});
+
+describe("hours source", () => {
+  const agreement = [{ day: "Monday", enabled: true, startTime: "08:00", endTime: "16:00" }];
+  const manual = [{ day: "Monday", enabled: true, startTime: "07:00", endTime: "09:00", startTime2: "15:00", endTime2: "19:00" }];
+
+  it("uses the agreement's hours by default", () => {
+    expect(effectiveWorkingDays(true, agreement as never, manual as never, { hoursSource: "agreement" })).toBe(agreement);
+  });
+  it("uses the parent's own shift pattern when they chose it", () => {
+    expect(effectiveWorkingDays(true, agreement as never, manual as never, { hoursSource: "manual" })).toBe(manual);
+  });
+  it("falls back to the agreement if the manual pattern is empty", () => {
+    const empty = [{ day: "Monday", enabled: false, startTime: "09:00", endTime: "17:00" }];
+    expect(effectiveWorkingDays(true, agreement as never, empty as never, { hoursSource: "manual" })).toBe(agreement);
   });
 });
