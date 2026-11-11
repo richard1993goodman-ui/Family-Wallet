@@ -1701,6 +1701,7 @@ export type Database = {
           family_id: string
           id: string
           nanny_id: string
+          schedule: Json
           updated_at: string
           working_days: Json
         }
@@ -1708,6 +1709,7 @@ export type Database = {
           family_id: string
           id?: string
           nanny_id: string
+          schedule?: Json
           updated_at?: string
           working_days?: Json
         }
@@ -1715,6 +1717,7 @@ export type Database = {
           family_id?: string
           id?: string
           nanny_id?: string
+          schedule?: Json
           updated_at?: string
           working_days?: Json
         }
@@ -2635,6 +2638,33 @@ export type Database = {
           id?: string
           slug?: string
           succeeded?: boolean
+        }
+        Relationships: []
+      }
+      wallet_pair_pins: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          pin_hash: string
+          slug: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          pin_hash: string
+          slug: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          pin_hash?: string
+          slug?: string
+          used_at?: string | null
         }
         Relationships: []
       }

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useState } from "react";
-import { AlertTriangle, Check, Pill, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { AlertTriangle, Check, Lock, Pill, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -68,6 +68,11 @@ function MedicationPage() {
   const [reason, setReason] = useState("");
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(t);
+  }, []);
 
   const latest = useMemo(() => {
     const map = new Map<string, NonNullable<typeof data>["doses"][number]>();
@@ -87,7 +92,24 @@ function MedicationPage() {
   const chosenChild = childName || childOptions[0] || "";
   const medicineName = medicine === "Other" ? otherMedicine : medicine;
 
+  // Doses are newest first, so the first match is this child's latest dose of this medicine.
+  const lastDose = data.doses.find((d) => d.childName === chosenChild && d.medicine === medicineName);
+  const lockedUntil =
+    lastDose?.nextDoseFrom && new Date(lastDose.nextDoseFrom).getTime() > now
+      ? new Date(lastDose.nextDoseFrom)
+      : null;
+  const minsLeft = lockedUntil ? Math.ceil((lockedUntil.getTime() - now) / 60000) : 0;
+  const clock = (d: Date) => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+
   const submit = async () => {
+    // Never block a real record: a dose that was genuinely given must still be loggable.
+    if (
+      lockedUntil &&
+      !window.confirm(
+        `${chosenChild} had ${medicineName} recently. Only log this if another dose really was given. Log it anyway?`,
+      )
+    )
+      return;
     setSaving(true);
     try {
       const givenDate = new Date(givenAt);
@@ -134,9 +156,7 @@ function MedicationPage() {
             return (
               <div
                 key={d.id}
-                className={`rounded-xl border p-4 ${
-                  safe ? "border-border bg-card" : "border-destructive/50 bg-destructive/5"
-                }`}
+                className={`rounded-2xl p-4 shadow-sm ${safe ? "bg-card" : "bg-warning-soft"}`}
               >
                 <p className="font-medium text-foreground">
                   {safe ? (
@@ -257,8 +277,26 @@ function MedicationPage() {
         <p className="mt-3 text-sm text-muted-foreground">
           Always follow the instructions on the packaging and the parents' written permission.
         </p>
-        <Button className="mt-4" disabled={saving} onClick={submit}>
-          <Pill className="h-4 w-4" /> Log dose
+        {lockedUntil && (
+          <div className="mt-4 flex items-start gap-3 rounded-2xl bg-warning-soft p-4 text-warning">
+            <Lock className="mt-0.5 h-4 w-4 shrink-0" />
+            <div>
+              <p className="text-sm font-semibold">Safe-dose lockout until {clock(lockedUntil)}</p>
+              <p className="mt-0.5 text-sm">
+                Last {medicineName} was {formatWhen(lastDose!.givenAt)}.{" "}
+                {Math.floor(minsLeft / 60)}h {minsLeft % 60}m left.
+              </p>
+            </div>
+          </div>
+        )}
+        <Button
+          className="mt-4"
+          variant={lockedUntil ? "outline" : "default"}
+          disabled={saving}
+          onClick={submit}
+        >
+          {lockedUntil ? <Lock className="h-4 w-4" /> : <Pill className="h-4 w-4" />}
+          {lockedUntil ? `Locked until ${clock(lockedUntil)}` : "Log dose"}
         </Button>
       </Card>
 

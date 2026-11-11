@@ -67,10 +67,16 @@ function PettyCashPage() {
 
   return (
     <HubPage slug={slug} title="Petty cash float" intro="One shared running balance for the nanny's spending money — no more scraps of receipts or guessing what's left.">
-      <Card>
-        <p className="text-sm text-muted-foreground">{data.balance < 0 ? "Owed to the nanny" : "Left in the float"}</p>
-        <p className={`heading-display mt-1 text-4xl ${data.balance < 0 ? "text-destructive" : "text-primary"}`}>{money(data.balance)}</p>
-      </Card>
+      <div className="rounded-3xl bg-ink-band p-6 text-white shadow-md">
+        <p className="text-sm text-white/70">{data.balance < 0 ? "Owed to the nanny" : "Household float balance"}</p>
+        <p className={`heading-display mt-1 text-5xl ${data.balance < 0 ? "text-amber-300" : "text-white"}`}>{money(data.balance)}</p>
+        <p className="mt-3 text-sm text-white/70">
+          Spent this month{" "}
+          <span className="font-semibold text-white">
+            {money(data.entries.filter((e) => e.kind === "spend" && e.entryDate.slice(0, 7) === today().slice(0, 7)).reduce((s, e) => s + e.amount, 0))}
+          </span>
+        </p>
+      </div>
 
       <div className="mt-6">
         <Card>

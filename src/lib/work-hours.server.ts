@@ -5,12 +5,13 @@ import { normalizeAgreement } from "./agreement.model";
 import { agreementMode } from "./agreement-mode.server";
 import { requireFamily, requireSharedFamily } from "./family.server";
 import { listNannyRows } from "./wallet.server";
-import { cleanWorkingDays, effectiveWorkingDays, hasHours } from "./work-hours";
+import { cleanSchedule, cleanWorkingDays, effectiveWorkingDays, hasHours, type WorkSchedule } from "./work-hours";
 
 export type NannyHours = {
   nannyId: string;
   nannyName: string;
   days: WorkingDay[];
+  schedule: WorkSchedule;
   /** Where the hours on show come from. Only "manual" hours can be edited here. */
   source: "agreement" | "manual";
 };
@@ -22,34 +23,37 @@ export async function loadWorkHours(slug: string) {
     listNannyRows(family.id),
     agreementMode(family.id),
     supabaseAdmin.from("nanny_agreements").select("nanny_id, agreement_data").eq("family_id", family.id),
-    supabaseAdmin.from("nanny_work_hours").select("nanny_id, working_days").eq("family_id", family.id),
+    supabaseAdmin.from("nanny_work_hours").select("nanny_id, working_days, schedule").eq("family_id", family.id),
   ]);
   const nannies: NannyHours[] = rows.map((row) => {
     const agreement = (agreements ?? []).find((a) => a.nanny_id === row.id);
     const agreementDays = agreement ? normalizeAgreement(agreement.agreement_data).workingDays : [];
-    const manualDays = (manual ?? []).find((m) => m.nanny_id === row.id)?.working_days;
+    const manualRow = (manual ?? []).find((m) => m.nanny_id === row.id);
+    const manualDays = manualRow?.working_days;
     const manualClean = manualDays ? cleanWorkingDays(manualDays) : null;
     const shown = effectiveWorkingDays(mode.enabled, agreementDays, manualClean);
     return {
       nannyId: row.id,
       nannyName: row.name,
       days: shown.length ? shown : cleanWorkingDays([]),
+      schedule: cleanSchedule(manualRow?.schedule),
       source: mode.enabled && hasHours(agreementDays) ? "agreement" : "manual",
     };
   });
   return { access: family.access, agreementsOn: mode.enabled, nannies };
 }
 
-export async function saveWorkHours(slug: string, nannyId: string, days: unknown) {
+export async function saveWorkHours(slug: string, nannyId: string, days: unknown, schedule: unknown) {
   const family = await requireFamily(slug);
   if (!family) throw new Error("Only the family can change working hours.");
   const clean = cleanWorkingDays(days);
+  const cleanPlan = cleanSchedule(schedule);
   const nannies = await listNannyRows(family.id);
   if (!nannies.some((n) => n.id === nannyId)) throw new Error("That person isn't in this household.");
   const { error } = await supabaseAdmin
     .from("nanny_work_hours")
     .upsert(
-      { family_id: family.id, nanny_id: nannyId, working_days: clean as unknown as Json, updated_at: new Date().toISOString() },
+      { family_id: family.id, nanny_id: nannyId, working_days: clean as unknown as Json, schedule: cleanPlan as unknown as Json, updated_at: new Date().toISOString() },
       { onConflict: "nanny_id" },
     );
   if (error) throw new Error("Couldn't save those hours.");

@@ -37,3 +37,17 @@ export const getDocumentUrl = createServerFn({ method: "POST" })
     const { documentUrl } = await import("./wallet.server");
     return { url: await documentUrl(data.slug, data.docType) };
   });
+
+export const createPairPinFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { createPairPin } = await import("./wallet.server");
+    return createPairPin(data.slug);
+  });
+
+export const redeemPairPinFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; pin: string }) => data)
+  .handler(async ({ data }) => {
+    const { redeemPairPin } = await import("./wallet.server");
+    return redeemPairPin(data.slug, data.pin);
+  });

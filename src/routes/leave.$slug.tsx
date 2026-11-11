@@ -111,9 +111,20 @@ function LeavePage() {
                     : "No signed agreement yet — entitlement will appear once it is completed."}
                 </p>
               </div>
-              <div className="text-right">
-                <p className="heading-display text-2xl text-foreground">{nanny.remainingDays}</p>
-                <p className="text-[0.8125rem] font-medium text-muted-foreground">days left</p>
+              <div className="relative h-20 w-20 text-center">
+                <svg viewBox="0 0 36 36" className="h-20 w-20 -rotate-90" aria-hidden>
+                  <circle cx="18" cy="18" r="15.9" fill="none" strokeWidth="3" className="stroke-border" />
+                  <circle
+                    cx="18" cy="18" r="15.9" fill="none" strokeWidth="3" strokeLinecap="round"
+                    className="stroke-primary"
+                    strokeDasharray={`${nanny.entitlementDays > 0 ? Math.min(100, (nanny.takenDays / nanny.entitlementDays) * 100) : 0} 100`}
+                    pathLength={100}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <p className="heading-display text-xl leading-none text-foreground">{nanny.remainingDays}</p>
+                  <p className="mt-0.5 text-[0.6875rem] font-medium text-muted-foreground">days left</p>
+                </div>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-3 text-sm">

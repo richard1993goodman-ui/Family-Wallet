@@ -462,3 +462,50 @@ export async function documentUrl(slug: string, docType: string) {
 
   return signed?.signedUrl ?? null;
 }
+
+/* ---------------- Device pairing (one-time PIN) ---------------- */
+
+const PAIR_PIN_MINUTES = 10;
+
+/** A signed-in family makes a fresh PIN; any earlier unused PIN stops working. */
+export async function createPairPin(slug: string) {
+  if (slug === DEMO_SLUG || !(await isUnlocked(slug))) return null;
+  await supabaseAdmin.from("wallet_pair_pins").delete().eq("slug", slug).is("used_at", null);
+  const pin = generateAccessCode();
+  const expiresAt = new Date(Date.now() + PAIR_PIN_MINUTES * 60 * 1000).toISOString();
+  const { error } = await supabaseAdmin
+    .from("wallet_pair_pins")
+    .insert({ slug, pin_hash: hashCode(slug, pin), expires_at: expiresAt });
+  if (error) throw new Error("Could not create a PIN.");
+  return { pin, expiresAt };
+}
+
+/** Trades a valid PIN for family access on this device. Shares the unlock rate limit. */
+export async function redeemPairPin(slug: string, pin: string) {
+  const key = `${clientKey()}|${slug}`;
+  const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  const { count } = await supabaseAdmin
+    .from("wallet_access_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("client_key", key)
+    .eq("succeeded", false)
+    .gte("attempted_at", since);
+  if ((count ?? 0) >= 8) return { ok: false as const, reason: "rate_limited" as const };
+
+  // The update only matches an unused, unexpired PIN, so a PIN can be redeemed once.
+  const { data } = await supabaseAdmin
+    .from("wallet_pair_pins")
+    .update({ used_at: new Date().toISOString() })
+    .eq("slug", slug)
+    .eq("pin_hash", hashCode(slug, pin))
+    .is("used_at", null)
+    .gt("expires_at", new Date().toISOString())
+    .select("id");
+  const success = (data?.length ?? 0) > 0;
+
+  await supabaseAdmin.from("wallet_access_attempts").insert({ slug, client_key: key, succeeded: success });
+  if (!success) return { ok: false as const, reason: "invalid" as const };
+
+  await markUnlocked(slug);
+  return { ok: true as const };
+}

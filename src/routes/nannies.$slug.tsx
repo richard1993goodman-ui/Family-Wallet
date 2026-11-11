@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -73,6 +73,7 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (value: stri
 function NanniesPage() {
   const { slug } = Route.useParams();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const loadFn = useServerFn(getNannies);
   const saveFn = useServerFn(saveNannyFn);
   const archiveFn = useServerFn(archiveNannyFn);
@@ -373,15 +374,19 @@ function NanniesPage() {
               <div className="flex flex-wrap gap-2">
                 <Button
                   disabled={busy || Boolean(form.id) || !form.name.trim()}
-                  onClick={() =>
-                    run(async () => {
-                      await saveFn({
+                  onClick={async () => {
+                    let newId = "";
+                    await run(async () => {
+                      const created = await saveFn({
                         data: { slug, nanny: { name: form.name, role: form.role, bio: form.bio } },
                       });
+                      newId = created.id;
                       setForm(emptyForm);
                       setAdding(false);
-                    }, `${roleLabel(form.role)} added`)
-                  }
+                    }, `${roleLabel(form.role)} added`);
+                    // Straight on to their working hours, with the editor already open.
+                    if (newId) void navigate({ to: "/hours/$slug", params: { slug }, search: { edit: newId } });
+                  }}
                 >
                   <Plus className="mr-1.5 h-4 w-4" /> Add {roleLabel(form.role).toLowerCase()}
                 </Button>

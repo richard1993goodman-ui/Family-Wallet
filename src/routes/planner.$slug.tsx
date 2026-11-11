@@ -14,6 +14,7 @@ import {
 import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { offPeriodOn, regularHoursApply } from "@/lib/work-hours";
 
 export const Route = createFileRoute("/planner/$slug")({
   head: () => ({
@@ -87,6 +88,7 @@ function PlannerPage() {
   const entries = query.data.entries;
   const isParent = query.data.access === "family";
   const workingDays = query.data.workingDays;
+  const schedule = query.data.schedule;
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
   async function refresh() {
@@ -158,7 +160,8 @@ function PlannerPage() {
         {days.map((day) => {
           const dayEntries = entries.filter((e) => e.entry_date === day);
           const weekday = new Date(`${day}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
-          const regular = workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
+          const off = offPeriodOn(schedule, day);
+          const regular = off || !regularHoursApply(schedule, day) ? undefined : workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
           return (
             <div
               key={day}
@@ -186,7 +189,12 @@ function PlannerPage() {
                   <CalendarDays className="h-4 w-4 text-primary" /> Regular nanny day · {regular.startTime}–{regular.endTime}{regular.startTime2 && regular.endTime2 ? ` and ${regular.startTime2}–${regular.endTime2}` : ""}
                 </div>
               )}
-              {dayEntries.length === 0 && !regular && (
+              {off && workingDays.some((w) => w.day === weekday && w.enabled) && (
+                <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
+                  <CalendarDays className="h-4 w-4" /> Not working · {off.label}
+                </div>
+              )}
+              {dayEntries.length === 0 && !regular && !(off && workingDays.some((w) => w.day === weekday && w.enabled)) && (
                 <p className="mt-2 text-sm text-muted-foreground">Nothing planned yet.</p>
               )}
               <ul className="mt-2 space-y-2">

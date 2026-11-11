@@ -51,20 +51,24 @@ function HouseManualPage() {
   </HubPage>;
 }
 
+const REVEAL_SECONDS = 6;
+
 function ManualEntry({ entry, slug, canEdit, onEdit, onChange }: { entry: ManualRow; slug: string; canEdit: boolean; onEdit: () => void; onChange: () => Promise<void> }) {
   const revealFn = useServerFn(revealHouseManualFn);
   const deleteFn = useServerFn(deleteHouseManualFn);
   const [value, setValue] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [removing, setRemoving] = useState(false);
+  const [left, setLeft] = useState(REVEAL_SECONDS);
   useEffect(() => {
     if (value === null) return;
     const hide = () => setValue(null);
-    const timer = window.setTimeout(hide, 30000);
+    setLeft(REVEAL_SECONDS);
+    const timer = window.setInterval(() => setLeft((s) => { if (s <= 1) hide(); return s - 1; }), 1000);
     const visibility = () => { if (document.hidden) hide(); };
     window.addEventListener("blur", hide);
     document.addEventListener("visibilitychange", visibility);
-    return () => { window.clearTimeout(timer); window.removeEventListener("blur", hide); document.removeEventListener("visibilitychange", visibility); };
+    return () => { window.clearInterval(timer); window.removeEventListener("blur", hide); document.removeEventListener("visibilitychange", visibility); };
   }, [value]);
   async function toggleValue() {
     if (value !== null) { setValue(null); return; }
@@ -73,7 +77,7 @@ function ManualEntry({ entry, slug, canEdit, onEdit, onChange }: { entry: Manual
     catch { toast.error("Couldn't reveal this detail. Please check your wallet is unlocked."); }
     finally { setBusy(false); }
   }
-  return <article className="rounded-lg border border-border bg-card p-4">
+  return <article className="rounded-2xl bg-card p-4 shadow-sm">
     <div className="flex items-start gap-2">
       <h3 className="min-w-0 flex-1 break-words font-semibold text-foreground">{entry.title}</h3>
       {canEdit && <>
@@ -86,7 +90,7 @@ function ManualEntry({ entry, slug, canEdit, onEdit, onChange }: { entry: Manual
       <KeyRound className="size-4 shrink-0 text-primary" />
       <span className="min-w-0 flex-1 break-all font-mono text-sm text-foreground">{value ?? "••••••••"}</span>
       <Button variant="outline" size="sm" disabled={busy} aria-label={`${value === null ? "Reveal" : "Hide"} code for ${entry.title}`} onClick={toggleValue}>
-        {value === null ? <Eye className="size-4" /> : <EyeOff className="size-4" />}{busy ? "Checking…" : value === null ? "Reveal" : "Hide"}
+        {value === null ? <Eye className="size-4" /> : <EyeOff className="size-4" />}{busy ? "Checking…" : value === null ? "Reveal" : `Hide · ${Math.max(left, 0)}s`}
       </Button>
     </div>}
     <Dialog open={removing} onOpenChange={setRemoving}><DialogContent><DialogHeader><DialogTitle>Remove this household detail?</DialogTitle></DialogHeader>

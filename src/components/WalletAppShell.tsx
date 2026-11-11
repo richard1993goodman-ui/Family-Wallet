@@ -38,6 +38,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { DialogTitle } from "@/components/ui/dialog";
 import {
   Sidebar,
@@ -492,41 +493,52 @@ function MobileTabs({
                 Every page in your Family Wallet, grouped by section.
               </DrawerDescription>
             </DrawerHeader>
-            <div className="overflow-y-auto px-3 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-              {navFor(role, agreements).map((section) => (
-                <section key={section.label} className="pt-3">
-                  <h3 className="px-2 pb-1 text-[0.8125rem] font-normal text-muted-foreground">
-                    {section.label}
-                  </h3>
-                  <ul>
-                    {section.items.map((item) => {
-                      const active = routePrefix(item.to) === activePrefix;
-                      return (
-                        <li key={item.to}>
-                          <Link
-                            to={item.to}
-                            params={{ slug }}
-                            onClick={() => setMoreOpen(false)}
-                            aria-current={active ? "page" : undefined}
-                            className={cn(
-                              "flex min-h-12 items-center gap-3 rounded-lg px-2 text-[0.9375rem] transition-colors active:bg-accent",
-                              active ? "bg-accent font-medium text-foreground" : "text-foreground",
-                            )}
-                          >
-                            <item.icon
-                              className={cn(
-                                "h-[1.125rem] w-[1.125rem] flex-none",
-                                active ? "text-brand" : "text-muted-foreground",
-                              )}
-                            />
-                            {item.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              ))}
+            {/* data-vaul-no-drag lets this list scroll without the sheet grabbing the touch. */}
+            <div
+              data-vaul-no-drag
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-[calc(1rem+env(safe-area-inset-bottom))]"
+            >
+              <Accordion
+                type="multiple"
+                defaultValue={[sectionFor(role, activePrefix, agreements)?.label ?? "Overview"]}
+              >
+                {navFor(role, agreements).map((section) => (
+                  <AccordionItem key={section.label} value={section.label} className="border-b-0">
+                    <AccordionTrigger className="px-2 py-3 text-[0.9375rem] font-medium hover:no-underline">
+                      {section.label}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-1">
+                      <ul>
+                        {section.items.map((item) => {
+                          const active = routePrefix(item.to) === activePrefix;
+                          return (
+                            <li key={item.to}>
+                              <Link
+                                to={item.to}
+                                params={{ slug }}
+                                onClick={() => setMoreOpen(false)}
+                                aria-current={active ? "page" : undefined}
+                                className={cn(
+                                  "flex min-h-12 items-center gap-3 rounded-lg px-2 text-[0.9375rem] transition-colors active:bg-accent",
+                                  active ? "bg-accent font-medium text-foreground" : "text-foreground",
+                                )}
+                              >
+                                <item.icon
+                                  className={cn(
+                                    "h-[1.125rem] w-[1.125rem] flex-none",
+                                    active ? "text-brand" : "text-muted-foreground",
+                                  )}
+                                />
+                                {item.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </DrawerContent>
         </Drawer>

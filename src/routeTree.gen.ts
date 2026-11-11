@@ -46,6 +46,7 @@ import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
 import { Route as NotificationsSlugRouteImport } from './routes/notifications.$slug'
+import { Route as PairSlugRouteImport } from './routes/pair.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
 import { Route as PayrollSlugRouteImport } from './routes/payroll.$slug'
 import { Route as PerksSlugRouteImport } from './routes/perks.$slug'
@@ -260,6 +261,11 @@ const NotificationsSlugRoute = NotificationsSlugRouteImport.update({
   path: '/notifications/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PairSlugRoute = PairSlugRouteImport.update({
+  id: '/pair/$slug',
+  path: '/pair/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PassportSlugRoute = PassportSlugRouteImport.update({
   id: '/passport/$slug',
   path: '/passport/$slug',
@@ -447,6 +453,7 @@ export interface FileRoutesByFullPath {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/notifications/$slug': typeof NotificationsSlugRoute
+  '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -514,6 +521,7 @@ export interface FileRoutesByTo {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/notifications/$slug': typeof NotificationsSlugRoute
+  '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -583,6 +591,7 @@ export interface FileRoutesById {
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
   '/notifications/$slug': typeof NotificationsSlugRoute
+  '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
@@ -652,6 +661,7 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/notifications/$slug'
+    | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -719,6 +729,7 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/notifications/$slug'
+    | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -787,6 +798,7 @@ export interface FileRouteTypes {
     | '/nannies/$slug'
     | '/nanny/$slug'
     | '/notifications/$slug'
+    | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
     | '/perks/$slug'
@@ -856,6 +868,7 @@ export interface RootRouteChildren {
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
   NotificationsSlugRoute: typeof NotificationsSlugRoute
+  PairSlugRoute: typeof PairSlugRoute
   PassportSlugRoute: typeof PassportSlugRoute
   PayrollSlugRoute: typeof PayrollSlugRoute
   PerksSlugRoute: typeof PerksSlugRoute
@@ -1143,6 +1156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pair/$slug': {
+      id: '/pair/$slug'
+      path: '/pair/$slug'
+      fullPath: '/pair/$slug'
+      preLoaderRoute: typeof PairSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/passport/$slug': {
       id: '/passport/$slug'
       path: '/passport/$slug'
@@ -1407,6 +1427,7 @@ const rootRouteChildren: RootRouteChildren = {
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,
   NotificationsSlugRoute: NotificationsSlugRoute,
+  PairSlugRoute: PairSlugRoute,
   PassportSlugRoute: PassportSlugRoute,
   PayrollSlugRoute: PayrollSlugRoute,
   PerksSlugRoute: PerksSlugRoute,

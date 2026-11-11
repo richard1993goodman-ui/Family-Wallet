@@ -8,10 +8,10 @@ export const getWorkHours = createServerFn({ method: "GET" })
   });
 
 export const saveWorkHoursFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { slug: string; nannyId: string; days: unknown }) => data)
+  .inputValidator((data: { slug: string; nannyId: string; days: unknown; schedule: unknown }) => data)
   .handler(async ({ data }) => {
     const { saveWorkHours } = await import("./work-hours.server");
-    await saveWorkHours(data.slug, data.nannyId, data.days);
+    await saveWorkHours(data.slug, data.nannyId, data.days, data.schedule);
     return { ok: true as const };
   });
 

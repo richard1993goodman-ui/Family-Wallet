@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { HouseMark } from "@/components/brand";
 import { FamilyLogin } from "@/components/FamilyLogin";
 import { RecoverDetails } from "@/components/RecoverDetails";
 import { onMailtoClick } from "@/lib/mailto";
@@ -38,9 +39,12 @@ function LoginPage() {
           </Link>
         </header>
         <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 pb-16 sm:px-0">
-          <p className="heading-serif mb-8 text-center text-[1.75rem] leading-none text-foreground">
-            The Family Wallet
-          </p>
+          <div className="mb-8 flex flex-col items-center gap-4">
+            <HouseMark className="h-14 w-14" />
+            <p className="heading-serif text-center text-[1.75rem] leading-none text-foreground">
+              The Family Wallet
+            </p>
+          </div>
           <FamilyLogin
             showAgencyTab
             className="border-transparent shadow-sm"

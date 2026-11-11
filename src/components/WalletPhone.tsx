@@ -258,7 +258,7 @@ const btn = cn(
 const btnPrimary = cn(btn, "bg-navy text-primary-foreground disabled:opacity-40");
 const btnOutline = cn(btn, "border border-border bg-card text-navy");
 const titleCls =
-  "font-display text-[23px] font-normal leading-[1.15] tracking-[-0.015em] text-navy outline-none";
+  "font-display text-[23px] font-semibold leading-[1.15] tracking-[-0.015em] text-navy outline-none";
 
 const TINTS = {
   apricot: "bg-[#fde8d7] text-[#8e4a1f]",
@@ -284,7 +284,7 @@ const Label = ({ children }: { children: ReactNode }) => (
 );
 
 const List = ({ children }: { children: ReactNode }) => (
-  <div className="divide-y divide-border overflow-hidden rounded-[18px] border border-border bg-card">
+  <div className="divide-y divide-border overflow-hidden rounded-[18px] bg-card shadow-sm">
     {children}
   </div>
 );
@@ -683,6 +683,34 @@ function PhoneMenu({
   );
 }
 
+// Live shift card: agreed weekday hours 15:00 to 19:30, with a progress bar (weekends have none)
+function ShiftBanner({ today }: { today: Date }) {
+  const day = today.getDay();
+  if (day === 0 || day === 6) return null;
+  const mins = today.getHours() * 60 + today.getMinutes();
+  const start = 15 * 60;
+  const end = 19 * 60 + 30;
+  const pct = Math.min(100, Math.max(0, ((mins - start) / (end - start)) * 100));
+  const left = Math.max(0, end - Math.max(mins, start));
+  const live = mins >= start && mins < end;
+  return (
+    <div className="rounded-[18px] bg-card p-3.5 shadow-sm">
+      <div className="flex items-center justify-between text-[10.5px]">
+        <span className="font-semibold uppercase tracking-wider text-navy-mid">Shift 15:00 – 19:30</span>
+        <span className="text-muted-foreground">
+          {live ? `${Math.floor(left / 60)}h ${left % 60}m left` : mins < start ? "Starts 15:00" : "Finished"}
+        </span>
+      </div>
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
+        <div className="h-full rounded-full bg-navy-mid" style={{ width: `${pct}%` }} />
+      </div>
+      <p className="mt-2 text-[12.5px] font-medium text-navy">
+        {live ? "Jess is on duty" : mins < start ? "Jess starts this afternoon" : "Jess has finished for today"}
+      </p>
+    </div>
+  );
+}
+
 function HomeScreen({ app }: ScreenProps) {
   return (
     <>
@@ -711,6 +739,7 @@ function HomeScreen({ app }: ScreenProps) {
           />
         </div>
       </div>
+      <ShiftBanner today={app.today} />
       <MonthCard app={app} />
       <div className="flex gap-2">
         <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>

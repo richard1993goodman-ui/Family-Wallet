@@ -67,20 +67,20 @@
   --color-tint-butter-ink: var(--tint-butter-ink);
   --color-tint-rose: var(--tint-rose);
   --color-tint-rose-ink: var(--tint-rose-ink);
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Nunito Sans", "Nunito", system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   /* Strong curves: entrances start fast; on-screen moves accelerate and settle. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   /* Soft, warm-tinted shadows: cards rest on the page, menus and dialogs float. */
-  --shadow-2xs: 0 1px 1px rgb(74 52 30 / 0.03);
-  --shadow-xs: 0 1px 2px rgb(74 52 30 / 0.05);
-  --shadow-sm: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
-  --shadow-md: 0 8px 24px -8px rgb(74 52 30 / 0.16), 0 2px 4px rgb(74 52 30 / 0.05);
-  --shadow-lg: 0 16px 40px -12px rgb(74 52 30 / 0.22), 0 2px 6px rgb(74 52 30 / 0.06);
+  --shadow-2xs: 0 1px 1px rgb(26 56 43 / 0.03);
+  --shadow-xs: 0 1px 2px rgb(26 56 43 / 0.05);
+  --shadow-sm: 0 1px 8px rgb(26 56 43 / 0.05);
+  --shadow-md: 0 8px 24px -8px rgb(26 56 43 / 0.16), 0 2px 4px rgb(26 56 43 / 0.05);
+  --shadow-lg: 0 16px 40px -12px rgb(26 56 43 / 0.22), 0 2px 6px rgb(26 56 43 / 0.06);
 }
 
 /*
@@ -88,68 +88,68 @@
  * A cream paper ground, white cards that rest on soft warm shadows, generous rounded corners.
  * Garden green (--brand) is the action and "done" colour; each section of the wallet has a
  * pale tint (sage, apricot, sky, lilac, butter, rose) used only on its icon tiles.
- * Type: Nunito Sans for reading and controls; Fraunces, softened, for titles and the greeting.
+ * Type: Plus Jakarta Sans for reading and controls; Playfair Display for headlines and the greeting.
  */
 :root {
   --radius: 1rem;
-  --background: #fbf7f0;
-  --foreground: #2a2420;
+  --background: #fbf9f4;
+  --foreground: #1b1c19;
   --card: #ffffff;
-  --card-foreground: #2a2420;
+  --card-foreground: #1b1c19;
   --popover: #ffffff;
-  --popover-foreground: #2a2420;
-  --primary: #2f5d4a;
+  --popover-foreground: #1b1c19;
+  --primary: #1a382b;
   --primary-foreground: #ffffff;
-  --secondary: #f3ece1;
-  --secondary-foreground: #2a2420;
-  --muted: #f5efe6;
-  --muted-foreground: #6b5f55;
-  --accent: #f1e9dd;
-  --accent-foreground: #2a2420;
-  --destructive: #b83a3a;
+  --secondary: #f3efe6;
+  --secondary-foreground: #1b1c19;
+  --muted: #f0eee9;
+  --muted-foreground: #57534e;
+  --accent: #eae8e3;
+  --accent-foreground: #1b1c19;
+  --destructive: #ba1a1a;
   --destructive-foreground: #ffffff;
-  --border: #ece3d6;
-  --input: #ddd2c3;
-  --ring: #2f5d4a;
-  --sand: #fbf7f0;
-  --raised: #fcf9f4;
-  --rule: #f2ebe0;
-  --brand: #2f5d4a;
+  --border: #e6dfc5;
+  --input: #ddd5c7;
+  --ring: #264e3d;
+  --sand: #fbf9f4;
+  --raised: #f5f3ee;
+  --rule: #f0eee9;
+  --brand: #1a382b;
   --brand-foreground: #ffffff;
-  --brand-soft: #e4efe7;
-  --positive: #2f6b4a;
-  --warning: #93511a;
-  --warning-soft: #fdf1e2;
+  --brand-soft: #e4ece5;
+  --positive: #3a6752;
+  --warning: #b45309;
+  --warning-soft: #fef3c7;
   /* The closing band: deep garden green in both themes. */
-  --ink-band: #22392f;
-  --shadow-soft: 0 1px 2px rgb(74 52 30 / 0.04), 0 4px 14px -6px rgb(74 52 30 / 0.08);
-  --shadow-float: 0 14px 34px -12px rgb(74 52 30 / 0.2), 0 2px 6px rgb(74 52 30 / 0.06);
+  --ink-band: #132a20;
+  --shadow-soft: 0 1px 2px rgb(26 56 43 / 0.05);
+  --shadow-float: 0 14px 34px -12px rgb(26 56 43 / 0.2), 0 2px 6px rgb(26 56 43 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
-  --tint-sage: #e4efe7;
-  --tint-sage-ink: #2f5d4a;
+  --tint-sage: #e4ece5;
+  --tint-sage-ink: #234b38;
   --tint-apricot: #fde8d7;
   --tint-apricot-ink: #8e4a1f;
   --tint-sky: #e1edf7;
   --tint-sky-ink: #2c5a80;
   --tint-lilac: #ece6f5;
   --tint-lilac-ink: #5a4685;
-  --tint-butter: #fbf0cf;
-  --tint-butter-ink: #76591a;
+  --tint-butter: #fef3c7;
+  --tint-butter-ink: #b45309;
   --tint-rose: #f9e3e3;
   --tint-rose-ink: #8f3a43;
-  --chart-1: #2f5d4a;
+  --chart-1: #1a382b;
   --chart-2: #e3965c;
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: #f5eee3;
-  --sidebar-foreground: #4a3f37;
-  --sidebar-primary: #2f5d4a;
+  --sidebar: #f3efe6;
+  --sidebar-foreground: #424844;
+  --sidebar-primary: #1a382b;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ebe1d2;
-  --sidebar-accent-foreground: #2a2420;
-  --sidebar-border: #e8ddce;
-  --sidebar-ring: #2f5d4a;
+  --sidebar-accent: #e4e2dd;
+  --sidebar-accent-foreground: #1b1c19;
+  --sidebar-border: #e6dfc5;
+  --sidebar-ring: #264e3d;
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
@@ -259,9 +259,16 @@
   h2,
   h3,
   h4 {
-    /* Section titles stay in the text face; page titles opt into the serif with heading-display. */
     font-family: var(--font-sans);
     letter-spacing: -0.005em;
+  }
+
+  /* Estate Grade: page and section headlines are Playfair Display. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
   }
 
   ::selection {
@@ -278,16 +285,14 @@
 /* Page and section titles: the text face, set tight. */
 @utility heading-display {
   font-family: var(--font-display);
-  font-weight: 560;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 600;
   letter-spacing: -0.015em;
 }
 
 /* The wordmark and the home greeting only. */
 @utility heading-serif {
   font-family: var(--font-serif);
-  font-weight: 480;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-weight: 600;
   letter-spacing: -0.012em;
   font-optical-sizing: auto;
 }
@@ -298,7 +303,6 @@
 
 @utility surface-card {
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
   background-color: var(--color-card);
   box-shadow: var(--shadow-soft);
 }
@@ -308,7 +312,6 @@
   overflow: hidden;
   border-radius: var(--radius-lg);
   background-color: var(--color-card);
-  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-soft);
   & > * + * {
     border-top: 1px solid var(--color-rule);
@@ -515,19 +518,19 @@
 
 /* Phone palette, fixed so the device looks the same in light and dark mode */
 @theme inline {
-  --color-navy: #22392f;
-  --color-navy-mid: #2f5d4a;
+  --color-navy: #132a20;
+  --color-navy-mid: #264e3d;
   --color-energy: #e0793a;
   --color-energy-ink: #b4531a;
-  --color-paper: #f3ece0;
+  --color-paper: #f3efe6;
 }
 @layer components {
   .wp-light {
-    --background: #fbf7f0;
-    --foreground: #2a2420;
+    --background: #fbf9f4;
+    --foreground: #1b1c19;
     --card: #ffffff;
-    --border: #ece3d6;
-    --muted-foreground: #6b5f55;
+    --border: #e6dfc5;
+    --muted-foreground: #57534e;
     --primary-foreground: #ffffff;
   }
 }
