@@ -93,3 +93,34 @@ export function buildLifecycleEmail(d: {
   const html = `<p>${esc(intro)}</p><p><a href="${esc(d.exportUrl)}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Download my data</a></p><p style="color:#57534e;font-size:14px">You'll be asked for your wallet access code. If the wallet was locked by mistake, or you want to keep it, reply to this email.</p>`;
   return { subject, html, text };
 }
+
+export type LockedHousehold = {
+  id: string;
+  slug: string;
+  familyName: string;
+  email: string | null;
+  status: string | null;
+  lockedAt: Date | null;
+  deleteAfter: Date | null;
+  hold: boolean;
+  notices: readonly number[];
+  ownerConfirmed: boolean;
+};
+export type LifecycleStep =
+  | { id: string; action: "remind"; day: ReminderDay }
+  | { id: string; action: "purge" }
+  | { id: string; action: "skip"; reason: string };
+
+/** What the daily job should do for each locked household. A purge outranks a reminder; holds and missing emails skip. */
+export function planLifecycle(now: Date, households: readonly LockedHousehold[]): LifecycleStep[] {
+  return households.map((h): LifecycleStep => {
+    if (h.hold) return { id: h.id, action: "skip", reason: "on_hold" };
+    const decision = purgeDecision({ now, status: h.status, deleteAfter: h.deleteAfter, hold: h.hold, noticesSent: h.notices, ownerConfirmed: h.ownerConfirmed });
+    if (decision.purge) return { id: h.id, action: "purge" };
+    if (decision.reason === "not_locked" || !h.lockedAt) return { id: h.id, action: "skip", reason: decision.reason };
+    const day = dueReminder(now, h.lockedAt, h.notices);
+    if (day === null) return { id: h.id, action: "skip", reason: decision.reason === "no_final_notice" ? "no_final_notice" : "nothing_due" };
+    if (!h.email) return { id: h.id, action: "skip", reason: "no_email" };
+    return { id: h.id, action: "remind", day };
+  });
+}

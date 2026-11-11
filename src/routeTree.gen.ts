@@ -77,6 +77,7 @@ import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
+import { Route as ApiPublicLifecycleRunRouteImport } from './routes/api/public/lifecycle-run'
 import { Route as ApiPushLatestRouteImport } from './routes/api/push/latest'
 import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
@@ -426,6 +427,11 @@ const AuthenticatedAdminSupportRoute =
     path: '/admin/support',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicLifecycleRunRoute = ApiPublicLifecycleRunRouteImport.update({
+  id: '/api/public/lifecycle-run',
+  path: '/api/public/lifecycle-run',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPushLatestRoute = ApiPushLatestRouteImport.update({
   id: '/api/push/latest',
   path: '/api/push/latest',
@@ -532,6 +538,7 @@ export interface FileRoutesByFullPath {
   '/join/': typeof JoinIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -608,6 +615,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -686,6 +694,7 @@ export interface FileRoutesById {
   '/join/': typeof JoinIndexRoute
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
+  '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -764,6 +773,7 @@ export interface FileRouteTypes {
     | '/join/'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/public/lifecycle-run'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -840,6 +850,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/admin/agencies'
     | '/admin/support'
+    | '/api/public/lifecycle-run'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -917,6 +928,7 @@ export interface FileRouteTypes {
     | '/join/'
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
+    | '/api/public/lifecycle-run'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -993,6 +1005,7 @@ export interface RootRouteChildren {
   WelcomeSlugRoute: typeof WelcomeSlugRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   JoinIndexRoute: typeof JoinIndexRoute
+  ApiPublicLifecycleRunRoute: typeof ApiPublicLifecycleRunRoute
   ApiPushLatestRoute: typeof ApiPushLatestRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
@@ -1477,6 +1490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSupportRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/lifecycle-run': {
+      id: '/api/public/lifecycle-run'
+      path: '/api/public/lifecycle-run'
+      fullPath: '/api/public/lifecycle-run'
+      preLoaderRoute: typeof ApiPublicLifecycleRunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/push/latest': {
       id: '/api/push/latest'
       path: '/api/push/latest'
@@ -1616,6 +1636,7 @@ const rootRouteChildren: RootRouteChildren = {
   WelcomeSlugRoute: WelcomeSlugRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   JoinIndexRoute: JoinIndexRoute,
+  ApiPublicLifecycleRunRoute: ApiPublicLifecycleRunRoute,
   ApiPushLatestRoute: ApiPushLatestRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,

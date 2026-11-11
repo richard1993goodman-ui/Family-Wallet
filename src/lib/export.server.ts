@@ -1,5 +1,12 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { collectFiles, EXPORT_TABLES, exportFileName, isOwnFile, redact, type ExportFile } from "./export";
+import {
+  collectFiles,
+  EXPORT_TABLES,
+  exportFileName,
+  isOwnFile,
+  redact,
+  type ExportFile,
+} from "./export";
 import { daysLeft } from "./lifecycle";
 import { hasCredential } from "./wallet.server";
 
@@ -9,21 +16,40 @@ const PAGE = 1000;
 async function fetchAll(table: string, column: string, values: string | string[]) {
   const rows: Record<string, unknown>[] = [];
   for (let from = 0; ; from += PAGE) {
-    const query = supabaseAdmin.from(table as never).select("*").range(from, from + PAGE - 1);
-    const { data, error } = await (Array.isArray(values) ? query.in(column, values) : query.eq(column, values));
+    const query = supabaseAdmin
+      .from(table as never)
+      .select("*")
+      .range(from, from + PAGE - 1);
+    const { data, error } = await (Array.isArray(values)
+      ? query.in(column, values)
+      : query.eq(column, values));
     if (error) return { rows, error: error.message };
     rows.push(...((data ?? []) as Record<string, unknown>[]));
     if ((data?.length ?? 0) < PAGE) return { rows, error: null };
   }
 }
 
-type FamilyRow = { id: string; family_name: string; status: string; locked_at: string | null; delete_after: string | null };
+type FamilyRow = {
+  id: string;
+  family_name: string;
+  status: string;
+  locked_at: string | null;
+  delete_after: string | null;
+};
 
 async function familyBySlug(slug: string): Promise<FamilyRow | null> {
   // The lifecycle columns are not in the generated types until the migration is applied, so read them loosely.
-  const full = await supabaseAdmin.from("families").select("id, family_name, status, locked_at, delete_after" as "id").eq("slug", slug).maybeSingle();
+  const full = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, status, locked_at, delete_after" as "id")
+    .eq("slug", slug)
+    .maybeSingle();
   if (!full.error) return (full.data as unknown as FamilyRow | null) ?? null;
-  const plain = await supabaseAdmin.from("families").select("id, family_name, status").eq("slug", slug).maybeSingle();
+  const plain = await supabaseAdmin
+    .from("families")
+    .select("id, family_name, status")
+    .eq("slug", slug)
+    .maybeSingle();
   return plain.data ? { ...plain.data, locked_at: null, delete_after: null } : null;
 }
 
@@ -37,7 +63,8 @@ export async function exportStatus(slug: string) {
     familyName: family.family_name,
     locked,
     deleteAfter: locked ? family.delete_after : null,
-    daysLeft: locked && family.delete_after ? daysLeft(new Date(), new Date(family.delete_after)) : null,
+    daysLeft:
+      locked && family.delete_after ? daysLeft(new Date(), new Date(family.delete_after)) : null,
   };
 }
 
@@ -55,7 +82,10 @@ export async function buildExport(slug: string) {
     if (error) problems.push(`${table}: ${error}`);
   }
   // Messages hang off conversations rather than the household itself.
-  for (const [messages, threads] of [["household_messages", "household_threads"], ["support_messages", "support_threads"]] as const) {
+  for (const [messages, threads] of [
+    ["household_messages", "household_threads"],
+    ["support_messages", "support_threads"],
+  ] as const) {
     const ids = (tables[threads] ?? []).map((t) => String(t["id"]));
     if (ids.length) {
       const { rows, error } = await fetchAll(messages, "thread_id", ids);
@@ -63,22 +93,39 @@ export async function buildExport(slug: string) {
       if (error) problems.push(`${messages}: ${error}`);
     }
   }
-  const { data: household } = await supabaseAdmin.from("families").select("*").eq("id", family.id).maybeSingle();
-  const files = collectFiles(family.id, { ...tables, family: household ? [redact(household)] : [] });
+  const { data: household } = await supabaseAdmin
+    .from("families")
+    .select("*")
+    .eq("id", family.id)
+    .maybeSingle();
+  const files = collectFiles(family.id, {
+    ...tables,
+    family: household ? [redact(household)] : [],
+  });
 
   const now = new Date();
   const { audit } = await import("./audit.server");
-  await audit({ actorKind: "parent", action: "data_exported", familyId: family.id, meta: { tables: Object.keys(tables).length, files: files.length } });
+  await audit({
+    actorKind: "parent",
+    action: "data_exported",
+    familyId: family.id,
+    meta: { tables: Object.keys(tables).length, files: files.length },
+  });
   return {
     fileName: exportFileName(family.family_name, now),
-    json: JSON.stringify({
-      about: "A copy of the data held in your Family Wallet. Sign-in codes are not included. Files such as photos and documents are listed under 'files' and downloaded separately.",
-      exportedAt: now.toISOString(),
-      household: household ? redact(household) : null,
-      tables,
-      files,
-      ...(problems.length ? { notExported: problems } : {}),
-    }, null, 2),
+    json: JSON.stringify(
+      {
+        about:
+          "A copy of the data held in your Family Wallet. Sign-in codes are not included. Files such as photos and documents are listed under 'files' and downloaded separately.",
+        exportedAt: now.toISOString(),
+        household: household ? redact(household) : null,
+        tables,
+        files,
+        ...(problems.length ? { notExported: problems } : {}),
+      },
+      null,
+      2,
+    ),
     files,
   };
 }

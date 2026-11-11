@@ -116,3 +116,30 @@ describe("reminder emails", () => {
     );
   });
 });
+
+import { planLifecycle, type LockedHousehold } from "./lifecycle";
+
+describe("the daily plan", () => {
+  const house = (over: Partial<LockedHousehold> = {}): LockedHousehold => ({
+    id: "a", slug: "a-1", familyName: "A", email: "a@example.com", status: "cancelled",
+    lockedAt: locked, deleteAfter: deleteAfterFor(locked), hold: false, notices: [], ownerConfirmed: false, ...over,
+  });
+  it("sends the lock notice to a newly locked household", () => {
+    expect(planLifecycle(locked, [house()])).toEqual([{ id: "a", action: "remind", day: 0 }]);
+  });
+  it("does nothing between reminders", () => {
+    expect(planLifecycle(addDays(locked, 3), [house({ notices: [0] })])[0]).toMatchObject({ action: "skip", reason: "nothing_due" });
+  });
+  it("skips held households and ones with no email", () => {
+    expect(planLifecycle(locked, [house({ hold: true })])[0]).toMatchObject({ reason: "on_hold" });
+    expect(planLifecycle(locked, [house({ email: null })])[0]).toMatchObject({ reason: "no_email" });
+  });
+  it("purges only after the window with the final notice sent", () => {
+    const late = addDays(locked, 31);
+    expect(planLifecycle(late, [house({ notices: [0, 14, 25, 29] })])[0]).toEqual({ id: "a", action: "purge" });
+    expect(planLifecycle(late, [house({ notices: [0, 14, 25] })])[0]).toMatchObject({ action: "remind", day: 29 });
+  });
+  it("never touches an active wallet", () => {
+    expect(planLifecycle(locked, [house({ status: "active", deleteAfter: null, lockedAt: null })])[0]).toMatchObject({ action: "skip" });
+  });
+});
