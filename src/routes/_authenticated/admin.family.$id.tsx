@@ -273,18 +273,24 @@ function FamilyDetail() {
               <p className="text-sm font-medium text-foreground">Wallet link &amp; access code</p>
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                 <code className="rounded bg-muted px-2 py-1">/w/{family.slug}</code>
-                <code className="rounded bg-muted px-2 py-1">Code {family.access_code}</code>
-                <button
-                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
-                    );
-                    toast.success("Link and code copied");
-                  }}
-                >
-                  <Copy className="h-3.5 w-3.5" /> Copy
-                </button>
+                {family.access_code ? (
+                  <>
+                    <code className="rounded bg-muted px-2 py-1">Code {family.access_code}</code>
+                    <button
+                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `${siteUrl(`/w/${family.slug}`)} — access code ${family.access_code}`,
+                        );
+                        toast.success("Link and code copied");
+                      }}
+                    >
+                      <Copy className="h-3.5 w-3.5" /> Copy
+                    </button>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">Code already used, so it is no longer stored. Make a new code to share again.</span>
+                )}
                 <button
                   className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
                   onClick={async () => {

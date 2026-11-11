@@ -95,7 +95,8 @@ async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned
     status: "ready",
     kind: "family",
     slug: family.slug,
-    code: family.access_code,
+    // Null once the family has opened its wallet: the code is no longer kept.
+    code: family.access_code ?? "",
     familyName: family.family_name,
     plan,
   };
@@ -555,9 +556,18 @@ export async function sendWalletDetails(rawEmail: string, clientKey: string) {
     .eq("status", "active");
   if (!families?.length) return;
 
+  // Codes are not kept once used, so a family that has lost theirs gets a fresh one (the old one stops working).
+  const { generateAccessCode, hashCode } = await import("./wallet.server");
+  for (const f of families) {
+    if (f.access_code) continue;
+    const fresh = generateAccessCode();
+    await supabaseAdmin.from("families").update({ access_code: fresh, access_code_hash: hashCode(f.slug, fresh) }).eq("slug", f.slug);
+    f.access_code = fresh;
+  }
+
   const message = buildWalletEmail(
     "recover",
-    families.map((f) => ({ familyName: f.family_name, url: siteUrl(`/w/${f.slug}`), code: f.access_code })),
+    families.map((f) => ({ familyName: f.family_name, url: siteUrl(`/w/${f.slug}`), code: f.access_code ?? "" })),
   );
   await sendEmail({ to: email, ...message });
 }

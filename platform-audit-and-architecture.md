@@ -195,3 +195,6 @@ Plain-text access codes defeat the point of hashing them. Proposed fix: stop wri
 - `supabase/migrations/20261111300000_audit_log.sql`: append-only audit table (service role only, update and delete revoked).
 - `src/lib/audit.server.ts` and the first caller: generating an agency seat login is now logged (who, which agency, which family, which seat; never the code).
 - `src/lib/rls-guard.test.ts`: fails the build if any migration creates a table without enabling RLS, or grants anon access.
+
+### Plain-text access codes (implemented 11 Nov, committed locally)
+Rule: a code is readable only until its owner first signs in with it, then cleared; only the hash stays. Family and staff codes are cleared on first successful sign-in. Lost codes are replaced, not revealed: the recovery email, the owner's invite email and the staff invite email issue a fresh code when none is stored. The admin screens say "code used, no longer stored" and offer "New code". Live: `families.access_code` is now nullable (applied). **Still to do after this deploys:** clear the readable codes of the 7 families who have already opened their wallet; the other 36 clear themselves at first sign-in. Tests: `code-retention.test.ts`.

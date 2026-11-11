@@ -576,18 +576,24 @@ function AdminHome() {
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                 <code className="rounded bg-muted px-2 py-1">/w/{h.slug}</code>
-                <code className="rounded bg-muted px-2 py-1">Code {h.accessCode}</code>
-                <button
-                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
-                  onClick={() => {
-                    void navigator.clipboard.writeText(
-                      `${siteUrl(`/w/${h.slug}`)} — access code ${h.accessCode}`,
-                    );
-                    toast.success("Link and code copied");
-                  }}
-                >
-                  <Copy className="h-3.5 w-3.5" /> Copy link &amp; code
-                </button>
+                {h.accessCode ? (
+                  <>
+                    <code className="rounded bg-muted px-2 py-1">Code {h.accessCode}</code>
+                    <button
+                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+                      onClick={() => {
+                        void navigator.clipboard.writeText(
+                          `${siteUrl(`/w/${h.slug}`)} — access code ${h.accessCode}`,
+                        );
+                        toast.success("Link and code copied");
+                      }}
+                    >
+                      <Copy className="h-3.5 w-3.5" /> Copy link &amp; code
+                    </button>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">Code used, no longer stored</span>
+                )}
                 {h.status === "active" &&
                   (h.contactEmail ? (
                     <button

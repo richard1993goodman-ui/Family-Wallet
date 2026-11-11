@@ -4,10 +4,20 @@ import { describe, expect, it } from "vitest";
 // Every table the project creates must switch row-level security on, so a new table can never ship readable
 // by the public API. Reads every migration, in both folders.
 const DIRS = ["supabase/migrations", "drizzle/migrations"];
-const sql = DIRS.flatMap((d) => readdirSync(d).filter((f) => f.endsWith(".sql")).map((f) => readFileSync(`${d}/${f}`, "utf8"))).join("\n");
+const sql = DIRS.flatMap((d) =>
+  readdirSync(d)
+    .filter((f) => f.endsWith(".sql"))
+    .map((f) => readFileSync(`${d}/${f}`, "utf8")),
+).join("\n");
 
-const created = [...sql.matchAll(/create table (?:if not exists )?(?:public\.)?"?([a-z_]+)"?/gi)].map((m) => m[1]!.toLowerCase());
-const secured = new Set([...sql.matchAll(/alter table (?:only )?(?:public\.)?"?([a-z_]+)"? enable row level security/gi)].map((m) => m[1]!.toLowerCase()));
+const created = [
+  ...sql.matchAll(/create table (?:if not exists )?(?:public\.)?"?([a-z_]+)"?/gi),
+].map((m) => m[1]!.toLowerCase());
+const secured = new Set(
+  [
+    ...sql.matchAll(/alter table (?:only )?(?:public\.)?"?([a-z_]+)"? enable row level security/gi),
+  ].map((m) => m[1]!.toLowerCase()),
+);
 
 describe("row-level security", () => {
   it("is enabled on every table the migrations create", () => {

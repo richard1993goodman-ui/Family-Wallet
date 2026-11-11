@@ -855,6 +855,13 @@ export const sendFamilyInvite = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!family) throw new Error("Family not found");
     if (family.status !== "active") throw new Error("That family is cancelled.");
+    // Codes are not kept once used, so an invite to a family that has opened its wallet carries a new one.
+    if (!family.access_code) {
+      const { generateAccessCode, hashCode } = await import("./wallet.server");
+      const fresh = generateAccessCode();
+      await supabaseAdmin.from("families").update({ access_code: fresh, access_code_hash: hashCode(family.slug, fresh) }).eq("id", data.id);
+      family.access_code = fresh;
+    }
     const to = (family.contact_email ?? "").trim();
     if (!to) throw new Error("Add an email address for this family first.");
     const { emailConfigured, sendEmail } = await import("./email.server");

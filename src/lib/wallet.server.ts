@@ -183,6 +183,8 @@ export async function attemptUnlock(slug: string, code: string) {
 
   if (!success) return { ok: false as const, reason: "invalid" as const };
 
+  // The code has done its job: stop keeping a readable copy.
+  await supabaseAdmin.from("families").update({ access_code: null }).eq("slug", slug);
   await markUnlocked(slug);
   return { ok: true as const };
 }
@@ -288,14 +290,15 @@ export async function ensureNannyInvite(slug: string, nannyId: string, regenerat
 
   const { data: nanny } = await supabaseAdmin
     .from("family_nannies")
-    .select("id, name, nanny_code")
+    .select("id, name, nanny_code, nanny_code_hash")
     .eq("id", nannyId)
     .eq("family_id", family.id)
     .maybeSingle();
   if (!nanny) return null;
 
+  // A code already in use is only stored as a hash, so it can't be shown again: regenerate to get a new one.
   let code = nanny.nanny_code;
-  if (!code || regenerate) {
+  if (regenerate || (!code && !nanny.nanny_code_hash)) {
     code = generateAccessCode();
     const { error } = await supabaseAdmin
       .from("family_nannies")
@@ -309,6 +312,7 @@ export async function ensureNannyInvite(slug: string, nannyId: string, regenerat
     if (error) return null;
   }
 
+  if (!code) return null;
   return { code, slug, nannyId: nanny.id, nannyName: nanny.name };
 }
 
@@ -344,6 +348,8 @@ export async function attemptNannyUnlock(slug: string, code: string) {
 
   if (!matched) return { ok: false as const, reason: "invalid" as const };
 
+  // The code has done its job: stop keeping a readable copy.
+  await supabaseAdmin.from("family_nannies").update({ nanny_code: null }).eq("id", matched.id);
   const session = await walletSession();
   const current = session.data.unlocked ?? [];
   const entry = nannySessionKey(slug, matched.id);

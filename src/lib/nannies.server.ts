@@ -166,7 +166,8 @@ export async function emailStaffLogin(slug: string, nannyId: string, rawEmail: s
     .gte("attempted_at", since);
   if ((count ?? 0) >= EMAILS_PER_HOUR) throw new Error("That's a lot of emails. Please try again in an hour.");
 
-  const invite = await ensureNannyInvite(slug, nannyId);
+  // A code that was already used is not kept, so the email carries a fresh one.
+  const invite = (await ensureNannyInvite(slug, nannyId)) ?? (await ensureNannyInvite(slug, nannyId, true));
   if (!invite) throw new Error("That person isn't in your household.");
   const { emailConfigured, sendEmail } = await import("./email.server");
   if (!emailConfigured()) throw new Error("Email isn't set up yet. Copy the link and code instead.");

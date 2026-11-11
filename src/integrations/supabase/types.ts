@@ -454,7 +454,7 @@ export type Database = {
       }
       families: {
         Row: {
-          access_code: string
+          access_code: string | null
           access_code_hash: string
           agreement_policy: string
           contact_email: string | null
@@ -494,7 +494,7 @@ export type Database = {
           use_agreement: boolean
         }
         Insert: {
-          access_code?: string
+          access_code?: string | null
           access_code_hash: string
           agreement_policy?: string
           contact_email?: string | null
@@ -534,7 +534,7 @@ export type Database = {
           use_agreement?: boolean
         }
         Update: {
-          access_code?: string
+          access_code?: string | null
           access_code_hash?: string
           agreement_policy?: string
           contact_email?: string | null
