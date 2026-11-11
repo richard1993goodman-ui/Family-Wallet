@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -55,7 +56,7 @@ function ReportPage() {
           ["Hours worked", s.hours.toFixed(1)],
           ["Active minutes", String(s.activeMinutes)],
           ["Handovers", String(s.handovers)],
-          ["Expenses", `£${s.expensesTotal.toFixed(2)}`],
+          ["Expenses", `${formatMoney(s.expensesTotal)}`],
         ].map(([label, value]) => (
           <div key={label} className="rounded-xl border border-border bg-card p-4">
             <p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p>
@@ -72,8 +73,8 @@ function ReportPage() {
               {data.shifts.map((sh, i) => (
                 <li key={i} className="flex justify-between gap-2"><span>{fmt(sh.shift_date)} · {sh.start_time.slice(0, 5)}–{sh.end_time.slice(0, 5)}{sh.shift_type === "babysitting" ? " · Babysitting" : ""}</span><span className="text-muted-foreground">{sh.hours.toFixed(1)}h · {sh.status}</span></li>
               ))}
-              <li className="border-t border-border pt-2 font-medium">Approved nanny pay £{s.approvedPay.toFixed(2)}{s.pendingShifts ? ` · ${s.pendingShifts} shift(s) awaiting approval` : ""}</li>
-              {s.babysittingHours > 0 && <li className="font-medium">Babysitting: {s.babysittingHours.toFixed(1)}h · approved £{s.babysittingPay.toFixed(2)}</li>}
+              <li className="border-t border-border pt-2 font-medium">Approved nanny pay {formatMoney(s.approvedPay)}{s.pendingShifts ? ` · ${s.pendingShifts} shift(s) awaiting approval` : ""}</li>
+              {s.babysittingHours > 0 && <li className="font-medium">Babysitting: {s.babysittingHours.toFixed(1)}h · approved {formatMoney(s.babysittingPay)}</li>}
             </ul>
           ) : <Empty text="No timesheet shifts logged this week." />}
         </Card>
@@ -129,9 +130,9 @@ function ReportPage() {
           {data.expenses.length ? (
             <ul className="mt-3 space-y-1 border-t border-border pt-2 text-sm">
               {data.expenses.map((e, i) => (
-                <li key={i} className="flex justify-between"><span>{fmt(e.expense_date)} · {e.item}</span><span className="text-muted-foreground">£{Number(e.amount).toFixed(2)} · {e.status}</span></li>
+                <li key={i} className="flex justify-between"><span>{fmt(e.expense_date)} · {e.item}</span><span className="text-muted-foreground">{formatMoney(Number(e.amount))} · {e.status}</span></li>
               ))}
-              {s.expensesPending > 0 && <li className="font-medium">£{s.expensesPending.toFixed(2)} awaiting reimbursement</li>}
+              {s.expensesPending > 0 && <li className="font-medium">{formatMoney(s.expensesPending)} awaiting reimbursement</li>}
             </ul>
           ) : null}
         </Card>

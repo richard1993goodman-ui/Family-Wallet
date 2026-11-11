@@ -56,3 +56,6 @@ Stripe needs separate prices per currency; amounts are chosen by you, not conver
 3. **Scope of string extraction:** the whole app, or only the signed-in wallet's core pages first.
 4. **Translator source:** human translators, a vendor, or reviewed machine drafts for non-legal text only.
 5. **Currency in other markets:** do you want price lists per currency decided by you, and from when?
+
+## F1 status (11 Nov)
+Built and committed locally, not applied live: migration `20261111460000_household_locale.sql` (household country, region, time zone and currency, all defaulting to UK, GBP and London; a `currency` column on the four money tables); `format.ts` with `formatMoney`, `formatDate` and `formatTime` and tests; and money display moved to `formatMoney` on the dashboards, timesheets, hours, live-in, handover, report and petty cash screens (pounds, now with thousands separators). **Not done yet:** the screens do not read the household currency yet (they always show pounds), the "(£)" labels on input fields are unchanged, the 68 `en-GB` date and number uses are not converted, `agreement.hourly_rate` is still text, and the new columns are not in the generated types.

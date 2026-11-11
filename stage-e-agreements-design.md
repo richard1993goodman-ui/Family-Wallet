@@ -58,3 +58,6 @@ Add `country` and `region` to the household (shared with Stage F). A template is
 
 ## E1 status (11 Nov)
 Built and committed locally, not applied live: migration `20261111420000_agreement_versions.sql` (append-only `agreement_versions`, signature evidence columns, backfill of current issued wording), snapshot on every issue, and signatures that record the version and hash. **Behaviour change:** signing is refused while the wording on screen differs from what was issued (it must be re-issued first), so a signature always covers exactly the stored text. Not yet run against the live database; a rolled-back dry run of the migration is the next check.
+
+## E2 status (11 Nov)
+Built and committed locally, not applied live: migration `20261111440000_agreement_templates.sql` (template and template-version tables; a version cannot be approved without a named reviewer and date; approved versions are frozen; no wording seeded) and `agreement-review.ts`. Every agreement document now ends with "Not yet legally reviewed" because no template is approved. Owner admin screen for templates is not built.

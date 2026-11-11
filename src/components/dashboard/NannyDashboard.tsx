@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
 import { SupportBox } from "@/components/SupportBox";
@@ -242,7 +243,7 @@ export function NannyDashboard(props: DashboardProps) {
                     to="/handover/$slug"
                     icon={ReceiptText}
                     title="Expenses to be repaid"
-                    detail={`£${(hub?.pendingExpensesTotal ?? 0).toFixed(2)}`}
+                    detail={`${formatMoney((hub?.pendingExpensesTotal ?? 0))}`}
                     badge={<CountBadge count={attention.expensesPending} />}
                   />
                 ) : null}

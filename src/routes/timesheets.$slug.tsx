@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -112,7 +113,7 @@ function TimesheetsPage() {
             <h2 className="heading-display text-lg text-foreground">Scheduled hours to confirm</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               From your calendar over the last two weeks. Hours that were changed show the amended times once the change was approved.
-              {rate > 0 ? ` At £${rate.toFixed(2)} an hour.` : " Add an hourly rate in the agreement to price these."}
+              {rate > 0 ? ` At ${formatMoney(rate)} an hour.` : " Add an hourly rate in the agreement to price these."}
             </p>
           </div>
           <Button size="sm" disabled={confirming} onClick={() => confirmShifts(scheduled)}>
@@ -162,7 +163,7 @@ function TimesheetsPage() {
         <label className="flex items-end gap-2 pb-2 text-sm text-foreground"><input type="checkbox" checked={draft.isOvernight} onChange={(e) => setDraft({ ...draft, isOvernight: e.target.checked })} /> Overnight shift</label>
       </div>
       <div className="mt-4"><Field label="Notes" textarea value={draft.notes ?? ""} onChange={(notes) => setDraft({ ...draft, notes })} /></div>
-      <p className="mt-3 text-sm text-muted-foreground">{shiftHours(draft).toFixed(2)} hours · £{shiftAmount({ ...draft, hourlyRate: draft.hourlyRate || rate }).toFixed(2)}</p>
+      <p className="mt-3 text-sm text-muted-foreground">{shiftHours(draft).toFixed(2)} hours · {formatMoney(shiftAmount({ ...draft, hourlyRate: draft.hourlyRate || rate }))}</p>
       <Button className="mt-4" onClick={async () => {
         await submitFn({ data: { slug, shift: { ...draft, hourlyRate: draft.hourlyRate || rate } } });
         setDraft(freshShift(draft.shiftType));
@@ -199,7 +200,7 @@ function ShiftSection({ title, empty, shifts, isFamily, onReview }: {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="font-medium text-foreground">{new Date(`${shift.shiftDate}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{shift.startTime}–{shift.endTime} · {shiftHours(shift).toFixed(2)} hrs · £{shiftAmount(shift).toFixed(2)}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{shift.startTime}–{shift.endTime} · {shiftHours(shift).toFixed(2)} hrs · {formatMoney(shiftAmount(shift))}</p>
                 {shift.notes && <p className="mt-1 text-sm text-muted-foreground">{shift.notes}</p>}
               </div>
               <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium capitalize text-foreground">{shift.status}</span>
@@ -218,5 +219,5 @@ function ShiftSection({ title, empty, shifts, isFamily, onReview }: {
 }
 
 function Summary({ label, hours, amount }: { label: string; hours: number; amount: number }) {
-  return <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p><p className="heading-display mt-2 text-2xl text-foreground">£{amount.toFixed(2)}</p><p className="text-sm text-muted-foreground">{hours.toFixed(2)} hours</p></Card>;
+  return <Card><p className="text-[0.8125rem] font-medium text-muted-foreground">{label}</p><p className="heading-display mt-2 text-2xl text-foreground">{formatMoney(amount)}</p><p className="text-sm text-muted-foreground">{hours.toFixed(2)} hours</p></Card>;
 }

@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -66,7 +67,7 @@ function LiveInPage() {
   return (
     <HubPage slug={slug} title="Au pair & live-in" intro="For carers who live with you: agreed pocket money, a weekly hours cap, protected days off and the house rules, all in one fair place.">
       <div className="grid gap-3 sm:grid-cols-3">
-        <Card><p className="text-sm text-muted-foreground">Pocket money</p><p className="heading-display mt-1 text-3xl text-primary">£{data.settings.weeklyPocketMoney.toFixed(2)}<span className="text-base text-muted-foreground"> /week</span></p></Card>
+        <Card><p className="text-sm text-muted-foreground">Pocket money</p><p className="heading-display mt-1 text-3xl text-primary">{formatMoney(data.settings.weeklyPocketMoney)}<span className="text-base text-muted-foreground"> /week</span></p></Card>
         <Card><p className="text-sm text-muted-foreground">Hours cap</p><p className="heading-display mt-1 text-3xl text-foreground">{data.settings.maxWeeklyHours}h<span className="text-base text-muted-foreground"> /week</span></p></Card>
         <Card><p className="text-sm text-muted-foreground">Days off</p><p className="heading-display mt-1 text-3xl text-foreground">{data.settings.daysOffPerWeek}<span className="text-base text-muted-foreground"> /week</span></p></Card>
       </div>

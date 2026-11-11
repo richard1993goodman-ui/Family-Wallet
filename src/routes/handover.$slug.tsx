@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -137,7 +138,7 @@ function HandoverPage() {
       <div className="grid gap-3 sm:grid-cols-3">
         <SummaryCard icon={ClipboardCheck} label="Handovers" value={data.handovers.length} />
         <SummaryCard icon={ReceiptText} label="Expenses" value={data.expenses.length} />
-        <SummaryCard icon={HandCoins} label="Awaiting" value={`£${data.pendingTotal.toFixed(2)}`} />
+        <SummaryCard icon={HandCoins} label="Awaiting" value={`${formatMoney(data.pendingTotal)}`} />
       </div>
 
       {latest && (
@@ -363,7 +364,7 @@ function HandoverPage() {
           <Card key={item.id}>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-medium text-foreground">£{item.amount.toFixed(2)} · {item.item}</p>
+                <p className="font-medium text-foreground">{formatMoney(item.amount)} · {item.item}</p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {formatDate(item.expenseDate)} · {item.nannyName} · {EXPENSE_CATEGORIES.find((category) => category.value === item.category)?.label ?? item.category}
                 </p>

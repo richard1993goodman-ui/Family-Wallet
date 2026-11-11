@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
@@ -223,7 +224,7 @@ function NeedsAttention({
         tone="attention"
         cta="Review"
         title="Expenses to reimburse"
-        detail={`£${(hub?.pendingExpensesTotal ?? 0).toFixed(2)} waiting`}
+        detail={`${formatMoney((hub?.pendingExpensesTotal ?? 0))} waiting`}
         badge={<CountBadge count={attention.expensesPending} />}
       />,
     );

@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/pettycash/$slug")({
 });
 
 const today = () => new Date().toISOString().slice(0, 10);
-const money = (n: number) => `£${Math.abs(n).toFixed(2)}`;
+const money = (n: number) => `${formatMoney(Math.abs(n))}`;
 
 function PettyCashPage() {
   const { slug } = Route.useParams();

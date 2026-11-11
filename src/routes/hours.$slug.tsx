@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/format";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -70,7 +71,7 @@ function OvertimeCalculator() {
           ))}
         </div>
         <p className="mt-4 text-sm text-muted-foreground">Overtime due</p>
-        <p className="heading-display text-3xl text-primary">£{total.toFixed(2)}</p>
+        <p className="heading-display text-3xl text-primary">{formatMoney(total)}</p>
       </Card>
     </div>
   );
