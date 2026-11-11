@@ -285,15 +285,8 @@ export const deleteFamily = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: docs } = await supabaseAdmin
-      .from("family_documents")
-      .select("storage_path")
-      .eq("family_id", data.id);
-    const paths = (docs ?? []).map((d) => d.storage_path).filter(Boolean);
-    if (paths.length) await supabaseAdmin.storage.from("family-docs").remove(paths);
-    const { error } = await supabaseAdmin.from("families").delete().eq("id", data.id);
-    if (error) throw new Error(error.message);
+    const { purgeHousehold } = await import("./lifecycle.server");
+    await purgeHousehold(data.id, "deleted by owner");
     return { ok: true as const };
   });
 

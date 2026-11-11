@@ -17,6 +17,7 @@ import { roleLabel } from "@/lib/staff-roles";
 import { siteUrl } from "@/lib/site";
 
 import { supabase } from "@/integrations/supabase/client";
+import { LockedWallets } from "@/components/LockedWallets";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -469,6 +470,8 @@ function AdminHome() {
             </Link>
           )}
         </div>
+
+        {status.data?.isOwner && <LockedWallets />}
 
         <div className="mt-6 space-y-4">
           <div className="relative">

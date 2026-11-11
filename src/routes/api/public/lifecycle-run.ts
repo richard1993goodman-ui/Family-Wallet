@@ -10,7 +10,9 @@ export const Route = createFileRoute("/api/public/lifecycle-run")({
         if (denied) return denied;
         const { runLifecycle } = await import("@/lib/lifecycle.server");
         const report = await runLifecycle();
-        return new Response(JSON.stringify(report), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+        return new Response(JSON.stringify(report), {
+          headers: { "content-type": "application/json", "cache-control": "no-store" },
+        });
       },
     },
   },
