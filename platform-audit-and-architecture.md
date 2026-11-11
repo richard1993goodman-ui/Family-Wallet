@@ -173,3 +173,25 @@ Nothing in this document has been implemented.
 
 - Annual price confirmed at £199. **Stripe updated (live):** Household now £19.99/month (price_1UabxHPLmJpOnK3s1tBEQ2LX) and £199/year (price_1UabxJPLmJpOnK3s2vleuKhZ), lookup keys fw_household_month/year moved to them. Old £14.99 and £149 prices archived (no subscribers). Family £7.99/£79 prices untouched: one live subscriber remains on fw_family_month.
 - **Wallet lifecycle rule, all wallets including partner-agency wallets:** on cancellation or release, lock immediately, 30-day export window, then delete. Reminder emails before deletion. Not yet built; legal-retention wording for terms to be reviewed.
+
+## Stage B progress (11 Nov): live read-only audit
+
+Read-only SELECTs against the live Supabase project (counts and policy metadata only; no personal data read, nothing written).
+
+| Check | Live result |
+|---|---|
+| Tables, RLS on | 56 tables, RLS on for all 56 |
+| Public-schema policies | 5 in total (admin-only on agency, perks and playbook tables; users read own role). Family tables have **no** policies, so nobody can read them through the database API. Better than the earlier audit assumed |
+| Storage | One private bucket `family-docs`, one policy (admin only); no public buckets |
+| Data volume | 43 families (2 agency-run), 3 agencies, 46 staff rows, 1 subscription |
+| **Newer migrations** | **Not applied.** `agency_invites`, `wallet_pair_pins`, `wallet_documents`, `shift_sessions`, `moment_reactions` do not exist, and `families.entitlement` / `transition_ends_at` / `parent_photo_path` are missing. Agency seat features and the newer wallet features will fail live until applied |
+| **Plain-text codes** | **All 43 families have their access code stored in plain text** (`families.access_code`), as do 15 staff (`family_nannies.nanny_code`), alongside the hashes. Anyone with database or backup access can read them |
+| pg_cron | Not installed (so the 30-day lock and delete rule needs a scheduled job another way) |
+
+### New high-priority finding
+Plain-text access codes defeat the point of hashing them. Proposed fix: stop writing the plaintext, show a code only once at creation, and null out existing values after an announced regeneration. Needs your approval because families who rely on seeing their code in the app would need a "reset code" flow first.
+
+### Built in this stage (committed locally, not applied to the live database)
+- `supabase/migrations/20261111300000_audit_log.sql`: append-only audit table (service role only, update and delete revoked).
+- `src/lib/audit.server.ts` and the first caller: generating an agency seat login is now logged (who, which agency, which family, which seat; never the code).
+- `src/lib/rls-guard.test.ts`: fails the build if any migration creates a table without enabling RLS, or grants anon access.

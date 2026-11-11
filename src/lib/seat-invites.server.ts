@@ -185,6 +185,8 @@ export async function generateSeatLogin(agencyId: string, slot: number, rawFamil
       nanny = { name: nannyName, url: siteUrl(`/nanny/${slug}`), code: nannyCode };
     } else console.error("Could not add the nanny", nannyError.message);
   }
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "agency_staff", action: "seat_login_generated", familyId: family.id, agencyId, meta: { slot, withNanny: !!nanny } });
   return {
     agencyName: agency.brand_name || agency.name,
     familyName,

@@ -2747,6 +2747,32 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_log: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_kind: string
+          agency_id: string | null
+          at: string
+          family_id: string | null
+          id: string
+          meta: Json
+          reason: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_kind: string
+          agency_id?: string | null
+          at?: string
+          family_id?: string | null
+          id?: string
+          meta?: Json
+          reason?: string | null
+        }
+        Update: never
+        Relationships: []
+      }
       agency_invites: {
         Row: {
           accepted_at: string | null
