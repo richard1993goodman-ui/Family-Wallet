@@ -4,8 +4,10 @@ import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight } from "lucide-react";
 
 import { getFirst48 } from "@/lib/welcome.functions";
+import { useT } from "@/lib/i18n/provider";
 
 export function WelcomeCard({ slug }: { slug: string }) {
+  const t = useT();
   const welcomeFn = useServerFn(getFirst48);
   const welcomeQuery = useQuery({
     queryKey: ["first48", slug],
@@ -27,12 +29,12 @@ export function WelcomeCard({ slug }: { slug: string }) {
     >
       <span>
         <span className="block font-medium text-foreground">
-          {completed ? "First 48 hours — agreed together" : "First 48 hours — a confident start"}
+          {completed ? t("dash.first48Done") : t("dash.first48Start")}
         </span>
         <span className="mt-1 block text-sm text-muted-foreground">
           {total
-            ? `${done} of ${total} agreed by parent and nanny · Routines, pickups and your first handover`
-            : "Add your nanny, then agree the essentials together."}
+            ? t("dash.first48Progress", { done, total })
+            : t("dash.first48Empty")}
         </span>
       </span>
       <ArrowRight className="h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />

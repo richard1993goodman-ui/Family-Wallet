@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { ContactRow, SectionTitle } from "@/components/dashboard/tiles";
 import type { DashboardWallet } from "@/components/dashboard/types";
+import { useT } from "@/lib/i18n/provider";
 
 export function DashboardHeader({
   eyebrow,
@@ -33,19 +34,16 @@ export function DashboardHeader({
 }
 
 export function DemoBanner({ slug }: { slug: string }) {
+  const t = useT();
   if (slug !== "demo") return null;
   return (
     <div className="mb-8 flex gap-3 rounded-lg border border-brand/20 bg-brand-soft/60 px-4 py-2.5 text-[0.8125rem] leading-relaxed">
       <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-brand" aria-hidden="true" />
       <div>
         <p className="text-foreground/80">
-          <span className="font-medium text-foreground">You're viewing a demo Family Wallet. </span>
-          The Harrington family, their nanny Jess and everything here are examples. Explore freely —
-          as a member, your own private wallet is set up with your family, your nanny and your
-          agreement.{" "}
-          <Link to="/" className="font-medium text-foreground underline underline-offset-4">
-            Exit the demo
-          </Link>
+          <span className="font-medium text-foreground">{t("dash.youReViewingADemo")}</span>
+          {t("dash.demoNote")}{" "}
+          <Link to="/" className="font-medium text-foreground underline underline-offset-4">{t("dash.exitTheDemo")}</Link>
         </p>
       </div>
     </div>
@@ -53,6 +51,7 @@ export function DemoBanner({ slug }: { slug: string }) {
 }
 
 export function EmergencyCardLink({ slug }: { slug: string }) {
+  const t = useT();
   return (
     <Link
       to="/emergency/$slug"
@@ -61,10 +60,8 @@ export function EmergencyCardLink({ slug }: { slug: string }) {
     >
       <Siren className="h-4 w-4 flex-none text-destructive" />
       <span className="min-w-0 flex-1">
-        <span className="block font-medium text-foreground">Emergency card</span>
-        <span className="block text-sm text-muted-foreground">
-          Contacts, allergies, medication, GP and address
-        </span>
+        <span className="block font-medium text-foreground">{t("dash.emergencyCard")}</span>
+        <span className="block text-sm text-muted-foreground">{t("dash.contactsAllergiesMedicationGpAnd")}</span>
       </span>
       <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
     </Link>
@@ -72,19 +69,20 @@ export function EmergencyCardLink({ slug }: { slug: string }) {
 }
 
 export function EmergencyContacts({ wallet }: { wallet: DashboardWallet }) {
+  const t = useT();
   const nannyContacts = wallet.nannies.filter((n) => n.emergency);
   if (nannyContacts.length === 0 && wallet.contacts.length === 0) return null;
   return (
     <section>
-      <SectionTitle>Emergency contacts</SectionTitle>
+      <SectionTitle>{t("dash.emergencyContacts")}</SectionTitle>
       <div className="ios-group">
         {wallet.contacts.map((contact, i) => (
-          <ContactRow key={`family-${i}`} label="Family contact" contact={contact} />
+          <ContactRow key={`family-${i}`} label={t("dash.familyContact")} contact={contact} />
         ))}
         {nannyContacts.map((nanny) => (
           <ContactRow
             key={nanny.id}
-            label={nanny.isYou ? "Your emergency contact" : `${nanny.name}'s emergency contact`}
+            label={nanny.isYou ? t("dash.yourEmergencyContact") : t("dash.staffEmergencyContact", { name: nanny.name })}
             contact={nanny.emergency!}
           />
         ))}
@@ -94,10 +92,11 @@ export function EmergencyContacts({ wallet }: { wallet: DashboardWallet }) {
 }
 
 export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
+  const t = useT();
   if (wallet.nannies.length === 0) return null;
   return (
     <section>
-      <SectionTitle>{wallet.nannies.length > 1 ? "Your nannies" : "Your nanny"}</SectionTitle>
+      <SectionTitle>{wallet.nannies.length > 1 ? t("dash.yourNannies") : t("dash.yourNanny")}</SectionTitle>
       <div className="surface-card space-y-4 p-5">
         {wallet.nannies.map((nanny) => (
           <div key={nanny.id} className="flex items-start gap-4">
@@ -135,6 +134,7 @@ export function DashboardFooter({
   /** Set for households that pay through Stripe; shows a link to manage the subscription. */
   billingSlug?: string | undefined;
 }) {
+  const t = useT();
   return (
     <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-[0.8125rem] text-muted-foreground">
       <p>
@@ -149,18 +149,14 @@ export function DashboardFooter({
         type="button"
         className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
         onClick={onLock}
-      >
-        Lock this wallet on this device
-      </button>
+      >{t("dash.lockThisWalletOnThis")}</button>
       {billingSlug && (
         <form method="post" action="/api/stripe/portal">
           <input type="hidden" name="slug" value={billingSlug} />
           <button
             type="submit"
             className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
-          >
-            Manage subscription
-          </button>
+          >{t("dash.manageSubscription")}</button>
         </form>
       )}
     </div>

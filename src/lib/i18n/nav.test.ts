@@ -18,7 +18,9 @@ describe("wallet menu translation", () => {
   });
 
   it("shows the same words as before in English, including who the household employs", () => {
-    const english = navFor("family", true, "au pair", tEnglish).flatMap((s) => s.items.map((i) => i.title));
+    const english = navFor("family", true, "au pair", tEnglish).flatMap((s) =>
+      s.items.map((i) => i.title),
+    );
     const before = navFor("family", true, "au pair").flatMap((s) => s.items.map((i) => i.label));
     expect(english).toEqual(before);
     expect(english).toContain("Au pair agreement");
@@ -42,7 +44,9 @@ describe("wallet menu translation", () => {
   it("has a title for every phone tab", () => {
     for (const role of ["family", "nanny"] as const) {
       for (const tab of mobileTabsFor(role, tPseudo)) expect(tab.title?.startsWith("⟦")).toBe(true);
-      expect(mobileTabsFor(role, tEnglish).map((t) => t.title)).toEqual(mobileTabsFor(role).map((t) => t.label));
+      expect(mobileTabsFor(role, tEnglish).map((t) => t.title)).toEqual(
+        mobileTabsFor(role).map((t) => t.label),
+      );
     }
   });
 });

@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatDate, formatMoney } from "@/lib/format";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
@@ -62,15 +62,18 @@ import {
 } from "@/components/dashboard/tiles";
 import { greeting, londonToday, longDate } from "@/lib/dashboard-format";
 import type { DashboardProps } from "@/components/dashboard/types";
+import { useT } from "@/lib/i18n/provider";
+import type { MessageKey } from "@/lib/i18n/en-GB";
 
-const CHECK_LABELS: Record<string, { title: string }> = {
-  dbs: { title: "DBS certificate" },
-  id_check: { title: "ID & right to work" },
-  reference_1: { title: "Reference" },
-  reference_2: { title: "Reference" },
+const CHECK_LABELS: Record<string, MessageKey> = {
+  dbs: "dash.dbsCertificate",
+  id_check: "dash.idRightToWork",
+  reference_1: "dash.reference",
+  reference_2: "dash.reference",
 };
 
 export function FamilyDashboard(props: DashboardProps) {
+  const t = useT();
   const { slug, wallet, hub, onLock } = props;
 
   return (
@@ -79,18 +82,16 @@ export function FamilyDashboard(props: DashboardProps) {
       <DashboardHeader
         eyebrow={longDate(hub?.today.date)}
         title={greeting()}
-        subtitle={`${wallet.familyName}${wallet.agencyName ? ` · with ${wallet.agencyName}` : ""}`}
+        subtitle={`${wallet.familyName}${wallet.agencyName ? ` · ${t("shell.withAgency", { agency: wallet.agencyName })}` : ""}`}
         actions={
           <>
             <Button variant="outline" asChild>
               <Link to="/report/$slug" params={{ slug }}>
-                <FileBarChart className="h-4 w-4" /> Weekly report
-              </Link>
+                <FileBarChart className="h-4 w-4" />{t("dash.weeklyReport")}</Link>
             </Button>
             <Button asChild>
               <Link to="/messages/$slug" params={{ slug }}>
-                <MessageCircle className="h-4 w-4" /> Message your nanny
-              </Link>
+                <MessageCircle className="h-4 w-4" />{t("dash.messageYourNanny")}</Link>
             </Button>
           </>
         }
@@ -146,6 +147,7 @@ function NeedsAttention({
   nannyCount,
   outstandingAgreements,
 }: DashboardProps) {
+  const t = useT();
   const attention = hub?.attention;
   const rows = [];
 
@@ -158,14 +160,14 @@ function NeedsAttention({
           to="/agreement/$slug"
           icon={FileText}
           tone="attention"
-          cta="Continue"
-          title={`${nanny.name}'s agreement`}
+          cta={t("dash.continue")}
+          title={t("dash.staffAgreement", { name: nanny.name })}
           detail={
             nanny.agreementStatus === "none"
-              ? "Not started"
+              ? t("dash.notStarted")
               : nanny.agreementStatus === "draft"
-                ? "Draft saved — finish and open for signing"
-                : "Awaiting signatures"
+                ? t("dash.draftSavedFinishAndOpen")
+                : t("dash.awaitingSignatures")
           }
         />,
       );
@@ -178,8 +180,8 @@ function NeedsAttention({
         to="/agreement/$slug"
         icon={FileText}
         tone="attention"
-        cta={agreement.hasContent ? "Continue" : "Start"}
-        title={agreement.hasContent ? "Finish your nanny agreement" : "Build your nanny agreement"}
+        cta={agreement.hasContent ? t("dash.continue") : t("dash.start")}
+        title={agreement.hasContent ? t("dash.finishYourNannyAgreement") : t("dash.buildYourNannyAgreement")}
         detail={agreementSubtitle}
       />,
     );
@@ -192,9 +194,9 @@ function NeedsAttention({
         to="/timesheets/$slug"
         icon={Clock3}
         tone="attention"
-        cta="Review"
-        title="Timesheets to approve"
-        detail="Check the hours, then approve for payment"
+        cta={t("dash.review")}
+        title={t("dash.timesheetsToApprove")}
+        detail={t("dash.checkTheHoursThenApprove")}
         badge={<CountBadge count={attention.shiftsPending} />}
       />,
     );
@@ -207,9 +209,9 @@ function NeedsAttention({
         to="/leave/$slug"
         icon={CalendarCheck}
         tone="attention"
-        cta="Review"
-        title="Leave requests"
-        detail="Your nanny has asked for time off"
+        cta={t("dash.review")}
+        title={t("dash.leaveRequests")}
+        detail={t("dash.yourNannyHasAskedFor")}
         badge={<CountBadge count={attention.leavePending} />}
       />,
     );
@@ -222,9 +224,9 @@ function NeedsAttention({
         to="/handover/$slug"
         icon={ReceiptText}
         tone="attention"
-        cta="Review"
-        title="Expenses to reimburse"
-        detail={`${formatMoney((hub?.pendingExpensesTotal ?? 0))} waiting`}
+        cta={t("dash.review")}
+        title={t("dash.expensesToReimburse")}
+        detail={t("dash.amountWaiting", { amount: formatMoney(hub?.pendingExpensesTotal ?? 0) })}
         badge={<CountBadge count={attention.expensesPending} />}
       />,
     );
@@ -237,9 +239,9 @@ function NeedsAttention({
         to="/incidents/$slug"
         icon={ShieldAlert}
         tone="attention"
-        cta="Review"
-        title="Incident reports to sign off"
-        detail="Your nanny has logged something for you to see"
+        cta={t("dash.review")}
+        title={t("dash.incidentReportsToSignOff")}
+        detail={t("dash.yourNannyHasLoggedSomething")}
         badge={<CountBadge count={attention.incidentsOpen} />}
       />,
     );
@@ -254,12 +256,12 @@ function NeedsAttention({
         to="/safety/$slug"
         icon={ShieldCheck}
         tone="attention"
-        cta="Check"
-        title={expired ? "Safety documents have expired" : "Safety documents expiring soon"}
+        cta={t("dash.check")}
+        title={expired ? t("dash.safetyDocumentsHaveExpired") : t("dash.safetyDocumentsExpiringSoon")}
         detail={
           expired
-            ? `${expired} expired${soon ? `, ${soon} more running out` : ""}. Ask your agency to renew.`
-            : `${soon} running out in the next 60 days`
+            ? t(soon ? "dash.expiredAndSoon" : "dash.expiredOnly", { expired, soon })
+            : t("dash.runningOut", { soon })
         }
         badge={<CountBadge count={expired + soon} />}
       />,
@@ -273,9 +275,9 @@ function NeedsAttention({
         to="/permissions/$slug"
         icon={ShieldCheck}
         tone="attention"
-        cta="Set"
-        title="Set your household permissions"
-        detail="Tell your nanny what is fine without asking"
+        cta={t("dash.set")}
+        title={t("dash.setYourHouseholdPermissions")}
+        detail={t("dash.tellYourNannyWhatIs")}
         badge={<CountBadge count={attention.permissionsUnset} />}
       />,
     );
@@ -288,9 +290,9 @@ function NeedsAttention({
         to="/messages/$slug"
         icon={MessageCircle}
         tone="attention"
-        cta="Read"
-        title="Unread messages"
-        detail="New replies from your nanny"
+        cta={t("dash.read")}
+        title={t("dash.unreadMessages")}
+        detail={t("dash.newRepliesFromYourNanny")}
         badge={<CountBadge count={attention.unreadThreads} />}
       />,
     );
@@ -301,7 +303,7 @@ function NeedsAttention({
 
   return (
     <section>
-      <SectionTitle>Needs your attention</SectionTitle>
+      <SectionTitle>{t("dash.needsYourAttention")}</SectionTitle>
       <div className="ios-group">{rows}</div>
       {showSigning && (
         <div className="mt-3">
@@ -323,69 +325,70 @@ function SetupProgress({
   nannyCount,
   agreementsEnabled,
 }: DashboardProps) {
+  const t = useT();
   return (
     <SetupStatus
       slug={slug}
       items={[
         {
-          label: "Nanny added",
+          label: t("dash.nannyAdded"),
           done: nannyCount > 0,
-          hint: "Add everyone you employ with us",
+          hint: t("dash.addEveryoneYouEmployWith"),
           to: "/nannies/$slug",
         },
         agreementsEnabled
           ? {
-              label: nannyCount > 1 ? "Every nanny agreement signed" : "Nanny agreement signed",
+              label: nannyCount > 1 ? t("dash.everyAgreementSigned") : t("dash.agreementSigned"),
               done: agreementDone,
-              hint: "Build it, then both of you sign it",
+              hint: t("dash.buildItThenBothOf"),
               to: "/agreement/$slug" as const,
             }
           : {
-              label: "Working hours set",
+              label: t("dash.workingHoursSet"),
               done: (hub?.schedules ?? []).some((s) => hasHours(s.workingDays)),
-              hint: "The days and hours your nanny works",
+              hint: t("dash.theDaysAndHoursYour"),
               to: "/hours/$slug" as const,
             },
         {
-          label: "Children added",
+          label: t("dash.childrenAdded"),
           done: Boolean(hub?.readiness?.children),
-          hint: "Add each child so your nanny knows who's who",
+          hint: t("dash.addEachChildSoYour"),
           to: "/family/$slug",
         },
         {
-          label: "Allergies & medication",
+          label: t("dash.allergiesMedication"),
           done: Boolean(hub?.readiness?.allergies),
-          hint: "Add allergies and medication for every child",
+          hint: t("dash.addAllergiesAndMedicationFor"),
           to: "/family/$slug",
         },
         {
-          label: "Emergency contacts",
+          label: t("dash.emergencyContacts"),
           done: Boolean(hub?.readiness?.contacts),
-          hint: "At least one contact we can call",
+          hint: t("dash.atLeastOneContactWe"),
           to: "/emergency/$slug",
         },
         {
-          label: "Home address",
+          label: t("dash.homeAddress"),
           done: Boolean(hub?.readiness?.homeAddress),
-          hint: "Needed on the emergency card and the agreement",
+          hint: t("dash.neededOnTheEmergencyCard"),
           to: "/emergency/$slug",
         },
         {
-          label: "GP details",
+          label: t("dash.gpDetails"),
           done: Boolean(hub?.readiness?.gp),
-          hint: "Your family doctor's name and number",
+          hint: t("dash.yourFamilyDoctorSName"),
           to: "/emergency/$slug",
         },
         {
-          label: "Household permissions",
+          label: t("dash.householdPermissions"),
           done: Boolean(hub?.readiness?.permissions),
-          hint: "Sun cream, photos, who can collect and more",
+          hint: t("dash.sunCreamPhotosWhoCan"),
           to: "/permissions/$slug",
         },
         {
-          label: "House rules",
+          label: t("dash.houseRules"),
           done: Boolean(hub?.readiness?.houseRules),
-          hint: "Screen time, homework and the basics",
+          hint: t("dash.screenTimeHomeworkAndThe"),
           to: "/family/$slug",
         },
       ]}
@@ -400,35 +403,33 @@ function Documents({
   agreementsEnabled,
   openDoc,
 }: DashboardProps) {
+  const t = useT();
   const hasDoc = (type: string) => wallet.documents.some((d) => d.docType === type);
   return (
     <section>
-      <SectionTitle>Documents &amp; checks</SectionTitle>
+      <SectionTitle>{t("dash.documentsChecks")}</SectionTitle>
       <div data-tint="lilac" className="ios-group">
         {agreementsEnabled && (
           <HubTile
             slug={slug}
             to="/agreement/$slug"
             icon={FileText}
-            title="Nanny agreement"
+            title={t("dash.nannyAgreement")}
             subtitle={agreementSubtitle}
           />
         )}
         <DocTile
           icon={IdCard}
-          title="Your nanny's CV"
-          subtitle={hasDoc("cv") ? "Experience, training and references" : "Not added yet"}
+          title={t("dash.yourNannySCv")}
+          subtitle={hasDoc("cv") ? t("dash.experienceTrainingAndReferences") : t("dash.notAddedYet")}
           disabled={!hasDoc("cv")}
           onClick={() => openDoc("cv")}
         />
         {wallet.checks.map((check) => {
-          const meta = CHECK_LABELS[check.docType] ?? { title: check.docType };
+          const meta = { title: CHECK_LABELS[check.docType] ? t(CHECK_LABELS[check.docType]!) : check.docType };
           const detail = [
             check.issuedOn
-              ? `Issued ${new Date(check.issuedOn).toLocaleDateString("en-GB", {
-                  month: "long",
-                  year: "numeric",
-                })}`
+              ? t("dash.issued", { date: formatDate(check.issuedOn, { month: "long", year: "numeric" }) })
               : null,
             check.referenceLabel,
           ]
@@ -443,7 +444,7 @@ function Documents({
                 <span>
                   <span className="block font-medium text-foreground">{meta.title}</span>
                   <span className="mt-0.5 block text-sm text-muted-foreground">
-                    Verified{detail ? ` · ${detail}` : ""}
+                    {t("dash.verified")}{detail ? ` · ${detail}` : ""}
                   </span>
                 </span>
               </div>
@@ -454,7 +455,7 @@ function Documents({
               key={check.docType}
               icon={BadgeCheck}
               title={meta.title}
-              subtitle={detail || "Open document"}
+              subtitle={detail || t("dash.openDocument")}
               onClick={() => openDoc(check.docType)}
             />
           );
@@ -469,12 +470,9 @@ function Documents({
             <ScrollText className="h-4 w-4" />
           </span>
           <span>
-            <span className="flex items-center gap-1.5 font-medium text-foreground">
-              ACAS disciplinary guidance <ExternalLink className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1.5 font-medium text-foreground">{t("dash.acasDisciplinaryGuidance")}<ExternalLink className="h-3.5 w-3.5" />
             </span>
-            <span className="mt-1 block text-sm text-muted-foreground">
-              Official step-by-step guidance
-            </span>
+            <span className="mt-1 block text-sm text-muted-foreground">{t("dash.officialStepByStepGuidance")}</span>
           </span>
         </a>
       </div>
@@ -483,14 +481,13 @@ function Documents({
 }
 
 function NannytaxCode({ code }: { code: string | null }) {
+  const t = useT();
   if (!code) return null;
   return (
     <section>
-      <SectionTitle>Your Nannytax code</SectionTitle>
+      <SectionTitle>{t("dash.yourNannytaxCode")}</SectionTitle>
       <div className="surface-card p-5">
-        <p className="text-sm text-muted-foreground">
-          Your unique referral code from our payroll partner Nannytax. Use it when you sign up.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("dash.yourUniqueReferralCodeFrom")}</p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <span className="rounded-md bg-accent px-3 py-1.5 font-mono text-[0.9375rem] font-medium tracking-wide text-foreground">
             {code}
@@ -500,18 +497,15 @@ function NannytaxCode({ code }: { code: string | null }) {
             size="sm"
             onClick={() => {
               void navigator.clipboard.writeText(code);
-              toast.success("Code copied");
+              toast.success(t("dash.codeCopied"));
             }}
-          >
-            Copy code
-          </Button>
+          >{t("dash.copyCode")}</Button>
           <a
             href="https://www.nannytax.co.uk"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-          >
-            Visit Nannytax <ExternalLink className="h-4 w-4" />
+          >{t("dash.visitNannytax")}<ExternalLink className="h-4 w-4" />
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useT } from "@/lib/i18n/provider";
 
 export type SetupItem = {
   label: string;
@@ -16,6 +17,7 @@ export type SetupItem = {
 };
 
 export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const done = items.filter((item) => item.done).length;
   const total = items.length;
@@ -27,9 +29,9 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
     <div className="surface-card p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[0.8125rem] font-medium text-muted-foreground">Actions to complete</p>
+          <p className="text-[0.8125rem] font-medium text-muted-foreground">{t("dash.actionsToComplete")}</p>
           <p className="mt-0.5 font-medium text-foreground">
-            {allDone ? "Everything is complete" : `${total - done} still to do`}
+            {allDone ? t("dash.allComplete") : t("dash.stillToDo", { count: total - done })}
           </p>
         </div>
         <span className="num text-sm text-muted-foreground">
@@ -75,7 +77,7 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
           className="mt-3 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
           onClick={() => setOpen(!open)}
         >
-          {open ? "Show less" : `Show all ${total}`}
+          {open ? t("dash.showLess") : t("dash.showAll", { count: total })}
         </button>
       )}
     </div>

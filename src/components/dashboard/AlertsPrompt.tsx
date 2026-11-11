@@ -3,11 +3,13 @@ import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { useT } from "@/lib/i18n/provider";
 
 const DISMISSED = "fw-alerts-prompt-dismissed";
 
 /** Home-screen nudge to turn on phone alerts. Hidden once this device has them on, or the person says no thanks. */
 export function AlertsPrompt({ slug }: { slug: string }) {
+  const t = useT();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -42,15 +44,11 @@ export function AlertsPrompt({ slug }: { slug: string }) {
         <Bell className="h-4 w-4" />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="font-medium text-foreground">Know the moment something new arrives</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Get a quiet phone alert when notes, photos, key information, schedule changes or holiday requests are added. Nothing private shows on the lock screen.
-        </p>
+        <p className="font-medium text-foreground">{t("dash.knowTheMomentSomethingNew")}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{t("dash.getAQuietPhoneAlert")}</p>
         <div className="mt-3 flex items-center gap-3">
           <Button asChild size="sm">
-            <Link to="/notifications/$slug" params={{ slug }}>
-              Turn on alerts
-            </Link>
+            <Link to="/notifications/$slug" params={{ slug }}>{t("dash.turnOnAlerts")}</Link>
           </Button>
           <button
             type="button"
@@ -63,9 +61,7 @@ export function AlertsPrompt({ slug }: { slug: string }) {
               }
               setShow(false);
             }}
-          >
-            Not now
-          </button>
+          >{t("dash.notNow")}</button>
         </div>
       </div>
     </section>

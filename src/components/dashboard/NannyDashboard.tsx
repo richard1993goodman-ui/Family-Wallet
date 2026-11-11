@@ -48,8 +48,10 @@ import {
 } from "@/components/dashboard/tiles";
 import { greeting, londonToday, longDate, timeOf } from "@/lib/dashboard-format";
 import type { DashboardProps, HubSummary } from "@/components/dashboard/types";
+import { useT } from "@/lib/i18n/provider";
 
 export function NannyDashboard(props: DashboardProps) {
+  const t = useT();
   const { slug, wallet, hub, agreement, agreementDone, onLock } = props;
   const me = wallet.nannies.find((n) => n.isYou);
   const firstName = me?.name.split(" ")[0];
@@ -92,51 +94,51 @@ export function NannyDashboard(props: DashboardProps) {
           <TodayShift hub={hub} />
 
           <section>
-            <SectionTitle>Quick actions</SectionTitle>
+            <SectionTitle>{t("nd.quickActions")}</SectionTitle>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               <QuickAction
                 slug={slug}
                 to="/log/$slug"
                 icon={NotebookPen}
-                label="Daily log"
+                label={t("nd.dailyLog")}
                 tint="sage"
-                status={hub?.today.logged ? "Done today" : "Not written yet"}
+                status={hub?.today.logged ? t("nd.doneToday") : t("nd.notWrittenYet")}
                 done={hub?.today.logged}
               />
               <QuickAction
                 slug={slug}
                 to="/medication/$slug"
                 icon={Pill}
-                label="Log medicine"
+                label={t("nd.logMedicine")}
                 tint="rose"
-                status={doses.length ? `${doses.length} in last 24h` : "Nothing given today"}
+                status={doses.length ? t("nd.inLast24h", { count: doses.length }) : t("nd.nothingGivenToday")}
               />
               <QuickAction
                 slug={slug}
                 to="/incidents/$slug"
                 icon={ShieldAlert}
-                label="Report an incident"
+                label={t("nd.reportAnIncident")}
                 tint="butter"
-                status="Bumps and accidents"
+                status={t("nd.bumpsAndAccidents")}
               />
               <QuickAction
                 slug={slug}
                 to="/handover/$slug"
                 icon={ClipboardCheck}
-                label="Handover & expenses"
+                label={t("nd.handoverExpenses")}
                 tint="apricot"
-                status={hub?.today.handedOver ? "Done today" : "End of day"}
+                status={hub?.today.handedOver ? t("nd.doneToday") : t("nd.endOfDay")}
                 done={hub?.today.handedOver}
               />
               <QuickAction
                 slug={slug}
                 to="/messages/$slug"
                 icon={MessageCircle}
-                label="Messages"
+                label={t("nd.messages")}
                 tint="sky"
                 status={
                   attention?.unreadThreads
-                    ? `${attention.unreadThreads} unread`
+                    ? t("nd.unreadCount", { count: attention.unreadThreads })
                     : "Message the parents"
                 }
               />
@@ -144,25 +146,25 @@ export function NannyDashboard(props: DashboardProps) {
                 slug={slug}
                 to="/timesheets/$slug"
                 icon={Clock3}
-                label="Add hours"
+                label={t("nd.addHours")}
                 tint="lilac"
-                status="Timesheets"
+                status={t("nd.timesheets")}
               />
               <QuickAction
                 slug={slug}
                 to="/today/$slug"
                 icon={Baby}
-                label="Log the day"
+                label={t("nd.logTheDay")}
                 tint="butter"
-                status="Naps, bottles, nappies"
+                status={t("nd.napsBottlesNappies")}
               />
               <QuickAction
                 slug={slug}
                 to="/moments/$slug"
                 icon={Camera}
-                label="Share a moment"
+                label={t("nd.shareAMoment")}
                 tint="butter"
-                status="Photos & milestones"
+                status={t("nd.photosMilestones")}
               />
             </div>
           </section>
@@ -171,7 +173,7 @@ export function NannyDashboard(props: DashboardProps) {
 
           {doses.length > 0 && (
             <section>
-              <SectionTitle>Medicine in the last 24 hours</SectionTitle>
+              <SectionTitle>{t("nd.medicineInTheLast24")}</SectionTitle>
               <div data-tint="rose" className="ios-group">
                 {doses.map((dose) => (
                   <div key={dose.id} className="flex items-start gap-3 px-4 py-3">
@@ -185,8 +187,8 @@ export function NannyDashboard(props: DashboardProps) {
                       </span>
                       <span className="block text-muted-foreground">
                         Given {timeOf(dose.given_at)}
-                        {dose.given_by_name ? ` by ${dose.given_by_name}` : ""}
-                        {dose.next_dose_from ? ` · next from ${timeOf(dose.next_dose_from)}` : ""}
+                        {dose.given_by_name ? ` ${t("nd.givenBy", { name: dose.given_by_name })}` : ""}
+                        {dose.next_dose_from ? ` · ${t("nd.nextFrom", { time: timeOf(dose.next_dose_from) })}` : ""}
                       </span>
                     </span>
                   </div>
@@ -203,7 +205,7 @@ export function NannyDashboard(props: DashboardProps) {
 
           {(awaiting > 0 || (agreement && !agreementDone)) && (
             <section>
-              <SectionTitle>Waiting on</SectionTitle>
+              <SectionTitle>{t("nd.waitingOn")}</SectionTitle>
               <div className="ios-group">
                 {agreement && !agreementDone && (
                   <ActionRow
@@ -211,11 +213,11 @@ export function NannyDashboard(props: DashboardProps) {
                     to="/agreement/$slug"
                     icon={FileText}
                     tone="attention"
-                    title="Your nanny agreement"
+                    title={t("nd.yourNannyAgreement")}
                     detail={
                       agreement.status === "issued"
-                        ? "Read it and sign it here"
-                        : "The family is still preparing it"
+                        ? t("nd.readItAndSignIt")
+                        : t("nd.theFamilyIsStillPreparing")
                     }
                   />
                 )}
@@ -224,7 +226,7 @@ export function NannyDashboard(props: DashboardProps) {
                     slug={slug}
                     to="/timesheets/$slug"
                     icon={Clock3}
-                    title="Hours awaiting approval"
+                    title={t("nd.hoursAwaitingApproval")}
                     badge={<CountBadge count={attention.shiftsPending} />}
                   />
                 ) : null}
@@ -233,7 +235,7 @@ export function NannyDashboard(props: DashboardProps) {
                     slug={slug}
                     to="/leave/$slug"
                     icon={CalendarCheck}
-                    title="Leave awaiting approval"
+                    title={t("nd.leaveAwaitingApproval")}
                     badge={<CountBadge count={attention.leavePending} />}
                   />
                 ) : null}
@@ -242,7 +244,7 @@ export function NannyDashboard(props: DashboardProps) {
                     slug={slug}
                     to="/handover/$slug"
                     icon={ReceiptText}
-                    title="Expenses to be repaid"
+                    title={t("nd.expensesToBeRepaid")}
                     detail={`${formatMoney((hub?.pendingExpensesTotal ?? 0))}`}
                     badge={<CountBadge count={attention.expensesPending} />}
                   />
@@ -264,6 +266,7 @@ export function NannyDashboard(props: DashboardProps) {
 }
 
 function TodayShift({ hub }: { hub: HubSummary | null }) {
+  const t = useT();
   if (!hub) return null;
   const todayIso = hub.today.date;
   const dayName = new Date(`${todayIso}T12:00:00Z`).toLocaleDateString("en-GB", {
@@ -280,26 +283,24 @@ function TodayShift({ hub }: { hub: HubSummary | null }) {
     <section className="surface-card overflow-hidden">
       <div className="border-b border-rule px-5 py-4">
         <p className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
-          <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
-          Your shift today
-        </p>
+          <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />{t("nd.yourShiftToday")}</p>
         <p className="num heading-display mt-1 text-[1.75rem] text-foreground">
           {cancelled
-            ? "Shift cancelled"
+            ? t("nd.shiftCancelled")
             : shift
               ? `${shift.startTime}–${shift.endTime}${shift.startTime2 && shift.endTime2 ? ` and ${shift.startTime2}–${shift.endTime2}` : ""}`
-              : "Not a regular working day"}
+              : t("nd.notWorkingDay")}
         </p>
       </div>
       <div className="px-5 py-4">
         {plans.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Nothing else planned for today.</p>
+          <p className="text-sm text-muted-foreground">{t("nd.nothingElsePlannedForToday")}</p>
         ) : (
           <ul className="space-y-2">
             {plans.map((entry) => (
               <li key={entry.id} className="flex gap-3 text-sm">
                 <span className="w-24 flex-none font-medium text-primary">
-                  {entry.time_label ?? "Any time"}
+                  {entry.time_label ?? t("nd.anyTime")}
                   {entry.end_time_label ? `–${entry.end_time_label}` : ""}
                 </span>
                 <span className="text-foreground">
@@ -321,6 +322,7 @@ function TodayShift({ hub }: { hub: HubSummary | null }) {
 const CHILD_TINTS = ["apricot", "sky", "lilac", "butter", "sage", "rose"] as const;
 
 function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null }) {
+  const t = useT();
   const children = hub?.children ?? [];
   if (children.length === 0) return null;
   return (
@@ -331,13 +333,9 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
             to="/emergency/$slug"
             params={{ slug }}
             className="text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-          >
-            Emergency card
-          </Link>
+          >{t("dash.emergencyCard")}</Link>
         }
-      >
-        The children
-      </SectionTitle>
+      >{t("nd.theChildren")}</SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2">
         {children.map((child, i) => (
           <div
@@ -356,9 +354,7 @@ function ChildrenAtAGlance({ slug, hub }: { slug: string; hub: HubSummary | null
                     <AlertTriangle className="h-3 w-3" /> {child.allergies}
                   </span>
                 ) : (
-                  <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground">
-                    No allergies noted
-                  </span>
+                  <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground">{t("nd.noAllergiesNoted")}</span>
                 )}
                 {child.medication && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-foreground">
