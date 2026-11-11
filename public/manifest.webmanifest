@@ -1,14 +1,14 @@
 {
   "name": "The Family Wallet",
   "short_name": "Family Wallet",
-  "description": "Your nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools in one private place.",
+  "description": "Your household in one private place: shared calendar, nanny agreement, timesheets, house codes and daily notes.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#17325b",
-  "theme_color": "#17325b",
+  "background_color": "#fbf7f0",
+  "theme_color": "#2f5d4a",
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -23,7 +23,7 @@
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "/icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

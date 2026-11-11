@@ -32,7 +32,7 @@ function LoginPage() {
         <header className="flex h-16 items-center px-4 sm:px-8">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-[0.9375rem] text-muted-foreground transition-colors hover:text-foreground"
+            className="web-only inline-flex items-center gap-2 text-[0.9375rem] text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" aria-hidden /> Back
           </Link>
@@ -55,6 +55,11 @@ function LoginPage() {
             }
           />
           <RecoverDetails />
+          <p className="mt-6 text-center text-[0.875rem]">
+            <Link to="/demo" className="text-muted-foreground underline underline-offset-4 hover:text-foreground">
+              New here? Explore the demo wallet
+            </Link>
+          </p>
         </main>
       </div>
     </div>

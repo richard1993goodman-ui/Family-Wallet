@@ -358,6 +358,20 @@
       "when": 1794296766557,
       "tag": "0050_subscription_agency_link",
       "breakpoints": true
+    },
+    {
+      "idx": 51,
+      "version": "7",
+      "when": 1794300533393,
+      "tag": "0051_live_in_tools",
+      "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1794338580151,
+      "tag": "0052_repair_subscription_environment",
+      "breakpoints": true
     }
   ]
 }

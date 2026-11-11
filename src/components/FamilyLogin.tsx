@@ -71,7 +71,7 @@ export function FamilyLogin({
     e.preventDefault();
     const slug = slugFromInput(link);
     if (!slug) {
-      setError({ field: "link", message: "Enter the wallet link your agency sent you." });
+      setError({ field: "link", message: "Enter the wallet link from your welcome email or agency." });
       linkInput.current?.focus();
       return;
     }
@@ -161,7 +161,7 @@ export function FamilyLogin({
         <CardTitle className="flex items-center gap-2 text-lg">
           <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
         </CardTitle>
-        <CardDescription>The private link and code your agency sent you.</CardDescription>
+        <CardDescription>The private link and code from your welcome email or agency.</CardDescription>
       </CardHeader>
       <CardContent className="px-6 pb-5">
         <form id="family-login" onSubmit={onSubmit} className="grid gap-4">

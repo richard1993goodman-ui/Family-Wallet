@@ -82,12 +82,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Family Wallet" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { title: "The Family Wallet | Private Hub for Nannies & Household Staff" },
       {
         name: "description",
         content:
-          "A private app for families who employ a nanny, au pair or household staff: shared week, signed agreement, daily log, timesheets and house codes in one place.",
+          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
+      },
+      { property: "og:title", content: "The Family Wallet | Private Hub for Nannies & Household Staff" },
+      {
+        property: "og:description",
+        content:
+          "The Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
       { name: "author", content: "The Family Wallet" },
       { name: "theme-color", content: "#fbf7f0", media: "(prefers-color-scheme: light)" },
@@ -101,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Nunito+Sans:opsz,wght@6..12,400..800&family=Geist+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..800&family=Plus+Jakarta+Sans:wght@400..800&family=Geist+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
@@ -115,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 /** Follows the device's light or dark setting before first paint, and live after that. */
-const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}a();m.addEventListener("change",a)})()`;
+const THEME_SCRIPT = `(function(){var m=window.matchMedia("(prefers-color-scheme: dark)");function a(){document.documentElement.classList.toggle("dark",m.matches);document.documentElement.style.colorScheme=m.matches?"dark":"light"}if(/FamilyWalletApp/.test(navigator.userAgent)){document.documentElement.classList.add("native-app");if(location.pathname==="/")location.replace("/login")}a();m.addEventListener("change",a)})()`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (

@@ -10,19 +10,19 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
  * plan, so opening a different plan mounts a fresh provider rather than reusing a
  * stale one.
  */
-export function StripeEmbeddedCheckout({ plan, interval }: { plan: PlanId; interval: Interval }) {
+export function StripeEmbeddedCheckout({ plan, interval, slug }: { plan: PlanId; interval: Interval; slug?: string }) {
   const options = useMemo(
     () => ({
       fetchClientSecret: async () => {
         const result = await createCheckoutSession({
-          data: { plan, interval, environment: getStripeEnvironment() },
+          data: { plan, interval, slug, environment: getStripeEnvironment() },
         });
         if ("error" in result) throw new Error(result.error);
         if (!result.clientSecret) throw new Error("Stripe did not return a client secret");
         return result.clientSecret;
       },
     }),
-    [plan, interval],
+    [plan, interval, slug],
   );
 
   return (

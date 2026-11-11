@@ -1,18 +1,22 @@
 import { setResponseHeader } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSharedFamily } from "./family.server";
+import { familyHasFeature } from "./plan-access.server";
+import { UPGRADE_MESSAGE } from "./plan-access";
 import { canManageManual, manualEntrySchema, manualSummary, type ManualData, type ManualInput } from "./house-manual.types";
 
 async function manualFamily(slug: string, write = false) {
   setResponseHeader("Cache-Control", "no-store");
   const family = await requireSharedFamily(slug);
   if (write && !canManageManual(family?.access ?? null)) throw new Error("Only parents or guardians can change the house manual.");
+  if (family && !(await familyHasFeature(family.id, "house_manual"))) return { ...family, upgrade: true as const };
   return family;
 }
 
 export async function loadHouseManual(slug: string): Promise<ManualData | null> {
   const family = await manualFamily(slug);
   if (!family) return null;
+  if ("upgrade" in family) return { access: family.access, entries: [], upgrade: true };
   const { data, error } = await supabaseAdmin.from("house_manual_entries")
     .select("id, category, title, notes, has_secret, updated_at").eq("family_id", family.id).order("title");
   if (error) throw new Error("Couldn't load the house manual.");
@@ -22,6 +26,7 @@ export async function loadHouseManual(slug: string): Promise<ManualData | null> 
 export async function saveHouseManual(slug: string, input: ManualInput) {
   const family = await manualFamily(slug, true);
   if (!family) throw new Error("Please unlock your wallet.");
+  if ("upgrade" in family) throw new Error(UPGRADE_MESSAGE);
   const entry = manualEntrySchema.parse(input);
   const values = { category: entry.category, title: entry.title, notes: entry.notes, updated_at: new Date().toISOString(),
     ...(entry.secretValue !== undefined ? { secret_value: entry.secretValue || null } : {}) };
@@ -35,6 +40,7 @@ export async function saveHouseManual(slug: string, input: ManualInput) {
 export async function revealHouseManual(slug: string, id: string) {
   const family = await manualFamily(slug);
   if (!family) throw new Error("Please unlock your wallet.");
+  if ("upgrade" in family) throw new Error(UPGRADE_MESSAGE);
   const { data, error } = await supabaseAdmin.from("house_manual_entries").select("secret_value")
     .eq("id", id).eq("family_id", family.id).maybeSingle();
   if (error || !data) throw new Error("Household detail not found.");
@@ -44,6 +50,7 @@ export async function revealHouseManual(slug: string, id: string) {
 export async function deleteHouseManual(slug: string, id: string) {
   const family = await manualFamily(slug, true);
   if (!family) throw new Error("Please unlock your wallet.");
+  if ("upgrade" in family) throw new Error(UPGRADE_MESSAGE);
   const { error } = await supabaseAdmin.from("house_manual_entries").delete().eq("id", id).eq("family_id", family.id);
   if (error) throw new Error("Couldn't remove that household detail.");
   return { ok: true as const };

@@ -486,7 +486,7 @@ function NannytaxCode({ code }: { code: string | null }) {
       <SectionTitle>Your Nannytax code</SectionTitle>
       <div className="surface-card p-5">
         <p className="text-sm text-muted-foreground">
-          Use this referral code when you set up payroll with Nannytax.
+          Your unique referral code from our payroll partner Nannytax. Use it when you sign up.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <span className="rounded-md bg-accent px-3 py-1.5 font-mono text-[0.9375rem] font-medium tracking-wide text-foreground">

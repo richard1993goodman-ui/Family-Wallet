@@ -40,7 +40,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/nanny-management-app",
     title: "Nanny Management App for Parents | Family Wallet",
     description:
-      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. From £7.99 a month.",
+      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. From £9.99 a month.",
     h1: "The nanny management app for parents",
     intro:
       "If your nanny arrangement lives across WhatsApp, a spreadsheet and a contract buried in your email, the Family Wallet puts it in one private place that both of you can open from your phones.",
@@ -98,7 +98,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "How much does it cost?",
-        a: "The Family plan is £7.99 a month, or £79 a year, for one nanny or au pair. The Household plan is £14.99 a month for up to six staff. Prices exclude VAT.",
+        a: "The Family plan is £9.99 a month, or £99 a year, for one nanny or au pair. The Household plan is £19.99 a month for up to six staff and adds the agreement builder and house codes. Prices exclude VAT.",
       },
       {
         q: "Is my family's information private?",
@@ -164,7 +164,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Au pairs and live-in help",
         paragraphs: [
-          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. Dedicated tools for au pair hours and days off are coming, and are marked as coming soon on the pricing page.",
+          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. On the Household plan they also get dedicated live-in tools: weekly pocket money, an hours cap, protected days off, room and board and house rules.",
         ],
       },
       {
@@ -189,12 +189,12 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Does it handle payroll for each person?",
-        a: "No. It keeps agreements, hours and records, and includes an employment cost calculator. Use it alongside your payroll provider.",
+        a: "No. It keeps agreements, hours and records. For payroll, contact support and we'll connect you with our partners at Nannytax with a unique referral code.",
       },
     ],
     cta: {
       heading: "Set up your household team",
-      body: "The Household plan covers up to six staff for £14.99 a month, excluding VAT.",
+      body: "The Household plan covers up to six staff for £19.99 a month, excluding VAT.",
       label: "See pricing",
       to: "/pricing",
     },
@@ -209,7 +209,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/for-agencies",
     title: "Family App for Nanny Agencies | The Family Wallet",
     description:
-      "Give every client family a branded wallet. Agreements, rotas, daily logs and a dashboard that shows who is active. Plans from £39 a month, nannies free.",
+      "Give every client family a branded wallet. Agreements, rotas, daily logs and a dashboard that shows who is active. Plans from £69 a month, nannies free.",
     h1: "Give every family you place a wallet with your name on it",
     intro:
       "Your families remember how the first month went. The Family Wallet gives them a private place for the agreement, the week and the daily log, branded as yours, and gives your team a dashboard to see who is using it.",
@@ -242,9 +242,9 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
           caption: "Agency plans, billed monthly, excluding VAT",
           head: ["Plan", "Price", "Active households included"],
           rows: [
-            ["Partner", "£39 a month", "10"],
-            ["Growth", "£119 a month", "50"],
-            ["Scale", "£199 a month", "100"],
+            ["Partner", "£69 a month", "10"],
+            ["Growth", "£149 a month", "50"],
+            ["Scale", "£249 a month", "100"],
             ["Enterprise", "Talk to us", "100 and over"],
           ],
         },
@@ -315,7 +315,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
             ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
             ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
             ["Agencies", "Branded wallet for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
-            ["Price shown", "From £7.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
+            ["Price shown", "From £9.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
             ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
           ],
         },
@@ -454,7 +454,7 @@ export const GUIDES: Record<string, PageContent> = {
     ],
     cta: {
       heading: "Build your agreement in the Family Wallet",
-      body: "Choose your clauses, then both sign in the app. Plans start at £7.99 a month.",
+      body: "Choose your clauses, then both sign in the app. Included in the Household plan, £19.99 a month.",
       label: "See pricing",
       to: "/pricing",
     },

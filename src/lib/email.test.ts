@@ -74,22 +74,26 @@ describe("sendEmail", () => {
 
   it("does nothing, and does not throw, when no key is set", async () => {
     vi.stubEnv("RESEND_API_KEY", "");
+    vi.stubEnv("LOVABLE_API_KEY", "project_test");
     expect(await sendEmail(message)).toBe(false);
     expect(fetch).not.toHaveBeenCalled();
   });
 
-  it("posts to Resend with the key and the recipient", async () => {
+  it("posts through the Resend connection with both keys and the recipient", async () => {
     vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubEnv("LOVABLE_API_KEY", "project_test");
     vi.mocked(fetch).mockResolvedValue(new Response("{}", { status: 200 }));
     expect(await sendEmail(message)).toBe(true);
     const [url, init] = vi.mocked(fetch).mock.calls[0]!;
-    expect(url).toBe("https://api.resend.com/emails");
-    expect((init!.headers as Record<string, string>)["Authorization"]).toBe("Bearer re_test");
+    expect(url).toBe("https://connector-gateway.lovable.dev/resend/emails");
+    expect((init!.headers as Record<string, string>)["Authorization"]).toBe("Bearer project_test");
+    expect((init!.headers as Record<string, string>)["X-Connection-Api-Key"]).toBe("re_test");
     expect(JSON.parse(String(init!.body)).to).toEqual(["a@b.co"]);
   });
 
   it("sends replies to the support address unless another reply address is set", async () => {
     vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubEnv("LOVABLE_API_KEY", "project_test");
     vi.stubEnv("EMAIL_REPLY_TO", "");
     vi.mocked(fetch).mockResolvedValue(new Response("{}", { status: 200 }));
     await sendEmail(message);
@@ -101,12 +105,14 @@ describe("sendEmail", () => {
 
   it("reports failure when Resend refuses, instead of throwing", async () => {
     vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubEnv("LOVABLE_API_KEY", "project_test");
     vi.mocked(fetch).mockResolvedValue(new Response("nope", { status: 403 }));
     expect(await sendEmail(message)).toBe(false);
   });
 
   it("reports failure when the network breaks", async () => {
     vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubEnv("LOVABLE_API_KEY", "project_test");
     vi.mocked(fetch).mockRejectedValue(new Error("offline"));
     expect(await sendEmail(message)).toBe(false);
   });
