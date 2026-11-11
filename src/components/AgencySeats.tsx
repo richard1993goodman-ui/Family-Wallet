@@ -4,16 +4,28 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/CopyButton";
 import { Input } from "@/components/ui/input";
 import { formatPounds } from "@/lib/agency-plans";
 import {
   agencyBillingLinkFn,
+  generateSeatLoginFn,
   getSeatBoardFn,
   releaseSeatFn,
   resendSeatInviteFn,
   revokeSeatInviteFn,
-  sendSeatInviteFn,
 } from "@/lib/seat-invites.functions";
+
+type Login = Awaited<ReturnType<typeof generateSeatLoginFn>>;
+
+/** Seats made from a login have a placeholder address like "smith-ab12@seat.invalid"; show the family label instead. */
+const seatLabel = (email: string | null) =>
+  email?.endsWith("@seat.invalid") ? email.split("@")[0]!.replace(/-[a-z0-9]{4}$/, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : email;
+
+const message = (l: Login) =>
+  `Hi,\n\n${l.agencyName} has set up your Family Wallet, a private place for your household's week, agreements, daily logs and more.\n\nOpen your wallet: ${l.family.url}\nAccess code: ${l.family.code}` +
+  (l.nanny ? `\n\nFor ${l.nanny.name}:\nOpen: ${l.nanny.url}\nAccess code: ${l.nanny.code}` : "") +
+  `\n\nYour wallet is private to your family. ${l.agencyName} cannot see what you add to it.`;
 
 const date = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "");
 
@@ -21,15 +33,16 @@ const date = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en
 export function AgencySeats() {
   const client = useQueryClient();
   const boardFn = useServerFn(getSeatBoardFn);
-  const sendFn = useServerFn(sendSeatInviteFn);
+  const generateFn = useServerFn(generateSeatLoginFn);
   const resendFn = useServerFn(resendSeatInviteFn);
   const revokeFn = useServerFn(revokeSeatInviteFn);
   const releaseFn = useServerFn(releaseSeatFn);
   const billingFn = useServerFn(agencyBillingLinkFn);
   const board = useQuery({ queryKey: ["seat-board"], queryFn: () => boardFn() });
   const [picked, setPicked] = useState<number | null>(null);
-  const [email, setEmail] = useState("");
-  const [nannyEmail, setNannyEmail] = useState("");
+  const [familyName, setFamilyName] = useState("");
+  const [nannyName, setNannyName] = useState("");
+  const [login, setLogin] = useState<Login | null>(null);
   const [busy, setBusy] = useState(false);
 
   // Back from Stripe after paying: the new seats arrive once the payment is confirmed, so check a few times.
@@ -106,13 +119,30 @@ export function AgencySeats() {
         </button>
       </div>
 
+      {login && (
+        <div data-tint="sage" className="tint-card mt-4 rounded-2xl p-5">
+          <p className="font-medium text-foreground">{login.familyName} is ready. Copy these now: they won't be shown again.</p>
+          {[{ who: login.familyName, ...login.family }, ...(login.nanny ? [{ who: login.nanny.name, ...login.nanny }] : [])].map((l) => (
+            <div key={l.who} className="mt-3 rounded-xl bg-card p-3 text-sm">
+              <p className="font-medium text-foreground">{l.who}</p>
+              <div className="mt-2 flex flex-wrap items-center gap-2"><span className="min-w-0 flex-1 truncate text-muted-foreground">{l.url}</span><CopyButton text={l.url} label="Copy link" /></div>
+              <div className="mt-2 flex flex-wrap items-center gap-2"><span className="flex-1 font-mono tracking-wider text-foreground">{l.code}</span><CopyButton text={l.code} label="Copy code" /></div>
+            </div>
+          ))}
+          <div className="mt-3 flex flex-wrap gap-2">
+            <CopyButton text={message(login)} label="Copy a ready-to-send message" />
+            <Button size="sm" variant="ghost" onClick={() => setLogin(null)}>Done</Button>
+          </div>
+        </div>
+      )}
+
       <div className="mt-4 divide-y divide-border overflow-hidden rounded-2xl bg-card shadow-sm">
         {seats.map((seat) => (
           <div key={seat.slot} className="px-5 py-3">
             <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 font-medium text-foreground">Family {seat.slot}</span>
               <span className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
-                {seat.state === "available" ? "Available" : seat.email}{seat.nannyEmail && ` · nanny: ${seat.nannyEmail}`}
+                {seat.state === "available" ? "Available" : seatLabel(seat.email)}{seat.nannyEmail && ` · nanny: ${seat.nannyEmail}`}
                 {seat.state === "invited" && ` · invited ${date(seat.invitedAt)}, expires ${date(seat.expiresAt)}`}
                 {seat.state === "occupied" && ` · active since ${date(seat.invitedAt)}`}
               </span>
@@ -124,8 +154,8 @@ export function AgencySeats() {
                 {seat.state === "occupied" ? "Active" : seat.state === "invited" ? "Invited" : "Available"}
               </span>
               {seat.state === "available" && (
-                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setEmail(""); setNannyEmail(""); }}>
-                  Invite
+                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setFamilyName(""); setNannyName(""); }}>
+                  Set up
                 </Button>
               )}
               {seat.state === "invited" && (
@@ -153,15 +183,24 @@ export function AgencySeats() {
                 className="mt-3 flex flex-wrap gap-2"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  if (await run(() => sendFn({ data: { slot: seat.slot, email, nannyEmail } }), "Invitation sent")) setPicked(null);
+                  setBusy(true);
+                  try {
+                    setLogin(await generateFn({ data: { slot: seat.slot, familyName, nannyName } }));
+                    setPicked(null);
+                    await client.invalidateQueries({ queryKey: ["seat-board"] });
+                  } catch (err) {
+                    toast.error(err instanceof Error ? err.message : "Something went wrong");
+                  } finally {
+                    setBusy(false);
+                  }
                 }}
               >
-                <Input type="email" required autoFocus placeholder="Parent's email address" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1" />
-                <Input type="email" placeholder="Nanny's email address" value={nannyEmail} onChange={(e) => setNannyEmail(e.target.value)} className="min-w-0 flex-1" />
+                <Input required autoFocus placeholder="Family name, e.g. The Smiths" value={familyName} onChange={(e) => setFamilyName(e.target.value)} className="min-w-0 flex-1" />
+                <Input placeholder="Nanny's first name (optional)" value={nannyName} onChange={(e) => setNannyName(e.target.value)} className="min-w-0 flex-1" />
                 <p className="basis-full text-xs text-muted-foreground">
-                  The parent and nanny each get their own private link and access code by email. You never see them.
+                  This creates the wallet and gives you its link and access code to send yourself. They are shown once, so copy them before you close the panel.
                 </p>
-                <Button type="submit" disabled={busy}>Send invitation</Button>
+                <Button type="submit" disabled={busy}>Generate login</Button>
               </form>
             )}
           </div>

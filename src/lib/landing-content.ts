@@ -249,14 +249,14 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
           ],
         },
         paragraphs: [
-          "Each seat funds one household. A seat is held while an invitation is pending, and is free again the moment you release it or the invitation expires. Need more seats? We move you to the next plan.",
+          "Each seat funds one household. A seat is used as soon as you generate a household's login, and is free again the moment you release it. Need more seats? We move you to the next plan.",
         ],
       },
       {
         heading: "Getting started",
         bullets: [
           "Choose a plan and we set up your agency login.",
-          "Enter a parent's email, and the nanny's if you like, against an empty seat. Each gets their own private link and access code.",
+          "Enter a family's name, and the nanny's if you like, against an empty seat. We generate a private link and access code for each, to copy and send your own way.",
           "Release a seat whenever you stop funding a family. They keep their wallet and are offered their own plan.",
         ],
       },
@@ -272,7 +272,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Can I see my families' information?",
-        a: "No. Each family owns its wallet. You see only your seats, the emails you used and the invitation status.",
+        a: "No. Each family owns its wallet. You see only your seats, the family names you entered and their status.",
       },
       {
         q: "Can I bring my existing families on?",

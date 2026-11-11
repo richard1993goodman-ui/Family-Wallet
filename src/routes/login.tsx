@@ -59,11 +59,6 @@ function LoginPage() {
             }
           />
           <RecoverDetails />
-          <p className="mt-6 text-center text-[0.875rem]">
-            <Link to="/demo" className="text-muted-foreground underline underline-offset-4 hover:text-foreground">
-              New here? Explore the demo wallet
-            </Link>
-          </p>
         </main>
       </div>
     </div>

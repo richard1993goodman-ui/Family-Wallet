@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { Crumb } from "@/lib/landing-head";
 import type { PageContent } from "@/lib/landing-content";
 import { cn } from "@/lib/utils";
+import { AppStorePills } from "@/components/AppStorePills";
 
 function prettyDate(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
@@ -55,9 +56,7 @@ export function MarketingPage({ content, crumbs }: { content: PageContent; crumb
                 <Button size="lg" asChild>
                   <a href={content.cta.to}>{content.cta.label}</a>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/demo">Try the demo</Link>
-                </Button>
+                <AppStorePills />
               </div>
             )}
           </div>

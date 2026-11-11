@@ -57,7 +57,6 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
               { label: "Nanny management app", to: "/nanny-management-app" },
               { label: "Household staff app", to: "/household-staff-app" },
               { label: "Pricing", to: "/pricing" },
-              { label: "Demo wallet", to: "/demo" },
             ]}
           />
           <FooterList

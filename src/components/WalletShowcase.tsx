@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, RotateCw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AppStorePills } from "./AppStorePills";
 import { WalletPhone, useWalletApp, type Page, type Tab } from "./WalletPhone";
 
 // Each step opens the phone on that screen
@@ -104,12 +105,7 @@ export function WalletHero() {
             >
               Open My Wallet
             </Link>
-            <Link
-              to="/demo"
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-foreground/25 px-6 text-[0.9375rem] font-medium text-foreground transition-[background-color,scale] duration-150 hover:bg-foreground/[0.05] active:scale-[0.97]"
-            >
-              Explore the demo wallet <ArrowRight className="size-4" aria-hidden />
-            </Link>
+            <AppStorePills />
           </div>
         </div>
 

@@ -49,20 +49,26 @@ export const Route = createFileRoute("/")({
 const benefitGroups = [
   {
     title: "Today & planning",
+    tint: "sage",
     summary: "Every handover, shift and family update in one calm daily view.",
     photo: { src: "/images/kids/tennis.jpg", alt: "A child in a white t-shirt seen from behind on a clay tennis court, resting a racket by their side" },
     items: [
+      "Today timeline — start and end the shift, with every meal, nap, dose and photo in one live view",
+      "End-of-day summary — written for you from the day's timeline",
+      "Daily feed — photos, milestones and homework notes you can love",
       "Weekly planner — what's on each day, Monday to Sunday",
       "Daily log — how each day went",
       "End-of-day handover — homework, dinner, mood and tomorrow's kit",
       "Expenses tracker — petty cash and reimbursement notes",
       "Friday Weekly Report — a polished recap of the week, ready to print",
-      "Timesheet calculator",
+      "Timesheets pre-filled from the schedule, with shift changes approved in one tap",
+      "Overtime calculator and holiday ring — hours and leave worked out for you",
       "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes",
     ],
   },
   {
     title: "Family & safety",
+    tint: "rose",
     summary: "The people, details and safeguards your nanny needs at a glance.",
     photo: { src: "/images/kids/artwork.jpg", alt: "A wall of children's rainbow, sun and sunset paintings pinned up side by side" },
     items: [
@@ -72,7 +78,8 @@ const benefitGroups = [
       "Your nanny's CV, profile and references",
       "Checks & credentials — DBS, ID and right to work",
       "Know my family — children's profiles and the nanny quick guide",
-      "Medication log — timestamped doses so nobody double-doses",
+      "Medication log — timestamped doses with a safe-dose lockout so nobody double-doses",
+      "Private document vault — passports, DBS, right to work and contracts, never shared with your agency",
       "Photo moments & milestones — a private photo diary and milestone journal",
       "First 48 hours — routines, pickups and expectations agreed together",
       "Insurance & safeguarding record — check, training and cover status",
@@ -80,10 +87,11 @@ const benefitGroups = [
   },
   {
     title: "Agreement & employment",
+    tint: "sky",
     summary: "Your working arrangement, pay tools and key documents together.",
     photo: { src: "/images/kids/rainbow-craft.jpg", alt: "A child's hand pressing torn coloured paper onto a rainbow outline" },
     items: [
-      "Your nanny agreement",
+      "Your nanny agreement — a template, a self-employed version, or none, with key dates and school holidays in your calendar",
       "Managed Nannytax setup — a guided introduction and visible next steps",
       "All-in employment cost calculator — pay, NI, pension and payroll estimates",
       "Your Nannytax referral code",
@@ -93,6 +101,7 @@ const benefitGroups = [
   },
   {
     title: "Support & extras",
+    tint: "butter",
     summary: "Trusted ideas and thoughtful extras that make family life easier.",
     photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
     items: [
@@ -113,11 +122,15 @@ const benefitGroups = [
 const weekClaims = [
   {
     title: "Everyone sees the same week",
-    detail: "Shifts sync from the nanny agreement; school runs and clubs sit beside them.",
+    detail: "Shifts sync from the agreement or your own pattern; school runs, clubs and school holidays sit beside them.",
   },
   {
     title: "No double-dosing",
     detail: "Every dose of medicine is timed and signed, so nobody has to text to check.",
+  },
+  {
+    title: "A day you can follow live",
+    detail: "Your nanny starts the shift, logs meals, naps and photos, and ends it with a summary. You see it all as it happens.",
   },
   {
     title: "A Friday report, ready to print",
@@ -130,6 +143,10 @@ const weekClaims = [
   {
     title: "Alerts you control",
     detail: "Choose what buzzes and set quiet hours on each phone, so a wallet never becomes noise.",
+  },
+  {
+    title: "Private by design",
+    detail: "Agencies fund seats but never see a family's wallet, documents or photos.",
   },
   {
     title: "Petty cash that adds up",
@@ -190,12 +207,6 @@ function SiteHeader() {
           >
             Pricing
           </Link>
-          <Link
-            to="/demo"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Demo
-          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <Button className="hidden sm:inline-flex" asChild>
@@ -226,9 +237,6 @@ function SiteHeader() {
                 ))}
                 <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
                   <Link to="/pricing">Pricing</Link>
-                </Button>
-                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
-                  <Link to="/demo">Demo wallet</Link>
                 </Button>
                 <Separator className="my-3" />
                 <Button className="h-11" asChild>
@@ -298,7 +306,7 @@ function Index() {
                 <WeekPreview />
               </div>
 
-              <div className="rounded-lg bg-secondary p-6 sm:p-8 lg:col-span-5" data-reveal>
+              <div data-tint="rose" className="tint-card rounded-lg p-6 sm:p-8 lg:col-span-5" data-reveal>
                 <h3 className="text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
                   Codes stay behind the door
                 </h3>
@@ -324,7 +332,8 @@ function Index() {
               </figure>
 
               <dl
-                className="grid gap-x-10 gap-y-8 rounded-lg border border-border p-6 sm:grid-cols-2 sm:p-8 lg:col-span-7"
+                data-tint="butter"
+                className="tint-card grid gap-x-10 gap-y-8 rounded-lg p-6 sm:grid-cols-2 sm:p-8 lg:col-span-7"
                 data-reveal
               >
                 {weekClaims.map((claim) => (
@@ -436,7 +445,6 @@ function Index() {
         </section>
       </main>
 
-      <FloatingDemoBar />
       <BackToTop />
 
       <footer id="site-footer" className="pb-10 pt-20">
@@ -460,9 +468,6 @@ function Index() {
               </Link>
               <Link to="/guides" className="transition-colors hover:text-foreground">
                 Guides
-              </Link>
-              <Link to="/demo" className="transition-colors hover:text-foreground">
-                Demo wallet
               </Link>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Agency sign in
@@ -1063,6 +1068,7 @@ function DrawerSwitcher() {
                   : "border-input bg-card text-foreground hover:border-foreground/40",
               )}
             >
+              <span data-tint={g.tint} className="tint-dot" aria-hidden />
               {g.title}
               <span
                 className={cn(
@@ -1081,13 +1087,15 @@ function DrawerSwitcher() {
         role="tabpanel"
         id="drawer-panel"
         aria-labelledby={`drawer-tab-${index}`}
-        className="mt-6 overflow-hidden rounded-2xl bg-card"
+        data-tint={group.tint}
+        className="tint-wash mt-6 overflow-hidden rounded-2xl bg-card"
       >
         <div
           key={index}
           className="grid animate-in fade-in-0 duration-150 ease-out motion-reduce:animate-none lg:grid-cols-12"
         >
           <div className="border-b border-rule p-7 sm:p-10 lg:col-span-4 lg:border-b-0 lg:border-r">
+            <span className="tint-eyebrow mb-4"><span className="tint-dot" aria-hidden />{group.items.length} tools</span>
             <h3 className="heading-serif text-[2rem] leading-[1.1] text-foreground sm:text-[2.5rem]">
               {group.title}
             </h3>
@@ -1122,46 +1130,6 @@ function DrawerSwitcher() {
             })}
           </ul>
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- A frosted pill that follows the reader ---------------- */
-
-function FloatingDemoBar() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    // Shown between the hero and the closing band, where the page has its own way in.
-    const watched = ["front", "help", "site-footer"]
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
-    const onScreen = new Map<string, boolean>();
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) onScreen.set(entry.target.id, entry.isIntersecting);
-      setVisible(onScreen.size === watched.length && ![...onScreen.values()].some(Boolean));
-    });
-    watched.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      aria-hidden={!visible}
-      inert={!visible}
-      className={cn(
-        "fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 hidden justify-center md:flex px-4 transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none",
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
-      )}
-    >
-      <div className="material flex items-center gap-4 rounded-full border border-transparent py-1.5 pl-5 pr-1.5 shadow-[var(--shadow-float)]">
-        <p className="text-sm text-foreground">The Harringtons' wallet, with nothing live in it</p>
-        <Button size="sm" className="rounded-full px-4" asChild>
-          <Link to="/demo">
-            Explore <ArrowRight />
-          </Link>
-        </Button>
       </div>
     </div>
   );

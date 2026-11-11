@@ -194,7 +194,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
   families: [
     {
       q: "Is there a free version?",
-      a: "No. The wallet is a paid plan for your household. Explore the demo wallet first, a sample family with their nanny, to see exactly what you would get.",
+      a: "No. The wallet is a paid plan for your household. Every feature is included on every plan, so you can start with the plan that fits your household.",
     },
     {
       q: "What is the difference between the plans?",
@@ -236,7 +236,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "What is a household seat?",
-      a: "One household you fund. Enter the parent's email, and the nanny's if you like, and each gets their own private link and access code. The seat is held for that family until it activates, expires or you revoke it, and is free again the moment you release it.",
+      a: "One household you fund. Enter the family's name, and the nanny's if you like, and we generate a private link and access code for each for you to copy and send in your own words. The seat is used straight away and is free again the moment you release it.",
     },
     {
       q: "Do my nannies and au pairs need a paid seat?",
@@ -244,7 +244,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I see my families' information?",
-      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only your seats, the emails you used and the invitation status.",
+      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only your seats, the family names you entered and their status. The link and code are shown to you once, when you generate them.",
     },
     {
       q: "What happens when a family leaves my agency?",
@@ -313,9 +313,6 @@ function PricingPageInner() {
             Family Wallet
           </Link>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" className="hidden sm:inline-flex" asChild>
-              <Link to="/demo">Demo</Link>
-            </Button>
             <Button asChild>
               <Link to="/login">Open my wallet</Link>
             </Button>

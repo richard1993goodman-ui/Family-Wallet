@@ -118,6 +118,81 @@ export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: s
   return { ok: true as const };
 }
 
+/**
+ * The agency generates a household's sign-in itself: the wallet is created now and the agency gets the
+ * family's link and access code (and the nanny's, if named) once, to copy and send in its own words.
+ * Nothing is emailed from here and the agency never sees inside the wallet.
+ */
+export async function generateSeatLogin(agencyId: string, slot: number, rawFamilyName: string, rawNannyName?: string) {
+  const familyName = rawFamilyName.trim().slice(0, 80);
+  if (!familyName) throw new Error("Enter the family's name.");
+  const nannyName = (rawNannyName ?? "").trim().slice(0, 80);
+  await expireOld(agencyId);
+  const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);
+  if (!Number.isInteger(slot) || slot < 1 || slot > seatCount(agency.allowance, rows)) throw new Error("That seat isn't part of your plan.");
+  if (rows.some((r) => r.slot === slot)) throw new Error("That seat is already in use.");
+
+  const { generateAccessCode, hashCode } = await import("./wallet.server");
+  const base = familyName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 24) || "family";
+  const slug = `${base}-${generateAccessCode().slice(0, 4).toLowerCase()}`;
+  const code = generateAccessCode();
+
+  // Claim the seat first, so two clicks cannot hand out the same one. The placeholder address carries the label the seat board shows.
+  const now = new Date().toISOString();
+  const { data: invite, error: seatError } = await supabaseAdmin
+    .from("agency_invites")
+    .insert({ agency_id: agencyId, slot, email: `${slug}@seat.invalid`, status: "accepted", accepted_at: now })
+    .select("id")
+    .single();
+  if (seatError) {
+    console.error("Could not claim a seat", seatError.code, seatError.message);
+    throw new Error(seatError.code === "23505" ? "That seat is already in use." : "Couldn't set up the household. Please try again.");
+  }
+  const { data: family, error } = await supabaseAdmin
+    .from("families")
+    .insert({
+      family_name: familyName,
+      tier_band: "",
+      status: "active",
+      entitlement: "agency_active",
+      partner_agency_id: agencyId,
+      slug,
+      access_code: code,
+      access_code_hash: hashCode(slug, code),
+    })
+    .select("id")
+    .single();
+  if (error) {
+    await supabaseAdmin.from("agency_invites").delete().eq("id", invite.id);
+    throw new Error("We couldn't create the wallet. Please try again.");
+  }
+  await supabaseAdmin.from("agency_invites").update({ family_id: family.id }).eq("id", invite.id);
+
+  const { siteUrl } = await import("./site");
+  let nanny: { name: string; url: string; code: string } | null = null;
+  if (nannyName) {
+    const nannyCode = generateAccessCode();
+    const { error: nannyError } = await supabaseAdmin.from("family_nannies").insert({
+      family_id: family.id,
+      name: nannyName,
+      sort_order: 0,
+      nanny_code: nannyCode,
+      nanny_code_hash: hashCode(`nanny:${slug}`, nannyCode),
+      invited_at: now,
+    });
+    if (!nannyError) {
+      await supabaseAdmin.from("families").update({ nanny_name: nannyName }).eq("id", family.id);
+      nanny = { name: nannyName, url: siteUrl(`/nanny/${slug}`), code: nannyCode };
+    } else console.error("Could not add the nanny", nannyError.message);
+  }
+  return {
+    agencyName: agency.brand_name || agency.name,
+    familyName,
+    family: { url: siteUrl(`/w/${slug}`), code },
+    nanny,
+  };
+}
+
 async function ownPending(agencyId: string, inviteId: string) {
   const { data } = await supabaseAdmin.from("agency_invites").select("id, email, status").eq("id", inviteId).eq("agency_id", agencyId).maybeSingle();
   if (!data || data.status !== "pending") throw new Error("That invitation can't be changed.");

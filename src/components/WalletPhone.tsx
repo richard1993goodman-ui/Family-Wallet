@@ -1908,7 +1908,7 @@ const shape = "rounded-[52px]";
 export function WalletPhone({ app }: { app: WalletApp }) {
   const screenRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
-  const sheetAction = useRef<HTMLAnchorElement>(null);
+  const sheetAction = useRef<HTMLButtonElement>(null);
   const sheetTitle = useId();
   const { nav, leaving, sheet } = app;
 
@@ -2154,18 +2154,17 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                   {sheet.label}
                 </p>
                 <p className="mt-1.5 text-[11.5px] leading-[1.5] text-muted-foreground">
-                  You'll find this in the full demo wallet, filled in for the Harrington family.
+                  You'll find this in the Family Wallet app, coming to iOS and Android.
                   This phone shows a few of the screens.
                 </p>
-                <a
+                <button
                   ref={sheetAction}
-                  href="/demo"
-
+                  type="button"
+                  onClick={app.closeSheet}
                   className={cn(btnPrimary, "mt-4 w-full")}
                 >
-                  Open the full demo
-                  <ExternalLink aria-hidden />
-                </a>
+                  Got it
+                </button>
                 <button
                   type="button"
                   onClick={app.closeSheet}
