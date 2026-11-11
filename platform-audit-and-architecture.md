@@ -200,3 +200,5 @@ Plain-text access codes defeat the point of hashing them. Proposed fix: stop wri
 Rule: a code is readable only until its owner first signs in with it, then cleared; only the hash stays. Family and staff codes are cleared on first successful sign-in. Lost codes are replaced, not revealed: the recovery email, the owner's invite email and the staff invite email issue a fresh code when none is stored. The admin screens say "code used, no longer stored" and offer "New code". **Not yet applied live:** `families.access_code` is still NOT NULL in the live database (migration `20261111320000_codes_not_kept.sql` must run before this code deploys, or clearing on sign-in fails quietly). **Then, after it deploys:** clear the readable codes of the 7 families who have already opened their wallet; the other 36 clear themselves at first sign-in. Tests: `code-retention.test.ts`.
 
 Stage C design (draft, for review): see `stage-c-account-layer-design.md`.
+
+Stage D design (draft, for review): see `stage-d-agency-invites-design.md`.
