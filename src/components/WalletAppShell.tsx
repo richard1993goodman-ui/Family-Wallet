@@ -9,6 +9,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Lock, LogOut, Menu, Search } from "lucide-react";
 
 import { LogoMark, Wordmark } from "@/components/brand";
+import { HouseholdSwitcher } from "@/components/HouseholdSwitcher";
 import { NotificationBell } from "@/components/NotificationBell";
 import { PresenceAvatars } from "@/components/PresenceAvatars";
 import { TransitionBanner } from "@/components/TransitionBanner";
@@ -233,7 +234,7 @@ function WalletTopBar({
       ) : null}
       {/* The wallet belongs to the household: parents and staff both use it, and the avatars show who is in. */}
       <div className="flex min-w-0 items-baseline gap-2">
-        <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
+        <HouseholdSwitcher slug={slug} familyName={familyName} />
       </div>
       <button
         type="button"
