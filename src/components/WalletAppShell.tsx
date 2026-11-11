@@ -8,6 +8,7 @@ import { Lock, LogOut, Menu, Search } from "lucide-react";
 
 import { Wordmark } from "@/components/brand";
 import { NotificationBell } from "@/components/NotificationBell";
+import { PresenceAvatars } from "@/components/PresenceAvatars";
 import { AccountMenu, QuickAddMenu, useLogout } from "@/components/HeaderMenus";
 
 import { getBadges, markSeenFn } from "@/lib/notifications.functions";
@@ -234,6 +235,7 @@ function WalletTopBar({
       </button>
       <QuickAddMenu slug={slug} />
       <NotificationBell slug={slug} />
+      {slug !== "demo" && <PresenceAvatars slug={slug} />}
       <AccountMenu
         slug={slug}
         familyName={familyName}

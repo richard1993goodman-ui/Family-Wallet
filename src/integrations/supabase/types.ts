@@ -467,6 +467,8 @@ export type Database = {
           intro_fee_percent: number | null
           invite_sent_at: string | null
           last_active_at: string | null
+          parent_last_seen_at: string | null
+          parent_photo_path: string | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -501,6 +503,8 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
+          parent_last_seen_at?: string | null
+          parent_photo_path?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -535,6 +539,8 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
+          parent_last_seen_at?: string | null
+          parent_photo_path?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -797,6 +803,7 @@ export type Database = {
           emergency_relationship: string | null
           family_id: string
           id: string
+          last_seen_at: string | null
           insurance_cover_from: string | null
           insurance_cover_until: string | null
           insurance_policy_number: string | null
@@ -819,6 +826,7 @@ export type Database = {
           emergency_relationship?: string | null
           family_id: string
           id?: string
+          last_seen_at?: string | null
           insurance_cover_from?: string | null
           insurance_cover_until?: string | null
           insurance_policy_number?: string | null
@@ -841,6 +849,7 @@ export type Database = {
           emergency_relationship?: string | null
           family_id?: string
           id?: string
+          last_seen_at?: string | null
           insurance_cover_from?: string | null
           insurance_cover_until?: string | null
           insurance_policy_number?: string | null

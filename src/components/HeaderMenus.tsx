@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
   CalendarPlus,
+  Camera,
   HeartPulse,
   LogOut,
   MessageSquarePlus,
@@ -104,6 +105,11 @@ export function AccountMenu({
           <p className="text-xs text-muted-foreground">{roleLabel}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {!isDemo && (
+          <DropdownMenuItem onSelect={() => document.getElementById("my-photo-input")?.click()}>
+            <Camera /> Change my photo
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem asChild>
           <Link to="/emergency/$slug" params={{ slug }}>
             <ShieldAlert /> Emergency contacts
