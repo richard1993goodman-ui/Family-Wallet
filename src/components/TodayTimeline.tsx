@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -92,7 +93,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
   };
 
   const log = (title: string, detail: string) =>
-    run(() => careFn({ data: { slug, event: { kind: "meal", detail } } }), `${title} logged`);
+    run(() => careFn({ data: { slug, event: { kind: "meal", detail } } }), t("tl.logged", { title }));
 
   const sharePhoto = async () => {
     if (!photo) return;
@@ -119,11 +120,15 @@ export function TodayTimeline({ slug }: { slug: string }) {
 
   const status = data.shift
     ? data.shift.open
-      ? `${isNanny ? "You're" : `${data.nannyName} is`} on shift since ${data.shift.startedAt}`
-      : `Finished at ${data.shift.endedAt} · ${hm(data.shift.minutes)}`
+      ? isNanny
+        ? t("tl.onShiftSinceYou", { time: data.shift.startedAt })
+        : t("tl.onShiftSinceNamed", { name: data.nannyName ?? "", time: data.shift.startedAt })
+      : t("tl.finishedAt", { time: data.shift.endedAt ?? "", duration: hm(data.shift.minutes) })
     : data.scheduled
-      ? `${isNanny ? "Your" : `${data.nannyName}'s`} shift is scheduled ${data.scheduled.start} to ${data.scheduled.end}`
-      : `No shift scheduled today`;
+      ? isNanny
+        ? t("tl.scheduledYour", { start: data.scheduled.start, end: data.scheduled.end })
+        : t("tl.scheduledNamed", { name: data.nannyName ?? "", start: data.scheduled.start, end: data.scheduled.end })
+      : t("tl.noShiftToday");
 
   return (
     <div className="space-y-5">
@@ -131,7 +136,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-[0.8125rem] font-medium text-[var(--tint-fg)]">
-              {new Date(`${data.today}T12:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
+              {formatDate(`${data.today}T12:00:00Z`, { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
             </p>
             <p className="heading-display mt-0.5 text-xl text-foreground">{status}</p>
             {data.shift && !data.shift.open && isNanny && (

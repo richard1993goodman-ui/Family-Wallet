@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -101,7 +102,7 @@ function CertificatePage() {
           <div className="mt-7 border-t border-border pt-5 text-xs text-muted-foreground">
             <p>
               Awarded{" "}
-              {new Date(cert.completed_at).toLocaleDateString("en-GB", {
+              {formatDate(cert.completed_at, {
                 day: "numeric",
                 month: "long",
                 year: "numeric",

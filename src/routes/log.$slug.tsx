@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -167,7 +168,7 @@ function LogPage() {
           <Card key={log.id}>
             <div className="flex items-start justify-between gap-3">
               <p className="heading-display text-lg text-foreground">
-                {new Date(`${log.log_date}T00:00:00Z`).toLocaleDateString("en-GB", {
+                {formatDate(`${log.log_date}T00:00:00Z`, {
                   weekday: "long",
                   day: "numeric",
                   month: "long",

@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -94,7 +94,7 @@ function TimesheetsPage() {
         });
       }
       await refresh();
-      toast.success(isFamily ? `${list.length} shift${list.length === 1 ? "" : "s"} confirmed` : `${list.length} shift${list.length === 1 ? "" : "s"} sent for approval`);
+      toast.success(t(isFamily ? "ts.shiftsConfirmed" : "ts.shiftsSentForApproval", { count: list.length }));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t("ts.couldnTAddThoseShifts"));
     } finally {
@@ -115,7 +115,7 @@ function TimesheetsPage() {
             <h2 className="heading-display text-lg text-foreground">{t("ts.scheduledHoursToConfirm")}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               From your calendar over the last two weeks. Hours that were changed show the amended times once the change was approved.
-              {rate > 0 ? ` At ${formatMoney(rate)} an hour.` : " Add an hourly rate in the agreement to price these."}
+              {" "}{rate > 0 ? t("ts.atRate", { rate: formatMoney(rate) }) : t("ts.addRate")}
             </p>
           </div>
           <Button size="sm" disabled={confirming} onClick={() => confirmShifts(scheduled)}>
@@ -127,7 +127,7 @@ function TimesheetsPage() {
             <li key={`${s.date}-${s.startTime}`} className="flex flex-wrap items-center justify-between gap-3 py-2.5 text-sm">
               <span>
                 <span className="font-medium text-foreground">
-                  {new Date(`${s.date}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}
+                  {formatDate(`${s.date}T00:00:00Z`, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}
                 </span>
                 <span className="ml-2 text-muted-foreground">{s.startTime}–{s.endTime}</span>
                 {s.source === "amended" && (
@@ -202,7 +202,7 @@ function ShiftSection({ title, empty, shifts, isFamily, onReview }: {
           <Card key={shift.id}>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-medium text-foreground">{new Date(`${shift.shiftDate}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}</p>
+                <p className="font-medium text-foreground">{formatDate(`${shift.shiftDate}T00:00:00Z`, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{shift.startTime}–{shift.endTime} · {shiftHours(shift).toFixed(2)} hrs · {formatMoney(shiftAmount(shift))}</p>
                 {shift.notes && <p className="mt-1 text-sm text-muted-foreground">{shift.notes}</p>}
               </div>

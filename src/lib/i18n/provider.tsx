@@ -18,6 +18,7 @@ import {
   type Locale,
   type Vars,
 } from "./core";
+import { setFormatLocale } from "@/lib/format";
 import type { MessageKey } from "./en-GB";
 
 const STORAGE_KEY = "fw-language";
@@ -40,6 +41,8 @@ const I18nContext = createContext<I18n>({
  */
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
+  // Dates and numbers follow the chosen language. Set during render so this render already uses it.
+  setFormatLocale(locale);
 
   useEffect(() => {
     let chosen: Locale | null = null;

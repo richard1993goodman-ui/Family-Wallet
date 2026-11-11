@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 /** Date and time wording for the home dashboards, in UK time. */
 
 export function greeting(now = new Date()) {
@@ -22,7 +23,7 @@ export function longDate(iso?: string) {
 }
 
 export function shortDate(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatDate(`${iso}T00:00:00Z`, {
     day: "numeric",
     month: "short",
     timeZone: "UTC",

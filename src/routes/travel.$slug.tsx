@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/travel/$slug")({
 });
 
 const fmt = (d: string) =>
-  new Date(`${d.length > 10 ? d : `${d}T00:00:00Z`}`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+  formatDate(`${d.length > 10 ? d : `${d}T00:00:00Z`}`, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
 
 const emptyTrip: TripInput = { destination: "", startDate: "", endDate: "", accommodation: "", localEmergency: "", nearestHospital: "", timeDifference: "", travelPay: "", notes: "" };
 
@@ -150,7 +151,7 @@ function TravelPage() {
             <ul className="mt-4 space-y-3">
               {trip.handoverNotes.map((n) => (
                 <li key={n.id} className="rounded-lg border border-border p-3 text-sm">
-                  <p className="text-xs text-muted-foreground">{TRAVEL_NOTE_CATEGORIES.find((c) => c.value === n.category)?.label ?? "General"} · {n.authorName} ({n.authorRole === "nanny" ? "nanny" : "family"}) · {new Date(n.createdAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
+                  <p className="text-xs text-muted-foreground">{TRAVEL_NOTE_CATEGORIES.find((c) => c.value === n.category)?.label ?? "General"} · {n.authorName} ({n.authorRole === "nanny" ? "nanny" : "family"}) · {formatDate(n.createdAt, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
                   <p className="mt-1 whitespace-pre-line">{n.text}</p>
                 </li>
               ))}

@@ -1,3 +1,4 @@
+import { formatDate as formatLocaleDate } from "@/lib/format";
 import { formatMoney } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -456,7 +457,7 @@ function Detail({ label, value, className = "" }: { label: string; value: string
 }
 
 function formatDate(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatLocaleDate(`${iso}T00:00:00Z`, {
     weekday: "short",
     day: "numeric",
     month: "short",

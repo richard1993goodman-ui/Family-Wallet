@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -44,7 +45,7 @@ function ContinuePage() {
   };
 
   const data = state.data;
-  const until = data?.endsAt ? new Date(data.endsAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null;
+  const until = data?.endsAt ? formatDate(data.endsAt, { day: "numeric", month: "long", year: "numeric" }) : null;
 
   return (
     <main className="mx-auto min-h-screen max-w-xl px-5 py-10">

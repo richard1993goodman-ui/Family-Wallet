@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/report/$slug")({
 });
 
 const fmt = (d: string) =>
-  new Date(`${d.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+  formatDate(`${d.slice(0, 10)}T00:00:00Z`, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
 const shiftWeek = (d: string, days: number) => new Date(new Date(`${d}T00:00:00Z`).getTime() + days * 86400000).toISOString().slice(0, 10);
 
 function ReportPage() {

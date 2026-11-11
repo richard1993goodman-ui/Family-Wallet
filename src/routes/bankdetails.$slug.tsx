@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -86,7 +87,7 @@ function BankCard({ slug, item, canEdit, onEdit, onChange }: { slug: string; ite
       <div className="min-w-0 flex-1">
         <h2 className="font-semibold text-foreground">{item.nannyName}</h2>
         <p className="text-sm text-muted-foreground">{item.hasDetails ? `${item.accountName} · ${item.masked ?? ""}` : canEdit ? "You haven't added your bank details yet." : "No bank details added yet."}</p>
-        {item.updatedAt && <p className="mt-1 text-xs text-muted-foreground">Updated {new Date(item.updatedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</p>}
+        {item.updatedAt && <p className="mt-1 text-xs text-muted-foreground">Updated {formatDate(item.updatedAt, { day: "numeric", month: "short", year: "numeric" })}</p>}
       </div>
       {canEdit && <>
         <Button variant={item.hasDetails ? "outline" : "default"} size="sm" disabled={busy} onClick={edit}>{item.hasDetails ? <Pencil className="size-4" /> : <Plus className="size-4" />}{item.hasDetails ? "Edit" : "Add bank details"}</Button>

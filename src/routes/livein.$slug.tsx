@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/livein/$slug")({
   component: LiveInPage,
 });
 
-const fmtWeek = (iso: string) => new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+const fmtWeek = (iso: string) => formatDate(`${iso}T00:00:00Z`, { day: "numeric", month: "short", timeZone: "UTC" });
 
 function LiveInPage() {
   const { slug } = Route.useParams();

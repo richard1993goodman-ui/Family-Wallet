@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -52,7 +53,7 @@ function addDays(iso: string, days: number) {
 }
 
 function formatDay(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatDate(`${iso}T00:00:00Z`, {
     weekday: "long",
     day: "numeric",
     month: "short",
@@ -123,7 +124,7 @@ function PlannerPage() {
           <ChevronLeft className="h-4 w-4" />{t("cal.previous")}</Button>
         <span className="text-sm font-medium text-foreground">
           Week of{" "}
-          {new Date(`${weekStart}T00:00:00Z`).toLocaleDateString("en-GB", {
+          {formatDate(`${weekStart}T00:00:00Z`, {
             day: "numeric",
             month: "long",
             timeZone: "UTC",
@@ -157,7 +158,7 @@ function PlannerPage() {
       <div className="mt-5 space-y-3">
         {days.map((day) => {
           const dayEntries = entries.filter((e) => e.entry_date === day);
-          const weekday = new Date(`${day}T00:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+          const weekday = formatDate(`${day}T00:00:00Z`, { weekday: "long", timeZone: "UTC" });
           const off = offPeriodOn(schedule, day);
           const regular = off || !regularHoursApply(schedule, day) ? undefined : workingDays.find((workingDay) => workingDay.day === weekday && workingDay.enabled);
           return (
@@ -310,7 +311,7 @@ function PlannerPage() {
         onClick={async () => {
           const result = await copyFn({ data: { slug, weekStart } });
           toast.success(
-            result.copied ? `Copied ${result.copied} items from last week` : "Last week was empty",
+            result.copied ? t("cal.copiedItems", { count: result.copied }) : t("cal.lastWeekEmpty"),
           );
           await refresh();
         }}

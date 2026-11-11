@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { formatDate, formatMoney, formatTime } from "./format";
+import { afterEach, describe, expect, it } from "vitest";
+import { formatDate, formatLocale, formatMoney, formatTime, setFormatLocale } from "./format";
 
 describe("formatMoney", () => {
   it("shows pounds by default, exactly as before", () => {
@@ -43,5 +43,30 @@ describe("formatDate and formatTime", () => {
     const moment = "2026-11-11T23:30:00Z";
     expect(formatTime(moment, "en-GB", "Europe/London")).toBe("23:30");
     expect(formatTime(moment, "en-GB", "Asia/Dubai")).toBe("03:30");
+  });
+});
+
+describe("the chosen language", () => {
+  afterEach(() => setFormatLocale("en-GB"));
+
+  it("changes how dates and money are shown everywhere, without each screen passing it in", () => {
+    expect(formatDate("2026-11-11", { day: "numeric", month: "long" })).toBe("11 November");
+    setFormatLocale("fr-FR");
+    expect(formatDate("2026-11-11", { day: "numeric", month: "long" })).toBe("11 novembre");
+    expect(formatMoney(1234.5, "EUR")).toContain("1");
+    expect(formatLocale()).toBe("fr-FR");
+  });
+
+  it("shows the pseudo-language's dates and money in UK English", () => {
+    setFormatLocale("pseudo");
+    expect(formatLocale()).toBe("en-GB");
+    expect(formatMoney(12.5)).toBe("£12.50");
+  });
+
+  it("lets a caller pin a time zone for a moment, and uses the device's own when none is given", () => {
+    const moment = "2026-11-11T23:30:00Z";
+    const options = { hour: "2-digit", minute: "2-digit" } as const;
+    expect(formatDate(moment, { ...options, timeZone: "Asia/Dubai" }, "en-GB")).toBe("03:30");
+    expect(formatDate(moment, options, "en-GB", "Europe/London")).toBe("23:30");
   });
 });

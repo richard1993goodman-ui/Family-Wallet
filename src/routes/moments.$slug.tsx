@@ -1,3 +1,4 @@
+import { formatDate as formatLocaleDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -416,7 +417,7 @@ function MomentLine({ moment }: { moment: MomentRow }) {
 }
 
 function formatDate(value: string) {
-  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatLocaleDate(`${value}T00:00:00Z`, {
     weekday: "short",
     day: "numeric",
     month: "short",

@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -56,7 +57,7 @@ function PerksPage() {
             <div className="mt-4 flex flex-wrap items-center gap-3">
               {perk.website_url && <Button asChild><a href={perk.website_url} target="_blank" rel="noopener noreferrer">Visit partner <ExternalLink className="h-4 w-4" /></a></Button>}
               {perk.contact_text && <span className="text-sm text-muted-foreground">{perk.contact_text}</span>}
-              {perk.expires_on && <span className="text-xs text-muted-foreground">Valid until {new Date(`${perk.expires_on}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</span>}
+              {perk.expires_on && <span className="text-xs text-muted-foreground">Valid until {formatDate(`${perk.expires_on}T00:00:00Z`, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</span>}
             </div>
           </Card>
         ))}

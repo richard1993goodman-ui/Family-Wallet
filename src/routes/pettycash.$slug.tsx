@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -105,7 +105,7 @@ function PettyCashPage() {
             <span className="min-w-0 flex-1">
               <span className="block font-medium text-foreground">{e.description}</span>
               <span className="mt-0.5 block text-xs text-muted-foreground">
-                {new Date(e.entryDate).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} · {e.addedByName ?? e.addedBy}
+                {formatDate(e.entryDate, { day: "numeric", month: "short" })} · {e.addedByName ?? e.addedBy}
               </span>
             </span>
             <span className={`font-semibold ${e.kind === "topup" ? "text-primary" : "text-foreground"}`}>

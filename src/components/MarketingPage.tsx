@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 
 import { MarketingLayout, frame } from "@/components/MarketingLayout";
@@ -8,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { AppStorePills } from "@/components/AppStorePills";
 
 function prettyDate(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatDate(`${iso}T00:00:00Z`, {
     day: "numeric",
     month: "long",
     year: "numeric",

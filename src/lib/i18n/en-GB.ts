@@ -444,6 +444,23 @@ export const enGB = {
   "agr.historyFingerprint": "Fingerprint {code}",
   "agr.historyNoSignatures": "No signatures on this version",
   "agr.historySigned": "{name} ({role}) signed {date}",
+  // Sentences assembled from parts (Today, timesheets, calendar)
+  "tl.logged": "{title} logged",
+  "tl.onShiftSinceYou": "You're on shift since {time}",
+  "tl.onShiftSinceNamed": "{name} is on shift since {time}",
+  "tl.finishedAt": "Finished at {time} · {duration}",
+  "tl.scheduledYour": "Your shift is scheduled {start} to {end}",
+  "tl.scheduledNamed": "{name}'s shift is scheduled {start} to {end}",
+  "tl.noShiftToday": "No shift scheduled today",
+  "today.napRange": "Nap {from}–{to} ({duration})",
+  "today.asleepSince": "Asleep since {time}",
+  "today.eventAt": "{what} at {time}",
+  "ts.shiftsConfirmed": { one: "{count} shift confirmed", other: "{count} shifts confirmed" },
+  "ts.shiftsSentForApproval": { one: "{count} shift sent for approval", other: "{count} shifts sent for approval" },
+  "ts.atRate": "At {rate} an hour.",
+  "ts.addRate": "Add an hourly rate in the agreement to price these.",
+  "cal.copiedItems": { one: "Copied {count} item from last week", other: "Copied {count} items from last week" },
+  "cal.lastWeekEmpty": "Last week was empty",
   // Plural example, used by tests and later screens
   "households.count": { one: "{count} household", other: "{count} households" },
 } as const satisfies Record<string, Message>;

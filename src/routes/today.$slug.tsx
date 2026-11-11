@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -14,6 +15,7 @@ import {
   endNapFn,
   getCareEvents,
 } from "@/lib/care-events.functions";
+import type { Translate } from "@/components/wallet-nav";
 import { CARE_LABELS, dayTotals, napMinutes, type CareEventInput, type CareEventRow } from "@/lib/care-events.types";
 import { useT } from "@/lib/i18n/provider";
 
@@ -32,13 +34,15 @@ const localDay = (iso: string) => new Date(iso).toLocaleDateString("en-CA"); // 
 const clock = (iso: string) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 const hm = (mins: number) => (mins >= 60 ? `${Math.floor(mins / 60)}h ${mins % 60}m` : `${mins}m`);
 
-function describe(e: CareEventRow) {
+function describe(e: CareEventRow, t: Translate) {
   const who = e.childName ? ` · ${e.childName}` : "";
   if (e.kind === "nap") {
-    return e.endedAt ? `Nap ${clock(e.startedAt)}–${clock(e.endedAt)} (${hm(napMinutes(e))})${who}` : `Asleep since ${clock(e.startedAt)}${who}`;
+    return e.endedAt
+      ? t("today.napRange", { from: clock(e.startedAt), to: clock(e.endedAt), duration: hm(napMinutes(e)) }) + who
+      : t("today.asleepSince", { time: clock(e.startedAt) }) + who;
   }
   const extra = e.kind === "bottle" ? ` ${e.amountMl}ml` : e.detail ? ` (${e.detail})` : "";
-  return `${CARE_LABELS[e.kind]}${extra} at ${clock(e.startedAt)}${who}`;
+  return t("today.eventAt", { what: `${CARE_LABELS[e.kind]}${extra}`, time: clock(e.startedAt) }) + who;
 }
 
 function TodayPage() {
@@ -139,7 +143,7 @@ function TodayPage() {
                 <div className="w-3 rounded-t bg-primary/70" style={{ height: `${(t.napMins / maxNap) * 100}%` }} />
                 <div className="w-3 rounded-t bg-accent-foreground/40" style={{ height: `${(t.bottleMl / maxMl) * 100}%` }} />
               </div>
-              <div className="mt-1">{new Date(t.d).toLocaleDateString("en-GB", { weekday: "short" })}</div>
+              <div className="mt-1">{formatDate(t.d, { weekday: "short" })}</div>
               <div className="sr-only">{`${hm(t.napMins)} napping, ${t.bottleMl}ml of milk, ${t.nappies} nappy or potty changes`}</div>
             </div>
           ))}
@@ -154,7 +158,7 @@ function TodayPage() {
         <ul className="mt-3 divide-y divide-border rounded-lg border border-border">
           {todayEvents.map((e) => (
             <li key={e.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
-              <span>{describe(e)}</span>
+              <span>{describe(e, t)}</span>
               {canDelete(e) && (
                 <button aria-label={t("today.removeEntry")} disabled={busy} onClick={() => run(() => remove({ data: { slug, id: e.id } }))} className="text-muted-foreground hover:text-foreground">
                   <Trash2 className="h-4 w-4" />

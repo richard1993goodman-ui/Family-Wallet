@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
@@ -68,7 +69,7 @@ function ChecklistItem({ slug, nannyId, access, step }: { slug: string; nannyId:
     } catch (error) { toast.error(error instanceof Error ? error.message : "Your update could not be saved."); }
     finally { setBusy(false); }
   }
-  const dateLabel = (date: string | null) => date ? new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "Europe/London" }) : "Not yet";
+  const dateLabel = (date: string | null) => date ? formatDate(date, { day: "numeric", month: "short", timeZone: "Europe/London" }) : "Not yet";
   return <article className="p-5">
     <div className="flex items-start gap-3">
       <Checkbox id={`${nannyId}-${step.id}`} className="mt-1" aria-label={`I confirm: ${step.label}`} checked={Boolean(ownConfirmed)} disabled={busy} onCheckedChange={(checked) => update(checked === true)} />

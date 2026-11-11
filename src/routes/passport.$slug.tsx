@@ -1,3 +1,4 @@
+import { formatDate as formatLocaleDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -304,7 +305,7 @@ function Rating({ label, value, onChange }: { label: string; value: number; onCh
 }
 
 function formatDate(iso: string) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+  return formatLocaleDate(`${iso}T00:00:00Z`, {
     weekday: "short",
     day: "numeric",
     month: "short",

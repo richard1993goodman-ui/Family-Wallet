@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -96,7 +97,7 @@ function BillingPage() {
             {sub.renews && sub.live && (
               <p>
                 {sub.cancelling ? "Ends on " : "Renews on "}
-                {new Date(sub.renews).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
+                {formatDate(sub.renews, { day: "numeric", month: "long", year: "numeric" })}
               </p>
             )}
           </div>

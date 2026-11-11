@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -236,7 +237,7 @@ function TrainingPage() {
                     <p className="font-medium text-foreground">{attempt.learner_name}</p>
                     <p className="mt-0.5 text-sm text-muted-foreground">
                       {attempt.score}/{attempt.total} ·{" "}
-                      {new Date(attempt.completed_at).toLocaleDateString("en-GB", {
+                      {formatDate(attempt.completed_at, {
                         day: "numeric",
                         month: "long",
                         year: "numeric",

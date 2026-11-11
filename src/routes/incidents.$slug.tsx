@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -44,7 +45,7 @@ function localNow() {
 }
 
 function formatWhen(value: string) {
-  return new Date(value).toLocaleString("en-GB", {
+  return formatDate(value, {
     weekday: "short",
     day: "numeric",
     month: "short",

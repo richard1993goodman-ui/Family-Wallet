@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/messages/$slug")({
 
 const topicLabel = (id: string) => MESSAGE_TOPICS.find((t) => t.id === id)?.label ?? "General";
 const when = (iso: string) =>
-  new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  formatDate(iso, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 function MessagesPage() {
   const t = useT();

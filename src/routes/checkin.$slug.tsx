@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -129,7 +130,7 @@ function CheckinPage() {
           {data.startDate && (
             <p className="mt-1 text-sm text-muted-foreground">
               Placement started{" "}
-              {new Date(`${data.startDate}T00:00:00Z`).toLocaleDateString("en-GB", {
+              {formatDate(`${data.startDate}T00:00:00Z`, {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
@@ -239,7 +240,7 @@ function CheckinPage() {
                   {CHECKIN_KINDS.find((k) => k.value === entry.kind)?.label ?? "Check-in"}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  {new Date(entry.createdAt).toLocaleDateString("en-GB", {
+                  {formatDate(entry.createdAt, {
                     day: "numeric",
                     month: "short",
                     year: "numeric",

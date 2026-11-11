@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Siren } from "lucide-react";
 import type { ReactNode } from "react";
@@ -139,7 +140,7 @@ export function DashboardFooter({
     <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-[0.8125rem] text-muted-foreground">
       <p>
         Wallet last updated{" "}
-        {new Date(updatedAt).toLocaleDateString("en-GB", {
+        {formatDate(updatedAt, {
           day: "numeric",
           month: "long",
           year: "numeric",

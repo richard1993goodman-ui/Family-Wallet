@@ -1,4 +1,4 @@
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
 import { SupportBox } from "@/components/SupportBox";
@@ -269,7 +269,7 @@ function TodayShift({ hub }: { hub: HubSummary | null }) {
   const t = useT();
   if (!hub) return null;
   const todayIso = hub.today.date;
-  const dayName = new Date(`${todayIso}T12:00:00Z`).toLocaleDateString("en-GB", {
+  const dayName = formatDate(`${todayIso}T12:00:00Z`, {
     weekday: "long",
     timeZone: "UTC",
   });

@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -36,7 +37,7 @@ export function WalletChallenges({ slug }: { slug: string }) {
             {c.description && <p className="mt-1 whitespace-pre-line text-sm text-muted-foreground">{c.description}</p>}
             {c.dueDate && (
               <p className="mt-1 text-xs text-muted-foreground">
-                Finish by {new Date(c.dueDate).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" })}
+                Finish by {formatDate(c.dueDate, { weekday: "short", day: "numeric", month: "short" })}
               </p>
             )}
             {openId === c.id ? (

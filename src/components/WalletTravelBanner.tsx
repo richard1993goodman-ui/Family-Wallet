@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -7,7 +8,7 @@ import { useState } from "react";
 import { getTravel } from "@/lib/travel.functions";
 
 const fmt = (d: string) =>
-  new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+  formatDate(`${d}T00:00:00Z`, { day: "numeric", month: "short", timeZone: "UTC" });
 
 /** Travel mode: a slim strip at the top of the wallet while a trip is on (or coming up within 14 days). */
 export function WalletTravelBanner({ slug }: { slug: string }) {
