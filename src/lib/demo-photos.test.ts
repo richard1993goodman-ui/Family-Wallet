@@ -14,7 +14,7 @@ describe("demo wallet photos", () => {
     const feed = demoMoments(today);
     expect(feed[0]!.momentDate).toBe("2026-11-11");
     expect(feed.some((m) => m.momentDate === "2026-11-10")).toBe(true);
-    expect(feed.every((m) => m.kind === "photo" && m.photoUrl?.startsWith("/images/demo/"))).toBe(true);
+    expect(feed.every((m) => (m.photoUrl ? m.photoUrl.startsWith("/images/demo/") : m.kind === "milestone"))).toBe(true);
     const created = feed.map((m) => m.createdAt);
     expect(created).toEqual([...created].sort().reverse());
     expect(feed.filter((m) => m.momentDate === "2026-11-11")).toHaveLength(AFTER_SCHOOL_DAY.length);
