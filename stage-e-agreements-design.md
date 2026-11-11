@@ -67,3 +67,5 @@ Built and committed locally, not applied live: migration `20261111480000_agreeme
 
 ## E4 status (11 Nov)
 Built and committed locally, no database change: when both the parent and the nanny have signed an issued version, a **signed record copy** is saved as a PDF in the household's private vault (shown under Documents as "Signed agreement, version N"), made from the wording stored when that version was issued, with the signatures, their times and the version fingerprint. The writer is a small built-in one (no new dependency, because Lovable's lockfile makes new packages risky): plain typewriter-style text, no logos or fine layout. The history list says when a copy exists. A failure to save never blocks a signing. **Limits:** only versions signed from now on get a copy (earlier signed versions do not, and could be added by a one-off job); there is no manual "make PDF" button yet; it is a record copy, not a certified or qualified electronic signature (E5 is still the provider decision).
+
+Stage E5 options and costs (for your decision): see `stage-e5-signing-options.md`.
