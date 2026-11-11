@@ -21,7 +21,7 @@ describe("owner cannot see partner agency families", () => {
   it("canSeeFamily", () => {
     expect(canSeeFamily(owner, null)).toBe(true);
     expect(canSeeFamily(owner, "a")).toBe(false);
-    expect(canSeeFamily(partnerA, "a")).toBe(true);
+    expect(canSeeFamily(partnerA, "a")).toBe(false); // agencies never see family data
     expect(canSeeFamily(partnerA, "b")).toBe(false);
     expect(canSeeFamily(partnerA, null)).toBe(false);
   });

@@ -4,8 +4,8 @@ import { canSeeFamily, partnerContentAllowed } from "./staff.scope";
 describe("partner agency isolation", () => {
   const partner = { kind: "partner" as const, agencyId: "agency-a", agencyName: "Agency A" };
 
-  it("partner staff see their own agency's families", () => {
-    expect(canSeeFamily(partner, "agency-a")).toBe(true);
+  it("partner staff cannot see even their own agency's families", () => {
+    expect(canSeeFamily(partner, "agency-a")).toBe(false);
   });
   it("partner staff cannot see another agency's families", () => {
     expect(canSeeFamily(partner, "agency-b")).toBe(false);
@@ -35,5 +35,23 @@ describe("partner premium content tools", () => {
   });
   it("a missing agency cannot access content", () => {
     expect(partnerContentAllowed(null, "perks")).toBe(false);
+  });
+});
+
+describe("requireFamilyStaff", () => {
+  const ctx = (isAdmin: boolean) => ({
+    supabase: { rpc: async () => ({ data: isAdmin }) },
+    userId: "u1",
+    claims: { aal: "aal2", email: "x@example.com" },
+  });
+
+  it("lets the owner through", async () => {
+    const { requireFamilyStaff } = await import("./staff.scope");
+    await expect(requireFamilyStaff(ctx(true))).resolves.toEqual({ kind: "owner" });
+  });
+
+  it("refuses sign-ins without two-step verification", async () => {
+    const { requireFamilyStaff } = await import("./staff.scope");
+    await expect(requireFamilyStaff({ ...ctx(true), claims: { aal: "aal1" } })).rejects.toThrow("Two-step");
   });
 });

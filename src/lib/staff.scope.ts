@@ -1,5 +1,6 @@
 // Agency staff scope: the owner (admin role) runs the owner agency and sees only families with no
-// partner_agency_id; partner-agency staff see only families whose partner_agency_id matches theirs.
+// partner_agency_id. Partner-agency staff are distribution partners only: they manage their own
+// agency record, branding, billing and seats, and can NEVER read or change a family's wallet data.
 // Nobody, including the owner, can read a partner agency's families.
 export type StaffScope =
   | { kind: "owner" }
@@ -60,13 +61,20 @@ export async function requireStaff(context: unknown): Promise<StaffScope> {
   return scope;
 }
 
+/** Any function that reads or changes family data: partner staff are always refused. */
+export async function requireFamilyStaff(context: unknown): Promise<StaffScope> {
+  const scope = await requireStaff(context);
+  if (scope.kind !== "owner") throw new Error("Forbidden");
+  return scope;
+}
+
 export async function requireOwner(context: unknown): Promise<void> {
   const scope = await resolveStaffScope(context);
   if (scope?.kind !== "owner") throw new Error("Forbidden");
 }
 
 export function canSeeFamily(scope: StaffScope, familyAgencyId: string | null): boolean {
-  return scope.kind === "owner" ? familyAgencyId === null : familyAgencyId === scope.agencyId;
+  return scope.kind === "owner" && familyAgencyId === null;
 }
 
 export async function assertFamilyInScope(scope: StaffScope, familyId: string): Promise<void> {

@@ -178,6 +178,11 @@ export const exportMyAgencyRecords = createServerFn({ method: "POST" })
     const scope = await requireStaff(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const agencyId = scope.kind === "partner" ? scope.agencyId : null;
+    // Partner agencies may export their own agency record only, never family data.
+    if (scope.kind === "partner") {
+      const { data: own } = await supabaseAdmin.from("partner_agencies").select("*").eq("id", scope.agencyId).maybeSingle();
+      return JSON.stringify({ exportedAt: new Date().toISOString(), agency: own, families: [], records: {} }, null, 2);
+    }
     const { data: agency } = agencyId
       ? await supabaseAdmin.from("partner_agencies").select("*").eq("id", agencyId).maybeSingle()
       : { data: null };

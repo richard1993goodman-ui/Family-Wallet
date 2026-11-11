@@ -299,6 +299,33 @@ function AdminHome() {
     toast.success(`Copied ${lines.length} link${lines.length === 1 ? "" : "s"} and codes`);
   };
 
+  // Partner agencies are distribution partners: seats and billing only, never family wallets.
+  if (data?.scope === "partner") {
+    return (
+      <div className="min-h-screen bg-sand">
+        <div className="mx-auto max-w-4xl px-5 py-10">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              {status.data?.agencyLogo && (
+                <img src={status.data.agencyLogo} alt={`${status.data.agencyName ?? "Agency"} logo`} className="mb-4 h-14 max-w-[220px] object-contain" />
+              )}
+              <p className="text-[0.8125rem] font-medium text-muted-foreground">{status.data?.agencyName} · Powered by The Family Wallet</p>
+              <h1 className="heading-display mt-2 text-3xl text-primary">Your household seats</h1>
+            </div>
+            <button onClick={signOut} className="mt-2 text-sm text-muted-foreground underline underline-offset-4">Sign out</button>
+          </div>
+          {usage && <AllowanceCard usage={usage} />}
+          <div className="mt-6 rounded-2xl bg-card p-5 shadow-sm">
+            <p className="font-medium text-foreground">Families own their wallets</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              For privacy, agencies no longer see or manage family wallets. Your plan covers the household seats above, and each family keeps full control of its own account and information.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-sand">
       <div className="mx-auto max-w-4xl px-5 py-10">
