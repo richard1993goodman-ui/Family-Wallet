@@ -28,7 +28,8 @@ describe("catalogues", () => {
     for (const [key, message] of Object.entries(enGB)) {
       const text = typeof message === "string" ? message : message.other;
       const out = translate("pseudo", key as keyof typeof enGB, { count: 2 });
-      for (const placeholder of text.match(/\{\w+\}/g) ?? []) if (placeholder !== "{count}") expect(out).toContain(placeholder);
+      for (const placeholder of text.match(/\{\w+\}/g) ?? [])
+        if (placeholder !== "{count}") expect(out).toContain(placeholder);
       expect(out.startsWith("⟦")).toBe(true);
     }
   });
@@ -44,7 +45,8 @@ describe("language choice", () => {
     expect(suggestLocale(["fr-FR", "en-US"], ["en-GB"])).toBe("en-GB");
     expect(suggestLocale(["en-GB"], ["en-GB"])).toBe("en-GB");
   });
-  it("suggests nothing when no device language is supported", () => expect(suggestLocale(["fr-FR", "de"], ["en-GB"])).toBeNull());
+  it("suggests nothing when no device language is supported", () =>
+    expect(suggestLocale(["fr-FR", "de"], ["en-GB"])).toBeNull());
   it("knows which languages read right to left", () => {
     expect(directionOf("ar")).toBe("rtl");
     expect(directionOf("ar-AE")).toBe("rtl");

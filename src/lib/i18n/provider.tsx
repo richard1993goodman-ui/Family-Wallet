@@ -1,11 +1,32 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
-import { DEFAULT_LOCALE, ENABLED_LOCALES, directionOf, isLocale, suggestLocale, translate, type Locale, type Vars } from "./core";
+import {
+  DEFAULT_LOCALE,
+  ENABLED_LOCALES,
+  directionOf,
+  isLocale,
+  suggestLocale,
+  translate,
+  type Locale,
+  type Vars,
+} from "./core";
 import type { MessageKey } from "./en-GB";
 
 const STORAGE_KEY = "fw-language";
 
-type I18n = { locale: Locale; setLocale: (locale: Locale) => void; t: (key: MessageKey, vars?: Vars) => string };
+type I18n = {
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+  t: (key: MessageKey, vars?: Vars) => string;
+};
 
 const I18nContext = createContext<I18n>({
   locale: DEFAULT_LOCALE,
@@ -31,7 +52,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     } catch {
       /* storage can be blocked: carry on without it */
     }
-    chosen ??= suggestLocale(navigator.languages?.length ? navigator.languages : [navigator.language]);
+    chosen ??= suggestLocale(
+      navigator.languages?.length ? navigator.languages : [navigator.language],
+    );
     if (chosen) setLocaleState(chosen);
   }, []);
 
@@ -49,7 +72,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const value = useMemo<I18n>(() => ({ locale, setLocale, t: (key, vars) => translate(locale, key, vars) }), [locale, setLocale]);
+  const value = useMemo<I18n>(
+    () => ({ locale, setLocale, t: (key, vars) => translate(locale, key, vars) }),
+    [locale, setLocale],
+  );
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 

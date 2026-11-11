@@ -23,38 +23,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useT } from "@/lib/i18n/provider";
 import { lockWalletFn } from "@/lib/wallet.functions";
 
 const triggerClass =
   "flex h-9 flex-none items-center justify-center gap-1.5 rounded-md border border-input bg-card px-2.5 text-sm text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground";
 
 export function QuickAddMenu({ slug }: { slug: string }) {
+  const t = useT();
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={triggerClass} aria-label="Quick add">
+      <DropdownMenuTrigger className={triggerClass} aria-label={t("menu.quickAdd")}>
         <Plus className="h-4 w-4" />
-        <span className="hidden lg:inline">Add</span>
+        <span className="hidden lg:inline">{t("menu.add")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>Quick add</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("menu.quickAdd")}</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link to="/planner/$slug" params={{ slug }}>
-            <CalendarPlus /> Calendar event or playdate
+            <CalendarPlus /> {t("menu.calendarEvent")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/messages/$slug" params={{ slug }}>
-            <MessageSquarePlus /> Note or message
+            <MessageSquarePlus /> {t("menu.note")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/medication/$slug" params={{ slug }}>
-            <Pill /> Medicine dose
+            <Pill /> {t("menu.medicine")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/pettycash/$slug" params={{ slug }}>
-            <Receipt /> Expense
+            <Receipt /> {t("menu.expense")}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -63,6 +65,7 @@ export function QuickAddMenu({ slug }: { slug: string }) {
 }
 
 export function useLogout(slug: string) {
+  const t = useT();
   const lockFn = useServerFn(lockWalletFn);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -75,10 +78,10 @@ export function useLogout(slug: string) {
       await lockFn({ data: { slug } });
       window.localStorage.removeItem("wallet-link");
       queryClient.clear();
-      toast.success("Wallet locked on this device");
+      toast.success(t("menu.locked"));
       navigate({ to: "/" });
     } catch {
-      toast.error("Couldn't log out. Please try again.");
+      toast.error(t("menu.logoutError"));
     }
   };
 }
@@ -92,11 +95,12 @@ export function AccountMenu({
   familyName: string;
   roleLabel: string;
 }) {
+  const t = useT();
   const logout = useLogout(slug);
   const isDemo = slug === "demo";
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={triggerClass} aria-label="Account and log out">
+      <DropdownMenuTrigger className={triggerClass} aria-label={t("menu.account")}>
         <UserRound className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
@@ -107,22 +111,22 @@ export function AccountMenu({
         <DropdownMenuSeparator />
         {!isDemo && (
           <DropdownMenuItem onSelect={() => document.getElementById("my-photo-input")?.click()}>
-            <Camera /> Change my photo
+            <Camera /> {t("menu.changePhoto")}
           </DropdownMenuItem>
         )}
         <DropdownMenuItem asChild>
           <Link to="/emergency/$slug" params={{ slug }}>
-            <ShieldAlert /> Emergency contacts
+            <ShieldAlert /> {t("menu.emergency")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/medication/$slug" params={{ slug }}>
-            <HeartPulse /> Health &amp; medicine
+            <HeartPulse /> {t("menu.health")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => void logout()} className="text-destructive focus:text-destructive">
-          <LogOut /> {isDemo ? "Exit demo" : "Lock & log out"}
+          <LogOut /> {isDemo ? t("shell.exitDemo") : t("shell.lockLogout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

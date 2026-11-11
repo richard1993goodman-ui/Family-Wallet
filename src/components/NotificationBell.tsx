@@ -7,6 +7,7 @@ import { Bell, Check } from "lucide-react";
 import { getInbox, markSeenFn } from "@/lib/notifications.functions";
 import { PUSH_FEATURES } from "@/lib/push";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useT } from "@/lib/i18n/provider";
 
 type Item = { id: string; feature: string; summary: string; createdAt: string };
 
@@ -29,6 +30,7 @@ function ago(iso: string) {
 }
 
 export function NotificationBell({ slug }: { slug: string }) {
+  const t = useT();
   const demo = slug === "demo";
   const [open, setOpen] = useState(false);
   const [demoItems, setDemoItems] = useState(DEMO_ITEMS);
@@ -73,7 +75,7 @@ export function NotificationBell({ slug }: { slug: string }) {
         <button
           type="button"
           className="relative flex h-9 w-9 flex-none items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-          aria-label={items.length ? `Notifications, ${items.length} unread` : "Notifications"}
+          aria-label={items.length ? t("bell.ariaUnread", { count: items.length }) : t("bell.title")}
         >
           <Bell className="h-5 w-5" />
           {items.length > 0 && (
@@ -85,7 +87,7 @@ export function NotificationBell({ slug }: { slug: string }) {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[min(22rem,calc(100vw-1.5rem))] p-0">
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
-          <p className="text-sm font-semibold text-foreground">Notifications</p>
+          <p className="text-sm font-semibold text-foreground">{t("bell.title")}</p>
           {items.length > 0 && (
             <button type="button" onClick={() => void tickAll()} className="text-xs font-medium text-primary hover:underline">
               Mark all read
@@ -93,7 +95,7 @@ export function NotificationBell({ slug }: { slug: string }) {
           )}
         </div>
         {items.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-muted-foreground">You're all caught up.</p>
+          <p className="px-4 py-8 text-center text-sm text-muted-foreground">{t("bell.caughtUp")}</p>
         ) : (
           <ul className="max-h-[60vh] divide-y divide-border overflow-y-auto">
             {items.map((item) => (
@@ -101,14 +103,14 @@ export function NotificationBell({ slug }: { slug: string }) {
                 <button type="button" onClick={() => openItem(item)} className="min-w-0 flex-1 text-left">
                   <p className="text-sm text-foreground">{item.summary}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">
-                    {LABELS[item.feature] ?? "Update"} · {ago(item.createdAt)}
+                    {LABELS[item.feature] ?? t("bell.update")} · {ago(item.createdAt)}
                   </p>
                 </button>
                 <button
                   type="button"
                   onClick={() => void tick(item.feature, item.id)}
                   className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary"
-                  aria-label="Mark as read"
+                  aria-label={t("bell.markRead")}
                 >
                   <Check className="h-3.5 w-3.5" />
                 </button>

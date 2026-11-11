@@ -1,4 +1,9 @@
 import type { ComponentType } from "react";
+import type { Vars } from "@/lib/i18n/core";
+import type { MessageKey } from "@/lib/i18n/en-GB";
+
+/** The translate function from useT(). Passing it makes menus show titles in the chosen language. */
+export type Translate = (key: MessageKey, vars?: Vars) => string;
 import {
   BedDouble,
   BadgeCheck,
@@ -82,9 +87,11 @@ export type NavItem = {
   to: WalletPath;
   /** Extra words the command palette should match on. */
   keywords?: string[];
+  /** What to show: the label in the chosen language. `label` stays the English identity used for matching. */
+  title?: string;
 };
 
-export type NavSection = { label: string; items: NavItem[] };
+export type NavSection = { label: string; items: NavItem[]; title?: string };
 
 const item = (
   label: string,
@@ -211,7 +218,17 @@ export const SECTION_TINTS: Record<string, "sage" | "apricot" | "sky" | "lilac" 
 export const sectionTint = (label: string | undefined) => SECTION_TINTS[label ?? ""] ?? "sage";
 
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */
-export function navFor(role: WalletRole, agreements = true, noun = "nanny"): NavSection[] {
+const SECTION_KEYS: Record<string, MessageKey> = {
+  Overview: "nav.section.overview",
+  "Day to day": "nav.section.dayToDay",
+  "Family & home": "nav.section.familyHome",
+  "Household staff": "nav.section.householdStaff",
+  "My day": "nav.section.myDay",
+  "The family": "nav.section.theFamily",
+  "My work": "nav.section.myWork",
+};
+
+export function navFor(role: WalletRole, agreements = true, noun = "nanny", t?: Translate): NavSection[] {
   const Noun = noun.charAt(0).toUpperCase() + noun.slice(1);
   // Labels follow who the household actually employs: "Au pair agreement", "Housekeeper quick guide"...
   const relabel = (label: string) => label.replace(/^Nanny /, `${Noun} `);
@@ -222,13 +239,19 @@ export function navFor(role: WalletRole, agreements = true, noun = "nanny"): Nav
   // "My login" only appears once accounts are switched on for the build (VITE_ACCOUNTS_ENABLED=true).
   const accounts = import.meta.env["VITE_ACCOUNTS_ENABLED"] === "true";
   const hidden = (to: string) => (!agreements && to === "/agreement/$slug") || (!accounts && to === "/mylogin/$slug");
-  return sections.map((s) => ({ ...s, items: s.items.filter((i) => !hidden(i.to)) }));
+  return sections.map((s) => ({
+    ...s,
+    title: t ? t(SECTION_KEYS[s.label] ?? "nav.section.overview") : s.label,
+    items: s.items
+      .filter((i) => !hidden(i.to))
+      .map((i) => ({ ...i, title: t ? t(`nav.${routePrefix(i.to)}` as MessageKey, { Noun }) : i.label })),
+  }));
 }
 
-export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath };
+export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath; title?: string };
 
-export function mobileTabsFor(role: WalletRole): MobileTab[] {
-  return role === "nanny"
+export function mobileTabsFor(role: WalletRole, t?: Translate): MobileTab[] {
+  const tabs: MobileTab[] = role === "nanny"
     ? [
         { label: "Today", icon: Clock3, to: "/today/$slug" },
         { label: "Log", icon: NotebookPen, to: "/log/$slug" },
@@ -241,6 +264,7 @@ export function mobileTabsFor(role: WalletRole): MobileTab[] {
         { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
         { label: "Family", icon: Users, to: "/family/$slug" },
       ];
+  return tabs.map((tab) => ({ ...tab, title: t ? t(`tab.${tab.label.toLowerCase()}` as MessageKey) : tab.label }));
 }
 
 export function routePrefix(to: string) {

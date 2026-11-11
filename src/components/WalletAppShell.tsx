@@ -17,6 +17,7 @@ import { AccountMenu, QuickAddMenu, useLogout } from "@/components/HeaderMenus";
 
 import { getBadges, markSeenFn } from "@/lib/notifications.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
+import { useT } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
 import {
   mobileTabsFor,
@@ -220,6 +221,7 @@ function WalletTopBar({
   agencyLogo: string | null;
   onSearch: () => void;
 }) {
+  const t = useT();
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:rounded-t-xl md:px-8">
       <SidebarTrigger className="-ml-1 h-9 w-9 text-muted-foreground hover:text-foreground" />
@@ -240,10 +242,10 @@ function WalletTopBar({
         type="button"
         onClick={onSearch}
         className="ml-auto flex h-9 items-center gap-2 rounded-md border border-input bg-card px-3 text-sm text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground md:w-72"
-        aria-label="Search the wallet"
+        aria-label={t("shell.searchWallet")}
       >
         <Search className="h-4 w-4" />
-        <span className="hidden md:inline">Go to a page</span>
+        <span className="hidden md:inline">{t("shell.goToPage")}</span>
         <kbd className="ml-auto hidden rounded-sm bg-accent px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground md:inline">
           ⌘K
         </kbd>
@@ -254,14 +256,14 @@ function WalletTopBar({
       <AccountMenu
         slug={slug}
         familyName={familyName}
-        roleLabel={role === "nanny" ? "Signed in as household staff" : "Signed in as a parent"}
+        roleLabel={role === "nanny" ? t("shell.signedInStaff") : t("shell.signedInParent")}
       />
       {slug === "demo" && (
         <Link
           to="/"
           className="flex h-9 flex-none items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
-          <LogOut className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">Exit demo</span>
+          <LogOut className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">{t("shell.exitDemo")}</span>
         </Link>
       )}
     </header>
@@ -281,6 +283,7 @@ function WalletNavigation({
   agencyLogo: string | null;
   activePrefix: string;
 }) {
+  const t = useT();
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const { isMobile, setOpenMobile } = useSidebar();
@@ -296,7 +299,7 @@ function WalletNavigation({
             className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
           >
             <Wordmark
-              subline={slug === "demo" ? "Demo wallet" : agencyName ? `with ${agencyName}` : null}
+              subline={slug === "demo" ? t("shell.demoWallet") : agencyName ? t("shell.withAgency", { agency: agencyName }) : null}
               logoUrl={agencyLogo}
               logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
@@ -305,11 +308,11 @@ function WalletNavigation({
       </SidebarHeader>
       )}
       <SidebarContent className="gap-1 py-2">
-        {navFor(role, agreements, noun).map((section) => (
+        {navFor(role, agreements, noun, t).map((section) => (
           <SidebarGroup key={section.label}>
             <SidebarGroupLabel data-tint={sectionTint(section.label)} className="gap-2 text-[0.8125rem] font-medium text-foreground/80">
               <span className="tint-dot" aria-hidden />
-              {section.label}
+              {section.title ?? section.label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -318,7 +321,7 @@ function WalletNavigation({
                     <SidebarMenuButton
                       asChild
                       isActive={activePrefix === routePrefix(item.to)}
-                      tooltip={item.label}
+                      tooltip={item.title ?? item.label}
                       className="h-11 text-[0.9375rem] text-sidebar-foreground transition-colors md:h-8 md:text-sm [&>svg]:text-muted-foreground data-[active=true]:bg-card data-[active=true]:ring-1 data-[active=true]:ring-sidebar-border data-[active=true]:[&>svg]:text-brand"
                     >
                       <Link
@@ -328,7 +331,7 @@ function WalletNavigation({
                         preload="intent"
                       >
                         <item.icon />
-                        <span>{item.label}</span>
+                        <span>{item.title ?? item.label}</span>
                         <NavBadge prefix={routePrefix(item.to)} className="ml-auto" />
                       </Link>
                     </SidebarMenuButton>
@@ -353,17 +356,18 @@ function WalletNavigation({
 }
 
 function SidebarLogout({ slug }: { slug: string }) {
+  const t = useT();
   const logout = useLogout(slug);
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
-          tooltip={slug === "demo" ? "Exit demo" : "Lock & log out"}
+          tooltip={slug === "demo" ? t("shell.exitDemo") : t("shell.lockLogout")}
           onClick={() => void logout()}
           className="h-11 text-[0.9375rem] text-sidebar-foreground md:h-8 md:text-sm [&>svg]:text-muted-foreground"
         >
           <LogOut />
-          <span>{slug === "demo" ? "Exit demo" : "Lock & log out"}</span>
+          <span>{slug === "demo" ? t("shell.exitDemo") : t("shell.lockLogout")}</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
@@ -380,13 +384,14 @@ function SectionNav({
   role: WalletRole;
   activePrefix: string;
 }) {
+  const t = useT();
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const section = activePrefix === "w" ? null : sectionFor(role, activePrefix, agreements, noun);
   if (!section || section.items.length < 2) return null;
 
   return (
-    <nav aria-label={section.label} className="border-b border-border bg-background print:hidden">
+    <nav aria-label={section.title ?? section.label} className="border-b border-border bg-background print:hidden">
       <div className="flex gap-6 overflow-x-auto px-4 [scrollbar-width:none] md:px-8">
         {section.items.map((item) => {
           const active = routePrefix(item.to) === activePrefix;
@@ -404,7 +409,7 @@ function SectionNav({
                   : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
-              {item.label}
+              {item.title ?? item.label}
               <NavBadge prefix={routePrefix(item.to)} />
             </Link>
           );
@@ -425,22 +430,23 @@ function WalletSearch({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const t = useT();
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const navigate = useNavigate();
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <DialogTitle className="sr-only">Search the wallet</DialogTitle>
-      <CommandInput placeholder="Where do you want to go?" />
+      <DialogTitle className="sr-only">{t("shell.searchWallet")}</DialogTitle>
+      <CommandInput placeholder={t("shell.searchPlaceholder")} />
       <CommandList>
-        <CommandEmpty>No matching pages.</CommandEmpty>
-        {navFor(role, agreements, noun).map((section) => (
-          <CommandGroup key={section.label} heading={section.label}>
+        <CommandEmpty>{t("shell.noPages")}</CommandEmpty>
+        {navFor(role, agreements, noun, t).map((section) => (
+          <CommandGroup key={section.label} heading={section.title ?? section.label}>
             {section.items.map((item) => (
               <CommandItem
                 key={item.to}
-                value={item.label}
+                value={`${item.title ?? item.label} ${item.label}`}
                 keywords={item.keywords ?? []}
                 onSelect={() => {
                   onOpenChange(false);
@@ -448,7 +454,7 @@ function WalletSearch({
                 }}
               >
                 <item.icon className="text-muted-foreground" />
-                {item.label}
+                {item.title ?? item.label}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -467,17 +473,18 @@ function MobileTabs({
   role: WalletRole;
   activePrefix: string;
 }) {
+  const t = useT();
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <nav
-      aria-label="Wallet navigation"
+      aria-label={t("shell.navLabel")}
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <div className="grid h-16 grid-cols-5">
-        {mobileTabsFor(role).map((tab) => {
+        {mobileTabsFor(role, t).map((tab) => {
           const active = routePrefix(tab.to) === activePrefix;
           return (
             <Link
@@ -491,7 +498,7 @@ function MobileTabs({
               )}
             >
               <tab.icon className={cn("h-5 w-5", active ? "stroke-[2]" : "stroke-[1.5]")} />
-              <span className="truncate">{tab.label}</span>
+              <span className="truncate">{tab.title ?? tab.label}</span>
               <NavBadge prefix={routePrefix(tab.to)} className="absolute right-[18%] top-1.5" />
             </Link>
           );
@@ -502,15 +509,15 @@ function MobileTabs({
               type="button"
               variant="ghost"
               className="h-full min-w-0 flex-col gap-1 rounded-none px-1 text-[11px] font-medium text-muted-foreground active:scale-100"
-              aria-label="Open all wallet pages"
+              aria-label={t("shell.openAllPages")}
             >
               <Menu className="h-5 w-5 stroke-[1.5]" />
-              <span>More</span>
+              <span>{t("shell.more")}</span>
             </Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="px-5 pb-2 pt-3 text-left">
-              <DrawerTitle className="text-base">All wallet pages</DrawerTitle>
+              <DrawerTitle className="text-base">{t("shell.allPages")}</DrawerTitle>
               <DrawerDescription className="sr-only">
                 Every page in your Family Wallet, grouped by section.
               </DrawerDescription>
@@ -524,10 +531,10 @@ function MobileTabs({
                 type="multiple"
                 defaultValue={[sectionFor(role, activePrefix, agreements, noun)?.label ?? "Overview"]}
               >
-                {navFor(role, agreements, noun).map((section) => (
+                {navFor(role, agreements, noun, t).map((section) => (
                   <AccordionItem key={section.label} value={section.label} className="border-b-0">
                     <AccordionTrigger className="px-2 py-3 text-[0.9375rem] font-medium hover:no-underline">
-                      {section.label}
+                      {section.title ?? section.label}
                     </AccordionTrigger>
                     <AccordionContent className="pb-1">
                       <ul>
@@ -551,7 +558,7 @@ function MobileTabs({
                                     active ? "text-brand" : "text-muted-foreground",
                                   )}
                                 />
-                                {item.label}
+                                {item.title ?? item.label}
                               </Link>
                             </li>
                           );
