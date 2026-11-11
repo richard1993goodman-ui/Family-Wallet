@@ -101,7 +101,7 @@ export function WalletHero() {
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <Link
               to="/login"
-              className="inline-flex h-12 items-center rounded-full bg-brand px-6 text-[0.9375rem] font-medium text-brand-foreground transition-[scale,opacity] duration-150 hover:opacity-90 active:scale-[0.97]"
+              className="hidden h-12 items-center rounded-full sm:inline-flex bg-brand px-6 text-[0.9375rem] font-medium text-brand-foreground transition-[scale,opacity] duration-150 hover:opacity-90 active:scale-[0.97]"
             >
               Open My Wallet
             </Link>
