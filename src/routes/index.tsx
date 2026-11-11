@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
         organizationLd(),
         websiteLd(),
         softwareLd([
-          { name: "Family", price: "9.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Family", price: "9.99", description: "Up to two staff, billed monthly, excluding VAT." },
           { name: "Household", price: "19.99", description: "Up to six staff, billed monthly, excluding VAT." },
         ]),
       ],

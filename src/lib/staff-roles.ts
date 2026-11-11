@@ -23,12 +23,12 @@ export function roleLabel(value: string | null | undefined) {
 
 /** Staff included on a plan the family bought themselves. Households added by an agency have no plan limit. */
 export const SELF_SERVE_STAFF_LIMIT: Record<"family" | "household", number> = {
-  family: 1,
+  family: 2,
   household: 6,
 };
 
 /** Ceiling for households set up by an agency, as a safety guard. */
-export const AGENCY_STAFF_LIMIT = 10;
+export const AGENCY_STAFF_LIMIT = 6;
 
 export type StaffLimit = {
   limit: number;

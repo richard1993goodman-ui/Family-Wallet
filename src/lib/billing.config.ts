@@ -23,7 +23,7 @@ export const PLANS: Record<
   family: {
     name: "The Family Wallet: Family",
     description:
-      "A private wallet for one nanny or au pair with every feature in the app, and dedicated customer support by email.",
+      "A private wallet for up to two staff, such as a nanny and a housekeeper, with every feature in the app and dedicated customer support by email.",
     pence: { month: 999, year: 9900 },
   },
   household: {
@@ -36,21 +36,21 @@ export const PLANS: Record<
     name: "The Family Wallet: Agency Partner",
     description:
       "Give your first families a wallet: 10 household seats, sent to parents and nannies by email.",
-    pence: { month: 6900, year: 6900 },
+    pence: { month: 7900, year: 7900 },
     allowance: 10,
   },
   agency_growth: {
     name: "The Family Wallet: Agency Growth",
     description:
       "Make it part of your membership: 50 household seats, sent to parents and nannies by email.",
-    pence: { month: 14900, year: 14900 },
+    pence: { month: 19900, year: 19900 },
     allowance: 50,
   },
   agency_scale: {
     name: "The Family Wallet: Agency Scale",
     description:
       "A growing client base: 100 household seats, sent to parents and nannies by email.",
-    pence: { month: 24900, year: 24900 },
+    pence: { month: 34900, year: 34900 },
     allowance: 100,
   },
 };

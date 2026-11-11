@@ -98,7 +98,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "How much does it cost?",
-        a: "The Family plan is £9.99 a month, or £99 a year, for one nanny or au pair. The Household plan is £19.99 a month for up to six staff. Prices exclude VAT.",
+        a: "The Family plan is £9.99 a month, or £99 a year, for up to two staff, such as a nanny and a housekeeper. The Household plan is £19.99 a month for up to six staff. Prices exclude VAT.",
       },
       {
         q: "Is my family's information private?",
@@ -158,7 +158,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "How many people can I add?",
         paragraphs: [
-          "The Family plan covers one nanny or au pair. The Household plan covers up to six staff, so a nanny, an au pair, a housekeeper and more can all sit in one wallet. Staff never pay.",
+          "The Family plan covers up to two staff. The Household plan covers up to six staff, so a nanny, an au pair, a housekeeper and more can all sit in one wallet. Staff never pay.",
         ],
       },
       {
@@ -209,7 +209,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/for-agencies",
     title: "Family App for Nanny Agencies | The Family Wallet",
     description:
-      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £69 a month, nannies free.",
+      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £79 a month, nannies free.",
     h1: "Give every family you place a private wallet",
     intro:
       "Your families remember how the first month went. The Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",
@@ -242,9 +242,9 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
           caption: "Agency plans, billed monthly, excluding VAT",
           head: ["Plan", "Price", "Household seats included"],
           rows: [
-            ["Partner", "£69 a month", "10"],
-            ["Growth", "£149 a month", "50"],
-            ["Scale", "£249 a month", "100"],
+            ["Partner", "£79 a month", "10"],
+            ["Growth", "£199 a month", "50"],
+            ["Scale", "£349 a month", "100"],
             ["Enterprise", "Talk to us", "100 and over"],
           ],
         },

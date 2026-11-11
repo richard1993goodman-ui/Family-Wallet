@@ -21,11 +21,11 @@ export const Route = createFileRoute("/pricing")({
     pageHead({
       title: "Pricing: Family Wallet Plans for Families & Agencies",
       description:
-        "Family £9.99 a month for one nanny or au pair, Household £19.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+        "Family £9.99 a month for up to two staff, Household £19.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
       path: "/pricing",
       jsonLd: [
         softwareLd([
-          { name: "Family", price: "9.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Family", price: "9.99", description: "Up to two staff, billed monthly, excluding VAT." },
           { name: "Household", price: "19.99", description: "Up to six staff, billed monthly, excluding VAT." },
         ]),
         faqLd(faqs.families),
@@ -66,9 +66,9 @@ const families: Tier[] = [
     name: "Family",
     monthly: 9.99,
     annual: 99,
-    who: "One nanny or au pair, run properly.",
+    who: "A nanny and a housekeeper or au pair, run properly.",
     features: [
-      { text: "1 staff member: a nanny or au pair" },
+      { text: "Up to 2 staff, each with their own sign-in" },
       { text: "Every feature in the app: shared week, daily log, messages, agreements, timesheets, house manual and codes, emergency card and more" },
       { text: SUPPORT },
     ],
@@ -107,7 +107,7 @@ const families: Tier[] = [
 const agencies: Tier[] = [
   {
     name: "Partner",
-    monthly: 69,
+    monthly: 79,
     who: "Give your first families a wallet.",
     features: [
       { text: "10 household seats" },
@@ -120,7 +120,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Growth",
-    monthly: 149,
+    monthly: 199,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [{ text: "50 household seats" }],
@@ -130,7 +130,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Scale",
-    monthly: 249,
+    monthly: 349,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [{ text: "100 household seats" }],
@@ -151,7 +151,7 @@ const agencies: Tier[] = [
 const EVERYTHING = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", SUPPORT];
 type Group = { title: string; items: string[] };
 const tierIncludes: Record<string, Group[]> = {
-  Family: [{ title: "Everything, for 1 staff member", items: EVERYTHING }],
+  Family: [{ title: "Everything, for up to 2 staff", items: EVERYTHING }],
   Household: [{ title: "Everything, for up to 6 staff", items: ["Up to 6 staff with their own roles and sign-ins", ...EVERYTHING] }],
   Estate: [{ title: "Everything, for unlimited staff", items: ["Unlimited staff with their own roles and sign-ins", "Help importing records", ...EVERYTHING] }],
 };
@@ -181,7 +181,7 @@ function TierDetails({ groups }: { groups: Group[] }) {
 const payOptions = [
   {
     title: "You include it in the membership",
-    body: "You pay for household seats. At Growth with 40 families that is under £4 a family a month, a small part of a £50 membership.",
+    body: "You pay for household seats. At Growth with 40 families that is about £5 a family a month, a small part of a £50 membership.",
   },
   {
     title: "You resell it",
@@ -197,7 +197,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "What is the difference between the plans?",
-      a: "Only the number of staff. Every plan includes every feature in the app. Family covers one nanny or au pair, Household up to six staff, and Estate unlimited.",
+      a: "Only the number of staff. Every plan includes every feature in the app. Family covers up to two staff, Household up to six staff, and Estate unlimited.",
     },
     {
       q: "How do I get help?",

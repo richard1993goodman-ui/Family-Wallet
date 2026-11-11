@@ -34,7 +34,7 @@ describe("tiers", () => {
   });
 
   it("prices match the live pricing page", () => {
-    expect([AGENCY_PLANS.partner.pence, AGENCY_PLANS.growth.pence, AGENCY_PLANS.scale.pence]).toEqual([6900, 14900, 24900]);
+    expect([AGENCY_PLANS.partner.pence, AGENCY_PLANS.growth.pence, AGENCY_PLANS.scale.pence]).toEqual([7900, 19900, 34900]);
   });
 
   it("the owner board returns names, tier and seat counts only", async () => {

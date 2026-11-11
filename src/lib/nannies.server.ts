@@ -131,7 +131,7 @@ export async function saveNanny(slug: string, input: NannyInput) {
   if (existing.length >= staffLimit.limit) {
     throw new Error(
       staffLimit.upgradeable
-        ? `Your ${staffLimit.planName} plan includes ${staffLimit.limit} staff member. Upgrade to Household to add up to 6.`
+        ? `Your ${staffLimit.planName} plan includes ${staffLimit.limit} staff. Upgrade to Household to add up to 6.`
         : `Up to ${staffLimit.limit} staff per household`,
     );
   }

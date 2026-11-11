@@ -414,7 +414,7 @@ function NanniesPage() {
           ) : (
             <p className="text-sm text-muted-foreground">
               {staff.upgradeable
-                ? `Your ${staff.planName} plan includes ${staff.limit} staff member. Upgrade to Household to add up to 6.`
+                ? `Your ${staff.planName} plan includes ${staff.limit} staff. Upgrade to Household to add up to 6.`
                 : `You have reached the limit of ${staff.limit} staff for this household.`}
             </p>
           )}

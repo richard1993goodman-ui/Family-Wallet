@@ -13,12 +13,12 @@ describe("staff roles", () => {
 
 describe("staffLimitFor", () => {
   it("gives the Family plan one person and a path to upgrade", () => {
-    expect(staffLimitFor("family")).toEqual({ limit: 1, planName: "Family", upgradeable: true });
+    expect(staffLimitFor("family")).toEqual({ limit: 2, planName: "Family", upgradeable: true });
   });
   it("gives the Household plan six", () => {
     expect(staffLimitFor("household")).toEqual({ limit: 6, planName: "Household", upgradeable: false });
   });
   it("uses the agency ceiling when there is no subscription", () => {
-    expect(staffLimitFor(null)).toEqual({ limit: 10, planName: null, upgradeable: false });
+    expect(staffLimitFor(null)).toEqual({ limit: 6, planName: null, upgradeable: false });
   });
 });
