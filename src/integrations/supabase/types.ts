@@ -2795,6 +2795,60 @@ export type Database = {
         }
         Relationships: []
       }
+      wallet_documents: {
+        Row: {
+          category: string
+          content_type: string
+          created_at: string
+          expires_on: string | null
+          family_id: string
+          file_name: string
+          id: string
+          issued_on: string | null
+          nanny_id: string | null
+          shared_with_staff: boolean
+          size_bytes: number
+          storage_path: string
+          title: string
+          uploaded_by: string
+          uploaded_by_nanny_id: string | null
+        }
+        Insert: {
+          category: string
+          content_type: string
+          created_at?: string
+          expires_on?: string | null
+          family_id: string
+          file_name: string
+          id?: string
+          issued_on?: string | null
+          nanny_id?: string | null
+          shared_with_staff?: boolean
+          size_bytes: number
+          storage_path: string
+          title: string
+          uploaded_by: string
+          uploaded_by_nanny_id?: string | null
+        }
+        Update: {
+          category?: string
+          content_type?: string
+          created_at?: string
+          expires_on?: string | null
+          family_id?: string
+          file_name?: string
+          id?: string
+          issued_on?: string | null
+          nanny_id?: string | null
+          shared_with_staff?: boolean
+          size_bytes?: number
+          storage_path?: string
+          title?: string
+          uploaded_by?: string
+          uploaded_by_nanny_id?: string | null
+        }
+        Relationships: []
+      }
       wallet_pair_pins: {
         Row: {
           created_at: string

@@ -28,6 +28,7 @@ import {
   Pill,
   Plane,
   ShieldAlert,
+  FolderLock,
   ShieldCheck,
   Siren,
   Sparkles,
@@ -71,7 +72,8 @@ export type WalletPath =
   | "/notifications/$slug"
   | "/hours/$slug"
   | "/support/$slug"
-  | "/billing/$slug";
+  | "/billing/$slug"
+  | "/documents/$slug";
 
 export type NavItem = {
   label: string;
@@ -145,6 +147,7 @@ const payroll = item("Payroll setup", Briefcase, "/payroll/$slug", ["nannytax", 
 const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pension", "ni"]);
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
+const documents = item("Documents", FolderLock, "/documents/$slug", ["dbs", "id", "passport", "right to work", "files", "upload", "visa"]);
 const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
 const billing = item("Plan & billing", Coins, "/billing/$slug", ["subscription", "upgrade", "invoice", "card", "plan"]);
 const helpSupport = item("Help & support", LifeBuoy, "/support/$slug", ["email", "contact", "question", "help"]);
@@ -176,6 +179,7 @@ const familyNav: NavSection[] = [
       costs,
       training,
       safety,
+      documents,
     ],
   },
 ];
@@ -189,7 +193,7 @@ const nannyNav: NavSection[] = [
     label: "The family",
     items: [emergency, houseManual, permissions, kids, passport, first48, travel],
   },
-  { label: "My work", items: [workHours, timesheets, leave, liveIn, pettyCash, bankDetails, agreement, training, safety] },
+  { label: "My work", items: [workHours, timesheets, leave, liveIn, pettyCash, bankDetails, agreement, training, safety, documents] },
 ];
 
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */
