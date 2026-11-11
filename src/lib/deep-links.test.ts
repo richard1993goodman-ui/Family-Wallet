@@ -64,9 +64,11 @@ describe("deep link readiness", () => {
     expect(config).toContain(`https://${APP_HOST}`);
   });
 
-  it("ships the instructions the owner needs, and nothing is served publicly yet", () => {
+  it("serves the Apple link file with the real Team ID and no placeholder; Android's waits for its fingerprint", () => {
     expect(existsSync("mobile/deep-links/README.md")).toBe(true);
-    expect(existsSync("public/.well-known/apple-app-site-association")).toBe(false);
+    const apple = readFileSync("public/.well-known/apple-app-site-association", "utf8");
+    expect(apple).toContain("T3KFJ4JY67.io.familywallet.app");
+    expect(apple).not.toContain("REPLACE_");
     expect(existsSync("public/.well-known/assetlinks.json")).toBe(false);
   });
 });

@@ -9,7 +9,7 @@ Goal: tapping a Family Wallet invitation or wallet link on a phone opens the ins
 
 ## What I need from you
 
-1. **Apple Team ID** (from your Apple Developer account, Membership page). It replaces `REPLACE_WITH_APPLE_TEAM_ID`.
+1. ~~Apple Team ID~~ Received (`T3KFJ4JY67`). The Apple link file is now served at `public/.well-known/apple-app-site-association`. It does nothing until the app has the Associated Domains capability, added with the listener.
 2. **Android release signing certificate SHA-256 fingerprint** (from Play Console "App signing", or the keystore). It replaces `REPLACE_WITH_RELEASE_SIGNING_CERTIFICATE_SHA256`. If you use Play App Signing, use Google's fingerprint, not the upload key's.
 3. Permission to add one dependency, **`@capacitor/app`** (the official plugin that tells the app which link opened it). Adding a package changes `package.json`, and Lovable's `bun.lock` then needs reconciling or its build may fail, so I will not add it without your yes.
 

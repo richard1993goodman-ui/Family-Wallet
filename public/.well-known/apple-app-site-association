@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["T3KFJ4JY67.io.familywallet.app"],
+        "components": [
+          { "/": "/join/*" },
+          { "/": "/join" },
+          { "/": "/claim/*" },
+          { "/": "/w/*" },
+          { "/": "/nanny/*" },
+          { "/": "/account" }
+        ]
+      }
+    ]
+  }
+}
