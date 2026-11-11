@@ -56,3 +56,5 @@ An Apple Developer Program membership (paid yearly), a Google Play developer acc
 3. Who creates the Apple and Google developer accounts and the Firebase project, and when?
 4. Which pilot agency and devices for TestFlight and internal testing?
 5. Approve a proper read of Apple 3.1.3 and Google's billing rules, with a solicitor or App Review question if they are unclear, before any submission?
+
+Deep links readiness (G1, partial): see `mobile/deep-links/README.md`. The link validator and templates are built and tested; the native changes wait for your Apple Team ID, Android signing fingerprint and a yes to adding `@capacitor/app`.

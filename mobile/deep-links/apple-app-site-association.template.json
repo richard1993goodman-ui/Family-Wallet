@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["REPLACE_WITH_APPLE_TEAM_ID.io.familywallet.app"],
+        "components": [
+          { "/": "/join/*" },
+          { "/": "/join" },
+          { "/": "/claim/*" },
+          { "/": "/w/*" },
+          { "/": "/nanny/*" },
+          { "/": "/account" }
+        ]
+      }
+    ]
+  }
+}
