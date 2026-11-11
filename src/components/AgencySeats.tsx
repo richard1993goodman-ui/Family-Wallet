@@ -9,23 +9,21 @@ import { Input } from "@/components/ui/input";
 import { formatPounds } from "@/lib/agency-plans";
 import {
   agencyBillingLinkFn,
-  generateSeatLoginFn,
+  createSeatInviteFn,
   getSeatBoardFn,
   releaseSeatFn,
   resendSeatInviteFn,
   revokeSeatInviteFn,
 } from "@/lib/seat-invites.functions";
 
-type Login = Awaited<ReturnType<typeof generateSeatLoginFn>>;
+type Invite = Awaited<ReturnType<typeof createSeatInviteFn>>;
 
 /** Seats made from a login have a placeholder address like "smith-ab12@seat.invalid"; show the family label instead. */
 const seatLabel = (email: string | null) =>
   email?.endsWith("@seat.invalid") ? email.split("@")[0]!.replace(/-[a-z0-9]{4}$/, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : email;
 
-const message = (l: Login) =>
-  `Hi,\n\n${l.agencyName} has set up your Family Wallet, a private place for your household's week, agreements, daily logs and more.\n\nOpen your wallet: ${l.family.url}\nAccess code: ${l.family.code}` +
-  (l.nanny ? `\n\nFor ${l.nanny.name}:\nOpen: ${l.nanny.url}\nAccess code: ${l.nanny.code}` : "") +
-  `\n\nYour wallet is private to your family. ${l.agencyName} cannot see what you add to it.`;
+const message = (l: Invite) =>
+  `Hi,\n\n${l.agencyName} has set up a Family Wallet for you, a private place for your household's week, agreements, daily logs and more.\n\nActivate it here: ${l.url}\n\nIf the link won't open, go to ${new URL(l.url).origin}/join and enter this code: ${l.code}\n\nThe link and code work once and expire on ${new Date(l.expiresAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}. Your wallet is private to your family. ${l.agencyName} cannot see what you add to it.`;
 
 const date = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "");
 
@@ -33,7 +31,7 @@ const date = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en
 export function AgencySeats() {
   const client = useQueryClient();
   const boardFn = useServerFn(getSeatBoardFn);
-  const generateFn = useServerFn(generateSeatLoginFn);
+  const createFn = useServerFn(createSeatInviteFn);
   const resendFn = useServerFn(resendSeatInviteFn);
   const revokeFn = useServerFn(revokeSeatInviteFn);
   const releaseFn = useServerFn(releaseSeatFn);
@@ -41,8 +39,9 @@ export function AgencySeats() {
   const board = useQuery({ queryKey: ["seat-board"], queryFn: () => boardFn() });
   const [picked, setPicked] = useState<number | null>(null);
   const [familyName, setFamilyName] = useState("");
-  const [nannyName, setNannyName] = useState("");
-  const [login, setLogin] = useState<Login | null>(null);
+  const [email, setEmail] = useState("");
+  const [sendEmail, setSendEmail] = useState(false);
+  const [login, setLogin] = useState<Invite | null>(null);
   const [busy, setBusy] = useState(false);
 
   // Back from Stripe after paying: the new seats arrive once the payment is confirmed, so check a few times.
@@ -121,14 +120,16 @@ export function AgencySeats() {
 
       {login && (
         <div data-tint="sage" className="tint-card mt-4 rounded-2xl p-5">
-          <p className="font-medium text-foreground">{login.familyName} is ready. Copy these now: they won't be shown again.</p>
-          {[{ who: login.familyName, ...login.family }, ...(login.nanny ? [{ who: login.nanny.name, ...login.nanny }] : [])].map((l) => (
-            <div key={l.who} className="mt-3 rounded-xl bg-card p-3 text-sm">
-              <p className="font-medium text-foreground">{l.who}</p>
-              <div className="mt-2 flex flex-wrap items-center gap-2"><span className="min-w-0 flex-1 truncate text-muted-foreground">{l.url}</span><CopyButton text={l.url} label="Copy link" /></div>
-              <div className="mt-2 flex flex-wrap items-center gap-2"><span className="flex-1 font-mono tracking-wider text-foreground">{l.code}</span><CopyButton text={l.code} label="Copy code" /></div>
-            </div>
-          ))}
+          <p className="font-medium text-foreground">
+            Invitation for {login.familyName} is ready{login.emailed ? " and emailed" : ""}. Copy it now: it won't be shown again.
+          </p>
+          <div className="mt-3 rounded-xl bg-card p-3 text-sm">
+            <div className="flex flex-wrap items-center gap-2"><span className="min-w-0 flex-1 truncate text-muted-foreground">{login.url}</span><CopyButton text={login.url} label="Copy link" /></div>
+            <div className="mt-2 flex flex-wrap items-center gap-2"><span className="flex-1 font-mono tracking-wider text-foreground">{login.code}</span><CopyButton text={login.code} label="Copy backup code" /></div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Works once and expires {new Date(login.expiresAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}. The family creates its own wallet and access code. You never see them.
+            </p>
+          </div>
           <div className="mt-3 flex flex-wrap gap-2">
             <CopyButton text={message(login)} label="Copy a ready-to-send message" />
             <Button size="sm" variant="ghost" onClick={() => setLogin(null)}>Done</Button>
@@ -154,7 +155,7 @@ export function AgencySeats() {
                 {seat.state === "occupied" ? "Active" : seat.state === "invited" ? "Invited" : "Available"}
               </span>
               {seat.state === "available" && (
-                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setFamilyName(""); setNannyName(""); }}>
+                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setFamilyName(""); setEmail(""); setSendEmail(false); }}>
                   Set up
                 </Button>
               )}
@@ -185,7 +186,7 @@ export function AgencySeats() {
                   e.preventDefault();
                   setBusy(true);
                   try {
-                    setLogin(await generateFn({ data: { slot: seat.slot, familyName, nannyName } }));
+                    setLogin(await createFn({ data: { slot: seat.slot, familyName, email, sendEmail } }));
                     setPicked(null);
                     await client.invalidateQueries({ queryKey: ["seat-board"] });
                   } catch (err) {
@@ -196,11 +197,16 @@ export function AgencySeats() {
                 }}
               >
                 <Input required autoFocus placeholder="Family name, e.g. The Smiths" value={familyName} onChange={(e) => setFamilyName(e.target.value)} className="min-w-0 flex-1" />
-                <Input placeholder="Nanny's first name (optional)" value={nannyName} onChange={(e) => setNannyName(e.target.value)} className="min-w-0 flex-1" />
+                <Input type="email" placeholder="Their email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1" />
+                {email && (
+                  <label className="flex basis-full items-center gap-2 text-sm text-foreground">
+                    <input type="checkbox" checked={sendEmail} onChange={(e) => setSendEmail(e.target.checked)} /> Email the invitation to them too
+                  </label>
+                )}
                 <p className="basis-full text-xs text-muted-foreground">
-                  This creates the wallet and gives you its link and access code to send yourself. They are shown once, so copy them before you close the panel.
+                  This makes a one-time invitation link and backup code for you to send yourself, for example on WhatsApp. They are shown once. The family creates its own wallet when it opens the link, so you never see its access code.
                 </p>
-                <Button type="submit" disabled={busy}>Generate login</Button>
+                <Button type="submit" disabled={busy}>Create invitation</Button>
               </form>
             )}
           </div>

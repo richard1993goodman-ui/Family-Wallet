@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { AGENCY_PLANS, isAgencyPlan, nextAgencyPlan } from "./agency-plans";
 import { graceDays, transitionEnd } from "./entitlement";
-import { buildSeats, hashInviteToken, INVITE_DAYS, isValidEmail, newInviteToken, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
+import { buildSeats, hashBackupCode, hashInviteToken, inviteExpiry, inviteHours, isValidEmail, newBackupCode, newInviteToken, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
 
 const OPEN = ["pending", "accepted"];
 
@@ -68,8 +68,8 @@ async function emailInvite(agencyId: string, to: string, token: string) {
   if (!emailConfigured()) return false;
   const { siteUrl, CONTACT_EMAIL } = await import("./site");
   const url = siteUrl(`/join/${token}`);
-  const text = `${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.\n\nActivate it here (the link works once and expires in ${INVITE_DAYS} days):\n${url}\n\nYour wallet is private to your family. ${name} cannot see what you add to it.\n\nQuestions? ${process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL}`;
-  const html = `<p>${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Activate my Family Wallet</a></p><p style="color:#57534e;font-size:14px">The link works once and expires in ${INVITE_DAYS} days. Your wallet is private to your family: ${name} cannot see what you add to it.</p>`;
+  const text = `${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.\n\nActivate it here (the link works once and expires in ${inviteHours()} hours):\n${url}\n\nYour wallet is private to your family. ${name} cannot see what you add to it.\n\nQuestions? ${process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL}`;
+  const html = `<p>${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Activate my Family Wallet</a></p><p style="color:#57534e;font-size:14px">The link works once and expires in ${inviteHours()} hours. Your wallet is private to your family: ${name} cannot see what you add to it.</p>`;
   return sendEmail({ to, subject: `${name} has set you up with a Family Wallet`, html, text });
 }
 
@@ -99,7 +99,7 @@ export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: s
       // Only sent when there is a nanny, so a plain invitation never depends on the nanny columns.
       ...(nannyEmail ? { nanny_email: nannyEmail, nanny_name: nannyName } : {}),
       token_hash: hashInviteToken(token),
-      expires_at: new Date(Date.now() + INVITE_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+      expires_at: inviteExpiry(),
     })
     .select("id")
     .single();
@@ -116,6 +116,66 @@ export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: s
     throw new Error("The email couldn't be sent. Check the address and try again.");
   }
   return { ok: true as const };
+}
+
+/**
+ * The agency makes a one-time invitation: a link and a short backup code, shown once, for the agency to send
+ * in its own words (or to be emailed too). They are an invitation, not a login: the family makes its own
+ * wallet when it redeems them, and the agency never sees the family's access code.
+ */
+export async function createSeatInvite(
+  agencyId: string,
+  slot: number,
+  rawFamilyName: string,
+  opts: { email?: string; sendEmail?: boolean; createdBy?: string } = {},
+) {
+  const familyName = rawFamilyName.trim().slice(0, 80);
+  if (!familyName) throw new Error("Enter the family's name.");
+  const email = normaliseEmail(opts.email ?? "");
+  if (email && !isValidEmail(email)) throw new Error("Enter a valid email address.");
+  if (opts.sendEmail && !email) throw new Error("Enter an email address to send it to.");
+  await expireOld(agencyId);
+  const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);
+  if (!Number.isInteger(slot) || slot < 1 || slot > seatCount(agency.allowance, rows)) throw new Error("That seat isn't part of your plan.");
+  if (rows.some((r) => r.slot === slot)) throw new Error("That seat is already in use.");
+  if (email && rows.some((r) => normaliseEmail(r.email) === email)) throw new Error("That email already has a seat.");
+
+  // Without an email the seat is labelled by the family name, using a placeholder address nobody can receive.
+  const label = familyName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 24) || "family";
+  const token = newInviteToken();
+  const code = newBackupCode();
+  const expiresAt = inviteExpiry();
+  const { data: row, error } = await supabaseAdmin
+    .from("agency_invites")
+    .insert({
+      agency_id: agencyId,
+      slot,
+      email: email || `${label}-${newBackupCode().slice(0, 4).toLowerCase()}@seat.invalid`,
+      token_hash: hashInviteToken(token),
+      code_hash: hashBackupCode(code),
+      created_by: opts.createdBy ?? null,
+      expires_at: expiresAt,
+    })
+    .select("id")
+    .single();
+  if (error) {
+    console.error("Could not save a seat invitation", error.code, error.message);
+    if (error.code === "23505") throw new Error("That seat or email is already in use.");
+    throw new Error("Couldn't save the invitation. Please try again, or contact support if it keeps happening.");
+  }
+
+  const { siteUrl } = await import("./site");
+  let emailed = false;
+  if (opts.sendEmail && email) {
+    emailed = await emailInvite(agencyId, email, token);
+    if (!emailed) {
+      await supabaseAdmin.from("agency_invites").delete().eq("id", row.id);
+      throw new Error("The email couldn't be sent. Check the address and try again.");
+    }
+  }
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "agency_staff", actorId: opts.createdBy ?? null, action: "invite_created", agencyId, meta: { slot, emailed } });
+  return { agencyName: agency.brand_name || agency.name, familyName, url: siteUrl(`/join/${token}`), code, expiresAt, emailed };
 }
 
 /**
@@ -206,7 +266,7 @@ export async function resendSeatInvite(agencyId: string, inviteId: string) {
   const token = newInviteToken();
   await supabaseAdmin
     .from("agency_invites")
-    .update({ token_hash: hashInviteToken(token), expires_at: new Date(Date.now() + INVITE_DAYS * 24 * 60 * 60 * 1000).toISOString(), invited_at: new Date().toISOString() })
+    .update({ token_hash: hashInviteToken(token), expires_at: inviteExpiry(), invited_at: new Date().toISOString() })
     .eq("id", invite.id);
   if (!(await emailInvite(agencyId, invite.email, token))) throw new Error("The email couldn't be sent. Try again in a minute.");
   return { ok: true as const };

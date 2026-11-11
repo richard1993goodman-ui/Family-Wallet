@@ -1,12 +1,26 @@
 // Pure helpers for agency household seats, kept separate so they are easy to test.
 import { createHash, randomBytes } from "node:crypto";
 
-export const INVITE_DAYS = 14;
+/** How long an unused invitation lasts. 48 hours by default; set INVITE_HOURS to change it (1 to 336). */
+export function inviteHours(raw = process.env["INVITE_HOURS"]) {
+  const hours = Number(raw);
+  return Number.isFinite(hours) && hours >= 1 && hours <= 336 ? Math.floor(hours) : 48;
+}
+export const inviteExpiry = (now = Date.now()) => new Date(now + inviteHours() * 60 * 60 * 1000).toISOString();
 /** Agencies with no fixed allowance (enterprise) can still never hold more than this many seats. */
 export const MAX_SEATS = 1000;
 
 export const newInviteToken = () => randomBytes(32).toString("base64url");
 export const hashInviteToken = (token: string) => createHash("sha256").update(token).digest("hex");
+
+/** A short backup code to type at /join if the link will not open. Unambiguous letters and digits, 8 characters. */
+const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+export function newBackupCode() {
+  const bytes = randomBytes(8);
+  return Array.from(bytes, (b) => CODE_ALPHABET[b % CODE_ALPHABET.length]).join("");
+}
+export const normaliseBackupCode = (code: string) => code.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+export const hashBackupCode = (code: string) => createHash("sha256").update(`invite-code:${normaliseBackupCode(code)}`).digest("hex");
 
 export const normaliseEmail = (email: string) => email.trim().toLowerCase();
 export const isValidEmail = (email: string) => email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

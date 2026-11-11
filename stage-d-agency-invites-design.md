@@ -71,3 +71,9 @@ Tokens and codes are hashed and single use; redemption is one conditional databa
 4. **Terms wording:** who provides the family terms and privacy text shown at activation? I will not draft legal text.
 5. **Retire generate-and-copy fully**, including the agency page copy that says agencies copy a login. (Recommended: yes.)
 6. **Existing generate-and-copy households** (any created since 11 Nov) stay as they are, and their codes clear at first use like every other family. Confirm.
+
+## Decisions confirmed (11 Nov)
+1 to 3, 5 and 6 confirmed as recommended: 48 hours, no mobile number stored, keep "email it for me", retire generate-and-copy, existing households unchanged. **Decision 4 (terms text) is still open**: it needs wording from you or your solicitor, and the activation step in D2 will not ship a terms checkbox until it exists.
+
+## D1 status
+Built and committed locally, not applied live: migration `20261111400000_invite_backup_code.sql`, `createSeatInvite` (link plus backup code, hashed, 48h, audit), the agency "Create invitation" screen, and tests. The backup code cannot be redeemed until D2 adds code entry at `/join`, so D1 must not be released on its own. `generateSeatLogin` is still in the code and goes in D3.

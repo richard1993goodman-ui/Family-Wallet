@@ -23,6 +23,17 @@ export const sendSeatInviteFn = createServerFn({ method: "POST" })
     }),
   );
 
+export const createSeatInviteFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { slot: number; familyName: string; email?: string; sendEmail?: boolean }) => d)
+  .handler(async ({ data, context }) =>
+    (await import("./seat-invites.server")).createSeatInvite(await partnerAgencyId(context), Number(data.slot), String(data.familyName ?? ""), {
+      email: String(data.email ?? ""),
+      sendEmail: data.sendEmail === true,
+      createdBy: context.userId,
+    }),
+  );
+
 export const generateSeatLoginFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { slot: number; familyName: string; nannyName?: string }) => d)
