@@ -28,6 +28,7 @@ import {
   Heart,
   Home,
   KeyRound,
+  Lock,
   Medal,
   Menu,
   MessageCircle,
@@ -54,7 +55,7 @@ import { cn } from "@/lib/utils";
  */
 
 export type Tab = "home" | "calendar" | "messages" | "family" | "more";
-export type Page = "log" | "agreement" | "thread" | "house" | "passport";
+export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave";
 type Msg = { from: "you" | "jess"; text: string; time: string };
 
 const TABS: { id: Tab; label: string; icon: LucideIcon }[] = [
@@ -251,7 +252,7 @@ type ScreenProps = { app: WalletApp };
 const press =
   "cursor-pointer transition-[scale,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.97] disabled:cursor-default disabled:active:scale-100";
 const rowPress = "cursor-pointer transition-colors duration-150 active:bg-navy/[0.05]";
-const card = "rounded-[18px] border border-border bg-card p-3.5";
+const card = "rounded-[18px] bg-card p-3.5 shadow-sm";
 const btn = cn(
   "inline-flex h-9 items-center justify-center gap-1.5 rounded-[11px] px-3 text-[11.5px] font-medium [&_svg]:size-3.5",
   press,
@@ -967,7 +968,7 @@ const MORE: { label: string; items: [string, LucideIcon, (Tab | Page)?][] }[] = 
     label: "Day to day",
     items: [
       ["Daily log", NotebookPen, "log"],
-      ["Medication log", Pill],
+      ["Medication log", Pill, "medicine"],
       ["Handover & expenses", ClipboardCheck],
       ["Photo moments", Camera],
       ["Active Kids Passport", Dumbbell, "passport"],
@@ -991,8 +992,8 @@ const MORE: { label: string; items: [string, LucideIcon, (Tab | Page)?][] }[] = 
       ["Your nannies", UserPlus],
       ["Nanny agreement", FileText, "agreement"],
       ["Timesheets", Clock3],
-      ["Holiday & leave", CalendarCheck],
-      ["Petty cash", Coins],
+      ["Holiday & leave", CalendarCheck, "leave"],
+      ["Petty cash", Coins, "cash"],
       ["Payroll setup", Briefcase],
       ["Employment costs", Calculator],
       ["Nanny training", BadgeCheck],
@@ -1025,6 +1026,41 @@ function MoreScreen({ app }: ScreenProps) {
         </div>
       ))}
     </>
+  );
+}
+
+/** Jess is online during her shift: weekdays 15:00 to 19:30. */
+function jessOnline(today: Date) {
+  const day = today.getDay();
+  const mins = today.getHours() * 60 + today.getMinutes();
+  return day !== 0 && day !== 6 && mins >= 15 * 60 && mins < 19 * 60 + 30;
+}
+
+/** Headshots of the parent and nanny; a red dot shows who is in the app right now. */
+function HeaderAvatars({ today }: { today: Date }) {
+  const people = [
+    { name: "Sarah", initial: "S", online: false },
+    { name: "Jess", initial: "J", online: jessOnline(today) },
+  ];
+  return (
+    <div className="flex items-center -space-x-1.5">
+      {people.map((p) => (
+        <span
+          key={p.name}
+          title={p.online ? `${p.name} is online` : p.name}
+          className="relative grid size-6 place-items-center rounded-full bg-accent text-[10px] font-semibold text-navy ring-2 ring-background"
+        >
+          {p.initial}
+          {p.online && (
+            <span
+              role="img"
+              aria-label={`${p.name} is online`}
+              className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-red-500 ring-2 ring-background"
+            />
+          )}
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -1318,8 +1354,28 @@ const RULES = [
   ],
 ];
 
+const REVEAL_SECONDS = 6;
+
 function HouseScreen({ app }: ScreenProps) {
-  const [shown, setShown] = useState<string[]>([]);
+  // Seconds left for each revealed code. Codes hide themselves, like in the real wallet.
+  const [left, setLeft] = useState<Record<string, number>>({});
+  const shown = Object.keys(left);
+  useEffect(() => {
+    if (shown.length === 0) return;
+    const t = setInterval(
+      () =>
+        setLeft((cur) =>
+          Object.fromEntries(Object.entries(cur).filter(([, n]) => n > 1).map(([k, n]) => [k, n - 1])),
+        ),
+      1000,
+    );
+    return () => clearInterval(t);
+  }, [shown.length]);
+  const setShown = (fn: (s: string[]) => string[]) =>
+    setLeft((cur) => {
+      const next = fn(Object.keys(cur));
+      return Object.fromEntries(next.map((k) => [k, cur[k] ?? REVEAL_SECONDS]));
+    });
   return (
     <>
       <BackLink app={app} />
@@ -1366,7 +1422,7 @@ function HouseScreen({ app }: ScreenProps) {
                 ) : (
                   <Eye className="size-3" aria-hidden />
                 )}
-                {on ? "Hide" : "Reveal"}
+                {on ? `Hide · ${left[c.title]}s` : "Reveal"}
               </button>
             </div>
           </div>
@@ -1505,6 +1561,155 @@ function PassportScreen({ app }: ScreenProps) {
   );
 }
 
+/** Safe-dose lockout: the next dose is blocked until the gap since the last one has passed. */
+function MedicineScreen({ app }: ScreenProps) {
+  const mins = app.today.getHours() * 60 + app.today.getMinutes();
+  const given = 13 * 60 + 20; // Calpol, given by Jess
+  const safeAt = given + 4 * 60;
+  const locked = mins >= given && mins < safeAt;
+  const left = safeAt - mins;
+  return (
+    <>
+      <BackLink app={app} />
+      <Title sub="Every dose, timestamped, with who gave it.">Medication log</Title>
+      <div className={card}>
+        <p className="text-[12.5px] font-medium text-navy">Oscar · Calpol</p>
+        <p className="mt-1 text-[11px] leading-[1.45] text-muted-foreground">
+          Last dose 13:20 · 5ml · given by Jess
+        </p>
+        {locked ? (
+          <div className="mt-2.5 flex items-start gap-2 rounded-[12px] bg-warning-soft p-2.5 text-warning">
+            <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+            <div>
+              <p className="text-[11.5px] font-semibold">Safe-dose lockout until 17:20</p>
+              <p className="mt-0.5 text-[10.5px]">
+                {Math.floor(left / 60)}h {left % 60}m left before another dose is safe.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <p className="mt-2.5 text-[11px] font-medium text-primary">
+            A further dose is due now if needed
+          </p>
+        )}
+      </div>
+      <button
+        type="button"
+        onClick={() => app.openSheet("Log a dose")}
+        className={cn(
+          "inline-flex h-10 items-center justify-center gap-1.5 rounded-full text-[12px] font-medium",
+          locked ? "border border-border text-navy" : "bg-navy text-white",
+          press,
+        )}
+      >
+        {locked ? <Lock className="size-3.5" aria-hidden /> : <Pill className="size-3.5" aria-hidden />}
+        {locked ? "Locked until 17:20" : "Log dose"}
+      </button>
+      <p className="text-[10.5px] leading-[1.45] text-muted-foreground">
+        Always follow the instructions on the packaging and the parents' written permission.
+      </p>
+    </>
+  );
+}
+
+/** The household float: one shared running balance. */
+function CashScreen({ app }: ScreenProps) {
+  const entries: [string, string, string][] = [
+    ["Snacks after swimming", "Jess", "−£6.20"],
+    ["Bus fare to the museum", "Jess", "−£4.80"],
+    ["Weekly float", "Sarah", "+£50.00"],
+  ];
+  return (
+    <>
+      <BackLink app={app} />
+      <Title sub="No more scraps of receipts or guessing what's left.">Petty cash float</Title>
+      <div className="rounded-[22px] bg-navy p-4 text-white shadow-md">
+        <p className="text-[11px] text-white/70">Household float balance</p>
+        <p className="mt-0.5 font-display text-[34px] leading-none">£42.50</p>
+        <p className="mt-2.5 text-[11px] text-white/70">
+          Spent this month <span className="font-semibold text-white">£11.00</span>
+        </p>
+      </div>
+      <Label>History</Label>
+      <List>
+        {entries.map(([what, who, amount]) => (
+          <div key={what} className="flex items-center gap-2 px-3.5 py-2.5">
+            <span className="min-w-0 flex-1">
+              <span className="block text-[12px] font-medium text-navy">{what}</span>
+              <span className="block text-[10.5px] text-muted-foreground">{who}</span>
+            </span>
+            <span
+              className={cn(
+                "text-[12px] font-semibold",
+                amount.startsWith("+") ? "text-primary" : "text-navy",
+              )}
+            >
+              {amount}
+            </span>
+          </div>
+        ))}
+      </List>
+    </>
+  );
+}
+
+/** Holiday entitlement as a ring that fills as days are taken. */
+function LeaveScreen({ app }: ScreenProps) {
+  const total = 28;
+  const taken = 9;
+  return (
+    <>
+      <BackLink app={app} />
+      <Title sub="Worked out from the signed agreement.">Holiday & leave</Title>
+      <div className={cn(card, "flex items-center gap-4")}>
+        <div className="relative size-[76px] shrink-0">
+          <svg viewBox="0 0 36 36" className="size-[76px] -rotate-90" aria-hidden>
+            <circle cx="18" cy="18" r="15.9" fill="none" strokeWidth="3" className="stroke-border" />
+            <circle
+              cx="18"
+              cy="18"
+              r="15.9"
+              fill="none"
+              strokeWidth="3"
+              strokeLinecap="round"
+              pathLength={100}
+              strokeDasharray={`${(taken / total) * 100} 100`}
+              className="stroke-primary"
+            />
+          </svg>
+          <div className="absolute inset-0 grid place-items-center text-center">
+            <div>
+              <p className="font-display text-[20px] leading-none text-navy">{total - taken}</p>
+              <p className="mt-0.5 text-[9px] text-muted-foreground">days left</p>
+            </div>
+          </div>
+        </div>
+        <div className="text-[11px] leading-[1.6] text-muted-foreground">
+          <p>
+            <span className="font-semibold text-navy">{taken}</span> taken
+          </p>
+          <p>
+            <span className="font-semibold text-navy">0</span> awaiting approval
+          </p>
+          <p>{total} days a year (5.6 weeks × 5 days)</p>
+        </div>
+      </div>
+      <Label>Booked</Label>
+      <List>
+        {[
+          ["Half term", "Mon 27 to Fri 30 Oct · 4 days"],
+          ["Summer holiday", "Mon 4 to Fri 8 Aug · 5 days"],
+        ].map(([t, d]) => (
+          <div key={t} className="px-3.5 py-2.5">
+            <p className="text-[12px] font-medium text-navy">{t}</p>
+            <p className="mt-0.5 text-[10.5px] text-muted-foreground">{d} · approved</p>
+          </div>
+        ))}
+      </List>
+    </>
+  );
+}
+
 const SCREENS: Record<Tab | Page, (props: ScreenProps) => ReactNode> = {
   home: HomeScreen,
   calendar: CalendarScreen,
@@ -1516,6 +1721,9 @@ const SCREENS: Record<Tab | Page, (props: ScreenProps) => ReactNode> = {
   thread: ThreadScreen,
   house: HouseScreen,
   passport: PassportScreen,
+  medicine: MedicineScreen,
+  cash: CashScreen,
+  leave: LeaveScreen,
 };
 
 /* ---------- The phone ---------- */
@@ -1686,9 +1894,10 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                   <PanelLeft className="size-4" aria-hidden />
                 </button>
                 <LogoMark className="h-5 w-5" />
-                <p className="truncate text-[12.5px] font-medium text-navy">
+                <p className="min-w-0 flex-1 truncate text-[12.5px] font-medium text-navy">
                   The Harrington Family
                 </p>
+                <HeaderAvatars today={app.today} />
               </div>
 
               <div className="relative min-h-0 flex-1 overflow-hidden supports-[overflow:clip]:overflow-clip">

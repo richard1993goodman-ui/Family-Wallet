@@ -77,7 +77,7 @@ export function PresenceAvatars({ slug }: { slug: string }) {
         const label = `${p.name}${p.online ? " · online" : ""}${p.isYou && !p.photoUrl ? " · tap to add your photo" : ""}`;
         return (
           <span key={p.key} className="relative h-9 w-9 flex-none rounded-full ring-2 ring-background" title={label}>
-            {p.isYou ? (
+            {p.isYou && slug !== "demo" ? (
               <button
                 type="button"
                 aria-label={p.photoUrl ? "Change your photo" : "Add your photo"}

@@ -59,7 +59,8 @@ export async function loadPeople(slug: string) {
       key: n.id,
       name: n.name,
       photoUrl: await signed(n.photo_path),
-      online: online(n.last_seen_at),
+      // The sample wallet shows the nanny as online so visitors can see what the red dot means.
+      online: slug === "demo" ? true : online(n.last_seen_at),
       isYou: access.level === "nanny" && access.nannyId === n.id,
     })),
   );

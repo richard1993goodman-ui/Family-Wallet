@@ -239,7 +239,7 @@ function WalletTopBar({
       </button>
       <QuickAddMenu slug={slug} />
       <NotificationBell slug={slug} />
-      {slug !== "demo" && <PresenceAvatars slug={slug} />}
+      <PresenceAvatars slug={slug} />
       <AccountMenu
         slug={slug}
         familyName={familyName}

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
+import { LogoMark } from "@/components/brand";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import type { Interval, PlanId } from "@/lib/billing.config";
 import { intervalsFor } from "@/lib/billing.config";
@@ -307,7 +308,8 @@ function PricingPageInner() {
     <div className="min-h-svh overflow-x-clip bg-background">
       <header className="border-b border-border/70">
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-          <Link to="/" className="heading-serif text-[1.375rem] leading-none text-foreground">
+          <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
+            <LogoMark />
             The Family Wallet
           </Link>
           <div className="flex items-center gap-2">
