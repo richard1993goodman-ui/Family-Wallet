@@ -1,7 +1,7 @@
 name: Wallet lifecycle (daily)
 
 # Calls the app's daily job: reminder emails for locked wallets, and deletion only when LIFECYCLE_PURGE=on in the app.
-# Needs the repository secret LIFECYCLE_CRON_SECRET (the same value as the app's LOVABLE_CRON_SECRET).
+# Needs the repository secret LIFECYCLE_JOB_SECRET (the same value as the app's LIFECYCLE_JOB_SECRET).
 # Runs only on the public repository so the job is not triggered twice by the mirrored private one.
 on:
   schedule:
@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Call the lifecycle job
         env:
-          SECRET: ${{ secrets.LIFECYCLE_CRON_SECRET }}
+          SECRET: ${{ secrets.LIFECYCLE_JOB_SECRET }}
         run: |
-          test -n "$SECRET" || { echo "LIFECYCLE_CRON_SECRET is not set"; exit 1; }
+          test -n "$SECRET" || { echo "LIFECYCLE_JOB_SECRET is not set"; exit 1; }
           curl --fail-with-body --silent --show-error --max-time 120 -X POST \
             -H "Authorization: Bearer $SECRET" \
             https://familywallet.io/api/public/lifecycle-run
