@@ -13,6 +13,10 @@ Goal: tapping a Family Wallet invitation or wallet link on a phone opens the ins
 2. **Android release signing certificate SHA-256 fingerprint** (from Play Console "App signing", or the keystore). It replaces `REPLACE_WITH_RELEASE_SIGNING_CERTIFICATE_SHA256`. If you use Play App Signing, use Google's fingerprint, not the upload key's.
 3. Permission to add one dependency, **`@capacitor/app`** (the official plugin that tells the app which link opened it). Adding a package changes `package.json`, and Lovable's `bun.lock` then needs reconciling or its build may fail, so I will not add it without your yes.
 
+## Done for iOS (needs a new TestFlight build and a Lovable publish)
+
+`@capacitor/app` added, the listener is `src/lib/native-links.ts` (mounted in the root route, app only), and iOS has `App.entitlements` with `applinks:familywallet.io`. Android still waits for its fingerprint and the `assetlinks.json` file.
+
 ## What I will do once I have them
 
 1. Copy the filled templates to `public/.well-known/apple-app-site-association` (no file extension, served as JSON) and `public/.well-known/assetlinks.json`.

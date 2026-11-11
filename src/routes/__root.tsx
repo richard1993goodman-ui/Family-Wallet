@@ -16,6 +16,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { WalletAppShell } from "@/components/WalletAppShell";
 import { I18nProvider } from "@/lib/i18n/provider";
+import { startNativeLinks } from "@/lib/native-links";
 
 function NotFoundComponent() {
   return (
@@ -141,6 +142,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => startNativeLinks(), []);
 
   return (
     <QueryClientProvider client={queryClient}>
