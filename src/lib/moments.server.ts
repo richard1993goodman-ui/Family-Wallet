@@ -23,6 +23,17 @@ export async function loadMoments(slug: string): Promise<MomentsData | null> {
       .limit(300),
   ]);
 
+  // The sample wallet shows a ready-made after-school feed, dated from today, instead of whatever was last seeded.
+  if (slug === "demo") {
+    const { demoMoments } = await import("./demo-photos");
+    return {
+      access: family.access,
+      familyName: family.family_name,
+      children: (children ?? []).map((c) => ({ id: c.id, name: c.name })),
+      moments: demoMoments(),
+    };
+  }
+
   const moments: MomentRow[] = await Promise.all(
     (rows ?? []).map(async (row) => {
       let photoUrl: string | null = null;

@@ -66,7 +66,7 @@ export async function loadPeople(slug: string) {
   const parent = {
     key: "parent",
     name: family.family_name,
-    photoUrl: await signed(family.parent_photo_path ?? null),
+    photoUrl: slug === "demo" ? (await import("./demo-photos")).DEMO_AVATARS["emma"]! : await signed(family.parent_photo_path ?? null),
     online: online(family.parent_last_seen_at ?? null),
     isYou: access.level === "family",
   };
@@ -74,7 +74,7 @@ export async function loadPeople(slug: string) {
     (nannies ?? []).map(async (n) => ({
       key: n.id,
       name: n.name,
-      photoUrl: await signed(n.photo_path ?? null),
+      photoUrl: slug === "demo" ? ((await import("./demo-photos")).demoAvatarFor(n.name) ?? null) : await signed(n.photo_path ?? null),
       // The sample wallet shows the nanny as online so visitors can see what the red dot means.
       online: slug === "demo" ? true : online(n.last_seen_at ?? null),
       isYou: access.level === "nanny" && access.nannyId === n.id,

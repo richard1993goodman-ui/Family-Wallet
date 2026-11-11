@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { LogoMark } from "@/components/brand";
+import { AFTER_SCHOOL_DAY, DEMO_AVATARS } from "@/lib/demo-photos";
 import {
   Plus as PlusIcon,
   UserRound as UserIcon,
@@ -55,7 +56,7 @@ import { cn } from "@/lib/utils";
  */
 
 export type Tab = "home" | "calendar" | "messages" | "family" | "more";
-export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave";
+export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave" | "moments";
 type Msg = { from: "you" | "jess"; text: string; time: string };
 
 const TABS: { id: Tab; label: string; icon: LucideIcon }[] = [
@@ -742,6 +743,7 @@ function HomeScreen({ app }: ScreenProps) {
         </div>
       </div>
       <ShiftBanner today={app.today} />
+      <LatestPhoto app={app} />
       <MonthCard app={app} />
       <div className="flex gap-2">
         <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>
@@ -888,9 +890,10 @@ function MessagesScreen({ app }: ScreenProps) {
 }
 
 const CHILDREN = [
-  { name: "Oscar", school: "Year 4 · St Mary's Primary" },
+  { name: "Oscar", photo: DEMO_AVATARS["oscar"]!, school: "Year 4 · St Mary's Primary" },
   {
     name: "Leo",
+    photo: DEMO_AVATARS["leo"]!,
     school: "Reception · St Mary's Primary",
     allergy: "Mild nut allergy · Piriton in the kitchen drawer",
   },
@@ -905,9 +908,7 @@ function FamilyScreen({ app }: ScreenProps) {
       <Label>Your children</Label>
       {CHILDREN.map((c) => (
         <div key={c.name} className={cn(card, "flex gap-3")}>
-          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#fde8d7] font-display text-[16px] text-[#8e4a1f]">
-            {c.name[0]}
-          </span>
+          <img src={c.photo} alt={c.name} className="size-9 shrink-0 rounded-full bg-[#fde8d7] object-cover" loading="lazy" />
           <div className="min-w-0">
             <p className="text-[13px] font-medium text-navy">{c.name}</p>
             <p className="text-[10.5px] text-muted-foreground">{c.school}</p>
@@ -970,7 +971,7 @@ const MORE: { label: string; items: [string, LucideIcon, (Tab | Page)?][] }[] = 
       ["Daily log", NotebookPen, "log"],
       ["Medication log", Pill, "medicine"],
       ["Handover & expenses", ClipboardCheck],
-      ["Photo moments", Camera],
+      ["Photo moments", Camera, "moments"],
       ["Active Kids Passport", Dumbbell, "passport"],
     ],
   },
@@ -1039,8 +1040,8 @@ function jessOnline(today: Date) {
 /** Headshots of the parent and nanny; a red dot shows who is in the app right now. */
 function HeaderAvatars({ today }: { today: Date }) {
   const people = [
-    { name: "Sarah", initial: "S", online: false },
-    { name: "Jess", initial: "J", online: jessOnline(today) },
+    { name: "Emma", initial: "E", photo: DEMO_AVATARS["emma"]!, online: false },
+    { name: "Jess", initial: "J", photo: DEMO_AVATARS["jess"]!, online: jessOnline(today) },
   ];
   return (
     <div className="flex items-center -space-x-1.5">
@@ -1050,7 +1051,7 @@ function HeaderAvatars({ today }: { today: Date }) {
           title={p.online ? `${p.name} is online` : p.name}
           className="relative grid size-6 place-items-center rounded-full bg-accent text-[10px] font-semibold text-navy ring-2 ring-background"
         >
-          {p.initial}
+          <img src={p.photo} alt={p.name} className="size-full rounded-full object-cover" loading="lazy" />
           {p.online && (
             <span
               role="img"
@@ -1561,6 +1562,84 @@ function PassportScreen({ app }: ScreenProps) {
   );
 }
 
+/** The photo posts from Jess that have arrived by now: during her shift they build up through the afternoon. */
+function feedFor(today: Date) {
+  const mins = today.getHours() * 60 + today.getMinutes();
+  const weekday = today.getDay() !== 0 && today.getDay() !== 6;
+  const sofar = AFTER_SCHOOL_DAY.filter((p) => {
+    const [h = 0, m = 0] = p.time.split(":").map(Number);
+    return h * 60 + m <= mins;
+  });
+  // Mornings and weekends show yesterday's full set; during the shift the afternoon fills in.
+  return weekday && mins >= 15 * 60 && mins < 19 * 60 + 30 ? (sofar.length ? sofar : AFTER_SCHOOL_DAY.slice(0, 1)) : AFTER_SCHOOL_DAY;
+}
+
+function PhotoPost({ post }: { post: (typeof AFTER_SCHOOL_DAY)[number] }) {
+  const [liked, setLiked] = useState(false);
+  return (
+    <div className={cn(card, "overflow-hidden p-0")}>
+      <img src={post.photo} alt={post.caption} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+      <div className="p-3">
+        <div className="flex items-center gap-2">
+          <img src={DEMO_AVATARS["jess"]!} alt="" className="size-5 rounded-full object-cover" />
+          <p className="text-[11px] font-medium text-navy">
+            Jess · {post.time}
+            {post.child ? ` · ${post.child}` : " · Oscar and Leo"}
+          </p>
+        </div>
+        <p className="mt-1.5 text-[11.5px] leading-[1.5] text-foreground">{post.caption}</p>
+        <button
+          type="button"
+          aria-pressed={liked}
+          onClick={() => setLiked((v) => !v)}
+          className={cn(
+            "mt-2 inline-flex h-7 items-center gap-1 rounded-full border border-border px-2.5 text-[10.5px]",
+            liked ? "text-[#b4234a]" : "text-navy",
+            press,
+          )}
+        >
+          <Heart className={cn("size-3", liked && "fill-current")} aria-hidden />
+          {liked ? "Loved" : "Love"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Home: the latest photo from Jess, so the first screen already feels alive. */
+function LatestPhoto({ app }: ScreenProps) {
+  const latest = feedFor(app.today).at(-1);
+  if (!latest) return null;
+  return (
+    <button
+      type="button"
+      onClick={() => app.push("moments")}
+      className={cn(card, "flex w-full items-center gap-3 overflow-hidden p-2.5 text-left", press)}
+    >
+      <img src={latest.photo} alt="" loading="lazy" className="size-14 shrink-0 rounded-[12px] object-cover" />
+      <span className="min-w-0 flex-1">
+        <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">Latest from Jess · {latest.time}</span>
+        <span className="mt-0.5 line-clamp-2 block text-[11.5px] leading-snug text-foreground">{latest.caption}</span>
+      </span>
+      <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" aria-hidden />
+    </button>
+  );
+}
+
+/** Photo moments: the day as Jess shares it, newest first. */
+function MomentsScreen({ app }: ScreenProps) {
+  const posts = [...feedFor(app.today)].reverse();
+  return (
+    <>
+      <BackLink app={app} />
+      <Title sub="The good bits of the afternoon, as Jess shares them.">Photo moments</Title>
+      {posts.map((p) => (
+        <PhotoPost key={p.time} post={p} />
+      ))}
+    </>
+  );
+}
+
 /** Safe-dose lockout: the next dose is blocked until the gap since the last one has passed. */
 function MedicineScreen({ app }: ScreenProps) {
   const mins = app.today.getHours() * 60 + app.today.getMinutes();
@@ -1724,6 +1803,7 @@ const SCREENS: Record<Tab | Page, (props: ScreenProps) => ReactNode> = {
   medicine: MedicineScreen,
   cash: CashScreen,
   leave: LeaveScreen,
+  moments: MomentsScreen,
 };
 
 /* ---------- The phone ---------- */

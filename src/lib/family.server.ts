@@ -98,6 +98,8 @@ export async function loadFamilyProfile(slug: string) {
           .createSignedUrl(child.photo_path, 300);
         photoUrl = signed?.signedUrl ?? null;
       }
+      // The sample wallet's children get stock photos; real families upload their own.
+      if (!photoUrl && slug === "demo") photoUrl = (await import("./demo-photos")).demoAvatarFor(child.name);
       return { ...child, photoUrl };
     }),
   );
