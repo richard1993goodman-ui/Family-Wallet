@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertCircle, ArrowRight, Building2, Eye, EyeOff, KeyRound, Link2, LockKeyhole, ShieldCheck } from "lucide-react";
+import { AlertCircle, ArrowRight, Eye, EyeOff, KeyRound, Link2, ShieldCheck } from "lucide-react";
 import { unlockWallet } from "@/lib/wallet.functions";
 import { Button } from "@/components/ui/button";
 import {
@@ -110,7 +110,7 @@ export function FamilyLogin({
   return (
     <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
       {showAgencyTab && (
-        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 grid grid-cols-2 gap-1 rounded-md bg-muted p-1">
+        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 mb-2 grid grid-cols-2 gap-1 rounded-xl bg-muted p-1">
           {(["family", "agency"] as const).map((m) => (
             <button
               key={m}
@@ -119,7 +119,7 @@ export function FamilyLogin({
               aria-selected={mode === m}
               onClick={() => setMode(m)}
               className={cn(
-                "rounded px-3 py-1.5 text-sm font-medium transition-colors",
+                "min-h-10 rounded-lg px-3 text-sm font-medium transition-colors",
                 mode === m ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -130,9 +130,9 @@ export function FamilyLogin({
       )}
       {showAgencyTab && mode === "agency" ? (
         <>
-          <CardHeader className="px-6 pb-0 pt-0">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Building2 className="size-4 text-muted-foreground" /> Agency team
+          <CardHeader className="px-6 pb-0 pt-2">
+            <CardTitle className="heading-serif text-[1.75rem] font-normal leading-tight">
+              Agency team
             </CardTitle>
             <CardDescription>
               Manage your families, branding, challenges and materials.
@@ -145,7 +145,7 @@ export function FamilyLogin({
             </p>
           </CardContent>
           <CardFooter className="flex-col gap-3 px-6 pb-6">
-            <Button asChild size="lg" className="h-10 w-full">
+            <Button asChild size="lg" className="h-12 w-full text-base">
               <Link to="/auth">
                 Agency sign in <ArrowRight className="h-4 w-4" />
               </Link>
@@ -157,9 +157,9 @@ export function FamilyLogin({
         </>
       ) : (
       <>
-      <CardHeader className={cn("p-6 pb-5", showAgencyTab && "pt-0")}>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <LockKeyhole className="size-4 text-muted-foreground" /> Open your wallet
+      <CardHeader className={cn("p-6 pb-4", showAgencyTab && "pt-2")}>
+        <CardTitle className="heading-serif text-[1.75rem] font-normal leading-tight">
+          Open your wallet
         </CardTitle>
         <CardDescription>The private link and code from your welcome email or agency.</CardDescription>
       </CardHeader>
@@ -168,7 +168,7 @@ export function FamilyLogin({
           <div className="grid gap-2">
             <Label htmlFor="wallet-link">Wallet Link</Label>
             <div className="relative">
-              <Link2 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Link2 className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 ref={linkInput}
                 id="wallet-link"
@@ -185,7 +185,7 @@ export function FamilyLogin({
                 autoCapitalize="none"
                 spellCheck={false}
                 required
-                className="h-10 pl-9"
+                className="h-12 pl-10 text-base md:text-base"
               />
             </div>
             {error?.field === "link" && (
@@ -195,7 +195,7 @@ export function FamilyLogin({
           <div className="grid gap-2">
             <Label htmlFor="wallet-code">Access Code</Label>
             <div className="relative">
-              <KeyRound className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <KeyRound className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 ref={codeInput}
                 id="wallet-code"
@@ -212,13 +212,13 @@ export function FamilyLogin({
                 autoComplete="current-password"
                 maxLength={8}
                 required
-                className="h-10 pl-9 pr-10 font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
+                className="h-12 pl-10 pr-12 text-base md:text-base font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
               />
               <button
                 type="button"
                 onClick={() => setShowCode((v) => !v)}
                 aria-label={showCode ? "Hide access code" : "Show access code"}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-1 top-1/2 grid size-10 -translate-y-1/2 place-items-center text-muted-foreground hover:text-foreground"
               >
                 {showCode ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
               </button>
@@ -241,7 +241,7 @@ export function FamilyLogin({
             </Label>
           </div>
           <p className="text-[0.8125rem] leading-snug text-muted-foreground">
-            When your browser offers to save your password, say yes. Your link and code will then fill in for you next time you sign in.
+            Tip: let your browser save these details and they will fill in next time.
           </p>
         </form>
       </CardContent>
@@ -251,7 +251,7 @@ export function FamilyLogin({
             <FieldError id="wallet-form-error" message={error.message} />
           </div>
         )}
-        <Button type="submit" form="family-login" size="lg" className="h-10 w-full" disabled={busy}>
+        <Button type="submit" form="family-login" size="lg" className="h-12 w-full text-base" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
