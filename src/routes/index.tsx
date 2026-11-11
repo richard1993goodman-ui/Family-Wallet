@@ -296,8 +296,8 @@ function Index() {
                 A week at the Harringtons'
               </h2>
               <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
-                Parents and nanny open the same wallet. The agreed hours, the school run and what
-                happened today are already there when either of you looks.
+                Parents and nanny open the same wallet. The shift, the school run, meals, medicine,
+                photos and homework are on one live timeline, and the timesheet fills itself in.
               </p>
             </div>
 
@@ -502,53 +502,62 @@ type PreviewDay = {
 const PREVIEW_WEEK: PreviewDay[] = [
   {
     short: "Mon",
-    date: 2,
-    shift: [7.5, 18.5],
+    date: 9,
+    shift: [15, 19.5],
     items: [
-      { time: "08:10", title: "School run, Holland Park Primary", who: "Olivia" },
-      { time: "16:00", title: "Swimming, Kensington Leisure Centre", who: "Arthur" },
+      { time: "15:00", title: "Jess starts her shift", who: "Oscar and Leo" },
+      { time: "15:15", title: "Collected from school", who: "Oscar and Leo" },
+      { time: "17:30", title: "Dinner: pasta bake, Leo on sauce duty" },
     ],
   },
   {
     short: "Tue",
-    date: 3,
-    shift: [7.5, 18.5],
+    date: 10,
+    shift: [15, 19.5],
     items: [
-      { time: "08:10", title: "School run", who: "Olivia" },
-      { time: "17:30", title: "Calpol 5ml, signed by Jess", who: "Olivia" },
+      { time: "16:00", title: "Swimming, Kensington Leisure Centre", who: "Leo" },
+      { time: "17:30", title: "Spelling test practice, ten out of ten", who: "Leo" },
+      { time: "19:30", title: "Shift ended, summary sent to Sophie and Tom" },
     ],
   },
   {
     short: "Wed",
-    date: 4,
-    shift: [12, 19],
+    date: 11,
+    shift: [15, 19.5],
     items: [
-      { time: "15:15", title: "Pick-up, bring the reading folder", who: "Olivia" },
-      { time: "16:30", title: "Football training, shin pads", who: "Arthur" },
-      { time: "18:00", title: "Dinner from Nanny Fuel: chicken traybake" },
+      { time: "15:15", title: "Collected from school, photo shared", who: "Oscar and Leo" },
+      { time: "16:10", title: "Calpol 5ml signed by Jess. Next dose not before 20:10", who: "Oscar" },
+      { time: "16:30", title: "Tennis at the park: ten serves in a row", who: "Oscar" },
+      { time: "17:40", title: "Dinner is on. Leo is on sauce duty" },
+      { time: "17:45", title: "Homework: reading for 20 minutes and spelling list 12", who: "Leo" },
     ],
   },
   {
     short: "Thu",
-    date: 5,
-    shift: [7.5, 18.5],
-    items: [{ time: "10:00", title: "Playdate with the Ashworths", who: "Arthur" }],
+    date: 12,
+    shift: [15, 19.5],
+    items: [
+      { time: "15:15", title: "Shift change requested: start at 14:30 for the dentist", who: "Jess" },
+      { time: "15:30", title: "Sophie approved the change" },
+      { time: "16:00", title: "Dentist, then a playdate with the Ashworths", who: "Oscar" },
+    ],
   },
   {
     short: "Fri",
-    date: 6,
-    shift: [7.5, 15],
+    date: 13,
+    shift: [15, 18],
     items: [
-      { time: "14:30", title: "Friday report sent to Sophie and Tom" },
-      { time: "15:00", title: "Handover at the door" },
+      { time: "15:30", title: "Timesheet pre-filled from the schedule, ready to confirm" },
+      { time: "17:30", title: "Friday report sent to Sophie and Tom" },
+      { time: "18:00", title: "Handover at the door" },
     ],
   },
-  { short: "Sat", date: 7, shift: null, items: [] },
-  { short: "Sun", date: 8, shift: null, items: [] },
+  { short: "Sat", date: 14, shift: null, items: [] },
+  { short: "Sun", date: 15, shift: null, items: [] },
 ];
 
-const TRACK_START = 7;
-const TRACK_HOURS = 14;
+const TRACK_START = 13;
+const TRACK_HOURS = 8;
 const clock = (h: number) =>
   `${Math.floor(h)}:${String(Math.round((h % 1) * 60)).padStart(2, "0")}`;
 
@@ -571,7 +580,7 @@ function WeekPreview() {
             </p>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground">2–8 November</p>
+        <p className="text-sm text-muted-foreground">9–15 November</p>
       </div>
 
       <div
