@@ -206,3 +206,5 @@ Stage D design (draft, for review): see `stage-d-agency-invites-design.md`.
 Stage E design (draft, for review): see `stage-e-agreements-design.md`. Stage F design (draft, for review): see `stage-f-localisation-design.md`.
 
 Stage G mobile apps design (draft, for review): see `stage-g-mobile-design.md`.
+
+Wallet lifecycle (lock, 30-day export, delete): see `lifecycle-design.md`.

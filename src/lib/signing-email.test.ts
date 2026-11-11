@@ -11,7 +11,9 @@ describe("signing code email", () => {
     expect(mail.text).not.toContain("http");
   });
   it("escapes the family name", () => {
-    expect(buildSigningCodeEmail({ code: "1", familyName: "<b>x</b>", minutes: 10 }).html).not.toContain("<b>x</b>");
+    expect(
+      buildSigningCodeEmail({ code: "1", familyName: "<b>x</b>", minutes: 10 }).html,
+    ).not.toContain("<b>x</b>");
   });
 });
 

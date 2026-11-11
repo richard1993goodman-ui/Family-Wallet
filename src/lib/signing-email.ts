@@ -1,5 +1,9 @@
 // Emails around signing an agreement. Pure, so they are easy to test.
-const esc = (t: string) => t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+const esc = (t: string) =>
+  t.replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!,
+  );
 
 /** The one-time code that proves the signer controls this email address. Carries no link and no wallet credential. */
 export function buildSigningCodeEmail(d: { code: string; familyName: string; minutes: number }) {

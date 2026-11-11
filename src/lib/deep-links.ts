@@ -19,7 +19,14 @@ export function deepLinkPath(raw: string | null | undefined): string | null {
   } catch {
     return null;
   }
-  if (url.protocol !== "https:" || url.hostname !== APP_HOST || url.port || url.username || url.password) return null;
+  if (
+    url.protocol !== "https:" ||
+    url.hostname !== APP_HOST ||
+    url.port ||
+    url.username ||
+    url.password
+  )
+    return null;
   const first = url.pathname.split("/").filter(Boolean)[0];
   if (!first || !(DEEP_LINK_PREFIXES as readonly string[]).includes(first)) return null;
   return url.pathname + url.search;

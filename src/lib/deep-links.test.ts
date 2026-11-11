@@ -6,7 +6,9 @@ describe("deepLinkPath", () => {
   it("opens our own invitation, claim and wallet links, keeping the query", () => {
     expect(deepLinkPath("https://familywallet.io/join/abc123")).toBe("/join/abc123");
     expect(deepLinkPath("https://familywallet.io/claim/tok")).toBe("/claim/tok");
-    expect(deepLinkPath("https://familywallet.io/w/harrington-ab12?pin=123456")).toBe("/w/harrington-ab12?pin=123456");
+    expect(deepLinkPath("https://familywallet.io/w/harrington-ab12?pin=123456")).toBe(
+      "/w/harrington-ab12?pin=123456",
+    );
     expect(deepLinkPath("https://familywallet.io/nanny/x")).toBe("/nanny/x");
     expect(deepLinkPath("https://familywallet.io/join")).toBe("/join");
   });
@@ -22,11 +24,13 @@ describe("deepLinkPath", () => {
       "http://familywallet.io/join/abc",
       "javascript:alert(1)",
       "familywallet://join/abc",
-    ]) expect(deepLinkPath(bad)).toBeNull();
+    ])
+      expect(deepLinkPath(bad)).toBeNull();
   });
 
   it("refuses pages the app should never be steered to from outside", () => {
-    for (const path of ["/admin", "/auth", "/api/stripe/webhook", "/pricing", "/"]) expect(deepLinkPath(`https://familywallet.io${path}`)).toBeNull();
+    for (const path of ["/admin", "/auth", "/api/stripe/webhook", "/pricing", "/"])
+      expect(deepLinkPath(`https://familywallet.io${path}`)).toBeNull();
   });
 
   it("refuses empty or broken input", () => {
@@ -43,12 +47,15 @@ describe("deep link readiness", () => {
   });
 
   it("has valid templates for the iOS and Android link files, with the app's own id and paths", () => {
-    const ios = JSON.parse(readFileSync("mobile/deep-links/apple-app-site-association.template.json", "utf8"));
+    const ios = JSON.parse(
+      readFileSync("mobile/deep-links/apple-app-site-association.template.json", "utf8"),
+    );
     const android = JSON.parse(readFileSync("mobile/deep-links/assetlinks.template.json", "utf8"));
     expect(JSON.stringify(ios)).toContain("io.familywallet.app");
     expect(android[0].target.package_name).toBe("io.familywallet.app");
     const components = ios.applinks.details[0].components.map((c: { "/": string }) => c["/"]);
-    for (const prefix of DEEP_LINK_PREFIXES) expect(components.some((c: string) => c === `/${prefix}/*` || c === `/${prefix}`)).toBe(true);
+    for (const prefix of DEEP_LINK_PREFIXES)
+      expect(components.some((c: string) => c === `/${prefix}/*` || c === `/${prefix}`)).toBe(true);
   });
 
   it("agrees with the Capacitor shell about the app id and host", () => {
