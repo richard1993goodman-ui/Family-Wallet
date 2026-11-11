@@ -250,6 +250,7 @@ function NannyHours({
               <span className="font-medium text-foreground">{d.day}</span>
               <span className="num text-muted-foreground">
                 {d.startTime}–{d.endTime}
+                {d.startTime2 && d.endTime2 ? ` and ${d.startTime2}–${d.endTime2}` : ""}
               </span>
             </li>
           ))}
@@ -314,6 +315,56 @@ function NannyHours({
                         value={d.endTime}
                         onChange={(e) => change(i, { endTime: e.target.value })}
                       />
+                      {d.startTime2 !== undefined ? (
+                        <>
+                          <span className="px-1">then</span>
+                          <input
+                            type="time"
+                            aria-label={`${d.day} second shift start`}
+                            className="rounded-md border border-border bg-background px-2 py-1 text-foreground"
+                            value={d.startTime2}
+                            onChange={(e) => change(i, { startTime2: e.target.value })}
+                          />
+                          to
+                          <input
+                            type="time"
+                            aria-label={`${d.day} second shift finish`}
+                            className="rounded-md border border-border bg-background px-2 py-1 text-foreground"
+                            value={d.endTime2 ?? ""}
+                            onChange={(e) => change(i, { endTime2: e.target.value })}
+                          />
+                          <button
+                            type="button"
+                            className="text-xs underline underline-offset-4"
+                            onClick={() =>
+                              setDays((current) =>
+                                current.map((x, j) => {
+                                  if (j !== i) return x;
+                                  const { startTime2: _s, endTime2: _e, ...rest } = x;
+                                  return rest;
+                                }),
+                              )
+                            }
+                          >
+                            Remove split
+                          </button>
+                        </>
+                      ) : (
+                        <button
+                          type="button"
+                          className="text-xs font-medium text-primary underline underline-offset-4"
+                          onClick={() =>
+                            change(i, {
+                              startTime: d.startTime > "09:00" ? "07:00" : d.startTime,
+                              endTime: d.endTime > "09:00" ? "09:00" : d.endTime,
+                              startTime2: "15:00",
+                              endTime2: "19:00",
+                            })
+                          }
+                        >
+                          + Add split shift
+                        </button>
+                      )}
                     </span>
                   ) : (
                     <span className="text-sm text-muted-foreground">Not working</span>

@@ -1457,6 +1457,88 @@ export type Database = {
           },
         ]
       }
+      live_in_settings: {
+        Row: {
+          days_off_per_week: number
+          family_id: string
+          house_rules: string | null
+          max_weekly_hours: number
+          room_and_board: string | null
+          study_schedule: string | null
+          updated_at: string
+          weekly_pocket_money: number
+        }
+        Insert: {
+          days_off_per_week?: number
+          family_id: string
+          house_rules?: string | null
+          max_weekly_hours?: number
+          room_and_board?: string | null
+          study_schedule?: string | null
+          updated_at?: string
+          weekly_pocket_money?: number
+        }
+        Update: {
+          days_off_per_week?: number
+          family_id?: string
+          house_rules?: string | null
+          max_weekly_hours?: number
+          room_and_board?: string | null
+          study_schedule?: string | null
+          updated_at?: string
+          weekly_pocket_money?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_in_settings_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_in_weeks: {
+        Row: {
+          created_at: string
+          days_off: number
+          family_id: string
+          hours_worked: number
+          id: string
+          note: string | null
+          pocket_money_paid: boolean
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          days_off?: number
+          family_id: string
+          hours_worked?: number
+          id?: string
+          note?: string | null
+          pocket_money_paid?: boolean
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          days_off?: number
+          family_id?: string
+          hours_worked?: number
+          id?: string
+          note?: string | null
+          pocket_money_paid?: boolean
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_in_weeks_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       medication_doses: {
         Row: {
           child_name: string

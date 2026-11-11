@@ -15,9 +15,17 @@ export const Route = createFileRoute("/api/stripe/portal")({
 
         const origin = new URL(request.url).origin;
         const { portalUrlFor } = await import("@/lib/billing.server");
-        const url = await portalUrlFor(family.id, `${origin}/w/${slug}`);
-        if (!url) return new Response("No subscription found", { status: 404 });
-        return Response.redirect(url, 303);
+        try {
+          const url = await portalUrlFor(family.id, `${origin}/billing/${slug}`);
+          if (!url) return new Response("No subscription found", { status: 404 });
+          return Response.redirect(url, 303);
+        } catch (error) {
+          const { getStripeErrorMessage } = await import("@/lib/stripe.server");
+          return new Response(getStripeErrorMessage(error), {
+            status: 502,
+            headers: { "Cache-Control": "no-store" },
+          });
+        }
       },
     },
   },

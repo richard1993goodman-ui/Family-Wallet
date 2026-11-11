@@ -1,7 +1,7 @@
 {
   "name": "The Family Wallet",
   "short_name": "Family Wallet",
-  "description": "Your nanny agreement, nanny CV, membership details, guarantee and everyday nanny tools in one private place.",
+  "description": "Your household in one private place: shared calendar, nanny agreement, timesheets, house codes and daily notes.",
   "id": "/",
   "start_url": "/",
   "scope": "/",

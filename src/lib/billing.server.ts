@@ -151,16 +151,17 @@ export async function provisionFromSession(
   const email = session.customer_details?.email ?? session.customer_email ?? null;
   const named = session.customer_details?.name?.trim() || email?.split("@")[0] || "Your household";
 
-  // A family continuing after its agency stopped funding it keeps its own wallet: no new account is created.
-  const continuingFamilyId = session.metadata["family_id"];
-  if (continuingFamilyId && !isAgencyPlan(plan)) {
-    return continueFamily({ familyId: continuingFamilyId, sessionId, plan, interval, sub, email, customerId: session.customer });
+  // Bought from inside an existing wallet: attach the plan to that household, no new wallet.
+  const existingFamilyId = session.metadata["family_id"];
+  if (existingFamilyId && !isAgencyPlan(plan)) {
+    return attachToFamily({ sessionId, environment, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer });
   }
 
   return isAgencyPlan(plan)
-    ? provisionAgency({ sessionId, plan, sub, email, customerId: session.customer, agencyName: named })
+    ? provisionAgency({ sessionId, environment, plan, sub, email, customerId: session.customer, agencyName: named })
     : provisionFamily({
         sessionId,
+        environment,
         plan,
         interval,
         sub,
@@ -170,42 +171,29 @@ export async function provisionFromSession(
       });
 }
 
-/**
- * Moves an existing wallet from agency funding to the family's own subscription. Safe to repeat:
- * the unique checkout-session id means a second call (webhook after success page) returns the first result.
- */
-async function continueFamily({
-  familyId,
+/** A household already in the wallet that started paying (or upgraded) from its Plan & billing page. */
+async function attachToFamily({
   sessionId,
+  environment,
+  familyId,
   plan,
   interval,
   sub,
   email,
   customerId,
 }: {
-  familyId: string;
   sessionId: string;
+  environment: StripeEnv;
+  familyId: string;
   plan: PlanId;
   interval: string;
   sub: StripeSubscription | null;
   email: string | null;
   customerId: string;
 }): Promise<Provisioned> {
-  if (!/^[0-9a-f-]{36}$/i.test(familyId)) throw new Error("We could not read that wallet.");
-  const { data: family } = await supabaseAdmin
-    .from("families")
-    .select("id, status, entitlement")
-    .eq("id", familyId)
-    .maybeSingle();
-  // Only a family in transition or suspended can be moved onto a direct subscription this way.
-  if (!family || (family.entitlement !== "transition" && family.entitlement !== "suspended")) {
-    const winner = await existingRow(sessionId);
-    if (winner?.family_id === familyId) return familyWallet(familyId, winner.plan);
-    throw new Error("That wallet can't be continued with this payment.");
-  }
-
-  const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
+  const { error } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: familyId,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
@@ -216,24 +204,51 @@ async function continueFamily({
     cancel_at_period_end: sub?.cancel_at_period_end ?? false,
     customer_email: email,
   });
-  if (subError) {
-    if (subError.code === "23505") {
-      const winner = await existingRow(sessionId);
-      if (winner?.family_id) return familyWallet(winner.family_id, winner.plan);
-    }
-    throw new Error(subError.message);
-  }
-  // Payment is confirmed above, so the agency-funded entitlement is replaced by the family's own.
+  // 23505: the webhook or the return page already recorded it.
+  if (error && error.code !== "23505") throw new Error(error.message);
+  // A family in its agency-release grace period (or paused) now pays for itself: that replaces the
+  // agency-funded entitlement so it is not suspended when the grace period ends.
+  const { data: fam } = await supabaseAdmin.from("families").select("entitlement").eq("id", familyId).maybeSingle();
+  const leavingAgency = fam?.entitlement === "transition" || fam?.entitlement === "suspended";
   await supabaseAdmin
     .from("families")
-    .update({ status: "active", entitlement: "direct_active", transition_ends_at: null, updated_at: new Date().toISOString() })
+    .update({ status: "active", ...(leavingAgency ? { entitlement: "direct_active", transition_ends_at: null } : {}) })
     .eq("id", familyId);
   return familyWallet(familyId, plan);
+}
+
+/** What the parent-only Plan & billing page shows. */
+export async function billingSummary(familyId: string) {
+  const [{ data: fam }, { data: row }] = await Promise.all([
+    supabaseAdmin.from("families").select("partner_agency_id, agency_released_at").eq("id", familyId).maybeSingle(),
+    supabaseAdmin
+      .from("family_subscriptions")
+      .select("plan, status, billing_interval, current_period_end, cancel_at_period_end")
+      .eq("family_id", familyId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+  const live = !!row && LIVE.has(row.status);
+  return {
+    agencyManaged: !!fam?.partner_agency_id && !fam.agency_released_at && !row,
+    subscription: row
+      ? {
+          plan: row.plan,
+          status: row.status,
+          interval: row.billing_interval,
+          renews: row.current_period_end,
+          cancelling: !!row.cancel_at_period_end,
+          live,
+        }
+      : null,
+  };
 }
 
 /** A family that bought a plan for their own household. */
 async function provisionFamily({
   sessionId,
+  environment,
   plan,
   interval,
   sub,
@@ -242,6 +257,7 @@ async function provisionFamily({
   familyName,
 }: {
   sessionId: string;
+  environment: StripeEnv;
   plan: PlanId;
   interval: string;
   sub: StripeSubscription | null;
@@ -269,6 +285,7 @@ async function provisionFamily({
 
   const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: family.id,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
@@ -304,6 +321,7 @@ async function provisionFamily({
 /** An agency that bought a plan for the families it places with. */
 async function provisionAgency({
   sessionId,
+  environment,
   plan,
   sub,
   email,
@@ -311,6 +329,7 @@ async function provisionAgency({
   agencyName,
 }: {
   sessionId: string;
+  environment: StripeEnv;
   plan: AgencyPlanId;
   sub: StripeSubscription | null;
   email: string | null;
@@ -334,6 +353,7 @@ async function provisionAgency({
 
   const { error: subError } = await supabaseAdmin.from("family_subscriptions").insert({
     agency_id: agency.id,
+    environment,
     stripe_customer_id: customerId,
     stripe_subscription_id: sub?.id ?? null,
     stripe_checkout_session_id: sessionId,
@@ -477,4 +497,43 @@ export async function sendWalletDetails(rawEmail: string, clientKey: string) {
     families.map((f) => ({ familyName: f.family_name, url: siteUrl(`/w/${f.slug}`), code: f.access_code })),
   );
   await sendEmail({ to: email, ...message });
+}
+
+/**
+ * The person who paid for an agency plan becomes its first staff login. Returns a one-time
+ * link to set their password and authenticator app, or null once they have already joined
+ * (so a leaked confirmation URL cannot be reused to take over the login).
+ */
+export async function agencyOwnerSetupLink(sessionId: string): Promise<string | null> {
+  const { data: row } = await supabaseAdmin
+    .from("family_subscriptions")
+    .select("agency_id, customer_email")
+    .eq("stripe_checkout_session_id", sessionId)
+    .maybeSingle();
+  const email = row?.customer_email?.trim().toLowerCase();
+  if (!row?.agency_id || !email) return null;
+
+  const { data: staff } = await supabaseAdmin
+    .from("partner_agency_staff")
+    .select("agency_id, user_id")
+    .eq("email", email)
+    .maybeSingle();
+  if (staff && staff.agency_id !== row.agency_id) return null; // email already belongs to another agency
+  if (staff?.user_id) return null;
+  if (!staff) {
+    const { error } = await supabaseAdmin
+      .from("partner_agency_staff")
+      .insert({ agency_id: row.agency_id, email });
+    if (error && error.code !== "23505") throw new Error(error.message);
+  }
+
+  const options = { redirectTo: siteUrl("/auth?setup=1") };
+  let res = await supabaseAdmin.auth.admin.generateLink({ type: "invite", email, options });
+  if (res.error) res = await supabaseAdmin.auth.admin.generateLink({ type: "recovery", email, options });
+  const link = res.data?.properties?.action_link;
+  if (res.error || !link) {
+    console.error("agency setup link failed", res.error?.message);
+    return null;
+  }
+  return link;
 }

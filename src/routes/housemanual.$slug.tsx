@@ -6,6 +6,7 @@ import { Eye, EyeOff, KeyRound, Pencil, Plus, Save, Trash2 } from "lucide-react"
 import { toast } from "sonner";
 import { HubPage, LockedNotice } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
+import { UpgradeToHousehold } from "@/components/UpgradeToHousehold";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -33,6 +34,8 @@ function HouseManualPage() {
   const client = useQueryClient();
   const refresh = async () => { await client.invalidateQueries({ queryKey: ["house-manual", slug] }); };
   if (!data) return <LockedNotice slug={slug} />;
+  if (data.upgrade) return <UpgradeToHousehold slug={slug} title="House Manual & Codes" isNanny={data.access === "nanny"}
+    what="Keep WiFi, alarm and lockbox codes hidden until revealed, alongside your house rules." />;
   const canEdit = canManageManual(data.access);
   return <HubPage slug={slug} title="House Manual & Codes">
     <div className="flex items-center justify-between gap-3 border-b border-border pb-5">

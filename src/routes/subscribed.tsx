@@ -67,14 +67,28 @@ function Subscribed() {
             Your agency account is set up
           </h1>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
-            {result.agencyName} now has room for {result.allowance} household seats. We have emailed
-            a setup link to the address you paid with, and your account owner has been asked to
-            create your agency login.
+            {result.agencyName} now has room for {result.allowance} household seats.
           </p>
-          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
-            Nothing else to do for now. If you have not heard from us within a working day, get in
-            touch and we will sort it out.
-          </p>
+          {"setupLink" in result && result.setupLink ? (
+            <>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                Next, create your agency login. You will choose a password and link an
+                authenticator app (like Google Authenticator) for two-step sign-in.
+              </p>
+              <Button size="lg" className="mt-6 w-full" asChild>
+                <a href={result.setupLink}>
+                  Set up my agency login <ArrowRight aria-hidden />
+                </a>
+              </Button>
+            </>
+          ) : (
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+              Your login is already set up.{" "}
+              <Link to="/auth" className="font-medium text-primary underline">
+                Sign in to your agency
+              </Link>
+            </p>
+          )}
         </div>
       )}
 

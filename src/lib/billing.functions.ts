@@ -12,7 +12,7 @@ type CheckoutResult = { clientSecret: string } | { error: string };
  * The Stripe SDK is loaded inside the handler so it never reaches the browser bundle.
  */
 export const createCheckoutSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { plan: unknown; interval: unknown; environment: unknown }) => {
+  .inputValidator((data: { plan: unknown; interval: unknown; environment: unknown; slug?: unknown }) => {
     if (!isPlan(data.plan)) throw new Error("Unknown plan.");
     if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
     // Agency plans are monthly only, so a yearly request never reaches Stripe.
@@ -24,10 +24,25 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       plan: data.plan as PlanId,
       interval: data.interval as Interval,
       environment: data.environment as StripeEnv,
+      slug: typeof data.slug === "string" && /^[a-z0-9-]{1,40}$/.test(data.slug) ? data.slug : null,
     };
   })
   .handler(async ({ data }): Promise<CheckoutResult> => {
     const { createStripeClient, getStripeErrorMessage } = await import("./stripe.server");
+    // From inside a wallet: only an unlocked parent may pay, and only for a household plan.
+    let family: { id: string; email: string | null } | null = null;
+    if (data.slug) {
+      if (data.plan !== "family" && data.plan !== "household") return { error: "Choose the Family or Household plan." };
+      const { requireFamily } = await import("./family.server");
+      const found = await requireFamily(data.slug);
+      if (!found) return { error: "Please open your wallet as a parent first." };
+      const { billingSummary } = await import("./billing.server");
+      const summary = await billingSummary(found.id);
+      if (summary.subscription?.live) return { error: "You already have a plan. Use Manage billing to change it." };
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: row } = await supabaseAdmin.from("families").select("contact_email").eq("id", found.id).maybeSingle();
+      family = { id: found.id, email: row?.contact_email ?? null };
+    }
     try {
       const stripe = createStripeClient(data.environment);
       const prices = await stripe.prices.list({
@@ -45,14 +60,17 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         mode: "subscription",
         line_items: [{ price: price.id, quantity: 1 }],
         ui_mode: "embedded_page",
-        return_url: `${siteUrl("/subscribed")}?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: data.slug
+          ? `${siteUrl(`/billing/${data.slug}`)}?session_id={CHECKOUT_SESSION_ID}`
+          : `${siteUrl("/subscribed")}?session_id={CHECKOUT_SESSION_ID}`,
+        ...(family?.email ? { customer_email: family.email } : {}),
         // Lovable's Stripe connection takes care of tax, fraud, disputes and transaction
         // support for buyers in the countries it covers; elsewhere it still collects tax.
         managed_payments: { enabled: true },
         billing_address_collection: "required",
         allow_promotion_codes: true,
-        metadata: { app: "family_wallet", plan: data.plan, interval: data.interval },
-        subscription_data: { metadata: { plan: data.plan, interval: data.interval } },
+        metadata: { app: "family_wallet", plan: data.plan, interval: data.interval, ...(family ? { family_id: family.id } : {}) },
+        subscription_data: { metadata: { plan: data.plan, interval: data.interval, ...(family ? { family_id: family.id } : {}) } },
       } as Parameters<typeof stripe.checkout.sessions.create>[0]);
 
       return { clientSecret: session.client_secret ?? "" };
@@ -67,7 +85,7 @@ export const claimSubscription = createServerFn({ method: "POST" })
       throw new Error("Unknown payment environment.");
     return { sessionId: data.sessionId, environment: data.environment as StripeEnv };
   })
-  .handler(async ({ data }): Promise<Provisioned & { emailing: boolean }> => {
+  .handler(async ({ data }): Promise<(Provisioned & { emailing: boolean }) | (Extract<Provisioned, { kind: "agency" }> & { setupLink: string | null; emailing: boolean })> => {
     const { provisionFromSession } = await import("./billing.server");
     const { markUnlocked } = await import("./wallet.server");
     const { emailConfigured } = await import("./email.server");
@@ -80,15 +98,19 @@ export const claimSubscription = createServerFn({ method: "POST" })
     const emailing = emailConfigured();
     // Built per case so the shape the page reads stays exactly the one it narrows on.
     if (result.status === "pending") return { status: "pending" as const, emailing };
-    if (result.kind === "agency")
+    if (result.kind === "agency") {
+      const { agencyOwnerSetupLink } = await import("./billing.server");
+      const setupLink = await agencyOwnerSetupLink(data.sessionId).catch(() => null);
       return {
         status: "ready" as const,
         kind: "agency" as const,
         agencyName: result.agencyName,
         allowance: result.allowance,
         plan: result.plan,
+        setupLink,
         emailing,
       };
+    }
     return {
       status: "ready" as const,
       kind: "family" as const,
@@ -169,4 +191,30 @@ export const createContinueCheckout = createServerFn({ method: "POST" })
     } catch (error) {
       return { error: getStripeErrorMessage(error) };
     }
+  });
+
+/** Plan & billing page data. Parents only; carers get null. */
+export const getBillingFn = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { requireFamily } = await import("./family.server");
+    const family = await requireFamily(data.slug);
+    if (!family) return null;
+    const { billingSummary } = await import("./billing.server");
+    return billingSummary(family.id);
+  });
+
+/** Records an in-wallet payment straight away when Stripe sends the parent back. */
+export const confirmWalletPaymentFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; sessionId: string; environment: unknown }) => {
+    if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Unknown payment environment.");
+    return { slug: data.slug, sessionId: data.sessionId, environment: data.environment as StripeEnv };
+  })
+  .handler(async ({ data }) => {
+    const { requireFamily } = await import("./family.server");
+    const family = await requireFamily(data.slug);
+    if (!family) return { ok: false as const };
+    const { provisionFromSession } = await import("./billing.server");
+    const result = await provisionFromSession(data.sessionId, data.environment);
+    return { ok: result.status === "ready" };
   });

@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Lock, LogOut, Menu, Search } from "lucide-react";
 
-import { Wordmark } from "@/components/brand";
+import { LogoMark, Wordmark } from "@/components/brand";
 import { NotificationBell } from "@/components/NotificationBell";
 import { PresenceAvatars } from "@/components/PresenceAvatars";
 import { TransitionBanner } from "@/components/TransitionBanner";
@@ -216,6 +216,8 @@ function WalletTopBar({
           alt={`${agencyName ?? "Agency"} logo`}
           className="h-7 w-auto max-w-[6rem] flex-none object-contain md:hidden"
         />
+      ) : slug === "demo" ? (
+        <LogoMark className="h-6 w-6 md:hidden" />
       ) : null}
       <div className="flex min-w-0 items-baseline gap-2">
         <p className="truncate text-sm font-medium text-foreground">{familyName}</p>
@@ -273,7 +275,7 @@ function WalletNavigation({
 
   return (
     <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
-      {slug === "demo" ? null : (
+      {(
       <SidebarHeader className="px-3 pb-2 pt-4">
         <Link
             to="/w/$slug"
@@ -282,7 +284,7 @@ function WalletNavigation({
             className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
           >
             <Wordmark
-              subline={agencyName ? `with ${agencyName}` : null}
+              subline={slug === "demo" ? "Demo wallet" : agencyName ? `with ${agencyName}` : null}
               logoUrl={agencyLogo}
               logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"

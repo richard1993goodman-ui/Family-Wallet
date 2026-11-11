@@ -23,6 +23,7 @@ import { Route as SubscribedRouteImport } from './routes/subscribed'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
+import { Route as BillingSlugRouteImport } from './routes/billing.$slug'
 import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
 import { Route as ContinueSlugRouteImport } from './routes/continue.$slug'
 import { Route as CostsSlugRouteImport } from './routes/costs.$slug'
@@ -41,6 +42,7 @@ import { Route as IncidentsSlugRouteImport } from './routes/incidents.$slug'
 import { Route as JoinTokenRouteImport } from './routes/join.$token'
 import { Route as KidsSlugRouteImport } from './routes/kids.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
+import { Route as LiveinSlugRouteImport } from './routes/livein.$slug'
 import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
 import { Route as MessagesSlugRouteImport } from './routes/messages.$slug'
@@ -146,6 +148,11 @@ const BankdetailsSlugRoute = BankdetailsSlugRouteImport.update({
   path: '/bankdetails/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BillingSlugRoute = BillingSlugRouteImport.update({
+  id: '/billing/$slug',
+  path: '/billing/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckinSlugRoute = CheckinSlugRouteImport.update({
   id: '/checkin/$slug',
   path: '/checkin/$slug',
@@ -234,6 +241,11 @@ const KidsSlugRoute = KidsSlugRouteImport.update({
 const LeaveSlugRoute = LeaveSlugRouteImport.update({
   id: '/leave/$slug',
   path: '/leave/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveinSlugRoute = LiveinSlugRouteImport.update({
+  id: '/livein/$slug',
+  path: '/livein/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LogSlugRoute = LogSlugRouteImport.update({
@@ -431,6 +443,7 @@ export interface FileRoutesByFullPath {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
@@ -448,6 +461,7 @@ export interface FileRoutesByFullPath {
   '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
+  '/livein/$slug': typeof LiveinSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
@@ -499,6 +513,7 @@ export interface FileRoutesByTo {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
@@ -516,6 +531,7 @@ export interface FileRoutesByTo {
   '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
+  '/livein/$slug': typeof LiveinSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
@@ -569,6 +585,7 @@ export interface FileRoutesById {
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
+  '/billing/$slug': typeof BillingSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
   '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
@@ -586,6 +603,7 @@ export interface FileRoutesById {
   '/join/$token': typeof JoinTokenRoute
   '/kids/$slug': typeof KidsSlugRoute
   '/leave/$slug': typeof LeaveSlugRoute
+  '/livein/$slug': typeof LiveinSlugRoute
   '/log/$slug': typeof LogSlugRoute
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
@@ -639,6 +657,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/continue/$slug'
     | '/costs/$slug'
@@ -656,6 +675,7 @@ export interface FileRouteTypes {
     | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
+    | '/livein/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/messages/$slug'
@@ -707,6 +727,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/continue/$slug'
     | '/costs/$slug'
@@ -724,6 +745,7 @@ export interface FileRouteTypes {
     | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
+    | '/livein/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/messages/$slug'
@@ -776,6 +798,7 @@ export interface FileRouteTypes {
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
+    | '/billing/$slug'
     | '/checkin/$slug'
     | '/continue/$slug'
     | '/costs/$slug'
@@ -793,6 +816,7 @@ export interface FileRouteTypes {
     | '/join/$token'
     | '/kids/$slug'
     | '/leave/$slug'
+    | '/livein/$slug'
     | '/log/$slug'
     | '/medication/$slug'
     | '/messages/$slug'
@@ -846,6 +870,7 @@ export interface RootRouteChildren {
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
+  BillingSlugRoute: typeof BillingSlugRoute
   CheckinSlugRoute: typeof CheckinSlugRoute
   ContinueSlugRoute: typeof ContinueSlugRoute
   CostsSlugRoute: typeof CostsSlugRoute
@@ -863,6 +888,7 @@ export interface RootRouteChildren {
   JoinTokenRoute: typeof JoinTokenRoute
   KidsSlugRoute: typeof KidsSlugRoute
   LeaveSlugRoute: typeof LeaveSlugRoute
+  LiveinSlugRoute: typeof LiveinSlugRoute
   LogSlugRoute: typeof LogSlugRoute
   MedicationSlugRoute: typeof MedicationSlugRoute
   MessagesSlugRoute: typeof MessagesSlugRoute
@@ -995,6 +1021,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BankdetailsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/billing/$slug': {
+      id: '/billing/$slug'
+      path: '/billing/$slug'
+      fullPath: '/billing/$slug'
+      preLoaderRoute: typeof BillingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkin/$slug': {
       id: '/checkin/$slug'
       path: '/checkin/$slug'
@@ -1119,6 +1152,13 @@ declare module '@tanstack/react-router' {
       path: '/leave/$slug'
       fullPath: '/leave/$slug'
       preLoaderRoute: typeof LeaveSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/livein/$slug': {
+      id: '/livein/$slug'
+      path: '/livein/$slug'
+      fullPath: '/livein/$slug'
+      preLoaderRoute: typeof LiveinSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/log/$slug': {
@@ -1405,6 +1445,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
   BankdetailsSlugRoute: BankdetailsSlugRoute,
+  BillingSlugRoute: BillingSlugRoute,
   CheckinSlugRoute: CheckinSlugRoute,
   ContinueSlugRoute: ContinueSlugRoute,
   CostsSlugRoute: CostsSlugRoute,
@@ -1422,6 +1463,7 @@ const rootRouteChildren: RootRouteChildren = {
   JoinTokenRoute: JoinTokenRoute,
   KidsSlugRoute: KidsSlugRoute,
   LeaveSlugRoute: LeaveSlugRoute,
+  LiveinSlugRoute: LiveinSlugRoute,
   LogSlugRoute: LogSlugRoute,
   MedicationSlugRoute: MedicationSlugRoute,
   MessagesSlugRoute: MessagesSlugRoute,

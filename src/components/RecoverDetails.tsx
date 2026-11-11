@@ -15,7 +15,7 @@ export function RecoverDetails() {
   if (!open) {
     return (
       <p className="mt-6 text-center text-[0.8125rem] text-muted-foreground">
-        Paid on our website and lost your details?{" "}
+        Lost your link or access code?{" "}
         <button
           type="button"
           onClick={() => setOpen(true)}

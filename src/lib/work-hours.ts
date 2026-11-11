@@ -14,7 +14,13 @@ export function cleanWorkingDays(input: unknown): WorkingDay[] {
     if (!TIME.test(startTime) || !TIME.test(endTime))
       throw new Error(`Check the times for ${base.day}.`);
     if (endTime <= startTime) throw new Error(`${base.day} should finish after it starts.`);
-    return { day: base.day, enabled: true, startTime, endTime };
+    const s2 = match?.startTime2;
+    const e2 = match?.endTime2;
+    if (!s2 && !e2) return { day: base.day, enabled: true, startTime, endTime };
+    if (!s2 || !e2 || !TIME.test(s2) || !TIME.test(e2)) throw new Error(`Check the second shift times for ${base.day}.`);
+    if (e2 <= s2) throw new Error(`${base.day}'s second shift should finish after it starts.`);
+    if (s2 < endTime) throw new Error(`${base.day}'s second shift should start after the first one ends.`);
+    return { day: base.day, enabled: true, startTime, endTime, startTime2: s2, endTime2: e2 };
   });
 }
 

@@ -10,20 +10,32 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
  * plan, so opening a different plan mounts a fresh provider rather than reusing a
  * stale one.
  */
-export function StripeEmbeddedCheckout({ plan, interval, continueSlug }: { plan: PlanId; interval: Interval; continueSlug?: string }) {
+export function StripeEmbeddedCheckout({
+  plan,
+  interval,
+  slug,
+  continueSlug,
+}: {
+  plan: PlanId;
+  interval: Interval;
+  /** Buying or upgrading from inside an existing wallet. */
+  slug?: string;
+  /** A wallet whose agency stopped funding it (or that was paused) switching to its own plan. */
+  continueSlug?: string;
+}) {
   const options = useMemo(
     () => ({
       fetchClientSecret: async () => {
-        // With a slug this pays for that existing wallet instead of creating a new one.
+        const environment = getStripeEnvironment();
         const result = continueSlug
-          ? await createContinueCheckout({ data: { slug: continueSlug, plan, interval, environment: getStripeEnvironment() } })
-          : await createCheckoutSession({ data: { plan, interval, environment: getStripeEnvironment() } });
+          ? await createContinueCheckout({ data: { slug: continueSlug, plan, interval, environment } })
+          : await createCheckoutSession({ data: { plan, interval, slug, environment } });
         if ("error" in result) throw new Error(result.error);
         if (!result.clientSecret) throw new Error("Stripe did not return a client secret");
         return result.clientSecret;
       },
     }),
-    [plan, interval, continueSlug],
+    [plan, interval, slug, continueSlug],
   );
 
   return (

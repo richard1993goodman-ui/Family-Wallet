@@ -9,6 +9,9 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
+- Subscription provisioning must explicitly persist the verified checkout environment for family and agency purchases; the billing portal uses that stored value to avoid crossing Stripe accounts.
+- Send app email only through the linked Resend gateway connection; its project credential is a connector key, not a direct Resend API key.
+
 - Premium partner perks and seasonal playbooks are agency-managed records; wallet reads always require the existing link-and-code session so private offers remain private.
 - All unlocked family-wallet routes render inside one shared responsive navigation shell so desktop, mobile, parent, and nanny navigation stay consistent.
 - Household manual entries are family-session scoped and family-managed; nanny sessions can read them, while sensitive values use a separate no-store reveal request and never enter list responses or persisted browser caches.

@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import {
+  BedDouble,
   BadgeCheck,
   BookOpen,
   Briefcase,
@@ -60,6 +61,7 @@ export type WalletPath =
   | "/moments/$slug"
   | "/today/$slug"
   | "/pettycash/$slug"
+  | "/livein/$slug"
   | "/messages/$slug"
   | "/housemanual/$slug"
   | "/kids/$slug"
@@ -68,7 +70,8 @@ export type WalletPath =
   | "/permissions/$slug"
   | "/notifications/$slug"
   | "/hours/$slug"
-  | "/support/$slug";
+  | "/support/$slug"
+  | "/billing/$slug";
 
 export type NavItem = {
   label: string;
@@ -136,12 +139,14 @@ const workHours = item("Working hours", CalendarClock, "/hours/$slug", ["schedul
 const agreement = item("Nanny agreement", FileText, "/agreement/$slug", ["contract", "sign"]);
 const timesheets = item("Timesheets", Clock3, "/timesheets/$slug", ["hours", "shifts", "pay"]);
 const leave = item("Holiday & leave", CalendarCheck, "/leave/$slug", ["time off", "absence"]);
+const liveIn = item("Au pair & live-in", BedDouble, "/livein/$slug", ["au pair", "pocket money", "days off", "live in"]);
 const pettyCash = item("Petty cash", Coins, "/pettycash/$slug", ["float", "spending"]);
 const payroll = item("Payroll setup", Briefcase, "/payroll/$slug", ["nannytax", "payslips"]);
 const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pension", "ni"]);
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
 const notifications = item("Notifications", Bell, "/notifications/$slug", ["alerts", "push", "unread"]);
+const billing = item("Plan & billing", Coins, "/billing/$slug", ["subscription", "upgrade", "invoice", "card", "plan"]);
 const helpSupport = item("Help & support", LifeBuoy, "/support/$slug", ["email", "contact", "question", "help"]);
 const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "account",
@@ -150,7 +155,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 ]);
 
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report, notifications, helpSupport] },
+  { label: "Overview", items: [home, calendar, messages, report, notifications, billing, helpSupport] },
   { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
   {
     label: "Family & home",
@@ -164,6 +169,7 @@ const familyNav: NavSection[] = [
       agreement,
       timesheets,
       leave,
+      liveIn,
       pettyCash,
       bankDetails,
       payroll,
@@ -183,7 +189,7 @@ const nannyNav: NavSection[] = [
     label: "The family",
     items: [emergency, houseManual, permissions, kids, passport, first48, travel],
   },
-  { label: "My work", items: [workHours, timesheets, leave, pettyCash, bankDetails, agreement, training, safety] },
+  { label: "My work", items: [workHours, timesheets, leave, liveIn, pettyCash, bankDetails, agreement, training, safety] },
 ];
 
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */

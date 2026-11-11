@@ -1,5 +1,13 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * The Family Wallet logo mark. Drawn as an SVG so it needs no image file.
+ * (Lovable's version used a PNG, src/assets/family-wallet-mark.png, which was not carried over.)
+ */
+export function LogoMark({ className }: { className?: string }) {
+  return <HouseMark className={cn("h-7 w-7", className)} />;
+}
+
 /** Two homes, one wallet: a big green house sheltering a smaller one. */
 export function HouseMark({ className }: { className?: string }) {
   return (
