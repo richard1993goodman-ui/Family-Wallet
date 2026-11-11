@@ -21,7 +21,11 @@ export function HouseholdSwitcher({ slug, familyName }: { slug: string; familyNa
     void supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
   }, [accountsOn]);
 
-  const homes = useQuery({ queryKey: ["my-households"], queryFn: () => list(), enabled: accountsOn && signedIn });
+  const homes = useQuery({
+    queryKey: ["my-households"],
+    queryFn: () => list(),
+    enabled: accountsOn && signedIn,
+  });
 
   // Only inside a household the account belongs to (not the demo, or a wallet opened by code alone).
   if (!homes.data || homes.data.length < 2 || !homes.data.some((h) => h.slug === slug)) {

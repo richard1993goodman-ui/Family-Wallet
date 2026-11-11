@@ -194,6 +194,20 @@ export async function archiveNanny(slug: string, id: string) {
     .eq("id", id)
     .eq("family_id", family.id);
   if (error) throw new Error(error.message);
+
+  // End the account side too: the membership stops granting access, pending claim links die, and it is logged.
+  // Signed agreements, timesheets and the rest of the household's records are left exactly as they are.
+  const now = new Date().toISOString();
+  const { data: member } = await supabaseAdmin
+    .from("household_members")
+    .update({ status: "ended", ended_at: now })
+    .eq("nanny_id", id)
+    .eq("family_id", family.id)
+    .select("id")
+    .maybeSingle();
+  if (member) await supabaseAdmin.from("account_claims").update({ used_at: now }).eq("member_id", member.id).is("used_at", null);
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "parent", action: "staff_ended", familyId: family.id, meta: { nannyId: id } });
 }
 
 export async function uploadNannyPhoto(

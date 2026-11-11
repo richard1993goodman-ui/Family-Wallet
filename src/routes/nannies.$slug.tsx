@@ -296,9 +296,10 @@ function NanniesPage() {
                   variant="ghost"
                   aria-label={`Remove ${nanny.name}`}
                   disabled={busy}
-                  onClick={() =>
-                    run(() => archiveFn({ data: { slug, id: nanny.id } }), `${nanny.name} removed`)
-                  }
+                  onClick={() => {
+                    if (!window.confirm(`End ${nanny.name}'s access? They can no longer open this wallet. Signed agreements, timesheets and records stay with your household.`)) return;
+                    void run(() => archiveFn({ data: { slug, id: nanny.id } }), `${nanny.name}'s access ended`);
+                  }}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
