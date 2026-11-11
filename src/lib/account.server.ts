@@ -68,6 +68,15 @@ export async function accountMember(slug: string): Promise<Member | null> {
   };
 }
 
+/** The email of the signed-in account, when it has an active membership in this household. Used to tie a signature to it. */
+export async function signedInEmail(slug: string): Promise<string | null> {
+  if (!(await accountMember(slug))) return null;
+  const token = getRequest()?.headers.get("authorization")?.replace(/^Bearer /i, "");
+  if (!token) return null;
+  const { data } = await supabaseAdmin.auth.getUser(token);
+  return data.user?.email?.toLowerCase() ?? null;
+}
+
 /** What the account login grants in this household, or null. */
 export async function accountAccess(slug: string) {
   return accessFromMembership(await accountMember(slug));

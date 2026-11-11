@@ -4,7 +4,16 @@ import { encodeText, htmlToBlocks, textToPdf, wrap } from "./simple-pdf";
 const text = (bytes: Uint8Array) => Buffer.from(bytes).toString("latin1");
 
 describe("textToPdf", () => {
-  const pdf = text(textToPdf([{ kind: "h1", text: "Title" }, { kind: "p", text: "Hello (world) \\ £5 — “quoted”" }, { kind: "li", text: "a point" }], { title: "T" }));
+  const pdf = text(
+    textToPdf(
+      [
+        { kind: "h1", text: "Title" },
+        { kind: "p", text: "Hello (world) \\ £5 — “quoted”" },
+        { kind: "li", text: "a point" },
+      ],
+      { title: "T" },
+    ),
+  );
 
   it("is a well-formed PDF with a header, a trailer and a cross-reference table that points at itself", () => {
     expect(pdf.startsWith("%PDF-1.4")).toBe(true);
@@ -16,7 +25,9 @@ describe("textToPdf", () => {
   it("points every object entry at the right place", () => {
     const entries = [...pdf.matchAll(/(\d{10}) 00000 n /g)].map((m) => Number(m[1]));
     expect(entries.length).toBeGreaterThan(5);
-    entries.forEach((offset, i) => expect(pdf.slice(offset, offset + `${i + 1} 0 obj`.length)).toBe(`${i + 1} 0 obj`));
+    entries.forEach((offset, i) =>
+      expect(pdf.slice(offset, offset + `${i + 1} 0 obj`.length)).toBe(`${i + 1} 0 obj`),
+    );
   });
 
   it("escapes brackets and backslashes, and keeps pound signs and dashes readable", () => {
@@ -30,7 +41,10 @@ describe("textToPdf", () => {
   });
 
   it("starts a new page when the text runs on", () => {
-    const long = Array.from({ length: 200 }, (_, i) => ({ kind: "p" as const, text: `Line ${i} of a long agreement` }));
+    const long = Array.from({ length: 200 }, (_, i) => ({
+      kind: "p" as const,
+      text: `Line ${i} of a long agreement`,
+    }));
     const pages = Number(/\/Count (\d+)/.exec(text(textToPdf(long, { title: "T" })))![1]);
     expect(pages).toBeGreaterThan(1);
   });

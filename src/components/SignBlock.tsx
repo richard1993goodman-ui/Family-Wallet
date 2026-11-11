@@ -4,6 +4,7 @@ import { BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Signature } from "@/lib/agreement.types";
+import { useT } from "@/lib/i18n/provider";
 
 const ROLE_LABELS: Record<Signature["signerRole"], string> = {
   parent: "Parent / employer",
@@ -52,12 +53,20 @@ export function SignForm({
   statement,
   onSign,
   disabled,
+  verification,
 }: {
   role: "parent" | "nanny";
   statement: string;
-  onSign: (name: string, role: "parent" | "nanny") => Promise<void>;
+  onSign: (name: string, role: "parent" | "nanny", verification?: { email: string; code: string }) => Promise<void>;
   disabled?: boolean;
+  /** When set and required, the signer proves an email address with a one-time code before signing. */
+  verification?: { required: boolean; accountEmail: string | null; onRequestCode: (email: string) => Promise<boolean> };
 }) {
+  const t = useT();
+  const needsCode = !!verification?.required && !verification.accountEmail;
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [codeSent, setCodeSent] = useState(false);
   const [name, setName] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -69,8 +78,9 @@ export function SignForm({
         e.preventDefault();
         setBusy(true);
         try {
-          await onSign(name, role);
+          await onSign(name, role, needsCode ? { email, code } : undefined);
           setName("");
+          setCode("");
           setAgreed(false);
         } finally {
           setBusy(false);
@@ -89,6 +99,32 @@ export function SignForm({
           disabled={disabled}
         />
       </label>
+      {verification?.required && verification.accountEmail && (
+        <p className="text-sm text-muted-foreground">{t("sign.signingAs", { email: verification.accountEmail })}</p>
+      )}
+      {needsCode && (
+        <div className="space-y-2">
+          <label className="block">
+            <span className="text-sm font-medium text-foreground">{t("sign.email")}</span>
+            <Input className="mt-1.5" type="email" value={email} placeholder={t("login.emailPlaceholder")} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
+          </label>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={disabled || !email.includes("@")}
+            onClick={async () => setCodeSent(await verification!.onRequestCode(email))}
+          >
+            {t("sign.sendCode")}
+          </Button>
+          {codeSent && (
+            <label className="block">
+              <span className="text-sm text-muted-foreground">{t("sign.codeSent")}</span>
+              <Input className="mt-1.5 tracking-[0.3em]" inputMode="numeric" maxLength={6} value={code} placeholder="123456" onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} />
+            </label>
+          )}
+        </div>
+      )}
       <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
         <input
           type="checkbox"
@@ -99,7 +135,7 @@ export function SignForm({
         />
         <span>{statement}</span>
       </label>
-      <Button type="submit" disabled={disabled || busy || !agreed || name.trim().length < 3}>
+      <Button type="submit" disabled={disabled || busy || !agreed || name.trim().length < 3 || (needsCode && code.length !== 6)}>
         {busy ? "Signing…" : "Sign now"}
       </Button>
     </form>

@@ -337,6 +337,8 @@ export type Database = {
       }
       document_signatures: {
         Row: {
+          verified_at: string | null
+          verified_email: string | null
           agreement_version_id: string | null
           content_hash: string | null
           client_key: string | null
@@ -350,6 +352,8 @@ export type Database = {
           signer_role: string
         }
         Insert: {
+          verified_at?: string | null
+          verified_email?: string | null
           agreement_version_id?: string | null
           content_hash?: string | null
           client_key?: string | null
@@ -363,6 +367,8 @@ export type Database = {
           signer_role: string
         }
         Update: {
+          verified_at?: string | null
+          verified_email?: string | null
           agreement_version_id?: string | null
           content_hash?: string | null
           client_key?: string | null
@@ -2814,6 +2820,12 @@ export type Database = {
           template_id?: string
           version?: number
         }
+        Relationships: []
+      }
+      signing_codes: {
+        Row: { attempts: number; code_hash: string; created_at: string; email: string; expires_at: string; family_id: string; id: string; signer_role: string; used_at: string | null }
+        Insert: { attempts?: number; code_hash: string; created_at?: string; email: string; expires_at: string; family_id: string; id?: string; signer_role: string; used_at?: string | null }
+        Update: { attempts?: number; code_hash?: string; created_at?: string; email?: string; expires_at?: string; family_id?: string; id?: string; signer_role?: string; used_at?: string | null }
         Relationships: []
       }
       agreement_versions: {

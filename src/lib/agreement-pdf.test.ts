@@ -31,8 +31,19 @@ vi.mock("@/integrations/supabase/client.server", () => ({
         },
         maybeSingle: async () => {
           if (table === "agreement_versions")
-            return { data: { id: "ver-1", family_id: "fam-1", nanny_id: "nan-1", version: 2, snapshot_text: state.snapshot, content_hash: "abc123", issued_at: "2026-11-01T10:00:00Z" } };
-          if (table === "wallet_documents") return { data: state.existingCopy ? { id: "doc-1" } : null };
+            return {
+              data: {
+                id: "ver-1",
+                family_id: "fam-1",
+                nanny_id: "nan-1",
+                version: 2,
+                snapshot_text: state.snapshot,
+                content_hash: "abc123",
+                issued_at: "2026-11-01T10:00:00Z",
+              },
+            };
+          if (table === "wallet_documents")
+            return { data: state.existingCopy ? { id: "doc-1" } : null };
           if (table === "families") return { data: { family_name: "Harrington" } };
           return { data: null };
         },
@@ -47,7 +58,11 @@ import { defaultAgreementData, normalizeAgreement } from "./agreement.model";
 import { saveSignedCopy, trySaveSignedCopy } from "./agreement-pdf.server";
 import { snapshotAgreement } from "./agreement-versions";
 
-const sig = (role: string, name: string) => ({ signer_role: role, signer_name: name, signed_at: "2026-11-02T09:30:00Z" });
+const sig = (role: string, name: string) => ({
+  signer_role: role,
+  signer_name: name,
+  signed_at: "2026-11-02T09:30:00Z",
+});
 
 beforeEach(() => {
   state.signatures = [];
@@ -55,7 +70,11 @@ beforeEach(() => {
   state.uploads = [];
   state.inserts = [];
   state.audits = [];
-  state.snapshot = snapshotAgreement({ ...normalizeAgreement(defaultAgreementData), employerName: "Harrington family", nannyName: "Jess" }).text;
+  state.snapshot = snapshotAgreement({
+    ...normalizeAgreement(defaultAgreementData),
+    employerName: "Harrington family",
+    nannyName: "Jess",
+  }).text;
 });
 
 describe("saving a signed record copy", () => {
@@ -83,8 +102,20 @@ describe("saving a signed record copy", () => {
   it("files it in the household's Documents against the right person, and logs it without the contents", async () => {
     state.signatures = [sig("parent", "Sam Harrington"), sig("nanny", "Jess Taylor")];
     await saveSignedCopy("ver-1");
-    expect(state.inserts[0]).toMatchObject({ family_id: "fam-1", nanny_id: "nan-1", category: "agreement", content_type: "application/pdf", storage_path: "vault/fam-1/signed-agreement-ver-1.pdf" });
-    expect(state.audits).toEqual([expect.objectContaining({ action: "signed_copy_saved", familyId: "fam-1", meta: { version: 2 } })]);
+    expect(state.inserts[0]).toMatchObject({
+      family_id: "fam-1",
+      nanny_id: "nan-1",
+      category: "agreement",
+      content_type: "application/pdf",
+      storage_path: "vault/fam-1/signed-agreement-ver-1.pdf",
+    });
+    expect(state.audits).toEqual([
+      expect.objectContaining({
+        action: "signed_copy_saved",
+        familyId: "fam-1",
+        meta: { version: 2 },
+      }),
+    ]);
   });
 
   it("does nothing a second time", async () => {

@@ -1,6 +1,9 @@
 import { familyHasFeature } from "./plan-access.server";
 import { UPGRADE_MESSAGE } from "./plan-access";
+import { createHash, randomInt } from "node:crypto";
 import { getRequest } from "@tanstack/react-start/server";
+import { buildSigningCodeEmail } from "./signing-email";
+import { isValidEmail, normaliseEmail } from "./seat-invites";
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
@@ -32,7 +35,7 @@ export type AgreementHistoryEntry = {
   fingerprint: string;
   /** A record copy of this signed version has been saved in the household's Documents. */
   signedCopy: boolean;
-  signatures: { role: string; name: string; at: string }[];
+  signatures: { role: string; name: string; at: string; verified: boolean }[];
 };
 
 export type AgreementView = {
@@ -46,6 +49,8 @@ export type AgreementView = {
   /** Edits to an issued agreement that have not been issued yet. The signed wording in `data` is untouched. */
   pendingChanges: AgreementData | null;
   history: AgreementHistoryEntry[];
+  /** Whether signing needs a verified email, and the signed-in account's own address if there is one. */
+  verification: { required: boolean; accountEmail: string | null };
   signatures: Signature[];
   access: "family" | "nanny";
   emergency: EmergencyContext;
@@ -230,6 +235,10 @@ export async function loadAgreement(
     hasContent: agreementHasContent(data),
     pendingChanges,
     history: await agreementHistory(agreement?.id ?? null),
+    verification: {
+      required: signingVerificationRequired(),
+      accountEmail: signingVerificationRequired() ? await (await import("./account.server")).signedInEmail(slug) : null,
+    },
     signatures,
     access,
     emergency,
@@ -282,7 +291,7 @@ async function agreementHistory(agreementId: string | null): Promise<AgreementHi
   if (!versions?.length) return [];
   const { data: sigs } = await supabaseAdmin
     .from("document_signatures")
-    .select("agreement_version_id, signer_role, signer_name, signed_at")
+    .select("agreement_version_id, signer_role, signer_name, signed_at, verified_email")
     .in("agreement_version_id", versions.map((v) => v.id))
     .order("signed_at", { ascending: true });
   const { data: copies } = await supabaseAdmin
@@ -295,7 +304,7 @@ async function agreementHistory(agreementId: string | null): Promise<AgreementHi
     issuedAt: v.issued_at,
     fingerprint: v.content_hash.slice(0, 12),
     signedCopy: saved.has(signedCopyPath(v.family_id, v.id)),
-    signatures: (sigs ?? []).filter((x) => x.agreement_version_id === v.id).map((x) => ({ role: x.signer_role, name: x.signer_name, at: x.signed_at })),
+    signatures: (sigs ?? []).filter((x) => x.agreement_version_id === v.id).map((x) => ({ role: x.signer_role, name: x.signer_name, at: x.signed_at, verified: !!x.verified_email })),
   }));
 }
 
@@ -341,6 +350,7 @@ export async function signDocument(
   signerRole: "parent" | "nanny",
   signerName: string,
   nannyId?: string | null,
+  verification?: { email: string; code: string } | null,
 ) {
   const resolved = await resolveNanny(slug, nannyId);
   if (!resolved) return { ok: false as const, reason: "locked" as const };
@@ -379,6 +389,21 @@ export async function signDocument(
     if (evidence === "edited") return { ok: false as const, reason: "not_ready" as const };
   }
 
+  // When verification is switched on, an agreement signature needs a verified email: the signed-in account's own
+  // address, or a one-time code emailed to the address given.
+  let verified: { email: string; at: string } | null = null;
+  if (docKind === "agreement" && signingVerificationRequired()) {
+    const accountEmail = await (await import("./account.server")).signedInEmail(slug);
+    if (accountEmail) verified = { email: accountEmail, at: new Date().toISOString() };
+    else {
+      const email = normaliseEmail(verification?.email ?? "");
+      if (!email || !verification?.code || !(await consumeSigningCode(family.id, signerRole, email, verification.code))) {
+        return { ok: false as const, reason: "verification" as const };
+      }
+      verified = { email, at: new Date().toISOString() };
+    }
+  }
+
   const { error } = await supabaseAdmin.from("document_signatures").insert({
     family_id: family.id,
     nanny_id: signedNannyId,
@@ -388,13 +413,14 @@ export async function signDocument(
     doc_version: docVersion,
     client_key: clientKey(),
     ...evidenceFields(evidence),
+    ...(verified ? { verified_email: verified.email, verified_at: verified.at } : {}),
   });
   if (error) return { ok: false as const, reason: "error" as const };
   if (docKind === "agreement") {
     const { audit } = await import("./audit.server");
     // Once both have signed this exact version, keep a record copy of it in the vault. Never blocks the signing.
     await (await import("./agreement-pdf.server")).trySaveSignedCopy(versionIdOf(evidence));
-    await audit({ actorKind: signerRole === "nanny" ? "nanny" : "parent", action: "agreement_signed", familyId: family.id, meta: { version: docVersion, fingerprint: fingerprintOf(evidence) } });
+    await audit({ actorKind: signerRole === "nanny" ? "nanny" : "parent", action: "agreement_signed", familyId: family.id, meta: { version: docVersion, fingerprint: fingerprintOf(evidence), emailVerified: !!verified } });
   }
 
   if (docKind === "terms") {
@@ -405,6 +431,75 @@ export async function signDocument(
   }
 
   return { ok: true as const };
+}
+
+/* ---------------- Verifying who signs ---------------- */
+
+/** Off until SIGNING_VERIFICATION=on, so nothing changes for anyone before it has been tested live. */
+export const signingVerificationRequired = () => process.env["SIGNING_VERIFICATION"] === "on";
+
+const CODE_MINUTES = 10;
+const CODES_PER_HOUR = 5;
+const MAX_CODE_ATTEMPTS = 5;
+export const hashSigningCode = (code: string, familyId: string, role: string, email: string) =>
+  createHash("sha256").update(`${code}:${familyId}:${role}:${email}`).digest("hex");
+
+/** Emails a six-digit code to the address the signer gives. The code is only ever stored as a hash. */
+export async function requestSigningCode(slug: string, role: "parent" | "nanny", rawEmail: string, nannyId?: string | null) {
+  if (!signingVerificationRequired()) throw new Error("Email verification isn't needed right now.");
+  const resolved = await resolveNanny(slug, nannyId);
+  if (!resolved) return { ok: false as const, reason: "locked" as const };
+  if (role === "parent" && resolved.access !== "family") return { ok: false as const, reason: "locked" as const };
+  const email = normaliseEmail(rawEmail);
+  if (!isValidEmail(email)) return { ok: false as const, reason: "email" as const };
+
+  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const { count } = await supabaseAdmin
+    .from("signing_codes")
+    .select("id", { count: "exact", head: true })
+    .eq("family_id", resolved.family.id)
+    .eq("signer_role", role)
+    .gte("created_at", since);
+  if ((count ?? 0) >= CODES_PER_HOUR) return { ok: false as const, reason: "too_many" as const };
+
+  const { emailConfigured, sendEmail } = await import("./email.server");
+  if (!emailConfigured()) return { ok: false as const, reason: "email_off" as const };
+  const code = String(randomInt(100000, 1000000));
+  const { error } = await supabaseAdmin.from("signing_codes").insert({
+    family_id: resolved.family.id,
+    signer_role: role,
+    email,
+    code_hash: hashSigningCode(code, resolved.family.id, role, email),
+    expires_at: new Date(Date.now() + CODE_MINUTES * 60 * 1000).toISOString(),
+  });
+  if (error) return { ok: false as const, reason: "error" as const };
+  if (!(await sendEmail({ to: email, ...buildSigningCodeEmail({ code, familyName: resolved.family.family_name, minutes: CODE_MINUTES }) }))) {
+    return { ok: false as const, reason: "email_failed" as const };
+  }
+  return { ok: true as const };
+}
+
+/** True once, for the right code, before it expires and within a handful of tries. Wrong tries are counted. */
+export async function consumeSigningCode(familyId: string, role: string, email: string, code: string) {
+  const { data: row } = await supabaseAdmin
+    .from("signing_codes")
+    .select("id, code_hash, attempts")
+    .eq("family_id", familyId)
+    .eq("signer_role", role)
+    .eq("email", email)
+    .is("used_at", null)
+    .gt("expires_at", new Date().toISOString())
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!row || row.attempts >= MAX_CODE_ATTEMPTS) return false;
+  if (row.code_hash !== hashSigningCode(code.trim(), familyId, role, email)) {
+    await supabaseAdmin.from("signing_codes").update({ attempts: row.attempts + 1 }).eq("id", row.id);
+    return false;
+  }
+  // Single use: only one request can flip used_at.
+  const { data: used } = await supabaseAdmin.from("signing_codes").update({ used_at: new Date().toISOString() }).eq("id", row.id).is("used_at", null).select("id");
+  return !!used?.length;
 }
 
 /* ---------------- Admin-facing ---------------- */

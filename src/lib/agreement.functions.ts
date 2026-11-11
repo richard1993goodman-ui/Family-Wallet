@@ -34,6 +34,7 @@ export const signDocumentFn = createServerFn({ method: "POST" })
       signerRole: "parent" | "nanny";
       signerName: string;
       nannyId?: string | null;
+      verification?: { email: string; code: string } | null;
     }) => data,
   )
   .handler(async ({ data }) => {
@@ -44,7 +45,15 @@ export const signDocumentFn = createServerFn({ method: "POST" })
       data.signerRole,
       data.signerName,
       data.nannyId ?? null,
+      data.verification ? { email: String(data.verification.email ?? ""), code: String(data.verification.code ?? "") } : null,
     );
+  });
+
+export const requestSigningCodeFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; signerRole: "parent" | "nanny"; email: string; nannyId?: string | null }) => data)
+  .handler(async ({ data }) => {
+    const { requestSigningCode } = await import("./agreement.server");
+    return requestSigningCode(data.slug, data.signerRole === "nanny" ? "nanny" : "parent", String(data.email ?? ""), data.nannyId ?? null);
   });
 
 export const generateAgreementDraftFn = createServerFn({ method: "POST" })

@@ -58,3 +58,6 @@ A small interface (`createRequest`, `onCompleted`), so we are never locked in: s
 2. Who is the solicitor for the three questions, and by when?
 3. Is a monthly-plan provider ruled out on cost for now?
 4. Any provider you already use or prefer, for example one an agency partner uses?
+
+## E5 option A status (11 Nov)
+Built and committed locally, **off until `SIGNING_VERIFICATION=on`**: an agreement signature can be tied to an email the signer proved they control, either the signed-in account's own address or a six-digit code emailed to the address they type (hashed, 10 minutes, five tries, five requests an hour per person). The record copy and the version history show "email verified", and each verified signer gets a generic "your signed agreement is saved" email (no wording, no link). New migration `20261111500000_signing_verification.sql` (a codes table and two columns on signatures) must be applied before switching it on. **Limits:** it proves control of an email address, not a person's identity, and it is still a simple electronic signature; the owner's agency signature is not code-checked (it is already behind a login with two-step); terms signing is unchanged.

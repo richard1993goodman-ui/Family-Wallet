@@ -23,26 +23,53 @@ export async function saveSignedCopy(versionId: string) {
   if (!version) return { saved: false as const, reason: "no_version" as const };
 
   const path = signedCopyPath(version.family_id, version.id);
-  const { data: existing } = await supabaseAdmin.from("wallet_documents").select("id").eq("storage_path", path).maybeSingle();
+  const { data: existing } = await supabaseAdmin
+    .from("wallet_documents")
+    .select("id")
+    .eq("storage_path", path)
+    .maybeSingle();
   if (existing) return { saved: false as const, reason: "already_saved" as const };
 
   const { data: sigs } = await supabaseAdmin
     .from("document_signatures")
-    .select("signer_role, signer_name, signed_at")
+    .select("signer_role, signer_name, signed_at, verified_email")
     .eq("agreement_version_id", version.id)
     .order("signed_at", { ascending: true });
   const roles = new Set((sigs ?? []).map((s) => s.signer_role));
-  if (!roles.has("parent") || !roles.has("nanny")) return { saved: false as const, reason: "not_fully_signed" as const };
+  if (!roles.has("parent") || !roles.has("nanny"))
+    return { saved: false as const, reason: "not_fully_signed" as const };
 
-  const { data: family } = await supabaseAdmin.from("families").select("family_name").eq("id", version.family_id).maybeSingle();
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("family_name")
+    .eq("id", version.family_id)
+    .maybeSingle();
   const data = normalizeAgreement(JSON.parse(version.snapshot_text));
-  const Document = data.documentStyle === "self_employed" ? SelfEmployedDocument : data.documentStyle === "statement" ? StatementDocument : AgreementDocument;
-  const html = renderToStaticMarkup(<Document data={data} version={version.version} issuedAt={version.issued_at} familyName={family?.family_name ?? ""} />);
+  const Document =
+    data.documentStyle === "self_employed"
+      ? SelfEmployedDocument
+      : data.documentStyle === "statement"
+        ? StatementDocument
+        : AgreementDocument;
+  const html = renderToStaticMarkup(
+    <Document
+      data={data}
+      version={version.version}
+      issuedAt={version.issued_at}
+      familyName={family?.family_name ?? ""}
+    />,
+  );
 
-  const signatures: PdfBlock[] = (sigs ?? []).map((s) => ({ kind: "li", text: `${s.signer_name} (${s.signer_role}) signed on ${s.signed_at.slice(0, 10)} at ${s.signed_at.slice(11, 16)} UTC` }));
+  const signatures: PdfBlock[] = (sigs ?? []).map((s) => ({
+    kind: "li",
+    text: `${s.signer_name} (${s.signer_role}) signed on ${s.signed_at.slice(0, 10)} at ${s.signed_at.slice(11, 16)} UTC${s.verified_email ? `, email verified: ${s.verified_email}` : ""}`,
+  }));
   const blocks: PdfBlock[] = [
     { kind: "h1", text: "Signed record copy" },
-    { kind: "p", text: `Agreement version ${version.version}, issued ${version.issued_at.slice(0, 10)}. Saved from the wording stored when it was issued.` },
+    {
+      kind: "p",
+      text: `Agreement version ${version.version}, issued ${version.issued_at.slice(0, 10)}. Saved from the wording stored when it was issued.`,
+    },
     { kind: "rule" },
     ...htmlToBlocks(html),
     { kind: "rule" },
@@ -50,11 +77,16 @@ export async function saveSignedCopy(versionId: string) {
     ...signatures,
     { kind: "gap" },
     { kind: "p", text: `Fingerprint (SHA-256 of the stored wording): ${version.content_hash}` },
-    { kind: "p", text: "This is a plain-text record copy for your files. It does not replace independent legal advice." },
+    {
+      kind: "p",
+      text: "This is a plain-text record copy for your files. It does not replace independent legal advice.",
+    },
   ];
   const bytes = textToPdf(blocks, { title: `Signed agreement, version ${version.version}` });
 
-  const { error: uploadError } = await supabaseAdmin.storage.from(BUCKET).upload(path, bytes, { contentType: "application/pdf", upsert: false });
+  const { error: uploadError } = await supabaseAdmin.storage
+    .from(BUCKET)
+    .upload(path, bytes, { contentType: "application/pdf", upsert: false });
   if (uploadError) throw new Error(uploadError.message);
   const { error } = await supabaseAdmin.from("wallet_documents").insert({
     family_id: version.family_id,
@@ -73,7 +105,27 @@ export async function saveSignedCopy(versionId: string) {
     throw new Error(error.message);
   }
   const { audit } = await import("./audit.server");
-  await audit({ actorKind: "system", action: "signed_copy_saved", familyId: version.family_id, meta: { version: version.version } });
+  await audit({
+    actorKind: "system",
+    action: "signed_copy_saved",
+    familyId: version.family_id,
+    meta: { version: version.version },
+  });
+
+  // Tell each signer who verified an email that a copy now exists. A generic note: no wording, no link. Never blocks.
+  try {
+    const { emailConfigured, sendEmail } = await import("./email.server");
+    if (emailConfigured()) {
+      const { buildSignedCopyEmail } = await import("./signing-email");
+      for (const s of sigs ?? []) {
+        if (s.verified_email) {
+          await sendEmail({ to: s.verified_email, ...buildSignedCopyEmail({ name: s.signer_name, familyName: family?.family_name ?? "", version: version.version }) });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Could not email the signed copy notice", error instanceof Error ? error.message : error);
+  }
   return { saved: true as const };
 }
 

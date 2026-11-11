@@ -26,7 +26,7 @@ export function AgreementHistory({ history }: { history: AgreementHistoryEntry[]
               <ul className="mt-1 space-y-0.5 text-muted-foreground">
                 {entry.signatures.map((s, i) => (
                   <li key={i}>
-                    {t("agr.historySigned", { name: s.name, role: s.role, date: formatDate(s.at) })}
+                    {t("agr.historySigned", { name: s.name, role: s.role, date: formatDate(s.at) })}{s.verified ? ` · ${t("agr.historyVerified")}` : ""}
                   </li>
                 ))}
               </ul>

@@ -11,6 +11,7 @@ import {
   getAgreement,
   getNannyInvite,
   saveAgreementFn,
+  requestSigningCodeFn,
   signDocumentFn,
 } from "@/lib/agreement.functions";
 import type { AgreementData, DocumentStyle } from "@/lib/agreement.model";
@@ -67,6 +68,7 @@ function AgreementPageInner() {
   const queryClient = useQueryClient();
   const loadFn = useServerFn(getAgreement);
   const signFn = useServerFn(signDocumentFn);
+  const requestCodeFn = useServerFn(requestSigningCodeFn);
   const saveFn = useServerFn(saveAgreementFn);
   const generateFn = useServerFn(generateAgreementDraftFn);
   const statementFn = useServerFn(generateStatementFn);
@@ -256,7 +258,17 @@ function AgreementPageInner() {
     }
   }
 
-  async function onSign(name: string, role: "parent" | "nanny") {
+  async function requestCode(role: "parent" | "nanny", email: string) {
+    const result = await requestCodeFn({ data: { slug, signerRole: role, email, nannyId: nannyId || null } });
+    if (result.ok) {
+      toast.success(t("sign.codeSentToast"));
+      return true;
+    }
+    toast.error(t(result.reason === "too_many" ? "sign.tooMany" : result.reason === "email" ? "sign.badEmail" : "sign.codeFailed"));
+    return false;
+  }
+
+  async function onSign(name: string, role: "parent" | "nanny", verification?: { email: string; code: string }) {
     const result = await signFn({
       data: {
         slug,
@@ -264,12 +276,15 @@ function AgreementPageInner() {
         signerRole: role,
         signerName: name,
         nannyId: nannyId || null,
+        verification: verification ?? null,
       },
     });
     if (result.ok) {
       toast.success("Signed and saved to the wallet.");
       await queryClient.invalidateQueries({ queryKey: ["agreement", slug] });
       await queryClient.invalidateQueries({ queryKey: ["nannies", slug] });
+    } else if (result.reason === "verification") {
+      toast.error(t("sign.wrongCode"));
     } else if (result.reason === "name") {
       toast.error("Please type your full name.");
     } else if (result.reason === "not_ready") {
@@ -680,6 +695,7 @@ function AgreementPageInner() {
               statement="I am the parent or employer and I agree to this nanny agreement."
               onSign={onSign}
               disabled={!issued}
+              verification={{ ...data.verification, onRequestCode: (email) => requestCode("parent", email) }}
             />
           )}
           <div className={isNanny ? "" : "border-t border-border pt-5"}>
@@ -688,6 +704,7 @@ function AgreementPageInner() {
               statement="I am the nanny or manny named above and I agree to this agreement."
               onSign={onSign}
               disabled={!issued}
+              verification={{ ...data.verification, onRequestCode: (email) => requestCode("nanny", email) }}
             />
           </div>
         </div>
