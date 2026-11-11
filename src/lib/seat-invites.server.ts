@@ -27,13 +27,18 @@ async function expireOld(agencyId: string) {
 }
 
 async function openInvites(agencyId: string) {
-  const { data } = await supabaseAdmin
-    .from("agency_invites")
-    .select("id, slot, email, nanny_email, status, invited_at, expires_at")
-    .eq("agency_id", agencyId)
-    .in("status", OPEN)
-    .order("slot", { ascending: true });
-  return (data ?? []) as InviteRow[];
+  const query = (columns: string) =>
+    supabaseAdmin.from("agency_invites").select(columns).eq("agency_id", agencyId).in("status", OPEN).order("slot", { ascending: true });
+  const full = await query("id, slot, email, nanny_email, status, invited_at, expires_at");
+  // If the nanny columns have not been added yet, still show every seat that is in use.
+  const result = full.error ? await query("id, slot, email, status, invited_at, expires_at") : full;
+  return (result.data ?? []) as unknown as InviteRow[];
+}
+
+/** The nanny details on an invite, or nothing if those columns have not been added yet. */
+async function nannyOf(inviteId: string) {
+  const { data, error } = await supabaseAdmin.from("agency_invites").select("nanny_name, nanny_email").eq("id", inviteId).maybeSingle();
+  return error || !data ? { nanny_name: null, nanny_email: null } : data;
 }
 
 /** What an agency may see: slots, the email it typed, and invite status. Never the family or its wallet. */
@@ -85,14 +90,20 @@ export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: s
       agency_id: agencyId,
       slot,
       email,
-      nanny_email: nannyEmail || null,
-      nanny_name: nannyEmail ? nannyName : null,
+      // Only sent when there is a nanny, so a plain invitation never depends on the nanny columns.
+      ...(nannyEmail ? { nanny_email: nannyEmail, nanny_name: nannyName } : {}),
       token_hash: hashInviteToken(token),
       expires_at: new Date(Date.now() + INVITE_DAYS * 24 * 60 * 60 * 1000).toISOString(),
     })
     .select("id")
     .single();
-  if (error) throw new Error("That seat or email is already in use.");
+  if (error) {
+    console.error("Could not save a seat invitation", error.code, error.message);
+    // 23505 is the database saying the seat or email really is taken; anything else is a different problem.
+    if (error.code === "23505") throw new Error("That seat or email is already in use.");
+    if (nannyEmail && /nanny_/.test(error.message)) throw new Error("Adding a nanny isn't available yet. Send the invitation without the nanny for now.");
+    throw new Error("Couldn't save the invitation. Please try again, or contact support if it keeps happening.");
+  }
   // The link goes to the family by email only. It is never shown to the agency, so the agency cannot claim it.
   if (!(await emailInvite(agencyId, email, token))) {
     await supabaseAdmin.from("agency_invites").delete().eq("id", row.id);
@@ -192,13 +203,13 @@ export async function releaseSeat(agencyId: string, inviteId: string) {
 export async function lookupInvite(token: string) {
   const { data } = await supabaseAdmin
     .from("agency_invites")
-    .select("agency_id, expires_at, status, nanny_name")
+    .select("id, agency_id, expires_at, status")
     .eq("token_hash", hashInviteToken(token))
     .eq("status", "pending")
     .maybeSingle();
   if (!data || (data.expires_at && new Date(data.expires_at).getTime() < Date.now())) return null;
   const agency = await agencyInfo(data.agency_id);
-  return { agencyName: agency.brand_name || agency.name, nannyName: data.nanny_name };
+  return { agencyName: agency.brand_name || agency.name, nannyName: (await nannyOf(data.id)).nanny_name };
 }
 
 /** The family claims the seat once, creating its own wallet. The agency never receives the link or code. */
@@ -212,8 +223,9 @@ export async function acceptInvite(token: string, familyName: string) {
     .eq("token_hash", hashInviteToken(token))
     .eq("status", "pending")
     .gt("expires_at", new Date().toISOString())
-    .select("id, agency_id, email, nanny_name, nanny_email");
-  const invite = claimed?.[0];
+    .select("id, agency_id, email");
+  const claimedRow = claimed?.[0];
+  const invite = claimedRow ? { ...claimedRow, ...(await nannyOf(claimedRow.id)) } : undefined;
   if (!invite) throw new Error("This invitation has expired or was already used. Ask your agency to send a new one.");
 
   const { generateAccessCode, hashCode } = await import("./wallet.server");
