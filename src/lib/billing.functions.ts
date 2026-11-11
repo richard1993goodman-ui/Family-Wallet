@@ -29,10 +29,10 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
   })
   .handler(async ({ data }): Promise<CheckoutResult> => {
     const { createStripeClient, getStripeErrorMessage } = await import("./stripe.server");
-    // From inside a wallet: only an unlocked parent may pay, and only for a household plan.
+    // From inside a wallet: only an unlocked parent may pay, and only for the Family plan.
     let family: { id: string; email: string | null } | null = null;
     if (data.slug) {
-      if (data.plan !== "family" && data.plan !== "household") return { error: "Choose the Family or Household plan." };
+      if (data.plan !== "family") return { error: "Choose the Family plan." };
       const { requireFamily } = await import("./family.server");
       const found = await requireFamily(data.slug);
       if (!found) return { error: "Please open your wallet as a parent first." };
@@ -154,7 +154,7 @@ export const getContinuationFn = createServerFn({ method: "GET" })
  */
 export const createContinueCheckout = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; plan: unknown; interval: unknown; environment: unknown }) => {
-    if (data.plan !== "family" && data.plan !== "household") throw new Error("Unknown plan.");
+    if (data.plan !== "family") throw new Error("Unknown plan.");
     if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
     if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Unknown payment environment.");
     return { slug: String(data.slug ?? ""), plan: data.plan as PlanId, interval: data.interval as Interval, environment: data.environment as StripeEnv };

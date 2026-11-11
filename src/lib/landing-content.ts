@@ -40,7 +40,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/nanny-management-app",
     title: "Nanny Management App for Parents | Family Wallet",
     description:
-      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. From £9.99 a month.",
+      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. £19.99 a month.",
     h1: "The nanny management app for parents",
     intro:
       "If your nanny arrangement lives across WhatsApp, a spreadsheet and a contract buried in your email, Family Wallet puts it in one private place that both of you can open from your phones.",
@@ -98,7 +98,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "How much does it cost?",
-        a: "The Family plan is £9.99 a month, or £99 a year, for up to two staff, such as a nanny and a housekeeper. The Household plan is £19.99 a month for up to six staff. Prices exclude VAT.",
+        a: "The Family plan is £19.99 a month, or £199 a year, for unlimited staff, such as a nanny, an au pair and a housekeeper. Prices exclude VAT.",
       },
       {
         q: "Is my family's information private?",
@@ -158,13 +158,13 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "How many people can I add?",
         paragraphs: [
-          "The Family plan covers up to two staff. The Household plan covers up to six staff, so a nanny, an au pair, a housekeeper and more can all sit in one wallet. Staff never pay.",
+          "There is no limit. A nanny, an au pair, a housekeeper and more can all sit in one wallet for the same price. Staff never pay.",
         ],
       },
       {
         heading: "Au pairs and live-in help",
         paragraphs: [
-          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. On the Household plan they also get dedicated live-in tools: weekly pocket money, an hours cap, protected days off, room and board and house rules.",
+          "Au pairs and live-in staff use the same shared week, house rules, daily log and emergency details as everyone else. They also get dedicated live-in tools: weekly pocket money, an hours cap, protected days off, room and board and house rules.",
         ],
       },
       {
@@ -177,15 +177,11 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     faqs: [
       {
         q: "Can I use it for an au pair as well as a nanny?",
-        a: "Yes. On the Household plan you can add a nanny and an au pair, each with their own role, sign-in and agreement.",
+        a: "Yes. You can add a nanny and an au pair, each with their own role, sign-in and agreement.",
       },
       {
         q: "Do my staff need to pay?",
         a: "No. Only the household subscribes. Nannies, au pairs and other staff always join free.",
-      },
-      {
-        q: "What if I have more than six staff?",
-        a: "Get in touch about the Estate plan, which is priced to larger households and family offices.",
       },
       {
         q: "Does it handle payroll for each person?",
@@ -194,7 +190,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     ],
     cta: {
       heading: "Set up your household team",
-      body: "The Household plan covers up to six staff for £19.99 a month, excluding VAT.",
+      body: "Unlimited staff for £19.99 a month or £199 a year, excluding VAT.",
       label: "See pricing",
       to: "/pricing",
     },
@@ -315,7 +311,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
             ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
             ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
             ["Agencies", "A funded seat for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
-            ["Price shown", "From £9.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
+            ["Price shown", "£19.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
             ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
           ],
         },
@@ -454,7 +450,7 @@ export const GUIDES: Record<string, PageContent> = {
     ],
     cta: {
       heading: "Build your agreement in Family Wallet",
-      body: "Choose your clauses, then both sign in the app. Plans start at £9.99 a month.",
+      body: "Choose your clauses, then both sign in the app. £19.99 a month for unlimited staff.",
       label: "See pricing",
       to: "/pricing",
     },

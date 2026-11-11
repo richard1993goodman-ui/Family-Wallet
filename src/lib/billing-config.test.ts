@@ -12,7 +12,7 @@ import {
 describe("plan lookup keys", () => {
   it("matches the price ids created in the payment provider", () => {
     expect(priceLookupKey("family", "month")).toBe("fw_family_month");
-    expect(priceLookupKey("household", "year")).toBe("fw_household_year");
+    expect(priceLookupKey("family", "year")).toBe("fw_family_year");
     expect(priceLookupKey("agency_partner", "month")).toBe("fw_agency_partner_month");
     expect(priceLookupKey("agency_growth", "month")).toBe("fw_agency_growth_month");
     expect(priceLookupKey("agency_scale", "month")).toBe("fw_agency_scale_month");
@@ -20,7 +20,6 @@ describe("plan lookup keys", () => {
 
   it("reads the plan back from a price's lookup key", () => {
     expect(planFromLookupKey("fw_family_year")).toBe("family");
-    expect(planFromLookupKey("fw_household_month")).toBe("household");
     expect(planFromLookupKey("fw_agency_scale_month")).toBe("agency_scale");
   });
 

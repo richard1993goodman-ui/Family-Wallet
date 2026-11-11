@@ -36,7 +36,7 @@ async function staffLimitForFamily(familyId: string): Promise<StaffLimit> {
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
-  const plan = data?.plan === "family" || data?.plan === "household" ? data.plan : null;
+  const plan = data?.plan === "family" ? "family" : null;
   return staffLimitFor(plan);
 }
 
@@ -133,9 +133,7 @@ export async function saveNanny(slug: string, input: NannyInput) {
   const staffLimit = await staffLimitForFamily(family.id);
   if (existing.length >= staffLimit.limit) {
     throw new Error(
-      staffLimit.upgradeable
-        ? `Your ${staffLimit.planName} plan includes ${staffLimit.limit} staff. Upgrade to Household to add up to 6.`
-        : `Up to ${staffLimit.limit} staff per household`,
+      `Up to ${staffLimit.limit} staff per household`,
     );
   }
 

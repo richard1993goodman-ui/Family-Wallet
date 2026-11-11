@@ -1,4 +1,4 @@
-// Every plan includes every tool. Plans differ only by how many staff a household can add, so nothing
+// Every plan includes every tool. There is one plan with unlimited staff, so nothing
 // here is gated. The check stays as the single place to change if that ever needs to differ.
 
 export type GatedFeature = "agreement" | "house_manual" | "live_in";
@@ -10,4 +10,4 @@ export function planIncludes(_plan: string | null, _feature: GatedFeature): bool
   return true;
 }
 
-export const UPGRADE_MESSAGE = "This is part of the Household plan. Upgrade to use it.";
+export const UPGRADE_MESSAGE = "This is part of the Family plan. Upgrade to use it.";

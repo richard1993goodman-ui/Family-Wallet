@@ -3,7 +3,7 @@ import { planFromLookupKey, priceLookupKey } from "./billing.config";
 
 describe("planFromLookupKey", () => {
   it("reads the plan back from every price key we create", () => {
-    for (const plan of ["family", "household"] as const)
+    for (const plan of ["family"] as const)
       for (const interval of ["month", "year"] as const)
         expect(planFromLookupKey(priceLookupKey(plan, interval))).toBe(plan);
   });

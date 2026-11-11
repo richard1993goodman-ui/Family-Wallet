@@ -32,28 +32,21 @@ export function staffNoun(roles: (string | null | undefined)[]) {
   return roleLabel(kinds[0]).toLowerCase();
 }
 
-/** Staff included on a plan the family bought themselves. Households added by an agency have no plan limit. */
-export const SELF_SERVE_STAFF_LIMIT: Record<"family" | "household", number> = {
-  family: 2,
-  household: 6,
-};
+/** Independent families have no staff cap; this is only a safety ceiling against runaway input. */
+export const SELF_SERVE_STAFF_LIMIT = 100;
 
 /** Ceiling for households set up by an agency, as a safety guard. */
 export const AGENCY_STAFF_LIMIT = 6;
 
 export type StaffLimit = {
   limit: number;
-  /** "Family", "Household", or null for an agency household. */
+  /** "Family", or null for an agency household. */
   planName: string | null;
   /** True when more staff would need a bigger plan. */
   upgradeable: boolean;
 };
 
-export function staffLimitFor(plan: "family" | "household" | null | undefined): StaffLimit {
+export function staffLimitFor(plan: "family" | null | undefined): StaffLimit {
   if (!plan) return { limit: AGENCY_STAFF_LIMIT, planName: null, upgradeable: false };
-  return {
-    limit: SELF_SERVE_STAFF_LIMIT[plan],
-    planName: plan === "family" ? "Family" : "Household",
-    upgradeable: plan === "family",
-  };
+  return { limit: SELF_SERVE_STAFF_LIMIT, planName: "Family", upgradeable: false };
 }

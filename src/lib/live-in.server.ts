@@ -6,7 +6,7 @@ import { DEFAULT_LIVE_IN, mondayOf, type LiveInData, type LiveInSettings } from 
 async function load(slug: string) {
   const family = await requireSharedFamily(slug);
   if (!family) throw new Error("Please sign in again.");
-  if (!(await familyHasFeature(family.id, "live_in"))) throw new Error("Live-in tools are part of the Household plan.");
+  if (!(await familyHasFeature(family.id, "live_in"))) throw new Error("Live-in tools are not available on this plan.");
   return family;
 }
 

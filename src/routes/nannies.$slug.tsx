@@ -187,9 +187,9 @@ function NanniesPage() {
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-tint-sage px-4 py-3 text-sm text-foreground">
           <p>
             <span className="font-medium">
-              {staff.used} of {staff.limit}
+              {staff.planName ? `${staff.used}` : `${staff.used} of ${staff.limit}`}
             </span>{" "}
-            staff {staff.planName ? `included in your ${staff.planName} plan` : "in this household"}
+            staff {staff.planName ? "in your household, with no limit on your Family plan" : "in this household"}
           </p>
           {staff.upgradeable && (
             <form method="post" action="/api/stripe/portal">
@@ -506,9 +506,7 @@ function NanniesPage() {
             </Button>
           ) : (
             <p className="text-sm text-muted-foreground">
-              {staff.upgradeable
-                ? `Your ${staff.planName} plan includes ${staff.limit} staff. Upgrade to Household to add up to 6.`
-                : `You have reached the limit of ${staff.limit} staff for this household.`}
+              {`You have reached the limit of ${staff.limit} staff for this household.`}
             </p>
           )}
         </Card>

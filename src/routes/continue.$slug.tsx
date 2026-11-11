@@ -16,7 +16,7 @@ export const Route = createFileRoute("/continue/$slug")({
   component: ContinuePage,
 });
 
-const OFFERED: PlanId[] = ["family", "household"];
+const OFFERED: PlanId[] = ["family"];
 const price = (plan: PlanId, interval: Interval) => `£${(PLANS[plan].pence[interval] / 100).toFixed(2)} + VAT per ${interval}`;
 
 function ContinuePage() {

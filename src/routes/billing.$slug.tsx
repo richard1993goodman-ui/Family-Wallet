@@ -27,10 +27,9 @@ export const Route = createFileRoute("/billing/$slug")({
   component: BillingPage,
 });
 
-const PLAN_NAMES: Record<string, string> = { family: "Family", household: "Household" };
-const PRICES: Record<"family" | "household", Record<Interval, string>> = {
-  family: { month: "£9.99 a month", year: "£99 a year" },
-  household: { month: "£19.99 a month", year: "£199 a year" },
+const PLAN_NAMES: Record<string, string> = { family: "Family" };
+const PRICES: Record<"family", Record<Interval, string>> = {
+  family: { month: "£19.99 a month", year: "£199 a year" },
 };
 
 function BillingPage() {
@@ -114,17 +113,13 @@ function BillingPage() {
         </Card>
       ) : data.agencyManaged ? null : sub?.live ? (
         <Card className="mt-4">
-          <h2 className="font-medium text-foreground">
-            {current === "family" ? "Upgrade to Household" : "Manage billing"}
-          </h2>
+          <h2 className="font-medium text-foreground">Manage billing</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            {current === "family"
-              ? "Household lets you add up to six staff, each with their own sign-in. Every feature is already included in your plan. Choose Update plan on the next screen; the difference is worked out for you and your wallet stays exactly as it is."
-              : "Change plan, update your card, download invoices or cancel."}
+            Update your card, download invoices or cancel. Your plan includes every feature and unlimited staff.
           </p>
           <form method="post" action="/api/stripe/portal" className="mt-4">
             <input type="hidden" name="slug" value={slug} />
-            <Button type="submit">{current === "family" ? "Upgrade to Household" : "Manage billing & invoices"}</Button>
+            <Button type="submit">Manage billing &amp; invoices</Button>
           </form>
         </Card>
       ) : !paymentsConfigured() ? (
@@ -135,7 +130,7 @@ function BillingPage() {
         <Card className="mt-4">
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="font-medium text-foreground">
-              {PLAN_NAMES[checkout.plan]} plan, {PRICES[checkout.plan as "family" | "household"][checkout.interval]}
+              {PLAN_NAMES[checkout.plan]} plan, {PRICES[checkout.plan as "family"][checkout.interval]}
             </h2>
             <Button variant="ghost" size="sm" onClick={() => setCheckout(null)}>Back</Button>
           </div>
@@ -160,14 +155,14 @@ function BillingPage() {
             </div>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {(["family", "household"] as const).map((plan) => (
+            {(["family"] as const).map((plan) => (
               <div key={plan} className="rounded-xl border border-border p-4">
                 <p className="font-medium text-foreground">{PLAN_NAMES[plan]}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{PRICES[plan][interval]}</p>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  {plan === "family" ? "Every feature, for up to two staff." : "Every feature, for up to six staff."}
+                  Every feature, unlimited staff.
                 </p>
-                <Button className="mt-3 w-full" variant={plan === "household" ? "default" : "outline"} onClick={() => setCheckout({ plan, interval })}>
+                <Button className="mt-3 w-full" variant="default" onClick={() => setCheckout({ plan, interval })}>
                   Choose {PLAN_NAMES[plan]}
                 </Button>
               </div>

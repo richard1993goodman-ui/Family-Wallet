@@ -4,7 +4,6 @@
 
 export type PlanId =
   | "family"
-  | "household"
   | "agency_partner"
   | "agency_growth"
   | "agency_scale";
@@ -23,13 +22,7 @@ export const PLANS: Record<
   family: {
     name: "Family Wallet: Family",
     description:
-      "A private wallet for up to two staff, such as a nanny and a housekeeper, with every feature in the app and dedicated customer support by email.",
-    pence: { month: 999, year: 9900 },
-  },
-  household: {
-    name: "Family Wallet: Household",
-    description:
-      "Everything in Family for up to six staff, each with their own sign-in.",
+      "A private wallet for your household with unlimited staff, every feature in the app and dedicated customer support by email.",
     pence: { month: 1999, year: 19900 },
   },
   agency_partner: {

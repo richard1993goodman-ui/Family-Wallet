@@ -11,6 +11,5 @@ describe("live-in tools", () => {
   it("weeks start on Monday", () => expect(mondayOf("2026-11-12")).toBe("2026-11-09"));
   it("are included on every plan", () => {
     expect(planIncludes("family", "live_in")).toBe(true);
-    expect(planIncludes("household", "live_in")).toBe(true);
   });
 });

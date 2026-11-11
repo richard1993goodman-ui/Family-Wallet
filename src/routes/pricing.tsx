@@ -22,12 +22,11 @@ export const Route = createFileRoute("/pricing")({
     pageHead({
       title: "Pricing: Family Wallet Plans for Families & Agencies",
       description:
-        "Family £9.99 a month for up to two staff, Household £19.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+        "Family Wallet is £19.99 a month or £199 a year for unlimited staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
       path: "/pricing",
       jsonLd: [
         softwareLd([
-          { name: "Family", price: "9.99", description: "Up to two staff, billed monthly, excluding VAT." },
-          { name: "Household", price: "19.99", description: "Up to six staff, billed monthly, excluding VAT." },
+          { name: "Family", price: "19.99", description: "Unlimited staff, billed monthly or £199 a year, excluding VAT." },
         ]),
         faqLd(faqs.families),
         breadcrumbLd([
@@ -61,46 +60,21 @@ type Tier = {
 
 const SUPPORT = "Dedicated customer support by email";
 
-// Every plan includes every feature. The only difference between family plans is how many staff you can add.
+// One plan, every feature, unlimited staff.
 const families: Tier[] = [
   {
     name: "Family",
-    monthly: 9.99,
-    annual: 99,
-    who: "A nanny and a housekeeper or au pair, run properly.",
+    monthly: 19.99,
+    annual: 199,
+    who: "A nanny, an au pair, a housekeeper, a driver: your whole household team.",
     features: [
-      { text: "Up to 2 staff, each with their own sign-in" },
+      { text: "Unlimited staff, each with their own sign-in" },
       { text: "Every feature in the app: shared week, daily log, messages, agreements, timesheets, house manual and codes, emergency card and more" },
       { text: SUPPORT },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
     plan: "family",
     popular: true,
-  },
-  {
-    name: "Household",
-    monthly: 19.99,
-    annual: 199,
-    who: "A nanny, an au pair, a housekeeper, a driver.",
-    lead: "Everything in Family, plus",
-    features: [
-      { text: "Up to 6 staff, each with their own sign-in" },
-      { text: SUPPORT },
-    ],
-    cta: { label: "Subscribe", href: mail("Family Wallet: Household plan") },
-    plan: "household",
-  },
-  {
-    name: "Estate",
-    monthly: null,
-    who: "Family offices and large households.",
-    lead: "Everything in Household, plus",
-    features: [
-      { text: "Unlimited staff" },
-      { text: "Help setting up and importing records" },
-      { text: SUPPORT },
-    ],
-    cta: { label: "Get a quote", href: mail("Family Wallet: Estate") },
   },
 ];
 
@@ -194,19 +168,15 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
   families: [
     {
       q: "Is there a free version?",
-      a: "No. The wallet is a paid plan for your household. Every feature is included on every plan, so you can start with the plan that fits your household.",
-    },
-    {
-      q: "What is the difference between the plans?",
-      a: "Only the number of staff. Every plan includes every feature in the app. Family covers up to two staff, Household up to six staff, and Estate unlimited.",
+      a: "No. The wallet is a paid plan for your household, and every feature is included.",
     },
     {
       q: "How do I get help?",
       a: `Email ${CONTACT_EMAIL} from any plan. Everyone gets dedicated customer support, whether you are an independent family or part of an agency.`,
     },
     {
-      q: "What if I need more staff than my plan includes?",
-      a: "Move up a plan. You can upgrade any time and the difference is worked out for you.",
+      q: "Is there a limit on staff?",
+      a: "No. Add as many nannies, au pairs, housekeepers and other staff as you employ for the same price.",
     },
     {
       q: "Does my nanny or au pair pay?",
@@ -217,8 +187,8 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
       a: "Anyone you give their own login: a nanny, au pair, housekeeper, cook, driver or personal assistant. Family members who share the household are not counted.",
     },
     {
-      q: "Can I switch plans or cancel?",
-      a: "Yes. Cancel any time from your wallet. Your plan stays active until the end of the period you have paid for. To change plan, get in touch and we will switch you.",
+      q: "Can I switch between monthly and yearly, or cancel?",
+      a: "Yes. Cancel any time from your wallet. Your plan stays active until the end of the period you have paid for. To switch between monthly and yearly, get in touch and we will switch you.",
     },
     {
       q: "My agency already gave me a wallet. Do I pay?",
