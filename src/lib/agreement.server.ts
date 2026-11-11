@@ -5,6 +5,7 @@ import { getRequest } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
 import { isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
+import { snapshotAgreement } from "./agreement-versions";
 import { TERMS_VERSION } from "./tiers";
 import { termsForFamily } from "./agency-terms.server";
 import {
@@ -254,6 +255,40 @@ export async function loadSignatures(slug: string) {
   };
 }
 
+/** Keeps the agreement exactly as issued. Re-issuing the same version is a no-op; history is never rewritten. */
+async function recordIssuedVersion(row: { id: string; family_id: string; nanny_id: string | null; version: number }, data: unknown) {
+  const { text, hash } = snapshotAgreement(data);
+  const { error } = await supabaseAdmin.from("agreement_versions").insert({
+    agreement_id: row.id,
+    family_id: row.family_id,
+    nanny_id: row.nanny_id,
+    version: row.version,
+    snapshot_text: text,
+    content_hash: hash,
+  });
+  if (error && error.code !== "23505") throw new Error(error.message);
+}
+
+/**
+ * What a signature should record for this agreement version: the stored version and its hash. Returns "edited" when
+ * the wording now on screen differs from what was issued, and null when no version record exists yet (older rows).
+ */
+async function issuedEvidence(agreementId: string, version: number, live: unknown) {
+  const { data } = await supabaseAdmin
+    .from("agreement_versions")
+    .select("id, snapshot_text, content_hash")
+    .eq("agreement_id", agreementId)
+    .eq("version", version)
+    .maybeSingle();
+  if (!data) return null;
+  const issued = snapshotAgreement(normalizeAgreement(JSON.parse(data.snapshot_text) as AgreementData)).text;
+  if (issued !== snapshotAgreement(normalizeAgreement(live as AgreementData)).text) return "edited" as const;
+  return { versionId: data.id, hash: data.content_hash };
+}
+
+type Evidence = Awaited<ReturnType<typeof issuedEvidence>>;
+const evidenceFields = (e: Evidence) => (e && e !== "edited" ? { agreement_version_id: e.versionId, content_hash: e.hash } : {});
+
 export async function signDocument(
   slug: string,
   docKind: "agreement" | "terms",
@@ -279,12 +314,13 @@ export async function signDocument(
     docVersion = String(t.version);
   }
   let signedNannyId: string | null = null;
+  let evidence: Awaited<ReturnType<typeof issuedEvidence>> = null;
   if (docKind === "agreement") {
     if (!resolved.nannyId) return { ok: false as const, reason: "not_ready" as const };
     signedNannyId = resolved.nannyId;
     const { data: agreement } = await supabaseAdmin
       .from("nanny_agreements")
-      .select("version, status")
+      .select("id, version, status, agreement_data")
       .eq("family_id", family.id)
       .eq("nanny_id", resolved.nannyId)
       .maybeSingle();
@@ -292,6 +328,9 @@ export async function signDocument(
       return { ok: false as const, reason: "not_ready" as const };
     }
     docVersion = String(agreement.version);
+    evidence = await issuedEvidence(agreement.id, agreement.version, agreement.agreement_data);
+    // The wording on screen has been edited since it was issued: it must be re-issued before anyone signs it.
+    if (evidence === "edited") return { ok: false as const, reason: "not_ready" as const };
   }
 
   const { error } = await supabaseAdmin.from("document_signatures").insert({
@@ -302,6 +341,7 @@ export async function signDocument(
     signer_name: name,
     doc_version: docVersion,
     client_key: clientKey(),
+    ...evidenceFields(evidence),
   });
   if (error) return { ok: false as const, reason: "error" as const };
 
@@ -418,16 +458,21 @@ export async function adminSaveAgreement(
     .maybeSingle();
 
   if (!existing) {
-    const { error } = await supabaseAdmin.from("nanny_agreements").insert({
-      family_id: familyId,
-      nanny_id: nannyId,
-      ...legacyColumns(data),
-      agreement_data: data as unknown as Json,
-      status: publish ? "issued" : "draft",
-      version: 1,
-      issued_at: publish ? new Date().toISOString() : null,
-    });
+    const { data: created, error } = await supabaseAdmin
+      .from("nanny_agreements")
+      .insert({
+        family_id: familyId,
+        nanny_id: nannyId,
+        ...legacyColumns(data),
+        agreement_data: data as unknown as Json,
+        status: publish ? "issued" : "draft",
+        version: 1,
+        issued_at: publish ? new Date().toISOString() : null,
+      })
+      .select("id")
+      .single();
     if (error) throw new Error(error.message);
+    if (publish) await recordIssuedVersion({ id: created.id, family_id: familyId, nanny_id: nannyId, version: 1 }, data);
     return { ok: true as const };
   }
 
@@ -450,6 +495,13 @@ export async function adminSaveAgreement(
     })
     .eq("id", existing.id);
   if (error) throw new Error(error.message);
+  // Issuing keeps this exact wording for ever. Nothing later can overwrite it.
+  if (publish && (existing.status !== "issued" || bumpVersion)) {
+    await recordIssuedVersion(
+      { id: existing.id, family_id: familyId, nanny_id: nannyId, version: bumpVersion ? existing.version + 1 : existing.version },
+      data,
+    );
+  }
   return { ok: true as const };
 }
 
@@ -464,6 +516,7 @@ export async function adminSign(
 
   let docVersion = TERMS_VERSION;
   let nannyId: string | null = null;
+  let adminEvidence: Awaited<ReturnType<typeof issuedEvidence>> = null;
   if (docKind === "agreement") {
     const rows = await listNannyRows(familyId);
     nannyId =
@@ -473,12 +526,16 @@ export async function adminSign(
     const { data: agreement } = nannyId
       ? await supabaseAdmin
           .from("nanny_agreements")
-          .select("version")
+          .select("id, version, agreement_data")
           .eq("family_id", familyId)
           .eq("nanny_id", nannyId)
           .maybeSingle()
       : { data: null };
     docVersion = String(agreement?.version ?? 1);
+    if (agreement) {
+      adminEvidence = await issuedEvidence(agreement.id, agreement.version, agreement.agreement_data);
+      if (adminEvidence === "edited") throw new Error("This agreement was edited after it was issued. Issue it again before signing.");
+    }
   }
 
   const { error } = await supabaseAdmin.from("document_signatures").insert({
@@ -488,6 +545,7 @@ export async function adminSign(
     signer_role: "agency",
     signer_name: signerName,
     doc_version: docVersion,
+    ...evidenceFields(adminEvidence),
   });
   if (error) throw new Error(error.message);
   return { ok: true as const };

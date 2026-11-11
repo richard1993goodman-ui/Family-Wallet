@@ -337,6 +337,8 @@ export type Database = {
       }
       document_signatures: {
         Row: {
+          agreement_version_id: string | null
+          content_hash: string | null
           client_key: string | null
           doc_kind: string
           doc_version: string
@@ -348,6 +350,8 @@ export type Database = {
           signer_role: string
         }
         Insert: {
+          agreement_version_id?: string | null
+          content_hash?: string | null
           client_key?: string | null
           doc_kind: string
           doc_version?: string
@@ -359,6 +363,8 @@ export type Database = {
           signer_role: string
         }
         Update: {
+          agreement_version_id?: string | null
+          content_hash?: string | null
           client_key?: string | null
           doc_kind?: string
           doc_version?: string
@@ -2745,6 +2751,30 @@ export type Database = {
           slug?: string
           succeeded?: boolean
         }
+        Relationships: []
+      }
+      agreement_versions: {
+        Row: {
+          agreement_id: string
+          content_hash: string
+          family_id: string
+          id: string
+          issued_at: string
+          nanny_id: string | null
+          snapshot_text: string
+          version: number
+        }
+        Insert: {
+          agreement_id: string
+          content_hash: string
+          family_id: string
+          id?: string
+          issued_at?: string
+          nanny_id?: string | null
+          snapshot_text: string
+          version: number
+        }
+        Update: never
         Relationships: []
       }
       audit_log: {

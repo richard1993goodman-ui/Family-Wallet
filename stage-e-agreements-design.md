@@ -55,3 +55,6 @@ Add `country` and `region` to the household (shared with Stage F). A template is
 3. **Signing standard:** is typed-name signing acceptable for the UK launch, or should a provider be added before agency pilots?
 4. **Second jurisdiction and reviewer:** which country next, if any, in the first year?
 5. **AI drafting:** keep it, restrict it to non-identifying text, or switch it off for now?
+
+## E1 status (11 Nov)
+Built and committed locally, not applied live: migration `20261111420000_agreement_versions.sql` (append-only `agreement_versions`, signature evidence columns, backfill of current issued wording), snapshot on every issue, and signatures that record the version and hash. **Behaviour change:** signing is refused while the wording on screen differs from what was issued (it must be re-issued first), so a signature always covers exactly the stored text. Not yet run against the live database; a rolled-back dry run of the migration is the next check.
