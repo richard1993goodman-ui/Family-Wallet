@@ -26,6 +26,8 @@ export type MomentRow = {
   addedBy: string;
   addedByName: string | null;
   createdAt: string;
+  /** Who has loved it: a parent, the nanny, or both. */
+  lovedBy: ("family" | "nanny")[];
 };
 
 export type MomentsData = {

@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { LogoMark } from "@/components/brand";
-import { AFTER_SCHOOL_DAY, DEMO_AVATARS } from "@/lib/demo-photos";
+import { AFTER_SCHOOL_DAY, DEMO_AVATARS, type Post } from "@/lib/demo-photos";
 import {
   Plus as PlusIcon,
   UserRound as UserIcon,
@@ -56,7 +56,7 @@ import { cn } from "@/lib/utils";
  */
 
 export type Tab = "home" | "calendar" | "messages" | "family" | "more";
-export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave" | "moments";
+export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave" | "moments" | "today";
 type Msg = { from: "you" | "jess"; text: string; time: string };
 
 const TABS: { id: Tab; label: string; icon: LucideIcon }[] = [
@@ -68,7 +68,7 @@ const TABS: { id: Tab; label: string; icon: LucideIcon }[] = [
 ];
 
 // On the server, and until the visitor's own clock takes over: Friday 6 November, 15:42
-const FALLBACK = new Date(2026, 10, 6, 15, 42);
+const FALLBACK = new Date(2026, 10, 6, 17, 45);
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTHS = [
   "January",
@@ -141,6 +141,17 @@ const REPLIES = [
 ];
 
 /** The wallet's state. It lives in the section so the list beside the phone can drive it. */
+/**
+ * The phone always shows the same moment: a school-day afternoon at 17:45, with Jess on shift. It uses the visitor's
+ * date (the most recent weekday) so the calendar looks current, but not their clock, so every part of the demo agrees.
+ */
+function scene(from: Date) {
+  const d = new Date(from.getFullYear(), from.getMonth(), from.getDate(), 17, 45);
+  if (d.getDay() === 0) d.setDate(d.getDate() - 2);
+  if (d.getDay() === 6) d.setDate(d.getDate() - 1);
+  return d;
+}
+
 export function useWalletApp() {
   const [nav, setNav] = useState<{ tab: Tab; stack: Page[] }>({ tab: "home", stack: [] });
   const [leaving, setLeaving] = useState(false);
@@ -193,7 +204,7 @@ export function useWalletApp() {
     reply,
     bodyRef,
     stageRef,
-    today: now ?? FALLBACK,
+    today: scene(now ?? FALLBACK),
     draft: reply === "idle" ? REPLIES[sent]?.you : undefined,
     tab: (tab: Tab) => go(tab),
     jump: (tab: Tab, page?: Page) => go(tab, page ? [page] : []),
@@ -743,6 +754,7 @@ function HomeScreen({ app }: ScreenProps) {
         </div>
       </div>
       <ShiftBanner today={app.today} />
+      <TodayCard app={app} />
       <LatestPhoto app={app} />
       <MonthCard app={app} />
       <div className="flex gap-2">
@@ -962,6 +974,7 @@ const MORE: { label: string; items: [string, LucideIcon, (Tab | Page)?][] }[] = 
       ["Home", Home, "home"],
       ["Calendar", CalendarDays, "calendar"],
       ["Messages", MessageCircle, "messages"],
+      ["Today", Clock3, "today"],
       ["Weekly report", FileChartColumn],
     ],
   },
@@ -1562,23 +1575,11 @@ function PassportScreen({ app }: ScreenProps) {
   );
 }
 
-/** The photo posts from Jess that have arrived by now: during her shift they build up through the afternoon. */
-function feedFor(today: Date) {
-  const mins = today.getHours() * 60 + today.getMinutes();
-  const weekday = today.getDay() !== 0 && today.getDay() !== 6;
-  const sofar = AFTER_SCHOOL_DAY.filter((p) => {
-    const [h = 0, m = 0] = p.time.split(":").map(Number);
-    return h * 60 + m <= mins;
-  });
-  // Mornings and weekends show yesterday's full set; during the shift the afternoon fills in.
-  return weekday && mins >= 15 * 60 && mins < 19 * 60 + 30 ? (sofar.length ? sofar : AFTER_SCHOOL_DAY.slice(0, 1)) : AFTER_SCHOOL_DAY;
-}
-
-function PhotoPost({ post }: { post: (typeof AFTER_SCHOOL_DAY)[number] }) {
-  const [liked, setLiked] = useState(false);
+function PhotoPost({ post }: { post: Post }) {
+  const [liked, setLiked] = useState(Boolean(post.loved));
   return (
     <div className={cn(card, "overflow-hidden p-0")}>
-      <img src={post.photo} alt={post.caption} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+      {post.photo && <img src={post.photo} alt={post.caption} loading="lazy" className="aspect-[4/3] w-full object-cover" />}
       <div className="p-3">
         <div className="flex items-center gap-2">
           <img src={DEMO_AVATARS["jess"]!} alt="" className="size-5 rounded-full object-cover" />
@@ -1587,6 +1588,11 @@ function PhotoPost({ post }: { post: (typeof AFTER_SCHOOL_DAY)[number] }) {
             {post.child ? ` · ${post.child}` : " · Oscar and Leo"}
           </p>
         </div>
+        {post.milestone && (
+          <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#fbf0cf] px-2 py-0.5 text-[10px] font-medium text-[#76591a]">
+            <Sparkles className="size-2.5" aria-hidden /> {post.milestone}
+          </span>
+        )}
         <p className="mt-1.5 text-[11.5px] leading-[1.5] text-foreground">{post.caption}</p>
         <button
           type="button"
@@ -1606,9 +1612,95 @@ function PhotoPost({ post }: { post: (typeof AFTER_SCHOOL_DAY)[number] }) {
   );
 }
 
+/** Today at 17:45, as Jess and the parents see it: what has happened, and what is next. */
+const TODAY_ITEMS: { at: string | null; title: string; sub?: string; state: "done" | "next" | "later"; attention?: boolean; photo?: string }[] = [
+  { at: null, title: "Homework today", sub: "Reading for 20 minutes and spelling list 12. Leo: reading book, pages 14 and 15", state: "done" },
+  { at: "15:15", title: "Collected Oscar and Leo from school", state: "done", photo: "/images/demo/school-run.jpg" },
+  { at: "15:40", title: "Snack: apple, cheese and crackers", state: "done" },
+  { at: "16:05", title: "Oscar's homework done", sub: "Reading and spellings, 10 out of 10", state: "done" },
+  { at: "16:10", title: "Calpol given to Oscar", sub: "5ml for a sore throat · next safe from 20:10", state: "done", attention: true },
+  { at: "16:30", title: "Tennis at the park", sub: "Oscar · ten serves in a row", state: "done", photo: "/images/demo/tennis.jpg" },
+  { at: "17:40", title: "Dinner is on", sub: "Leo is on sauce duty", state: "done", photo: "/images/demo/chef.jpg" },
+  { at: "18:45", title: "Leo's bath", state: "next" },
+  { at: "19:00", title: "Oscar's bath and reading", state: "later" },
+  { at: "19:30", title: "Shift ends", sub: "Jess sends the end-of-day summary", state: "later" },
+];
+
+function TodayDot({ item }: { item: (typeof TODAY_ITEMS)[number] }) {
+  return (
+    <span
+      className={cn(
+        "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
+        item.attention ? "bg-[#fbf0cf] text-[#76591a]" : item.state === "next" ? "bg-navy text-white" : item.state === "later" ? "bg-muted text-muted-foreground" : "bg-[#e4efe7] text-[#2f6b4a]",
+      )}
+    >
+      {item.state === "done" ? <Check className="size-3" aria-hidden /> : <Clock3 className="size-3" aria-hidden />}
+    </span>
+  );
+}
+
+/** Home: the afternoon at a glance, so the first screen shows the day is already in motion. */
+function TodayCard({ app }: ScreenProps) {
+  const done = TODAY_ITEMS.filter((i) => i.state === "done" && i.at);
+  const rows = [...done.slice(-2), ...TODAY_ITEMS.filter((i) => i.state !== "done").slice(0, 2)];
+  return (
+    <div className={card}>
+      <div className="flex items-center justify-between">
+        <p className="text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">Today with Jess</p>
+        <button type="button" onClick={() => app.push("today")} className={cn("text-[10.5px] font-medium text-navy underline underline-offset-2", press)}>
+          Whole day
+        </button>
+      </div>
+      <div className="mt-2.5 rounded-[12px] bg-[#fbf0cf] px-2.5 py-2 text-[11px] leading-[1.45] text-[#5c4614]">
+        <span className="font-semibold">Homework today:</span> reading for 20 minutes and spelling list 12
+      </div>
+      <ul className="mt-2.5 space-y-2">
+        {rows.map((i) => (
+          <li key={i.title} className="flex gap-2.5">
+            <TodayDot item={i} />
+            <div className="min-w-0">
+              <p className="text-[11.5px] font-medium text-navy">
+                <span className="tabular-nums text-muted-foreground">{i.at}</span> {i.title}
+                {i.state === "next" && <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">Next</span>}
+              </p>
+              {i.sub && <p className="text-[10.5px] leading-[1.4] text-muted-foreground">{i.sub}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** The whole day, with photos, medicine and what is still to come. */
+function TodayScreen({ app }: ScreenProps) {
+  return (
+    <>
+      <BackLink app={app} />
+      <Title sub="Everything from Jess's shift in one place, newest at the bottom.">Today</Title>
+      <ol className="space-y-3">
+        {TODAY_ITEMS.map((i) => (
+          <li key={i.title} className="flex gap-2.5">
+            <TodayDot item={i} />
+            <div className="min-w-0 flex-1">
+              <p className={cn("text-[12px] font-medium", i.state === "later" ? "text-muted-foreground" : "text-navy")}>
+                <span className="tabular-nums text-muted-foreground">{i.at ?? "Today"}</span> {i.title}
+                {i.attention && <span className="ml-1.5 rounded-full bg-[#fbf0cf] px-1.5 py-px text-[9px] font-medium text-[#76591a]">Check</span>}
+                {i.state === "next" && <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">Next</span>}
+              </p>
+              {i.sub && <p className="text-[10.5px] leading-[1.45] text-muted-foreground">{i.sub}</p>}
+              {i.photo && <img src={i.photo} alt="" loading="lazy" className="mt-1.5 aspect-[16/9] w-full rounded-[12px] object-cover" />}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
 /** Home: the latest photo from Jess, so the first screen already feels alive. */
 function LatestPhoto({ app }: ScreenProps) {
-  const latest = feedFor(app.today).at(-1);
+  const latest = AFTER_SCHOOL_DAY.filter((p) => p.photo).at(-1);
   if (!latest) return null;
   return (
     <button
@@ -1618,7 +1710,7 @@ function LatestPhoto({ app }: ScreenProps) {
     >
       <img src={latest.photo} alt="" loading="lazy" className="size-14 shrink-0 rounded-[12px] object-cover" />
       <span className="min-w-0 flex-1">
-        <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">Latest from Jess · {latest.time}</span>
+        <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">New from Jess · {latest.time}</span>
         <span className="mt-0.5 line-clamp-2 block text-[11.5px] leading-snug text-foreground">{latest.caption}</span>
       </span>
       <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" aria-hidden />
@@ -1628,13 +1720,13 @@ function LatestPhoto({ app }: ScreenProps) {
 
 /** Photo moments: the day as Jess shares it, newest first. */
 function MomentsScreen({ app }: ScreenProps) {
-  const posts = [...feedFor(app.today)].reverse();
+  const posts = [...AFTER_SCHOOL_DAY].reverse();
   return (
     <>
       <BackLink app={app} />
       <Title sub="The good bits of the afternoon, as Jess shares them.">Photo moments</Title>
       {posts.map((p) => (
-        <PhotoPost key={p.time} post={p} />
+        <PhotoPost key={p.time + p.caption} post={p} />
       ))}
     </>
   );
@@ -1804,6 +1896,7 @@ const SCREENS: Record<Tab | Page, (props: ScreenProps) => ReactNode> = {
   cash: CashScreen,
   leave: LeaveScreen,
   moments: MomentsScreen,
+  today: TodayScreen,
 };
 
 /* ---------- The phone ---------- */

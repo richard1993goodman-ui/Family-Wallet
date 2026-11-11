@@ -2825,6 +2825,27 @@ export type Database = {
         }
         Relationships: []
       }
+      moment_reactions: {
+        Row: {
+          by_role: string
+          created_at: string
+          family_id: string
+          moment_id: string
+        }
+        Insert: {
+          by_role: string
+          created_at?: string
+          family_id: string
+          moment_id: string
+        }
+        Update: {
+          by_role?: string
+          created_at?: string
+          family_id?: string
+          moment_id?: string
+        }
+        Relationships: []
+      }
       wallet_documents: {
         Row: {
           category: string

@@ -34,6 +34,11 @@ export async function loadMoments(slug: string): Promise<MomentsData | null> {
     };
   }
 
+  // Who has loved what. If the reactions table has not been added yet the feed simply shows no hearts.
+  const { data: loves } = await supabaseAdmin.from("moment_reactions").select("moment_id, by_role").eq("family_id", family.id);
+  const lovedBy = (id: string) =>
+    (loves ?? []).filter((l) => l.moment_id === id).map((l) => (l.by_role === "nanny" ? ("nanny" as const) : ("family" as const)));
+
   const moments: MomentRow[] = await Promise.all(
     (rows ?? []).map(async (row) => {
       let photoUrl: string | null = null;
@@ -55,6 +60,7 @@ export async function loadMoments(slug: string): Promise<MomentsData | null> {
         addedBy: row.added_by,
         addedByName: row.added_by_name,
         createdAt: row.created_at,
+        lovedBy: lovedBy(row.id),
       };
     }),
   );
@@ -131,6 +137,24 @@ export async function saveMomentPhoto(slug: string, input: MomentPhotoInput) {
     await supabaseAdmin.storage.from("family-docs").remove([path]);
     throw new Error(error.message);
   }
+}
+
+/** Loves or un-loves a moment for whoever is signed in. */
+export async function toggleMomentLove(slug: string, id: string) {
+  const family = await requireSharedFamily(slug);
+  if (!family) throw new Error("Please sign in again.");
+  const { data: moment } = await supabaseAdmin.from("family_moments").select("id").eq("id", id).eq("family_id", family.id).maybeSingle();
+  if (!moment) throw new Error("That moment could not be found.");
+  const mine = { moment_id: id, family_id: family.id, by_role: family.access };
+  const { data: existing } = await supabaseAdmin.from("moment_reactions").select("moment_id").match({ moment_id: id, by_role: family.access }).maybeSingle();
+  if (existing) {
+    await supabaseAdmin.from("moment_reactions").delete().match({ moment_id: id, by_role: family.access });
+    return { loved: false as const };
+  }
+  const { error } = await supabaseAdmin.from("moment_reactions").insert(mine);
+  if (error) throw new Error("Couldn't save that.");
+  await (await import("./notifications.server")).notifyOther(family, "moments", family.access === "family" ? "A parent loved your photo" : "Your nanny loved a photo");
+  return { loved: true as const };
 }
 
 export async function deleteMoment(slug: string, id: string) {

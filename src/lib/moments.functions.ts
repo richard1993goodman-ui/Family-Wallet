@@ -32,3 +32,10 @@ export const deleteMomentFn = createServerFn({ method: "POST" })
     await deleteMoment(data.slug, data.id);
     return { ok: true as const };
   });
+
+export const toggleMomentLoveFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; id: string }) => data)
+  .handler(async ({ data }) => {
+    const { toggleMomentLove } = await import("./moments.server");
+    return toggleMomentLove(data.slug, data.id);
+  });

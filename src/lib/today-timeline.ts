@@ -13,6 +13,8 @@ export type TimelineItem = {
   detail?: string | undefined;
   childName?: string | null | undefined;
   photoUrl?: string | null | undefined;
+  /** What was logged, for the summary: "meal", "nap" and so on. */
+  tag?: string | undefined;
   /** Worth a second look, such as a medicine that is not safe yet. */
   attention?: boolean | undefined;
   state: TimelineState;
@@ -79,7 +81,8 @@ type PlannerRow = {
   approval?: string | null;
 };
 type CareRow = { id: string; kind: string; detail: string | null; amountMl: number | null; childName: string | null; at: string };
-type DoseRow = { id: string; medicine: string; dose: string | null; childName: string; at: string; nextDoseFrom: string | null; nextAt: string | null };
+/** nextAt is the time the next dose becomes safe, only when that is later today. */
+type DoseRow = { id: string; medicine: string; dose: string | null; childName: string; at: string; nextAt: string | null };
 type PhotoRow = { id: string; caption: string | null; childName: string | null; photoUrl: string | null; at: string };
 
 export type TimelineInput = {
@@ -141,8 +144,9 @@ export function buildTimeline(input: TimelineInput): TimelineItem[] {
       id: `care-${c.id}`,
       at: c.at,
       kind: "logged",
-      title: c.detail ? `${what}: ${c.detail}` : c.kind === "bottle" && c.amountMl ? `${what} ${c.amountMl}ml` : what,
+      title: c.kind === "meal" && c.detail ? c.detail : c.detail ? `${what}: ${c.detail}` : c.kind === "bottle" && c.amountMl ? `${what} ${c.amountMl}ml` : what,
       childName: c.childName,
+      tag: c.kind,
     });
   }
 
@@ -156,7 +160,7 @@ export function buildTimeline(input: TimelineInput): TimelineItem[] {
       childName: d.childName,
     });
     // A later dose is not safe until the gap has passed: keep that in view.
-    if (d.nextAt && d.nextDoseFrom && d.nextDoseFrom > input.now) {
+    if (d.nextAt && minutesOf(d.nextAt) > minutesOf(input.now)) {
       base.push({
         id: `dose-next-${d.id}`,
         at: d.nextAt,
@@ -208,7 +212,7 @@ export function summariseDay(input: {
     lines.push(`${input.nannyName} is on shift today.`);
   }
   const logged = input.timeline.filter((t) => t.kind === "logged" && t.state === "done");
-  const meals = logged.filter((t) => t.title.startsWith("Meal")).map((t) => t.title.replace(/^Meal:?\s*/, "").toLowerCase() || "a meal");
+  const meals = logged.filter((t) => t.tag === "meal").map((t) => t.title.toLowerCase());
   if (meals.length) lines.push(`Meals logged: ${meals.join(", ")}.`);
   const photos = input.timeline.filter((t) => t.kind === "photo").length;
   if (photos) lines.push(`${photos} photo${photos === 1 ? "" : "s"} shared.`);

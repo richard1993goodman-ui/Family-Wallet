@@ -79,11 +79,8 @@ export async function loadToday(slug: string) {
     }),
   );
 
-  // The sample wallet always shows a lived-in after-school afternoon.
-  if (slug === "demo") {
-    const { AFTER_SCHOOL_DAY } = await import("./demo-photos");
-    photos.splice(0, photos.length, ...AFTER_SCHOOL_DAY.map((p, i) => ({ id: `demo-${i}`, caption: p.caption, childName: p.child, photoUrl: p.photo, at: p.time })));
-  }
+  // The sample wallet always shows the same lived-in after-school afternoon, whatever the real time is.
+  if (slug === "demo") return demoToday(me.level, nanny?.name, today, (children ?? []).map((c) => ({ id: c.id, name: c.name, school_hours: c.school_hours, bedtime_routine: c.bedtime_routine })));
 
   const nowHHMM = londonTime(now);
   const timeline: TimelineItem[] = buildTimeline({
@@ -97,7 +94,7 @@ export async function loadToday(slug: string) {
       .map((c) => ({ id: c.id, kind: c.kind, detail: c.detail, amountMl: c.amount_ml, childName: c.child_id ? (names.get(c.child_id) ?? null) : null, at: hhmm(c.started_at) })),
     doses: (doses ?? [])
       .filter((d) => londonDate(new Date(d.given_at)) === today)
-      .map((d) => ({ id: d.id, medicine: d.medicine, dose: d.dose, childName: d.child_name, at: hhmm(d.given_at), nextDoseFrom: d.next_dose_from, nextAt: d.next_dose_from ? hhmm(d.next_dose_from) : null })),
+      .map((d) => ({ id: d.id, medicine: d.medicine, dose: d.dose, childName: d.child_name, at: hhmm(d.given_at), nextAt: d.next_dose_from && londonDate(new Date(d.next_dose_from)) === today ? hhmm(d.next_dose_from) : null })),
     photos,
   });
 
@@ -117,6 +114,37 @@ export async function loadToday(slug: string) {
     children: (children ?? []).map((c) => ({ id: c.id, name: c.name })),
     timeline,
     summary,
+  };
+}
+
+type DemoChild = { id: string; name: string; school_hours: string | null; bedtime_routine: string | null };
+
+async function demoToday(access: "family" | "nanny", nannyName: string | undefined, today: string, children: DemoChild[]) {
+  const { AFTER_SCHOOL_DAY, DEMO_CARE, DEMO_DOSE, DEMO_NOW, DEMO_PLAN, DEMO_SHIFT } = await import("./demo-photos");
+  const timeline = buildTimeline({
+    now: DEMO_NOW,
+    shift: { startedAt: DEMO_SHIFT.startedAt, endedAt: null },
+    scheduled: { start: DEMO_SHIFT.start, end: DEMO_SHIFT.end },
+    planner: [
+      ...DEMO_PLAN.map((e, i) => ({ id: `demo-plan-${i}`, time_label: e.time, end_time_label: e.end ?? null, title: e.title, child_name: e.child, entry_type: e.type, status: "active" })),
+      // Text updates from Jess (homework and so on) sit in the day as notes.
+      ...AFTER_SCHOOL_DAY.filter((p) => !p.photo).map((p, i) => ({ id: `demo-note-${i}`, time_label: p.time, end_time_label: null, title: `${p.milestone ?? "Update"}: ${p.caption}`, child_name: p.child, entry_type: "note", status: "active" })),
+    ],
+    routines: routineItems(children, DEMO_SHIFT.end),
+    care: DEMO_CARE.map((c, i) => ({ id: `demo-care-${i}`, kind: "meal", detail: c.detail, amountMl: null, childName: c.child, at: c.time })),
+    doses: [{ id: "demo-dose", medicine: DEMO_DOSE.medicine, dose: DEMO_DOSE.dose, childName: DEMO_DOSE.child, at: DEMO_DOSE.time, nextAt: DEMO_DOSE.nextAt }],
+    photos: AFTER_SCHOOL_DAY.filter((p) => p.photo).map((p, i) => ({ id: `demo-photo-${i}`, caption: p.caption, childName: p.child, photoUrl: p.photo ?? null, at: p.time })),
+  });
+  return {
+    access,
+    nannyName: (nannyName ?? "Jess").split(" ")[0]!,
+    today,
+    now: DEMO_NOW,
+    scheduled: { start: DEMO_SHIFT.start, end: DEMO_SHIFT.end },
+    shift: { open: true, startedAt: DEMO_SHIFT.startedAt, endedAt: null as string | null, minutes: 0 },
+    children: children.map((c) => ({ id: c.id, name: c.name })),
+    timeline,
+    summary: null as string[] | null,
   };
 }
 

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { Camera, Printer, Sparkles, Trash2 } from "lucide-react";
+import { Camera, Heart, Printer, Sparkles, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
@@ -12,7 +12,9 @@ import {
   deleteMomentFn,
   getMoments,
   saveMomentPhotoFn,
+  toggleMomentLoveFn,
 } from "@/lib/moments.functions";
+import { demoAvatarFor } from "@/lib/demo-photos";
 import type { MomentsData, MomentRow } from "@/lib/moments.types";
 
 export const Route = createFileRoute("/moments/$slug")({
@@ -58,6 +60,8 @@ function MomentsPage() {
   const addFn = useServerFn(addMomentFn);
   const photoFn = useServerFn(saveMomentPhotoFn);
   const removeFn = useServerFn(deleteMomentFn);
+  const loveFn = useServerFn(toggleMomentLoveFn);
+  const [filter, setFilter] = useState("all");
 
   const query = useQuery({ queryKey: ["moments", slug], queryFn: () => loadFn({ data: { slug } }) });
 
@@ -79,6 +83,8 @@ function MomentsPage() {
   const data: MomentsData = query.data;
   const refresh = () => client.invalidateQueries({ queryKey: ["moments", slug] });
   const canDelete = (m: MomentRow) => data.access === "family" || m.addedBy === data.access;
+  const shown = data.moments.filter((m) => filter === "all" || m.childName === filter);
+  const kids = [...new Set([...data.children.map((c) => c.name), ...data.moments.map((m) => m.childName).filter((n): n is string => !!n)])];
 
   const readFile = (chosen: File) =>
     new Promise<string>((resolve, reject) => {
@@ -151,11 +157,43 @@ function MomentsPage() {
   return (
     <HubPage
       slug={slug}
-      title="Photo moments & milestones"
-      intro="A private diary of the good stuff — photos from the day and milestone wins, kept just between family and nanny."
+      title="Daily feed"
+      intro="The day as it happens: photos, milestones and notes from the afternoon, kept just between family and nanny."
     >
-      <Card>
-        <h2 className="heading-display text-lg text-foreground">Add a moment</h2>
+      <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Show moments for">
+        {["all", ...kids].map((k) => (
+          <button
+            key={k}
+            type="button"
+            aria-pressed={filter === k}
+            onClick={() => setFilter(k)}
+            className={`h-9 shrink-0 rounded-full px-4 text-sm font-medium ring-1 transition-colors ${filter === k ? "bg-primary text-primary-foreground ring-primary" : "bg-card text-foreground ring-border hover:bg-accent"}`}
+          >
+            {k === "all" ? "Everyone" : k}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-5 space-y-6">
+        {shown.length === 0 && (
+          <p className="text-sm text-muted-foreground">Nothing here yet. Add the first photo or milestone below.</p>
+        )}
+        {groupByDate(shown).map(([date, dayMoments]) => (
+          <section key={date} aria-label={dayLabel(date)}>
+            <h2 className="text-[0.8125rem] font-semibold uppercase tracking-wide text-muted-foreground">{dayLabel(date)}</h2>
+            <div className="mt-2 space-y-4">
+              {dayMoments.map((m) => (
+                <FeedCard key={m.id} moment={m} canDelete={canDelete(m)} onDelete={removeFn} onLove={loveFn} access={data.access} slug={slug} refresh={refresh} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <details className="mt-8 rounded-2xl bg-card shadow-sm" open={data.moments.length === 0}>
+        <summary className="cursor-pointer list-none px-5 py-4 text-base font-medium text-foreground">+ Add a moment</summary>
+        <div className="px-5 pb-5">
+        <h2 className="sr-only">Add a moment</h2>
         <label className="mt-3 block">
           <span className="text-sm font-medium text-foreground">Photo (optional)</span>
           <input
@@ -214,7 +252,8 @@ function MomentsPage() {
         <Button className="mt-4" disabled={saving} onClick={submit}>
           <Camera className="h-4 w-4" /> {file ? "Save photo" : "Save milestone"}
         </Button>
-      </Card>
+        </div>
+      </details>
 
       <div className="mt-6">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -239,44 +278,57 @@ function MomentsPage() {
         </div>
       </div>
 
-      <h2 className="heading-display mt-8 text-xl text-foreground">All moments</h2>
-      <div className="mt-3 space-y-6">
-        {data.moments.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            No moments yet — add the first photo or milestone above.
-          </p>
-        )}
-        {groupByDate(data.moments).map(([date, dayMoments]) => (
-          <div key={date}>
-            <p className="text-[0.8125rem] font-medium text-muted-foreground">
-              {formatDate(date)}
-            </p>
-            <div className="mt-2 grid gap-3 sm:grid-cols-2">
-              {dayMoments.map((m) => (
-                <MomentCard key={m.id} moment={m} canDelete={canDelete(m)} onDelete={removeFn} slug={slug} refresh={refresh} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
     </HubPage>
   );
 }
 
-function MomentCard({
+const dayLabel = (date: string) => {
+  const t = new Date().toISOString().slice(0, 10);
+  const y = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  return date === t ? "Today" : date === y ? "Yesterday" : formatDate(date);
+};
+
+const timeOf = (iso: string) => {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? "" : d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" });
+};
+
+/** One post in the feed: who, when, the photo, what happened and a heart. */
+function FeedCard({
   moment,
   canDelete,
   onDelete,
+  onLove,
+  access,
   slug,
   refresh,
 }: {
   moment: MomentRow;
   canDelete: boolean;
   onDelete: (args: { data: { slug: string; id: string } }) => Promise<unknown>;
+  onLove: (args: { data: { slug: string; id: string } }) => Promise<unknown>;
+  access: "family" | "nanny";
   slug: string;
   refresh: () => Promise<void>;
 }) {
   const [busy, setBusy] = useState(false);
+  const [local, setLocal] = useState<("family" | "nanny")[]>(moment.lovedBy);
+  const demo = moment.id.startsWith("demo-");
+  const iLove = local.includes(access);
+  const author = moment.addedByName ?? (moment.addedBy === "nanny" ? "Your nanny" : "A parent");
+  const avatar = slug === "demo" ? demoAvatarFor(author) : null;
+
+  const love = async () => {
+    const next = iLove ? local.filter((r) => r !== access) : [...local, access];
+    setLocal(next);
+    if (demo) return; // the sample feed keeps hearts on this screen only
+    try {
+      await onLove({ data: { slug, id: moment.id } });
+    } catch (error) {
+      setLocal(local);
+      toast.error(error instanceof Error ? error.message : "That could not be saved.");
+    }
+  };
 
   const remove = async () => {
     setBusy(true);
@@ -291,40 +343,52 @@ function MomentCard({
     }
   };
 
+  const lovers = local.map((r) => (r === "nanny" ? author.split(" ")[0] : "A parent"));
   return (
-    <Card>
-      {moment.photoUrl && (
-        <img
-          src={moment.photoUrl}
-          alt={moment.caption ?? "A family moment"}
-          className="mb-3 max-h-72 w-full rounded-lg border border-border object-cover"
-        />
-      )}
-      {moment.milestoneLabel && (
-        <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-foreground">
-          <Sparkles className="h-3 w-3" /> {moment.milestoneLabel}
-        </span>
-      )}
-      {moment.caption && <p className="mt-2 text-sm text-foreground">{moment.caption}</p>}
-      <div className="mt-2 flex items-center justify-between gap-2 text-xs text-muted-foreground">
-        <span>
-          {[moment.childName, moment.addedByName ?? (moment.addedBy === "nanny" ? "your nanny" : "a parent")]
-            .filter(Boolean)
-            .join(" · ")}
-        </span>
-        {canDelete && (
-          <button
-            type="button"
-            onClick={remove}
-            disabled={busy}
-            className="text-muted-foreground hover:text-destructive print:hidden"
-            aria-label="Remove moment"
-          >
+    <article className="overflow-hidden rounded-2xl bg-card shadow-sm">
+      <header className="flex items-center gap-3 px-4 pt-4">
+        {avatar ? (
+          <img src={avatar} alt="" className="h-9 w-9 rounded-full object-cover" />
+        ) : (
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-sm font-semibold text-foreground" aria-hidden>
+            {author.charAt(0).toUpperCase()}
+          </span>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium text-foreground">{author}</p>
+          <p className="text-xs text-muted-foreground">
+            {[timeOf(moment.createdAt), moment.childName].filter(Boolean).join(" · ")}
+          </p>
+        </div>
+        {canDelete && !demo && (
+          <button type="button" onClick={remove} disabled={busy} className="text-muted-foreground hover:text-destructive print:hidden" aria-label="Remove moment">
             <Trash2 className="h-4 w-4" />
           </button>
         )}
+      </header>
+      {moment.photoUrl && (
+        <img src={moment.photoUrl} alt={moment.caption ?? "A family moment"} loading="lazy" className="mt-3 max-h-[28rem] w-full object-cover" />
+      )}
+      <div className="px-4 pb-4 pt-3">
+        {moment.milestoneLabel && (
+          <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-foreground">
+            <Sparkles className="h-3 w-3" aria-hidden /> {moment.milestoneLabel}
+          </span>
+        )}
+        {moment.caption && <p className="text-sm leading-relaxed text-foreground">{moment.caption}</p>}
+        <div className="mt-3 flex items-center gap-3 print:hidden">
+          <button
+            type="button"
+            aria-pressed={iLove}
+            onClick={() => void love()}
+            className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-sm ring-1 transition-colors ${iLove ? "text-[#b4234a] ring-[#b4234a]/40" : "text-foreground ring-border hover:bg-accent"}`}
+          >
+            <Heart className={`h-4 w-4 ${iLove ? "fill-current" : ""}`} aria-hidden /> {iLove ? "Loved" : "Love"}
+          </button>
+          {lovers.length > 0 && <span className="text-xs text-muted-foreground">Loved by {lovers.join(" and ")}</span>}
+        </div>
       </div>
-    </Card>
+    </article>
   );
 }
 

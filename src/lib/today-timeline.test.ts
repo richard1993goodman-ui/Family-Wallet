@@ -53,14 +53,14 @@ describe("timeline", () => {
       care: [{ id: "c1", kind: "meal", detail: "Snack", amountMl: null, childName: "Leo", at: "15:40" }],
       photos: [{ id: "p1", caption: "Colouring", childName: "Leo", photoUrl: "/x.jpg", at: "16:05" }],
     });
-    expect(items.map((i) => i.title)).toEqual(["Shift started", "Meal: Snack", "Colouring", "Shift due to end"]);
+    expect(items.map((i) => i.title)).toEqual(["Shift started", "Snack", "Colouring", "Shift due to end"]);
     expect(items.filter((i) => i.state === "done")).toHaveLength(3);
   });
 
   it("keeps the next safe medicine time in view", () => {
     const items = buildTimeline({
       ...empty,
-      doses: [{ id: "d1", medicine: "Calpol (paracetamol)", dose: "5ml", childName: "Oscar", at: "16:10", nextDoseFrom: "2026-11-11T20:10:00Z", nextAt: "20:10" }],
+      doses: [{ id: "d1", medicine: "Calpol (paracetamol)", dose: "5ml", childName: "Oscar", at: "16:10", nextAt: "20:10" }],
       now: "16:30",
     });
     expect(items.some((i) => i.title === "Calpol given" && i.state === "done")).toBe(true);
@@ -87,6 +87,14 @@ describe("timeline", () => {
   });
 });
 
+describe("medicine lockout in the timeline", () => {
+  it("stops flagging the next dose once it has become safe", () => {
+    const dose = { id: "d1", medicine: "Calpol", dose: null, childName: "Oscar", at: "16:10", nextAt: "20:10" };
+    expect(buildTimeline({ ...empty, doses: [dose], now: "19:00" }).some((i) => i.attention)).toBe(true);
+    expect(buildTimeline({ ...empty, doses: [dose], now: "20:30" }).some((i) => i.attention)).toBe(false);
+  });
+});
+
 describe("end-of-day summary", () => {
   it("tells parents how long the shift was and what was done", () => {
     const timeline = buildTimeline({
@@ -95,7 +103,7 @@ describe("end-of-day summary", () => {
       now: "19:30",
       care: [{ id: "c", kind: "meal", detail: "Dinner", amountMl: null, childName: null, at: "17:40" }],
       photos: [{ id: "p", caption: null, childName: null, photoUrl: null, at: "16:05" }, { id: "q", caption: null, childName: null, photoUrl: null, at: "16:50" }],
-      doses: [{ id: "d", medicine: "Calpol", dose: null, childName: "Oscar", at: "16:10", nextDoseFrom: null, nextAt: null }],
+      doses: [{ id: "d", medicine: "Calpol", dose: null, childName: "Oscar", at: "16:10", nextAt: null }],
     });
     const lines = summariseDay({ nannyName: "Jess", shift: { startedAt: "15:02", endedAt: "19:28", minutes: 266 }, timeline });
     expect(lines[0]).toBe("Jess finished at 19:28 after 4h 26m.");

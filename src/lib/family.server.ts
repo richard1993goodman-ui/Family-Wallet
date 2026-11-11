@@ -362,10 +362,32 @@ export async function loadPlanner(slug: string, weekStart: string) {
     loadNannySchedules(family.id),
   ]);
 
+  let entries = data ?? [];
+  // The sample wallet's today is always the same lived-in afternoon: homework notes, tennis, and Jess's updates.
+  if (slug === "demo") {
+    const { DEMO_PLAN } = await import("./demo-photos");
+    const todayIso = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(new Date());
+    if (todayIso >= weekStart && todayIso <= endStr) {
+      const demoRows = DEMO_PLAN.map((e, i) => ({
+        id: `demo-plan-${i}`,
+        entry_date: todayIso,
+        time_label: e.time,
+        end_time_label: e.end ?? null,
+        title: e.title,
+        child_name: e.child,
+        entry_type: e.type,
+        status: "active",
+        added_by: e.type === "note" ? "family" : "nanny",
+        notes: null,
+      }));
+      entries = [...entries.filter((e) => e.entry_date !== todayIso), ...demoRows] as typeof entries;
+    }
+  }
+
   return {
     familyName: family.family_name,
     weekStart,
-    entries: data ?? [],
+    entries,
     schedules,
     workingDays: schedules[0]?.workingDays ?? [],
     schedule: schedules[0]?.schedule ?? cleanSchedule(undefined),
