@@ -443,6 +443,7 @@ export const enGB = {
   "agr.historyIssued": "Version {version}, issued {date}",
   "agr.historyFingerprint": "Fingerprint {code}",
   "agr.historyNoSignatures": "No signatures on this version",
+  "agr.historySignedCopy": "A signed record copy is saved in your Documents.",
   "agr.historySigned": "{name} ({role}) signed {date}",
   // Sentences assembled from parts (Today, timesheets, calendar)
   "tl.logged": "{title} logged",

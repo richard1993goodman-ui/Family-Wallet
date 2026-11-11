@@ -8,6 +8,7 @@ export const DOCUMENT_CATEGORIES = [
   { value: "proof_of_address", label: "Proof of address", hint: "Utility bill or bank statement", expires: false },
   { value: "first_aid", label: "First aid & qualifications", hint: "Paediatric first aid, childcare qualifications", expires: true },
   { value: "insurance", label: "Insurance", hint: "Public liability or car insurance", expires: true },
+  { value: "agreement", label: "Signed agreement", hint: "A record copy saved when both of you have signed", expires: false },
   { value: "other", label: "Other", hint: "Any other core document", expires: false },
 ] as const;
 

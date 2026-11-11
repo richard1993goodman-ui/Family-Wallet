@@ -3,7 +3,11 @@
 import { countryConfig } from "./countries";
 import { bankHolidays, type OffPeriod } from "./work-hours";
 
-export type HolidayProvider = { id: string; label: string; holidays: (year: number) => OffPeriod[] };
+export type HolidayProvider = {
+  id: string;
+  label: string;
+  holidays: (year: number) => OffPeriod[];
+};
 
 const PROVIDERS: Record<string, HolidayProvider> = {
   "gb-eng": { id: "gb-eng", label: "England and Wales bank holidays", holidays: bankHolidays },
@@ -13,7 +17,10 @@ const PROVIDERS: Record<string, HolidayProvider> = {
  * The provider for a household's country and region, or null. A UK household with no region keeps today's behaviour
  * (England). Scotland and Northern Ireland have different dates and are not set up yet.
  */
-export function providerFor(country: string | null | undefined, region?: string | null): HolidayProvider | null {
+export function providerFor(
+  country: string | null | undefined,
+  region?: string | null,
+): HolidayProvider | null {
   const config = countryConfig(country);
   if (!config?.holidayProvider) return null;
   const r = (region ?? "").trim().toLowerCase();
@@ -22,11 +29,17 @@ export function providerFor(country: string | null | undefined, region?: string 
 }
 
 /** Public holidays from today for the next two calendar years, or `configured: false` when the country has no provider. */
-export function keyDatesFor(country: string | null | undefined, region?: string | null, today = new Date()) {
+export function keyDatesFor(
+  country: string | null | undefined,
+  region?: string | null,
+  today = new Date(),
+) {
   const provider = providerFor(country, region);
   if (!provider) return { configured: false as const, label: null, dates: [] as OffPeriod[] };
   const from = today.toISOString().slice(0, 10);
   const year = today.getUTCFullYear();
-  const dates = [...provider.holidays(year), ...provider.holidays(year + 1)].filter((p) => p.end >= from);
+  const dates = [...provider.holidays(year), ...provider.holidays(year + 1)].filter(
+    (p) => p.end >= from,
+  );
   return { configured: true as const, label: provider.label, dates };
 }

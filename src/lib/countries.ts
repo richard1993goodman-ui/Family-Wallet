@@ -27,8 +27,10 @@ export const COUNTRIES: Record<string, CountryConfig> = {
   },
 };
 
-export const countryConfig = (code: string | null | undefined) => COUNTRIES[(code ?? "").toUpperCase()] ?? null;
-export const isCountryEnabled = (code: string | null | undefined) => countryConfig(code)?.status === "live";
+export const countryConfig = (code: string | null | undefined) =>
+  COUNTRIES[(code ?? "").toUpperCase()] ?? null;
+export const isCountryEnabled = (code: string | null | undefined) =>
+  countryConfig(code)?.status === "live";
 
 /** True or false when the country has a postcode rule; null when it does not (so the caller accepts any value). */
 export function isValidPostcode(code: string | null | undefined, value: string): boolean | null {

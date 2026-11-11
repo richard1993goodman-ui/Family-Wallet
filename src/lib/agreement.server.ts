@@ -5,7 +5,7 @@ import { getRequest } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Json } from "@/integrations/supabase/types";
 import { isUnlocked, listNannyRows, sessionAccess } from "./wallet.server";
-import { snapshotAgreement } from "./agreement-versions";
+import { signedCopyPath, snapshotAgreement } from "./agreement-versions";
 import { TERMS_VERSION } from "./tiers";
 import { termsForFamily } from "./agency-terms.server";
 import {
@@ -30,6 +30,8 @@ export type AgreementHistoryEntry = {
   issuedAt: string;
   /** First characters of the stored wording's SHA-256, so a version can be told apart and checked. */
   fingerprint: string;
+  /** A record copy of this signed version has been saved in the household's Documents. */
+  signedCopy: boolean;
   signatures: { role: string; name: string; at: string }[];
 };
 
@@ -274,7 +276,7 @@ async function agreementHistory(agreementId: string | null): Promise<AgreementHi
   if (!agreementId) return [];
   const { data: versions } = await supabaseAdmin
     .from("agreement_versions")
-    .select("id, version, issued_at, content_hash")
+    .select("id, family_id, version, issued_at, content_hash")
     .eq("agreement_id", agreementId)
     .order("version", { ascending: false });
   if (!versions?.length) return [];
@@ -283,10 +285,16 @@ async function agreementHistory(agreementId: string | null): Promise<AgreementHi
     .select("agreement_version_id, signer_role, signer_name, signed_at")
     .in("agreement_version_id", versions.map((v) => v.id))
     .order("signed_at", { ascending: true });
+  const { data: copies } = await supabaseAdmin
+    .from("wallet_documents")
+    .select("storage_path")
+    .in("storage_path", versions.map((v) => signedCopyPath(v.family_id, v.id)));
+  const saved = new Set((copies ?? []).map((c) => c.storage_path));
   return versions.map((v) => ({
     version: v.version,
     issuedAt: v.issued_at,
     fingerprint: v.content_hash.slice(0, 12),
+    signedCopy: saved.has(signedCopyPath(v.family_id, v.id)),
     signatures: (sigs ?? []).filter((x) => x.agreement_version_id === v.id).map((x) => ({ role: x.signer_role, name: x.signer_name, at: x.signed_at })),
   }));
 }
@@ -323,6 +331,7 @@ async function issuedEvidence(agreementId: string, version: number, live: unknow
 }
 
 type Evidence = Awaited<ReturnType<typeof issuedEvidence>>;
+const versionIdOf = (e: Evidence) => (e && e !== "edited" ? e.versionId : null);
 const fingerprintOf = (e: Evidence) => (e && e !== "edited" ? e.hash.slice(0, 12) : null);
 const evidenceFields = (e: Evidence) => (e && e !== "edited" ? { agreement_version_id: e.versionId, content_hash: e.hash } : {});
 
@@ -383,6 +392,8 @@ export async function signDocument(
   if (error) return { ok: false as const, reason: "error" as const };
   if (docKind === "agreement") {
     const { audit } = await import("./audit.server");
+    // Once both have signed this exact version, keep a record copy of it in the vault. Never blocks the signing.
+    await (await import("./agreement-pdf.server")).trySaveSignedCopy(versionIdOf(evidence));
     await audit({ actorKind: signerRole === "nanny" ? "nanny" : "parent", action: "agreement_signed", familyId: family.id, meta: { version: docVersion, fingerprint: fingerprintOf(evidence) } });
   }
 
@@ -604,6 +615,7 @@ export async function adminSign(
   if (error) throw new Error(error.message);
   if (docKind === "agreement") {
     const { audit } = await import("./audit.server");
+    await (await import("./agreement-pdf.server")).trySaveSignedCopy(versionIdOf(adminEvidence));
     await audit({ actorKind: "owner", action: "agreement_signed", familyId, meta: { version: docVersion, fingerprint: fingerprintOf(adminEvidence) } });
   }
   return { ok: true as const };

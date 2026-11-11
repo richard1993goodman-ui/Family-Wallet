@@ -19,4 +19,7 @@ export function snapshotAgreement(data: unknown) {
   return { text, hash: createHash("sha256").update(text).digest("hex") };
 }
 
+/** Where the signed record copy of an issued version lives in the vault. One fixed path per version, so saving twice is a no-op. */
+export const signedCopyPath = (familyId: string, versionId: string) => `vault/${familyId}/signed-agreement-${versionId}.pdf`;
+
 export const hashText = (text: string) => createHash("sha256").update(text).digest("hex");

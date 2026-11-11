@@ -47,8 +47,10 @@ describe("country registry", () => {
   });
 
   it("checks UK postcodes in their usual shapes", () => {
-    for (const ok of ["SW1A 1AA", "sw1a1aa", "M1 1AE", "B33 8TH", "CR2 6XH", "DN55 1PT"]) expect(isValidPostcode("GB", ok)).toBe(true);
-    for (const bad of ["", "12345", "SW1A", "ABCDE FGH"]) expect(isValidPostcode("GB", bad)).toBe(false);
+    for (const ok of ["SW1A 1AA", "sw1a1aa", "M1 1AE", "B33 8TH", "CR2 6XH", "DN55 1PT"])
+      expect(isValidPostcode("GB", ok)).toBe(true);
+    for (const bad of ["", "12345", "SW1A", "ABCDE FGH"])
+      expect(isValidPostcode("GB", bad)).toBe(false);
   });
 
   it("accepts any value where no postcode rule is configured, rather than rejecting real addresses", () => {

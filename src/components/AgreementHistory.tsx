@@ -19,6 +19,7 @@ export function AgreementHistory({ history }: { history: AgreementHistoryEntry[]
             <p className="text-xs text-muted-foreground">
               {t("agr.historyFingerprint", { code: entry.fingerprint })}
             </p>
+            {entry.signedCopy && <p className="text-xs text-muted-foreground">{t("agr.historySignedCopy")}</p>}
             {entry.signatures.length === 0 ? (
               <p className="mt-1 text-muted-foreground">{t("agr.historyNoSignatures")}</p>
             ) : (
