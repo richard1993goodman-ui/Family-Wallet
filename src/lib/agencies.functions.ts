@@ -50,20 +50,6 @@ export const savePartnerAgency = createServerFn({ method: "POST" })
     return { id: inserted.id };
   });
 
-export const setAgencyLogo = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string; logo: string | null }) => {
-    if (d.logo !== null && (!/^data:image\/(png|jpeg|webp|svg\+xml);base64,/.test(d.logo) || d.logo.length > 400000)) throw new Error("Logo must be a PNG, JPG, WebP or SVG under 280KB");
-    return d;
-  })
-  .handler(async ({ data, context }) => {
-    await requireOwner(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin.from("partner_agencies").update({ logo_data: data.logo, updated_at: new Date().toISOString() }).eq("id", data.id);
-    if (error) throw new Error(error.message);
-    return { ok: true };
-  });
-
 export const addAgencyStaff = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { agencyId: string; email: string }) => d)
@@ -107,21 +93,6 @@ const EXPORT_TABLES = [
   "expense_claims", "medication_doses", "handover_checklists", "daily_logs", "planner_entries",
   "training_attempts", "review_checkins", "sports_passport_entries", "travel_trips", "family_moments", "care_events",
 ] as const;
-
-export const setMyAgencyAgreements = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { enabled: boolean }) => d)
-  .handler(async ({ data, context }) => {
-    const scope = await requireStaff(context);
-    if (scope.kind !== "partner") throw new Error("Your own households choose this themselves.");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
-      .from("partner_agencies")
-      .update({ agreements_enabled: data.enabled === true })
-      .eq("id", scope.agencyId);
-    if (error) throw new Error("Couldn't save that.");
-    return { ok: true as const };
-  });
 
 export const exportMyAgencyRecords = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

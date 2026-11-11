@@ -22,11 +22,11 @@ vi.mock("@/integrations/supabase/client.server", () => ({
 
 const context = { userId: "staff-user", claims: { aal: "aal2" }, supabase: { rpc: async () => ({ data: false }) } };
 
-describe("partner content management boundaries", () => {
+describe("partner content boundaries", () => {
   beforeEach(() => { state.rowAgency = "agency-a"; state.recipientAgency = "agency-a"; });
 
-  it.each(["challenges", "perks", "playbooks"] as const)("grants active partner %s controls without owner switches", async (feature) => {
-    await expect(requireContentScope(context, feature)).resolves.toBe("agency-a");
+  it.each(["challenges", "perks", "playbooks"] as const)("refuses partner agencies any %s controls: they only hand out seats", async (feature) => {
+    await expect(requireContentScope(context, feature)).rejects.toThrow("Forbidden");
   });
 
   it.each(["agency_challenges", "partner_perks", "seasonal_playbooks"] as const)("allows editing own %s records but rejects another agency's", async (table) => {

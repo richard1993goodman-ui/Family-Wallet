@@ -115,16 +115,11 @@ export function partnerContentAllowed(agency: FeatureFlags | null | undefined, _
 
 /** Returns the agency that owns content made by this staff member: null = the owner agency (owner). */
 export async function requireContentScope(context: unknown, feature: ContentFeature): Promise<string | null> {
+  // Agencies only buy and hand out seats: perks, playbooks and challenges are not an agency feature.
   const scope = await requireStaff(context);
-  if (scope.kind === "owner") return null;
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data } = await supabaseAdmin
-    .from("partner_agencies")
-    .select("allow_challenges, allow_perks, allow_playbooks, status")
-    .eq("id", scope.agencyId)
-    .maybeSingle();
-  if (!partnerContentAllowed(data, feature)) throw new Error("Agency access is paused or unavailable");
-  return scope.agencyId;
+  void feature;
+  if (scope.kind !== "owner") throw new Error("Forbidden");
+  return null;
 }
 
 /** Content rows must belong to the caller's agency (null = owner content). */
@@ -149,14 +144,9 @@ export async function assertFamiliesInAgency(familyIds: string[], agencyId: stri
 
 /** Which agency's content a wallet family sees, or false when their agency is unavailable. */
 export async function walletContentAgency(familyId: string, feature: ContentFeature): Promise<string | null | false> {
+  // Families an agency funds see no agency content: the agency has none to show.
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();
-  const agencyId = fam?.partner_agency_id ?? null;
-  if (!agencyId) return null;
-  const { data: agency } = await supabaseAdmin
-    .from("partner_agencies")
-    .select("allow_challenges, allow_perks, allow_playbooks, status")
-    .eq("id", agencyId)
-    .maybeSingle();
-  return partnerContentAllowed(agency, feature) ? agencyId : false;
+  void feature;
+  return fam?.partner_agency_id ? false : null;
 }

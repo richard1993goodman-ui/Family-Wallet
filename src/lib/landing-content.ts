@@ -209,10 +209,10 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/for-agencies",
     title: "Family App for Nanny Agencies | The Family Wallet",
     description:
-      "Give every client family a private wallet with your name on it. You fund the seats and invite families by email; they own their information. Plans from £69 a month, nannies free.",
-    h1: "Give every family you place a wallet with your name on it",
+      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £69 a month, nannies free.",
+    h1: "Give every family you place a private wallet",
     intro:
-      "Your families remember how the first month went. The Family Wallet gives them a private place for the agreement, the week and the daily log, branded as yours, and lets you fund each household as a seat you invite by email. Families own their wallets, so you never see their information.",
+      "Your families remember how the first month went. The Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",
     image: {
       src: "/images/london/colouring.jpg",
       alt: "Two children colouring in Easter pictures with felt-tip pens at a table in the sun",
@@ -229,10 +229,10 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "What you get",
         bullets: [
-          "Your own name and logo across your families' wallets, with Powered by The Family Wallet",
-          "A simple seat dashboard: numbered seats, who you invited, and whether each invitation is pending or active",
-          "Agreements, shared weeks, daily logs, timesheets, emergency cards and more for every family",
-          "Manage your own perks, playbooks and challenges for your families",
+          "A simple list of household seats: send each one to a parent and nanny by email",
+          "Every feature in the app for every family: agreements, shared weeks, daily logs, timesheets, emergency cards and more",
+          "Release a seat any time and reuse it for another family",
+          "Dedicated customer support by email",
           "Nannies and au pairs are always free, and never take a seat",
         ],
       },
@@ -255,8 +255,8 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Getting started",
         bullets: [
-          "Tell us about your agency and we set up your account and branding.",
-          "Invite each family by email from your dashboard. They create their own private wallet, and you can add their nanny so they get their own sign-in.",
+          "Choose a plan and we set up your agency login.",
+          "Enter a parent's email, and the nanny's if you like, against an empty seat. Each gets their own private link and access code.",
           "Release a seat whenever you stop funding a family. They keep their wallet and are offered their own plan.",
         ],
       },
@@ -264,7 +264,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     faqs: [
       {
         q: "Who pays, the agency or the family?",
-        a: "You choose. Many agencies include the wallet in their membership. You can also resell it to families, or refer families to subscribe themselves.",
+        a: "You choose. Many agencies include the wallet in their membership, and others resell it to families.",
       },
       {
         q: "Do my nannies need a paid seat?",
@@ -272,11 +272,11 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Can I see my families' information?",
-        a: "No. Each family owns its wallet. You see only your seats, the email you invited and the invitation status.",
+        a: "No. Each family owns its wallet. You see only your seats, the emails you used and the invitation status.",
       },
       {
         q: "Can I bring my existing families on?",
-        a: "Yes. Invite each family by email and they create their own wallet. Bulk import from a spreadsheet is coming.",
+        a: "Yes. Send each family a seat by email and they create their own wallet.",
       },
       {
         q: "Is there a setup fee or a contract?",
@@ -285,7 +285,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     ],
     cta: {
       heading: "Talk to us about your agency",
-      body: "We will set up your account, branding and first families with you.",
+      body: "Choose a plan and start sending seats to your families.",
       label: "See agency plans",
       to: "/pricing?for=agencies",
     },
@@ -314,7 +314,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
             ["Day-to-day tracking", "Naps, bottles, meals, nappies, daily log, photos, messages", "Feed, photos, messages, nap, bottle and potty charts, AI summaries", "Feeds, sleep, nappies, pumping, medicines, growth, insights", "Attendance, activities, messages"],
             ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
             ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
-            ["Agencies", "Branded wallet for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
+            ["Agencies", "A funded seat for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
             ["Price shown", "From £9.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
             ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
           ],
@@ -346,7 +346,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
         bullets: [
           "You want a baby log with no employment admin: Pebbi or Daily Nanny.",
           "You employ a nanny and want the agreement, hours, expenses and safety records in one place: the Family Wallet.",
-          "You run a nanny agency and want every client family on a branded wallet: the Family Wallet for agencies.",
+          "You run a nanny agency and want every client family on a funded wallet: the Family Wallet for agencies.",
           "You run a nursery: Brightwheel.",
         ],
       },

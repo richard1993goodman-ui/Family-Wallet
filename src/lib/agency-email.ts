@@ -26,7 +26,7 @@ Your ${plan} subscription is paid and your agency account is created with room f
 
 What happens next:
 1. We email you a setup link for your agency login. It goes to ${contactEmail}.
-2. You add your agency logo and the name families will see.
+2. You sign in and see your numbered household seats.
 3. You invite your families by email. Each one creates its own private wallet, which you never see.
 
 If anything above is not what you expected, just reply to this email.
@@ -40,7 +40,7 @@ ${CONTACT_EMAIL}`;
 <p><strong>What happens next</strong></p>
 <ol>
   <li>We email you a setup link for your agency login. It goes to ${escapeHtml(contactEmail)}.</li>
-  <li>You add your agency logo and the name families will see.</li>
+  <li>You sign in and see your numbered household seats.</li>
   <li>You invite your families by email. Each one creates its own private wallet, which you never see.</li>
 </ol>
 <p>If anything above is not what you expected, just reply to this email.</p>

@@ -72,8 +72,6 @@ import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authent
 import { Route as ApiPushLatestRouteImport } from './routes/api/push/latest'
 import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
-import { Route as PHandleIndexRouteImport } from './routes/p.$handle.index'
-import { Route as PHandleDemoRouteImport } from './routes/p.$handle.demo'
 import { Route as AuthenticatedAdminAgreementIdRouteImport } from './routes/_authenticated/admin.agreement.$id'
 import { Route as AuthenticatedAdminFamilyIdRouteImport } from './routes/_authenticated/admin.family.$id'
 import { Route as AuthenticatedAdminHubIdRouteImport } from './routes/_authenticated/admin.hub.$id'
@@ -395,16 +393,6 @@ const CertificateSlugIdRoute = CertificateSlugIdRouteImport.update({
   path: '/certificate/$slug/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PHandleIndexRoute = PHandleIndexRouteImport.update({
-  id: '/p/$handle/',
-  path: '/p/$handle/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PHandleDemoRoute = PHandleDemoRouteImport.update({
-  id: '/p/$handle/demo',
-  path: '/p/$handle/demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedAdminAgreementIdRoute =
   AuthenticatedAdminAgreementIdRouteImport.update({
     id: '/admin/agreement/$id',
@@ -491,9 +479,7 @@ export interface FileRoutesByFullPath {
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
-  '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
-  '/p/$handle/': typeof PHandleIndexRoute
   '/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -561,9 +547,7 @@ export interface FileRoutesByTo {
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
-  '/p/$handle/demo': typeof PHandleDemoRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
-  '/p/$handle': typeof PHandleIndexRoute
   '/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -633,9 +617,7 @@ export interface FileRoutesById {
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
-  '/p/$handle/demo': typeof PHandleDemoRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
-  '/p/$handle/': typeof PHandleIndexRoute
   '/_authenticated/admin/agreement/$id': typeof AuthenticatedAdminAgreementIdRoute
   '/_authenticated/admin/family/$id': typeof AuthenticatedAdminFamilyIdRoute
   '/_authenticated/admin/hub/$id': typeof AuthenticatedAdminHubIdRoute
@@ -705,9 +687,7 @@ export interface FileRouteTypes {
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
-    | '/p/$handle/demo'
     | '/admin/'
-    | '/p/$handle/'
     | '/admin/agreement/$id'
     | '/admin/family/$id'
     | '/admin/hub/$id'
@@ -775,9 +755,7 @@ export interface FileRouteTypes {
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
-    | '/p/$handle/demo'
     | '/admin'
-    | '/p/$handle'
     | '/admin/agreement/$id'
     | '/admin/family/$id'
     | '/admin/hub/$id'
@@ -846,9 +824,7 @@ export interface FileRouteTypes {
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
-    | '/p/$handle/demo'
     | '/_authenticated/admin/'
-    | '/p/$handle/'
     | '/_authenticated/admin/agreement/$id'
     | '/_authenticated/admin/family/$id'
     | '/_authenticated/admin/hub/$id'
@@ -916,8 +892,6 @@ export interface RootRouteChildren {
   ApiPushLatestRoute: typeof ApiPushLatestRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
-  PHandleDemoRoute: typeof PHandleDemoRoute
-  PHandleIndexRoute: typeof PHandleIndexRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -1364,20 +1338,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CertificateSlugIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/p/$handle/': {
-      id: '/p/$handle/'
-      path: '/p/$handle'
-      fullPath: '/p/$handle/'
-      preLoaderRoute: typeof PHandleIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/p/$handle/demo': {
-      id: '/p/$handle/demo'
-      path: '/p/$handle/demo'
-      fullPath: '/p/$handle/demo'
-      preLoaderRoute: typeof PHandleDemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated/admin/agreement/$id': {
       id: '/_authenticated/admin/agreement/$id'
       path: '/admin/agreement/$id'
@@ -1491,8 +1451,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPushLatestRoute: ApiPushLatestRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
-  PHandleDemoRoute: PHandleDemoRoute,
-  PHandleIndexRoute: PHandleIndexRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport

@@ -13,7 +13,6 @@ import { AgencySeats } from "@/components/AgencySeats";
 import { claimAdmin, getAdminStatus, getAgencyOverview, listFamilies, saveFamily, sendFamilyInvite, setFamiliesAgreement } from "@/lib/admin.functions";
 import { exportMyAgencyRecords } from "@/lib/agencies.functions";
 import { AllowanceCard } from "@/components/AgencyAllowance";
-import { AgencyAgreementSetting } from "@/components/AgencyAgreementSetting";
 import { roleLabel } from "@/lib/staff-roles";
 import { siteUrl } from "@/lib/site";
 
@@ -307,10 +306,7 @@ function AdminHome() {
         <div className="mx-auto max-w-4xl px-5 py-10">
           <div className="flex items-start justify-between gap-4">
             <div>
-              {status.data?.agencyLogo && (
-                <img src={status.data.agencyLogo} alt={`${status.data.agencyName ?? "Agency"} logo`} className="mb-4 h-14 max-w-[220px] object-contain" />
-              )}
-              <p className="text-[0.8125rem] font-medium text-muted-foreground">{status.data?.agencyName} · Powered by The Family Wallet</p>
+              <p className="text-[0.8125rem] font-medium text-muted-foreground">{status.data?.agencyName}</p>
               <h1 className="heading-display mt-2 text-3xl text-primary">Your household seats</h1>
             </div>
             <button onClick={signOut} className="mt-2 text-sm text-muted-foreground underline underline-offset-4">Sign out</button>
@@ -340,7 +336,7 @@ function AdminHome() {
               />
             )}
             <p className="text-[0.8125rem] font-medium text-muted-foreground">
-              {status.data?.agencyName ? `${status.data.agencyName} · Powered by The Family Wallet` : "The Family Wallet"}
+              {status.data?.agencyName ?? "The Family Wallet"}
             </p>
             <h1 className="heading-display mt-2 text-3xl text-primary">Households</h1>
           </div>
@@ -353,9 +349,6 @@ function AdminHome() {
         </div>
 
         {usage && <AllowanceCard usage={usage} />}
-        {status.data && !status.data.isOwner && status.data.agencyName && (
-          <AgencyAgreementSetting enabled={status.data.agreementsEnabled} statusKey={["admin-status"]} />
-        )}
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Dialog open={open} onOpenChange={setOpen}>

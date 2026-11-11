@@ -398,7 +398,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
 
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, agreement_policy, partner_agency:partner_agencies(name, brand_name, logo_data, agreements_enabled)")
+    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, agreement_policy")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -406,7 +406,7 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
   const agreement = resolveAgreementMode({
     policy: family.agreement_policy,
     useAgreement: family.use_agreement,
-    agencyEnabled: family.partner_agency?.agreements_enabled,
+    agencyEnabled: undefined,
   });
 
   const [{ data: docs }, { data: contactRows }, nannyRows] = await Promise.all([
@@ -454,8 +454,9 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
   return {
     access,
     familyName: family.family_name,
-    agencyName: ((p) => p?.brand_name?.trim() || p?.name || null)(family.partner_agency as { name: string; brand_name: string | null } | null),
-    agencyLogo: (family.partner_agency as { logo_data: string | null } | null)?.logo_data ?? null,
+    // Agencies hand out seats only: no agency name or logo is shown inside a family's wallet.
+    agencyName: null,
+    agencyLogo: null,
     tierBand: access === "family" ? family.tier_band : "",
     nannies,
     nannytaxCode: access === "family" ? family.nannytax_code : null,

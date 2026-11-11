@@ -67,9 +67,9 @@ export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: s
   if (!isValidEmail(email)) throw new Error("Enter a valid email address.");
   // The nanny is optional. If the agency gives an email it needs a name too, so the nanny's email can greet them.
   const nannyEmail = normaliseEmail(nanny?.email ?? "");
-  const nannyName = (nanny?.name ?? "").trim().slice(0, 80);
   if (nannyEmail && !isValidEmail(nannyEmail)) throw new Error("Enter a valid email address for the nanny.");
-  if (nannyEmail && !nannyName) throw new Error("Add the nanny's name too.");
+  // Agencies only give an email, so the nanny starts with a name from it and the family can change it.
+  const nannyName = (nanny?.name ?? "").trim().slice(0, 80) || nannyEmail.split("@")[0]!.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).slice(0, 80);
   if (nannyEmail === email) throw new Error("The nanny needs their own email address.");
   await expireOld(agencyId);
   const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);

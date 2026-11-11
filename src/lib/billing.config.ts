@@ -23,33 +23,33 @@ export const PLANS: Record<
   family: {
     name: "The Family Wallet: Family",
     description:
-      "A private wallet for one nanny or au pair: shared week, daily log, messages, emergency card, medication log, timesheets and weekly report.",
+      "A private wallet for one nanny or au pair with every feature in the app, and dedicated customer support by email.",
     pence: { month: 999, year: 9900 },
   },
   household: {
     name: "The Family Wallet: Household",
     description:
-      "Everything in Family for up to six staff, plus the agreement builder with signing, the house manual and codes, the employment cost calculator and priority support.",
+      "Everything in Family for up to six staff, each with their own sign-in.",
     pence: { month: 1999, year: 19900 },
   },
   agency_partner: {
     name: "The Family Wallet: Agency Partner",
     description:
-      "Give your first families a wallet: 10 household seats, your logo, and invite each family by email.",
+      "Give your first families a wallet: 10 household seats, sent to parents and nannies by email.",
     pence: { month: 6900, year: 6900 },
     allowance: 10,
   },
   agency_growth: {
     name: "The Family Wallet: Agency Growth",
     description:
-      "Make it part of your membership: 50 household seats, your logo, colours and subdomain, and a seat dashboard.",
+      "Make it part of your membership: 50 household seats, sent to parents and nannies by email.",
     pence: { month: 14900, year: 14900 },
     allowance: 50,
   },
   agency_scale: {
     name: "The Family Wallet: Agency Scale",
     description:
-      "A growing client base across a team: 100 household seats, your own domain, fully white-labelled, with staff roles and permissions.",
+      "A growing client base: 100 household seats, sent to parents and nannies by email.",
     pence: { month: 24900, year: 24900 },
     allowance: 100,
   },

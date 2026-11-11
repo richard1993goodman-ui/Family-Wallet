@@ -150,8 +150,8 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 
   const wallet = summaryQuery.data.wallet;
   const role: WalletRole = wallet.access === "nanny" ? "nanny" : "family";
-  const agencyName = demoBrand ?? wallet.agencyName ?? null;
-  const agencyLogo = location.slug === "demo" ? null : wallet.agencyLogo ?? null;
+  const agencyName: string | null = null;
+  const agencyLogo: string | null = null;
 
   return (
     <BadgeContext.Provider value={badges}>

@@ -58,6 +58,9 @@ type Tier = {
   popular?: boolean;
 };
 
+const SUPPORT = "Dedicated customer support by email";
+
+// Every plan includes every feature. The only difference between family plans is how many staff you can add.
 const families: Tier[] = [
   {
     name: "Family",
@@ -65,12 +68,9 @@ const families: Tier[] = [
     annual: 99,
     who: "One nanny or au pair, run properly.",
     features: [
-      { text: "1 nanny or au pair (need more? move to Household)" },
-      { text: "Shared week calendar, daily log and messages" },
-      { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
-      { text: "Emergency card and medication log" },
-      { text: "Timesheets, expenses and a Friday weekly report" },
-      { text: "Customer support by email" },
+      { text: "1 staff member: a nanny or au pair" },
+      { text: "Every feature in the app: shared week, daily log, messages, agreements, timesheets, house manual and codes, emergency card and more" },
+      { text: SUPPORT },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
     plan: "family",
@@ -84,13 +84,7 @@ const families: Tier[] = [
     lead: "Everything in Family, plus",
     features: [
       { text: "Up to 6 staff, each with their own sign-in" },
-      { text: "Agreement builder, signed by both of you" },
-      { text: "House manual and codes, hidden until revealed" },
-      { text: "Employment cost calculator" },
-      { text: "Au pair and live-in tools: pocket money, hours cap, days off and house rules" },
-      { text: "More than one property", soon: true },
-      { text: "Exports for your accountant", soon: true },
-      { text: "Priority support" },
+      { text: SUPPORT },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Household plan") },
     plan: "household",
@@ -102,16 +96,14 @@ const families: Tier[] = [
     lead: "Everything in Household, plus",
     features: [
       { text: "Unlimited staff" },
-      { text: "Several properties and teams" },
-      { text: "A named contact" },
       { text: "Help setting up and importing records" },
-      { text: "Dedicated customer support" },
+      { text: SUPPORT },
     ],
     cta: { label: "Get a quote", href: mail("Family Wallet: Estate") },
   },
 ];
 
-// Agencies fund household seats and invite families by email. They never see a family's wallet.
+// Agencies buy household seats and send them to families by email. They never see a family's wallet.
 const agencies: Tier[] = [
   {
     name: "Partner",
@@ -119,12 +111,9 @@ const agencies: Tier[] = [
     who: "Give your first families a wallet.",
     features: [
       { text: "10 household seats" },
-      { text: "Your logo, “Powered by The Family Wallet”" },
-      { text: "Invite families by email: each creates its own private wallet" },
-      { text: "Add the nanny too: they get their own sign-in" },
-      { text: "Bulk import of existing families", soon: true },
-      { text: "Simple seat dashboard" },
-      { text: "Ongoing customer support" },
+      { text: "Send each seat to a parent and nanny by email" },
+      { text: "Release and reuse seats any time" },
+      { text: SUPPORT },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
     plan: "agency_partner",
@@ -134,13 +123,7 @@ const agencies: Tier[] = [
     monthly: 149,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
-    features: [
-      { text: "50 household seats" },
-      { text: "Your logo, colours and subdomain" },
-      { text: "Release and reuse seats any time" },
-      { text: "Manage your own perks and playbooks" },
-      { text: "Continued support, from set-up onwards" },
-    ],
+    features: [{ text: "50 household seats" }],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
     plan: "agency_growth",
     popular: true,
@@ -150,12 +133,7 @@ const agencies: Tier[] = [
     monthly: 249,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
-    features: [
-      { text: "100 household seats" },
-      { text: "Your own domain, fully white-labelled" },
-      { text: "Continued priority support" },
-      { text: "Staff roles and permissions" },
-    ],
+    features: [{ text: "100 household seats" }],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
     plan: "agency_scale",
   },
@@ -164,24 +142,18 @@ const agencies: Tier[] = [
     monthly: null,
     who: "More than 100 households.",
     lead: "Everything in Scale, plus",
-    features: [
-      { text: "100+ household seats, priced to your volume" },
-      { text: "Help moving your existing families across" },
-      { text: "API and single sign-on", soon: true },
-      { text: "Dedicated account manager and continued support" },
-    ],
+    features: [{ text: "More than 100 household seats, priced to your volume" }],
     cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
   },
 ];
 
-/* Everything inside the wallet, per tier, for the expandable list under each card. */
-const DAY_TO_DAY = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax", "Customer support by email"];
-const HOUSEHOLD_EXTRA = ["Up to 6 staff with their own roles and sign-ins", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", "Priority support"];
+/* Everything inside the wallet. It is the same on every family plan; only the number of staff changes. */
+const EVERYTHING = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", SUPPORT];
 type Group = { title: string; items: string[] };
 const tierIncludes: Record<string, Group[]> = {
-  Family: [{ title: "Day to day (1 carer)", items: DAY_TO_DAY }],
-  Household: [{ title: "Everything in Family", items: DAY_TO_DAY }, { title: "Household extras", items: HOUSEHOLD_EXTRA }],
-  Estate: [{ title: "Everything in Household", items: [...DAY_TO_DAY, ...HOUSEHOLD_EXTRA] }, { title: "Estate extras", items: ["Unlimited staff", "Several properties and teams", "A named contact", "Help importing records"] }],
+  Family: [{ title: "Everything, for 1 staff member", items: EVERYTHING }],
+  Household: [{ title: "Everything, for up to 6 staff", items: ["Up to 6 staff with their own roles and sign-ins", ...EVERYTHING] }],
+  Estate: [{ title: "Everything, for unlimited staff", items: ["Unlimited staff with their own roles and sign-ins", "Help importing records", ...EVERYTHING] }],
 };
 
 function TierDetails({ groups }: { groups: Group[] }) {
@@ -215,10 +187,6 @@ const payOptions = [
     title: "You resell it",
     body: "You pay the household rate and charge your families whatever you like, for example £9.99 to £12.99 a month.",
   },
-  {
-    title: "You refer families",
-    body: "Families subscribe to a Family plan themselves with your code, and you earn 20% for the first 12 months.",
-  },
 ];
 
 const faqs: Record<Audience, { q: string; a: string }[]> = {
@@ -228,8 +196,16 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
       a: "No. The wallet is a paid plan for your household. Explore the demo wallet first, a sample family with their nanny, to see exactly what you would get.",
     },
     {
+      q: "What is the difference between the plans?",
+      a: "Only the number of staff. Every plan includes every feature in the app. Family covers one nanny or au pair, Household up to six staff, and Estate unlimited.",
+    },
+    {
+      q: "How do I get help?",
+      a: `Email ${CONTACT_EMAIL} from any plan. Everyone gets dedicated customer support, whether you are an independent family or part of an agency.`,
+    },
+    {
       q: "What if I need more staff than my plan includes?",
-      a: "Move up a plan. Family covers one nanny or au pair; Household covers up to six staff; Estate covers unlimited. You can upgrade any time from Manage subscription and the difference is worked out for you.",
+      a: "Move up a plan. You can upgrade any time and the difference is worked out for you.",
     },
     {
       q: "Does my nanny or au pair pay?",
@@ -254,8 +230,12 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
   ],
   agencies: [
     {
+      q: "How do agency plans work?",
+      a: "You buy household seats and send each one to a family by email. The plans differ only in how many seats you get. Every plan includes customer support by email.",
+    },
+    {
       q: "What is a household seat?",
-      a: "One household you fund. Send a seat's invitation by email and it is held for that family until it activates, expires or you revoke it. Released and expired seats are free to use again straight away.",
+      a: "One household you fund. Enter the parent's email, and the nanny's if you like, and each gets their own private link and access code. The seat is held for that family until it activates, expires or you revoke it, and is free again the moment you release it.",
     },
     {
       q: "Do my nannies and au pairs need a paid seat?",
@@ -263,11 +243,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I see my families' information?",
-      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only the seat, the email you invited and its status. You can include the nanny's email so they get their own sign-in, but you never see their code.",
-    },
-    {
-      q: "Can I bring my existing families on?",
-      a: "Yes. Invite each family by email from your dashboard and they create their own wallet. Bulk import from a spreadsheet is on the way.",
+      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only your seats, the emails you used and the invitation status.",
     },
     {
       q: "What happens when a family leaves my agency?",
@@ -548,22 +524,6 @@ function PricingPageInner() {
           </section>
         )}
 
-        {audience === "agencies" && (
-          <aside className="mt-5 flex flex-col gap-4 rounded-2xl bg-tint-sage p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div>
-              <h2 className="heading-serif text-[1.5rem] leading-tight text-foreground">
-                Network
-              </h2>
-              <p className="mt-1.5 max-w-[40rem] text-[0.9375rem] leading-relaxed text-foreground">
-                Franchises and groups with several brands or branches. Full white-label across every
-                location and a dedicated team.
-              </p>
-            </div>
-            <Button size="lg" variant="outline" className="shrink-0" asChild>
-              <a href={mail("Family Wallet: Network")} onClick={onMailtoClick}>Get a quote</a>
-            </Button>
-          </aside>
-        )}
 
         {audience === "agencies" && (
           <section className="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-8">
@@ -572,8 +532,7 @@ function PricingPageInner() {
                 You choose who pays
               </h2>
               <p className="mt-5 max-w-[30rem] text-lg leading-relaxed text-foreground">
-                The same wallet works whether you include it, resell it or simply refer families.
-                Mix them across your clients.
+                The same wallet works whether you include it or resell it. Mix both across your clients.
               </p>
             </div>
             <ol className="space-y-8 lg:col-span-6 lg:col-start-7">

@@ -26,7 +26,6 @@ export function AgencySeats() {
   const board = useQuery({ queryKey: ["seat-board"], queryFn: () => boardFn() });
   const [picked, setPicked] = useState<number | null>(null);
   const [email, setEmail] = useState("");
-  const [nannyName, setNannyName] = useState("");
   const [nannyEmail, setNannyEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -77,7 +76,7 @@ export function AgencySeats() {
                 {seat.state === "occupied" ? "Active" : seat.state === "invited" ? "Invited" : "Available"}
               </span>
               {seat.state === "available" && (
-                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setEmail(""); setNannyName(""); setNannyEmail(""); }}>
+                <Button size="sm" variant="outline" onClick={() => { setPicked(picked === seat.slot ? null : seat.slot); setEmail(""); setNannyEmail(""); }}>
                   Invite
                 </Button>
               )}
@@ -106,14 +105,13 @@ export function AgencySeats() {
                 className="mt-3 flex flex-wrap gap-2"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  if (await run(() => sendFn({ data: { slot: seat.slot, email, nannyName, nannyEmail } }), "Invitation sent")) setPicked(null);
+                  if (await run(() => sendFn({ data: { slot: seat.slot, email, nannyEmail } }), "Invitation sent")) setPicked(null);
                 }}
               >
-                <Input type="email" required autoFocus placeholder="Family's email address" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1 basis-full" />
-                <Input placeholder="Nanny's name (optional)" value={nannyName} onChange={(e) => setNannyName(e.target.value)} className="min-w-0 flex-1" />
-                <Input type="email" placeholder="Nanny's email (optional)" value={nannyEmail} onChange={(e) => setNannyEmail(e.target.value)} className="min-w-0 flex-1" />
+                <Input type="email" required autoFocus placeholder="Parent's email address" value={email} onChange={(e) => setEmail(e.target.value)} className="min-w-0 flex-1" />
+                <Input type="email" placeholder="Nanny's email address" value={nannyEmail} onChange={(e) => setNannyEmail(e.target.value)} className="min-w-0 flex-1" />
                 <p className="basis-full text-xs text-muted-foreground">
-                  If you add the nanny, they get their own sign-in link and access code by email when the family activates. You won't see either.
+                  The parent and nanny each get their own private link and access code by email. You never see them.
                 </p>
                 <Button type="submit" disabled={busy}>Send invitation</Button>
               </form>

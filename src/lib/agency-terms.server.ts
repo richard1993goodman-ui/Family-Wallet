@@ -12,8 +12,8 @@ async function row(agencyId: string | null) {
 /** The terms uploaded by the agency that runs this family (null agency = owner). */
 export async function termsForFamily(familyId: string): Promise<AgencyTermsFile | null> {
   const { data: fam } = await supabaseAdmin.from("families").select("partner_agency_id").eq("id", familyId).maybeSingle();
-  if (!fam) return null;
-  return termsForAgency(fam.partner_agency_id ?? null);
+  if (!fam || fam.partner_agency_id) return null;
+  return termsForAgency(null);
 }
 
 export async function termsForAgency(agencyId: string | null): Promise<AgencyTermsFile | null> {

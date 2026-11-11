@@ -4,7 +4,8 @@ import { requireStaff } from "./staff.scope";
 
 async function agencyOf(context: unknown): Promise<string | null> {
   const scope = await requireStaff(context);
-  return scope.kind === "owner" ? null : scope.agencyId;
+  if (scope.kind !== "owner") throw new Error("Forbidden");
+  return null;
 }
 
 export const getMyAgencyTerms = createServerFn({ method: "POST" })
