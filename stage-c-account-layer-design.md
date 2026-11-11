@@ -112,7 +112,7 @@ Order, highest risk first: `wallet_documents` and the storage bucket, `nanny_ban
 
 ## 9. Decisions needed before C1
 
-1. Sign-in method for accounts: email plus password, email magic link, or both? (Recommend magic link first, password optional.)
+1. **DECIDED 11 Nov: magic link first** (password optional later). Original question: email plus password, email magic link, or both?
 2. Staff without an email: allow phone codes (SMS cost) or require an email at claim?
 3. Should a parent be able to remove a staff member's account, or only end the membership (recommend: end the membership, never delete the person)?
 4. Co-parents: needed at launch or later?
