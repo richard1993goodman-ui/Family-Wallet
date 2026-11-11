@@ -1603,6 +1603,7 @@ export type Database = {
       }
       nanny_agreements: {
         Row: {
+          draft_data: Json | null
           additional_terms: string | null
           agreement_data: Json
           created_at: string
@@ -1627,6 +1628,7 @@ export type Database = {
           work_pattern: string | null
         }
         Insert: {
+          draft_data?: Json | null
           additional_terms?: string | null
           agreement_data?: Json
           created_at?: string
@@ -1651,6 +1653,7 @@ export type Database = {
           work_pattern?: string | null
         }
         Update: {
+          draft_data?: Json | null
           additional_terms?: string | null
           agreement_data?: Json
           created_at?: string

@@ -31,6 +31,8 @@ import { SigningProgress } from "@/components/SigningProgress";
 import { siteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { AgreementHistory } from "@/components/AgreementHistory";
+import { useT } from "@/lib/i18n/provider";
 
 export const Route = createFileRoute("/agreement/$slug")({
   validateSearch: (search: Record<string, unknown>): { nanny?: string; start?: "employed" | "self_employed" } => ({
@@ -59,6 +61,7 @@ export const Route = createFileRoute("/agreement/$slug")({
 });
 
 function AgreementPageInner() {
+  const t = useT();
   const { slug } = Route.useParams();
   const search = Route.useSearch();
   const queryClient = useQueryClient();
@@ -94,7 +97,7 @@ function AgreementPageInner() {
     setDraft(
       !data.hasContent && data.access === "family" && search.start === "self_employed"
         ? { ...data.data, documentStyle: "self_employed", standardNotice: data.data.standardNotice === "4 weeks" ? "2 weeks" : data.data.standardNotice }
-        : data.data,
+        : (data.pendingChanges ?? data.data),
     );
     if (data.nannyId && !nannyId) setNannyId(data.nannyId);
     if (!data.hasContent && data.access === "family") {
@@ -623,6 +626,13 @@ function AgreementPageInner() {
         </Card>
       )}
 
+      {data.pendingChanges && !isNanny && (
+        <Card>
+          <h2 className="font-medium text-foreground">{t("agr.pendingTitle")}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t("agr.pendingBody")}</p>
+        </Card>
+      )}
+
       <div className="print-area space-y-6">
         {data.data.documentStyle === "self_employed" ? (
           <SelfEmployedDocument
@@ -654,6 +664,8 @@ function AgreementPageInner() {
           </div>
         </Card>
       </div>
+
+      <AgreementHistory history={data.history} />
 
       <Card>
         <h2 className="heading-display text-lg text-foreground">Sign this agreement</h2>

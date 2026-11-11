@@ -436,6 +436,14 @@ export const enGB = {
   "cal.changedNannyShift": "Changed nanny shift",
   "cal.couldnTAddThat": "Couldn't add that",
   "cal.couldnTSaveThat": "Couldn't save that",
+  // Agreement amendments and history
+  "agr.pendingTitle": "You have changes that haven't been issued",
+  "agr.pendingBody": "The agreement people signed hasn't changed. Open it, review your changes and issue it again to ask for new signatures. The old version stays in the history.",
+  "agr.historyTitle": "Version history",
+  "agr.historyIssued": "Version {version}, issued {date}",
+  "agr.historyFingerprint": "Fingerprint {code}",
+  "agr.historyNoSignatures": "No signatures on this version",
+  "agr.historySigned": "{name} ({role}) signed {date}",
   // Plural example, used by tests and later screens
   "households.count": { one: "{count} household", other: "{count} households" },
 } as const satisfies Record<string, Message>;

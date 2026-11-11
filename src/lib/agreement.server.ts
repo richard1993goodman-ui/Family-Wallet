@@ -25,6 +25,14 @@ export type EmergencyContext = {
   contacts: { name: string; relationship: string | null; phone: string }[];
 };
 
+export type AgreementHistoryEntry = {
+  version: number;
+  issuedAt: string;
+  /** First characters of the stored wording's SHA-256, so a version can be told apart and checked. */
+  fingerprint: string;
+  signatures: { role: string; name: string; at: string }[];
+};
+
 export type AgreementView = {
   familyName: string;
   status: "draft" | "issued";
@@ -33,6 +41,9 @@ export type AgreementView = {
   updatedAt: string | null;
   data: AgreementData;
   hasContent: boolean;
+  /** Edits to an issued agreement that have not been issued yet. The signed wording in `data` is untouched. */
+  pendingChanges: AgreementData | null;
+  history: AgreementHistoryEntry[];
   signatures: Signature[];
   access: "family" | "nanny";
   emergency: EmergencyContext;
@@ -205,6 +216,7 @@ export async function loadAgreement(
         startDate: family.start_date ?? "",
       };
   const data = applyEmergencyDetails(base, emergency);
+  const pendingChanges = agreement?.draft_data ? applyEmergencyDetails(withLegacyNotes(agreement.draft_data), emergency) : null;
 
   return {
     familyName: family.family_name,
@@ -214,6 +226,8 @@ export async function loadAgreement(
     updatedAt: agreement?.updated_at ?? null,
     data,
     hasContent: agreementHasContent(data),
+    pendingChanges,
+    history: await agreementHistory(agreement?.id ?? null),
     signatures,
     access,
     emergency,
@@ -255,6 +269,28 @@ export async function loadSignatures(slug: string) {
   };
 }
 
+/** Every issued version of an agreement, newest first, with who signed each. */
+async function agreementHistory(agreementId: string | null): Promise<AgreementHistoryEntry[]> {
+  if (!agreementId) return [];
+  const { data: versions } = await supabaseAdmin
+    .from("agreement_versions")
+    .select("id, version, issued_at, content_hash")
+    .eq("agreement_id", agreementId)
+    .order("version", { ascending: false });
+  if (!versions?.length) return [];
+  const { data: sigs } = await supabaseAdmin
+    .from("document_signatures")
+    .select("agreement_version_id, signer_role, signer_name, signed_at")
+    .in("agreement_version_id", versions.map((v) => v.id))
+    .order("signed_at", { ascending: true });
+  return versions.map((v) => ({
+    version: v.version,
+    issuedAt: v.issued_at,
+    fingerprint: v.content_hash.slice(0, 12),
+    signatures: (sigs ?? []).filter((x) => x.agreement_version_id === v.id).map((x) => ({ role: x.signer_role, name: x.signer_name, at: x.signed_at })),
+  }));
+}
+
 /** Keeps the agreement exactly as issued. Re-issuing the same version is a no-op; history is never rewritten. */
 async function recordIssuedVersion(row: { id: string; family_id: string; nanny_id: string | null; version: number }, data: unknown) {
   const { text, hash } = snapshotAgreement(data);
@@ -287,6 +323,7 @@ async function issuedEvidence(agreementId: string, version: number, live: unknow
 }
 
 type Evidence = Awaited<ReturnType<typeof issuedEvidence>>;
+const fingerprintOf = (e: Evidence) => (e && e !== "edited" ? e.hash.slice(0, 12) : null);
 const evidenceFields = (e: Evidence) => (e && e !== "edited" ? { agreement_version_id: e.versionId, content_hash: e.hash } : {});
 
 export async function signDocument(
@@ -344,6 +381,10 @@ export async function signDocument(
     ...evidenceFields(evidence),
   });
   if (error) return { ok: false as const, reason: "error" as const };
+  if (docKind === "agreement") {
+    const { audit } = await import("./audit.server");
+    await audit({ actorKind: signerRole === "nanny" ? "nanny" : "parent", action: "agreement_signed", familyId: family.id, meta: { version: docVersion, fingerprint: fingerprintOf(evidence) } });
+  }
 
   if (docKind === "terms") {
     await supabaseAdmin
@@ -392,7 +433,7 @@ export async function adminLoadAgreement(familyId: string, requestedNannyId?: st
   ]);
 
   const data = agreement
-    ? withLegacyNotes(agreement.agreement_data)
+    ? withLegacyNotes(agreement.draft_data ?? agreement.agreement_data)
     : {
         ...defaultAgreementData,
         employerName: family.family_name,
@@ -481,12 +522,25 @@ export async function adminSaveAgreement(
   const contentChanged =
     JSON.stringify(normalizeAgreement(existing.agreement_data)) !== JSON.stringify(data);
   const bumpVersion = publish && existing.status === "issued" && contentChanged;
+
+  // An issued agreement keeps the wording that was signed. Edits that are not being issued are held as pending
+  // changes until they are issued again as a new version, so a signature always matches what was agreed.
+  if (existing.status === "issued" && !publish) {
+    const { error: pendingError } = await supabaseAdmin
+      .from("nanny_agreements")
+      .update({ draft_data: contentChanged ? (data as unknown as Json) : null, updated_at: new Date().toISOString() })
+      .eq("id", existing.id);
+    if (pendingError) throw new Error(pendingError.message);
+    return { ok: true as const, pending: contentChanged };
+  }
+
   const { error } = await supabaseAdmin
     .from("nanny_agreements")
     .update({
       ...legacyColumns(data),
       agreement_data: data as unknown as Json,
       status: publish ? "issued" : existing.status,
+      ...(publish ? { draft_data: null } : {}),
       version: bumpVersion ? existing.version + 1 : existing.version,
       ...(publish && (existing.status !== "issued" || bumpVersion)
         ? { issued_at: new Date().toISOString() }
@@ -548,5 +602,9 @@ export async function adminSign(
     ...evidenceFields(adminEvidence),
   });
   if (error) throw new Error(error.message);
+  if (docKind === "agreement") {
+    const { audit } = await import("./audit.server");
+    await audit({ actorKind: "owner", action: "agreement_signed", familyId, meta: { version: docVersion, fingerprint: fingerprintOf(adminEvidence) } });
+  }
   return { ok: true as const };
 }
