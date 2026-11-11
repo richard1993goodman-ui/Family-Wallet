@@ -61,9 +61,13 @@ export const lookupInviteFn = createServerFn({ method: "GET" })
   .inputValidator((d: { token: string }) => d)
   .handler(async ({ data }) => (await import("./seat-invites.server")).lookupInvite(String(data.token ?? "")));
 
+export const lookupInviteByCodeFn = createServerFn({ method: "POST" })
+  .inputValidator((d: { code: string }) => d)
+  .handler(async ({ data }) => (await import("./seat-invites.server")).lookupInviteByCode(String(data.code ?? "")));
+
 export const acceptInviteFn = createServerFn({ method: "POST" })
-  .inputValidator((d: { token: string; familyName: string }) => d)
-  .handler(async ({ data }) => (await import("./seat-invites.server")).acceptInvite(String(data.token ?? ""), String(data.familyName ?? "")));
+  .inputValidator((d: { token?: string; code?: string; familyName: string }) => d)
+  .handler(async ({ data }) => (await import("./seat-invites.server")).acceptInvite(String(data.token ?? ""), String(data.familyName ?? ""), String(data.code ?? "")));
 
 /** A Stripe-hosted page to upgrade to the next tier (pays the difference now) or to manage billing. */
 export const agencyBillingLinkFn = createServerFn({ method: "POST" })

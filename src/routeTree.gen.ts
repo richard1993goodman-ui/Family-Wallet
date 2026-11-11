@@ -42,6 +42,7 @@ import { Route as HandoverSlugRouteImport } from './routes/handover.$slug'
 import { Route as HoursSlugRouteImport } from './routes/hours.$slug'
 import { Route as HousemanualSlugRouteImport } from './routes/housemanual.$slug'
 import { Route as IncidentsSlugRouteImport } from './routes/incidents.$slug'
+import { Route as JoinIndexRouteImport } from './routes/join.index'
 import { Route as JoinTokenRouteImport } from './routes/join.$token'
 import { Route as KidsSlugRouteImport } from './routes/kids.$slug'
 import { Route as LeaveSlugRouteImport } from './routes/leave.$slug'
@@ -245,6 +246,11 @@ const HousemanualSlugRoute = HousemanualSlugRouteImport.update({
 const IncidentsSlugRoute = IncidentsSlugRouteImport.update({
   id: '/incidents/$slug',
   path: '/incidents/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinIndexRoute = JoinIndexRouteImport.update({
+  id: '/join/',
+  path: '/join/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JoinTokenRoute = JoinTokenRouteImport.update({
@@ -516,6 +522,7 @@ export interface FileRoutesByFullPath {
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides/': typeof GuidesIndexRoute
+  '/join/': typeof JoinIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
@@ -590,6 +597,7 @@ export interface FileRoutesByTo {
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides': typeof GuidesIndexRoute
+  '/join': typeof JoinIndexRoute
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
@@ -666,6 +674,7 @@ export interface FileRoutesById {
   '/w/$slug': typeof WSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides/': typeof GuidesIndexRoute
+  '/join/': typeof JoinIndexRoute
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/push/latest': typeof ApiPushLatestRoute
@@ -742,6 +751,7 @@ export interface FileRouteTypes {
     | '/w/$slug'
     | '/welcome/$slug'
     | '/guides/'
+    | '/join/'
     | '/admin/agencies'
     | '/admin/support'
     | '/api/push/latest'
@@ -816,6 +826,7 @@ export interface FileRouteTypes {
     | '/w/$slug'
     | '/welcome/$slug'
     | '/guides'
+    | '/join'
     | '/admin/agencies'
     | '/admin/support'
     | '/api/push/latest'
@@ -891,6 +902,7 @@ export interface FileRouteTypes {
     | '/w/$slug'
     | '/welcome/$slug'
     | '/guides/'
+    | '/join/'
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
     | '/api/push/latest'
@@ -967,6 +979,7 @@ export interface RootRouteChildren {
   WSlugRoute: typeof WSlugRoute
   WelcomeSlugRoute: typeof WelcomeSlugRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
+  JoinIndexRoute: typeof JoinIndexRoute
   ApiPushLatestRoute: typeof ApiPushLatestRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
@@ -1204,6 +1217,13 @@ declare module '@tanstack/react-router' {
       path: '/incidents/$slug'
       fullPath: '/incidents/$slug'
       preLoaderRoute: typeof IncidentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join/': {
+      id: '/join/'
+      path: '/join'
+      fullPath: '/join/'
+      preLoaderRoute: typeof JoinIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/join/$token': {
@@ -1574,6 +1594,7 @@ const rootRouteChildren: RootRouteChildren = {
   WSlugRoute: WSlugRoute,
   WelcomeSlugRoute: WelcomeSlugRoute,
   GuidesIndexRoute: GuidesIndexRoute,
+  JoinIndexRoute: JoinIndexRoute,
   ApiPushLatestRoute: ApiPushLatestRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,

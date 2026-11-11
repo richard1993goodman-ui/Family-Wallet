@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { AGENCY_PLANS, isAgencyPlan, nextAgencyPlan } from "./agency-plans";
 import { graceDays, transitionEnd } from "./entitlement";
-import { buildSeats, hashBackupCode, hashInviteToken, inviteExpiry, inviteHours, isValidEmail, newBackupCode, newInviteToken, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
+import { buildSeats, hashBackupCode, hashInviteToken, inviteExpiry, inviteHours, isValidEmail, newBackupCode, newInviteToken, normaliseBackupCode, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
 
 const OPEN = ["pending", "accepted"];
 
@@ -355,20 +355,55 @@ export async function lookupInvite(token: string) {
   return { agencyName: agency.brand_name || agency.name, nannyName: (await nannyOf(data.id)).nanny_name };
 }
 
-/** The family claims the seat once, creating its own wallet. The agency never receives the link or code. */
-export async function acceptInvite(token: string, familyName: string) {
+/** Typed backup codes are guessable in principle, so they are limited per device and across the whole service. */
+const CODE_SLUG = "invite-code";
+async function guardCodeAttempts() {
+  const { clientKey } = await import("./wallet.server");
+  const key = clientKey();
+  const failed = (since: number) =>
+    supabaseAdmin.from("wallet_access_attempts").select("id", { count: "exact", head: true }).eq("slug", CODE_SLUG).eq("succeeded", false).gte("attempted_at", new Date(Date.now() - since).toISOString());
+  const [mine, all] = await Promise.all([failed(15 * 60 * 1000).eq("client_key", key), failed(60 * 60 * 1000)]);
+  if ((mine.count ?? 0) >= 8) throw new Error("Too many tries. Please wait 15 minutes and try again.");
+  if ((all.count ?? 0) >= 100) throw new Error("Codes are temporarily unavailable. Please use the link from your invitation, or try again later.");
+  return key;
+}
+const recordCodeAttempt = (key: string, ok: boolean) => supabaseAdmin.from("wallet_access_attempts").insert({ slug: CODE_SLUG, client_key: key, succeeded: ok });
+
+/** Checks a typed backup code, without using it. */
+export async function lookupInviteByCode(rawCode: string) {
+  const code = normaliseBackupCode(rawCode);
+  const key = await guardCodeAttempts();
+  const { data } =
+    code.length === 8
+      ? await supabaseAdmin.from("agency_invites").select("id, agency_id, expires_at").eq("code_hash", hashBackupCode(code)).eq("status", "pending").maybeSingle()
+      : { data: null };
+  const valid = !!data && !!data.expires_at && new Date(data.expires_at).getTime() > Date.now();
+  await recordCodeAttempt(key, valid);
+  if (!valid || !data) throw new Error("That code isn't valid or has expired. Check it, or ask your agency for a new one.");
+  const agency = await agencyInfo(data.agency_id);
+  return { agencyName: agency.brand_name || agency.name };
+}
+
+/**
+ * The family claims the seat once, creating its own wallet. The agency never receives the link or code.
+ * The invitation is identified by its link token, or by the typed backup code when there is no token.
+ */
+export async function acceptInvite(token: string, familyName: string, backupCode = "") {
   const name = familyName.trim().slice(0, 80);
   if (!name) throw new Error("Please enter your family name.");
-  // A single conditional update claims the invite, so a link can only ever be used once.
+  const byCode = !token && !!backupCode;
+  const attemptKey = byCode ? await guardCodeAttempts() : null;
+  // A single conditional update claims the invite, so a link or code can only ever be used once.
   const { data: claimed } = await supabaseAdmin
     .from("agency_invites")
-    .update({ status: "accepted", token_hash: null, accepted_at: new Date().toISOString() })
-    .eq("token_hash", hashInviteToken(token))
+    .update({ status: "accepted", token_hash: null, code_hash: null, accepted_at: new Date().toISOString() })
+    .eq(byCode ? "code_hash" : "token_hash", byCode ? hashBackupCode(backupCode) : hashInviteToken(token))
     .eq("status", "pending")
     .gt("expires_at", new Date().toISOString())
     .select("id, agency_id, email");
   const claimedRow = claimed?.[0];
   const invite = claimedRow ? { ...claimedRow, ...(await nannyOf(claimedRow.id)) } : undefined;
+  if (attemptKey) await recordCodeAttempt(attemptKey, !!invite);
   if (!invite) throw new Error("This invitation has expired or was already used. Ask your agency to send a new one.");
 
   const { generateAccessCode, hashCode } = await import("./wallet.server");
@@ -395,6 +430,8 @@ export async function acceptInvite(token: string, familyName: string) {
     throw new Error("We couldn't create your wallet. Ask your agency to send a new invitation.");
   }
   await supabaseAdmin.from("agency_invites").update({ family_id: family.id }).eq("id", invite.id);
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "parent", action: "invite_redeemed", familyId: family.id, agencyId: invite.agency_id, meta: { by: byCode ? "code" : "link" } });
 
   const { siteUrl, CONTACT_EMAIL } = await import("./site");
   const url = siteUrl(`/w/${slug}`);

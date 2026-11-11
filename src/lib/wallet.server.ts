@@ -146,7 +146,7 @@ export async function lockWallet(slug: string) {
   await session.update({ unlocked: current.filter((s) => s !== slug) });
 }
 
-function clientKey() {
+export function clientKey() {
   try {
     const request = getRequest();
     const forwarded = request.headers.get("x-forwarded-for") ?? "";

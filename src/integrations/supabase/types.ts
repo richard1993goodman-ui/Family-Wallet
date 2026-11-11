@@ -2880,7 +2880,6 @@ export type Database = {
       agency_invites: {
         Row: {
           accepted_at: string | null
-          code_attempts: number
           code_hash: string | null
           created_by: string | null
           agency_id: string
@@ -2898,7 +2897,6 @@ export type Database = {
         }
         Insert: {
           accepted_at?: string | null
-          code_attempts?: number
           code_hash?: string | null
           created_by?: string | null
           agency_id: string

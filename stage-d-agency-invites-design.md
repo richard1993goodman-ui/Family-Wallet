@@ -77,3 +77,6 @@ Tokens and codes are hashed and single use; redemption is one conditional databa
 
 ## D1 status
 Built and committed locally, not applied live: migration `20261111400000_invite_backup_code.sql`, `createSeatInvite` (link plus backup code, hashed, 48h, audit), the agency "Create invitation" screen, and tests. The backup code cannot be redeemed until D2 adds code entry at `/join`, so D1 must not be released on its own. `generateSeatLogin` is still in the code and goes in D3.
+
+## D2 status (11 Nov)
+Built and committed locally, not applied live: code entry at `/join` (verify the code, name the household, create the wallet), redemption by link or code through one conditional update that also clears both hashes, rate limits (8 failures per device per 15 minutes, 100 across the service per hour), audit entries (`invite_created`, `invite_redeemed`), and a shared "wallet ready" screen. **Correction to the design:** a per-invite attempt counter was dropped, because a wrong code does not identify an invite, so limits are per device and service-wide instead (the unused column was removed from the migration). **Still open:** the terms checkbox (no text supplied yet) and "email verification" beyond the optional My login step. The full flow has not been run end to end against the live site: it needs the migration applied first.
