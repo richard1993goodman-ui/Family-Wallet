@@ -1,6 +1,6 @@
 # The Family Wallet
 
-> The Family Wallet is a private app for families who employ a nanny, au pair or other household staff, and for nanny agencies who want to give every family a wallet. Families keep the shared week, the signed agreement, daily logs, timesheets, the house manual and an emergency card in one private place. It is built in London by AthleteMannies.
+> The Family Wallet is a private app for families who employ a nanny, au pair or other household staff, and for nanny agencies who want to give every family a wallet. Families keep the shared week, the signed agreement, daily logs, timesheets, the house manual and an emergency card in one private place. Built in London. © 2026.
 
 ## Key pages
 - [Home](https://familywallet.io/): what the Family Wallet is and a spin-and-tap phone demo

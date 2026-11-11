@@ -467,7 +467,7 @@ function Index() {
               </Link>
             </nav>
             <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span>© {new Date().getFullYear()} The Family Wallet</span>
+              <span>© 2026 The Family Wallet. Built in London.</span>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 onClick={onMailtoClick}

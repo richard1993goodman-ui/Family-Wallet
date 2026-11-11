@@ -76,7 +76,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
           />
         </div>
         <div className={cn(frame, "mt-10 text-xs text-muted-foreground")}>
-          © {new Date().getFullYear()} The Family Wallet. Guides are general information, not legal or tax advice.
+          © 2026 The Family Wallet. Built in London. Guides are general information, not legal or tax advice.
         </div>
       </footer>
     </div>
