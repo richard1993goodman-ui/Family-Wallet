@@ -245,14 +245,14 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
           ],
         },
         paragraphs: [
-          "Each seat funds one household. A seat is used as soon as you generate a household's login, and is free again the moment you release it. Need more seats? We move you to the next plan.",
+          "Each seat funds one household. A seat is held as soon as you create an invitation, and is free again if the invitation expires, you revoke it, or you release the household. Need more seats? We move you to the next plan.",
         ],
       },
       {
         heading: "Getting started",
         bullets: [
           "Choose a plan and we set up your agency login.",
-          "Enter a family's name, and the nanny's if you like, against an empty seat. We generate a private link and access code for each, to copy and send your own way.",
+          "Enter a family's name against an empty seat. We make a one-time invitation link and backup code to copy and send your own way, or we can email it. The family creates its own wallet, and you never see its access code.",
           "Release a seat whenever you stop funding a family. They keep their wallet and are offered their own plan.",
         ],
       },

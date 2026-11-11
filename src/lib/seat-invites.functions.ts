@@ -13,16 +13,6 @@ export const getSeatBoardFn = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => (await import("./seat-invites.server")).getSeatBoard(await partnerAgencyId(context)));
 
-export const sendSeatInviteFn = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { slot: number; email: string; nannyName?: string; nannyEmail?: string }) => d)
-  .handler(async ({ data, context }) =>
-    (await import("./seat-invites.server")).sendSeatInvite(await partnerAgencyId(context), Number(data.slot), String(data.email ?? ""), {
-      name: String(data.nannyName ?? ""),
-      email: String(data.nannyEmail ?? ""),
-    }),
-  );
-
 export const createSeatInviteFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { slot: number; familyName: string; email?: string; sendEmail?: boolean }) => d)
@@ -32,13 +22,6 @@ export const createSeatInviteFn = createServerFn({ method: "POST" })
       sendEmail: data.sendEmail === true,
       createdBy: context.userId,
     }),
-  );
-
-export const generateSeatLoginFn = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { slot: number; familyName: string; nannyName?: string }) => d)
-  .handler(async ({ data, context }) =>
-    (await import("./seat-invites.server")).generateSeatLogin(await partnerAgencyId(context), Number(data.slot), String(data.familyName ?? ""), String(data.nannyName ?? "")),
   );
 
 export const resendSeatInviteFn = createServerFn({ method: "POST" })

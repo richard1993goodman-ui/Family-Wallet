@@ -206,7 +206,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "What is a household seat?",
-      a: "One household you fund. Enter the family's name, and the nanny's if you like, and we generate a private link and access code for each for you to copy and send in your own words. The seat is used straight away and is free again the moment you release it.",
+      a: "One household you fund. Enter the family's name and we make a one-time invitation link and backup code for you to copy and send in your own words, or to email. The invitation works once and expires after 48 hours, and the seat is free again if it expires or you release the household.",
     },
     {
       q: "Do my nannies and au pairs need a paid seat?",
@@ -214,7 +214,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I see my families' information?",
-      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only your seats, the family names you entered and their status. The link and code are shown to you once, when you generate them.",
+      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only your seats, the family names you entered and their status. Invitations are shown to you once, and you never see a family's access code.",
     },
     {
       q: "What happens when a family leaves my agency?",

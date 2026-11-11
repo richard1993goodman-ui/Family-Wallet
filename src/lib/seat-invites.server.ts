@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { AGENCY_PLANS, isAgencyPlan, nextAgencyPlan } from "./agency-plans";
 import { graceDays, transitionEnd } from "./entitlement";
-import { buildSeats, hashBackupCode, hashInviteToken, inviteExpiry, inviteHours, isValidEmail, newBackupCode, newInviteToken, normaliseBackupCode, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
+import { buildSeats, hashBackupCode, hashInviteToken, inviteExpiry, inviteHours, isValidEmail, newBackupCode, newInviteToken, normaliseBackupCode, normaliseEmail, seatCount, seatLabel, type InviteRow } from "./seat-invites";
 
 const OPEN = ["pending", "accepted"];
 
@@ -27,18 +27,13 @@ async function expireOld(agencyId: string) {
 }
 
 async function openInvites(agencyId: string) {
-  const query = (columns: string) =>
-    supabaseAdmin.from("agency_invites").select(columns).eq("agency_id", agencyId).in("status", OPEN).order("slot", { ascending: true });
-  const full = await query("id, slot, email, nanny_email, status, invited_at, expires_at");
-  // If the nanny columns have not been added yet, still show every seat that is in use.
-  const result = full.error ? await query("id, slot, email, status, invited_at, expires_at") : full;
-  return (result.data ?? []) as unknown as InviteRow[];
-}
-
-/** The nanny details on an invite, or nothing if those columns have not been added yet. */
-async function nannyOf(inviteId: string) {
-  const { data, error } = await supabaseAdmin.from("agency_invites").select("nanny_name, nanny_email").eq("id", inviteId).maybeSingle();
-  return error || !data ? { nanny_name: null, nanny_email: null } : data;
+  const { data } = await supabaseAdmin
+    .from("agency_invites")
+    .select("id, slot, email, status, invited_at, expires_at")
+    .eq("agency_id", agencyId)
+    .in("status", OPEN)
+    .order("slot", { ascending: true });
+  return (data ?? []) as unknown as InviteRow[];
 }
 
 /** What an agency may see: slots, the email it typed, and invite status. Never the family or its wallet. */
@@ -71,51 +66,6 @@ async function emailInvite(agencyId: string, to: string, token: string) {
   const text = `${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.\n\nActivate it here (the link works once and expires in ${inviteHours()} hours):\n${url}\n\nYour wallet is private to your family. ${name} cannot see what you add to it.\n\nQuestions? ${process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL}`;
   const html = `<p>${name} has set you up with a Family Wallet, a private place for your household's week, agreements, daily logs and more.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Activate my Family Wallet</a></p><p style="color:#57534e;font-size:14px">The link works once and expires in ${inviteHours()} hours. Your wallet is private to your family: ${name} cannot see what you add to it.</p>`;
   return sendEmail({ to, subject: `${name} has set you up with a Family Wallet`, html, text });
-}
-
-export async function sendSeatInvite(agencyId: string, slot: number, rawEmail: string, nanny?: { name?: string; email?: string }) {
-  const email = normaliseEmail(rawEmail);
-  if (!isValidEmail(email)) throw new Error("Enter a valid email address.");
-  // The nanny is optional. If the agency gives an email it needs a name too, so the nanny's email can greet them.
-  const nannyEmail = normaliseEmail(nanny?.email ?? "");
-  if (nannyEmail && !isValidEmail(nannyEmail)) throw new Error("Enter a valid email address for the nanny.");
-  // Agencies only give an email, so the nanny starts with a name from it and the family can change it.
-  const nannyName = (nanny?.name ?? "").trim().slice(0, 80) || nannyEmail.split("@")[0]!.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).slice(0, 80);
-  if (nannyEmail === email) throw new Error("The nanny needs their own email address.");
-  await expireOld(agencyId);
-  const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);
-  // Enforced here, on the server: a slot outside the purchased allowance is refused.
-  if (!Number.isInteger(slot) || slot < 1 || slot > seatCount(agency.allowance, rows)) throw new Error("That seat isn't part of your plan.");
-  if (rows.some((r) => r.slot === slot)) throw new Error("That seat is already in use.");
-  if (rows.some((r) => normaliseEmail(r.email) === email)) throw new Error("That email already has a seat.");
-
-  const token = newInviteToken();
-  const { data: row, error } = await supabaseAdmin
-    .from("agency_invites")
-    .insert({
-      agency_id: agencyId,
-      slot,
-      email,
-      // Only sent when there is a nanny, so a plain invitation never depends on the nanny columns.
-      ...(nannyEmail ? { nanny_email: nannyEmail, nanny_name: nannyName } : {}),
-      token_hash: hashInviteToken(token),
-      expires_at: inviteExpiry(),
-    })
-    .select("id")
-    .single();
-  if (error) {
-    console.error("Could not save a seat invitation", error.code, error.message);
-    // 23505 is the database saying the seat or email really is taken; anything else is a different problem.
-    if (error.code === "23505") throw new Error("That seat or email is already in use.");
-    if (nannyEmail && /nanny_/.test(error.message)) throw new Error("Adding a nanny isn't available yet. Send the invitation without the nanny for now.");
-    throw new Error("Couldn't save the invitation. Please try again, or contact support if it keeps happening.");
-  }
-  // The link goes to the family by email only. It is never shown to the agency, so the agency cannot claim it.
-  if (!(await emailInvite(agencyId, email, token))) {
-    await supabaseAdmin.from("agency_invites").delete().eq("id", row.id);
-    throw new Error("The email couldn't be sent. Check the address and try again.");
-  }
-  return { ok: true as const };
 }
 
 /**
@@ -178,98 +128,30 @@ export async function createSeatInvite(
   return { agencyName: agency.brand_name || agency.name, familyName, url: siteUrl(`/join/${token}`), code, expiresAt, emailed };
 }
 
-/**
- * The agency generates a household's sign-in itself: the wallet is created now and the agency gets the
- * family's link and access code (and the nanny's, if named) once, to copy and send in its own words.
- * Nothing is emailed from here and the agency never sees inside the wallet.
- */
-export async function generateSeatLogin(agencyId: string, slot: number, rawFamilyName: string, rawNannyName?: string) {
-  const familyName = rawFamilyName.trim().slice(0, 80);
-  if (!familyName) throw new Error("Enter the family's name.");
-  const nannyName = (rawNannyName ?? "").trim().slice(0, 80);
-  await expireOld(agencyId);
-  const [agency, rows] = await Promise.all([agencyInfo(agencyId), openInvites(agencyId)]);
-  if (!Number.isInteger(slot) || slot < 1 || slot > seatCount(agency.allowance, rows)) throw new Error("That seat isn't part of your plan.");
-  if (rows.some((r) => r.slot === slot)) throw new Error("That seat is already in use.");
-
-  const { generateAccessCode, hashCode } = await import("./wallet.server");
-  const base = familyName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 24) || "family";
-  const slug = `${base}-${generateAccessCode().slice(0, 4).toLowerCase()}`;
-  const code = generateAccessCode();
-
-  // Claim the seat first, so two clicks cannot hand out the same one. The placeholder address carries the label the seat board shows.
-  const now = new Date().toISOString();
-  const { data: invite, error: seatError } = await supabaseAdmin
-    .from("agency_invites")
-    .insert({ agency_id: agencyId, slot, email: `${slug}@seat.invalid`, status: "accepted", accepted_at: now })
-    .select("id")
-    .single();
-  if (seatError) {
-    console.error("Could not claim a seat", seatError.code, seatError.message);
-    throw new Error(seatError.code === "23505" ? "That seat is already in use." : "Couldn't set up the household. Please try again.");
-  }
-  const { data: family, error } = await supabaseAdmin
-    .from("families")
-    .insert({
-      family_name: familyName,
-      tier_band: "",
-      status: "active",
-      entitlement: "agency_active",
-      partner_agency_id: agencyId,
-      slug,
-      access_code: code,
-      access_code_hash: hashCode(slug, code),
-    })
-    .select("id")
-    .single();
-  if (error) {
-    await supabaseAdmin.from("agency_invites").delete().eq("id", invite.id);
-    throw new Error("We couldn't create the wallet. Please try again.");
-  }
-  await supabaseAdmin.from("agency_invites").update({ family_id: family.id }).eq("id", invite.id);
-
-  const { siteUrl } = await import("./site");
-  let nanny: { name: string; url: string; code: string } | null = null;
-  if (nannyName) {
-    const nannyCode = generateAccessCode();
-    const { error: nannyError } = await supabaseAdmin.from("family_nannies").insert({
-      family_id: family.id,
-      name: nannyName,
-      sort_order: 0,
-      nanny_code: nannyCode,
-      nanny_code_hash: hashCode(`nanny:${slug}`, nannyCode),
-      invited_at: now,
-    });
-    if (!nannyError) {
-      await supabaseAdmin.from("families").update({ nanny_name: nannyName }).eq("id", family.id);
-      nanny = { name: nannyName, url: siteUrl(`/nanny/${slug}`), code: nannyCode };
-    } else console.error("Could not add the nanny", nannyError.message);
-  }
-  const { audit } = await import("./audit.server");
-  await audit({ actorKind: "agency_staff", action: "seat_login_generated", familyId: family.id, agencyId, meta: { slot, withNanny: !!nanny } });
-  return {
-    agencyName: agency.brand_name || agency.name,
-    familyName,
-    family: { url: siteUrl(`/w/${slug}`), code },
-    nanny,
-  };
-}
-
 async function ownPending(agencyId: string, inviteId: string) {
   const { data } = await supabaseAdmin.from("agency_invites").select("id, email, status").eq("id", inviteId).eq("agency_id", agencyId).maybeSingle();
   if (!data || data.status !== "pending") throw new Error("That invitation can't be changed.");
   return data;
 }
 
+/** Gives a waiting invitation a fresh link and backup code (the old ones stop working) and a new 48 hours. */
 export async function resendSeatInvite(agencyId: string, inviteId: string) {
   const invite = await ownPending(agencyId, inviteId);
   const token = newInviteToken();
+  const code = newBackupCode();
+  const expiresAt = inviteExpiry();
   await supabaseAdmin
     .from("agency_invites")
-    .update({ token_hash: hashInviteToken(token), expires_at: inviteExpiry(), invited_at: new Date().toISOString() })
+    .update({ token_hash: hashInviteToken(token), code_hash: hashBackupCode(code), expires_at: expiresAt, invited_at: new Date().toISOString() })
     .eq("id", invite.id);
-  if (!(await emailInvite(agencyId, invite.email, token))) throw new Error("The email couldn't be sent. Try again in a minute.");
-  return { ok: true as const };
+  // An invitation made with a real email is emailed again; one made without is just shown to the agency.
+  const real = !invite.email.endsWith(".invalid");
+  if (real && !(await emailInvite(agencyId, invite.email, token))) throw new Error("The email couldn't be sent. Try again in a minute.");
+  const agency = await agencyInfo(agencyId);
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "agency_staff", action: "invite_renewed", agencyId, meta: { emailed: real } });
+  const { siteUrl } = await import("./site");
+  return { agencyName: agency.brand_name || agency.name, familyName: seatLabel(invite.email) ?? invite.email, url: siteUrl(`/join/${token}`), code, expiresAt, emailed: real };
 }
 
 export async function revokeSeatInvite(agencyId: string, inviteId: string) {
@@ -352,7 +234,7 @@ export async function lookupInvite(token: string) {
     .maybeSingle();
   if (!data || (data.expires_at && new Date(data.expires_at).getTime() < Date.now())) return null;
   const agency = await agencyInfo(data.agency_id);
-  return { agencyName: agency.brand_name || agency.name, nannyName: (await nannyOf(data.id)).nanny_name };
+  return { agencyName: agency.brand_name || agency.name };
 }
 
 /** Typed backup codes are guessable in principle, so they are limited per device and across the whole service. */
@@ -401,8 +283,7 @@ export async function acceptInvite(token: string, familyName: string, backupCode
     .eq("status", "pending")
     .gt("expires_at", new Date().toISOString())
     .select("id, agency_id, email");
-  const claimedRow = claimed?.[0];
-  const invite = claimedRow ? { ...claimedRow, ...(await nannyOf(claimedRow.id)) } : undefined;
+  const invite = claimed?.[0];
   if (attemptKey) await recordCodeAttempt(attemptKey, !!invite);
   if (!invite) throw new Error("This invitation has expired or was already used. Ask your agency to send a new one.");
 
@@ -433,7 +314,7 @@ export async function acceptInvite(token: string, familyName: string, backupCode
   const { audit } = await import("./audit.server");
   await audit({ actorKind: "parent", action: "invite_redeemed", familyId: family.id, agencyId: invite.agency_id, meta: { by: byCode ? "code" : "link" } });
 
-  const { siteUrl, CONTACT_EMAIL } = await import("./site");
+  const { siteUrl } = await import("./site");
   const url = siteUrl(`/w/${slug}`);
   const { emailConfigured, sendEmail } = await import("./email.server");
   const agency = await agencyInfo(invite.agency_id);
@@ -443,34 +324,5 @@ export async function acceptInvite(token: string, familyName: string, backupCode
     await sendEmail({ to: invite.email, ...buildWalletEmail("invite", [{ familyName: name, url, code }], { agencyName }) });
   }
 
-  // The nanny the agency named gets their own sign-in. The code is made here and emailed straight to
-  // them; the agency never sees it, and a failure here never stops the family getting its wallet.
-  let nannyName: string | null = null;
-  if (invite.nanny_email && invite.nanny_name) {
-    try {
-      const nannyCode = generateAccessCode();
-      const { error: nannyError } = await supabaseAdmin.from("family_nannies").insert({
-        family_id: family.id,
-        name: invite.nanny_name,
-        sort_order: 0,
-        nanny_code: nannyCode,
-        nanny_code_hash: hashCode(`nanny:${slug}`, nannyCode),
-        invited_at: new Date().toISOString(),
-      });
-      if (!nannyError) {
-        await supabaseAdmin.from("families").update({ nanny_name: invite.nanny_name }).eq("id", family.id);
-        nannyName = invite.nanny_name;
-        if (emailConfigured()) {
-          const { buildNannyInviteEmail } = await import("./nanny-invite-email");
-          await sendEmail({
-            to: invite.nanny_email,
-            ...buildNannyInviteEmail({ nannyName: invite.nanny_name, familyName: name, agencyName, url: siteUrl(`/nanny/${slug}`), code: nannyCode, supportEmail: process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL }),
-          });
-        }
-      }
-    } catch (e) {
-      console.error("Could not set up the nanny from the invite", e);
-    }
-  }
-  return { url, code, slug, nannyName };
+  return { url, code, slug };
 }

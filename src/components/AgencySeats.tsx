@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/CopyButton";
 import { Input } from "@/components/ui/input";
 import { formatPounds } from "@/lib/agency-plans";
+import { seatLabel } from "@/lib/seat-invites";
 import {
   agencyBillingLinkFn,
   createSeatInviteFn,
@@ -17,10 +18,6 @@ import {
 } from "@/lib/seat-invites.functions";
 
 type Invite = Awaited<ReturnType<typeof createSeatInviteFn>>;
-
-/** Seats made from a login have a placeholder address like "smith-ab12@seat.invalid"; show the family label instead. */
-const seatLabel = (email: string | null) =>
-  email?.endsWith("@seat.invalid") ? email.split("@")[0]!.replace(/-[a-z0-9]{4}$/, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : email;
 
 const message = (l: Invite) =>
   `Hi,\n\n${l.agencyName} has set up a Family Wallet for you, a private place for your household's week, agreements, daily logs and more.\n\nActivate it here: ${l.url}\n\nIf the link won't open, go to ${new URL(l.url).origin}/join and enter this code: ${l.code}\n\nThe link and code work once and expire on ${new Date(l.expiresAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}. Your wallet is private to your family. ${l.agencyName} cannot see what you add to it.`;
@@ -143,7 +140,7 @@ export function AgencySeats() {
             <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 font-medium text-foreground">Family {seat.slot}</span>
               <span className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
-                {seat.state === "available" ? "Available" : seatLabel(seat.email)}{seat.nannyEmail && ` · nanny: ${seat.nannyEmail}`}
+                {seat.state === "available" ? "Available" : seatLabel(seat.email)}
                 {seat.state === "invited" && ` · invited ${date(seat.invitedAt)}, expires ${date(seat.expiresAt)}`}
                 {seat.state === "occupied" && ` · active since ${date(seat.invitedAt)}`}
               </span>
@@ -161,7 +158,7 @@ export function AgencySeats() {
               )}
               {seat.state === "invited" && (
                 <>
-                  <Button size="sm" variant="outline" disabled={busy} onClick={() => run(() => resendFn({ data: { inviteId: seat.inviteId! } }), "Invitation resent")}>Resend</Button>
+                  <Button size="sm" variant="outline" disabled={busy} onClick={() => run(async () => setLogin(await resendFn({ data: { inviteId: seat.inviteId! } })), "New link and code made")}>New link</Button>
                   <Button size="sm" variant="ghost" disabled={busy} onClick={() => run(() => revokeFn({ data: { inviteId: seat.inviteId! } }), "Invitation revoked")}>Revoke</Button>
                 </>
               )}

@@ -34,7 +34,8 @@ vi.mock("@/integrations/supabase/client.server", () => ({
 }));
 vi.mock("./email.server", () => ({ emailConfigured: () => true, sendEmail: async () => true }));
 
-import { getSeatBoard, sendSeatInvite } from "./seat-invites.server";
+import { createSeatInvite, getSeatBoard } from "./seat-invites.server";
+vi.mock("./audit.server", () => ({ audit: async () => undefined }));
 
 beforeEach(() => {
   state.insertError = null;
@@ -45,26 +46,15 @@ beforeEach(() => {
 describe("seat invitation errors", () => {
   it("only says the seat is in use when the database says it is", async () => {
     state.insertError = { code: "23505", message: "duplicate key" };
-    await expect(sendSeatInvite("a1", 1, "parent@example.com")).rejects.toThrow("already in use");
+    await expect(createSeatInvite("a1", 1, "The Smiths", { email: "parent@example.com" })).rejects.toThrow("already in use");
   });
 
   it("does not blame the seat or email for some other failure", async () => {
     state.insertError = { code: "42703", message: 'column "something" does not exist' };
-    await expect(sendSeatInvite("a1", 1, "parent@example.com")).rejects.toThrow("Couldn't save the invitation");
+    await expect(createSeatInvite("a1", 1, "The Smiths", { email: "parent@example.com" })).rejects.toThrow("Couldn't save the invitation");
   });
 
-  it("sends a plain invitation without touching the nanny columns", async () => {
-    await expect(sendSeatInvite("a1", 1, "parent@example.com")).resolves.toEqual({ ok: true });
-    expect(state.inserted[0]).not.toHaveProperty("nanny_email");
-  });
-
-  it("includes the nanny columns only when a nanny is added", async () => {
-    await sendSeatInvite("a1", 2, "parent2@example.com", { email: "nanny@example.com" });
-    expect(state.inserted[0]).toMatchObject({ nanny_email: "nanny@example.com" });
-  });
-
-  it("still shows the seat board if the nanny columns are not there yet", async () => {
-    state.nannyColumnMissing = true;
+  it("shows the seat board", async () => {
     const board = await getSeatBoard("a1");
     expect(board.total).toBe(10);
   });

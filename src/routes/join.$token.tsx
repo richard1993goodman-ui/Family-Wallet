@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { JoinDone } from "@/components/JoinDone";
+import { JoinDone, type JoinResult } from "@/components/JoinDone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { acceptInviteFn, lookupInviteFn } from "@/lib/seat-invites.functions";
@@ -21,7 +21,7 @@ function JoinPage() {
   const invite = useQuery({ queryKey: ["invite", token], queryFn: () => lookup({ data: { token } }), retry: false });
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState<{ url: string; code: string; nannyName: string | null } | null>(null);
+  const [done, setDone] = useState<JoinResult | null>(null);
 
   const submit = async () => {
     setBusy(true);
@@ -45,7 +45,6 @@ function JoinPage() {
           <h1 className="heading-display text-2xl text-foreground">Activate your Family Wallet</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {invite.data.agencyName} has set you up with a Family Wallet. It's private to your family: {invite.data.agencyName} can't see what you add.
-            {invite.data.nannyName && ` ${invite.data.nannyName} will be added to your household and get their own sign-in.`}
           </p>
           <label className="mt-5 block text-sm font-medium text-foreground">
             Your family name
