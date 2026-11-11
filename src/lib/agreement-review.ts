@@ -7,7 +7,8 @@ export type TemplateReview = {
   reviewedAt?: string | null;
 } | null;
 
-const NOT_REVIEWED = "Not yet legally reviewed. This is general information, not legal advice, and does not replace independent legal advice.";
+const NOT_REVIEWED =
+  "Not yet legally reviewed. This is general information, not legal advice, and does not replace independent legal advice.";
 
 /**
  * The label shown on an agreement. It says "reviewed" only when the template is approved AND a named reviewer and a
@@ -16,8 +17,15 @@ const NOT_REVIEWED = "Not yet legally reviewed. This is general information, not
 export function reviewLabel(review: TemplateReview): { approved: boolean; text: string } {
   const name = review?.reviewerName?.trim();
   if (review?.status === "approved" && name && review.reviewedAt) {
-    const date = new Date(review.reviewedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-    return { approved: true, text: `Reviewed by ${name} on ${date}. This does not replace independent legal advice.` };
+    const date = new Date(review.reviewedAt).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    return {
+      approved: true,
+      text: `Reviewed by ${name} on ${date}. This does not replace independent legal advice.`,
+    };
   }
   return { approved: false, text: NOT_REVIEWED };
 }

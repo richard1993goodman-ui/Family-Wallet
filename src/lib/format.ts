@@ -6,13 +6,20 @@ export const DEFAULT_CURRENCY = "GBP";
 export const DEFAULT_TIME_ZONE = "Europe/London";
 
 /** Money, with the currency's own symbol and decimals (pounds and euros have two, yen has none). */
-export function formatMoney(amount: number | null | undefined, currency: string = DEFAULT_CURRENCY, locale: string = DEFAULT_LOCALE) {
+export function formatMoney(
+  amount: number | null | undefined,
+  currency: string = DEFAULT_CURRENCY,
+  locale: string = DEFAULT_LOCALE,
+) {
   const value = typeof amount === "number" && Number.isFinite(amount) ? amount : 0;
   try {
     return new Intl.NumberFormat(locale, { style: "currency", currency }).format(value);
   } catch {
     // An unknown currency code or locale must never break a screen: fall back to the defaults.
-    return new Intl.NumberFormat(DEFAULT_LOCALE, { style: "currency", currency: DEFAULT_CURRENCY }).format(value);
+    return new Intl.NumberFormat(DEFAULT_LOCALE, {
+      style: "currency",
+      currency: DEFAULT_CURRENCY,
+    }).format(value);
   }
 }
 
@@ -26,12 +33,19 @@ export function formatDate(
   timeZone: string = DEFAULT_TIME_ZONE,
 ) {
   const dateOnly = typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
-  return new Intl.DateTimeFormat(locale, { ...options, timeZone: dateOnly ? "UTC" : timeZone }).format(
-    dateOnly ? new Date(`${value}T00:00:00Z`) : asDate(value),
-  );
+  return new Intl.DateTimeFormat(locale, {
+    ...options,
+    timeZone: dateOnly ? "UTC" : timeZone,
+  }).format(dateOnly ? new Date(`${value}T00:00:00Z`) : asDate(value));
 }
 
 /** A clock time in the household's language and time zone. */
-export function formatTime(value: string | number | Date, locale: string = DEFAULT_LOCALE, timeZone: string = DEFAULT_TIME_ZONE) {
-  return new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", timeZone }).format(asDate(value));
+export function formatTime(
+  value: string | number | Date,
+  locale: string = DEFAULT_LOCALE,
+  timeZone: string = DEFAULT_TIME_ZONE,
+) {
+  return new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", timeZone }).format(
+    asDate(value),
+  );
 }

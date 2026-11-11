@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { myHouseholds } from "@/lib/account.functions";
+import { useT } from "@/lib/i18n/provider";
 
 /**
  * The household's name in the top bar. Someone signed in with their own account who belongs to more than one
  * household (a nanny with several families) can switch between them here. Everyone else just sees the name.
  */
 export function HouseholdSwitcher({ slug, familyName }: { slug: string; familyName: string }) {
+  const t = useT();
   const navigate = useNavigate();
   const list = useServerFn(myHouseholds);
   const [signedIn, setSignedIn] = useState(false);
@@ -33,7 +35,7 @@ export function HouseholdSwitcher({ slug, familyName }: { slug: string; familyNa
   }
   return (
     <select
-      aria-label="Switch household"
+      aria-label={t("switcher.label")}
       className="min-w-0 max-w-[14rem] truncate rounded-md border border-input bg-card px-2 py-1 text-sm font-medium text-foreground"
       value={slug}
       onChange={(e) => void navigate({ to: "/w/$slug", params: { slug: e.target.value } })}

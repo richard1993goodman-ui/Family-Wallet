@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 
 import { finishAccountClaim } from "@/lib/account.functions";
+import { useT } from "@/lib/i18n/provider";
 
 export const Route = createFileRoute("/claim/$token")({
   head: () => ({
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/claim/$token")({
 
 /** Opened from the emailed link: uses it once, then signs the person in. */
 function ClaimPage() {
+  const t = useT();
   const { token } = Route.useParams();
   const finish = useServerFn(finishAccountClaim);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +27,7 @@ function ClaimPage() {
     finish({ data: { token } })
       .then((result) => window.location.assign(result.actionLink))
       .catch((e: unknown) =>
-        setError(e instanceof Error ? e.message : "This link couldn't be used."),
+        setError(e instanceof Error ? e.message : t("claim.failedFallback")),
       );
   }, [finish, token]);
 
@@ -34,13 +36,11 @@ function ClaimPage() {
       <div className="rounded-2xl bg-card p-6 text-center shadow-sm">
         {error ? (
           <>
-            <h1 className="heading-display text-2xl text-foreground">
-              We couldn't create your login
-            </h1>
+            <h1 className="heading-display text-2xl text-foreground">{t("claim.failedTitle")}</h1>
             <p className="mt-2 text-sm text-muted-foreground">{error}</p>
           </>
         ) : (
-          <p className="text-sm text-muted-foreground">Creating your login…</p>
+          <p className="text-sm text-muted-foreground">{t("claim.creating")}</p>
         )}
       </div>
     </main>

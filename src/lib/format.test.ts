@@ -22,8 +22,22 @@ describe("formatMoney", () => {
 
 describe("formatDate and formatTime", () => {
   it("shows a date-only value as that calendar day, in any time zone", () => {
-    expect(formatDate("2026-11-11", { day: "numeric", month: "short", year: "numeric" }, "en-GB", "Pacific/Auckland")).toBe("11 Nov 2026");
-    expect(formatDate("2026-11-11", { day: "numeric", month: "short", year: "numeric" }, "en-GB", "America/Los_Angeles")).toBe("11 Nov 2026");
+    expect(
+      formatDate(
+        "2026-11-11",
+        { day: "numeric", month: "short", year: "numeric" },
+        "en-GB",
+        "Pacific/Auckland",
+      ),
+    ).toBe("11 Nov 2026");
+    expect(
+      formatDate(
+        "2026-11-11",
+        { day: "numeric", month: "short", year: "numeric" },
+        "en-GB",
+        "America/Los_Angeles",
+      ),
+    ).toBe("11 Nov 2026");
   });
   it("shows a moment in the requested time zone", () => {
     const moment = "2026-11-11T23:30:00Z";

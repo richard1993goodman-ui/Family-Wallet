@@ -7,9 +7,11 @@ import { Card } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAccountStatus, startAccountClaim } from "@/lib/account.functions";
+import { useT } from "@/lib/i18n/provider";
 
 /** "Create your own login": optional, emailed as a one-time link. Hidden until accounts are switched on. */
 export function CreateLogin({ slug }: { slug: string }) {
+  const t = useT();
   const statusFn = useServerFn(getAccountStatus);
   const claim = useServerFn(startAccountClaim);
   const status = useQuery({
@@ -25,11 +27,10 @@ export function CreateLogin({ slug }: { slug: string }) {
     return (
       <Card className="mt-4">
         <p className="text-sm text-muted-foreground">
-          You have your own login. Sign in with your email any time at{" "}
+          {t("login.have")}{" "}
           <a className="underline" href="/account">
-            /account
+            {t("login.signInLink")}
           </a>
-          .
         </p>
       </Card>
     );
@@ -42,7 +43,7 @@ export function CreateLogin({ slug }: { slug: string }) {
       await claim({ data: { slug, email } });
       setSent(true);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Couldn't send that.");
+      toast.error(e instanceof Error ? e.message : t("login.sendError"));
     } finally {
       setBusy(false);
     }
@@ -50,24 +51,21 @@ export function CreateLogin({ slug }: { slug: string }) {
 
   return (
     <Card className="mt-4">
-      <h2 className="font-medium text-foreground">Create your own login</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Optional. Sign in with your email on any device, and keep your code as a backup. We'll email
-        you a link that works once.
-      </p>
+      <h2 className="font-medium text-foreground">{t("login.title")}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{t("login.intro")}</p>
       {sent ? (
-        <p className="mt-3 text-sm text-foreground">Check your email for the link.</p>
+        <p className="mt-3 text-sm text-foreground">{t("login.sent")}</p>
       ) : (
         <div className="mt-3 flex flex-wrap gap-2">
           <Input
             className="min-w-0 flex-1"
             type="email"
             value={email}
-            placeholder="you@example.com"
+            placeholder={t("login.emailPlaceholder")}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Button disabled={busy || !email.includes("@")} onClick={send}>
-            Email me a link
+            {t("login.send")}
           </Button>
         </div>
       )}

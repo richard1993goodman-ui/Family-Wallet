@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { WalletAppShell } from "@/components/WalletAppShell";
+import { I18nProvider } from "@/lib/i18n/provider";
 
 function NotFoundComponent() {
   return (
@@ -143,12 +144,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <I18nProvider>
       <PaymentTestModeBanner />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <WalletAppShell>
         <Outlet />
       </WalletAppShell>
       <Toaster />
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { CreateLogin } from "@/components/CreateLogin";
+import { LanguagePicker } from "@/components/LanguagePicker";
 import { HubPage } from "@/components/hub-ui";
 
 export const Route = createFileRoute("/mylogin/$slug")({
@@ -20,6 +21,7 @@ function MyLoginPage() {
       intro="Sign in with your own email on any device. Optional: your access code keeps working."
     >
       <CreateLogin slug={slug} />
+      <LanguagePicker />
     </HubPage>
   );
 }
