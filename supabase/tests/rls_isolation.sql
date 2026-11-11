@@ -32,10 +32,11 @@ begin
     (fam_a, nan_a1, 'dbs', 'Pat DBS', 'a.pdf', 'application/pdf', 1, 'vault/' || fam_a || '/3', false, 'nanny'),
     (fam_a, nan_a2, 'dbs', 'Lee DBS', 'a.pdf', 'application/pdf', 1, 'vault/' || fam_a || '/4', false, 'nanny'),
     (fam_b, null, 'id', 'B private', 'b.pdf', 'application/pdf', 1, 'vault/' || fam_b || '/1', false, 'family');
-  insert into nanny_bank_details (family_id, nanny_id) values (fam_a, nan_a1), (fam_a, nan_a2), (fam_b, nan_b1);
+  insert into nanny_bank_details (family_id, nanny_id, account_name, bank_name, sort_code, account_number) values
+    (fam_a, nan_a1, 't', 't', '000000', '00000000'), (fam_a, nan_a2, 't', 't', '000000', '00000000'), (fam_b, nan_b1, 't', 't', '000000', '00000000');
   insert into house_manual_entries (family_id, category, title) values (fam_a, 'access', 'A door'), (fam_b, 'access', 'B door');
   insert into incident_reports (family_id, child_name, occurred_at, kind, severity, what_happened, reported_by) values
-    (fam_a, 'c', now(), 'bump', 'minor', 'x', 'family'), (fam_b, 'c', now(), 'bump', 'minor', 'x', 'family');
+    (fam_a, 'c', now(), 'accident', 'minor', 'x', 'family'), (fam_b, 'c', now(), 'accident', 'minor', 'x', 'family');
 
   perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
   set local role authenticated;
