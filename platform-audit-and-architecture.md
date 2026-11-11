@@ -202,3 +202,5 @@ Rule: a code is readable only until its owner first signs in with it, then clear
 Stage C design (draft, for review): see `stage-c-account-layer-design.md`.
 
 Stage D design (draft, for review): see `stage-d-agency-invites-design.md`.
+
+Stage E design (draft, for review): see `stage-e-agreements-design.md`. Stage F design (draft, for review): see `stage-f-localisation-design.md`.
