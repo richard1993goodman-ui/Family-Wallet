@@ -41,3 +41,12 @@ describe("staff wording", () => {
     expect(labels).not.toContain("Nanny agreement");
   });
 });
+
+describe("My login menu item", () => {
+  it("stays out of the menu until accounts are switched on for the build", () => {
+    for (const role of ["family", "nanny"] as const) {
+      const labels = navFor(role).flatMap((s) => s.items.map((i) => i.label));
+      expect(labels).not.toContain("My login");
+    }
+  });
+});
