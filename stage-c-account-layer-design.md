@@ -117,3 +117,6 @@ Order, highest risk first: `wallet_documents` and the storage bucket, `nanny_ban
 3. Should a parent be able to remove a staff member's account, or only end the membership (recommend: end the membership, never delete the person)?
 4. Co-parents: needed at launch or later?
 5. Confirm "optional account" is the right promise for existing families (no forced migration).
+
+## C5 status (11 Nov)
+Built, not applied or run: `supabase/migrations/20261111380000_member_read_policies.sql` (read-only policies for documents, bank details, house manual, incident reports and vault files, keyed to household membership) and `supabase/tests/rls_isolation.sql` (synthetic two-household test that always rolls back). The test has **not been run**: the database tool was blocked as a production action. Honest limit: these policies only matter for account logins; code logins still read through the server's service key.
