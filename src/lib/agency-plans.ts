@@ -14,11 +14,18 @@ export type AgencyPlan = {
 };
 
 export const AGENCY_PLANS: Record<AgencyPlanId, AgencyPlan> = {
-  partner: { name: "Partner", allowance: 10, pence: 3900, extraPence: 300 },
-  growth: { name: "Growth", allowance: 50, pence: 11900, extraPence: 200 },
-  scale: { name: "Scale", allowance: 100, pence: 19900, extraPence: 150 },
+  partner: { name: "Partner", allowance: 10, pence: 6900, extraPence: 300 },
+  growth: { name: "Growth", allowance: 50, pence: 14900, extraPence: 200 },
+  scale: { name: "Scale", allowance: 100, pence: 24900, extraPence: 150 },
   enterprise: { name: "Enterprise", allowance: null, pence: null, extraPence: null },
 };
+
+/** The self-serve tiers in order. Enterprise is priced by agreement, so nothing moves an agency onto it automatically. */
+export const TIER_ORDER = ["partner", "growth", "scale"] as const;
+export function nextAgencyPlan(plan: AgencyPlanId): "growth" | "scale" | null {
+  const i = TIER_ORDER.indexOf(plan as (typeof TIER_ORDER)[number]);
+  return i >= 0 && i < TIER_ORDER.length - 1 ? (TIER_ORDER[i + 1] as "growth" | "scale") : null;
+}
 
 export const ACTIVE_WINDOW_DAYS = 30;
 const NEAR_LIMIT = 0.8;

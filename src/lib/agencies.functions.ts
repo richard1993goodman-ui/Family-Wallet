@@ -1,28 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { isActiveHousehold, isAgencyPlan } from "./agency-plans";
+import { isAgencyPlan } from "./agency-plans";
 import { requireOwner, requireStaff } from "./staff.scope";
 
 // Owner-only management of partner agencies and the staff emails allowed into each.
-
-export const listPartnerAgencies = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    await requireOwner(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const [{ data: agencies, error }, { data: staff }, { data: families }] = await Promise.all([
-      supabaseAdmin.from("partner_agencies").select("*").order("created_at", { ascending: true }),
-      supabaseAdmin.from("partner_agency_staff").select("id, agency_id, email, user_id").order("created_at"),
-      supabaseAdmin.from("families").select("partner_agency_id, status, last_active_at").not("partner_agency_id", "is", null),
-    ]);
-    if (error) throw new Error(error.message);
-    return (agencies ?? []).map((a) => ({
-      ...a,
-      staff: (staff ?? []).filter((s) => s.agency_id === a.id).map((s) => ({ id: s.id, email: s.email, joined: !!s.user_id })),
-      activeFamilies: (families ?? []).filter((f) => f.partner_agency_id === a.id && f.status === "active").length,
-      activeThisMonth: (families ?? []).filter((f) => f.partner_agency_id === a.id && f.status === "active" && isActiveHousehold(f.last_active_at)).length,
-    }));
-  });
 
 export const savePartnerAgency = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -120,36 +101,6 @@ export const getStaffSetupLink = createServerFn({ method: "POST" })
     return { link };
   });
 
-export const removeAgencyStaff = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => d)
-  .handler(async ({ data, context }) => {
-    await requireOwner(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin.from("partner_agency_staff").delete().eq("id", data.id);
-    if (error) throw new Error(error.message);
-    return { ok: true as const };
-  });
-
-export const deletePartnerAgency = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => d)
-  .handler(async ({ data, context }) => {
-    await requireOwner(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { count } = await supabaseAdmin
-      .from("families")
-      .select("id", { count: "exact", head: true })
-      .eq("partner_agency_id", data.id);
-    if ((count ?? 0) > 0) {
-      throw new Error(`This agency still has ${count} ${count === 1 ? "family" : "families"}. Delete or move them first.`);
-    }
-    const { error } = await supabaseAdmin.from("partner_agencies").delete().eq("id", data.id);
-    if (error) throw new Error(error.message);
-    return { ok: true as const };
-  });
-
-// Each agency exports its own records (30-day exit export). The platform owner cannot export a partner agency's families.
 const EXPORT_TABLES = [
   "family_children", "family_contacts", "family_profile", "family_nannies", "nanny_agreements",
   "document_signatures", "family_documents", "nanny_safety_documents", "timesheet_shifts", "leave_requests",
@@ -203,4 +154,21 @@ export const exportMyAgencyRecords = createServerFn({ method: "POST" })
       });
     }
     return JSON.stringify({ exportedAt: new Date().toISOString(), agency, families: families ?? [], records }, null, 2);
+  });
+
+/** Owner dashboard: active agencies with their tier and seat use. Nothing private. */
+export const getAgencyTierBoardFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireOwner(context);
+    return (await import("./agency-tiers.server")).getTierBoard();
+  });
+
+/** Owner action: move an agency up one tier when it asks for more seats. */
+export const upgradeAgencyTierFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { agencyId: string; fromPlan: string }) => d)
+  .handler(async ({ data, context }) => {
+    await requireOwner(context);
+    return (await import("./agency-tiers.server")).upgradeTier(String(data.agencyId ?? ""), String(data.fromPlan ?? ""));
   });

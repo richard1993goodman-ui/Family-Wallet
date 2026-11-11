@@ -22,12 +22,12 @@ export function buildAgencyWelcomeEmail({
   const subject = "Your Family Wallet agency account is set up";
   const text = `Hi ${agencyName},
 
-Your ${plan} subscription is paid and your agency account is created with room for ${allowance} active households.
+Your ${plan} subscription is paid and your agency account is created with room for ${allowance} household seats.
 
 What happens next:
 1. We email you a setup link for your agency login. It goes to ${contactEmail}.
 2. You add your agency logo and the name families will see.
-3. You add your families and copy each one's wallet link and access code to send on.
+3. You invite your families by email. Each one creates its own private wallet, which you never see.
 
 If anything above is not what you expected, just reply to this email.
 
@@ -36,12 +36,12 @@ ${CONTACT_EMAIL}`;
 
   const html = `<div style="font-family:system-ui,sans-serif;max-width:34rem;line-height:1.6;color:#2a2420">
 <p>Hi ${escapeHtml(agencyName)},</p>
-<p>Your <strong>${escapeHtml(plan)}</strong> subscription is paid and your agency account is created with room for <strong>${allowance} active households</strong>.</p>
+<p>Your <strong>${escapeHtml(plan)}</strong> subscription is paid and your agency account is created with room for <strong>${allowance} household seats</strong>.</p>
 <p><strong>What happens next</strong></p>
 <ol>
   <li>We email you a setup link for your agency login. It goes to ${escapeHtml(contactEmail)}.</li>
   <li>You add your agency logo and the name families will see.</li>
-  <li>You add your families and copy each one's wallet link and access code to send on.</li>
+  <li>You invite your families by email. Each one creates its own private wallet, which you never see.</li>
 </ol>
 <p>If anything above is not what you expected, just reply to this email.</p>
 <p style="color:#6b5f55">The Family Wallet<br>${escapeHtml(CONTACT_EMAIL)}</p>
@@ -53,11 +53,11 @@ ${CONTACT_EMAIL}`;
 /** The note to the account owner so a new agency is never waiting on an unseen inbox. */
 export function buildAgencyOwnerEmail({ agencyName, plan, allowance, contactEmail }: AgencyEmailInput) {
   const subject = `New agency subscription: ${agencyName} (${plan})`;
-  const text = `${agencyName} subscribed to the ${plan} plan (${allowance} active households).
+  const text = `${agencyName} subscribed to the ${plan} plan (${allowance} household seats).
 Contact: ${contactEmail}
 Create their staff login and send the setup link from Agency settings.`;
   const html = `<div style="font-family:system-ui,sans-serif;line-height:1.6;color:#2a2420">
-<p><strong>${escapeHtml(agencyName)}</strong> subscribed to the <strong>${escapeHtml(plan)}</strong> plan (${allowance} active households).</p>
+<p><strong>${escapeHtml(agencyName)}</strong> subscribed to the <strong>${escapeHtml(plan)}</strong> plan (${allowance} household seats).</p>
 <p>Contact: ${escapeHtml(contactEmail)}</p>
 <p>Create their staff login and send the setup link from Agency settings.</p>
 </div>`;

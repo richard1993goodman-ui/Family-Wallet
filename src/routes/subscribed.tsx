@@ -67,7 +67,7 @@ function Subscribed() {
             Your agency account is set up
           </h1>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
-            {result.agencyName} now has room for {result.allowance} active households. We have emailed
+            {result.agencyName} now has room for {result.allowance} household seats. We have emailed
             a setup link to the address you paid with, and your account owner has been asked to
             create your agency login.
           </p>

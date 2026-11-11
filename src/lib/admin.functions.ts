@@ -173,11 +173,8 @@ export const saveFamily = createServerFn({ method: "POST" })
       notes: data.notes.trim() || null,
       status: data.status,
       updated_at: new Date().toISOString(),
-      ...(scope.kind === "partner"
-        ? { partner_agency_id: scope.agencyId }
-        : data.partnerAgencyId !== undefined
-          ? { partner_agency_id: data.partnerAgencyId || null }
-          : {}),
+      // Which agency funds a family is only ever changed by the seat and invitation flow, never here.
+      ...(scope.kind === "partner" ? { partner_agency_id: scope.agencyId } : {}),
     };
 
     async function syncPrimaryNanny(familyId: string) {

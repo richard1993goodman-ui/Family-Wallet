@@ -21,12 +21,12 @@ export const Route = createFileRoute("/pricing")({
     pageHead({
       title: "Pricing: Family Wallet Plans for Families & Agencies",
       description:
-        "Family £7.99 a month for one nanny or au pair, Household £14.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+        "Family £9.99 a month for one nanny or au pair, Household £19.99 for up to six staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
       path: "/pricing",
       jsonLd: [
         softwareLd([
-          { name: "Family", price: "7.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
-          { name: "Household", price: "14.99", description: "Up to six staff, billed monthly, excluding VAT." },
+          { name: "Family", price: "9.99", description: "One nanny or au pair, billed monthly, excluding VAT." },
+          { name: "Household", price: "19.99", description: "Up to six staff, billed monthly, excluding VAT." },
         ]),
         faqLd(faqs.families),
         breadcrumbLd([
@@ -61,17 +61,16 @@ type Tier = {
 const families: Tier[] = [
   {
     name: "Family",
-    monthly: 7.99,
-    annual: 79,
+    monthly: 9.99,
+    annual: 99,
     who: "One nanny or au pair, run properly.",
     features: [
-      { text: "1 nanny or au pair (extra staff £3/mo each)" },
+      { text: "1 nanny or au pair (need more? move to Household)" },
       { text: "Shared week calendar, daily log and messages" },
       { text: "Alerts when your carer adds notes or photos, or asks to change the schedule or book holiday" },
-      { text: "Agreement signed by both of you" },
-      { text: "House manual and codes, hidden until revealed" },
       { text: "Emergency card and medication log" },
       { text: "Timesheets, expenses and a Friday weekly report" },
+      { text: "Customer support by email" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
     plan: "family",
@@ -79,14 +78,16 @@ const families: Tier[] = [
   },
   {
     name: "Household",
-    monthly: 14.99,
-    annual: 149,
+    monthly: 19.99,
+    annual: 199,
     who: "A nanny, an au pair, a housekeeper, a driver.",
     lead: "Everything in Family, plus",
     features: [
-      { text: "Up to 6 staff (extra staff £3/mo each)" },
+      { text: "Up to 6 staff, each with their own sign-in" },
+      { text: "Agreement builder, signed by both of you" },
+      { text: "House manual and codes, hidden until revealed" },
       { text: "Employment cost calculator" },
-      { text: "Au pair and live-in tools: hours and days off", soon: true },
+      { text: "Au pair and live-in tools: pocket money, hours cap, days off and house rules" },
       { text: "More than one property", soon: true },
       { text: "Exports for your accountant", soon: true },
       { text: "Priority support" },
@@ -104,39 +105,41 @@ const families: Tier[] = [
       { text: "Several properties and teams" },
       { text: "A named contact" },
       { text: "Help setting up and importing records" },
+      { text: "Dedicated customer support" },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet: Estate") },
+    cta: { label: "Get a quote", href: mail("Family Wallet: Estate") },
   },
 ];
 
+// Agencies fund household seats and invite families by email. They never see a family's wallet.
 const agencies: Tier[] = [
   {
     name: "Partner",
-    monthly: 39,
+    monthly: 69,
     who: "Give your first families a wallet.",
     features: [
-      { text: "10 active households" },
-      { text: "Extra households £3/mo each" },
+      { text: "10 household seats" },
       { text: "Your logo, “Powered by The Family Wallet”" },
-      { text: "Copy each family's link and code in one tap" },
+      { text: "Invite families by email: each creates its own private wallet" },
+      { text: "Add the nanny too: they get their own sign-in" },
       { text: "Bulk import of existing families", soon: true },
-      { text: "Basic agency dashboard" },
+      { text: "Simple seat dashboard" },
+      { text: "Ongoing customer support" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
     plan: "agency_partner",
   },
   {
     name: "Growth",
-    monthly: 119,
+    monthly: 149,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [
-      { text: "50 active households" },
-      { text: "Extra households £2/mo each" },
+      { text: "50 household seats" },
       { text: "Your logo, colours and subdomain" },
-      { text: "Dashboard: set-up status, signed agreements, expiring checks" },
+      { text: "Release and reuse seats any time" },
       { text: "Manage your own perks and playbooks" },
-      { text: "One set-up call" },
+      { text: "Continued support, from set-up onwards" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
     plan: "agency_growth",
@@ -144,15 +147,14 @@ const agencies: Tier[] = [
   },
   {
     name: "Scale",
-    monthly: 199,
+    monthly: 249,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [
-      { text: "100 active households" },
-      { text: "Extra households £1.50/mo each" },
+      { text: "100 household seats" },
       { text: "Your own domain, fully white-labelled" },
+      { text: "Continued priority support" },
       { text: "Staff roles and permissions" },
-      { text: "Priority support" },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
     plan: "agency_scale",
@@ -163,23 +165,55 @@ const agencies: Tier[] = [
     who: "More than 100 households.",
     lead: "Everything in Scale, plus",
     features: [
-      { text: "100+ active households, priced to your volume" },
+      { text: "100+ household seats, priced to your volume" },
       { text: "Help moving your existing families across" },
       { text: "API and single sign-on", soon: true },
-      { text: "Dedicated account manager" },
+      { text: "Dedicated account manager and continued support" },
     ],
     cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
   },
 ];
 
+/* Everything inside the wallet, per tier, for the expandable list under each card. */
+const DAY_TO_DAY = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Payroll setup via our partner Nannytax", "Customer support by email"];
+const HOUSEHOLD_EXTRA = ["Up to 6 staff with their own roles and sign-ins", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", "Priority support"];
+type Group = { title: string; items: string[] };
+const tierIncludes: Record<string, Group[]> = {
+  Family: [{ title: "Day to day (1 carer)", items: DAY_TO_DAY }],
+  Household: [{ title: "Everything in Family", items: DAY_TO_DAY }, { title: "Household extras", items: HOUSEHOLD_EXTRA }],
+  Estate: [{ title: "Everything in Household", items: [...DAY_TO_DAY, ...HOUSEHOLD_EXTRA] }, { title: "Estate extras", items: ["Unlimited staff", "Several properties and teams", "A named contact", "Help importing records"] }],
+};
+
+function TierDetails({ groups }: { groups: Group[] }) {
+  const total = groups.reduce((n, g) => n + g.items.length, 0);
+  return (
+    <details className="group mt-6 rounded-xl bg-muted/50 p-4">
+      <summary className="cursor-pointer list-none text-[0.9375rem] font-medium text-foreground">
+        <span className="group-open:hidden">See everything included ({total})</span>
+        <span className="hidden group-open:inline">Hide full list</span>
+      </summary>
+      {groups.map((g) => (
+        <div key={g.title} className="mt-4">
+          <p className="text-[0.8125rem] font-semibold uppercase tracking-wide text-muted-foreground">{g.title}</p>
+          <ul className="mt-2 space-y-1.5">
+            {g.items.map((i) => (
+              <li key={i} className="flex gap-2 text-sm text-foreground"><Check className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden />{i}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </details>
+  );
+}
+
 const payOptions = [
   {
     title: "You include it in the membership",
-    body: "You pay per active household. At Growth with 40 families that is about £3 a family a month, a small part of a £50 membership.",
+    body: "You pay for household seats. At Growth with 40 families that is under £4 a family a month, a small part of a £50 membership.",
   },
   {
     title: "You resell it",
-    body: "You pay the household rate and charge your families whatever you like, for example £7.99 to £9.99 a month.",
+    body: "You pay the household rate and charge your families whatever you like, for example £9.99 to £12.99 a month.",
   },
   {
     title: "You refer families",
@@ -192,6 +226,10 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     {
       q: "Is there a free version?",
       a: "No. The wallet is a paid plan for your household. Explore the demo wallet first, a sample family with their nanny, to see exactly what you would get.",
+    },
+    {
+      q: "What if I need more staff than my plan includes?",
+      a: "Move up a plan. Family covers one nanny or au pair; Household covers up to six staff; Estate covers unlimited. You can upgrade any time from Manage subscription and the difference is worked out for you.",
     },
     {
       q: "Does my nanny or au pair pay?",
@@ -207,29 +245,37 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "My agency already gave me a wallet. Do I pay?",
-      a: "Not if your agency includes it in your membership. If you leave the agency, you keep your records and can move to a Family plan.",
+      a: "Not while your agency funds it. Your wallet is private to your family: your agency cannot see what you add. If your agency stops funding it, you keep your records and have a week to move to your own plan.",
     },
     {
       q: "Is this payroll?",
-      a: "No. The wallet holds your agreement, week, logs and costs, and works alongside whichever payroll service you use.",
+      a: "No. The wallet holds your agreement, hours and records. For payroll, contact support and we'll connect you with our partners at Nannytax and send you a unique referral code.",
     },
   ],
   agencies: [
     {
-      q: "What is an active household?",
-      a: "A household where someone signed in during the last 30 days. Families who have gone quiet do not count towards your allowance.",
+      q: "What is a household seat?",
+      a: "One household you fund. Send a seat's invitation by email and it is held for that family until it activates, expires or you revoke it. Released and expired seats are free to use again straight away.",
     },
     {
       q: "Do my nannies and au pairs need a paid seat?",
       a: "No. Nanny and au pair seats are always free and unlimited. You only count households.",
     },
     {
+      q: "Can I see my families' information?",
+      a: "No, and that is deliberate. Each family creates and owns its private wallet. You see only the seat, the email you invited and its status. You can include the nanny's email so they get their own sign-in, but you never see their code.",
+    },
+    {
       q: "Can I bring my existing families on?",
-      a: "Yes. Add each family in your dashboard and copy their link and access code to send on. Bulk import from a spreadsheet is on the way."
+      a: "Yes. Invite each family by email from your dashboard and they create their own wallet. Bulk import from a spreadsheet is on the way.",
     },
     {
       q: "What happens when a family leaves my agency?",
-      a: "They keep their records and can move to their own Family plan. Your code can give them a discount.",
+      a: "Release the seat. It is free again immediately, and the family keeps its wallet and records. It is offered its own Family plan and keeps full access for a week while it decides.",
+    },
+    {
+      q: "Need more seats?",
+      a: "Ask us and we'll move you to the next plan. Your families and invitations stay exactly as they are.",
     },
     {
       q: "Is there a setup fee or contract?",
@@ -463,6 +509,7 @@ function PricingPageInner() {
                       </li>
                     ))}
                   </ul>
+                  {tierIncludes[t.name] ? <TierDetails groups={tierIncludes[t.name]!} /> : null}
                 </div>
               </article>
             );
