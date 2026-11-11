@@ -45,7 +45,9 @@ export async function loadWorkHours(slug: string) {
       agreementHasHours: mode.enabled && hasHours(agreementDays),
     };
   });
-  return { access: family.access, agreementsOn: mode.enabled, nannies };
+  // Where the household is decides which public holidays are offered. Older databases without the columns default to the UK.
+  const { data: place } = await supabaseAdmin.from("families").select("country, region").eq("id", family.id).maybeSingle();
+  return { access: family.access, agreementsOn: mode.enabled, nannies, country: place?.country ?? "GB", region: place?.region ?? null };
 }
 
 export async function saveWorkHours(slug: string, nannyId: string, days: unknown, schedule: unknown) {

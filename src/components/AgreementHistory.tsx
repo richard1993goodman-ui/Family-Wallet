@@ -16,13 +16,17 @@ export function AgreementHistory({ history }: { history: AgreementHistoryEntry[]
             <p className="font-medium text-foreground">
               {t("agr.historyIssued", { version: entry.version, date: formatDate(entry.issuedAt) })}
             </p>
-            <p className="text-xs text-muted-foreground">{t("agr.historyFingerprint", { code: entry.fingerprint })}</p>
+            <p className="text-xs text-muted-foreground">
+              {t("agr.historyFingerprint", { code: entry.fingerprint })}
+            </p>
             {entry.signatures.length === 0 ? (
               <p className="mt-1 text-muted-foreground">{t("agr.historyNoSignatures")}</p>
             ) : (
               <ul className="mt-1 space-y-0.5 text-muted-foreground">
                 {entry.signatures.map((s, i) => (
-                  <li key={i}>{t("agr.historySigned", { name: s.name, role: s.role, date: formatDate(s.at) })}</li>
+                  <li key={i}>
+                    {t("agr.historySigned", { name: s.name, role: s.role, date: formatDate(s.at) })}
+                  </li>
                 ))}
               </ul>
             )}

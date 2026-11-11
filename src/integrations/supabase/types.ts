@@ -460,6 +460,10 @@ export type Database = {
       }
       families: {
         Row: {
+          country: string
+          currency: string
+          region: string | null
+          time_zone: string
           access_code: string | null
           access_code_hash: string
           agreement_policy: string
@@ -500,6 +504,10 @@ export type Database = {
           use_agreement: boolean
         }
         Insert: {
+          country?: string
+          currency?: string
+          region?: string | null
+          time_zone?: string
           access_code?: string | null
           access_code_hash: string
           agreement_policy?: string
@@ -540,6 +548,10 @@ export type Database = {
           use_agreement?: boolean
         }
         Update: {
+          country?: string
+          currency?: string
+          region?: string | null
+          time_zone?: string
           access_code?: string | null
           access_code_hash?: string
           agreement_policy?: string

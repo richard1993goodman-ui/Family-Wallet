@@ -14,11 +14,15 @@ vi.mock("@/integrations/supabase/client.server", () => ({
         eq: () => q,
         update: (patch: Record<string, unknown>) => {
           state.updates.push(patch);
-          return Object.assign(Promise.resolve({ error: null }), { eq: () => Promise.resolve({ error: null }) });
+          return Object.assign(Promise.resolve({ error: null }), {
+            eq: () => Promise.resolve({ error: null }),
+          });
         },
         insert: (row: Record<string, unknown>) => {
           state.inserts.push({ table, row });
-          return Object.assign(Promise.resolve({ error: null }), { select: () => ({ single: async () => ({ data: { id: "agreement-1" }, error: null }) }) });
+          return Object.assign(Promise.resolve({ error: null }), {
+            select: () => ({ single: async () => ({ data: { id: "agreement-1" }, error: null }) }),
+          });
         },
         maybeSingle: async () => ({ data: table === "nanny_agreements" ? state.existing : null }),
       };

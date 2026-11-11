@@ -21,7 +21,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import type { WorkingDay } from "@/lib/agreement.model";
 import { getWorkHours, saveWorkHoursFn } from "@/lib/work-hours.functions";
-import { keyDatePresets, termPresets, weeklyHours, type OffPeriod, type WorkSchedule } from "@/lib/work-hours";
+import { keyDatesFor } from "@/lib/holidays";
+import { termPresets, weeklyHours, type OffPeriod, type WorkSchedule } from "@/lib/work-hours";
 
 export const Route = createFileRoute("/hours/$slug")({
   head: () => ({
@@ -123,6 +124,7 @@ function HoursPage() {
               fromAgreement={nanny.source === "agreement"}
               agreementHasHours={nanny.agreementHasHours}
               canEdit={data.access === "family"}
+              holidays={keyDatesFor(data.country, data.region)}
             />
           ))}
         </div>
@@ -160,6 +162,7 @@ function NannyHours({
   fromAgreement,
   agreementHasHours,
   canEdit,
+  holidays,
 }: {
   slug: string;
   nannyId: string;
@@ -171,6 +174,7 @@ function NannyHours({
   /** The nanny also has an agreement with hours, so the parent can choose between the two. */
   agreementHasHours: boolean;
   canEdit: boolean;
+  holidays: ReturnType<typeof keyDatesFor>;
 }) {
   const client = useQueryClient();
   const saveFn = useServerFn(saveWorkHoursFn);
@@ -545,14 +549,20 @@ function NannyHours({
                 >
                   <CalendarClock className="mr-1.5 h-4 w-4" /> Add school holidays
                 </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => addPeriods(keyDatePresets())}
-                >
-                  <CalendarClock className="mr-1.5 h-4 w-4" /> Add bank holidays, Christmas &amp; Easter
-                </Button>
+                {holidays.configured ? (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => addPeriods(holidays.dates)}
+                  >
+                    <CalendarClock className="mr-1.5 h-4 w-4" /> Add bank holidays, Christmas &amp; Easter
+                  </Button>
+                ) : (
+                  <p className="basis-full text-xs text-muted-foreground">
+                    Public holidays aren't set up for your country or region yet. Add each one by hand below.
+                  </p>
+                )}
                 <Button
                   type="button"
                   size="sm"
