@@ -1,3 +1,4 @@
+import { useSection } from "@/components/section-context";
 import { Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -44,8 +45,15 @@ export function PageHeader({
   intro?: ReactNode;
   actions?: ReactNode;
 }) {
+  const section = useSection();
   return (
-    <header>
+    <header data-tint={section?.tint}>
+      {section && (
+        <span className="tint-eyebrow mb-3 print:hidden">
+          <span className="tint-dot" aria-hidden />
+          {section.label}
+        </span>
+      )}
       <nav aria-label="Breadcrumb" className="print:hidden">
         <ol className="flex items-center gap-1 text-[0.8125rem] text-muted-foreground">
           <li>
@@ -255,6 +263,10 @@ export function Field({
   );
 }
 
-export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("surface-card p-5", className)}>{children}</div>;
+export function Card({ children, className, tint }: { children: ReactNode; className?: string; tint?: "sage" | "apricot" | "sky" | "lilac" | "butter" | "rose" }) {
+  return (
+    <div data-tint={tint} className={cn(tint ? "tint-card rounded-2xl p-5" : "surface-card p-5", className)}>
+      {children}
+    </div>
+  );
 }

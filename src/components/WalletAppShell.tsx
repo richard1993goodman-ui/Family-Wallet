@@ -1,3 +1,4 @@
+import { SectionContext } from "@/components/section-context";
 import { staffNoun } from "@/lib/staff-roles";
 import { readDemoBrand } from "@/lib/demo-brand";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
@@ -21,6 +22,7 @@ import {
   navFor,
   routePrefix,
   sectionFor,
+  sectionTint,
   walletPrefixes,
   type WalletRole,
 } from "@/components/wallet-nav";
@@ -153,6 +155,9 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
 
   const wallet = summaryQuery.data.wallet;
   const role: WalletRole = wallet.access === "nanny" ? "nanny" : "family";
+  const noun0 = staffNoun(wallet.nannies.map((n) => n.role));
+  const activeSection = location.prefix === "w" ? null : sectionFor(role, location.prefix, wallet.agreementsEnabled, noun0);
+  const sectionValue = activeSection ? { label: activeSection.label, tint: sectionTint(activeSection.label) } : null;
   const agencyName: string | null = null;
   const agencyLogo: string | null = null;
 
@@ -168,7 +173,8 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         agencyLogo={agencyLogo}
         activePrefix={location.prefix}
       />
-      <SidebarInset className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
+      <SidebarInset data-tint={sectionValue?.tint} className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
+        <SectionContext.Provider value={sectionValue}>
         <TransitionBanner slug={location.slug} />
         <WalletTopBar
           slug={location.slug}
@@ -179,10 +185,11 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
           onSearch={() => setSearchOpen(true)}
         />
         <SectionNav slug={location.slug} role={role} activePrefix={location.prefix} />
-        <div className="min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
+        <div className="tint-wash min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
           {children}
         </div>
         <MobileTabs slug={location.slug} role={role} activePrefix={location.prefix} />
+        </SectionContext.Provider>
       </SidebarInset>
       <WalletSearch
         slug={location.slug}
@@ -299,7 +306,8 @@ function WalletNavigation({
       <SidebarContent className="gap-1 py-2">
         {navFor(role, agreements, noun).map((section) => (
           <SidebarGroup key={section.label}>
-            <SidebarGroupLabel className="text-[0.8125rem] font-normal text-muted-foreground">
+            <SidebarGroupLabel data-tint={sectionTint(section.label)} className="gap-2 text-[0.8125rem] font-medium text-foreground/80">
+              <span className="tint-dot" aria-hidden />
               {section.label}
             </SidebarGroupLabel>
             <SidebarGroupContent>

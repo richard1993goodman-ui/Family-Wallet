@@ -125,18 +125,18 @@
   --shadow-soft: 0 1px 2px rgb(26 56 43 / 0.05);
   --shadow-float: 0 14px 34px -12px rgb(26 56 43 / 0.2), 0 2px 6px rgb(26 56 43 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
-  --tint-sage: #e4ece5;
-  --tint-sage-ink: #234b38;
-  --tint-apricot: #fde8d7;
-  --tint-apricot-ink: #8e4a1f;
-  --tint-sky: #e1edf7;
-  --tint-sky-ink: #2c5a80;
-  --tint-lilac: #ece6f5;
-  --tint-lilac-ink: #5a4685;
-  --tint-butter: #fef3c7;
-  --tint-butter-ink: #b45309;
-  --tint-rose: #f9e3e3;
-  --tint-rose-ink: #8f3a43;
+  --tint-sage: #d8e8dc;
+  --tint-sage-ink: #1f4a34;
+  --tint-apricot: #fbdcc3;
+  --tint-apricot-ink: #8a431a;
+  --tint-sky: #d3e6f6;
+  --tint-sky-ink: #234f78;
+  --tint-lilac: #e2d8f3;
+  --tint-lilac-ink: #523d80;
+  --tint-butter: #fbe9ae;
+  --tint-butter-ink: #8a4a05;
+  --tint-rose: #f6d5d8;
+  --tint-rose-ink: #85323c;
   --chart-1: #1a382b;
   --chart-2: #e3965c;
   --chart-3: #6a9ac4;
@@ -406,6 +406,38 @@
   [data-tint="lilac"] { --tint-bg: var(--tint-lilac); --tint-fg: var(--tint-lilac-ink); }
   [data-tint="butter"] { --tint-bg: var(--tint-butter); --tint-fg: var(--tint-butter-ink); }
   [data-tint="rose"] { --tint-bg: var(--tint-rose); --tint-fg: var(--tint-rose-ink); }
+}
+
+/*
+ * Section colour. Set data-tint on a wrapper and these pick up its pair of colours.
+ * tint-eyebrow: a small pill naming the section. tint-dot: a dot for lists. tint-card: a card with a
+ * coloured edge and a pale wash. tint-wash: a soft fade from the section colour at the top of a page.
+ */
+@utility tint-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background-color: var(--tint-bg, var(--tint-sage));
+  color: var(--tint-fg, var(--tint-sage-ink));
+}
+@utility tint-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--tint-fg, var(--tint-sage-ink));
+}
+@utility tint-card {
+  background-color: color-mix(in oklab, var(--tint-bg, var(--tint-sage)) 45%, var(--card));
+  box-shadow: inset 3px 0 0 var(--tint-fg, var(--tint-sage-ink)), var(--shadow-sm);
+}
+@utility tint-wash {
+  background-image: linear-gradient(to bottom, color-mix(in oklab, var(--tint-bg, var(--tint-sage)) 70%, transparent), transparent 14rem);
 }
 
 @utility ios-section-title {

@@ -196,6 +196,18 @@ const nannyNav: NavSection[] = [
   { label: "My work", items: [workHours, timesheets, leave, liveIn, pettyCash, bankDetails, agreement, training, safety, documents] },
 ];
 
+/** Each menu section has its own colour, carried through to the page header and the menu. */
+export const SECTION_TINTS: Record<string, "sage" | "apricot" | "sky" | "lilac" | "butter" | "rose"> = {
+  Overview: "sage",
+  "Day to day": "apricot",
+  "Family & home": "sky",
+  "Household staff": "lilac",
+  "My day": "apricot",
+  "The family": "sky",
+  "My work": "lilac",
+};
+export const sectionTint = (label: string | undefined) => SECTION_TINTS[label ?? ""] ?? "sage";
+
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */
 export function navFor(role: WalletRole, agreements = true, noun = "nanny"): NavSection[] {
   const Noun = noun.charAt(0).toUpperCase() + noun.slice(1);

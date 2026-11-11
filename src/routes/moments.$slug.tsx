@@ -345,7 +345,7 @@ function FeedCard({
 
   const lovers = local.map((r) => (r === "nanny" ? author.split(" ")[0] : "A parent"));
   return (
-    <article className="overflow-hidden rounded-2xl bg-card shadow-sm">
+    <article data-tint={moment.milestoneLabel ? "butter" : "apricot"} className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-[color-mix(in_oklab,var(--tint-fg)_14%,transparent)]">
       <header className="flex items-center gap-3 px-4 pt-4">
         {avatar ? (
           <img src={avatar} alt="" className="h-9 w-9 rounded-full object-cover" />
@@ -371,7 +371,7 @@ function FeedCard({
       )}
       <div className="px-4 pb-4 pt-3">
         {moment.milestoneLabel && (
-          <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-foreground">
+          <span className="tint-eyebrow mb-2">
             <Sparkles className="h-3 w-3" aria-hidden /> {moment.milestoneLabel}
           </span>
         )}

@@ -141,7 +141,7 @@ function DocumentsPage() {
       title="Documents"
       intro="A private place for key documents: DBS checks, ID, passports, right to work and anything else you both need to keep safe."
     >
-      <div className="flex items-start gap-3 rounded-2xl bg-tint-sage px-4 py-3 text-sm text-foreground">
+      <div data-tint="sky" className="tint-card flex items-start gap-3 rounded-2xl px-4 py-3 text-sm text-foreground">
         <Lock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
         <p>
           Files are stored privately, never public, and open only through short-lived links after we check who is asking.{" "}

@@ -23,6 +23,16 @@ const ICONS: Record<TimelineKind, typeof Clock3> = {
   photo: Camera,
 };
 
+/** Each kind of item has its own colour, so the day reads at a glance. */
+const KIND_TINT: Record<TimelineKind, "sage" | "sky" | "lilac" | "butter" | "apricot"> = {
+  shift: "sage",
+  schedule: "sky",
+  routine: "lilac",
+  logged: "sage",
+  medicine: "butter",
+  photo: "apricot",
+};
+
 const hm = (mins: number) => `${Math.floor(mins / 60)}h ${String(mins % 60).padStart(2, "0")}m`;
 
 /** Shrinks a phone photo to at most 1280px so it uploads quickly. */
@@ -115,10 +125,10 @@ export function TodayTimeline({ slug }: { slug: string }) {
 
   return (
     <div className="space-y-5">
-      <Card>
+      <div data-tint="sage" className="tint-card rounded-2xl p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[0.8125rem] font-medium text-muted-foreground">
+            <p className="text-[0.8125rem] font-medium text-[var(--tint-fg)]">
               {new Date(`${data.today}T12:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
             </p>
             <p className="heading-display mt-0.5 text-xl text-foreground">{status}</p>
@@ -153,7 +163,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
             <Button type="button" variant="ghost" onClick={() => setEnding(false)}>Cancel</Button>
           </form>
         )}
-      </Card>
+      </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Quick capture">
         <input
@@ -223,14 +233,14 @@ export function TodayTimeline({ slug }: { slug: string }) {
       )}
 
       {data.summary && (
-        <Card>
+        <div data-tint="butter" className="tint-card rounded-2xl p-5">
           <h2 className="heading-display text-lg text-foreground">End-of-day summary</h2>
           <ul className="mt-2 space-y-1 text-sm text-foreground">
             {data.summary.map((line) => (
               <li key={line}>{line}</li>
             ))}
           </ul>
-        </Card>
+        </div>
       )}
 
       <section aria-label="Timeline">
@@ -255,8 +265,9 @@ function TimelineRow({ item }: { item: TimelineItem }) {
   return (
     <li className="relative pb-3">
       <span
-        className={`absolute -left-[1.85rem] top-1 grid h-5 w-5 place-items-center rounded-full ring-4 ring-background ${
-          item.attention ? "bg-warning text-white" : next ? "bg-primary text-primary-foreground" : upcoming ? "bg-muted text-muted-foreground" : "bg-primary/15 text-primary"
+        data-tint={item.attention ? "rose" : KIND_TINT[item.kind]}
+        className={`absolute -left-[1.95rem] top-0.5 grid h-6 w-6 place-items-center rounded-full ring-4 ring-background ${
+          next ? "bg-primary text-primary-foreground" : upcoming ? "bg-muted text-muted-foreground" : "bg-[var(--tint-bg)] text-[var(--tint-fg)]"
         }`}
         aria-hidden
       >

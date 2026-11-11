@@ -106,7 +106,7 @@ function TimesheetsPage() {
 
   return <HubPage slug={slug} title="Timesheets" intro="Record worked shifts here. Babysitting (evenings and one-off sits) is kept separate from day-to-day nannying. Parents approve payment; nannies can always see its status.">
     {scheduled.length > 0 && (
-      <div className="mt-6"><Card>
+      <div className="mt-6"><Card tint="butter">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="heading-display text-lg text-foreground">Scheduled hours to confirm</h2>
