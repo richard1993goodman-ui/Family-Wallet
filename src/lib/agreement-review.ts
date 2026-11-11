@@ -8,7 +8,7 @@ export type TemplateReview = {
 } | null;
 
 const NOT_REVIEWED =
-  "Not yet legally reviewed. This is general information, not legal advice, and does not replace independent legal advice.";
+  "Not yet legally reviewed. This is general information, not legal advice, and does not replace independent legal advice. Please ask a solicitor to review this agreement before you sign it.";
 
 /**
  * The label shown on an agreement. It says "reviewed" only when the template is approved AND a named reviewer and a
@@ -24,7 +24,7 @@ export function reviewLabel(review: TemplateReview): { approved: boolean; text: 
     });
     return {
       approved: true,
-      text: `Reviewed by ${name} on ${date}. This does not replace independent legal advice.`,
+      text: `Reviewed by ${name} on ${date}. This does not replace independent legal advice. If you are unsure, ask a solicitor before you sign.`,
     };
   }
   return { approved: false, text: NOT_REVIEWED };
