@@ -24,6 +24,7 @@ import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
 import { Route as CheckinSlugRouteImport } from './routes/checkin.$slug'
+import { Route as ContinueSlugRouteImport } from './routes/continue.$slug'
 import { Route as CostsSlugRouteImport } from './routes/costs.$slug'
 import { Route as CoverSlugRouteImport } from './routes/cover.$slug'
 import { Route as CurationSlugRouteImport } from './routes/curation.$slug'
@@ -150,6 +151,11 @@ const BankdetailsSlugRoute = BankdetailsSlugRouteImport.update({
 const CheckinSlugRoute = CheckinSlugRouteImport.update({
   id: '/checkin/$slug',
   path: '/checkin/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContinueSlugRoute = ContinueSlugRouteImport.update({
+  id: '/continue/$slug',
+  path: '/continue/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CostsSlugRoute = CostsSlugRouteImport.update({
@@ -438,6 +444,7 @@ export interface FileRoutesByFullPath {
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/curation/$slug': typeof CurationSlugRoute
@@ -507,6 +514,7 @@ export interface FileRoutesByTo {
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/curation/$slug': typeof CurationSlugRoute
@@ -578,6 +586,7 @@ export interface FileRoutesById {
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
   '/checkin/$slug': typeof CheckinSlugRoute
+  '/continue/$slug': typeof ContinueSlugRoute
   '/costs/$slug': typeof CostsSlugRoute
   '/cover/$slug': typeof CoverSlugRoute
   '/curation/$slug': typeof CurationSlugRoute
@@ -649,6 +658,7 @@ export interface FileRouteTypes {
     | '/agreement/$slug'
     | '/bankdetails/$slug'
     | '/checkin/$slug'
+    | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
     | '/curation/$slug'
@@ -718,6 +728,7 @@ export interface FileRouteTypes {
     | '/agreement/$slug'
     | '/bankdetails/$slug'
     | '/checkin/$slug'
+    | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
     | '/curation/$slug'
@@ -788,6 +799,7 @@ export interface FileRouteTypes {
     | '/agreement/$slug'
     | '/bankdetails/$slug'
     | '/checkin/$slug'
+    | '/continue/$slug'
     | '/costs/$slug'
     | '/cover/$slug'
     | '/curation/$slug'
@@ -859,6 +871,7 @@ export interface RootRouteChildren {
   AgreementSlugRoute: typeof AgreementSlugRoute
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
   CheckinSlugRoute: typeof CheckinSlugRoute
+  ContinueSlugRoute: typeof ContinueSlugRoute
   CostsSlugRoute: typeof CostsSlugRoute
   CoverSlugRoute: typeof CoverSlugRoute
   CurationSlugRoute: typeof CurationSlugRoute
@@ -1013,6 +1026,13 @@ declare module '@tanstack/react-router' {
       path: '/checkin/$slug'
       fullPath: '/checkin/$slug'
       preLoaderRoute: typeof CheckinSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/continue/$slug': {
+      id: '/continue/$slug'
+      path: '/continue/$slug'
+      fullPath: '/continue/$slug'
+      preLoaderRoute: typeof ContinueSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/costs/$slug': {
@@ -1426,6 +1446,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgreementSlugRoute: AgreementSlugRoute,
   BankdetailsSlugRoute: BankdetailsSlugRoute,
   CheckinSlugRoute: CheckinSlugRoute,
+  ContinueSlugRoute: ContinueSlugRoute,
   CostsSlugRoute: CostsSlugRoute,
   CoverSlugRoute: CoverSlugRoute,
   CurationSlugRoute: CurationSlugRoute,

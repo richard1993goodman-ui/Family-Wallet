@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { AGENCY_PLANS, isAgencyPlan } from "./agency-plans";
+import { graceDays, transitionEnd } from "./entitlement";
 import { buildSeats, hashInviteToken, INVITE_DAYS, isValidEmail, newInviteToken, normaliseEmail, seatCount, type InviteRow } from "./seat-invites";
 
 const OPEN = ["pending", "accepted"];
@@ -115,7 +116,32 @@ export async function revokeSeatInvite(agencyId: string, inviteId: string) {
   return { ok: true as const };
 }
 
-/** Ends the agency's funding of a household. The family and everything in its wallet are kept. */
+/** The offer a family gets when its agency stops funding the wallet. */
+async function emailContinuation(slug: string, to: string, familyName: string, agencyName: string, endsAt: Date) {
+  const { emailConfigured, sendEmail } = await import("./email.server");
+  if (!emailConfigured()) return false;
+  const { siteUrl, CONTACT_EMAIL } = await import("./site");
+  const url = siteUrl(`/continue/${slug}`);
+  const until = endsAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const text = `Hello ${familyName},
+
+Your agency-funded Family Wallet access, provided by ${agencyName}, is coming to an end.
+
+The good news is that you can continue using Family Wallet independently by taking out your own subscription. Keep your household information, nanny details, agreements, documents and everything you've already set up in one secure place. Nothing is lost and you don't need to set anything up again.
+
+You keep full access until ${until}. To continue, choose your plan here:
+${url}
+
+Questions? ${process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL}`;
+  const html = `<p>Hello ${familyName},</p><p>Your agency-funded Family Wallet access, provided by ${agencyName}, is coming to an end.</p><p>The good news is that you can continue using Family Wallet independently by taking out your own subscription. Keep your household information, nanny details, agreements, documents and everything you've already set up in one secure place. Nothing is lost and you don't need to set anything up again.</p><p>You keep full access until <strong>${until}</strong>.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Continue with Family Wallet</a></p>`;
+  return sendEmail({ to, subject: "Keep your Family Wallet: choose how to continue", html, text });
+}
+
+/**
+ * Ends the agency's funding of a household. The seat is free straight away. The family keeps its
+ * account and data and gets a grace period, then a direct-subscription offer. It is never charged
+ * automatically, and the grace period does not hold the agency's seat.
+ */
 export async function releaseSeat(agencyId: string, inviteId: string) {
   const { data: invite } = await supabaseAdmin
     .from("agency_invites")
@@ -124,9 +150,32 @@ export async function releaseSeat(agencyId: string, inviteId: string) {
     .eq("agency_id", agencyId)
     .maybeSingle();
   if (!invite || invite.status !== "accepted") throw new Error("That seat isn't occupied.");
-  const now = new Date().toISOString();
-  await supabaseAdmin.from("agency_invites").update({ status: "released", released_at: now }).eq("id", invite.id);
-  if (invite.family_id) await supabaseAdmin.from("families").update({ agency_released_at: now }).eq("id", invite.family_id);
+  const now = new Date();
+  await supabaseAdmin.from("agency_invites").update({ status: "released", released_at: now.toISOString() }).eq("id", invite.id);
+  if (!invite.family_id) return { ok: true as const };
+
+  const { data: family } = await supabaseAdmin
+    .from("families")
+    .select("slug, family_name, contact_email, entitlement")
+    .eq("id", invite.family_id)
+    .maybeSingle();
+  if (!family) return { ok: true as const };
+  // A family that already pays for itself is left alone: only agency-funded households enter a transition.
+  if (family.entitlement === "direct_active") {
+    await supabaseAdmin.from("families").update({ agency_released_at: now.toISOString() }).eq("id", invite.family_id);
+    return { ok: true as const };
+  }
+  const endsAt = transitionEnd(now, graceDays());
+  await supabaseAdmin
+    .from("families")
+    .update({ agency_released_at: now.toISOString(), entitlement: "transition", transition_ends_at: endsAt.toISOString(), updated_at: now.toISOString() })
+    .eq("id", invite.family_id);
+
+  const to = (family.contact_email ?? "").trim();
+  if (to) {
+    const agency = await agencyInfo(agencyId);
+    await emailContinuation(family.slug, to, family.family_name, agency.brand_name || agency.name, endsAt);
+  }
   return { ok: true as const };
 }
 
@@ -170,6 +219,7 @@ export async function acceptInvite(token: string, familyName: string) {
       contact_email: invite.email.endsWith(".invalid") ? null : invite.email,
       tier_band: "",
       status: "active",
+      entitlement: "agency_active",
       partner_agency_id: invite.agency_id,
       slug,
       access_code: code,

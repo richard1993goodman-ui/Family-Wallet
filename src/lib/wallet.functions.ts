@@ -3,11 +3,15 @@ import { createServerFn } from "@tanstack/react-start";
 export const getWalletSummary = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const { loadWallet, walletExists } = await import("./wallet.server");
+    const { loadWallet, walletExists, suspendedWalletName } = await import("./wallet.server");
     const wallet = await loadWallet(data.slug);
     if (wallet) return { unlocked: true as const, wallet };
     const familyName = await walletExists(data.slug);
-    return { unlocked: false as const, exists: !!familyName, familyName };
+    if (!familyName) {
+      const paused = await suspendedWalletName(data.slug);
+      if (paused) return { unlocked: false as const, exists: true, familyName: paused, suspended: true as const };
+    }
+    return { unlocked: false as const, exists: !!familyName, familyName, suspended: false as const };
   });
 
 /** Opens the shared demo wallet (slug "demo") without a code, for prospective families. */

@@ -117,3 +117,56 @@ export const requestWalletDetails = createServerFn({ method: "POST" })
     await sendWalletDetails(String(data.email ?? ""), client);
     return { ok: true as const };
   });
+
+/** The family's own continuation status: only for a device that holds the wallet's access code. */
+export const getContinuationFn = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { continuationFor } = await import("./wallet.server");
+    return continuationFor(String(data.slug ?? ""));
+  });
+
+/**
+ * Checkout for a family that is leaving agency funding (or came back after suspension). It pays for
+ * the family's EXISTING wallet: the session carries the family id, and nothing is created or copied.
+ */
+export const createContinueCheckout = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; plan: unknown; interval: unknown; environment: unknown }) => {
+    if (data.plan !== "family" && data.plan !== "household") throw new Error("Unknown plan.");
+    if (!isInterval(data.interval)) throw new Error("Unknown billing period.");
+    if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Unknown payment environment.");
+    return { slug: String(data.slug ?? ""), plan: data.plan as PlanId, interval: data.interval as Interval, environment: data.environment as StripeEnv };
+  })
+  .handler(async ({ data }): Promise<CheckoutResult> => {
+    const { continuationFor } = await import("./wallet.server");
+    const state = await continuationFor(data.slug);
+    if (!state || (state.state !== "transition" && state.state !== "suspended")) {
+      return { error: "This wallet can't be continued from here." };
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: family } = await supabaseAdmin.from("families").select("id, contact_email").eq("slug", data.slug).maybeSingle();
+    if (!family) return { error: "Wallet not found." };
+
+    const { createStripeClient, getStripeErrorMessage } = await import("./stripe.server");
+    try {
+      const stripe = createStripeClient(data.environment);
+      const prices = await stripe.prices.list({ lookup_keys: [priceLookupKey(data.plan, data.interval)], active: true });
+      const price = prices.data[0];
+      if (!price) return { error: "That plan isn't available right now." };
+      const session = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        line_items: [{ price: price.id, quantity: 1 }],
+        ui_mode: "embedded_page",
+        return_url: `${siteUrl("/subscribed")}?session_id={CHECKOUT_SESSION_ID}`,
+        managed_payments: { enabled: true },
+        billing_address_collection: "required",
+        allow_promotion_codes: true,
+        ...(family.contact_email ? { customer_email: family.contact_email } : {}),
+        metadata: { app: "family_wallet", plan: data.plan, interval: data.interval, family_id: family.id },
+        subscription_data: { metadata: { plan: data.plan, interval: data.interval, family_id: family.id } },
+      } as Parameters<typeof stripe.checkout.sessions.create>[0]);
+      return { clientSecret: session.client_secret ?? "" };
+    } catch (error) {
+      return { error: getStripeErrorMessage(error) };
+    }
+  });

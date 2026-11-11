@@ -1,4 +1,5 @@
 import { resolveAgreementMode } from "./agreement-mode";
+import { transitionExpired, walletOpen } from "./entitlement";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { useSession, getRequest } from "@tanstack/react-start/server";
 
@@ -60,11 +61,66 @@ async function walletSession() {
   return useSession<WalletSession>(sessionConfig());
 }
 
+/**
+ * The one place a household's funding is enforced for sessions. A wallet is open only while it is
+ * active and, if it is in an agency-release transition, inside its grace period. When the grace
+ * period has run out the wallet is suspended here, so no cron job is needed and an old session
+ * stops working the next time it asks for anything. Unmanaged (null entitlement) families pass.
+ */
+async function fundingOpen(slug: string) {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("id, status, entitlement, transition_ends_at")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (!data) return false;
+  if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active") {
+    await supabaseAdmin
+      .from("families")
+      .update({ status: "suspended", entitlement: "suspended", updated_at: new Date().toISOString() })
+      .eq("id", data.id)
+      .eq("entitlement", "transition");
+    return false;
+  }
+  return walletOpen(data.status, data.entitlement, data.transition_ends_at);
+}
+
 export async function isUnlocked(slug: string) {
   // The sample "demo" wallet is fictional and open to anyone — no code needed.
   if (slug === "demo") return true;
   const session = await walletSession();
+  if (!(session.data.unlocked ?? []).includes(slug)) return false;
+  return fundingOpen(slug);
+}
+
+/** True when this device has entered the family's code, even if the wallet is now suspended. */
+export async function hasCredential(slug: string) {
+  const session = await walletSession();
   return (session.data.unlocked ?? []).includes(slug);
+}
+
+/** For the family's own "continue with Family Wallet" page. Null unless this device holds the code. */
+export async function continuationFor(slug: string) {
+  if (slug === "demo" || !(await hasCredential(slug))) return null;
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("family_name, status, entitlement, transition_ends_at")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (!data) return null;
+  if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active") await fundingOpen(slug);
+  const { data: fresh } = await supabaseAdmin
+    .from("families")
+    .select("family_name, status, entitlement, transition_ends_at")
+    .eq("slug", slug)
+    .maybeSingle();
+  const row = fresh ?? data;
+  return {
+    familyName: row.family_name,
+    // Only these two states can be offered a direct subscription.
+    state: row.entitlement === "transition" ? ("transition" as const) : row.status === "suspended" ? ("suspended" as const) : ("none" as const),
+    endsAt: row.transition_ends_at,
+  };
 }
 
 export async function markUnlocked(slug: string) {
@@ -113,7 +169,8 @@ export async function attemptUnlock(slug: string, code: string) {
     .maybeSingle();
 
   const success =
-    !!family && family.status === "active" && equals(family.access_code_hash, hashCode(slug, code));
+    // A suspended family can still prove who it is, so it can reach the page that reactivates its wallet.
+    !!family && (family.status === "active" || family.status === "suspended") && equals(family.access_code_hash, hashCode(slug, code));
 
   await supabaseAdmin
     .from("wallet_access_attempts")
@@ -163,7 +220,8 @@ async function familyRowBySlug(slug: string) {
     .eq("slug", slug)
     .eq("status", "active")
     .maybeSingle();
-  return data ?? null;
+  if (!data || !(await fundingOpen(slug))) return null;
+  return data;
 }
 
 export async function listNannyRows(familyId: string) {
@@ -433,6 +491,17 @@ export async function walletExists(slug: string) {
     .select("family_name")
     .eq("slug", slug)
     .eq("status", "active")
+    .maybeSingle();
+  return data?.family_name ?? null;
+}
+
+/** The name of a paused (suspended) wallet, so its family can be sent to the page that restarts it. */
+export async function suspendedWalletName(slug: string) {
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("family_name")
+    .eq("slug", slug)
+    .eq("status", "suspended")
     .maybeSingle();
   return data?.family_name ?? null;
 }

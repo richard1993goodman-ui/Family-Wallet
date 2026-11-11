@@ -468,6 +468,8 @@ export type Database = {
           invite_sent_at: string | null
           last_active_at: string | null
           agency_released_at: string | null
+          entitlement: string | null
+          transition_ends_at: string | null
           parent_last_seen_at: string | null
           parent_photo_path: string | null
           nanny_bio: string | null
@@ -505,6 +507,8 @@ export type Database = {
           invite_sent_at?: string | null
           last_active_at?: string | null
           agency_released_at?: string | null
+          entitlement?: string | null
+          transition_ends_at?: string | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           nanny_bio?: string | null
@@ -542,6 +546,8 @@ export type Database = {
           invite_sent_at?: string | null
           last_active_at?: string | null
           agency_released_at?: string | null
+          entitlement?: string | null
+          transition_ends_at?: string | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           nanny_bio?: string | null

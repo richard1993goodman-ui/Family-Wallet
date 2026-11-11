@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -141,6 +141,23 @@ function WalletPage() {
               This link isn't active. Please check the link we sent you, or get in touch and we'll
               send a fresh one.
             </p>
+          </div>
+        </div>
+      );
+    }
+
+    if (data.suspended) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-sand px-5 py-12">
+          <div className="surface-card w-full max-w-sm p-7 text-center">
+            <Lock className="mx-auto h-7 w-7 text-primary" />
+            <h1 className="heading-display mt-4 text-2xl text-primary">{data.familyName}</h1>
+            <p className="mt-3 text-sm text-muted-foreground">
+              This wallet is paused. Everything in it is kept, and you can switch it back on with your own subscription.
+            </p>
+            <Button asChild className="mt-5 w-full">
+              <Link to="/continue/$slug" params={{ slug }}>Continue with Family Wallet</Link>
+            </Button>
           </div>
         </div>
       );

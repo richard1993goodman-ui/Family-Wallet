@@ -9,6 +9,7 @@ import { Lock, LogOut, Menu, Search } from "lucide-react";
 import { Wordmark } from "@/components/brand";
 import { NotificationBell } from "@/components/NotificationBell";
 import { PresenceAvatars } from "@/components/PresenceAvatars";
+import { TransitionBanner } from "@/components/TransitionBanner";
 import { AccountMenu, QuickAddMenu, useLogout } from "@/components/HeaderMenus";
 
 import { getBadges, markSeenFn } from "@/lib/notifications.functions";
@@ -164,6 +165,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
         activePrefix={location.prefix}
       />
       <SidebarInset className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
+        <TransitionBanner slug={location.slug} />
         <WalletTopBar
           slug={location.slug}
           familyName={wallet.familyName}
