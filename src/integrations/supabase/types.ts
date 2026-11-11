@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      account_claims: {
+        Row: {
+          created_at: string
+          email: string | null
+          expires_at: string
+          id: string
+          member_id: string
+          token_hash: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          expires_at: string
+          id?: string
+          member_id: string
+          token_hash: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          expires_at?: string
+          id?: string
+          member_id?: string
+          token_hash?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_claims_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "household_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agency_challenges: {
         Row: {
           agency_id: string | null
@@ -55,6 +93,75 @@ export type Database = {
           },
         ]
       }
+      agency_invites: {
+        Row: {
+          accepted_at: string | null
+          agency_id: string
+          code_hash: string | null
+          created_by: string | null
+          email: string
+          expires_at: string | null
+          family_id: string | null
+          id: string
+          invited_at: string
+          nanny_email: string | null
+          nanny_name: string | null
+          released_at: string | null
+          slot: number
+          status: string
+          token_hash: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          agency_id: string
+          code_hash?: string | null
+          created_by?: string | null
+          email: string
+          expires_at?: string | null
+          family_id?: string | null
+          id?: string
+          invited_at?: string
+          nanny_email?: string | null
+          nanny_name?: string | null
+          released_at?: string | null
+          slot: number
+          status?: string
+          token_hash?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          agency_id?: string
+          code_hash?: string | null
+          created_by?: string | null
+          email?: string
+          expires_at?: string | null
+          family_id?: string | null
+          id?: string
+          invited_at?: string
+          nanny_email?: string | null
+          nanny_name?: string | null
+          released_at?: string | null
+          slot?: number
+          status?: string
+          token_hash?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agency_invites_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "partner_agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agency_invites_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agency_terms: {
         Row: {
           agency_id: string | null
@@ -89,6 +196,184 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      agreement_template_versions: {
+        Row: {
+          body: Json
+          changelog: string | null
+          created_at: string
+          id: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewer_name: string | null
+          reviewer_role: string | null
+          status: string
+          template_id: string
+          version: number
+        }
+        Insert: {
+          body: Json
+          changelog?: string | null
+          created_at?: string
+          id?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewer_name?: string | null
+          reviewer_role?: string | null
+          status?: string
+          template_id: string
+          version: number
+        }
+        Update: {
+          body?: Json
+          changelog?: string | null
+          created_at?: string
+          id?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewer_name?: string | null
+          reviewer_role?: string | null
+          status?: string
+          template_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agreement_template_versions_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "agreement_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agreement_templates: {
+        Row: {
+          created_at: string
+          id: string
+          jurisdiction: string
+          kind: string
+          language: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          jurisdiction: string
+          kind: string
+          language?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          jurisdiction?: string
+          kind?: string
+          language?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      agreement_versions: {
+        Row: {
+          agreement_id: string
+          content_hash: string
+          family_id: string
+          id: string
+          issued_at: string
+          nanny_id: string | null
+          snapshot_text: string
+          template_version_id: string | null
+          version: number
+        }
+        Insert: {
+          agreement_id: string
+          content_hash: string
+          family_id: string
+          id?: string
+          issued_at?: string
+          nanny_id?: string | null
+          snapshot_text: string
+          template_version_id?: string | null
+          version: number
+        }
+        Update: {
+          agreement_id?: string
+          content_hash?: string
+          family_id?: string
+          id?: string
+          issued_at?: string
+          nanny_id?: string | null
+          snapshot_text?: string
+          template_version_id?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agreement_versions_agreement_id_fkey"
+            columns: ["agreement_id"]
+            isOneToOne: false
+            referencedRelation: "nanny_agreements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agreement_versions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agreement_versions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agreement_versions_template_version_id_fkey"
+            columns: ["template_version_id"]
+            isOneToOne: false
+            referencedRelation: "agreement_template_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_log: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_kind: string
+          agency_id: string | null
+          at: string
+          family_id: string | null
+          id: string
+          meta: Json
+          reason: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_kind: string
+          agency_id?: string | null
+          at?: string
+          family_id?: string | null
+          id?: string
+          meta?: Json
+          reason?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_kind?: string
+          agency_id?: string | null
+          at?: string
+          family_id?: string | null
+          id?: string
+          meta?: Json
+          reason?: string | null
+        }
+        Relationships: []
       }
       care_events: {
         Row: {
@@ -335,13 +620,32 @@ export type Database = {
           },
         ]
       }
+      deleted_households: {
+        Row: {
+          deleted_at: string
+          family_id: string
+          reason: string
+          was_agency_funded: boolean
+        }
+        Insert: {
+          deleted_at?: string
+          family_id: string
+          reason: string
+          was_agency_funded?: boolean
+        }
+        Update: {
+          deleted_at?: string
+          family_id?: string
+          reason?: string
+          was_agency_funded?: boolean
+        }
+        Relationships: []
+      }
       document_signatures: {
         Row: {
-          verified_at: string | null
-          verified_email: string | null
           agreement_version_id: string | null
-          content_hash: string | null
           client_key: string | null
+          content_hash: string | null
           doc_kind: string
           doc_version: string
           family_id: string
@@ -350,13 +654,13 @@ export type Database = {
           signed_at: string
           signer_name: string
           signer_role: string
+          verified_at: string | null
+          verified_email: string | null
         }
         Insert: {
-          verified_at?: string | null
-          verified_email?: string | null
           agreement_version_id?: string | null
-          content_hash?: string | null
           client_key?: string | null
+          content_hash?: string | null
           doc_kind: string
           doc_version?: string
           family_id: string
@@ -365,13 +669,13 @@ export type Database = {
           signed_at?: string
           signer_name: string
           signer_role: string
-        }
-        Update: {
           verified_at?: string | null
           verified_email?: string | null
+        }
+        Update: {
           agreement_version_id?: string | null
-          content_hash?: string | null
           client_key?: string | null
+          content_hash?: string | null
           doc_kind?: string
           doc_version?: string
           family_id?: string
@@ -380,8 +684,17 @@ export type Database = {
           signed_at?: string
           signer_name?: string
           signer_role?: string
+          verified_at?: string | null
+          verified_email?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "document_signatures_agreement_version_id_fkey"
+            columns: ["agreement_version_id"]
+            isOneToOne: false
+            referencedRelation: "agreement_versions"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "document_signatures_family_id_fkey"
             columns: ["family_id"]
@@ -403,6 +716,7 @@ export type Database = {
           amount: number
           category: string
           created_at: string
+          currency: string
           expense_date: string
           family_id: string
           id: string
@@ -419,6 +733,7 @@ export type Database = {
           amount?: number
           category?: string
           created_at?: string
+          currency?: string
           expense_date?: string
           family_id: string
           id?: string
@@ -435,6 +750,7 @@ export type Database = {
           amount?: number
           category?: string
           created_at?: string
+          currency?: string
           expense_date?: string
           family_id?: string
           id?: string
@@ -466,16 +782,21 @@ export type Database = {
       }
       families: {
         Row: {
-          country: string
-          currency: string
-          region: string | null
-          time_zone: string
           access_code: string | null
           access_code_hash: string
+          agency_released_at: string | null
+          agreement_choice: string | null
           agreement_policy: string
           contact_email: string | null
           contact_phone: string | null
+          country: string
           created_at: string
+          currency: string
+          delete_after: string | null
+          deletion_confirmed: boolean
+          deletion_hold: boolean
+          deletion_notices: Json
+          entitlement: string | null
           family_name: string
           fee_amount: string | null
           fee_label: string | null
@@ -483,12 +804,7 @@ export type Database = {
           intro_fee_percent: number | null
           invite_sent_at: string | null
           last_active_at: string | null
-          agency_released_at: string | null
-          agreement_choice: string | null
-          entitlement: string | null
-          transition_ends_at: string | null
-          parent_last_seen_at: string | null
-          parent_photo_path: string | null
+          locked_at: string | null
           nanny_bio: string | null
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -500,26 +816,36 @@ export type Database = {
           nanny_photo_path: string | null
           nannytax_code: string | null
           notes: string | null
+          parent_last_seen_at: string | null
+          parent_photo_path: string | null
           partner_agency_id: string | null
+          region: string | null
           slug: string
           start_date: string | null
           status: string
           terms_accepted_on: string | null
           tier_band: string
+          time_zone: string
+          transition_ends_at: string | null
           updated_at: string
           use_agreement: boolean
         }
         Insert: {
-          country?: string
-          currency?: string
-          region?: string | null
-          time_zone?: string
           access_code?: string | null
           access_code_hash: string
+          agency_released_at?: string | null
+          agreement_choice?: string | null
           agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
+          country?: string
           created_at?: string
+          currency?: string
+          delete_after?: string | null
+          deletion_confirmed?: boolean
+          deletion_hold?: boolean
+          deletion_notices?: Json
+          entitlement?: string | null
           family_name: string
           fee_amount?: string | null
           fee_label?: string | null
@@ -527,12 +853,7 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
-          agency_released_at?: string | null
-          agreement_choice?: string | null
-          entitlement?: string | null
-          transition_ends_at?: string | null
-          parent_last_seen_at?: string | null
-          parent_photo_path?: string | null
+          locked_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -544,26 +865,36 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          parent_last_seen_at?: string | null
+          parent_photo_path?: string | null
           partner_agency_id?: string | null
+          region?: string | null
           slug: string
           start_date?: string | null
           status?: string
           terms_accepted_on?: string | null
           tier_band?: string
+          time_zone?: string
+          transition_ends_at?: string | null
           updated_at?: string
           use_agreement?: boolean
         }
         Update: {
-          country?: string
-          currency?: string
-          region?: string | null
-          time_zone?: string
           access_code?: string | null
           access_code_hash?: string
+          agency_released_at?: string | null
+          agreement_choice?: string | null
           agreement_policy?: string
           contact_email?: string | null
           contact_phone?: string | null
+          country?: string
           created_at?: string
+          currency?: string
+          delete_after?: string | null
+          deletion_confirmed?: boolean
+          deletion_hold?: boolean
+          deletion_notices?: Json
+          entitlement?: string | null
           family_name?: string
           fee_amount?: string | null
           fee_label?: string | null
@@ -571,12 +902,7 @@ export type Database = {
           intro_fee_percent?: number | null
           invite_sent_at?: string | null
           last_active_at?: string | null
-          agency_released_at?: string | null
-          agreement_choice?: string | null
-          entitlement?: string | null
-          transition_ends_at?: string | null
-          parent_last_seen_at?: string | null
-          parent_photo_path?: string | null
+          locked_at?: string | null
           nanny_bio?: string | null
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -588,12 +914,17 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          parent_last_seen_at?: string | null
+          parent_photo_path?: string | null
           partner_agency_id?: string | null
+          region?: string | null
           slug?: string
           start_date?: string | null
           status?: string
           terms_accepted_on?: string | null
           tier_band?: string
+          time_zone?: string
+          transition_ends_at?: string | null
           updated_at?: string
           use_agreement?: boolean
         }
@@ -839,12 +1170,12 @@ export type Database = {
           emergency_relationship: string | null
           family_id: string
           id: string
-          last_seen_at: string | null
           insurance_cover_from: string | null
           insurance_cover_until: string | null
           insurance_policy_number: string | null
           insurance_provider: string | null
           invited_at: string | null
+          last_seen_at: string | null
           name: string
           nanny_code: string | null
           nanny_code_hash: string | null
@@ -862,12 +1193,12 @@ export type Database = {
           emergency_relationship?: string | null
           family_id: string
           id?: string
-          last_seen_at?: string | null
           insurance_cover_from?: string | null
           insurance_cover_until?: string | null
           insurance_policy_number?: string | null
           insurance_provider?: string | null
           invited_at?: string | null
+          last_seen_at?: string | null
           name: string
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -885,12 +1216,12 @@ export type Database = {
           emergency_relationship?: string | null
           family_id?: string
           id?: string
-          last_seen_at?: string | null
           insurance_cover_from?: string | null
           insurance_cover_until?: string | null
           insurance_policy_number?: string | null
           insurance_provider?: string | null
           invited_at?: string | null
+          last_seen_at?: string | null
           name?: string
           nanny_code?: string | null
           nanny_code_hash?: string | null
@@ -1192,6 +1523,74 @@ export type Database = {
           },
         ]
       }
+      household_members: {
+        Row: {
+          ended_at: string | null
+          family_id: string
+          id: string
+          nanny_id: string | null
+          permissions: Json
+          person_id: string | null
+          revoked_by: string | null
+          role: string
+          started_at: string
+          status: string
+        }
+        Insert: {
+          ended_at?: string | null
+          family_id: string
+          id?: string
+          nanny_id?: string | null
+          permissions?: Json
+          person_id?: string | null
+          revoked_by?: string | null
+          role: string
+          started_at?: string
+          status?: string
+        }
+        Update: {
+          ended_at?: string | null
+          family_id?: string
+          id?: string
+          nanny_id?: string | null
+          permissions?: Json
+          person_id?: string | null
+          revoked_by?: string | null
+          role?: string
+          started_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_members_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       household_messages: {
         Row: {
           body: string
@@ -1486,6 +1885,7 @@ export type Database = {
       }
       live_in_settings: {
         Row: {
+          currency: string
           days_off_per_week: number
           family_id: string
           house_rules: string | null
@@ -1496,6 +1896,7 @@ export type Database = {
           weekly_pocket_money: number
         }
         Insert: {
+          currency?: string
           days_off_per_week?: number
           family_id: string
           house_rules?: string | null
@@ -1506,6 +1907,7 @@ export type Database = {
           weekly_pocket_money?: number
         }
         Update: {
+          currency?: string
           days_off_per_week?: number
           family_id?: string
           house_rules?: string | null
@@ -1619,12 +2021,48 @@ export type Database = {
           },
         ]
       }
+      moment_reactions: {
+        Row: {
+          by_role: string
+          created_at: string
+          family_id: string
+          moment_id: string
+        }
+        Insert: {
+          by_role: string
+          created_at?: string
+          family_id: string
+          moment_id: string
+        }
+        Update: {
+          by_role?: string
+          created_at?: string
+          family_id?: string
+          moment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "moment_reactions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "moment_reactions_moment_id_fkey"
+            columns: ["moment_id"]
+            isOneToOne: false
+            referencedRelation: "family_moments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nanny_agreements: {
         Row: {
-          draft_data: Json | null
           additional_terms: string | null
           agreement_data: Json
           created_at: string
+          draft_data: Json | null
           duties: string | null
           employer_names: string | null
           family_id: string
@@ -1646,10 +2084,10 @@ export type Database = {
           work_pattern: string | null
         }
         Insert: {
-          draft_data?: Json | null
           additional_terms?: string | null
           agreement_data?: Json
           created_at?: string
+          draft_data?: Json | null
           duties?: string | null
           employer_names?: string | null
           family_id: string
@@ -1671,10 +2109,10 @@ export type Database = {
           work_pattern?: string | null
         }
         Update: {
-          draft_data?: Json | null
           additional_terms?: string | null
           agreement_data?: Json
           created_at?: string
+          draft_data?: Json | null
           duties?: string | null
           employer_names?: string | null
           family_id?: string
@@ -2028,12 +2466,40 @@ export type Database = {
           },
         ]
       }
+      people: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          preferred_language: string
+          time_zone: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          preferred_language?: string
+          time_zone?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          preferred_language?: string
+          time_zone?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       petty_cash_entries: {
         Row: {
           added_by: string
           added_by_name: string | null
           amount: number
           created_at: string
+          currency: string
           description: string
           entry_date: string
           family_id: string
@@ -2045,6 +2511,7 @@ export type Database = {
           added_by_name?: string | null
           amount: number
           created_at?: string
+          currency?: string
           description: string
           entry_date: string
           family_id: string
@@ -2056,6 +2523,7 @@ export type Database = {
           added_by_name?: string | null
           amount?: number
           created_at?: string
+          currency?: string
           description?: string
           entry_date?: string
           family_id?: string
@@ -2426,6 +2894,95 @@ export type Database = {
           },
         ]
       }
+      shift_sessions: {
+        Row: {
+          break_minutes: number
+          ended_at: string | null
+          family_id: string
+          id: string
+          nanny_id: string | null
+          started_at: string
+          timesheet_shift_id: string | null
+        }
+        Insert: {
+          break_minutes?: number
+          ended_at?: string | null
+          family_id: string
+          id?: string
+          nanny_id?: string | null
+          started_at?: string
+          timesheet_shift_id?: string | null
+        }
+        Update: {
+          break_minutes?: number
+          ended_at?: string | null
+          family_id?: string
+          id?: string
+          nanny_id?: string | null
+          started_at?: string
+          timesheet_shift_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shift_sessions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shift_sessions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      signing_codes: {
+        Row: {
+          attempts: number
+          code_hash: string
+          created_at: string
+          email: string
+          expires_at: string
+          family_id: string
+          id: string
+          signer_role: string
+          used_at: string | null
+        }
+        Insert: {
+          attempts?: number
+          code_hash: string
+          created_at?: string
+          email: string
+          expires_at: string
+          family_id: string
+          id?: string
+          signer_role: string
+          used_at?: string | null
+        }
+        Update: {
+          attempts?: number
+          code_hash?: string
+          created_at?: string
+          email?: string
+          expires_at?: string
+          family_id?: string
+          id?: string
+          signer_role?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signing_codes_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sports_passport_entries: {
         Row: {
           activity: string
@@ -2565,6 +3122,7 @@ export type Database = {
         Row: {
           break_minutes: number
           created_at: string
+          currency: string
           end_time: string
           family_id: string
           hourly_rate: number
@@ -2582,6 +3140,7 @@ export type Database = {
         Insert: {
           break_minutes?: number
           created_at?: string
+          currency?: string
           end_time: string
           family_id: string
           hourly_rate?: number
@@ -2599,6 +3158,7 @@ export type Database = {
         Update: {
           break_minutes?: number
           created_at?: string
+          currency?: string
           end_time?: string
           family_id?: string
           hourly_rate?: number
@@ -2774,321 +3334,40 @@ export type Database = {
         }
         Relationships: []
       }
-      agreement_templates: {
-        Row: { created_at: string; id: string; jurisdiction: string; kind: string; language: string; title: string }
-        Insert: { created_at?: string; id?: string; jurisdiction: string; kind: string; language?: string; title: string }
-        Update: { created_at?: string; id?: string; jurisdiction?: string; kind?: string; language?: string; title?: string }
-        Relationships: []
-      }
-      agreement_template_versions: {
+      wallet_activity: {
         Row: {
-          body: Json
-          changelog: string | null
+          actor: string
           created_at: string
+          family_id: string
+          feature: string
           id: string
-          review_notes: string | null
-          reviewed_at: string | null
-          reviewer_name: string | null
-          reviewer_role: string | null
-          status: string
-          template_id: string
-          version: number
+          summary: string
         }
         Insert: {
-          body: Json
-          changelog?: string | null
+          actor: string
           created_at?: string
+          family_id: string
+          feature: string
           id?: string
-          review_notes?: string | null
-          reviewed_at?: string | null
-          reviewer_name?: string | null
-          reviewer_role?: string | null
-          status?: string
-          template_id: string
-          version: number
+          summary: string
         }
         Update: {
-          body?: Json
-          changelog?: string | null
+          actor?: string
           created_at?: string
-          id?: string
-          review_notes?: string | null
-          reviewed_at?: string | null
-          reviewer_name?: string | null
-          reviewer_role?: string | null
-          status?: string
-          template_id?: string
-          version?: number
-        }
-        Relationships: []
-      }
-      signing_codes: {
-        Row: { attempts: number; code_hash: string; created_at: string; email: string; expires_at: string; family_id: string; id: string; signer_role: string; used_at: string | null }
-        Insert: { attempts?: number; code_hash: string; created_at?: string; email: string; expires_at: string; family_id: string; id?: string; signer_role: string; used_at?: string | null }
-        Update: { attempts?: number; code_hash?: string; created_at?: string; email?: string; expires_at?: string; family_id?: string; id?: string; signer_role?: string; used_at?: string | null }
-        Relationships: []
-      }
-      agreement_versions: {
-        Row: {
-          template_version_id: string | null
-          agreement_id: string
-          content_hash: string
-          family_id: string
-          id: string
-          issued_at: string
-          nanny_id: string | null
-          snapshot_text: string
-          version: number
-        }
-        Insert: {
-          template_version_id?: string | null
-          agreement_id: string
-          content_hash: string
-          family_id: string
-          id?: string
-          issued_at?: string
-          nanny_id?: string | null
-          snapshot_text: string
-          version: number
-        }
-        Update: never
-        Relationships: []
-      }
-      audit_log: {
-        Row: {
-          action: string
-          actor_id: string | null
-          actor_kind: string
-          agency_id: string | null
-          at: string
-          family_id: string | null
-          id: string
-          meta: Json
-          reason: string | null
-        }
-        Insert: {
-          action: string
-          actor_id?: string | null
-          actor_kind: string
-          agency_id?: string | null
-          at?: string
-          family_id?: string | null
-          id?: string
-          meta?: Json
-          reason?: string | null
-        }
-        Update: never
-        Relationships: []
-      }
-      people: {
-        Row: {
-          created_at: string
-          display_name: string
-          id: string
-          preferred_language: string
-          time_zone: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          display_name: string
-          id?: string
-          preferred_language?: string
-          time_zone?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          display_name?: string
-          id?: string
-          preferred_language?: string
-          time_zone?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      household_members: {
-        Row: {
-          ended_at: string | null
-          family_id: string
-          id: string
-          nanny_id: string | null
-          permissions: Json
-          person_id: string | null
-          revoked_by: string | null
-          role: string
-          started_at: string
-          status: string
-        }
-        Insert: {
-          ended_at?: string | null
-          family_id: string
-          id?: string
-          nanny_id?: string | null
-          permissions?: Json
-          person_id?: string | null
-          revoked_by?: string | null
-          role: string
-          started_at?: string
-          status?: string
-        }
-        Update: {
-          ended_at?: string | null
           family_id?: string
+          feature?: string
           id?: string
-          nanny_id?: string | null
-          permissions?: Json
-          person_id?: string | null
-          revoked_by?: string | null
-          role?: string
-          started_at?: string
-          status?: string
+          summary?: string
         }
         Relationships: [
           {
-            foreignKeyName: "household_members_family_id_fkey"
+            foreignKeyName: "wallet_activity_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
         ]
-      }
-      account_claims: {
-        Row: {
-          created_at: string
-          email: string | null
-          expires_at: string
-          id: string
-          member_id: string
-          token_hash: string
-          used_at: string | null
-        }
-        Insert: {
-          created_at?: string
-          email?: string | null
-          expires_at: string
-          id?: string
-          member_id: string
-          token_hash: string
-          used_at?: string | null
-        }
-        Update: {
-          created_at?: string
-          email?: string | null
-          expires_at?: string
-          id?: string
-          member_id?: string
-          token_hash?: string
-          used_at?: string | null
-        }
-        Relationships: []
-      }
-      agency_invites: {
-        Row: {
-          accepted_at: string | null
-          code_hash: string | null
-          created_by: string | null
-          agency_id: string
-          email: string
-          expires_at: string | null
-          family_id: string | null
-          id: string
-          invited_at: string
-          nanny_email: string | null
-          nanny_name: string | null
-          released_at: string | null
-          slot: number
-          status: string
-          token_hash: string | null
-        }
-        Insert: {
-          accepted_at?: string | null
-          code_hash?: string | null
-          created_by?: string | null
-          agency_id: string
-          email: string
-          expires_at?: string | null
-          family_id?: string | null
-          id?: string
-          invited_at?: string
-          nanny_email?: string | null
-          nanny_name?: string | null
-          released_at?: string | null
-          slot: number
-          status?: string
-          token_hash?: string | null
-        }
-        Update: {
-          accepted_at?: string | null
-          code_attempts?: number
-          code_hash?: string | null
-          created_by?: string | null
-          agency_id?: string
-          email?: string
-          expires_at?: string | null
-          family_id?: string | null
-          id?: string
-          invited_at?: string
-          nanny_email?: string | null
-          nanny_name?: string | null
-          released_at?: string | null
-          slot?: number
-          status?: string
-          token_hash?: string | null
-        }
-        Relationships: []
-      }
-      shift_sessions: {
-        Row: {
-          break_minutes: number
-          ended_at: string | null
-          family_id: string
-          id: string
-          nanny_id: string | null
-          started_at: string
-          timesheet_shift_id: string | null
-        }
-        Insert: {
-          break_minutes?: number
-          ended_at?: string | null
-          family_id: string
-          id?: string
-          nanny_id?: string | null
-          started_at?: string
-          timesheet_shift_id?: string | null
-        }
-        Update: {
-          break_minutes?: number
-          ended_at?: string | null
-          family_id?: string
-          id?: string
-          nanny_id?: string | null
-          started_at?: string
-          timesheet_shift_id?: string | null
-        }
-        Relationships: []
-      }
-      moment_reactions: {
-        Row: {
-          by_role: string
-          created_at: string
-          family_id: string
-          moment_id: string
-        }
-        Insert: {
-          by_role: string
-          created_at?: string
-          family_id: string
-          moment_id: string
-        }
-        Update: {
-          by_role?: string
-          created_at?: string
-          family_id?: string
-          moment_id?: string
-        }
-        Relationships: []
       }
       wallet_documents: {
         Row: {
@@ -3142,7 +3421,29 @@ export type Database = {
           uploaded_by?: string
           uploaded_by_nanny_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "wallet_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_uploaded_by_nanny_id_fkey"
+            columns: ["uploaded_by_nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       wallet_pair_pins: {
         Row: {
@@ -3170,41 +3471,6 @@ export type Database = {
           used_at?: string | null
         }
         Relationships: []
-      }
-      wallet_activity: {
-        Row: {
-          actor: string
-          created_at: string
-          family_id: string
-          feature: string
-          id: string
-          summary: string
-        }
-        Insert: {
-          actor: string
-          created_at?: string
-          family_id: string
-          feature: string
-          id?: string
-          summary: string
-        }
-        Update: {
-          actor?: string
-          created_at?: string
-          family_id?: string
-          feature?: string
-          id?: string
-          summary?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "wallet_activity_family_id_fkey"
-            columns: ["family_id"]
-            isOneToOne: false
-            referencedRelation: "families"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       wallet_seen: {
         Row: {
@@ -3335,6 +3601,13 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      is_household_member: { Args: { _family: string }; Returns: boolean }
+      is_household_owner: { Args: { _family: string }; Returns: boolean }
+      my_staff_nanny: { Args: { _family: string }; Returns: string }
+      purge_family: {
+        Args: { _family: string; _reason: string }
+        Returns: undefined
       }
     }
     Enums: {
