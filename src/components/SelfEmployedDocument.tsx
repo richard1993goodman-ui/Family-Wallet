@@ -1,3 +1,4 @@
+import { reviewLabel } from "@/lib/agreement-review";
 import { formatUKDate, workingDayHours, type AgreementData } from "@/lib/agreement.model";
 
 const blank = "___________________";
@@ -210,6 +211,7 @@ export function SelfEmployedDocument({
           {s.body}
         </section>
       ))}
+      <p className="mt-6 text-xs text-muted-foreground">{reviewLabel(null).text}</p>
     </article>
   );
 }

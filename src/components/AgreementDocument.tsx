@@ -1,3 +1,4 @@
+import { reviewLabel } from "@/lib/agreement-review";
 import {
   calculateHoliday, rotaWeek2,
   formatUKDate,
@@ -303,6 +304,7 @@ export function AgreementDocument({
         </ul>
         {data.gardenLeave && <p>{data.gardenLeave}</p>}
       </section>
+      <p className="mt-6 text-xs text-muted-foreground">{reviewLabel(null).text}</p>
     </article>
   );
 }

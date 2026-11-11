@@ -5,7 +5,9 @@ import { hashText, snapshotAgreement } from "./agreement-versions";
 
 describe("agreement snapshots", () => {
   it("are the same however the keys happen to be ordered", () => {
-    expect(snapshotAgreement({ a: 1, b: { y: 2, x: 3 } })).toEqual(snapshotAgreement({ b: { x: 3, y: 2 }, a: 1 }));
+    expect(snapshotAgreement({ a: 1, b: { y: 2, x: 3 } })).toEqual(
+      snapshotAgreement({ b: { x: 3, y: 2 }, a: 1 }),
+    );
   });
 
   it("change when any wording changes", () => {
@@ -28,9 +30,14 @@ describe("agreement snapshots", () => {
 });
 
 describe("agreement version history", () => {
-  const migration = readFileSync("supabase/migrations/20261111420000_agreement_versions.sql", "utf8");
+  const migration = readFileSync(
+    "supabase/migrations/20261111420000_agreement_versions.sql",
+    "utf8",
+  );
   it("cannot be updated, removed or truncated by anyone", () => {
-    expect(migration).toMatch(/revoke update, delete, truncate on public\.agreement_versions from anon, authenticated, service_role/);
+    expect(migration).toMatch(
+      /revoke update, delete, truncate on public\.agreement_versions from anon, authenticated, service_role/,
+    );
   });
   it("is only ever added to by the code", () => {
     const code = readFileSync("src/lib/agreement.server.ts", "utf8");

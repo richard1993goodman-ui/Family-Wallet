@@ -2753,8 +2753,57 @@ export type Database = {
         }
         Relationships: []
       }
+      agreement_templates: {
+        Row: { created_at: string; id: string; jurisdiction: string; kind: string; language: string; title: string }
+        Insert: { created_at?: string; id?: string; jurisdiction: string; kind: string; language?: string; title: string }
+        Update: { created_at?: string; id?: string; jurisdiction?: string; kind?: string; language?: string; title?: string }
+        Relationships: []
+      }
+      agreement_template_versions: {
+        Row: {
+          body: Json
+          changelog: string | null
+          created_at: string
+          id: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewer_name: string | null
+          reviewer_role: string | null
+          status: string
+          template_id: string
+          version: number
+        }
+        Insert: {
+          body: Json
+          changelog?: string | null
+          created_at?: string
+          id?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewer_name?: string | null
+          reviewer_role?: string | null
+          status?: string
+          template_id: string
+          version: number
+        }
+        Update: {
+          body?: Json
+          changelog?: string | null
+          created_at?: string
+          id?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewer_name?: string | null
+          reviewer_role?: string | null
+          status?: string
+          template_id?: string
+          version?: number
+        }
+        Relationships: []
+      }
       agreement_versions: {
         Row: {
+          template_version_id: string | null
           agreement_id: string
           content_hash: string
           family_id: string
@@ -2765,6 +2814,7 @@ export type Database = {
           version: number
         }
         Insert: {
+          template_version_id?: string | null
           agreement_id: string
           content_hash: string
           family_id: string
