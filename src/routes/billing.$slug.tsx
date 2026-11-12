@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
+import { DeleteAccount } from "@/components/DeleteAccount";
 import { Card, HubPage, PageLoading } from "@/components/hub-ui";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import { Button } from "@/components/ui/button";
@@ -17,9 +18,15 @@ export const Route = createFileRoute("/billing/$slug")({
   head: () => ({
     meta: [
       { title: "Plan & billing — Family Wallet" },
-      { name: "description", content: "See your household plan, upgrade, and manage your card and invoices." },
+      {
+        name: "description",
+        content: "See your household plan, upgrade, and manage your card and invoices.",
+      },
       { property: "og:title", content: "Plan & billing — Family Wallet" },
-      { property: "og:description", content: "Your household plan, upgrades, card and invoices in one place." },
+      {
+        property: "og:description",
+        content: "Your household plan, upgrades, card and invoices in one place.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -52,7 +59,13 @@ function BillingPage() {
   useEffect(() => {
     if (!session_id) return;
     confirm({ data: { slug, sessionId: session_id, environment: getStripeEnvironment() } })
-      .then((r) => setNotice(r.ok ? "Thank you. Your plan is active." : "Payment received. It can take a minute to show here."))
+      .then((r) =>
+        setNotice(
+          r.ok
+            ? "Thank you. Your plan is active."
+            : "Payment received. It can take a minute to show here.",
+        ),
+      )
       .catch(() => setNotice("Payment received. It can take a minute to show here."))
       .finally(() => {
         void client.invalidateQueries();
@@ -67,7 +80,9 @@ function BillingPage() {
     return (
       <HubPage slug={slug} title="Plan & billing">
         <Card>
-          <p className="text-sm text-muted-foreground">Only parents can see the household plan and billing.</p>
+          <p className="text-sm text-muted-foreground">
+            Only parents can see the household plan and billing.
+          </p>
         </Card>
       </HubPage>
     );
@@ -77,20 +92,30 @@ function BillingPage() {
   const current = sub?.live ? sub.plan : null;
 
   return (
-    <HubPage slug={slug} title="Plan & billing" intro="Your household plan, card and invoices. Only parents see this page.">
+    <HubPage
+      slug={slug}
+      title="Plan & billing"
+      intro="Your household plan, card and invoices. Only parents see this page."
+    >
       {notice && (
-        <div className="mb-4 rounded-xl bg-tint-sage px-4 py-3 text-sm text-foreground">{notice}</div>
+        <div className="mb-4 rounded-xl bg-tint-sage px-4 py-3 text-sm text-foreground">
+          {notice}
+        </div>
       )}
 
       <Card>
         <h2 className="font-medium text-foreground">Your plan</h2>
         {data.agencyManaged ? (
-          <p className="mt-2 text-sm text-muted-foreground">Your wallet is provided by your agency, so there is nothing to pay here.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Your wallet is provided by your agency, so there is nothing to pay here.
+          </p>
         ) : sub ? (
           <div className="mt-2 space-y-1 text-sm text-muted-foreground">
             <p>
-              <span className="font-medium text-foreground">{PLAN_NAMES[sub.plan] ?? sub.plan}</span>, billed{" "}
-              {sub.interval === "year" ? "yearly" : "monthly"}
+              <span className="font-medium text-foreground">
+                {PLAN_NAMES[sub.plan] ?? sub.plan}
+              </span>
+              , billed {sub.interval === "year" ? "yearly" : "monthly"}
               {!sub.live && " (ended)"}
               {sub.status === "past_due" && " (payment overdue, please update your card)"}
             </p>
@@ -109,14 +134,16 @@ function BillingPage() {
       {native ? (
         <Card className="mt-4">
           <p className="text-sm text-muted-foreground">
-            To manage or upgrade your household plan, open your private wallet link in any web browser.
+            To manage or upgrade your household plan, open your private wallet link in any web
+            browser.
           </p>
         </Card>
       ) : data.agencyManaged ? null : sub?.live ? (
         <Card className="mt-4">
           <h2 className="font-medium text-foreground">Manage billing</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Update your card, download invoices or cancel. Your plan includes every feature and unlimited staff.
+            Update your card, download invoices or cancel. Your plan includes every feature and
+            unlimited staff.
           </p>
           <form method="post" action="/api/stripe/portal" className="mt-4">
             <input type="hidden" name="slug" value={slug} />
@@ -125,18 +152,31 @@ function BillingPage() {
         </Card>
       ) : !paymentsConfigured() ? (
         <Card className="mt-4">
-          <p className="text-sm text-muted-foreground">Payments are not switched on yet. Please contact support.</p>
+          <p className="text-sm text-muted-foreground">
+            Payments are not switched on yet. Please contact support.
+          </p>
         </Card>
       ) : checkout ? (
         <Card className="mt-4">
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="font-medium text-foreground">
-              {PLAN_NAMES[checkout.plan]} plan, {PRICES[checkout.plan as "family"][checkout.interval]}
+              {PLAN_NAMES[checkout.plan]} plan,{" "}
+              {PRICES[checkout.plan as "family"][checkout.interval]}
             </h2>
-            <Button variant="ghost" size="sm" onClick={() => setCheckout(null)}>Back</Button>
+            <Button variant="ghost" size="sm" onClick={() => setCheckout(null)}>
+              Back
+            </Button>
           </div>
-          <StripeEmbeddedCheckout key={`${checkout.plan}-${checkout.interval}`} plan={checkout.plan} interval={checkout.interval} slug={slug} />
-          <p className="mt-3 text-xs text-muted-foreground">Prices exclude VAT, which is added at checkout. Everything already in your wallet stays as it is.</p>
+          <StripeEmbeddedCheckout
+            key={`${checkout.plan}-${checkout.interval}`}
+            plan={checkout.plan}
+            interval={checkout.interval}
+            slug={slug}
+          />
+          <p className="mt-3 text-xs text-muted-foreground">
+            Prices exclude VAT, which is added at checkout. Everything already in your wallet stays
+            as it is.
+          </p>
         </Card>
       ) : (
         <Card className="mt-4">
@@ -163,7 +203,11 @@ function BillingPage() {
                 <p className="mt-2 text-xs text-muted-foreground">
                   Every feature, unlimited staff.
                 </p>
-                <Button className="mt-3 w-full" variant="default" onClick={() => setCheckout({ plan, interval })}>
+                <Button
+                  className="mt-3 w-full"
+                  variant="default"
+                  onClick={() => setCheckout({ plan, interval })}
+                >
                   Choose {PLAN_NAMES[plan]}
                 </Button>
               </div>
@@ -171,6 +215,7 @@ function BillingPage() {
           </div>
         </Card>
       )}
+      <DeleteAccount slug={slug} />
     </HubPage>
   );
 }

@@ -3,9 +3,25 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireOwner } from "./staff.scope";
 
 type Row = {
-  id: string; family_name: string; contact_email: string | null; status: string; delete_after: string | null;
-  deletion_hold: boolean; deletion_notices: number[] | null; deletion_confirmed: boolean;
+  id: string;
+  family_name: string;
+  contact_email: string | null;
+  status: string;
+  delete_after: string | null;
+  deletion_hold: boolean;
+  deletion_notices: number[] | null;
+  deletion_confirmed: boolean;
 };
+
+/** The family asks to delete its own account: locks now, 30 days to download, then deleted. */
+export const requestDeletionFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; confirmName: string }) => ({
+    slug: String(data.slug ?? ""),
+    confirmName: String(data.confirmName ?? "").slice(0, 200),
+  }))
+  .handler(async ({ data }) =>
+    (await import("./lifecycle.server")).requestOwnerDeletion(data.slug, data.confirmName),
+  );
 
 /** Locked wallets, soonest deletion first. Owner only. */
 export const listLockedFn = createServerFn({ method: "GET" })
@@ -15,7 +31,9 @@ export const listLockedFn = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("families")
-      .select("id, family_name, contact_email, status, delete_after, deletion_hold, deletion_notices, deletion_confirmed" as "id")
+      .select(
+        "id, family_name, contact_email, status, delete_after, deletion_hold, deletion_notices, deletion_confirmed" as "id",
+      )
       .in("status", ["suspended", "cancelled"]);
     if (error) throw new Error(error.message);
     const { daysLeft } = await import("./lifecycle");
@@ -39,13 +57,19 @@ export const listLockedFn = createServerFn({ method: "GET" })
 export const setDeletionFlagFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string; flag: "hold" | "confirmed"; value: boolean }) => ({
-    id: String(data.id), flag: data.flag === "hold" ? ("hold" as const) : ("confirmed" as const), value: Boolean(data.value),
+    id: String(data.id),
+    flag: data.flag === "hold" ? ("hold" as const) : ("confirmed" as const),
+    value: Boolean(data.value),
   }))
   .handler(async ({ data, context }) => {
     await requireOwner(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const column = data.flag === "hold" ? "deletion_hold" : "deletion_confirmed";
-    const { error } = await supabaseAdmin.from("families").update({ [column]: data.value } as never).eq("id", data.id).in("status", ["suspended", "cancelled"]);
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({ [column]: data.value } as never)
+      .eq("id", data.id)
+      .in("status", ["suspended", "cancelled"]);
     if (error) throw new Error(error.message);
     return { ok: true as const };
   });

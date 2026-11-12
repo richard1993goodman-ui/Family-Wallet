@@ -31,14 +31,18 @@ export async function touchWalletSession() {
   }
 }
 
-
 export function normalizeCode(code: string) {
-  return code.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+  return code
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "");
 }
 
 export function hashCode(slug: string, code: string) {
   const pepper = process.env["WALLET_CODE_PEPPER"] ?? "";
-  return createHash("sha256").update(`${slug}:${normalizeCode(code)}:${pepper}`).digest("hex");
+  return createHash("sha256")
+    .update(`${slug}:${normalizeCode(code)}:${pepper}`)
+    .digest("hex");
 }
 
 function equals(a: string, b: string) {
@@ -75,14 +79,22 @@ async function fundingOpen(slug: string) {
     .maybeSingle();
   if (error) {
     // The funding columns may not exist yet (migration not applied): fall back to the plain status check.
-    const { data: plain } = await supabaseAdmin.from("families").select("status").eq("slug", slug).maybeSingle();
+    const { data: plain } = await supabaseAdmin
+      .from("families")
+      .select("status")
+      .eq("slug", slug)
+      .maybeSingle();
     return plain?.status === "active";
   }
   if (!data) return false;
   if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active") {
     await supabaseAdmin
       .from("families")
-      .update({ status: "suspended", entitlement: "suspended", updated_at: new Date().toISOString() })
+      .update({
+        status: "suspended",
+        entitlement: "suspended",
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", data.id)
       .eq("entitlement", "transition");
     return false;
@@ -105,7 +117,10 @@ export async function isUnlocked(slug: string) {
 /** True when this device has entered the family's code, even if the wallet is now suspended. */
 export async function hasCredential(slug: string) {
   const session = await walletSession();
-  return (session.data.unlocked ?? []).includes(slug);
+  if ((session.data.unlocked ?? []).includes(slug)) return true;
+  // An owner who signs in with an account (no code on this device) can reach their data too, locked or not.
+  const { accountAccess } = await import("./account.server");
+  return (await accountAccess(slug))?.level === "family";
 }
 
 /** For the family's own "continue with Family Wallet" page. Null unless this device holds the code. */
@@ -117,7 +132,8 @@ export async function continuationFor(slug: string) {
     .eq("slug", slug)
     .maybeSingle();
   if (!data) return null;
-  if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active") await fundingOpen(slug);
+  if (transitionExpired(data.entitlement, data.transition_ends_at) && data.status === "active")
+    await fundingOpen(slug);
   const { data: fresh } = await supabaseAdmin
     .from("families")
     .select("family_name, status, entitlement, transition_ends_at")
@@ -127,7 +143,12 @@ export async function continuationFor(slug: string) {
   return {
     familyName: row.family_name,
     // Only these two states can be offered a direct subscription.
-    state: row.entitlement === "transition" ? ("transition" as const) : row.status === "suspended" ? ("suspended" as const) : ("none" as const),
+    state:
+      row.entitlement === "transition"
+        ? ("transition" as const)
+        : row.status === "suspended"
+          ? ("suspended" as const)
+          : ("none" as const),
     endsAt: row.transition_ends_at,
   };
 }
@@ -179,7 +200,9 @@ export async function attemptUnlock(slug: string, code: string) {
 
   const success =
     // A suspended family can still prove who it is, so it can reach the page that reactivates its wallet.
-    !!family && (family.status === "active" || family.status === "suspended") && equals(family.access_code_hash, hashCode(slug, code));
+    !!family &&
+    (family.status === "active" || family.status === "suspended") &&
+    equals(family.access_code_hash, hashCode(slug, code));
 
   await supabaseAdmin
     .from("wallet_access_attempts")
@@ -252,7 +275,11 @@ export async function listNannyRows(familyId: string) {
 async function sessionNannyId(slug: string, familyId: string): Promise<string | null> {
   const { accountAccess } = await import("./account.server");
   const account = await accountAccess(slug);
-  if (account?.level === "nanny" && account.nannyId && (await listNannyRows(familyId)).some((r) => r.id === account.nannyId)) {
+  if (
+    account?.level === "nanny" &&
+    account.nannyId &&
+    (await listNannyRows(familyId)).some((r) => r.id === account.nannyId)
+  ) {
     return account.nannyId;
   }
   const session = await walletSession();
@@ -419,16 +446,21 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
   await touchWalletSession();
   const access = session.level;
 
-
   const { data: family } = await supabaseAdmin
     .from("families")
-    .select("id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, agreement_policy")
+    .select(
+      "id, family_name, tier_band, nannytax_code, start_date, terms_accepted_on, status, updated_at, use_agreement, agreement_policy",
+    )
     .eq("slug", slug)
     .maybeSingle();
 
   if (!family || family.status !== "active") return null;
   // Read separately so a wallet still opens if this column has not been added yet.
-  const { data: choiceRow } = await supabaseAdmin.from("families").select("agreement_choice").eq("id", family.id).maybeSingle();
+  const { data: choiceRow } = await supabaseAdmin
+    .from("families")
+    .select("agreement_choice")
+    .eq("id", family.id)
+    .maybeSingle();
   const agreement = resolveAgreementMode({
     policy: family.agreement_policy,
     useAgreement: family.use_agreement,
@@ -489,9 +521,15 @@ export async function loadWallet(slug: string): Promise<WalletData | null> {
     nannytaxCode: access === "family" ? family.nannytax_code : null,
     startDate: access === "family" ? family.start_date : null,
     termsAcceptedOn: access === "family" ? family.terms_accepted_on : null,
-    hasTerms: access === "family" ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id)) : false,
+    hasTerms:
+      access === "family"
+        ? Boolean(await (await import("./agency-terms.server")).termsForFamily(family.id))
+        : false,
     agreementsEnabled: agreement.enabled,
-    agreementChoice: ((c) => (c === "template" || c === "self_employed" || c === "none" ? c : null))(choiceRow?.agreement_choice),
+    agreementChoice: ((c) =>
+      c === "template" || c === "self_employed" || c === "none" ? c : null)(
+      choiceRow?.agreement_choice,
+    ),
     agreementsLockedByAgency: agreement.lockedByAgency,
     updatedAt: family.updated_at,
     contacts: (contactRows ?? []).map((c) => ({
@@ -601,7 +639,9 @@ export async function redeemPairPin(slug: string, pin: string) {
     .select("id");
   const success = (data?.length ?? 0) > 0;
 
-  await supabaseAdmin.from("wallet_access_attempts").insert({ slug, client_key: key, succeeded: success });
+  await supabaseAdmin
+    .from("wallet_access_attempts")
+    .insert({ slug, client_key: key, succeeded: success });
   if (!success) return { ok: false as const, reason: "invalid" as const };
 
   await markUnlocked(slug);

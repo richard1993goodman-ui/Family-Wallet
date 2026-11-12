@@ -2,7 +2,13 @@
 // whose 30 days are over. With the switch off (the default) it reports what it would delete and removes nothing.
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { sendEmail } from "./email.server";
-import { buildLifecycleEmail, daysLeft, planLifecycle, type LockedHousehold } from "./lifecycle";
+import {
+  buildLifecycleEmail,
+  daysLeft,
+  deletionConfirmed,
+  planLifecycle,
+  type LockedHousehold,
+} from "./lifecycle";
 import { filePrefixes } from "./export";
 
 const SITE = "https://familywallet.io";
@@ -71,6 +77,35 @@ export async function purgeHousehold(id: string, reason: string) {
     { _family: id, _reason: reason } as never,
   );
   if (error) throw new Error(`Purge failed: ${(error as { message: string }).message}`);
+}
+
+/**
+ * The owner asks to delete their own account. It starts the normal lifecycle: the wallet locks now, the household
+ * has 30 days to download its data, reminders go out, and only then is everything deleted. Needs the family's own
+ * session and the family name typed exactly. It does not cancel a store or card subscription: the screen says so.
+ */
+export async function requestOwnerDeletion(slug: string, typedName: string) {
+  const { requireFamily } = await import("./family.server");
+  const family = await requireFamily(slug);
+  if (!family) throw new Error("Please open your wallet first.");
+  if (!deletionConfirmed(typedName, family.family_name))
+    throw new Error("Type your family name exactly to confirm.");
+
+  const { error } = await supabaseAdmin
+    .from("families")
+    .update({ status: "cancelled", updated_at: new Date().toISOString() })
+    .eq("id", family.id);
+  if (error) throw new Error("We couldn't start that. Please try again.");
+
+  // The lock clock (a database trigger) has set the deletion date by now.
+  const { data } = await supabaseAdmin
+    .from("families")
+    .select("delete_after")
+    .eq("id", family.id)
+    .maybeSingle();
+  const { audit } = await import("./audit.server");
+  await audit({ actorKind: "parent", action: "deletion_requested", familyId: family.id });
+  return { deleteAfter: data?.delete_after ?? null };
 }
 
 export async function runLifecycle(now = new Date()) {

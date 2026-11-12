@@ -16,6 +16,12 @@ export const deleteAfterFor = (lockedAt: Date) => addDays(lockedAt, EXPORT_WINDO
 export const isLockedStatus = (status: string | null | undefined) =>
   status === "suspended" || status === "cancelled";
 
+/** Whether the name typed to confirm deletion is the family's name (ignoring case and extra spaces). */
+export function deletionConfirmed(typed: string, familyName: string) {
+  const norm = (s: string) => s.trim().replace(/\s+/g, " ").toLowerCase();
+  return norm(typed).length > 0 && norm(typed) === norm(familyName);
+}
+
 /** Whole days left before deletion, never below zero. */
 export function daysLeft(now: Date, deleteAfter: Date) {
   return Math.max(0, Math.ceil((deleteAfter.getTime() - now.getTime()) / DAY));
@@ -115,11 +121,24 @@ export type LifecycleStep =
 export function planLifecycle(now: Date, households: readonly LockedHousehold[]): LifecycleStep[] {
   return households.map((h): LifecycleStep => {
     if (h.hold) return { id: h.id, action: "skip", reason: "on_hold" };
-    const decision = purgeDecision({ now, status: h.status, deleteAfter: h.deleteAfter, hold: h.hold, noticesSent: h.notices, ownerConfirmed: h.ownerConfirmed });
+    const decision = purgeDecision({
+      now,
+      status: h.status,
+      deleteAfter: h.deleteAfter,
+      hold: h.hold,
+      noticesSent: h.notices,
+      ownerConfirmed: h.ownerConfirmed,
+    });
     if (decision.purge) return { id: h.id, action: "purge" };
-    if (decision.reason === "not_locked" || !h.lockedAt) return { id: h.id, action: "skip", reason: decision.reason };
+    if (decision.reason === "not_locked" || !h.lockedAt)
+      return { id: h.id, action: "skip", reason: decision.reason };
     const day = dueReminder(now, h.lockedAt, h.notices);
-    if (day === null) return { id: h.id, action: "skip", reason: decision.reason === "no_final_notice" ? "no_final_notice" : "nothing_due" };
+    if (day === null)
+      return {
+        id: h.id,
+        action: "skip",
+        reason: decision.reason === "no_final_notice" ? "no_final_notice" : "nothing_due",
+      };
     if (!h.email) return { id: h.id, action: "skip", reason: "no_email" };
     return { id: h.id, action: "remind", day };
   });
