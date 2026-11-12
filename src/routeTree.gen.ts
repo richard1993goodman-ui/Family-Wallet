@@ -59,6 +59,7 @@ import { Route as NotificationsSlugRouteImport } from './routes/notifications.$s
 import { Route as PairSlugRouteImport } from './routes/pair.$slug'
 import { Route as PassportSlugRouteImport } from './routes/passport.$slug'
 import { Route as PayrollSlugRouteImport } from './routes/payroll.$slug'
+import { Route as PeopleSlugRouteImport } from './routes/people.$slug'
 import { Route as PerksSlugRouteImport } from './routes/perks.$slug'
 import { Route as PermissionsSlugRouteImport } from './routes/permissions.$slug'
 import { Route as PettycashSlugRouteImport } from './routes/pettycash.$slug'
@@ -337,6 +338,11 @@ const PayrollSlugRoute = PayrollSlugRouteImport.update({
   path: '/payroll/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeopleSlugRoute = PeopleSlugRouteImport.update({
+  id: '/people/$slug',
+  path: '/people/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerksSlugRoute = PerksSlugRouteImport.update({
   id: '/perks/$slug',
   path: '/perks/$slug',
@@ -531,6 +537,7 @@ export interface FileRoutesByFullPath {
   '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
   '/permissions/$slug': typeof PermissionsSlugRoute
   '/pettycash/$slug': typeof PettycashSlugRoute
@@ -610,6 +617,7 @@ export interface FileRoutesByTo {
   '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
   '/permissions/$slug': typeof PermissionsSlugRoute
   '/pettycash/$slug': typeof PettycashSlugRoute
@@ -691,6 +699,7 @@ export interface FileRoutesById {
   '/pair/$slug': typeof PairSlugRoute
   '/passport/$slug': typeof PassportSlugRoute
   '/payroll/$slug': typeof PayrollSlugRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/perks/$slug': typeof PerksSlugRoute
   '/permissions/$slug': typeof PermissionsSlugRoute
   '/pettycash/$slug': typeof PettycashSlugRoute
@@ -772,6 +781,7 @@ export interface FileRouteTypes {
     | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
+    | '/people/$slug'
     | '/perks/$slug'
     | '/permissions/$slug'
     | '/pettycash/$slug'
@@ -851,6 +861,7 @@ export interface FileRouteTypes {
     | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
+    | '/people/$slug'
     | '/perks/$slug'
     | '/permissions/$slug'
     | '/pettycash/$slug'
@@ -931,6 +942,7 @@ export interface FileRouteTypes {
     | '/pair/$slug'
     | '/passport/$slug'
     | '/payroll/$slug'
+    | '/people/$slug'
     | '/perks/$slug'
     | '/permissions/$slug'
     | '/pettycash/$slug'
@@ -1012,6 +1024,7 @@ export interface RootRouteChildren {
   PairSlugRoute: typeof PairSlugRoute
   PassportSlugRoute: typeof PassportSlugRoute
   PayrollSlugRoute: typeof PayrollSlugRoute
+  PeopleSlugRoute: typeof PeopleSlugRoute
   PerksSlugRoute: typeof PerksSlugRoute
   PermissionsSlugRoute: typeof PermissionsSlugRoute
   PettycashSlugRoute: typeof PettycashSlugRoute
@@ -1390,6 +1403,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PayrollSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/people/$slug': {
+      id: '/people/$slug'
+      path: '/people/$slug'
+      fullPath: '/people/$slug'
+      preLoaderRoute: typeof PeopleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/perks/$slug': {
       id: '/perks/$slug'
       path: '/perks/$slug'
@@ -1659,6 +1679,7 @@ const rootRouteChildren: RootRouteChildren = {
   PairSlugRoute: PairSlugRoute,
   PassportSlugRoute: PassportSlugRoute,
   PayrollSlugRoute: PayrollSlugRoute,
+  PeopleSlugRoute: PeopleSlugRoute,
   PerksSlugRoute: PerksSlugRoute,
   PermissionsSlugRoute: PermissionsSlugRoute,
   PettycashSlugRoute: PettycashSlugRoute,

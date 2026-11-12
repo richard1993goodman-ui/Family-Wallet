@@ -42,6 +42,7 @@ export type WalletRole = "family" | "nanny";
 
 export type WalletPath =
   | "/w/$slug"
+  | "/people/$slug"
   | "/planner/$slug"
   | "/log/$slug"
   | "/report/$slug"
@@ -95,6 +96,7 @@ const item = (
 ): NavItem => (keywords ? { label, icon, to, keywords } : { label, icon, to });
 
 const home = item("Home", Home, "/w/$slug", ["dashboard", "overview"]);
+const people = item("People overview", Users, "/people/$slug", ["children", "staff", "nanny", "household"]);
 const calendar = item("Calendar", CalendarDays, "/planner/$slug", ["planner", "week", "schedule"]);
 const messages = item("Messages", MessageCircle, "/messages/$slug", ["chat", "threads"]);
 const dailyLog = item("Daily log", NotebookPen, "/log/$slug", ["update", "mood", "notes"]);
@@ -161,7 +163,7 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
 const familyNav: NavSection[] = [
   { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments, report] },
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
-  { label: "People", items: [children, kids, nannies, permissions, houseManual, emergency, guide, travel] },
+  { label: "People", items: [people, children, kids, nannies, permissions, houseManual, emergency, guide, travel] },
   { label: "Wallet", items: [documents, agreement, payroll, bankDetails, pettyCash, training, safety] },
   { label: "More", items: [notifications, billing, myLogin, helpSupport] },
 ];
@@ -169,7 +171,7 @@ const familyNav: NavSection[] = [
 const nannyNav: NavSection[] = [
   { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments] },
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
-  { label: "People", items: [kids, permissions, houseManual, emergency, guide, travel] },
+  { label: "People", items: [people, kids, permissions, houseManual, emergency, guide, travel] },
   { label: "Wallet", items: [documents, agreement, bankDetails, pettyCash, training, safety] },
   { label: "More", items: [notifications, myLogin, helpSupport] },
 ];
@@ -220,7 +222,7 @@ export function mobileTabsFor(role: WalletRole, t?: Translate): MobileTab[] {
   const tabs: MobileTab[] = [
     { label: "Home", icon: Home, to: "/w/$slug" },
     { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" },
-    { label: "People", icon: Users, to: role === "nanny" ? "/kids/$slug" : "/family/$slug" },
+    { label: "People", icon: Users, to: "/people/$slug" },
     { label: "Wallet", icon: FolderLock, to: "/documents/$slug" },
   ];
   return tabs.map((tab) => ({ ...tab, title: t ? t(`tab.${tab.label.toLowerCase()}` as MessageKey) : tab.label }));
