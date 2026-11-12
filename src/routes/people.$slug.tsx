@@ -1,9 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Baby, Siren, UserRound } from "lucide-react";
 
 import { ActionRow, SectionTitle } from "@/components/dashboard/tiles";
+import { allergyNote, initials } from "@/lib/wallet-overview";
+import { cn } from "@/lib/utils";
 import { HubPage, LockedNotice, PageLoading } from "@/components/hub-ui";
 import { getEmergencyCard } from "@/lib/family.functions";
 import { useT } from "@/lib/i18n/provider";
@@ -42,17 +44,40 @@ function PeoplePage() {
       <div className="space-y-8">
         <section className="rise">
           <SectionTitle>{t("people.children")}</SectionTitle>
+          {data.children.length > 0 && (
+            <div className="grid grid-cols-2 gap-3">
+              {data.children.map((child, i) => {
+                const note = allergyNote(child.allergies);
+                return (
+                  <Link
+                    key={`${child.name}-${i}`}
+                    to={childrenTo}
+                    params={{ slug }}
+                    className="surface-card flex flex-col gap-3 p-4 transition-transform duration-150 ease-out active:scale-[0.98] motion-reduce:active:scale-100"
+                  >
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--sky),var(--mint))] text-[0.9375rem] font-bold text-navy">
+                      {initials(child.name)}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate font-semibold text-foreground">{child.name}</span>
+                      {child.school && <span className="block truncate text-[0.8125rem] text-muted-foreground">{child.school}</span>}
+                    </span>
+                    {note && (
+                      <span
+                        className={cn(
+                          "line-clamp-2 self-start rounded-full px-2.5 py-1 text-[0.75rem] font-semibold",
+                          note.kind === "warn" ? "bg-tint-apricot text-tint-apricot-ink" : "bg-mint text-brand",
+                        )}
+                      >
+                        {note.kind === "warn" ? t("people.allergies", { list: note.text }) : t("people.noAllergies")}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
           <div className="ios-group">
-            {data.children.map((child, i) => (
-              <ActionRow
-                key={`${child.name}-${i}`}
-                slug={slug}
-                to={childrenTo}
-                icon={Baby}
-                title={child.name}
-                detail={child.school ?? undefined}
-              />
-            ))}
             {data.children.length === 0 && isParent && (
               <ActionRow
                 slug={slug}

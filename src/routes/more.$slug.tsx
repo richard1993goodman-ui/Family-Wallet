@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/i18n/provider";
 import { staffNoun } from "@/lib/staff-roles";
 import { getWalletSummary } from "@/lib/wallet.functions";
+import { getHubSummary } from "@/lib/family.functions";
+import { initials } from "@/lib/wallet-overview";
 
 export const Route = createFileRoute("/more/$slug")({
   head: () => ({
@@ -39,6 +41,8 @@ function MorePage() {
     queryKey: ["wallet", slug],
     queryFn: () => summaryFn({ data: { slug } }),
   });
+  const hubFn = useServerFn(getHubSummary);
+  const hub = useQuery({ queryKey: ["hub-summary", slug], queryFn: () => hubFn({ data: { slug } }) });
 
   if (summary.isLoading) return <PageLoading />;
   if (!summary.data?.unlocked) return <LockedNotice slug={slug} />;
@@ -51,10 +55,29 @@ function MorePage() {
   const account = more.filter((i) => ACCOUNT.has(routePrefix(i.to)));
   const help = more.find((i) => routePrefix(i.to) === "support");
   const others = sections.filter((s) => s.label !== "More");
+  const me = wallet.nannies.find((n) => n.isYou);
+  const displayName = isParent ? wallet.familyName : (me?.name ?? wallet.familyName);
+  const planLine = wallet.agencyName
+    ? t("shell.withAgency", { agency: wallet.agencyName })
+    : hub.data?.hasSubscription
+      ? t("more.familyPlan")
+      : null;
 
   return (
     <HubPage slug={slug} title={t("more.title")} intro={t("more.intro")}>
       <div className="space-y-8">
+        <section className="surface-card rise flex items-center gap-4 p-4">
+          <span className="flex h-13 w-13 flex-none items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--sky),var(--mint))] text-[1.125rem] font-bold text-navy">
+            {initials(displayName)}
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-[1.0625rem] font-semibold text-foreground">{displayName}</span>
+            <span className="block truncate text-[0.8125rem] text-muted-foreground">
+              {t("more.household", { name: wallet.familyName })}
+              {planLine ? ` · ${planLine}` : ""}
+            </span>
+          </span>
+        </section>
         {account.length > 0 && (
           <section className="rise">
             <SectionTitle>{t("more.account")}</SectionTitle>

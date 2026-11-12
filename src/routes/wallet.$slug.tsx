@@ -10,6 +10,10 @@ import { useT } from "@/lib/i18n/provider";
 import { getNannies } from "@/lib/nannies.functions";
 import { staffNoun } from "@/lib/staff-roles";
 import { getWalletSummary } from "@/lib/wallet.functions";
+import { getTimesheets } from "@/lib/work-tools.functions";
+import { monthApproved } from "@/lib/wallet-overview";
+import { formatMoney } from "@/lib/format";
+import { londonToday } from "@/lib/dashboard-format";
 
 export const Route = createFileRoute("/wallet/$slug")({
   head: () => ({
@@ -40,6 +44,8 @@ function WalletPage() {
     queryKey: ["nannies", slug],
     queryFn: () => nanniesFn({ data: { slug } }),
   });
+  const timesheetsFn = useServerFn(getTimesheets);
+  const timesheets = useQuery({ queryKey: ["timesheets", slug], queryFn: () => timesheetsFn({ data: { slug } }) });
 
   if (summary.isLoading) return <PageLoading />;
   if (!summary.data?.unlocked) return <LockedNotice slug={slug} />;
@@ -95,6 +101,7 @@ function WalletPage() {
       })}
     </div>
   );
+  const month = monthApproved(timesheets.data?.shifts ?? [], londonToday());
   const employment = items.filter((i) => EMPLOYMENT.has(routePrefix(i.to)));
   const records = items.filter((i) => !EMPLOYMENT.has(routePrefix(i.to)));
 
@@ -104,8 +111,24 @@ function WalletPage() {
       title={t("wallet.title")}
       intro={t(isParent ? "wallet.introParent" : "wallet.introStaff")}
     >
-      {!needsAttention && hubQuery.data && (
-        <p className="mb-6 text-sm text-muted-foreground">{t("wallet.allGood")}</p>
+      {timesheets.data && (
+        <section className="glass-hero rise mb-8 p-5">
+          <div className="relative flex items-start justify-between gap-3">
+            <p className="text-[0.8125rem] text-muted-foreground">{t("wallet.thisMonth")}</p>
+            {!needsAttention && hubQuery.data && <span className="rounded-full bg-mint px-2.5 py-1 text-[0.75rem] font-semibold text-brand">{t("wallet.allGood")}</span>}
+          </div>
+          {month.count > 0 ? (
+            <>
+              <p className="heading-display num relative mt-1 text-[2.25rem] leading-none text-navy">
+                {formatMoney(month.amount)}
+                <span className="ml-2 font-sans text-[0.9375rem] font-semibold text-muted-foreground">{t("wallet.approvedPay")}</span>
+              </p>
+              <p className="relative mt-2 text-[0.8125rem] text-muted-foreground">{t("wallet.monthHours", { hours: month.hours, count: month.count })}</p>
+            </>
+          ) : (
+            <p className="heading-display relative mt-1 text-[1.375rem] leading-tight text-navy">{t("wallet.noApprovedYet")}</p>
+          )}
+        </section>
       )}
       <div className="space-y-8">
         {employment.length > 0 && (
