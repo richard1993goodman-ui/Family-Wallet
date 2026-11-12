@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, Siren } from "lucide-react";
+import { Camera, ChevronRight, Clock3, MessageCircle, NotebookPen, Siren } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { ContactRow, SectionTitle } from "@/components/dashboard/tiles";
@@ -55,16 +55,43 @@ export function DemoBanner({ slug }: { slug: string }) {
 export function EmergencyPill({ slug }: { slug: string }) {
   const t = useT();
   return (
-    <div className="mb-4 flex justify-end">
-      <Link
-        to="/emergency/$slug"
-        params={{ slug }}
-        className="inline-flex h-11 items-center gap-2 rounded-full bg-destructive px-5 text-sm font-semibold text-destructive-foreground shadow-sm transition-opacity hover:opacity-90 active:opacity-80"
-      >
-        <Siren className="h-4 w-4" aria-hidden />
-        {t("dash.emergency")}
-      </Link>
-    </div>
+    <Link
+      to="/emergency/$slug"
+      params={{ slug }}
+      className="inline-flex h-10 items-center gap-2 rounded-full bg-destructive px-4 text-sm font-semibold text-destructive-foreground shadow-[0_8px_20px_-10px_rgb(196_52_45/0.6)] transition-opacity hover:opacity-90 active:opacity-80"
+    >
+      <Siren className="h-4 w-4" aria-hidden />
+      {t("dash.emergency")}
+    </Link>
+  );
+}
+
+/** Four things a parent reaches for most, straight under the status card. */
+export function HomeQuickActions({ slug }: { slug: string }) {
+  const t = useT();
+  const items = [
+    { to: "/log/$slug" as const, icon: NotebookPen, label: t("nav.log"), tint: "sage" },
+    { to: "/moments/$slug" as const, icon: Camera, label: t("dash.quickPhotos"), tint: "sky" },
+    { to: "/messages/$slug" as const, icon: MessageCircle, label: t("nav.messages"), tint: "sky" },
+    { to: "/timesheets/$slug" as const, icon: Clock3, label: t("dash.quickHours"), tint: "sky" },
+  ];
+  return (
+    <nav aria-label={t("dash.quickActions")} className="grid grid-cols-4 gap-2">
+      {items.map((item) => (
+        <Link
+          key={item.to}
+          to={item.to}
+          params={{ slug }}
+          data-tint={item.tint}
+          className="flex flex-col items-center gap-2 rounded-2xl px-1 py-3 text-center text-[0.75rem] font-semibold text-foreground transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100"
+        >
+          <span className="ios-icon h-11 w-11 rounded-[0.875rem]">
+            <item.icon className="h-5 w-5" />
+          </span>
+          <span className="truncate">{item.label}</span>
+        </Link>
+      ))}
+    </nav>
   );
 }
 

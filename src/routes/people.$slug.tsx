@@ -40,7 +40,7 @@ function PeoplePage() {
       intro={t(isParent ? "people.introParent" : "people.introStaff")}
     >
       <div className="space-y-8">
-        <section>
+        <section className="rise">
           <SectionTitle>{t("people.children")}</SectionTitle>
           <div className="ios-group">
             {data.children.map((child, i) => (

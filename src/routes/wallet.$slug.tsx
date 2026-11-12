@@ -109,7 +109,7 @@ function WalletPage() {
       )}
       <div className="space-y-8">
         {employment.length > 0 && (
-          <section>
+          <section className="rise">
             <SectionTitle>{t("wallet.employment")}</SectionTitle>
             {rows(employment)}
           </section>

@@ -199,6 +199,9 @@ export const enGB = {
   "wallet.agreementsToSign": "{count} still to sign",
   "wallet.allSigned": "All signed",
   "dash.emergency": "Emergency",
+  "dash.quickActions": "Quick actions",
+  "dash.quickPhotos": "Photos",
+  "dash.quickHours": "Hours",
   // Wallet frame
   "shell.searchWallet": "Search the wallet",
   "shell.goToPage": "Go to a page",
@@ -289,7 +292,7 @@ export const enGB = {
   "dash.notAddedYet": "Not added yet",
   "dash.weeklyReport": "Weekly report",
   "dash.messageYourNanny": "Message your nanny",
-  "dash.needsYourAttention": "Needs your attention",
+  "dash.needsYourAttention": "Needs you",
   "dash.documentsChecks": "Documents & checks",
   "dash.acasDisciplinaryGuidance": "ACAS disciplinary guidance",
   "dash.officialStepByStepGuidance": "Official step-by-step guidance",

@@ -17,7 +17,6 @@ import {
   Clock3,
   Dumbbell,
   ExternalLink,
-  FileBarChart,
   FileText,
   GraduationCap,
   Heart,
@@ -49,6 +48,7 @@ import {
   DashboardHeader,
   DemoBanner,
   EmergencyPill,
+  HomeQuickActions,
   EmergencyContacts,
   NannyProfiles,
 } from "@/components/dashboard/sections";
@@ -61,6 +61,7 @@ import {
 } from "@/components/dashboard/tiles";
 import { greeting, londonToday, longDate } from "@/lib/dashboard-format";
 import type { DashboardProps } from "@/components/dashboard/types";
+import type { CSSProperties } from "react";
 import { useT } from "@/lib/i18n/provider";
 import type { MessageKey } from "@/lib/i18n/en-GB";
 
@@ -78,28 +79,19 @@ export function FamilyDashboard(props: DashboardProps) {
   return (
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
-      <EmergencyPill slug={slug} />
       <DashboardHeader
         eyebrow={longDate(hub?.today.date)}
         title={greeting()}
         subtitle={`${wallet.familyName}${wallet.agencyName ? ` · ${t("shell.withAgency", { agency: wallet.agencyName })}` : ""}`}
-        actions={
-          <>
-            <Button variant="outline" asChild>
-              <Link to="/report/$slug" params={{ slug }}>
-                <FileBarChart className="h-4 w-4" />{t("dash.weeklyReport")}</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/messages/$slug" params={{ slug }}>
-                <MessageCircle className="h-4 w-4" />{t("dash.messageYourNanny")}</Link>
-            </Button>
-          </>
-        }
+        actions={<EmergencyPill slug={slug} />}
       />
       <WalletTravelBanner slug={slug} />
 
       <div className="mt-8 space-y-6">
         <TodayTimeline slug={slug} />
+        <div className="rise" style={{ "--rise-i": 1 } as CSSProperties}>
+          <HomeQuickActions slug={slug} />
+        </div>
         <AgreementChoice slug={slug} firstSignIn />
         <MonthOverview
           slug={slug}
@@ -112,7 +104,7 @@ export function FamilyDashboard(props: DashboardProps) {
       </div>
 
       {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
-      <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <div className="rise mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]" style={{ "--rise-i": 3 } as CSSProperties}>
         <Column>
           <AlertsPrompt slug={slug} />
           <SetupProgress {...props} />

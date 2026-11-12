@@ -56,7 +56,7 @@ function MorePage() {
     <HubPage slug={slug} title={t("more.title")} intro={t("more.intro")}>
       <div className="space-y-8">
         {account.length > 0 && (
-          <section>
+          <section className="rise">
             <SectionTitle>{t("more.account")}</SectionTitle>
             <div className="ios-group">
               {account.map((item) => (

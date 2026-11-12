@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { CalendarCheck, CalendarClock, Clock3, ReceiptText } from "lucide-react";
@@ -45,7 +46,7 @@ export function CalendarOverview({ slug }: { slug: string }) {
 
   return (
     <div className="mb-8 space-y-6">
-      <section>
+      <section className="rise">
         <h2 className="mb-2 text-[0.8125rem] font-medium text-muted-foreground">
           {t("cal.waiting")}
         </h2>
@@ -68,7 +69,7 @@ export function CalendarOverview({ slug }: { slug: string }) {
         )}
       </section>
 
-      <section>
+      <section className="rise" style={{ "--rise-i": 1 } as CSSProperties}>
         <h2 className="mb-2 text-[0.8125rem] font-medium text-muted-foreground">
           {t("cal.regularWeek")}
         </h2>
