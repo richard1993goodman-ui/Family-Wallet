@@ -105,4 +105,18 @@ Reuse the 11 Nov proposal: `people`, `household_members` (roles, permissions, st
 3. Confirm the five-tab structure, or edit it.
 4. Whether to start with the UX shell (recommended, no data changes) or the security foundation first.
 
+## 15. Stage B live check (12 Nov, read-only counts and policy names only)
+
+| Check | Result |
+|---|---|
+| Tables / row-level security | 70 tables, **all with RLS on** |
+| Earlier "pending" migrations (seat invites, documents, shift sessions, audit log, household members, account claims, agreement versions) | **Applied.** Every table I looked for exists. The 11 Nov worry is closed |
+| Policies | 11 on public tables, 2 on storage. Admin-only on agency/perks tables; members read their own people/memberships, vault documents, bank details, house manual and incident reports; vault files readable only by household owner or the staff member a document is shared with |
+| Plain-text codes | `access_code` is now nullable (clearing migration applied). **0 families that have opened their wallet still store a code** (the clearing works). 35 of 44 families have never opened it, so their code is still stored until first sign-in. 19 staff codes are also still stored |
+| Audit log | Table exists, **1 row**: only one action is logged so far |
+| Scheduled deletion | pg_cron not installed; the GitHub Action runs the daily job instead (working) |
+| Not checkable from here | Supabase backups and point-in-time recovery, Stripe prices, secrets |
+
+**What this means:** the database is in better shape than the 11 Nov audit feared. The remaining Stage B work is: (1) cross-household isolation tests, (2) widen the audit log to support/owner reads and sensitive actions, (3) confirm backups and do one restore drill, (4) decide whether to force-rotate the 35 unopened family codes and 19 staff codes, which would mean re-sending links.
+
 Nothing here is implemented or deployed.
