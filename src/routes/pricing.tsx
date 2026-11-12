@@ -1,7 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check, X } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Apple, ArrowRight, Check, X } from "lucide-react";
+import { IOS_APP_URL } from "@/lib/app-links";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { onMailtoClick } from "@/lib/mailto";
@@ -26,7 +32,11 @@ export const Route = createFileRoute("/pricing")({
       path: "/pricing",
       jsonLd: [
         softwareLd([
-          { name: "Family", price: "19.99", description: "Unlimited staff, billed monthly or £199 a year, excluding VAT." },
+          {
+            name: "Family",
+            price: "19.99",
+            description: "Unlimited staff, billed monthly or £199 a year, excluding VAT.",
+          },
         ]),
         faqLd(faqs.families),
         breadcrumbLd([
@@ -60,6 +70,34 @@ type Tier = {
 
 const SUPPORT = "Dedicated customer support by email";
 
+/**
+ * Independent families subscribe inside the app with their Apple ID, not on this website. Switch this on
+ * (VITE_FAMILY_APP_ONLY=true) only once in-app purchase works and the app is live in the store, because it turns
+ * off the website's family checkout. Agency plans always pay here.
+ */
+const FAMILY_APP_ONLY = import.meta.env["VITE_FAMILY_APP_ONLY"] === "true";
+
+function GetTheApp() {
+  return (
+    <div className="mt-6">
+      {IOS_APP_URL ? (
+        <Button size="lg" className="w-full" asChild>
+          <a href={IOS_APP_URL}>
+            <Apple aria-hidden /> Get the app
+          </a>
+        </Button>
+      ) : (
+        <Button size="lg" className="w-full" disabled>
+          Coming to the App Store
+        </Button>
+      )}
+      <p className="mt-2 text-center text-[0.8125rem] text-muted-foreground">
+        Subscribe inside the app with your Apple ID.
+      </p>
+    </div>
+  );
+}
+
 // One plan, every feature, unlimited staff.
 const families: Tier[] = [
   {
@@ -69,7 +107,9 @@ const families: Tier[] = [
     who: "A nanny, an au pair, a housekeeper, a driver: your whole household team.",
     features: [
       { text: "Unlimited staff, each with their own sign-in" },
-      { text: "Every feature in the app: shared week, daily log, messages, agreements, timesheets, house manual and codes, emergency card and more" },
+      {
+        text: "Every feature in the app: shared week, daily log, messages, agreements, timesheets, house manual and codes, emergency card and more",
+      },
       { text: SUPPORT },
     ],
     cta: { label: "Subscribe", href: mail("Family Wallet: Family plan") },
@@ -123,12 +163,51 @@ const agencies: Tier[] = [
 ];
 
 /* Everything inside the wallet. It is the same on every family plan; only the number of staff changes. */
-const EVERYTHING = ["Shared week calendar (day, week and month)", "Daily log, photo moments and weekly Friday report", "Topic messages with unread alerts", "Notification bell and phone alerts", "Today: naps, feeds, meals and potty", "Medication log and incident reports", "Handover notes and expenses", "Permissions and consents", "Emergency card", "Children & routines and Kids' playbook", "Travel pack and First 48 hours checklist", "Timesheets (nanny and babysitting), holiday & leave", "Petty cash float", "Secure bank details", "Working hours rota", "Nanny training and certificates", "Safety records (DBS, first aid, insurance)", "Private document vault for DBS, ID, passports and right to work", "Payroll setup via our partner Nannytax", "Agreement builder, signed by both sides (incl. two-week rota)", "House manual & codes, hidden until revealed", "Au pair & live-in: pocket money, hours cap, days off, room & house rules", "Employment cost calculator", SUPPORT];
+const EVERYTHING = [
+  "Shared week calendar (day, week and month)",
+  "Daily log, photo moments and weekly Friday report",
+  "Topic messages with unread alerts",
+  "Notification bell and phone alerts",
+  "Today: naps, feeds, meals and potty",
+  "Medication log and incident reports",
+  "Handover notes and expenses",
+  "Permissions and consents",
+  "Emergency card",
+  "Children & routines and Kids' playbook",
+  "Travel pack and First 48 hours checklist",
+  "Timesheets (nanny and babysitting), holiday & leave",
+  "Petty cash float",
+  "Secure bank details",
+  "Working hours rota",
+  "Nanny training and certificates",
+  "Safety records (DBS, first aid, insurance)",
+  "Private document vault for DBS, ID, passports and right to work",
+  "Payroll setup via our partner Nannytax",
+  "Agreement builder, signed by both sides (incl. two-week rota)",
+  "House manual & codes, hidden until revealed",
+  "Au pair & live-in: pocket money, hours cap, days off, room & house rules",
+  "Employment cost calculator",
+  SUPPORT,
+];
 type Group = { title: string; items: string[] };
 const tierIncludes: Record<string, Group[]> = {
   Family: [{ title: "Everything, for up to 2 staff", items: EVERYTHING }],
-  Household: [{ title: "Everything, for up to 6 staff", items: ["Up to 6 staff with their own roles and sign-ins", ...EVERYTHING] }],
-  Estate: [{ title: "Everything, for unlimited staff", items: ["Unlimited staff with their own roles and sign-ins", "Help importing records", ...EVERYTHING] }],
+  Household: [
+    {
+      title: "Everything, for up to 6 staff",
+      items: ["Up to 6 staff with their own roles and sign-ins", ...EVERYTHING],
+    },
+  ],
+  Estate: [
+    {
+      title: "Everything, for unlimited staff",
+      items: [
+        "Unlimited staff with their own roles and sign-ins",
+        "Help importing records",
+        ...EVERYTHING,
+      ],
+    },
+  ],
 };
 
 function TierDetails({ groups }: { groups: Group[] }) {
@@ -141,10 +220,15 @@ function TierDetails({ groups }: { groups: Group[] }) {
       </summary>
       {groups.map((g) => (
         <div key={g.title} className="mt-4">
-          <p className="text-[0.8125rem] font-semibold uppercase tracking-wide text-muted-foreground">{g.title}</p>
+          <p className="text-[0.8125rem] font-semibold uppercase tracking-wide text-muted-foreground">
+            {g.title}
+          </p>
           <ul className="mt-2 space-y-1.5">
             {g.items.map((i) => (
-              <li key={i} className="flex gap-2 text-sm text-foreground"><Check className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden />{i}</li>
+              <li key={i} className="flex gap-2 text-sm text-foreground">
+                <Check className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden />
+                {i}
+              </li>
             ))}
           </ul>
         </div>
@@ -278,7 +362,10 @@ function PricingPageInner() {
     <div className="min-h-svh overflow-x-clip bg-background">
       <header className="border-b border-border/70">
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-          <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground"
+          >
             <LogoMark />
             Family Wallet
           </Link>
@@ -404,7 +491,9 @@ function PricingPageInner() {
                         ? `Or ${money(t.monthly!)} a month. Excluding VAT.`
                         : "Excluding VAT."}
                 </p>
-                {plan && canPay ? (
+                {FAMILY_APP_ONLY && plan === "family" ? (
+                  <GetTheApp />
+                ) : plan && canPay ? (
                   <Button
                     size="lg"
                     variant={t.popular ? "default" : "outline"}
@@ -413,8 +502,7 @@ function PricingPageInner() {
                       // Agency plans are monthly only, so the yearly toggle is ignored for them.
                       setCheckout({
                         plan,
-                        interval:
-                          annual && intervalsFor(plan).includes("year") ? "year" : "month",
+                        interval: annual && intervalsFor(plan).includes("year") ? "year" : "month",
                       })
                     }
                   >
@@ -427,7 +515,10 @@ function PricingPageInner() {
                     className="mt-6 w-full"
                     asChild
                   >
-                    <a href={t.cta.href} onClick={t.cta.href.startsWith("mailto:") ? onMailtoClick : undefined}>
+                    <a
+                      href={t.cta.href}
+                      onClick={t.cta.href.startsWith("mailto:") ? onMailtoClick : undefined}
+                    >
                       {t.cta.label} <ArrowRight aria-hidden />
                     </a>
                   </Button>
@@ -493,7 +584,6 @@ function PricingPageInner() {
           </section>
         )}
 
-
         {audience === "agencies" && (
           <section className="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-5">
@@ -501,7 +591,8 @@ function PricingPageInner() {
                 You choose who pays
               </h2>
               <p className="mt-5 max-w-[30rem] text-lg leading-relaxed text-foreground">
-                The same wallet works whether you include it or resell it. Mix both across your clients.
+                The same wallet works whether you include it or resell it. Mix both across your
+                clients.
               </p>
             </div>
             <ol className="space-y-8 lg:col-span-6 lg:col-start-7">
@@ -536,8 +627,8 @@ function PricingPageInner() {
         </section>
 
         <p className="mt-16 max-w-[44rem] text-xs leading-relaxed text-muted-foreground">
-          Prices exclude VAT, which is added at checkout. Plans marked Soon are on the way and are not
-          in the app yet.
+          Prices exclude VAT, which is added at checkout. Plans marked Soon are on the way and are
+          not in the app yet.
         </p>
       </main>
     </div>

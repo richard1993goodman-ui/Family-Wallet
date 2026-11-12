@@ -14,6 +14,8 @@ import {
   saveChildFn,
   saveEmergencyProfileFn,
 } from "@/lib/family.functions";
+import type { MessageKey } from "@/lib/i18n/en-GB";
+import { useT } from "@/lib/i18n/provider";
 import { saveNannyFn } from "@/lib/nannies.functions";
 import { STAFF_ROLES } from "@/lib/staff-roles";
 
@@ -24,26 +26,15 @@ export const Route = createFileRoute("/start/$slug")({
   component: StartPage,
 });
 
-const STEPS = [
-  {
-    title: "Your home",
-    why: "So your nanny or au pair can find their way, and anyone helping in an emergency knows where you are. Only your household can see this.",
-  },
-  {
-    title: "In an emergency",
-    why: "Who to call first, and what to do. Shown on the Emergency button, to you and the staff you add. Nobody else sees it.",
-  },
-  {
-    title: "Your children",
-    why: "Allergies and care needs are the most important thing a carer has to know. Add only what is useful; you can change it any time.",
-  },
-  {
-    title: "Your household staff",
-    why: "Add the people who work for you. They get their own private way in later; you control what they see and can remove access at any time.",
-  },
-] as const;
+const STEPS: { title: MessageKey; why: MessageKey }[] = [
+  { title: "start.s1.title", why: "start.s1.why" },
+  { title: "start.s2.title", why: "start.s2.why" },
+  { title: "start.s3.title", why: "start.s3.why" },
+  { title: "start.s4.title", why: "start.s4.why" },
+];
 
 function StartPage() {
+  const t = useT();
   const { slug } = Route.useParams();
   const client = useQueryClient();
   const load = useServerFn(getEmergencyCard);
@@ -78,21 +69,19 @@ function StartPage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-16 pt-8">
       <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>
-          Step {current + 1} of {STEPS.length}
-        </span>
+        <span>{t("start.stepOf", { current: current + 1, total: STEPS.length })}</span>
         <Link to="/w/$slug" params={{ slug }} className="underline-offset-4 hover:underline">
-          Finish later
+          {t("start.finishLater")}
         </Link>
       </div>
       <Progress value={((current + 1) / STEPS.length) * 100} className="mt-3 h-1.5" />
 
       <h1 className="heading-serif mt-8 text-[1.75rem] leading-tight text-foreground">
-        {spec.title}
+        {t(spec.title)}
       </h1>
       <p className="mt-2 flex gap-2 text-sm text-muted-foreground">
         <Lock className="mt-0.5 h-4 w-4 flex-none" aria-hidden />
-        {spec.why}
+        {t(spec.why)}
       </p>
 
       <div className="mt-6 flex-1">
@@ -104,7 +93,7 @@ function StartPage() {
 
       {current > 0 && (
         <Button variant="ghost" className="mt-6 self-start" onClick={() => setStep(current - 1)}>
-          <ArrowLeft className="h-4 w-4" /> Back
+          <ArrowLeft className="h-4 w-4" /> {t("start.back")}
         </Button>
       )}
     </main>
@@ -126,6 +115,7 @@ function Actions({
   canSave?: boolean;
   onSkip: () => void;
 }) {
+  const t = useT();
   return (
     <div className="mt-6 flex flex-col gap-2">
       <Button
@@ -134,16 +124,17 @@ function Actions({
         disabled={busy || !canSave}
         onClick={onSave}
       >
-        Save and continue
+        {t("start.save")}
       </Button>
       <Button variant="ghost" className="h-11 w-full" onClick={onSkip}>
-        Skip for now
+        {t("start.skip")}
       </Button>
     </div>
   );
 }
 
 function useSaving() {
+  const t = useT();
   const [busy, setBusy] = useState(false);
   const run = async (job: () => Promise<unknown>) => {
     setBusy(true);
@@ -151,7 +142,7 @@ function useSaving() {
       await job();
       return true;
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Couldn't save. Please try again.");
+      toast.error(e instanceof Error ? e.message : t("start.saveError"));
       return false;
     } finally {
       setBusy(false);
@@ -172,6 +163,7 @@ function profileOf(data: Data) {
 }
 
 function HomeStep({ slug, data, onSaved, onNext }: StepProps) {
+  const t = useT();
   const save = useServerFn(saveEmergencyProfileFn);
   const start = profileOf(data);
   const [address, setAddress] = useState(start.homeAddress);
@@ -181,18 +173,18 @@ function HomeStep({ slug, data, onSaved, onNext }: StepProps) {
     <>
       <div className="space-y-4">
         <Field
-          label="Home address"
+          label={t("start.homeAddress")}
           value={address}
           onChange={setAddress}
           textarea
-          placeholder="House number, street, postcode"
+          placeholder={t("start.homeAddressPlaceholder")}
         />
         <Field
-          label="Your GP or doctor (optional)"
+          label={t("start.gp")}
           value={gp}
           onChange={setGp}
           textarea
-          placeholder="Surgery name and phone number"
+          placeholder={t("start.gpPlaceholder")}
         />
       </div>
       <Actions
@@ -212,6 +204,7 @@ function HomeStep({ slug, data, onSaved, onNext }: StepProps) {
 }
 
 function EmergencyStep({ slug, data, onSaved, onNext }: StepProps) {
+  const t = useT();
   const addContact = useServerFn(addFamilyContactFn);
   const saveProfile = useServerFn(saveEmergencyProfileFn);
   const start = profileOf(data);
@@ -237,15 +230,15 @@ function EmergencyStep({ slug, data, onSaved, onNext }: StepProps) {
       )}
       <div className="space-y-4">
         <Field
-          label="Emergency contact name"
+          label={t("start.contactName")}
           value={name}
           onChange={setName}
-          placeholder="e.g. Grandma, or your partner"
+          placeholder={t("start.contactNamePlaceholder")}
         />
-        <Field label="Relationship (optional)" value={relationship} onChange={setRelationship} />
-        <Field label="Phone number" value={phone} onChange={setPhone} type="tel" />
+        <Field label={t("start.relationship")} value={relationship} onChange={setRelationship} />
+        <Field label={t("start.phone")} value={phone} onChange={setPhone} type="tel" />
         <Field
-          label="What should a carer do in an emergency? (optional)"
+          label={t("start.instructions")}
           value={instructions}
           onChange={setInstructions}
           textarea
@@ -282,6 +275,7 @@ function EmergencyStep({ slug, data, onSaved, onNext }: StepProps) {
 }
 
 function ChildrenStep({ slug, data, onSaved, onNext }: StepProps) {
+  const t = useT();
   const saveChild = useServerFn(saveChildFn);
   const blank = {
     name: "",
@@ -330,24 +324,24 @@ function ChildrenStep({ slug, data, onSaved, onNext }: StepProps) {
         </ul>
       )}
       <div className="space-y-4">
-        <Field label="Child's first name" value={child.name} onChange={set("name")} />
+        <Field label={t("start.childName")} value={child.name} onChange={set("name")} />
         <Field
-          label="Date of birth (optional)"
+          label={t("start.dob")}
           value={child.dateOfBirth}
           onChange={set("dateOfBirth")}
           type="date"
         />
-        <Field label="School or nursery (optional)" value={child.school} onChange={set("school")} />
+        <Field label={t("start.school")} value={child.school} onChange={set("school")} />
         <Field
-          label="Allergies (optional)"
+          label={t("start.allergies")}
           value={child.allergies}
           onChange={set("allergies")}
           textarea
-          placeholder="Or write 'none'"
+          placeholder={t("start.allergiesPlaceholder")}
         />
-        <Field label="Dietary needs (optional)" value={child.dietary} onChange={set("dietary")} />
+        <Field label={t("start.dietary")} value={child.dietary} onChange={set("dietary")} />
         <Field
-          label="Regular medication (optional)"
+          label={t("start.medication")}
           value={child.medication}
           onChange={set("medication")}
         />
@@ -361,11 +355,11 @@ function ChildrenStep({ slug, data, onSaved, onNext }: StepProps) {
             if (await addThis()) {
               setChild(blank);
               await onSaved();
-              toast.success("Added. Add another child, or continue.");
+              toast.success(t("start.childAdded"));
             }
           }}
         >
-          Save this child
+          {t("start.saveChild")}
         </Button>
         <Button
           variant={data.children.length ? "default" : "ghost"}
@@ -373,7 +367,7 @@ function ChildrenStep({ slug, data, onSaved, onNext }: StepProps) {
           disabled={adding}
           onClick={onNext}
         >
-          {data.children.length ? "Continue" : "Skip for now"}
+          {data.children.length ? t("start.continue") : t("start.skip")}
         </Button>
       </div>
     </>
@@ -381,6 +375,7 @@ function ChildrenStep({ slug, data, onSaved, onNext }: StepProps) {
 }
 
 function StaffStep({ slug, data, onSaved, onNext }: StepProps) {
+  const t = useT();
   const saveNanny = useServerFn(saveNannyFn);
   const [name, setName] = useState("");
   const [role, setRole] = useState<string>("nanny");
@@ -399,9 +394,9 @@ function StaffStep({ slug, data, onSaved, onNext }: StepProps) {
         </ul>
       )}
       <div className="space-y-4">
-        <Field label="Their name" value={name} onChange={setName} />
+        <Field label={t("start.theirName")} value={name} onChange={setName} />
         <label className="block">
-          <span className="text-sm font-medium text-foreground">Their role</span>
+          <span className="text-sm font-medium text-foreground">{t("start.theirRole")}</span>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -426,11 +421,11 @@ function StaffStep({ slug, data, onSaved, onNext }: StepProps) {
             ) {
               setName("");
               await onSaved();
-              toast.success("Added. Add someone else, or continue.");
+              toast.success(t("start.personAdded"));
             }
           }}
         >
-          Save this person
+          {t("start.savePerson")}
         </Button>
         <Button
           variant={data.nannies.length ? "default" : "ghost"}
@@ -438,7 +433,7 @@ function StaffStep({ slug, data, onSaved, onNext }: StepProps) {
           disabled={adding}
           onClick={onNext}
         >
-          {data.nannies.length ? "Continue" : "Skip for now"}
+          {data.nannies.length ? t("start.continue") : t("start.skip")}
         </Button>
       </div>
     </>
@@ -446,22 +441,20 @@ function StaffStep({ slug, data, onSaved, onNext }: StepProps) {
 }
 
 function AllSet({ slug, onBack }: { slug: string; onBack: () => void }): ReactNode {
+  const t = useT();
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col justify-center px-5 py-10">
       <h1 className="heading-serif text-[1.75rem] leading-tight text-foreground">
-        Your Family Wallet is ready
+        {t("start.doneTitle")}
       </h1>
-      <p className="mt-3 text-sm text-muted-foreground">
-        You can add or change anything later from People and Wallet. Your staff can be given their
-        own private way in from the People tab.
-      </p>
+      <p className="mt-3 text-sm text-muted-foreground">{t("start.doneBody")}</p>
       <Button asChild size="lg" className="mt-6 h-12 w-full text-base">
         <Link to="/w/$slug" params={{ slug }}>
-          Go to Home
+          {t("start.goHome")}
         </Link>
       </Button>
       <Button variant="ghost" className="mt-2 h-11 w-full" onClick={onBack}>
-        Back
+        {t("start.back")}
       </Button>
     </main>
   );
