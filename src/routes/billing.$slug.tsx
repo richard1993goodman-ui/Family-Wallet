@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { DeleteAccount } from "@/components/DeleteAccount";
 import { Card, HubPage, PageLoading } from "@/components/hub-ui";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import { Button } from "@/components/ui/button";
@@ -215,7 +214,6 @@ function BillingPage() {
           </div>
         </Card>
       )}
-      <DeleteAccount slug={slug} />
     </HubPage>
   );
 }

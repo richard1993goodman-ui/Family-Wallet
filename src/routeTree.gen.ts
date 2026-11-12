@@ -52,6 +52,7 @@ import { Route as LogSlugRouteImport } from './routes/log.$slug'
 import { Route as MedicationSlugRouteImport } from './routes/medication.$slug'
 import { Route as MessagesSlugRouteImport } from './routes/messages.$slug'
 import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
+import { Route as MoreSlugRouteImport } from './routes/more.$slug'
 import { Route as MyloginSlugRouteImport } from './routes/mylogin.$slug'
 import { Route as NanniesSlugRouteImport } from './routes/nannies.$slug'
 import { Route as NannySlugRouteImport } from './routes/nanny.$slug'
@@ -304,6 +305,11 @@ const MomentsSlugRoute = MomentsSlugRouteImport.update({
   path: '/moments/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoreSlugRoute = MoreSlugRouteImport.update({
+  id: '/more/$slug',
+  path: '/more/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyloginSlugRoute = MyloginSlugRouteImport.update({
   id: '/mylogin/$slug',
   path: '/mylogin/$slug',
@@ -536,6 +542,7 @@ export interface FileRoutesByFullPath {
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
   '/moments/$slug': typeof MomentsSlugRoute
+  '/more/$slug': typeof MoreSlugRoute
   '/mylogin/$slug': typeof MyloginSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -617,6 +624,7 @@ export interface FileRoutesByTo {
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
   '/moments/$slug': typeof MomentsSlugRoute
+  '/more/$slug': typeof MoreSlugRoute
   '/mylogin/$slug': typeof MyloginSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -700,6 +708,7 @@ export interface FileRoutesById {
   '/medication/$slug': typeof MedicationSlugRoute
   '/messages/$slug': typeof MessagesSlugRoute
   '/moments/$slug': typeof MomentsSlugRoute
+  '/more/$slug': typeof MoreSlugRoute
   '/mylogin/$slug': typeof MyloginSlugRoute
   '/nannies/$slug': typeof NanniesSlugRoute
   '/nanny/$slug': typeof NannySlugRoute
@@ -783,6 +792,7 @@ export interface FileRouteTypes {
     | '/medication/$slug'
     | '/messages/$slug'
     | '/moments/$slug'
+    | '/more/$slug'
     | '/mylogin/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -864,6 +874,7 @@ export interface FileRouteTypes {
     | '/medication/$slug'
     | '/messages/$slug'
     | '/moments/$slug'
+    | '/more/$slug'
     | '/mylogin/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -946,6 +957,7 @@ export interface FileRouteTypes {
     | '/medication/$slug'
     | '/messages/$slug'
     | '/moments/$slug'
+    | '/more/$slug'
     | '/mylogin/$slug'
     | '/nannies/$slug'
     | '/nanny/$slug'
@@ -1029,6 +1041,7 @@ export interface RootRouteChildren {
   MedicationSlugRoute: typeof MedicationSlugRoute
   MessagesSlugRoute: typeof MessagesSlugRoute
   MomentsSlugRoute: typeof MomentsSlugRoute
+  MoreSlugRoute: typeof MoreSlugRoute
   MyloginSlugRoute: typeof MyloginSlugRoute
   NanniesSlugRoute: typeof NanniesSlugRoute
   NannySlugRoute: typeof NannySlugRoute
@@ -1367,6 +1380,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MomentsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/more/$slug': {
+      id: '/more/$slug'
+      path: '/more/$slug'
+      fullPath: '/more/$slug'
+      preLoaderRoute: typeof MoreSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mylogin/$slug': {
       id: '/mylogin/$slug'
       path: '/mylogin/$slug'
@@ -1692,6 +1712,7 @@ const rootRouteChildren: RootRouteChildren = {
   MedicationSlugRoute: MedicationSlugRoute,
   MessagesSlugRoute: MessagesSlugRoute,
   MomentsSlugRoute: MomentsSlugRoute,
+  MoreSlugRoute: MoreSlugRoute,
   MyloginSlugRoute: MyloginSlugRoute,
   NanniesSlugRoute: NanniesSlugRoute,
   NannySlugRoute: NannySlugRoute,

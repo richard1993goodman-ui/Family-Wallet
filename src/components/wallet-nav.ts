@@ -21,6 +21,7 @@ import {
   FileText,
   Heart,
   Home,
+  Menu,
   KeyRound,
   LifeBuoy,
   Landmark,
@@ -44,6 +45,7 @@ export type WalletPath =
   | "/w/$slug"
   | "/people/$slug"
   | "/wallet/$slug"
+  | "/more/$slug"
   | "/planner/$slug"
   | "/log/$slug"
   | "/report/$slug"
@@ -99,6 +101,7 @@ const item = (
 const home = item("Home", Home, "/w/$slug", ["dashboard", "overview"]);
 const people = item("People overview", Users, "/people/$slug", ["children", "staff", "nanny", "household"]);
 const walletHome = item("Wallet overview", FolderLock, "/wallet/$slug", ["documents", "records", "agreement"]);
+const moreHome = item("More overview", Menu, "/more/$slug", ["settings", "account", "all pages"]);
 const calendar = item("Calendar", CalendarDays, "/planner/$slug", ["planner", "week", "schedule"]);
 const messages = item("Messages", MessageCircle, "/messages/$slug", ["chat", "threads"]);
 const dailyLog = item("Daily log", NotebookPen, "/log/$slug", ["update", "mood", "notes"]);
@@ -167,7 +170,7 @@ const familyNav: NavSection[] = [
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
   { label: "People", items: [people, children, kids, nannies, permissions, houseManual, emergency, guide, travel] },
   { label: "Wallet", items: [walletHome, documents, agreement, payroll, bankDetails, pettyCash, training, safety] },
-  { label: "More", items: [notifications, billing, myLogin, helpSupport] },
+  { label: "More", items: [moreHome, notifications, billing, myLogin, helpSupport] },
 ];
 
 const nannyNav: NavSection[] = [
@@ -175,7 +178,7 @@ const nannyNav: NavSection[] = [
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
   { label: "People", items: [people, kids, permissions, houseManual, emergency, guide, travel] },
   { label: "Wallet", items: [walletHome, documents, agreement, bankDetails, pettyCash, training, safety] },
-  { label: "More", items: [notifications, myLogin, helpSupport] },
+  { label: "More", items: [moreHome, notifications, myLogin, helpSupport] },
 ];
 
 /** Each menu section has its own colour, carried through to the page header and the menu. */
