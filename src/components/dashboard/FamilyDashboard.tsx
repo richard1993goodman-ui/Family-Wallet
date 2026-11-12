@@ -2,6 +2,7 @@ import { formatDate, formatMoney } from "@/lib/format";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
+import { TodayTimeline } from "@/components/TodayTimeline";
 import { SupportBox } from "@/components/SupportBox";
 import { NextStep } from "@/components/dashboard/NextStep";
 import { hasHours } from "@/lib/work-hours";
@@ -98,6 +99,7 @@ export function FamilyDashboard(props: DashboardProps) {
       <WalletTravelBanner slug={slug} />
 
       <div className="mt-8 space-y-6">
+        <TodayTimeline slug={slug} />
         <AgreementChoice slug={slug} firstSignIn />
         <MonthOverview
           slug={slug}

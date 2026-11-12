@@ -1,6 +1,7 @@
 import { formatMoney, formatDate } from "@/lib/format";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
+import { TodayTimeline } from "@/components/TodayTimeline";
 import { SupportBox } from "@/components/SupportBox";
 import {
   AlertTriangle,
@@ -80,7 +81,8 @@ export function NannyDashboard(props: DashboardProps) {
       />
       <WalletTravelBanner slug={slug} />
 
-      <div className="mt-8">
+      <div className="mt-8 space-y-6">
+        <TodayTimeline slug={slug} />
         <MonthOverview
           slug={slug}
           schedules={hub?.schedules ?? []}
@@ -91,8 +93,6 @@ export function NannyDashboard(props: DashboardProps) {
 
       <div className="mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <Column>
-          <TodayShift hub={hub} />
-
           <section>
             <SectionTitle>{t("nd.quickActions")}</SectionTitle>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -259,59 +259,6 @@ export function NannyDashboard(props: DashboardProps) {
 
       <DashboardFooter updatedAt={wallet.updatedAt} onLock={onLock} />
     </PageContainer>
-  );
-}
-
-function TodayShift({ hub }: { hub: HubSummary | null }) {
-  const t = useT();
-  if (!hub) return null;
-  const todayIso = hub.today.date;
-  const dayName = formatDate(`${todayIso}T12:00:00Z`, {
-    weekday: "long",
-    timeZone: "UTC",
-  });
-  const mine = hub.schedules.find((s) => s.nannyId === hub.nannyId) ?? hub.schedules[0];
-  const shift = mine?.workingDays.find((d) => d.day === dayName && d.enabled);
-  const todays = hub.entries.filter((e) => e.entry_date === todayIso);
-  const cancelled = todays.some((e) => e.entry_type === "shift_change" && e.status === "cancelled");
-  const plans = todays.filter((e) => e.entry_type !== "shift_change");
-
-  return (
-    <section className="surface-card overflow-hidden">
-      <div className="border-b border-rule px-5 py-4">
-        <p className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
-          <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />{t("nd.yourShiftToday")}</p>
-        <p className="num heading-display mt-1 text-[1.75rem] text-foreground">
-          {cancelled
-            ? t("nd.shiftCancelled")
-            : shift
-              ? `${shift.startTime}–${shift.endTime}${shift.startTime2 && shift.endTime2 ? ` and ${shift.startTime2}–${shift.endTime2}` : ""}`
-              : t("nd.notWorkingDay")}
-        </p>
-      </div>
-      <div className="px-5 py-4">
-        {plans.length === 0 ? (
-          <p className="text-sm text-muted-foreground">{t("nd.nothingElsePlannedForToday")}</p>
-        ) : (
-          <ul className="space-y-2">
-            {plans.map((entry) => (
-              <li key={entry.id} className="flex gap-3 text-sm">
-                <span className="w-24 flex-none font-medium text-primary">
-                  {entry.time_label ?? t("nd.anyTime")}
-                  {entry.end_time_label ? `–${entry.end_time_label}` : ""}
-                </span>
-                <span className="text-foreground">
-                  {entry.title}
-                  {entry.child_name ? (
-                    <span className="text-muted-foreground"> · {entry.child_name}</span>
-                  ) : null}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </section>
   );
 }
 
