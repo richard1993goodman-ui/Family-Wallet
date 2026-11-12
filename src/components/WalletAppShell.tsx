@@ -45,7 +45,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DialogTitle } from "@/components/ui/dialog";
 import {
   Sidebar,
@@ -134,10 +139,16 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
       .then(() => queryClient.invalidateQueries({ queryKey: ["badges", badgeSlug] }))
       .catch(() => undefined);
   }, [unlocked, badgeSlug, onPage, unseenHere, seenFn, queryClient]);
-  const totalUnseen = Object.entries(badges).reduce((sum, [key, n]) => (key === onPage ? sum : sum + n), 0);
+  const totalUnseen = Object.entries(badges).reduce(
+    (sum, [key, n]) => (key === onPage ? sum : sum + n),
+    0,
+  );
   useEffect(() => {
     // The app-icon badge on installed phones; a no-op where the Badging API is missing.
-    const nav = navigator as Navigator & { setAppBadge?: (n: number) => Promise<void>; clearAppBadge?: () => Promise<void> };
+    const nav = navigator as Navigator & {
+      setAppBadge?: (n: number) => Promise<void>;
+      clearAppBadge?: () => Promise<void>;
+    };
     if (totalUnseen > 0) void nav.setAppBadge?.(totalUnseen).catch(() => undefined);
     else void nav.clearAppBadge?.().catch(() => undefined);
   }, [totalUnseen]);
@@ -158,50 +169,58 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
   const wallet = summaryQuery.data.wallet;
   const role: WalletRole = wallet.access === "nanny" ? "nanny" : "family";
   const noun0 = staffNoun(wallet.nannies.map((n) => n.role));
-  const activeSection = location.prefix === "w" ? null : sectionFor(role, location.prefix, wallet.agreementsEnabled, noun0);
-  const sectionValue = activeSection ? { label: activeSection.label, tint: sectionTint(activeSection.label) } : null;
+  const activeSection =
+    location.prefix === "w"
+      ? null
+      : sectionFor(role, location.prefix, wallet.agreementsEnabled, noun0);
+  const sectionValue = activeSection
+    ? { label: activeSection.label, tint: sectionTint(activeSection.label) }
+    : null;
   const agencyName: string | null = null;
   const agencyLogo: string | null = null;
 
   return (
     <BadgeContext.Provider value={badges}>
-    <AgreementsContext.Provider value={wallet.agreementsEnabled}>
-    <StaffNounContext.Provider value={staffNoun(wallet.nannies.map((n) => n.role))}>
-    <SidebarProvider>
-      <WalletNavigation
-        slug={location.slug}
-        role={role}
-        agencyName={agencyName}
-        agencyLogo={agencyLogo}
-        activePrefix={location.prefix}
-      />
-      <SidebarInset data-tint={sectionValue?.tint} className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none">
-        <SectionContext.Provider value={sectionValue}>
-        <TransitionBanner slug={location.slug} />
-        <WalletTopBar
-          slug={location.slug}
-          familyName={wallet.familyName}
-          role={role}
-          agencyName={agencyName}
-          agencyLogo={agencyLogo}
-          onSearch={() => setSearchOpen(true)}
-        />
-        <SectionNav slug={location.slug} role={role} activePrefix={location.prefix} />
-        <div className="tint-wash min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
-          {children}
-        </div>
-        <MobileTabs slug={location.slug} role={role} activePrefix={location.prefix} />
-        </SectionContext.Provider>
-      </SidebarInset>
-      <WalletSearch
-        slug={location.slug}
-        role={role}
-        open={searchOpen}
-        onOpenChange={setSearchOpen}
-      />
-    </SidebarProvider>
-    </StaffNounContext.Provider>
-    </AgreementsContext.Provider>
+      <AgreementsContext.Provider value={wallet.agreementsEnabled}>
+        <StaffNounContext.Provider value={staffNoun(wallet.nannies.map((n) => n.role))}>
+          <SidebarProvider>
+            <WalletNavigation
+              slug={location.slug}
+              role={role}
+              agencyName={agencyName}
+              agencyLogo={agencyLogo}
+              activePrefix={location.prefix}
+            />
+            <SidebarInset
+              data-tint={sectionValue?.tint}
+              className="min-w-0 bg-background md:border md:border-sidebar-border md:shadow-none"
+            >
+              <SectionContext.Provider value={sectionValue}>
+                <TransitionBanner slug={location.slug} />
+                <WalletTopBar
+                  slug={location.slug}
+                  familyName={wallet.familyName}
+                  role={role}
+                  agencyName={agencyName}
+                  agencyLogo={agencyLogo}
+                  onSearch={() => setSearchOpen(true)}
+                />
+                <SectionNav slug={location.slug} role={role} activePrefix={location.prefix} />
+                <div className="tint-wash min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
+                  {children}
+                </div>
+                <MobileTabs slug={location.slug} role={role} activePrefix={location.prefix} />
+              </SectionContext.Provider>
+            </SidebarInset>
+            <WalletSearch
+              slug={location.slug}
+              role={role}
+              open={searchOpen}
+              onOpenChange={setSearchOpen}
+            />
+          </SidebarProvider>
+        </StaffNounContext.Provider>
+      </AgreementsContext.Provider>
     </BadgeContext.Provider>
   );
 }
@@ -224,7 +243,8 @@ function WalletTopBar({
   const t = useT();
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background px-4 md:rounded-t-xl md:px-8">
-      <SidebarTrigger className="-ml-1 h-9 w-9 text-muted-foreground hover:text-foreground" />
+      {/* On a phone every page is under the More tab, so the side drawer is desktop-only. */}
+      <SidebarTrigger className="-ml-1 hidden h-9 w-9 text-muted-foreground hover:text-foreground md:inline-flex" />
       {agencyLogo ? (
         <img
           src={agencyLogo}
@@ -263,7 +283,8 @@ function WalletTopBar({
           to="/"
           className="flex h-9 flex-none items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
-          <LogOut className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">{t("shell.exitDemo")}</span>
+          <LogOut className="h-4 w-4" aria-hidden />{" "}
+          <span className="hidden sm:inline">{t("shell.exitDemo")}</span>
         </Link>
       )}
     </header>
@@ -290,27 +311,36 @@ function WalletNavigation({
 
   return (
     <Sidebar variant="inset" collapsible="icon" className="border-sidebar-border">
-      {(
-      <SidebarHeader className="px-3 pb-2 pt-4">
-        <Link
+      {
+        <SidebarHeader className="px-3 pb-2 pt-4">
+          <Link
             to="/w/$slug"
             params={{ slug }}
             onClick={() => isMobile && setOpenMobile(false)}
             className="flex min-w-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:px-0"
           >
             <Wordmark
-              subline={slug === "demo" ? t("shell.demoWallet") : agencyName ? t("shell.withAgency", { agency: agencyName }) : null}
+              subline={
+                slug === "demo"
+                  ? t("shell.demoWallet")
+                  : agencyName
+                    ? t("shell.withAgency", { agency: agencyName })
+                    : null
+              }
               logoUrl={agencyLogo}
               logoAlt={agencyName ? `${agencyName} logo` : "Agency logo"}
               className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
             />
           </Link>
-      </SidebarHeader>
-      )}
+        </SidebarHeader>
+      }
       <SidebarContent className="gap-1 py-2">
         {navFor(role, agreements, noun, t).map((section) => (
           <SidebarGroup key={section.label}>
-            <SidebarGroupLabel data-tint={sectionTint(section.label)} className="gap-2 text-[0.8125rem] font-medium text-foreground/80">
+            <SidebarGroupLabel
+              data-tint={sectionTint(section.label)}
+              className="gap-2 text-[0.8125rem] font-medium text-foreground/80"
+            >
               <span className="tint-dot" aria-hidden />
               {section.title ?? section.label}
             </SidebarGroupLabel>
@@ -391,7 +421,10 @@ function SectionNav({
   if (!section || section.items.length < 2) return null;
 
   return (
-    <nav aria-label={section.title ?? section.label} className="border-b border-border bg-background print:hidden">
+    <nav
+      aria-label={section.title ?? section.label}
+      className="border-b border-border bg-background print:hidden"
+    >
       <div className="flex gap-6 overflow-x-auto px-4 [scrollbar-width:none] md:px-8">
         {section.items.map((item) => {
           const active = routePrefix(item.to) === activePrefix;
@@ -477,7 +510,8 @@ function MobileTabs({
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const [moreOpen, setMoreOpen] = useState(false);
-  const currentSection = activePrefix === "w" ? "Home" : sectionFor(role, activePrefix, agreements, noun)?.label;
+  const currentSection =
+    activePrefix === "w" ? "Home" : sectionFor(role, activePrefix, agreements, noun)?.label;
 
   return (
     <nav
@@ -550,7 +584,9 @@ function MobileTabs({
                                 aria-current={active ? "page" : undefined}
                                 className={cn(
                                   "flex min-h-12 items-center gap-3 rounded-lg px-2 text-[0.9375rem] transition-colors active:bg-accent",
-                                  active ? "bg-accent font-medium text-foreground" : "text-foreground",
+                                  active
+                                    ? "bg-accent font-medium text-foreground"
+                                    : "text-foreground",
                                 )}
                               >
                                 <item.icon
