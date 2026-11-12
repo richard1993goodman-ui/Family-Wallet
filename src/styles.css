@@ -57,6 +57,9 @@
   --color-ink-band: var(--ink-band);
   --color-tint-sage: var(--tint-sage);
   --color-tint-sage-ink: var(--tint-sage-ink);
+  --color-navy: var(--navy);
+  --color-sky: var(--sky);
+  --color-mint: var(--mint);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-tint-apricot: var(--tint-apricot);
@@ -94,48 +97,54 @@
  */
 :root {
   --radius: 1rem;
-  --background: #fbf9f4;
-  --foreground: #14201a;
+  --background: #f4f8fc;
+  --foreground: #122033;
   --card: #ffffff;
-  --card-foreground: #14201a;
+  --card-foreground: #122033;
   --popover: #ffffff;
-  --popover-foreground: #1b1c19;
+  --popover-foreground: #122033;
   --primary: #1a382b;
   --primary-foreground: #ffffff;
-  --secondary: #f3efe6;
-  --secondary-foreground: #1b1c19;
-  --muted: #f0eee9;
-  --muted-foreground: #5a6760;
-  --accent: #eae8e3;
-  --accent-foreground: #1b1c19;
-  --destructive: #ba1a1a;
+  --secondary: #e9f0f8;
+  --secondary-foreground: #122033;
+  --muted: #e9eef5;
+  --muted-foreground: #5b6b80;
+  --accent: #dcebfa;
+  --accent-foreground: #122033;
+  --destructive: #c4342d;
   --destructive-foreground: #ffffff;
-  --border: #e7e2d6;
-  --input: #d9d3c5;
+  --border: rgb(18 32 51 / 0.08);
+  --input: #cfdae8;
   --ring: #264e3d;
-  --sand: #fbf9f4;
-  --raised: #f5f3ee;
-  --rule: #eeeadf;
+  --sand: #f4f8fc;
+  --raised: #eef3f9;
+  --rule: rgb(18 32 51 / 0.07);
   --brand: #1a382b;
   --brand-foreground: #ffffff;
-  --brand-soft: #e4ece5;
+  --brand-soft: #ddf1e6;
+  --navy: #163a5f;
+  --sky: #dcebfa;
+  --mint: #ddf1e6;
+  /* Glass: white over the page washes. The blur is added by the glass utilities. */
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-edge: rgb(255 255 255 / 0.9);
   --positive: #3a6752;
   --warning: #b45309;
   --warning-soft: #fef3c7;
   /* The closing band: deep garden green in both themes. */
   --ink-band: #132a20;
   /* Cards rest on a hairline border and a whisper of shadow; only floating things get depth. */
-  --shadow-soft: 0 1px 2px rgb(20 40 30 / 0.04);
+  --shadow-soft: 0 10px 30px -14px rgb(22 58 95 / 0.18);
   --gold: #b08d57;
   --gold-soft: #d9bd8a;
-  --shadow-float: 0 14px 34px -12px rgb(26 56 43 / 0.2), 0 2px 6px rgb(26 56 43 / 0.06);
+  --shadow-float: 0 18px 40px -18px rgb(22 58 95 / 0.28);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
-  --tint-sage: #e6efe9;
-  --tint-sage-ink: #24503c;
-  --tint-apricot: #fbf0de;
-  --tint-apricot-ink: #8f5a17;
-  --tint-sky: #e6eef4;
-  --tint-sky-ink: #2c5272;
+  --tint-sage: #ddf1e6;
+  --tint-sage-ink: #1a382b;
+  --tint-apricot: #fff1db;
+  --tint-apricot-ink: #b4731c;
+  --tint-sky: #dcebfa;
+  --tint-sky-ink: #163a5f;
   --tint-lilac: #ece8f3;
   --tint-lilac-ink: #54447a;
   --tint-butter: #f6edcf;
@@ -147,22 +156,27 @@
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: #f3efe6;
-  --sidebar-foreground: #424844;
+  --sidebar: #eef3f9;
+  --sidebar-foreground: #41506a;
   --sidebar-primary: #1a382b;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e4e2dd;
-  --sidebar-accent-foreground: #1b1c19;
-  --sidebar-border: #e6dfc5;
+  --sidebar-accent: #dcebfa;
+  --sidebar-accent-foreground: #122033;
+  --sidebar-border: rgb(18 32 51 / 0.08);
   --sidebar-ring: #264e3d;
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
 @media screen {
   .dark {
-    --background: #171412;
-    --foreground: #f4ede4;
-    --card: #211d1a;
+    --background: #0f1620;
+    --foreground: #e9eef5;
+    --card: #172130;
+    --glass: rgb(23 33 48 / 0.72);
+    --glass-edge: rgb(255 255 255 / 0.08);
+    --navy: #9cc6ea;
+    --sky: #1c2b3c;
+    --mint: #1f3128;
     --card-foreground: #f4ede4;
     --popover: #27221f;
     --popover-foreground: #f4ede4;
@@ -252,6 +266,12 @@
   }
 
   body {
+    background-color: var(--color-background);
+    background-image:
+      radial-gradient(28rem 28rem at -6rem -4rem, color-mix(in oklab, var(--color-sky) 85%, transparent), transparent 70%),
+      radial-gradient(22rem 22rem at calc(100% + 5rem) 12rem, color-mix(in oklab, var(--color-mint) 80%, transparent), transparent 70%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-background);
@@ -307,19 +327,23 @@
 }
 
 @utility surface-card {
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card);
-  box-shadow: var(--shadow-soft);
+  border-radius: 1.25rem;
+  border: 1px solid var(--glass-edge);
+  background-color: var(--glass);
+  box-shadow: inset 0 1px 0 var(--glass-edge), var(--shadow-soft);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 }
 
 @utility ios-group {
   display: block;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card);
-  box-shadow: var(--shadow-soft);
+  border-radius: 1.25rem;
+  border: 1px solid var(--glass-edge);
+  background-color: var(--glass);
+  box-shadow: inset 0 1px 0 var(--glass-edge), var(--shadow-soft);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
   & > * + * {
     border-top: 1px solid var(--color-rule);
   }
@@ -331,7 +355,7 @@
   gap: 0.75rem;
   min-height: 3.5rem;
   padding: 0.75rem 1rem;
-  background-color: var(--color-card);
+  background-color: transparent;
   transition: background-color 120ms ease;
   &:hover {
     background-color: var(--color-raised);
@@ -444,7 +468,7 @@
   box-shadow: inset 3px 0 0 var(--tint-fg, var(--tint-sage-ink)), var(--shadow-sm);
 }
 @utility tint-wash {
-  background-image: linear-gradient(to bottom, color-mix(in oklab, var(--tint-bg, var(--tint-sage)) 70%, transparent), transparent 14rem);
+  background-image: none;
 }
 
 @utility ios-section-title {
@@ -747,4 +771,41 @@
 .native-app body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* v2: the glass status card at the top of Home, Calendar and Wallet. Navy figures over a sky highlight. */
+@utility glass-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid var(--glass-edge);
+  background-image: linear-gradient(135deg, color-mix(in oklab, var(--color-card) 85%, transparent), color-mix(in oklab, var(--color-card) 55%, transparent));
+  box-shadow: inset 0 1px 0 var(--glass-edge), var(--shadow-float);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  &::before {
+    content: "";
+    position: absolute;
+    right: -4rem;
+    top: -4rem;
+    width: 13rem;
+    height: 13rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle, var(--color-sky), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+/* Cards arrive once: a 12px rise with fade, staggered by --rise-i. Off when the device asks for less motion. */
+@utility rise {
+  animation: rise 420ms var(--ease-out) both;
+  animation-delay: calc(var(--rise-i, 0) * 40ms);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: fade 150ms ease both; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 }

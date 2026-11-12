@@ -91,15 +91,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
-      { property: "og:title", content: "Family Wallet | Private Hub for Nannies & Household Staff" },
+      {
+        property: "og:title",
+        content: "Family Wallet | Private Hub for Nannies & Household Staff",
+      },
       {
         property: "og:description",
         content:
           "Family Wallet keeps families and their carers in sync with a shared calendar, agreements, timesheets and house codes.",
       },
       { name: "author", content: "Family Wallet" },
-      { name: "theme-color", content: "#fbf7f0", media: "(prefers-color-scheme: light)" },
-      { name: "theme-color", content: "#171412", media: "(prefers-color-scheme: dark)" },
+      { name: "theme-color", content: "#f4f8fc", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#0f1620", media: "(prefers-color-scheme: dark)" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -147,12 +150,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-      <PaymentTestModeBanner />
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <WalletAppShell>
-        <Outlet />
-      </WalletAppShell>
-      <Toaster />
+        <PaymentTestModeBanner />
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <WalletAppShell>
+          <Outlet />
+        </WalletAppShell>
+        <Toaster />
       </I18nProvider>
     </QueryClientProvider>
   );

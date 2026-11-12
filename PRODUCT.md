@@ -28,7 +28,7 @@ Link-plus-code and magic-link sign-in, no SMS. Agency seat distribution and inde
 
 ## Brand Commitments
 
-Keep the cream background and serif headings (Playfair Display with Plus Jakarta Sans), the green Family Wallet logo, and a calm, trustworthy tone.
+Approved 12 Nov 2026 (v2): a light ice-white ground with soft sky-blue and mint washes, translucent glass cards, navy for figures. Keep the serif headings (Playfair Display with Plus Jakarta Sans), the green Family Wallet logo and green for the one main action per screen, red only for Emergency, and a calm, trustworthy tone. Motion is quiet and purposeful, and respects reduced-motion settings.
 
 ## Evidence on Hand
 

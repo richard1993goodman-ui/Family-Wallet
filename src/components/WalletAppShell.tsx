@@ -191,7 +191,7 @@ export function WalletAppShell({ children }: { children: ReactNode }) {
                   onSearch={() => setSearchOpen(true)}
                 />
                 <SectionNav slug={location.slug} role={role} activePrefix={location.prefix} />
-                <div className="tint-wash min-w-0 flex-1 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
+                <div className="tint-wash min-w-0 flex-1 pb-[calc(6.5rem+env(safe-area-inset-bottom))] md:pb-0">
                   {children}
                 </div>
                 <MobileTabs slug={location.slug} role={role} activePrefix={location.prefix} />
@@ -500,9 +500,9 @@ function MobileTabs({
   return (
     <nav
       aria-label={t("shell.navLabel")}
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
+      className="fixed inset-x-4 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 md:hidden"
     >
-      <div className="grid h-16 grid-cols-5">
+      <div className="surface-card grid h-[4.25rem] grid-cols-5 rounded-full p-1.5">
         {mobileTabsFor(role, t).map((tab) => {
           const active = tab.label === currentSection;
           return (
@@ -512,13 +512,12 @@ function MobileTabs({
               params={{ slug }}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "relative flex min-w-0 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-semibold transition-colors",
-                active ? "text-foreground" : "text-muted-foreground",
+                "relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[10.5px] font-semibold transition-colors duration-200",
+                active ? "bg-mint text-brand" : "text-muted-foreground",
               )}
             >
               <tab.icon className={cn("h-5 w-5", active ? "stroke-[2]" : "stroke-[1.5]")} />
               <span className="truncate">{tab.title ?? tab.label}</span>
-              <span aria-hidden className={cn("size-1 rounded-full", active ? "bg-gold" : "bg-transparent")} />
               <NavBadge prefix={routePrefix(tab.to)} className="absolute right-[18%] top-1.5" />
             </Link>
           );
@@ -528,13 +527,12 @@ function MobileTabs({
           params={{ slug }}
           aria-current={currentSection === "More" ? "page" : undefined}
           className={cn(
-            "relative flex min-w-0 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-semibold transition-colors",
-            currentSection === "More" ? "text-foreground" : "text-muted-foreground",
+            "relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[10.5px] font-semibold transition-colors duration-200",
+            currentSection === "More" ? "bg-mint text-brand" : "text-muted-foreground",
           )}
         >
           <Menu className={cn("h-5 w-5", currentSection === "More" ? "stroke-[2]" : "stroke-[1.5]")} />
           <span>{t("shell.more")}</span>
-          <span aria-hidden className={cn("size-1 rounded-full", currentSection === "More" ? "bg-gold" : "bg-transparent")} />
         </Link>
       </div>
     </nav>
