@@ -29,7 +29,9 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
     <div className="surface-card p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[0.8125rem] font-medium text-muted-foreground">{t("dash.actionsToComplete")}</p>
+          <p className="text-[0.8125rem] font-medium text-muted-foreground">
+            {t("dash.actionsToComplete")}
+          </p>
           <p className="mt-0.5 font-medium text-foreground">
             {allDone ? t("dash.allComplete") : t("dash.stillToDo", { count: total - done })}
           </p>
@@ -71,6 +73,14 @@ export function SetupStatus({ slug, items }: { slug: string; items: SetupItem[] 
           </li>
         ))}
       </ul>
+
+      <Link
+        to="/start/$slug"
+        params={{ slug }}
+        className="mt-4 inline-flex h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+      >
+        Continue setup
+      </Link>
 
       {(outstanding.length > 3 || open) && (
         <button
