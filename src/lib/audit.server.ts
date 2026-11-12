@@ -27,3 +27,17 @@ export async function audit(event: AuditEvent) {
   });
   if (error) console.error("audit_log write failed:", error.message);
 }
+
+/**
+ * The owner opening or changing a family's records. Only the owner can reach family data (partner staff are
+ * refused upstream), so the actor is always the owner; the signed-in user id says which person.
+ */
+export async function auditOwner(
+  context: unknown,
+  action: string,
+  familyId: string | null,
+  meta?: AuditEvent["meta"],
+) {
+  const userId = (context as { userId?: string } | null)?.userId ?? null;
+  await audit({ actorKind: "owner", actorId: userId, action, familyId, ...(meta ? { meta } : {}) });
+}

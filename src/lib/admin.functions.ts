@@ -77,6 +77,7 @@ export const getFamily = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
+    await (await import("./audit.server")).auditOwner(context, "family_record_opened", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: family, error } = await supabaseAdmin
       .from("families")
@@ -265,6 +266,7 @@ export const setFamilyStatus = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
+    await (await import("./audit.server")).auditOwner(context, "status_changed", data.id, { to: data.status });
     const status = data.status === "cancelled" ? "cancelled" : "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     if (status === "active" && scope.kind === "partner") {
@@ -285,6 +287,7 @@ export const deleteFamily = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
+    await (await import("./audit.server")).auditOwner(context, "family_deleted", data.id);
     const { purgeHousehold } = await import("./lifecycle.server");
     await purgeHousehold(data.id, "deleted by owner");
     return { ok: true as const };
@@ -296,6 +299,7 @@ export const regenerateCode = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
+    await (await import("./audit.server")).auditOwner(context, "code_regenerated", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { generateAccessCode, hashCode } = await import("./wallet.server");
     const { data: family } = await supabaseAdmin
@@ -342,6 +346,7 @@ export const deleteDocument = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertRowInScope(scope, "family_documents", data.id);
+    await (await import("./audit.server")).auditOwner(context, "document_deleted", null, { documentId: String(data.id) });
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: doc } = await supabaseAdmin
       .from("family_documents")
@@ -360,6 +365,7 @@ export const getAdminDocumentUrl = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertPathInScope(scope, data.storagePath);
+    await (await import("./audit.server")).auditOwner(context, "document_opened", data.storagePath.split("/")[0]!);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: signed } = await supabaseAdmin.storage
       .from("family-docs")
@@ -667,6 +673,7 @@ export const getFamilyHub = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const scope = await requireFamilyStaff(context);
     await assertFamilyInScope(scope, data.id);
+    await (await import("./audit.server")).auditOwner(context, "family_hub_opened", data.id);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [{ data: family }, { data: profile }, { data: children }, { data: logs }, { data: entries }] =
       await Promise.all([
