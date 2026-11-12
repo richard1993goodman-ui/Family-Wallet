@@ -4,6 +4,7 @@ import { getRequest } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { accessFromMembership, type Membership } from "./access";
 import { buildClaimEmail } from "./account-email";
+import { canLinkByEmail, likeLiteral } from "./account-link";
 
 /** Accounts are off until this is "true", so nothing reaches users before it is switched on. */
 export const accountsEnabled = () => process.env["ACCOUNTS_ENABLED"] === "true";
@@ -71,7 +72,9 @@ export async function accountMember(slug: string): Promise<Member | null> {
 /** The email of the signed-in account, when it has an active membership in this household. Used to tie a signature to it. */
 export async function signedInEmail(slug: string): Promise<string | null> {
   if (!(await accountMember(slug))) return null;
-  const token = getRequest()?.headers.get("authorization")?.replace(/^Bearer /i, "");
+  const token = getRequest()
+    ?.headers.get("authorization")
+    ?.replace(/^Bearer /i, "");
   if (!token) return null;
   const { data } = await supabaseAdmin.auth.getUser(token);
   return data.user?.email?.toLowerCase() ?? null;
@@ -257,6 +260,97 @@ async function displayName(member: { family_id: string; nanny_id: string | null 
     .eq("id", member.family_id)
     .maybeSingle();
   return data?.family_name ?? "Family Wallet member";
+}
+
+/** The signed-in account's email, and whether Supabase has verified it. */
+async function accountEmailFor(userId: string) {
+  const { data } = await supabaseAdmin.auth.admin.getUserById(userId);
+  const user = data.user;
+  return { email: user?.email?.toLowerCase() ?? null, verified: !!user?.email_confirmed_at };
+}
+
+/**
+ * Wallets this signed-in person can be offered because they proved they own the family's contact email (set at
+ * checkout, or by an agency) and nobody has an owner login on it yet. Each offer is shown to the person to confirm.
+ */
+export async function walletsForEmail(userId: string) {
+  if (!accountsEnabled()) return [];
+  const { email, verified } = await accountEmailFor(userId);
+  if (!email || !verified) return [];
+  const { data: families } = await supabaseAdmin
+    .from("families")
+    .select("id, slug, family_name, contact_email, status")
+    .ilike("contact_email", likeLiteral(email))
+    .limit(10);
+  const offers: { id: string; slug: string; familyName: string; ownerMemberId: string }[] = [];
+  for (const f of families ?? []) {
+    let { data: owners } = await supabaseAdmin
+      .from("household_members")
+      .select("id, person_id")
+      .eq("family_id", f.id)
+      .eq("role", "owner");
+    // Wallets made after the first backfill (checkout, agency invite) have no owner row yet: add the unclaimed one.
+    if (!owners?.length && f.status === "active") {
+      const created = await supabaseAdmin
+        .from("household_members")
+        .insert({ family_id: f.id, role: "owner", status: "active" })
+        .select("id, person_id");
+      owners = created.data;
+    }
+    // More than one owner row is ambiguous, so nothing is offered.
+    const owner = owners?.length === 1 ? owners[0]! : null;
+    if (
+      owner &&
+      canLinkByEmail({
+        accountEmail: email,
+        emailVerified: verified,
+        contactEmail: f.contact_email,
+        familyStatus: f.status,
+        owner: { personId: owner.person_id },
+      })
+    ) {
+      offers.push({ id: f.id, slug: f.slug, familyName: f.family_name, ownerMemberId: owner.id });
+    }
+  }
+  return offers;
+}
+
+/** Attaches the signed-in person to a wallet they were offered. Re-checks everything; never trusts the client. */
+export async function linkWalletByEmail(userId: string, familyId: string) {
+  const offer = (await walletsForEmail(userId)).find((o) => o.id === familyId);
+  if (!offer) throw new Error("We couldn't find a wallet for your email.");
+
+  let { data: person } = await supabaseAdmin
+    .from("people")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!person) {
+    const inserted = await supabaseAdmin
+      .from("people")
+      .insert({ user_id: userId, display_name: offer.familyName })
+      .select("id")
+      .single();
+    if (inserted.error) throw new Error("We couldn't set up your login. Please try again.");
+    person = inserted.data;
+  }
+  // Only succeeds while the owner still has no login, so two people cannot both take it.
+  const { data: linked } = await supabaseAdmin
+    .from("household_members")
+    .update({ person_id: person.id })
+    .eq("id", offer.ownerMemberId)
+    .is("person_id", null)
+    .select("id");
+  if (!linked?.length) throw new Error("This wallet already has a login.");
+
+  const { audit } = await import("./audit.server");
+  await audit({
+    actorKind: "parent",
+    actorId: person.id,
+    action: "account_linked_by_email",
+    familyId: offer.id,
+  });
+  return { slug: offer.slug };
 }
 
 /** Every household the signed-in person belongs to, for the account home page. */

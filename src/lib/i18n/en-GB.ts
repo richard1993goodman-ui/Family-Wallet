@@ -49,7 +49,8 @@ export const enGB = {
   // Account page
   "account.loading": "One moment…",
   "account.signInTitle": "Sign in",
-  "account.signInIntro": "We'll email you a link. No password needed.",
+  "account.signInIntro":
+    "We'll email you a link. No password needed. New here? The same link creates your account.",
   "account.emailLink": "Email me a link",
   "account.checkTitle": "Check your email",
   "account.checkBody":
@@ -59,6 +60,11 @@ export const enGB = {
   "account.householdsLoading": "Loading…",
   "account.householdsNone":
     'No households yet. Open your wallet with its code and choose "Create your own login".',
+  "account.foundBody": "We found a Family Wallet for your email address.",
+  "account.openWallet": "Open {name}",
+  "account.noWalletBody":
+    "You don't have a Family Wallet yet. Choose a plan, and use this same email address so your wallet appears here.",
+  "account.seePlans": "See plans",
   "account.signOut": "Sign out",
   "account.language": "Language",
   // Household switcher
@@ -153,7 +159,10 @@ export const enGB = {
   "menu.health": "Health & medicine",
   // Notification bell
   "bell.title": "Notifications",
-  "bell.ariaUnread": { one: "Notifications, {count} unread", other: "Notifications, {count} unread" },
+  "bell.ariaUnread": {
+    one: "Notifications, {count} unread",
+    other: "Notifications, {count} unread",
+  },
   "bell.caughtUp": "You're all caught up.",
   "bell.update": "Update",
   "bell.markRead": "Mark as read",
@@ -215,7 +224,8 @@ export const enGB = {
   "dash.acasDisciplinaryGuidance": "ACAS disciplinary guidance",
   "dash.officialStepByStepGuidance": "Official step-by-step guidance",
   "dash.yourNannytaxCode": "Your Nannytax code",
-  "dash.yourUniqueReferralCodeFrom": "Your unique referral code from our payroll partner Nannytax. Use it when you sign up.",
+  "dash.yourUniqueReferralCodeFrom":
+    "Your unique referral code from our payroll partner Nannytax. Use it when you sign up.",
   "dash.copyCode": "Copy code",
   "dash.visitNannytax": "Visit Nannytax",
   "dash.staffAgreement": "{name}'s agreement",
@@ -234,7 +244,8 @@ export const enGB = {
   "dash.addWorkingHours": "Add working hours",
   "dash.nextStep": "Next step",
   "dash.knowTheMomentSomethingNew": "Know the moment something new arrives",
-  "dash.getAQuietPhoneAlert": "Get a quiet phone alert when notes, photos, key information, schedule changes or holiday requests are added. Nothing private shows on the lock screen.",
+  "dash.getAQuietPhoneAlert":
+    "Get a quiet phone alert when notes, photos, key information, schedule changes or holiday requests are added. Nothing private shows on the lock screen.",
   "dash.turnOnAlerts": "Turn on alerts",
   "dash.notNow": "Not now",
   "dash.actionsToComplete": "Actions to complete",
@@ -247,15 +258,19 @@ export const enGB = {
   "dash.manageSubscription": "Manage subscription",
   "dash.first48Done": "First 48 hours — agreed together",
   "dash.first48Start": "First 48 hours — a confident start",
-  "dash.first48Progress": "{done} of {total} agreed by parent and nanny · Routines, pickups and your first handover",
+  "dash.first48Progress":
+    "{done} of {total} agreed by parent and nanny · Routines, pickups and your first handover",
   "dash.first48Empty": "Add your nanny, then agree the essentials together.",
-  "dash.nextAddNannyBody": "Start here. Add the person who looks after your children and invite them to join, so you can share the week, messages and updates.",
-  "dash.nextHoursBody": "You're not using the nanny agreement, so tell us the days and hours that suit your family. They fill in your weekly schedule, and you can change them any time.",
+  "dash.nextAddNannyBody":
+    "Start here. Add the person who looks after your children and invite them to join, so you can share the week, messages and updates.",
+  "dash.nextHoursBody":
+    "You're not using the nanny agreement, so tell us the days and hours that suit your family. They fill in your weekly schedule, and you can change them any time.",
   "dash.allComplete": "Everything is complete",
   "dash.stillToDo": { one: "{count} still to do", other: "{count} still to do" },
   "dash.showLess": "Show less",
   "dash.showAll": { one: "Show all {count}", other: "Show all {count}" },
-  "dash.demoNote": "The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member, your own private wallet is set up with your family, your nanny and your agreement.",
+  "dash.demoNote":
+    "The Harrington family, their nanny Jess and everything here are examples. Explore freely — as a member, your own private wallet is set up with your family, your nanny and your agreement.",
   "dash.yourEmergencyContact": "Your emergency contact",
   "dash.staffEmergencyContact": "{name}'s emergency contact",
   "dash.yourNannies": "Your nannies",
@@ -321,7 +336,8 @@ export const enGB = {
   "tl.allOfTheChildren": "All of the children",
   "tl.share": "Share",
   "tl.endOfDaySummary": "End-of-day summary",
-  "tl.nothingYetTodayStartThe": "Nothing yet today. Start the shift and log things as they happen, and the day fills in here.",
+  "tl.nothingYetTodayStartThe":
+    "Nothing yet today. Start the shift and log things as they happen, and the day fills in here.",
   "tl.next": "Next",
   "tl.check": "Check",
   "today.today": "Today",
@@ -362,7 +378,8 @@ export const enGB = {
   "log.anythingNoteworthy": "Anything noteworthy",
   "log.tomorrowSRequirements": "Tomorrow's requirements",
   "log.noUpdatesYet": "No updates yet",
-  "log.endOfDayNotesOn": "End-of-day notes on activities, meals, homework and mood will appear here.",
+  "log.endOfDayNotesOn":
+    "End-of-day notes on activities, meals, homework and mood will appear here.",
   "log.noteworthy": "Noteworthy",
   "log.tomorrow": "Tomorrow",
   "log.dailyLogFamilyWallet": "Daily Log — Family Wallet",
@@ -399,7 +416,8 @@ export const enGB = {
   "cal.weeklyPlannerFamilyWallet": "Weekly Planner — Family Wallet",
   "cal.previous": "Previous",
   "cal.agreedNannyHours": "Agreed nanny hours",
-  "cal.noDaysSetYetAdd": "No days set yet — add them in your nanny agreement and they'll appear here.",
+  "cal.noDaysSetYetAdd":
+    "No days set yet — add them in your nanny agreement and they'll appear here.",
   "cal.nothingPlannedYet": "Nothing planned yet.",
   "cal.awaitingApprovalRegularHoursStand": "Awaiting approval · regular hours stand until then",
   "cal.declined": "Declined",
@@ -455,7 +473,8 @@ export const enGB = {
   "sign.codeFailed": "We couldn't send the code. Please try again.",
   "sign.wrongCode": "That code isn't right or has expired. Ask for a new one.",
   "agr.pendingTitle": "You have changes that haven't been issued",
-  "agr.pendingBody": "The agreement people signed hasn't changed. Open it, review your changes and issue it again to ask for new signatures. The old version stays in the history.",
+  "agr.pendingBody":
+    "The agreement people signed hasn't changed. Open it, review your changes and issue it again to ask for new signatures. The old version stays in the history.",
   "agr.historyTitle": "Version history",
   "agr.historyIssued": "Version {version}, issued {date}",
   "agr.historyFingerprint": "Fingerprint {code}",
@@ -475,10 +494,16 @@ export const enGB = {
   "today.asleepSince": "Asleep since {time}",
   "today.eventAt": "{what} at {time}",
   "ts.shiftsConfirmed": { one: "{count} shift confirmed", other: "{count} shifts confirmed" },
-  "ts.shiftsSentForApproval": { one: "{count} shift sent for approval", other: "{count} shifts sent for approval" },
+  "ts.shiftsSentForApproval": {
+    one: "{count} shift sent for approval",
+    other: "{count} shifts sent for approval",
+  },
   "ts.atRate": "At {rate} an hour.",
   "ts.addRate": "Add an hourly rate in the agreement to price these.",
-  "cal.copiedItems": { one: "Copied {count} item from last week", other: "Copied {count} items from last week" },
+  "cal.copiedItems": {
+    one: "Copied {count} item from last week",
+    other: "Copied {count} items from last week",
+  },
   "cal.lastWeekEmpty": "Last week was empty",
   // Plural example, used by tests and later screens
   "households.count": { one: "{count} household", other: "{count} households" },

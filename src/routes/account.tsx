@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { myHouseholds } from "@/lib/account.functions";
+import { findMyWallets, linkMyWallet, myHouseholds } from "@/lib/account.functions";
 import { siteUrl } from "@/lib/site";
 import { useT } from "@/lib/i18n/provider";
 import { LanguagePicker } from "@/components/LanguagePicker";
@@ -51,31 +51,29 @@ function SignIn() {
 
   const send = async () => {
     setBusy(true);
-    // shouldCreateUser is false: logins are only created by claiming one from inside a wallet.
+    // With accounts on, a new email creates a login (a family signing up). Either way the answer is the same.
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim().toLowerCase(),
-      options: { shouldCreateUser: false, emailRedirectTo: siteUrl("/account") },
+      options: {
+        shouldCreateUser: import.meta.env["VITE_ACCOUNTS_ENABLED"] === "true",
+        emailRedirectTo: siteUrl("/account"),
+      },
     });
     setBusy(false);
     // Say the same thing either way, so this page can't be used to find out who has a login.
-    if (error && error.status !== 400 && error.status !== 422)
-      toast.error(t("account.sendError"));
+    if (error && error.status !== 400 && error.status !== 422) toast.error(t("account.sendError"));
     else setSent(true);
   };
 
   return sent ? (
     <>
       <h1 className="heading-display text-2xl text-foreground">{t("account.checkTitle")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        {t("account.checkBody")}
-      </p>
+      <p className="mt-2 text-sm text-muted-foreground">{t("account.checkBody")}</p>
     </>
   ) : (
     <>
       <h1 className="heading-display text-2xl text-foreground">{t("account.signInTitle")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        {t("account.signInIntro")}
-      </p>
+      <p className="mt-2 text-sm text-muted-foreground">{t("account.signInIntro")}</p>
       <Input
         className="mt-4"
         type="email"
@@ -85,6 +83,57 @@ function SignIn() {
       />
       <Button className="mt-3 w-full" disabled={busy || !email.includes("@")} onClick={send}>
         {t("account.emailLink")}
+      </Button>
+    </>
+  );
+}
+
+/** Signed in but in no household yet: offer the wallet that belongs to this email, or point to the plans. */
+function NoWalletYet({ onLinked }: { onLinked: () => void }) {
+  const t = useT();
+  const find = useServerFn(findMyWallets);
+  const link = useServerFn(linkMyWallet);
+  const offers = useQuery({ queryKey: ["my-wallet-offers"], queryFn: () => find() });
+  const [busy, setBusy] = useState(false);
+
+  const open = async (familyId: string) => {
+    setBusy(true);
+    try {
+      await link({ data: { familyId } });
+      onLinked();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t("account.sendError"));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (offers.isLoading)
+    return <p className="mt-3 text-sm text-muted-foreground">{t("account.householdsLoading")}</p>;
+  if (offers.data?.length)
+    return (
+      <>
+        <p className="mt-3 text-sm text-muted-foreground">{t("account.foundBody")}</p>
+        <ul className="mt-4 space-y-2">
+          {offers.data.map((o) => (
+            <li key={o.id}>
+              <Button
+                className="w-full justify-between"
+                disabled={busy}
+                onClick={() => void open(o.id)}
+              >
+                {t("account.openWallet", { name: o.familyName })}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  return (
+    <>
+      <p className="mt-3 text-sm text-muted-foreground">{t("account.noWalletBody")}</p>
+      <Button asChild className="mt-4 w-full">
+        <a href="/pricing">{t("account.seePlans")}</a>
       </Button>
     </>
   );
@@ -111,9 +160,7 @@ function Households() {
           ))}
         </ul>
       ) : (
-        <p className="mt-3 text-sm text-muted-foreground">
-          {t("account.householdsNone")}
-        </p>
+        <NoWalletYet onLinked={() => void homes.refetch()} />
       )}
       <Button variant="ghost" className="mt-4" onClick={() => void supabase.auth.signOut()}>
         {t("account.signOut")}
