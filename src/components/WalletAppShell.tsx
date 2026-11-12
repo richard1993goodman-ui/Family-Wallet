@@ -512,12 +512,13 @@ function MobileTabs({
               params={{ slug }}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "relative flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium transition-colors",
+                "relative flex min-w-0 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-semibold transition-colors",
                 active ? "text-foreground" : "text-muted-foreground",
               )}
             >
               <tab.icon className={cn("h-5 w-5", active ? "stroke-[2]" : "stroke-[1.5]")} />
               <span className="truncate">{tab.title ?? tab.label}</span>
+              <span aria-hidden className={cn("size-1 rounded-full", active ? "bg-gold" : "bg-transparent")} />
               <NavBadge prefix={routePrefix(tab.to)} className="absolute right-[18%] top-1.5" />
             </Link>
           );
@@ -527,12 +528,13 @@ function MobileTabs({
           params={{ slug }}
           aria-current={currentSection === "More" ? "page" : undefined}
           className={cn(
-            "relative flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium transition-colors",
+            "relative flex min-w-0 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-semibold transition-colors",
             currentSection === "More" ? "text-foreground" : "text-muted-foreground",
           )}
         >
           <Menu className={cn("h-5 w-5", currentSection === "More" ? "stroke-[2]" : "stroke-[1.5]")} />
           <span>{t("shell.more")}</span>
+          <span aria-hidden className={cn("size-1 rounded-full", currentSection === "More" ? "bg-gold" : "bg-transparent")} />
         </Link>
       </div>
     </nav>

@@ -132,38 +132,38 @@ export function TodayTimeline({ slug }: { slug: string }) {
 
   return (
     <div className="space-y-5">
-      <div data-tint="sage" className="tint-card rounded-2xl p-5">
+      <div className="rounded-[1.25rem] bg-[var(--ink-band)] p-5 text-[#fbf9f4] shadow-[var(--shadow-float)]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[0.8125rem] font-medium text-[var(--tint-fg)]">
+            <p className="text-[0.8125rem] text-[#fbf9f4]/70">
               {formatDate(`${data.today}T12:00:00Z`, { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" })}
             </p>
-            <p className="heading-display mt-0.5 text-xl text-foreground">{status}</p>
+            <p className="heading-display mt-1 text-[1.5rem] leading-tight text-[#fbf9f4]">{status}</p>
             {data.shift && !data.shift.open && isNanny && (
-              <p className="mt-1 text-sm text-muted-foreground">{t("tl.sentToYourTimesheetFor")}</p>
+              <p className="mt-1 text-sm text-[#fbf9f4]/70">{t("tl.sentToYourTimesheetFor")}</p>
             )}
           </div>
           {isNanny && !data.shift && (
-            <Button size="lg" disabled={busy} onClick={() => void run(() => startFn({ data: { slug } }), t("tl.shiftStarted"))}>
+            <Button size="lg" className="bg-[#fbf9f4] text-[var(--ink-band)] hover:bg-white" disabled={busy} onClick={() => void run(() => startFn({ data: { slug } }), t("tl.shiftStarted"))}>
               <Play className="h-4 w-4" />{t("tl.startShift")}</Button>
           )}
           {isNanny && data.shift?.open && !ending && (
-            <Button size="lg" variant="outline" disabled={busy} onClick={() => setEnding(true)}>
+            <Button size="lg" variant="outline" className="border-[#fbf9f4]/30 bg-transparent text-[#fbf9f4] hover:bg-white/10 hover:text-white" disabled={busy} onClick={() => setEnding(true)}>
               <Square className="h-4 w-4" />{t("tl.endShift")}</Button>
           )}
         </div>
         {ending && (
           <form
-            className="mt-4 flex flex-wrap items-end gap-3 border-t border-border pt-4"
+            className="mt-4 flex flex-wrap items-end gap-3 border-t border-[#fbf9f4]/15 pt-4"
             onSubmit={(e) => {
               e.preventDefault();
               void run(() => endFn({ data: { slug, breakMinutes: Number(breakMins) || 0 } }), t("tl.shiftFinishedAndSentFor")).then((ok) => ok && setEnding(false));
             }}
           >
-            <label className="block text-sm font-medium text-foreground">{t("tl.unpaidBreakMinutes")}<Input className="mt-1.5 w-32" type="number" min="0" max="720" value={breakMins} onChange={(e) => setBreakMins(e.target.value)} />
+            <label className="block text-sm font-medium text-[#fbf9f4]">{t("tl.unpaidBreakMinutes")}<Input className="mt-1.5 w-32 border-[#fbf9f4]/25 bg-white/10 text-[#fbf9f4]" type="number" min="0" max="720" value={breakMins} onChange={(e) => setBreakMins(e.target.value)} />
             </label>
-            <Button type="submit" disabled={busy}>{t("tl.finishAndSendHours")}</Button>
-            <Button type="button" variant="ghost" onClick={() => setEnding(false)}>{t("tl.cancel")}</Button>
+            <Button type="submit" className="bg-[#fbf9f4] text-[var(--ink-band)] hover:bg-white" disabled={busy}>{t("tl.finishAndSendHours")}</Button>
+            <Button type="button" variant="ghost" className="text-[#fbf9f4] hover:bg-white/10 hover:text-white" onClick={() => setEnding(false)}>{t("tl.cancel")}</Button>
           </form>
         )}
       </div>

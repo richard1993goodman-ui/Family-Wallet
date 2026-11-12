@@ -110,7 +110,7 @@ export function FamilyLogin({
   return (
     <Card id="sign-in" className={cn("scroll-mt-24 gap-5 rounded-lg", className)}>
       {showAgencyTab && (
-        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 mb-2 grid grid-cols-2 gap-1 rounded-xl bg-muted p-1">
+        <div role="tablist" aria-label="Who is signing in" className="mx-6 mt-6 mb-2 grid grid-cols-2 gap-1 rounded-[0.875rem] bg-muted p-1">
           {(["family", "agency"] as const).map((m) => (
             <button
               key={m}
@@ -119,7 +119,7 @@ export function FamilyLogin({
               aria-selected={mode === m}
               onClick={() => setMode(m)}
               className={cn(
-                "min-h-10 rounded-lg px-3 text-sm font-medium transition-colors",
+                "min-h-11 rounded-[0.625rem] px-3 text-sm font-medium transition-colors",
                 mode === m ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -145,7 +145,7 @@ export function FamilyLogin({
             </p>
           </CardContent>
           <CardFooter className="flex-col gap-3 px-6 pb-6">
-            <Button asChild size="lg" className="h-12 w-full text-base">
+            <Button asChild size="lg" className="h-14 w-full rounded-[0.875rem] text-base font-semibold">
               <Link to="/auth">
                 Agency sign in <ArrowRight className="h-4 w-4" />
               </Link>
@@ -185,7 +185,7 @@ export function FamilyLogin({
                 autoCapitalize="none"
                 spellCheck={false}
                 required
-                className="h-12 pl-10 text-base md:text-base"
+                className="h-14 rounded-[0.875rem] border-input bg-card pl-10 text-base md:text-base"
               />
             </div>
             {error?.field === "link" && (
@@ -212,7 +212,7 @@ export function FamilyLogin({
                 autoComplete="current-password"
                 maxLength={8}
                 required
-                className="h-12 pl-10 pr-12 text-base md:text-base font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
+                className="h-14 rounded-[0.875rem] border-input bg-card pl-10 pr-12 text-base md:text-base font-mono uppercase tracking-[0.2em] placeholder:font-sans placeholder:normal-case placeholder:tracking-normal"
               />
               <button
                 type="button"
@@ -251,7 +251,7 @@ export function FamilyLogin({
             <FieldError id="wallet-form-error" message={error.message} />
           </div>
         )}
-        <Button type="submit" form="family-login" size="lg" className="h-12 w-full text-base" disabled={busy}>
+        <Button type="submit" form="family-login" size="lg" className="h-14 w-full rounded-[0.875rem] text-base font-semibold" disabled={busy}>
           {busy ? "Opening…" : "Open my wallet"}
           {!busy && <ArrowRight className="h-4 w-4" />}
         </Button>
