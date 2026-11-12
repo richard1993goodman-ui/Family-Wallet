@@ -91,12 +91,22 @@ async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned
     .eq("id", familyId)
     .maybeSingle();
   if (!family) throw new Error("We could not find the wallet for that payment.");
+  // The stored code is wiped once the family opens its wallet, so a household paying to
+  // continue (or upgrade) has none to show. Issue a fresh one-time code for the success page.
+  let code = family.access_code;
+  if (!code) {
+    code = generateAccessCode();
+    const { error } = await supabaseAdmin
+      .from("families")
+      .update({ access_code: code, access_code_hash: hashCode(family.slug, code) })
+      .eq("id", familyId);
+    if (error) throw new Error(error.message);
+  }
   return {
     status: "ready",
     kind: "family",
     slug: family.slug,
-    // Null once the family has opened its wallet: the code is no longer kept.
-    code: family.access_code ?? "",
+    code,
     familyName: family.family_name,
     plan,
   };
