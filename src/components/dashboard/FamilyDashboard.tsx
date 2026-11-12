@@ -38,18 +38,16 @@ import { toast } from "sonner";
 
 import { PageContainer } from "@/components/hub-ui";
 import { SigningProgress } from "@/components/SigningProgress";
-import { WalletChallenges } from "@/components/WalletChallenges";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { Button } from "@/components/ui/button";
 import { SetupStatus } from "@/components/dashboard/SetupStatus";
 import { MonthOverview } from "@/components/dashboard/MonthOverview";
-import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
 import {
   Column,
   DashboardFooter,
   DashboardHeader,
   DemoBanner,
-  EmergencyCardLink,
+  EmergencyPill,
   EmergencyContacts,
   NannyProfiles,
 } from "@/components/dashboard/sections";
@@ -79,6 +77,7 @@ export function FamilyDashboard(props: DashboardProps) {
   return (
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
+      <EmergencyPill slug={slug} />
       <DashboardHeader
         eyebrow={longDate(hub?.today.date)}
         title={greeting()}
@@ -115,14 +114,11 @@ export function FamilyDashboard(props: DashboardProps) {
         <Column>
           <AlertsPrompt slug={slug} />
           <SetupProgress {...props} />
-          <WelcomeCard slug={slug} />
-          <WalletChallenges slug={slug} />
           <Documents {...props} />
           <NannytaxCode code={wallet.nannytaxCode} />
         </Column>
 
         <Column>
-          <EmergencyCardLink slug={slug} />
           <NannyProfiles wallet={wallet} />
           <EmergencyContacts wallet={wallet} />
           <SupportBox slug={slug} familyName={wallet.familyName} />

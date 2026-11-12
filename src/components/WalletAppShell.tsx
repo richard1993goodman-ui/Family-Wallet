@@ -477,6 +477,7 @@ function MobileTabs({
   const agreements = useContext(AgreementsContext);
   const noun = useContext(StaffNounContext);
   const [moreOpen, setMoreOpen] = useState(false);
+  const currentSection = activePrefix === "w" ? "Home" : sectionFor(role, activePrefix, agreements, noun)?.label;
 
   return (
     <nav
@@ -485,7 +486,7 @@ function MobileTabs({
     >
       <div className="grid h-16 grid-cols-5">
         {mobileTabsFor(role, t).map((tab) => {
-          const active = routePrefix(tab.to) === activePrefix;
+          const active = tab.label === currentSection;
           return (
             <Link
               key={tab.to}
@@ -529,7 +530,7 @@ function MobileTabs({
             >
               <Accordion
                 type="multiple"
-                defaultValue={[sectionFor(role, activePrefix, agreements, noun)?.label ?? "Overview"]}
+                defaultValue={[sectionFor(role, activePrefix, agreements, noun)?.label ?? "Home"]}
               >
                 {navFor(role, agreements, noun, t).map((section) => (
                   <AccordionItem key={section.label} value={section.label} className="border-b-0">

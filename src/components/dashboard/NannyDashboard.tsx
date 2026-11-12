@@ -30,13 +30,12 @@ import { PageContainer } from "@/components/hub-ui";
 import { Button } from "@/components/ui/button";
 import { WalletTravelBanner } from "@/components/WalletTravelBanner";
 import { MonthOverview } from "@/components/dashboard/MonthOverview";
-import { WelcomeCard } from "@/components/dashboard/WelcomeCard";
 import {
   Column,
   DashboardFooter,
   DashboardHeader,
   DemoBanner,
-  EmergencyCardLink,
+  EmergencyPill,
   EmergencyContacts,
 } from "@/components/dashboard/sections";
 import {
@@ -65,6 +64,7 @@ export function NannyDashboard(props: DashboardProps) {
   return (
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
+      <EmergencyPill slug={slug} />
       <DashboardHeader
         eyebrow={longDate(hub?.today.date)}
         title={firstName ? `${greeting()}, ${firstName}` : greeting()}
@@ -201,7 +201,6 @@ export function NannyDashboard(props: DashboardProps) {
 
         <Column>
           <AlertsPrompt slug={slug} />
-          <EmergencyCardLink slug={slug} />
 
           {(awaiting > 0 || (agreement && !agreementDone)) && (
             <section>
@@ -252,8 +251,6 @@ export function NannyDashboard(props: DashboardProps) {
               </div>
             </section>
           )}
-
-          <WelcomeCard slug={slug} />
 
           <EmergencyContacts wallet={wallet} />
           <SupportBox slug={slug} familyName={wallet.familyName} />

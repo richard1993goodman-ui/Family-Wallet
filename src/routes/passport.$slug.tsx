@@ -1,5 +1,5 @@
 import { formatDate as formatLocaleDate } from "@/lib/format";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -16,6 +16,8 @@ import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hu
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/passport/$slug")({
+  // Retired from the app (12 Nov): the page and its data stay, but the way in now goes home.
+  beforeLoad: ({ params }) => { throw redirect({ to: "/w/$slug", params: { slug: params.slug } }); },
   head: () => ({
     meta: [
       { title: "Active Kids Sports Passport — Family Wallet" },

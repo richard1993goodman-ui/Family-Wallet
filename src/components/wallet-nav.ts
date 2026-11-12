@@ -9,7 +9,6 @@ import {
   BadgeCheck,
   BookOpen,
   Briefcase,
-  Calculator,
   CalendarCheck,
   CalendarClock,
   CalendarDays,
@@ -18,7 +17,6 @@ import {
   ClipboardCheck,
   Clock3,
   Coins,
-  Dumbbell,
   FileBarChart,
   FileText,
   Heart,
@@ -36,7 +34,6 @@ import {
   FolderLock,
   ShieldCheck,
   Siren,
-  Sparkles,
   UserPlus,
   Users,
 } from "lucide-react";
@@ -58,12 +55,9 @@ export type WalletPath =
   | "/handover/$slug"
   | "/medication/$slug"
   | "/travel/$slug"
-  | "/passport/$slug"
   | "/payroll/$slug"
-  | "/costs/$slug"
   | "/training/$slug"
   | "/safety/$slug"
-  | "/welcome/$slug"
   | "/moments/$slug"
   | "/today/$slug"
   | "/pettycash/$slug"
@@ -125,7 +119,6 @@ const handover = item("Handover & expenses", ClipboardCheck, "/handover/$slug", 
 const today = item("Today", Baby, "/today/$slug", ["nap", "bottle", "nappy", "feed", "meal", "potty"]);
 const moments = item("Photo moments", Camera, "/moments/$slug", ["photos", "milestones"]);
 const report = item("Weekly report", FileBarChart, "/report/$slug", ["friday", "summary"]);
-const passport = item("Active Kids Passport", Dumbbell, "/passport/$slug", ["sport", "activities"]);
 const emergency = item("Emergency card", Siren, "/emergency/$slug", [
   "gp",
   "contacts",
@@ -135,7 +128,6 @@ const houseManual = item("House manual & codes", KeyRound, "/housemanual/$slug",
 const kids = item("Kids' playbook", Heart, "/kids/$slug", ["comforters", "friends"]);
 const children = item("Children & routines", Users, "/family/$slug", ["school", "bedtime"]);
 const guide = item("Nanny quick guide", BookOpen, "/guide/$slug", ["summary"]);
-const first48 = item("First 48 hours", Sparkles, "/welcome/$slug", ["onboarding", "welcome"]);
 const travel = item("Travel pack", Plane, "/travel/$slug", ["holiday", "villa", "abroad"]);
 const nannies = item("Household staff", UserPlus, "/nannies/$slug", [
   "invite",
@@ -152,7 +144,6 @@ const leave = item("Holiday & leave", CalendarCheck, "/leave/$slug", ["time off"
 const liveIn = item("Au pair & live-in", BedDouble, "/livein/$slug", ["au pair", "pocket money", "days off", "live in"]);
 const pettyCash = item("Petty cash", Coins, "/pettycash/$slug", ["float", "spending"]);
 const payroll = item("Payroll setup", Briefcase, "/payroll/$slug", ["nannytax", "payslips"]);
-const costs = item("Employment costs", Calculator, "/costs/$slug", ["tax", "pension", "ni"]);
 const training = item("Nanny training", BadgeCheck, "/training/$slug", ["quiz", "certificate"]);
 const safety = item("Safety records", ShieldCheck, "/safety/$slug", ["dbs", "insurance"]);
 const documents = item("Documents", FolderLock, "/documents/$slug", ["dbs", "id", "passport", "right to work", "files", "upload", "visa"]);
@@ -166,66 +157,40 @@ const bankDetails = item("Bank details", Landmark, "/bankdetails/$slug", [
   "payment",
 ]);
 
+/** One navigation for everyone: the same five places, with what is inside depending on who is signed in. */
 const familyNav: NavSection[] = [
-  { label: "Overview", items: [home, calendar, messages, report, notifications, billing, myLogin, helpSupport] },
-  { label: "Day to day", items: [today, dailyLog, medication, incidents, handover, moments, passport] },
-  {
-    label: "Family & home",
-    items: [children, kids, houseManual, permissions, emergency, guide, first48, travel],
-  },
-  {
-    label: "Household staff",
-    items: [
-      nannies,
-      workHours,
-      agreement,
-      timesheets,
-      leave,
-      liveIn,
-      pettyCash,
-      bankDetails,
-      payroll,
-      costs,
-      training,
-      safety,
-      documents,
-    ],
-  },
+  { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments, report] },
+  { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
+  { label: "People", items: [children, kids, nannies, permissions, houseManual, emergency, guide, travel] },
+  { label: "Wallet", items: [documents, agreement, payroll, bankDetails, pettyCash, training, safety] },
+  { label: "More", items: [notifications, billing, myLogin, helpSupport] },
 ];
 
 const nannyNav: NavSection[] = [
-  {
-    label: "My day",
-    items: [home, calendar, messages, today, dailyLog, medication, incidents, handover, moments, notifications, myLogin, helpSupport],
-  },
-  {
-    label: "The family",
-    items: [emergency, houseManual, permissions, kids, passport, first48, travel],
-  },
-  { label: "My work", items: [workHours, timesheets, leave, liveIn, pettyCash, bankDetails, agreement, training, safety, documents] },
+  { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments] },
+  { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
+  { label: "People", items: [kids, permissions, houseManual, emergency, guide, travel] },
+  { label: "Wallet", items: [documents, agreement, bankDetails, pettyCash, training, safety] },
+  { label: "More", items: [notifications, myLogin, helpSupport] },
 ];
 
 /** Each menu section has its own colour, carried through to the page header and the menu. */
 export const SECTION_TINTS: Record<string, "sage" | "apricot" | "sky" | "lilac" | "butter" | "rose"> = {
-  Overview: "sage",
-  "Day to day": "apricot",
-  "Family & home": "sky",
-  "Household staff": "lilac",
-  "My day": "apricot",
-  "The family": "sky",
-  "My work": "lilac",
+  Home: "sage",
+  Calendar: "apricot",
+  People: "sky",
+  Wallet: "lilac",
+  More: "butter",
 };
 export const sectionTint = (label: string | undefined) => SECTION_TINTS[label ?? ""] ?? "sage";
 
 /** The nav for a role. Households that don't use the nanny agreement don't see its page. */
 const SECTION_KEYS: Record<string, MessageKey> = {
-  Overview: "nav.section.overview",
-  "Day to day": "nav.section.dayToDay",
-  "Family & home": "nav.section.familyHome",
-  "Household staff": "nav.section.householdStaff",
-  "My day": "nav.section.myDay",
-  "The family": "nav.section.theFamily",
-  "My work": "nav.section.myWork",
+  Home: "nav.section.home",
+  Calendar: "nav.section.calendar",
+  People: "nav.section.people",
+  Wallet: "nav.section.wallet",
+  More: "nav.section.more",
 };
 
 export function navFor(role: WalletRole, agreements = true, noun = "nanny", t?: Translate): NavSection[] {
@@ -241,7 +206,7 @@ export function navFor(role: WalletRole, agreements = true, noun = "nanny", t?: 
   const hidden = (to: string) => (!agreements && to === "/agreement/$slug") || (!accounts && to === "/mylogin/$slug");
   return sections.map((s) => ({
     ...s,
-    title: t ? t(SECTION_KEYS[s.label] ?? "nav.section.overview") : s.label,
+    title: t ? t(SECTION_KEYS[s.label] ?? "nav.section.home") : s.label,
     items: s.items
       .filter((i) => !hidden(i.to))
       .map((i) => ({ ...i, title: t ? t(`nav.${routePrefix(i.to)}` as MessageKey, { Noun }) : i.label })),
@@ -250,20 +215,14 @@ export function navFor(role: WalletRole, agreements = true, noun = "nanny", t?: 
 
 export type MobileTab = { label: string; icon: NavItem["icon"]; to: WalletPath; title?: string };
 
+/** The four places on the phone bar; "More" is the fifth button and opens every page. A tab is lit when the page is in its section. */
 export function mobileTabsFor(role: WalletRole, t?: Translate): MobileTab[] {
-  const tabs: MobileTab[] = role === "nanny"
-    ? [
-        { label: "Today", icon: Clock3, to: "/today/$slug" },
-        { label: "Log", icon: NotebookPen, to: "/log/$slug" },
-        { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
-        { label: "Hours", icon: Clock3, to: "/timesheets/$slug" },
-      ]
-    : [
-        { label: "Home", icon: Home, to: "/w/$slug" },
-        { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" },
-        { label: "Messages", icon: MessageCircle, to: "/messages/$slug" },
-        { label: "Family", icon: Users, to: "/family/$slug" },
-      ];
+  const tabs: MobileTab[] = [
+    { label: "Home", icon: Home, to: "/w/$slug" },
+    { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" },
+    { label: "People", icon: Users, to: role === "nanny" ? "/kids/$slug" : "/family/$slug" },
+    { label: "Wallet", icon: FolderLock, to: "/documents/$slug" },
+  ];
   return tabs.map((tab) => ({ ...tab, title: t ? t(`tab.${tab.label.toLowerCase()}` as MessageKey) : tab.label }));
 }
 

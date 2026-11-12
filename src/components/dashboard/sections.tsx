@@ -51,21 +51,20 @@ export function DemoBanner({ slug }: { slug: string }) {
   );
 }
 
-export function EmergencyCardLink({ slug }: { slug: string }) {
+/** Always at the top of Home: one tap to contacts, allergies, medication and care instructions. */
+export function EmergencyPill({ slug }: { slug: string }) {
   const t = useT();
   return (
-    <Link
-      to="/emergency/$slug"
-      params={{ slug }}
-      className="group flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3.5 transition-colors hover:border-destructive/50 active:bg-raised"
-    >
-      <Siren className="h-4 w-4 flex-none text-destructive" />
-      <span className="min-w-0 flex-1">
-        <span className="block font-medium text-foreground">{t("dash.emergencyCard")}</span>
-        <span className="block text-sm text-muted-foreground">{t("dash.contactsAllergiesMedicationGpAnd")}</span>
-      </span>
-      <ChevronRight className="h-4 w-4 flex-none text-muted-foreground/50 transition-transform group-hover:translate-x-0.5" />
-    </Link>
+    <div className="mb-4 flex justify-end">
+      <Link
+        to="/emergency/$slug"
+        params={{ slug }}
+        className="inline-flex h-11 items-center gap-2 rounded-full bg-destructive px-5 text-sm font-semibold text-destructive-foreground shadow-sm transition-opacity hover:opacity-90 active:opacity-80"
+      >
+        <Siren className="h-4 w-4" aria-hidden />
+        {t("dash.emergency")}
+      </Link>
+    </div>
   );
 }
 

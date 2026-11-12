@@ -32,8 +32,8 @@ describe("staff wording", () => {
     expect(staffNoun(["other"])).toBe("staff");
   });
 
-  it("the family menu section is Household staff and its labels follow who they employ", () => {
-    const section = navFor("family", true, "au pair").find((s) => s.label === "Household staff");
+  it("the Wallet section's labels follow who they employ", () => {
+    const section = navFor("family", true, "au pair").find((s) => s.label === "Wallet");
     expect(section).toBeTruthy();
     const labels = section!.items.map((i) => i.label);
     expect(labels).toContain("Au pair agreement");
@@ -47,6 +47,18 @@ describe("My login menu item", () => {
     for (const role of ["family", "nanny"] as const) {
       const labels = navFor(role).flatMap((s) => s.items.map((i) => i.label));
       expect(labels).not.toContain("My login");
+    }
+  });
+});
+
+describe("the five-place menu", () => {
+  it("is the same five places for parents and staff, and leaves out the retired pages", () => {
+    for (const role of ["family", "nanny"] as const) {
+      const nav = navFor(role);
+      expect(nav.map((s) => s.label)).toEqual(["Home", "Calendar", "People", "Wallet", "More"]);
+      const labels = nav.flatMap((s) => s.items.map((i) => i.label));
+      for (const gone of ["Active Kids Passport", "First 48 hours", "Employment costs"])
+        expect(labels).not.toContain(gone);
     }
   });
 });

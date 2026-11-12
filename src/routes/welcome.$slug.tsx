@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -15,6 +15,8 @@ const welcomeOptions = (slug: string) => queryOptions({ queryKey: ["welcome", sl
 const first48Options = (slug: string) => queryOptions({ queryKey: ["first48", slug], queryFn: () => getFirst48({ data: { slug } }) });
 
 export const Route = createFileRoute("/welcome/$slug")({
+  // Retired from the app (12 Nov): the page and its data stay, but the way in now goes home.
+  beforeLoad: ({ params }) => { throw redirect({ to: "/w/$slug", params: { slug: params.slug } }); },
   loader: async ({ context, params }) => { await Promise.all([context.queryClient.ensureQueryData(welcomeOptions(params.slug)), context.queryClient.ensureQueryData(first48Options(params.slug))]); },
   head: () => ({
     meta: [

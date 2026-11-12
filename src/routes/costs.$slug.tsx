@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
@@ -6,7 +6,9 @@ import { Card, Field, HubPage, LockedNotice, PageLoading } from "@/components/hu
 import { getConcierge } from "@/lib/concierge.functions";
 import { calculateEmploymentCost } from "@/lib/employment-cost.model";
 
-export const Route = createFileRoute("/costs/$slug")({ head: () => ({ meta: [
+export const Route = createFileRoute("/costs/$slug")({
+  // Retired from the app (12 Nov): the page and its data stay, but the way in now goes home.
+  beforeLoad: ({ params }) => { throw redirect({ to: "/w/$slug", params: { slug: params.slug } }); }, head: () => ({ meta: [
   { title: "All-In Nanny Cost Calculator — Family Wallet" }, { name: "description", content: "Estimate the complete cost of employing your nanny." },
   { property: "og:title", content: "All-In Nanny Cost Calculator — Family Wallet" }, { property: "og:description", content: "A clear employment-cost estimate for your agency families." },
   { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
