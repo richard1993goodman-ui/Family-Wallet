@@ -47,6 +47,22 @@ C7a to C7c are web-only and can be tested on the website and TestFlight as it st
 4. Order: web email sign-up first (C7a to C7c), then Apple/Google (C7d). Recommended.
 5. Co-parents at launch or later (still open from the Stage C note).
 
+## 6a. DECIDED 12 Nov: the payment model (supersedes decision 1 above)
+- **Independent families pay only through the app, with their Apple ID (in-app purchase).** The website no longer sells family plans: its family pricing becomes "Get the app" with store links. One purchase route, centralised.
+- **Agencies pay on the web (B2B)** and may also download the app and join as an agency. Agency-sponsored families use the app free, through the agency's seats.
+- Existing AthleteMannies members and existing subscribers are untouched.
+
+Consequences to plan for:
+- **Identity first, then purchase.** In the app: sign in (Apple / email), then subscribe, so the purchase is tied to a person and their wallet. This makes C7d (Sign in with Apple) core, not optional. The C7a "find your wallet by email" path stays for agency-sponsored and existing families; new families no longer arrive from web checkout.
+- **Entitlement from Apple.** The server must verify purchases (App Store Server API / signed notifications) or use a service such as RevenueCat, and write `entitlements` rows with source `apple_iap`; renewals, cancellations, refunds and **Restore purchases** all flow from there.
+- **Apple's cut:** 30%, or 15% under the Small Business Program (under $1M a year, must be applied for). £19.99 a month would net roughly £17 at 15%, £14 at 30%. Pricing is yours to decide.
+- **Apple's anti-steering rules:** the app must not point families to buy elsewhere (web prices, links) outside permitted exceptions, and agency web pricing must not appear to families inside the app. B2B sales to organisations are treated differently, but this needs a written policy check before submission.
+- **Android:** the same needs Google Play Billing, and the Play Console account is still blocked on verification. Until then Android families cannot buy; they can only be agency-sponsored.
+- **Order of work:** keep the website's family checkout **until the in-app purchase works and is live in the store**, then remove it. Removing it first would leave families unable to pay (one live subscriber exists today).
+- **Not testable on the simulator or the website:** purchases are tested on a real iPhone with a sandbox Apple account through TestFlight, after the subscription products exist in App Store Connect.
+
+The step-by-step list of accounts and settings you need to create is in `app-store-connect-setup.md`.
+
 ## 7. What only you can do
 - Apple Developer: create a Services ID, a Sign in with Apple key, and the return URL (uses Team `T3KFJ4JY67`).
 - Google Cloud: create OAuth clients (web, iOS, Android).

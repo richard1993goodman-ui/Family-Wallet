@@ -79,6 +79,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
 import { Route as AuthenticatedAdminSupportRouteImport } from './routes/_authenticated/admin.support'
 import { Route as ApiPublicLifecycleRunRouteImport } from './routes/api/public/lifecycle-run'
+import { Route as ApiPublicRevenuecatRouteImport } from './routes/api/public/revenuecat'
 import { Route as ApiPushLatestRouteImport } from './routes/api/push/latest'
 import { Route as ApiStripePortalRouteImport } from './routes/api/stripe/portal'
 import { Route as CertificateSlugIdRouteImport } from './routes/certificate.$slug.$id'
@@ -438,6 +439,11 @@ const ApiPublicLifecycleRunRoute = ApiPublicLifecycleRunRouteImport.update({
   path: '/api/public/lifecycle-run',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicRevenuecatRoute = ApiPublicRevenuecatRouteImport.update({
+  id: '/api/public/revenuecat',
+  path: '/api/public/revenuecat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPushLatestRoute = ApiPushLatestRouteImport.update({
   id: '/api/push/latest',
   path: '/api/push/latest',
@@ -546,6 +552,7 @@ export interface FileRoutesByFullPath {
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
+  '/api/public/revenuecat': typeof ApiPublicRevenuecatRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -624,6 +631,7 @@ export interface FileRoutesByTo {
   '/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
+  '/api/public/revenuecat': typeof ApiPublicRevenuecatRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -704,6 +712,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/agencies': typeof AuthenticatedAdminAgenciesRoute
   '/_authenticated/admin/support': typeof AuthenticatedAdminSupportRoute
   '/api/public/lifecycle-run': typeof ApiPublicLifecycleRunRoute
+  '/api/public/revenuecat': typeof ApiPublicRevenuecatRoute
   '/api/push/latest': typeof ApiPushLatestRoute
   '/api/stripe/portal': typeof ApiStripePortalRoute
   '/certificate/$slug/$id': typeof CertificateSlugIdRoute
@@ -784,6 +793,7 @@ export interface FileRouteTypes {
     | '/admin/agencies'
     | '/admin/support'
     | '/api/public/lifecycle-run'
+    | '/api/public/revenuecat'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -862,6 +872,7 @@ export interface FileRouteTypes {
     | '/admin/agencies'
     | '/admin/support'
     | '/api/public/lifecycle-run'
+    | '/api/public/revenuecat'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -941,6 +952,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/agencies'
     | '/_authenticated/admin/support'
     | '/api/public/lifecycle-run'
+    | '/api/public/revenuecat'
     | '/api/push/latest'
     | '/api/stripe/portal'
     | '/certificate/$slug/$id'
@@ -1019,6 +1031,7 @@ export interface RootRouteChildren {
   GuidesIndexRoute: typeof GuidesIndexRoute
   JoinIndexRoute: typeof JoinIndexRoute
   ApiPublicLifecycleRunRoute: typeof ApiPublicLifecycleRunRoute
+  ApiPublicRevenuecatRoute: typeof ApiPublicRevenuecatRoute
   ApiPushLatestRoute: typeof ApiPushLatestRoute
   ApiStripePortalRoute: typeof ApiStripePortalRoute
   CertificateSlugIdRoute: typeof CertificateSlugIdRoute
@@ -1517,6 +1530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLifecycleRunRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/revenuecat': {
+      id: '/api/public/revenuecat'
+      path: '/api/public/revenuecat'
+      fullPath: '/api/public/revenuecat'
+      preLoaderRoute: typeof ApiPublicRevenuecatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/push/latest': {
       id: '/api/push/latest'
       path: '/api/push/latest'
@@ -1658,6 +1678,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuidesIndexRoute: GuidesIndexRoute,
   JoinIndexRoute: JoinIndexRoute,
   ApiPublicLifecycleRunRoute: ApiPublicLifecycleRunRoute,
+  ApiPublicRevenuecatRoute: ApiPublicRevenuecatRoute,
   ApiPushLatestRoute: ApiPushLatestRoute,
   ApiStripePortalRoute: ApiStripePortalRoute,
   CertificateSlugIdRoute: CertificateSlugIdRoute,
