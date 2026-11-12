@@ -105,6 +105,8 @@ Reuse the 11 Nov proposal: `people`, `household_members` (roles, permissions, st
 3. Confirm the five-tab structure, or edit it.
 4. Whether to start with the UX shell (recommended, no data changes) or the security foundation first.
 
+Design notes written from this audit: `stage-c2-new-family-signup-design.md` (Apple / Google / email sign-up for new families).
+
 ## 15. Stage B live check (12 Nov, read-only counts and policy names only)
 
 | Check | Result |
