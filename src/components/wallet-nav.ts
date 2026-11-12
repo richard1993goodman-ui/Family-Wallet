@@ -43,6 +43,7 @@ export type WalletRole = "family" | "nanny";
 export type WalletPath =
   | "/w/$slug"
   | "/people/$slug"
+  | "/wallet/$slug"
   | "/planner/$slug"
   | "/log/$slug"
   | "/report/$slug"
@@ -97,6 +98,7 @@ const item = (
 
 const home = item("Home", Home, "/w/$slug", ["dashboard", "overview"]);
 const people = item("People overview", Users, "/people/$slug", ["children", "staff", "nanny", "household"]);
+const walletHome = item("Wallet overview", FolderLock, "/wallet/$slug", ["documents", "records", "agreement"]);
 const calendar = item("Calendar", CalendarDays, "/planner/$slug", ["planner", "week", "schedule"]);
 const messages = item("Messages", MessageCircle, "/messages/$slug", ["chat", "threads"]);
 const dailyLog = item("Daily log", NotebookPen, "/log/$slug", ["update", "mood", "notes"]);
@@ -164,7 +166,7 @@ const familyNav: NavSection[] = [
   { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments, report] },
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
   { label: "People", items: [people, children, kids, nannies, permissions, houseManual, emergency, guide, travel] },
-  { label: "Wallet", items: [documents, agreement, payroll, bankDetails, pettyCash, training, safety] },
+  { label: "Wallet", items: [walletHome, documents, agreement, payroll, bankDetails, pettyCash, training, safety] },
   { label: "More", items: [notifications, billing, myLogin, helpSupport] },
 ];
 
@@ -172,7 +174,7 @@ const nannyNav: NavSection[] = [
   { label: "Home", items: [home, today, dailyLog, messages, medication, incidents, handover, moments] },
   { label: "Calendar", items: [calendar, workHours, timesheets, leave, liveIn] },
   { label: "People", items: [people, kids, permissions, houseManual, emergency, guide, travel] },
-  { label: "Wallet", items: [documents, agreement, bankDetails, pettyCash, training, safety] },
+  { label: "Wallet", items: [walletHome, documents, agreement, bankDetails, pettyCash, training, safety] },
   { label: "More", items: [notifications, myLogin, helpSupport] },
 ];
 
@@ -223,7 +225,7 @@ export function mobileTabsFor(role: WalletRole, t?: Translate): MobileTab[] {
     { label: "Home", icon: Home, to: "/w/$slug" },
     { label: "Calendar", icon: CalendarDays, to: "/planner/$slug" },
     { label: "People", icon: Users, to: "/people/$slug" },
-    { label: "Wallet", icon: FolderLock, to: "/documents/$slug" },
+    { label: "Wallet", icon: FolderLock, to: "/wallet/$slug" },
   ];
   return tabs.map((tab) => ({ ...tab, title: t ? t(`tab.${tab.label.toLowerCase()}` as MessageKey) : tab.label }));
 }

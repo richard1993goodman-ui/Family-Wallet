@@ -75,6 +75,7 @@ import { Route as TodaySlugRouteImport } from './routes/today.$slug'
 import { Route as TrainingSlugRouteImport } from './routes/training.$slug'
 import { Route as TravelSlugRouteImport } from './routes/travel.$slug'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
+import { Route as WalletSlugRouteImport } from './routes/wallet.$slug'
 import { Route as WelcomeSlugRouteImport } from './routes/welcome.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAgenciesRouteImport } from './routes/_authenticated/admin.agencies'
@@ -418,6 +419,11 @@ const WSlugRoute = WSlugRouteImport.update({
   path: '/w/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WalletSlugRoute = WalletSlugRouteImport.update({
+  id: '/wallet/$slug',
+  path: '/wallet/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WelcomeSlugRoute = WelcomeSlugRouteImport.update({
   id: '/welcome/$slug',
   path: '/welcome/$slug',
@@ -553,6 +559,7 @@ export interface FileRoutesByFullPath {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/wallet/$slug': typeof WalletSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides/': typeof GuidesIndexRoute
   '/join/': typeof JoinIndexRoute
@@ -633,6 +640,7 @@ export interface FileRoutesByTo {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/wallet/$slug': typeof WalletSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides': typeof GuidesIndexRoute
   '/join': typeof JoinIndexRoute
@@ -715,6 +723,7 @@ export interface FileRoutesById {
   '/training/$slug': typeof TrainingSlugRoute
   '/travel/$slug': typeof TravelSlugRoute
   '/w/$slug': typeof WSlugRoute
+  '/wallet/$slug': typeof WalletSlugRoute
   '/welcome/$slug': typeof WelcomeSlugRoute
   '/guides/': typeof GuidesIndexRoute
   '/join/': typeof JoinIndexRoute
@@ -797,6 +806,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/wallet/$slug'
     | '/welcome/$slug'
     | '/guides/'
     | '/join/'
@@ -877,6 +887,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/wallet/$slug'
     | '/welcome/$slug'
     | '/guides'
     | '/join'
@@ -958,6 +969,7 @@ export interface FileRouteTypes {
     | '/training/$slug'
     | '/travel/$slug'
     | '/w/$slug'
+    | '/wallet/$slug'
     | '/welcome/$slug'
     | '/guides/'
     | '/join/'
@@ -1040,6 +1052,7 @@ export interface RootRouteChildren {
   TrainingSlugRoute: typeof TrainingSlugRoute
   TravelSlugRoute: typeof TravelSlugRoute
   WSlugRoute: typeof WSlugRoute
+  WalletSlugRoute: typeof WalletSlugRoute
   WelcomeSlugRoute: typeof WelcomeSlugRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   JoinIndexRoute: typeof JoinIndexRoute
@@ -1515,6 +1528,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wallet/$slug': {
+      id: '/wallet/$slug'
+      path: '/wallet/$slug'
+      fullPath: '/wallet/$slug'
+      preLoaderRoute: typeof WalletSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/welcome/$slug': {
       id: '/welcome/$slug'
       path: '/welcome/$slug'
@@ -1695,6 +1715,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrainingSlugRoute: TrainingSlugRoute,
   TravelSlugRoute: TravelSlugRoute,
   WSlugRoute: WSlugRoute,
+  WalletSlugRoute: WalletSlugRoute,
   WelcomeSlugRoute: WelcomeSlugRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   JoinIndexRoute: JoinIndexRoute,
