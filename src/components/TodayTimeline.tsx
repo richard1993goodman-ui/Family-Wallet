@@ -8,6 +8,7 @@ import {
   CalendarClock,
   Camera,
   CheckCircle2,
+  ChevronRight,
   Clock3,
   Pill,
   Play,
@@ -66,7 +67,11 @@ async function shrink(file: File) {
 }
 
 /** The shift as one timeline, with one-tap start and end and quick capture. */
-export function TodayTimeline({ slug }: { slug: string }) {
+/**
+ * `home`: the Home screen shows only the latest few items and links to the whole day;
+ * the Today page shows everything.
+ */
+export function TodayTimeline({ slug, home = false }: { slug: string; home?: boolean }) {
   const t = useT();
   const client = useQueryClient();
   const todayFn = useServerFn(getTodayFn);
@@ -162,44 +167,52 @@ export function TodayTimeline({ slug }: { slug: string }) {
     if (ok) setNote(null);
   };
 
-  const status = data.shift
-    ? data.shift.open
-      ? isNanny
-        ? t("tl.onShiftSinceYou", { time: data.shift.startedAt })
-        : t("tl.onShiftSinceNamed", { name: data.nannyName ?? "", time: data.shift.startedAt })
-      : t("tl.finishedAt", { time: data.shift.endedAt ?? "", duration: hm(data.shift.minutes) })
-    : data.scheduled
-      ? isNanny
-        ? t("tl.scheduledYour", { start: data.scheduled.start, end: data.scheduled.end })
-        : t("tl.scheduledNamed", {
-            name: data.nannyName ?? "",
-            start: data.scheduled.start,
-            end: data.scheduled.end,
-          })
-      : t("tl.noShiftToday");
+  // "Shift 15:00 – 19:30 · started 15:02": the plan, then what has actually happened.
+  const status =
+    [
+      data.scheduled &&
+        t("tl.shiftTimes", { start: data.scheduled.start, end: data.scheduled.end }),
+      data.shift
+        ? data.shift.open
+          ? t("tl.startedShort", { time: data.shift.startedAt })
+          : t("tl.finishedShort", {
+              time: data.shift.endedAt ?? "",
+              duration: hm(data.shift.minutes),
+            })
+        : null,
+    ]
+      .filter(Boolean)
+      .join(" · ") || t("tl.noShiftToday");
+  const timed = data.timeline.filter((i) => i.at);
+  const latest = [
+    ...timed.filter((i) => i.state === "done").slice(-2),
+    ...timed.filter((i) => i.state !== "done").slice(0, 2),
+  ];
 
   return (
     <div className="space-y-5">
-      <div className="glass-hero rise p-5">
+      <div className="surface-card rise p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="relative text-[0.8125rem] text-muted-foreground">
-              {formatDate(`${data.today}T12:00:00Z`, {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                timeZone: "UTC",
-              })}
-            </p>
-            <p className="heading-display num relative mt-1 text-[1.625rem] leading-tight text-navy">
-              {status}
-            </p>
-            {data.shift && !data.shift.open && isNanny && (
-              <p className="relative mt-1 text-sm text-muted-foreground">
-                {t("tl.sentToYourTimesheetFor")}
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="relative grid size-11 flex-none place-items-center rounded-full bg-brand-soft text-[1rem] font-semibold text-brand">
+              {(data.nannyName ?? "").charAt(0)}
+              {data.shift?.open && (
+                <span
+                  className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-card bg-positive"
+                  aria-hidden
+                />
+              )}
+            </span>
+            <div className="min-w-0">
+              <p className="text-[1.0625rem] font-semibold leading-tight text-foreground">
+                {data.nannyName}
               </p>
-            )}
+              <p className="num mt-0.5 text-[0.8125rem] text-muted-foreground">{status}</p>
+            </div>
           </div>
+          {data.shift && !data.shift.open && isNanny && (
+            <p className="w-full text-sm text-muted-foreground">{t("tl.sentToYourTimesheetFor")}</p>
+          )}
           {isNanny && !data.shift && (
             <Button
               size="lg"
@@ -421,22 +434,89 @@ export function TodayTimeline({ slug }: { slug: string }) {
         </div>
       )}
 
-      <section aria-labelledby="today-title" className="pt-1">
-        {data.timeline.length === 0 ? (
-          <p className="text-sm text-muted-foreground">{t("tl.nothingYetTodayStartThe")}</p>
-        ) : (
-          <ol className="relative space-y-1 border-l border-border pl-5">
-            {data.timeline.map((item) => (
-              <TimelineRow key={item.id} item={item} />
-            ))}
-          </ol>
-        )}
-      </section>
+      {home ? (
+        <section aria-labelledby="latest-title" className="surface-card p-4">
+          <div className="flex items-center justify-between gap-3">
+            <h2
+              id="latest-title"
+              className="text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-foreground"
+            >
+              {t("tl.latest")}
+            </h2>
+            <Link
+              to="/today/$slug"
+              params={{ slug }}
+              className="-my-2 flex min-h-11 items-center text-[0.8125rem] font-medium text-foreground underline underline-offset-4"
+            >
+              {t("tl.wholeDay")}
+            </Link>
+          </div>
+          {latest.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">{t("tl.nothingYetTodayStartThe")}</p>
+          ) : (
+            <ol className="relative ml-3 mt-3 space-y-1 border-l border-border pl-5">
+              {latest.map((item) => (
+                <TimelineRow key={item.id} item={item} compact />
+              ))}
+            </ol>
+          )}
+        </section>
+      ) : (
+        <section aria-labelledby="today-title" className="pt-1">
+          {data.timeline.length === 0 ? (
+            <p className="text-sm text-muted-foreground">{t("tl.nothingYetTodayStartThe")}</p>
+          ) : (
+            <ol className="relative space-y-1 border-l border-border pl-5">
+              {data.timeline.map((item) => (
+                <TimelineRow key={item.id} item={item} />
+              ))}
+            </ol>
+          )}
+        </section>
+      )}
     </div>
   );
 }
 
-function TimelineRow({ item }: { item: TimelineItem }) {
+/** Home: the newest photo from today, one tap from all of them. */
+export function LatestPhotoCard({ slug }: { slug: string }) {
+  const t = useT();
+  const todayFn = useServerFn(getTodayFn);
+  // Same key as TodayTimeline, so this reads its cached answer instead of asking again.
+  const { data } = useQuery({
+    queryKey: ["today", slug],
+    queryFn: () => todayFn({ data: { slug } }),
+    refetchInterval: 60_000,
+  });
+  const latest = data?.timeline.filter((i) => i.photoUrl).at(-1);
+  if (!latest?.photoUrl) return null;
+  return (
+    <Link
+      to="/moments/$slug"
+      params={{ slug }}
+      className="surface-card flex items-center gap-3 p-3 transition-transform duration-150 ease-out active:scale-[0.98] motion-reduce:active:scale-100"
+    >
+      <img
+        src={latest.photoUrl}
+        alt=""
+        loading="lazy"
+        className="size-16 flex-none rounded-xl object-cover"
+      />
+      <span className="min-w-0 flex-1">
+        <span className="num block text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-foreground">
+          {t("tl.newPhotoAt", { time: latest.at ?? "" })}
+        </span>
+        <span className="mt-0.5 line-clamp-2 block text-sm text-muted-foreground">
+          {latest.detail ?? latest.title}
+        </span>
+      </span>
+      <ChevronRight className="size-4 flex-none text-muted-foreground" aria-hidden />
+    </Link>
+  );
+}
+
+/** `compact`: a row inside a white card on Home, without its photo. */
+function TimelineRow({ item, compact = false }: { item: TimelineItem; compact?: boolean }) {
   const t = useT();
   const Icon = ICONS[item.kind];
   const next = item.state === "next";
@@ -445,7 +525,7 @@ function TimelineRow({ item }: { item: TimelineItem }) {
     <li className="relative pb-3">
       <span
         data-tint={item.attention ? "rose" : KIND_TINT[item.kind]}
-        className={`absolute -left-[1.95rem] top-0.5 grid h-6 w-6 place-items-center rounded-full ring-4 ring-background ${
+        className={`absolute -left-[1.95rem] top-0.5 grid h-6 w-6 place-items-center rounded-full ring-4 ${compact ? "ring-card" : "ring-background"} ${
           next
             ? "bg-primary text-primary-foreground"
             : upcoming
@@ -456,7 +536,9 @@ function TimelineRow({ item }: { item: TimelineItem }) {
       >
         <Icon className="h-3 w-3" />
       </span>
-      <div className={`rounded-2xl p-3 ${next ? "bg-card shadow-sm ring-1 ring-primary/30" : ""}`}>
+      <div
+        className={`rounded-2xl ${compact ? "px-3 py-1.5" : "p-3"} ${next && !compact ? "bg-card shadow-sm ring-1 ring-primary/30" : ""}`}
+      >
         <div className="flex flex-wrap items-baseline gap-x-2">
           <span className="num text-sm font-semibold text-foreground">{item.at ?? "Today"}</span>
           <span className={`text-sm ${upcoming ? "text-muted-foreground" : "text-foreground"}`}>
@@ -478,7 +560,7 @@ function TimelineRow({ item }: { item: TimelineItem }) {
             {[item.childName, item.detail].filter(Boolean).join(" · ")}
           </p>
         )}
-        {item.photoUrl && (
+        {item.photoUrl && !compact && (
           <img
             src={item.photoUrl}
             alt={item.title}

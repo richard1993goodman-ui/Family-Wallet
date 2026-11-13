@@ -2,13 +2,16 @@ import { formatDate, formatMoney } from "@/lib/format";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
-import { TodayTimeline } from "@/components/TodayTimeline";
+import { LatestPhotoCard, TodayTimeline } from "@/components/TodayTimeline";
+import type { MonthSchedule } from "@/lib/month-overview";
 import { SupportBox } from "@/components/SupportBox";
 import { NextStep } from "@/components/dashboard/NextStep";
 import { hasHours } from "@/lib/work-hours";
 import {
   BadgeCheck,
   BookOpen,
+  CalendarDays,
+  FileChartColumn,
   Briefcase,
   Calculator,
   Camera,
@@ -45,10 +48,8 @@ import { MonthOverview } from "@/components/dashboard/MonthOverview";
 import {
   Column,
   DashboardFooter,
-  DashboardHeader,
   DemoBanner,
   EmergencyPill,
-  HomeQuickActions,
   EmergencyContacts,
   NannyProfiles,
 } from "@/components/dashboard/sections";
@@ -74,36 +75,58 @@ const CHECK_LABELS: Record<string, MessageKey> = {
 
 export function FamilyDashboard(props: DashboardProps) {
   const t = useT();
-  const { slug, wallet, hub, onLock } = props;
+  const { slug, wallet, hub, onLock, nannyCount } = props;
+  const today = hub?.today.date ?? londonToday();
 
   return (
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
-      <DashboardHeader
-        leading={<FamilyMonogram name={wallet.familyName} />}
-        eyebrow={`${greeting()} · ${longDate(hub?.today.date)}`}
-        title={wallet.familyName}
-        subtitle={wallet.agencyName ? t("shell.withAgency", { agency: wallet.agencyName }) : null}
-        actions={<EmergencyPill slug={slug} />}
-      />
+      {/* The top bar already names the household, so Home opens with the date and a greeting. */}
+      <header>
+        <div className="flex items-center justify-between gap-3">
+          <p className="min-w-0 text-[0.875rem] text-muted-foreground">
+            {longDate(hub?.today.date)}
+            {wallet.agencyName && (
+              <span> · {t("shell.withAgency", { agency: wallet.agencyName })}</span>
+            )}
+          </p>
+          <EmergencyPill slug={slug} />
+        </div>
+        <h1 className="heading-serif mt-2 text-[1.75rem] leading-[1.1] text-foreground sm:text-[2rem]">
+          {greeting()}
+        </h1>
+      </header>
       <WalletTravelBanner slug={slug} />
 
-      {/* Ordered by urgency: a first-run choice, what is happening now, what needs you,
-          shortcuts, then the week for reference. */}
-      <div className="mt-8 space-y-6">
+      {/* Same order as the app's Home design: what is happening now, one-tap logging, the latest,
+          what needs you, then the week, the newest photo and the two most-used actions. */}
+      <div className="mt-6 space-y-5">
         <AgreementChoice slug={slug} firstSignIn />
-        <TodayTimeline slug={slug} />
+        <TodayTimeline slug={slug} home />
         <NeedsAttention {...props} />
         <NextStep {...props} />
-        <div className="rise" style={{ "--rise-i": 1 } as CSSProperties}>
-          <HomeQuickActions slug={slug} />
+        <WeekStrip slug={slug} today={today} schedules={hub?.schedules ?? []} />
+        <LatestPhotoCard slug={slug} />
+        <div className="flex gap-2">
+          <Button asChild variant="outline" size="lg" className="h-12 rounded-[0.875rem]">
+            <Link to="/report/$slug" params={{ slug }}>
+              <FileChartColumn className="h-4 w-4" aria-hidden />
+              {t("nav.report")}
+            </Link>
+          </Button>
+          <Button asChild size="lg" className="h-12 flex-1 rounded-[0.875rem]">
+            <Link to="/messages/$slug" params={{ slug }}>
+              <MessageCircle className="h-4 w-4" aria-hidden />
+              {nannyCount === 1 && wallet.nannies[0]
+                ? t("dash.messageNamed", { name: wallet.nannies[0].name.split(" ")[0]! })
+                : t("nav.messages")}
+            </Link>
+          </Button>
         </div>
-        <MonthOverview
-          slug={slug}
-          schedules={hub?.schedules ?? []}
-          today={hub?.today.date ?? londonToday()}
-          role="family"
-        />
+        <section>
+          <SectionTitle>{t("dash.hoursAndUpdates")}</SectionTitle>
+          <MonthOverview slug={slug} schedules={hub?.schedules ?? []} today={today} role="family" />
+        </section>
       </div>
 
       {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
@@ -134,21 +157,73 @@ export function FamilyDashboard(props: DashboardProps) {
   );
 }
 
-/** "The Johnson Family" -> "JF": first letters of the first two words that aren't "the". */
-function FamilyMonogram({ name }: { name: string }) {
-  const letters = name
-    .split(/\s+/)
-    .filter((w) => w && w.toLowerCase() !== "the")
-    .slice(0, 2)
-    .map((w) => w[0]!.toUpperCase())
-    .join("");
+/** This week at a glance: today is the dark pill, and a dot marks the days someone is working. */
+function WeekStrip({
+  slug,
+  today,
+  schedules,
+}: {
+  slug: string;
+  /** Today in London, "YYYY-MM-DD". */
+  today: string;
+  schedules: MonthSchedule[];
+}) {
+  const t = useT();
+  const monday = new Date(`${today}T12:00:00Z`);
+  monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday);
+    d.setUTCDate(monday.getUTCDate() + i);
+    return d;
+  });
+  const fmt = (d: Date, options: Intl.DateTimeFormatOptions) =>
+    d.toLocaleDateString("en-GB", { ...options, timeZone: "UTC" });
   return (
-    <span
-      aria-hidden
-      className="grid size-11 place-items-center rounded-full bg-brand text-[0.9375rem] font-semibold text-brand-foreground shadow-sm sm:size-12"
+    <Link
+      to="/planner/$slug"
+      params={{ slug }}
+      className="surface-card block p-4 transition-transform duration-150 ease-out active:scale-[0.98] motion-reduce:active:scale-100"
     >
-      {letters || "FW"}
-    </span>
+      <span className="flex items-center justify-between gap-3">
+        <span className="flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground">
+          <CalendarDays className="h-4 w-4" aria-hidden />
+          {t("dash.thisWeek")}
+        </span>
+        <span className="text-[0.8125rem] text-muted-foreground">
+          {fmt(days[0]!, { month: "long", year: "numeric" })}
+        </span>
+      </span>
+      <span className="mt-3 grid grid-cols-7 gap-1">
+        {days.map((d) => {
+          const isToday = d.toISOString().slice(0, 10) === today;
+          const weekdayName = fmt(d, { weekday: "long" });
+          const working = schedules.some((s) =>
+            s.workingDays.some((w) => w.day === weekdayName && w.enabled),
+          );
+          return (
+            <span
+              key={weekdayName}
+              aria-label={`${fmt(d, { weekday: "long", day: "numeric", month: "long" })}${isToday ? ", today" : ""}${working ? ", working day" : ""}`}
+              className={`flex flex-col items-center gap-1 rounded-2xl py-2 ${isToday ? "bg-brand text-brand-foreground" : "text-foreground"}`}
+            >
+              <span
+                className={`text-[0.6875rem] font-medium ${isToday ? "opacity-75" : "text-muted-foreground"}`}
+                aria-hidden
+              >
+                {weekdayName.charAt(0)}
+              </span>
+              <span className="num text-[0.9375rem] font-semibold" aria-hidden>
+                {d.getUTCDate()}
+              </span>
+              <span
+                className={`size-1.5 rounded-full ${working ? (isToday ? "bg-gold-soft" : "bg-positive") : "bg-transparent"}`}
+                aria-hidden
+              />
+            </span>
+          );
+        })}
+      </span>
+    </Link>
   );
 }
 

@@ -12,18 +12,14 @@ export function DashboardHeader({
   title,
   subtitle,
   actions,
-  leading,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string | null;
   actions?: ReactNode;
-  /** Optional mark before the title, e.g. the family's initials. */
-  leading?: ReactNode;
 }) {
   return (
     <header className="flex items-start justify-between gap-3">
-      {leading && <div className="flex-none pt-0.5">{leading}</div>}
       <div className="min-w-0 flex-1">
         <h1 className="heading-serif text-[1.625rem] leading-[1.1] text-foreground sm:text-[2rem]">
           {title}
@@ -69,35 +65,6 @@ export function EmergencyPill({ slug }: { slug: string }) {
       <Siren className="h-4 w-4" aria-hidden />
       {t("dash.emergency")}
     </Link>
-  );
-}
-
-/** Four things a parent reaches for most, straight under the status card. */
-export function HomeQuickActions({ slug }: { slug: string }) {
-  const t = useT();
-  const items = [
-    { to: "/log/$slug" as const, icon: NotebookPen, label: t("nav.log"), tint: "sage" },
-    { to: "/moments/$slug" as const, icon: Camera, label: t("dash.quickPhotos"), tint: "sky" },
-    { to: "/messages/$slug" as const, icon: MessageCircle, label: t("nav.messages"), tint: "sky" },
-    { to: "/timesheets/$slug" as const, icon: Clock3, label: t("dash.quickHours"), tint: "sky" },
-  ];
-  return (
-    <nav aria-label={t("dash.quickActions")} className="grid grid-cols-4 gap-2">
-      {items.map((item) => (
-        <Link
-          key={item.to}
-          to={item.to}
-          params={{ slug }}
-          data-tint={item.tint}
-          className="flex flex-col items-center gap-2 rounded-2xl px-1 py-3 text-center text-[0.75rem] font-semibold text-foreground transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100"
-        >
-          <span className="ios-icon h-11 w-11 rounded-[0.875rem]">
-            <item.icon className="h-5 w-5" />
-          </span>
-          <span className="truncate">{item.label}</span>
-        </Link>
-      ))}
-    </nav>
   );
 }
 
