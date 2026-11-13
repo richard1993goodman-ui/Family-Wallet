@@ -80,9 +80,10 @@ export function FamilyDashboard(props: DashboardProps) {
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
       <DashboardHeader
-        eyebrow={longDate(hub?.today.date)}
-        title={greeting()}
-        subtitle={`${wallet.familyName}${wallet.agencyName ? ` · ${t("shell.withAgency", { agency: wallet.agencyName })}` : ""}`}
+        leading={<FamilyMonogram name={wallet.familyName} />}
+        eyebrow={`${greeting()} · ${longDate(hub?.today.date)}`}
+        title={wallet.familyName}
+        subtitle={wallet.agencyName ? t("shell.withAgency", { agency: wallet.agencyName }) : null}
         actions={<EmergencyPill slug={slug} />}
       />
       <WalletTravelBanner slug={slug} />
@@ -104,7 +105,10 @@ export function FamilyDashboard(props: DashboardProps) {
       </div>
 
       {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
-      <div className="rise mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]" style={{ "--rise-i": 3 } as CSSProperties}>
+      <div
+        className="rise mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]"
+        style={{ "--rise-i": 3 } as CSSProperties}
+      >
         <Column>
           <AlertsPrompt slug={slug} />
           <SetupProgress {...props} />
@@ -125,6 +129,24 @@ export function FamilyDashboard(props: DashboardProps) {
         billingSlug={hub?.hasSubscription ? slug : undefined}
       />
     </PageContainer>
+  );
+}
+
+/** "The Johnson Family" -> "JF": first letters of the first two words that aren't "the". */
+function FamilyMonogram({ name }: { name: string }) {
+  const letters = name
+    .split(/\s+/)
+    .filter((w) => w && w.toLowerCase() !== "the")
+    .slice(0, 2)
+    .map((w) => w[0]!.toUpperCase())
+    .join("");
+  return (
+    <span
+      aria-hidden
+      className="grid size-11 place-items-center rounded-full bg-brand text-[0.9375rem] font-semibold text-brand-foreground shadow-sm sm:size-12"
+    >
+      {letters || "FW"}
+    </span>
   );
 }
 
@@ -171,7 +193,11 @@ function NeedsAttention({
         icon={FileText}
         tone="attention"
         cta={agreement.hasContent ? t("dash.continue") : t("dash.start")}
-        title={agreement.hasContent ? t("dash.finishYourNannyAgreement") : t("dash.buildYourNannyAgreement")}
+        title={
+          agreement.hasContent
+            ? t("dash.finishYourNannyAgreement")
+            : t("dash.buildYourNannyAgreement")
+        }
         detail={agreementSubtitle}
       />,
     );
@@ -247,7 +273,9 @@ function NeedsAttention({
         icon={ShieldCheck}
         tone="attention"
         cta={t("dash.check")}
-        title={expired ? t("dash.safetyDocumentsHaveExpired") : t("dash.safetyDocumentsExpiringSoon")}
+        title={
+          expired ? t("dash.safetyDocumentsHaveExpired") : t("dash.safetyDocumentsExpiringSoon")
+        }
         detail={
           expired
             ? t(soon ? "dash.expiredAndSoon" : "dash.expiredOnly", { expired, soon })
@@ -411,15 +439,21 @@ function Documents({
         <DocTile
           icon={IdCard}
           title={t("dash.yourNannySCv")}
-          subtitle={hasDoc("cv") ? t("dash.experienceTrainingAndReferences") : t("dash.notAddedYet")}
+          subtitle={
+            hasDoc("cv") ? t("dash.experienceTrainingAndReferences") : t("dash.notAddedYet")
+          }
           disabled={!hasDoc("cv")}
           onClick={() => openDoc("cv")}
         />
         {wallet.checks.map((check) => {
-          const meta = { title: CHECK_LABELS[check.docType] ? t(CHECK_LABELS[check.docType]!) : check.docType };
+          const meta = {
+            title: CHECK_LABELS[check.docType] ? t(CHECK_LABELS[check.docType]!) : check.docType,
+          };
           const detail = [
             check.issuedOn
-              ? t("dash.issued", { date: formatDate(check.issuedOn, { month: "long", year: "numeric" }) })
+              ? t("dash.issued", {
+                  date: formatDate(check.issuedOn, { month: "long", year: "numeric" }),
+                })
               : null,
             check.referenceLabel,
           ]
@@ -434,7 +468,8 @@ function Documents({
                 <span>
                   <span className="block font-medium text-foreground">{meta.title}</span>
                   <span className="mt-0.5 block text-sm text-muted-foreground">
-                    {t("dash.verified")}{detail ? ` · ${detail}` : ""}
+                    {t("dash.verified")}
+                    {detail ? ` · ${detail}` : ""}
                   </span>
                 </span>
               </div>
@@ -460,9 +495,13 @@ function Documents({
             <ScrollText className="h-4 w-4" />
           </span>
           <span>
-            <span className="flex items-center gap-1.5 font-medium text-foreground">{t("dash.acasDisciplinaryGuidance")}<ExternalLink className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              {t("dash.acasDisciplinaryGuidance")}
+              <ExternalLink className="h-3.5 w-3.5" />
             </span>
-            <span className="mt-1 block text-sm text-muted-foreground">{t("dash.officialStepByStepGuidance")}</span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              {t("dash.officialStepByStepGuidance")}
+            </span>
           </span>
         </a>
       </div>
@@ -489,13 +528,17 @@ function NannytaxCode({ code }: { code: string | null }) {
               void navigator.clipboard.writeText(code);
               toast.success(t("dash.codeCopied"));
             }}
-          >{t("dash.copyCode")}</Button>
+          >
+            {t("dash.copyCode")}
+          </Button>
           <a
             href="https://www.nannytax.co.uk"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-          >{t("dash.visitNannytax")}<ExternalLink className="h-4 w-4" />
+          >
+            {t("dash.visitNannytax")}
+            <ExternalLink className="h-4 w-4" />
           </a>
         </div>
       </div>

@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Building2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -72,26 +73,39 @@ function JoinByCode() {
         </div>
       ) : (
         <form
-          className="rounded-2xl bg-card p-6 shadow-sm"
+          className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm"
           onSubmit={(e) => {
             e.preventDefault();
             void run(async () => setAgencyName((await lookup({ data: { code } })).agencyName));
           }}
         >
+          <span className="mb-4 grid size-12 place-items-center rounded-full bg-brand-soft text-brand">
+            <Building2 className="size-5" aria-hidden />
+          </span>
           <h1 className="heading-display text-2xl text-foreground">{t("joinCode.title")}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("joinCode.intro")}
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("joinCode.intro")}</p>
           <Input
-            className="mt-4 uppercase tracking-[0.3em]"
+            aria-label={t("joinCode.title")}
+            className="mt-5 h-14 rounded-[0.875rem] text-center font-mono text-base uppercase tracking-[0.3em] md:text-base"
             value={code}
             maxLength={12}
             placeholder="ABCD2345"
             onChange={(e) => setCode(e.target.value.toUpperCase())}
           />
-          <Button type="submit" className="mt-3 w-full" disabled={busy || code.trim().length < 8}>
-            {t("joinCode.continue")}
+          <Button
+            type="submit"
+            size="lg"
+            className="mt-3 h-14 w-full rounded-[0.875rem] text-base font-semibold"
+            disabled={busy || code.trim().length < 8}
+          >
+            {t("joinCode.continue")} <ArrowRight className="size-4" aria-hidden />
           </Button>
+          <Link
+            to="/login"
+            className="mt-4 block text-center text-[0.8125rem] text-muted-foreground underline-offset-4 hover:underline"
+          >
+            Already have a wallet? Open it
+          </Link>
         </form>
       )}
     </main>

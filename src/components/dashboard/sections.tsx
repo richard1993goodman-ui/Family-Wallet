@@ -12,15 +12,19 @@ export function DashboardHeader({
   title,
   subtitle,
   actions,
+  leading,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string | null;
   actions?: ReactNode;
+  /** Optional mark before the title, e.g. the family's initials. */
+  leading?: ReactNode;
 }) {
   return (
-    <header className="flex flex-wrap items-end justify-between gap-4">
-      <div className="min-w-0">
+    <header className="flex items-start justify-between gap-3">
+      {leading && <div className="flex-none pt-0.5">{leading}</div>}
+      <div className="min-w-0 flex-1">
         <h1 className="heading-serif text-[1.625rem] leading-[1.1] text-foreground sm:text-[2rem]">
           {title}
         </h1>
@@ -29,7 +33,7 @@ export function DashboardHeader({
           {subtitle && <span> · {subtitle}</span>}
         </p>
       </div>
-      {actions && <div className="flex flex-none flex-wrap gap-2">{actions}</div>}
+      {actions && <div className="flex flex-none flex-wrap justify-end gap-2 pt-1">{actions}</div>}
     </header>
   );
 }
@@ -44,7 +48,9 @@ export function DemoBanner({ slug }: { slug: string }) {
         <p className="text-foreground/80">
           <span className="font-medium text-foreground">{t("dash.youReViewingADemo")}</span>
           {t("dash.demoNote")}{" "}
-          <Link to="/" className="font-medium text-foreground underline underline-offset-4">{t("dash.exitTheDemo")}</Link>
+          <Link to="/" className="font-medium text-foreground underline underline-offset-4">
+            {t("dash.exitTheDemo")}
+          </Link>
         </p>
       </div>
     </div>
@@ -109,7 +115,11 @@ export function EmergencyContacts({ wallet }: { wallet: DashboardWallet }) {
         {nannyContacts.map((nanny) => (
           <ContactRow
             key={nanny.id}
-            label={nanny.isYou ? t("dash.yourEmergencyContact") : t("dash.staffEmergencyContact", { name: nanny.name })}
+            label={
+              nanny.isYou
+                ? t("dash.yourEmergencyContact")
+                : t("dash.staffEmergencyContact", { name: nanny.name })
+            }
             contact={nanny.emergency!}
           />
         ))}
@@ -123,7 +133,9 @@ export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
   if (wallet.nannies.length === 0) return null;
   return (
     <section>
-      <SectionTitle>{wallet.nannies.length > 1 ? t("dash.yourNannies") : t("dash.yourNanny")}</SectionTitle>
+      <SectionTitle>
+        {wallet.nannies.length > 1 ? t("dash.yourNannies") : t("dash.yourNanny")}
+      </SectionTitle>
       <div className="surface-card space-y-4 p-5">
         {wallet.nannies.map((nanny) => (
           <div key={nanny.id} className="flex items-start gap-4">
@@ -176,14 +188,18 @@ export function DashboardFooter({
         type="button"
         className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
         onClick={onLock}
-      >{t("dash.lockThisWalletOnThis")}</button>
+      >
+        {t("dash.lockThisWalletOnThis")}
+      </button>
       {billingSlug && (
         <form method="post" action="/api/stripe/portal">
           <input type="hidden" name="slug" value={billingSlug} />
           <button
             type="submit"
             className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
-          >{t("dash.manageSubscription")}</button>
+          >
+            {t("dash.manageSubscription")}
+          </button>
         </form>
       )}
     </div>
