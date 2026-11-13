@@ -259,6 +259,20 @@ export function TodayTimeline({ slug }: { slug: string }) {
         )}
       </div>
 
+      <div className="-mb-2 flex items-center gap-2.5">
+        <h2 id="today-title" className="text-[1.0625rem] font-semibold text-foreground">
+          {!isNanny && data.nannyName ? t("tl.todayWith", { name: data.nannyName }) : t("tl.today")}
+        </h2>
+        {data.shift?.open && (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-positive">
+            <span
+              className="size-1.5 rounded-full bg-positive motion-safe:animate-pulse"
+              aria-hidden
+            />
+            {t("tl.live")} · <span className="num">{data.now}</span>
+          </span>
+        )}
+      </div>
       <div className="surface-card p-4" role="group" aria-labelledby="quick-log-title">
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <h2
@@ -407,23 +421,7 @@ export function TodayTimeline({ slug }: { slug: string }) {
         </div>
       )}
 
-      <section aria-labelledby="today-title">
-        <div className="mb-3 flex items-center gap-2.5">
-          <h2 id="today-title" className="text-[1.0625rem] font-semibold text-foreground">
-            {!isNanny && data.nannyName
-              ? t("tl.todayWith", { name: data.nannyName })
-              : t("tl.today")}
-          </h2>
-          {data.shift?.open && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-positive">
-              <span
-                className="size-1.5 rounded-full bg-positive motion-safe:animate-pulse"
-                aria-hidden
-              />
-              {t("tl.live")} · <span className="num">{data.now}</span>
-            </span>
-          )}
-        </div>
+      <section aria-labelledby="today-title" className="pt-1">
         {data.timeline.length === 0 ? (
           <p className="text-sm text-muted-foreground">{t("tl.nothingYetTodayStartThe")}</p>
         ) : (
