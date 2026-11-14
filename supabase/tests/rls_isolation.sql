@@ -424,5 +424,50 @@ begin
   select count(*) into n from pg_policies where schemaname = 'storage' and qual ilike '%has_role%';
   if n <> 0 then raise exception 'FAIL the team can still open family files without a grant'; end if;
 
+  -- Phase 5: uploading staff documents. Parents for any staff, staff for themselves, never into another household.
+  declare ok uuid; f text; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    f := 'vault/' || fam_a || '/lee-test.pdf';
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', f, u_lee::text, '{"size": 2048, "mimetype": "application/pdf"}');
+    ok := add_staff_document(fam_a, nan_a2, 'dbs', 'Lee DBS', f, 'dbs.pdf', '2026-01-01', '2029-01-01');
+    select count(*) into n from wallet_documents where id = ok and uploaded_by = 'nanny' and uploaded_by_nanny_id = nan_a2;
+    if n <> 1 then raise exception 'FAIL Lee could not add her own document'; end if;
+    denied := false; begin perform add_staff_document(fam_a, nan_a1, 'dbs', 'x', f, 'x.pdf', null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL Lee added a document for Pat'; end if;
+    denied := false; begin
+      insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', 'vault/' || fam_b || '/x.pdf', u_lee::text, '{}');
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL Lee put a file in family B''s folder'; end if;
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', 'vault/' || fam_a || '/big.pdf', u_lee::text, '{"size": 20000000, "mimetype": "application/pdf"}');
+    denied := false; begin perform add_staff_document(fam_a, nan_a2, 'dbs', 'x', 'vault/' || fam_a || '/big.pdf', 'x.pdf', null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a 20 MB file was accepted'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin
+      insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', 'vault/' || fam_a || '/out.pdf', u_out::text, '{}');
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an outsider uploaded into family A'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    f := 'vault/' || fam_a || '/owner-test.png';
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', f, uo_a::text, '{"size": 100, "mimetype": "image/png"}');
+    denied := false; begin perform add_staff_document(fam_a, nan_a1, 'id', 'x', 'vault/' || fam_a || '/lee-test.pdf', 'x', null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL owner recorded a file someone else uploaded'; end if;
+    ok := add_staff_document(fam_a, nan_a1, 'id', 'Pat ID', f, 'id.png', null, '2030-05-01');
+    select count(*) into n from wallet_documents where id = ok and uploaded_by = 'family' and nanny_id = nan_a1;
+    if n <> 1 then raise exception 'FAIL owner could not add a document for Pat'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from wallet_documents where id = ok; if n <> 0 then raise exception 'FAIL Lee sees Pat''s new document'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
