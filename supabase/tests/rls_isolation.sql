@@ -469,5 +469,44 @@ begin
     reset role;
   end;
 
+  -- Phase 5: timesheets. Staff submit their own as pending; only a parent of that household approves or declines.
+  declare sid uuid; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into timesheet_shifts (family_id, nanny_id, shift_date, start_time, end_time, submitted_by, status)
+      values (fam_a, nan_a2, '2026-11-10', '08:00', '18:00', 'nanny', 'pending') returning id into sid;
+    denied := false; begin
+      insert into timesheet_shifts (family_id, nanny_id, shift_date, start_time, end_time, submitted_by, status)
+        values (fam_a, nan_a2, '2026-11-11', '08:00', '18:00', 'nanny', 'approved');
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL Lee submitted a shift already approved'; end if;
+    denied := false; begin perform review_shift(sid, 'approved'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL Lee approved her own shift'; end if;
+    update timesheet_shifts set status = 'approved' where id = sid;
+    reset role;
+    select count(*) into n from timesheet_shifts where id = sid and status = 'pending';
+    if n <> 1 then raise exception 'FAIL Lee changed her shift''s status directly'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform review_shift(sid, 'approved'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B''s parent approved family A''s shift'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform review_shift(sid, 'paid'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a shift was set to an unknown status'; end if;
+    perform review_shift(sid, 'declined');
+    reset role;
+    select count(*) into n from timesheet_shifts where id = sid and status = 'declined' and reviewed_at is not null;
+    if n <> 1 then raise exception 'FAIL the parent could not decline the shift'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from timesheet_shifts where id = sid; if n <> 0 then raise exception 'FAIL Pat sees Lee''s shift'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
