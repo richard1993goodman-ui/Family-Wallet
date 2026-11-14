@@ -259,6 +259,29 @@ begin
     if n <> 2 then raise exception 'FAIL staff could not stop their own weekly commitment: %', n; end if;
     reset role;
   end;
+  -- Planned vs actual: either side records what happened, today or earlier only, never in another household.
+  declare plan_today uuid; plan_later uuid; chg uuid; begin
+    insert into planner_entries (family_id, entry_date, time_label, title, entry_type, added_by) values (fam_a, current_date, '15:00', 'Swim', 'activity', 'family') returning id into plan_today;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by) values (fam_a, current_date + 2, 'Later swim', 'activity', 'family') returning id into plan_later;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, approval) values (fam_a, current_date, 'Change', 'shift_change', 'family', 'pending') returning id into chg;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if record_outcome(plan_today, 'done') then raise exception 'FAIL owner B recorded household A''s outcome'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    if record_outcome(plan_later, 'done') then raise exception 'FAIL an outcome was recorded before the day'; end if;
+    if record_outcome(chg, 'done') then raise exception 'FAIL a shift change took an outcome'; end if;
+    if record_outcome(plan_today, 'maybe') then raise exception 'FAIL an outcome took a made-up value'; end if;
+    if not record_outcome(plan_today, 'done', '15:20', '16:05') then raise exception 'FAIL staff could not record a parent''s item as done'; end if;
+    reset role;
+    select count(*) into n from planner_entries where id = plan_today and outcome = 'done' and actual_start = '15:20' and actual_end = '16:05' and time_label = '15:00' and outcome_by = u_lee;
+    if n <> 1 then raise exception 'FAIL the outcome or the planned time was not kept'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if not record_outcome(plan_today, null) then raise exception 'FAIL a parent could not clear an outcome'; end if;
+    reset role;
+    select count(*) into n from planner_entries where id = plan_today and outcome is null and actual_start is null and outcome_by is null;
+    if n <> 1 then raise exception 'FAIL clearing left the old outcome behind'; end if;
+  end;
   insert into push_subscriptions (family_id, slug, role, endpoint, user_id) values (fam_a, 's', 'family', 'https://push.test.invalid/a', uo_a);
 
   perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
