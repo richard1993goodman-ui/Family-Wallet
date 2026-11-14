@@ -508,5 +508,52 @@ begin
     reset role;
   end;
 
+  -- Phase 5: messages and photos. Reading clears only your own dot; photos stay in the household's photos folder.
+  declare tid uuid; mid uuid; f text; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into household_threads (family_id, title, created_by, last_sender, nanny_unread) values (fam_a, 'Test', 'family', 'family', true) returning id into tid;
+    insert into household_messages (thread_id, sender, sender_name, body) values (tid, 'family', 'Parent', 'Hello');
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform mark_thread_read(tid);
+    reset role;
+    select count(*) into n from household_threads where id = tid and not nanny_unread and last_sender = 'family';
+    if n <> 1 then raise exception 'FAIL staff reading did not clear their dot, or changed who spoke last'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform mark_thread_read(tid); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B marked family A''s conversation read'; end if;
+    denied := false; begin
+      insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', 'moments/' || fam_a || '/b.jpg', uo_b::text, '{}');
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B uploaded into family A''s photos'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    f := 'moments/' || fam_a || '/lee.jpg';
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', f, u_lee::text, '{"size": 1000, "mimetype": "image/jpeg"}');
+    insert into family_moments (family_id, kind, moment_date, storage_path, added_by) values (fam_a, 'photo', '2026-11-14', f, 'nanny') returning id into mid;
+    -- a photo record aimed at a vault document must not open it
+    insert into family_moments (family_id, kind, moment_date, storage_path, added_by) values (fam_a, 'photo', '2026-11-14', 'vault/' || fam_a || '/owner-test.png', 'nanny');
+    select count(*) into n from storage.objects where name = 'vault/' || fam_a || '/owner-test.png';
+    if n <> 0 then raise exception 'FAIL a photo record opened a vault document'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from storage.objects where name = f; if n <> 1 then raise exception 'FAIL Pat cannot see the household photo'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from storage.objects where name = f; if n <> 0 then raise exception 'FAIL family B sees family A''s photo'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
