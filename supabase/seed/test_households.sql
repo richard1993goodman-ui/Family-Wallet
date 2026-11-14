@@ -29,6 +29,15 @@ begin
     (u_priya,  'priya.patel@test.invalid',   'authenticated', 'authenticated', now()),
     (u_sophie, 'sophie.clarke@test.invalid', 'authenticated', 'authenticated', now()),
     (u_ana,    'ana.ruiz@test.invalid',      'authenticated', 'authenticated', now());
+  -- What the sign-in service expects of a hand-made user: empty (not missing) tokens and an email identity.
+  -- The test-only password is set separately from the app's git-ignored .env.local, never stored here.
+  update auth.users set instance_id = '00000000-0000-0000-0000-000000000000', confirmation_token = '', recovery_token = '',
+    email_change_token_new = '', email_change = '', email_change_token_current = '', phone_change = '',
+    phone_change_token = '', reauthentication_token = '', created_at = now(), updated_at = now(), raw_app_meta_data = '{"provider": "email", "providers": ["email"]}',
+    raw_user_meta_data = '{}' where email like '%@test.invalid';
+  insert into auth.identities (provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+    select id::text, id, jsonb_build_object('sub', id::text, 'email', email, 'email_verified', true), 'email', now(), now(), now()
+    from auth.users where email like '%@test.invalid';
   insert into public.people (id, user_id, display_name) values
     ('c0000000-0000-4000-8000-000000000001', u_olivia, 'Olivia Harper'),
     ('c0000000-0000-4000-8000-000000000002', u_james,  'James Harper'),
