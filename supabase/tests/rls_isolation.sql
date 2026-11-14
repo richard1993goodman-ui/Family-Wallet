@@ -643,5 +643,50 @@ begin
     if n <> 0 then raise exception 'FAIL a reused phone kept the previous user''s registration'; end if;
   end;
 
+  -- Profile photos and who is online: own folder only, parents for children and staff, staff only for themselves.
+  declare kid uuid := gen_random_uuid(); fa text := 'avatars/' || fam_a || '/lee.jpg'; fk text := 'avatars/' || fam_a || '/kid.jpg';
+    denied boolean; begin
+    insert into family_children (id, family_id, name) values (kid, fam_a, 'Kid A');
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', fa, u_lee::text, '{}'), ('family-docs', fk, u_lee::text, '{}');
+    denied := false; begin
+      insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', 'avatars/' || fam_b || '/x.jpg', u_lee::text, '{}');
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL Lee uploaded a photo into another household'; end if;
+    perform set_profile_photo(fam_a, 'me', null, fa);
+    denied := false; begin perform set_profile_photo(fam_a, 'child', kid, fk); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff changed a child''s photo'; end if;
+    denied := false; begin perform set_profile_photo(fam_a, 'staff', nan_a1, fa); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff changed another staff member''s photo'; end if;
+    denied := false; begin perform set_profile_photo(fam_a, 'me', null, 'vault/' || fam_a || '/3'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a profile photo pointed at a vault file'; end if;
+    denied := false; begin perform set_profile_photo(fam_a, 'me', null, 'avatars/' || fam_a || '/missing.jpg'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a profile photo pointed at a file that was never uploaded'; end if;
+    perform i_am_here(fam_a);
+    select count(*) into n from household_photos(fam_a) where kind = 'staff' and me and online and photo_path = fa;
+    if n <> 1 then raise exception 'FAIL Lee''s own photo or online dot is missing'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform set_profile_photo(fam_a, 'child', kid, fk);
+    select count(*) into n from household_photos(fam_a) where kind = 'child' and photo_path = fk;
+    if n <> 1 then raise exception 'FAIL a parent could not set a child''s photo'; end if;
+    select count(*) into n from storage.objects where name in (fa, fk);
+    if n <> 2 then raise exception 'FAIL the household cannot see its own profile photos'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from household_photos(fam_a);
+    if n <> 0 then raise exception 'FAIL family B listed family A''s people'; end if;
+    select count(*) into n from storage.objects where name in (fa, fk);
+    if n <> 0 then raise exception 'FAIL family B can open family A''s profile photos'; end if;
+    denied := false; begin perform i_am_here(fam_a); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B marked itself online in family A'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
