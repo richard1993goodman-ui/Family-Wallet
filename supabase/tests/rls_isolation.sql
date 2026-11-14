@@ -555,5 +555,93 @@ begin
     reset role;
   end;
 
+  -- Phase 5: app push. Phones register only through save_push_token; pushes go to the other side, generic, and
+  -- respect muted kinds and quiet hours. Requests are only queued here and never leave, as the test rolls back.
+  declare tid uuid; denied boolean; q bigint; tok_o text := 'ExponentPushToken[ownerAAAAAAAA]'; tok_l text := 'ExponentPushToken[leeLLLLLLLLLL]';
+    sent int; h int := extract(hour from now() at time zone 'Europe/London')::int; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform save_push_token(fam_a, tok_o, 'Europe/London');
+    insert into household_threads (family_id, title, created_by, last_sender) values (fam_a, 'Push', 'family', 'family') returning id into tid;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin
+      insert into app_push_tokens (family_id, role, token) values (fam_a, 'nanny', tok_l);
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a phone was added without save_push_token'; end if;
+    perform save_push_token(fam_a, tok_l, 'Not/AZone');
+    select count(*) into n from app_push_tokens; if n <> 1 then raise exception 'FAIL Lee sees phones other than her own'; end if;
+    denied := false; begin update app_push_tokens set muted = array['bogus']; exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an unknown kind was muted'; end if;
+    denied := false; begin perform push_to_app(fam_a, 'nanny', 'messages', 'x'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a user called the push sender directly'; end if;
+    reset role;
+    select count(*) into n from app_push_tokens where token = tok_l and tz = 'Europe/London';
+    if n <> 1 then raise exception 'FAIL a bad time zone was saved'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform save_push_token(fam_a, 'ExponentPushToken[outsiderBBBBBB]', 'Europe/London'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B registered a phone with family A'; end if;
+    reset role;
+
+    select coalesce(max(id), 0) into q from net.http_request_queue;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into household_messages (thread_id, sender, sender_name, body) values (tid, 'nanny', 'Lee', 'Secret words');
+    reset role;
+    select count(*) into sent from net.http_request_queue where id > q and convert_from(body, 'utf8') like '%' || tok_o || '%'
+      and convert_from(body, 'utf8') like '%New message%' and convert_from(body, 'utf8') not like '%Secret%' and convert_from(body, 'utf8') not like '%Lee%';
+    if sent <> 1 then raise exception 'FAIL the parent''s phone did not get one generic message push'; end if;
+    select count(*) into n from net.http_request_queue where id > q and convert_from(body, 'utf8') like '%' || tok_l || '%';
+    if n <> 0 then raise exception 'FAIL the sender was pushed about her own message'; end if;
+    select count(*) into n from wallet_activity where family_id = fam_a and feature = 'messages' and actor = 'nanny';
+    if n < 1 then raise exception 'FAIL an app message did not reach the website badges'; end if;
+
+    -- muted kind, plain diary note, then a diary highlight
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    update app_push_tokens set muted = array['messages'];
+    reset role;
+    select coalesce(max(id), 0) into q from net.http_request_queue;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into household_messages (thread_id, sender, sender_name, body) values (tid, 'nanny', 'Lee', 'Again');
+    insert into daily_logs (family_id, log_date, notes) values (fam_a, '2026-11-14', 'Plain note');
+    reset role;
+    select count(*) into n from net.http_request_queue where id > q;
+    if n <> 0 then raise exception 'FAIL a muted message or a plain diary note pushed'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into daily_logs (family_id, log_date, notes, is_highlight) values (fam_a, '2026-11-14', 'Big day', true);
+    reset role;
+    select count(*) into n from net.http_request_queue where id > q and convert_from(body, 'utf8') like '%New highlight%'
+      and convert_from(body, 'utf8') like '%' || tok_o || '%' and convert_from(body, 'utf8') not like '%Big day%';
+    if n <> 1 then raise exception 'FAIL a diary highlight did not push to the parent'; end if;
+
+    -- quiet hours covering now
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    update app_push_tokens set muted = '{}', quiet_start = h, quiet_end = (h + 1) % 24;
+    reset role;
+    select coalesce(max(id), 0) into q from net.http_request_queue;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into household_messages (thread_id, sender, sender_name, body) values (tid, 'nanny', 'Lee', 'Late');
+    reset role;
+    select count(*) into n from net.http_request_queue where id > q;
+    if n <> 0 then raise exception 'FAIL a push was sent during quiet hours'; end if;
+
+    -- a phone handed to Pat stops getting Lee's pushes
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform save_push_token(fam_a, tok_l, 'Europe/London');
+    reset role;
+    select count(*) into n from app_push_tokens where token = tok_l and user_id = u_lee;
+    if n <> 0 then raise exception 'FAIL a reused phone kept the previous user''s registration'; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
