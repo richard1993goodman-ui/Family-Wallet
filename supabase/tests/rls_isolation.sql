@@ -282,6 +282,19 @@ begin
     select count(*) into n from planner_entries where id = plan_today and outcome is null and actual_start is null and outcome_by is null;
     if n <> 1 then raise exception 'FAIL clearing left the old outcome behind'; end if;
   end;
+  -- Quick log layout: one per household, either side may change it, only known buttons, never another household's.
+  perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  if set_quick_actions(fam_a, array['note']) then raise exception 'FAIL owner B changed household A''s quick log'; end if;
+  perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+  if set_quick_actions(fam_a, array['note', 'sun_cream']) then raise exception 'FAIL the quick log took a made-up button'; end if;
+  if set_quick_actions(fam_a, array['note', 'note']) then raise exception 'FAIL the quick log took a button twice'; end if;
+  if not set_quick_actions(fam_a, array['potty', 'note']) then raise exception 'FAIL staff could not arrange the quick log'; end if;
+  select count(*) into n from household_basics where id = fam_a and quick_actions = array['potty', 'note'];
+  if n <> 1 then raise exception 'FAIL the quick log layout was not saved'; end if;
+  perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+  if not set_quick_actions(fam_a, null) then raise exception 'FAIL a parent could not reset the quick log'; end if;
+  reset role;
   insert into push_subscriptions (family_id, slug, role, endpoint, user_id) values (fam_a, 's', 'family', 'https://push.test.invalid/a', uo_a);
 
   perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
