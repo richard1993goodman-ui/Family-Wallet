@@ -295,6 +295,34 @@ begin
   perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
   if not set_quick_actions(fam_a, null) then raise exception 'FAIL a parent could not reset the quick log'; end if;
   reset role;
+  -- Editing: same rule as removing; a series is edited from a week onwards; shift changes and others' items refused.
+  declare ser uuid := gen_random_uuid(); mid uuid; par uuid; chg uuid; begin
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, created_by, series_id) values
+      (fam_a, current_date + 1, 'Violin', 'activity', 'nanny', u_lee, ser),
+      (fam_a, current_date + 8, 'Violin', 'activity', 'nanny', u_lee, ser),
+      (fam_a, current_date + 15, 'Violin', 'activity', 'nanny', u_lee, ser);
+    select id into mid from planner_entries where series_id = ser and entry_date = current_date + 8;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by) values (fam_a, current_date + 1, 'Parent item', 'note', 'family') returning id into par;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, approval) values (fam_a, current_date + 1, 'Change', 'shift_change', 'family', 'pending') returning id into chg;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if edit_planner_entry(mid, true, 'Hacked', null, null, null, null, null) <> 0 then raise exception 'FAIL owner B edited household A''s item'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    if edit_planner_entry(par, false, 'Mine now', null, null, null, null, null) <> 0 then raise exception 'FAIL staff edited a parent''s item'; end if;
+    if edit_planner_entry(chg, false, 'Moved', null, null, null, null, null) <> 0 then raise exception 'FAIL a shift change was edited'; end if;
+    if edit_planner_entry(mid, true, 'Cello', '16:00', null, 'Mia', null, null) <> 2 then raise exception 'FAIL staff could not edit their own series from a week onwards'; end if;
+    reset role;
+    select count(*) into n from planner_entries where series_id = ser and title = 'Cello' and time_label = '16:00' and entry_date >= current_date + 8 and added_by = 'nanny';
+    if n <> 2 then raise exception 'FAIL the later weeks were not edited'; end if;
+    select count(*) into n from planner_entries where series_id = ser and title = 'Violin' and entry_date = current_date + 1;
+    if n <> 1 then raise exception 'FAIL an earlier week was edited'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if edit_planner_entry(mid, false, '', '17:00', null, null, null, null) <> 1 then raise exception 'FAIL a parent could not edit staff''s week'; end if;
+    reset role;
+    select count(*) into n from planner_entries where id = mid and title = 'Cello' and time_label = '17:00';
+    if n <> 1 then raise exception 'FAIL an empty title wiped the title or the time was not kept'; end if;
+  end;
   insert into push_subscriptions (family_id, slug, role, endpoint, user_id) values (fam_a, 's', 'family', 'https://push.test.invalid/a', uo_a);
 
   perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
