@@ -94,11 +94,16 @@ begin
   select count(*) into n from house_manual_entries where family_id = fam_b; if n <> 1 then raise exception 'FAIL ending A also removed Pat from B'; end if;
   reset role;
 
-  -- Not signed in: nothing readable.
+  -- Not signed in: refused outright, not just shown nothing (Phase 1 lock-down).
   set local role anon;
   begin
     select count(*) into n from wallet_documents;
-    if n <> 0 then raise exception 'FAIL anonymous read % documents', n; end if;
+    raise exception 'FAIL anonymous visitors can reach documents (% rows)', n;
+  exception when insufficient_privilege then null;
+  end;
+  begin
+    perform public.is_household_member(fam_a);
+    raise exception 'FAIL anonymous visitors can run household checks';
   exception when insufficient_privilege then null;
   end;
   reset role;
@@ -223,11 +228,58 @@ begin
   select count(*) into n from household_messages; if n <> 0 then raise exception 'FAIL owner B sees A messages'; end if;
   reset role;
 
+  -- Phase 1: support access only by a family's grant, every grant logged; the audit log cannot be changed.
+  perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  insert into support_access_grants (family_id, reason, expires_at) values (fam_a, 'help with timesheets', now() + interval '1 day');
+  update support_access_grants set revoked_at = now() where family_id = fam_a;
+  get diagnostics n = row_count; if n <> 1 then raise exception 'FAIL owner A could not withdraw support access'; end if;
+  reset role;
+  perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  select count(*) into n from support_access_grants; if n <> 0 then raise exception 'FAIL owner B sees A support grants'; end if;
+  begin
+    insert into support_access_grants (family_id, reason, expires_at) values (fam_a, 'x', now() + interval '1 day');
+    raise exception 'FAIL owner B granted support access to household A';
+  exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+  reset role;
+  perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  select count(*) into n from support_access_grants; if n <> 0 then raise exception 'FAIL staff see support grants'; end if;
+  begin
+    insert into support_access_grants (family_id, reason, expires_at) values (fam_a, 'x', now() + interval '1 day');
+    raise exception 'FAIL staff granted support access';
+  exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+  begin
+    select count(*) into n from audit_log;
+    if n <> 0 then raise exception 'FAIL staff read the audit log'; end if;
+  exception when insufficient_privilege then null; end;
+  reset role;
+  select count(*) into n from audit_log where family_id = fam_a and action in ('support_access.granted', 'support_access.withdrawn');
+  if n <> 2 then raise exception 'FAIL support grant and withdrawal logged % times (want 2)', n; end if;
+  begin
+    update audit_log set reason = 'edited' where family_id = fam_a;
+    raise exception 'FAIL the audit log could be edited';
+  exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+  begin
+    delete from audit_log where family_id = fam_a;
+    raise exception 'FAIL the audit log could be deleted from';
+  exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+
   -- Whole database: every table has row protection on, and no policy opens anything to signed-out visitors.
   select count(*) into n from pg_class where relnamespace = 'public'::regnamespace and relkind = 'r' and not relrowsecurity;
   if n <> 0 then raise exception 'FAIL % tables have row protection switched off', n; end if;
   select count(*) into n from pg_policies where schemaname in ('public', 'storage') and roles && array['anon', 'public']::name[];
   if n <> 0 then raise exception 'FAIL % policies are open to signed-out visitors', n; end if;
+  select count(*) into n from pg_class where relnamespace = 'public'::regnamespace and relkind in ('r', 'v')
+    and has_table_privilege('anon', oid, 'select, insert, update, delete');
+  if n <> 0 then raise exception 'FAIL signed-out visitors can still reach % tables', n; end if;
+  select count(*) into n from pg_proc where pronamespace = 'public'::regnamespace and has_function_privilege('anon', oid, 'execute');
+  if n <> 0 then raise exception 'FAIL signed-out visitors can run % functions', n; end if;
+  if has_function_privilege('authenticated', 'public.purge_family(uuid, text)', 'execute') then
+    raise exception 'FAIL signed-in people can run the household purge'; end if;
+  select count(*) into n from pg_policies where schemaname = 'storage' and qual ilike '%has_role%';
+  if n <> 0 then raise exception 'FAIL the team can still open family files without a grant'; end if;
 
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
