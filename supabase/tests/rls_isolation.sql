@@ -177,6 +177,20 @@ begin
   select count(*) into n from household_basics; if n <> 0 then raise exception 'FAIL outsider households: %', n; end if;
   reset role;
 
+  -- Phase 4: anyone in the household ends a running nap (website behaviour); nobody outside can.
+  update care_events set ended_at = null where id = care_a;
+  perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  if end_nap(care_a) then raise exception 'FAIL owner B ended a nap in household A'; end if;
+  reset role;
+  perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  if not end_nap(care_a) then raise exception 'FAIL staff could not end a nap a parent started'; end if;
+  if end_nap(care_a) then raise exception 'FAIL a nap was ended twice'; end if;
+  reset role;
+  select count(*) into n from care_events where id = care_a and ended_at is not null and detail = 'p';
+  if n <> 1 then raise exception 'FAIL ending a nap changed more than the wake-up time'; end if;
+
   -- V2 groups 3 to 6: messages, work and money, staff records, settings. Pat rejoins A, so A has two staff.
   update household_members set status = 'active' where family_id = fam_a and person_id = p_pat;
   insert into timesheet_shifts (family_id, nanny_id, shift_date, start_time, end_time) values
