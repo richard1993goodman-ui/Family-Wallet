@@ -198,6 +198,49 @@ begin
   insert into expense_claims (family_id, nanny_id, item) values (fam_a, nan_a1, 'Pat train'), (fam_a, nan_a2, 'Lee train');
   insert into household_threads (id, family_id, title, created_by, last_sender) values (thr_a, fam_a, 'A chat', 'family', 'family');
   insert into household_messages (thread_id, sender, body) values (thr_a, 'family', 'hello');
+
+  -- Phase 4 calendar: staff remove only their own items; the other side approves a shift change.
+  declare note_lee uuid; chg_lee uuid; chg_oa uuid; denied boolean := false; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by) values (fam_a, current_date, 'Lee note', 'note', 'nanny') returning id into note_lee;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, approval) values (fam_a, current_date, 'Lee change', 'shift_change', 'nanny', 'pending') returning id into chg_lee;
+    begin
+      insert into planner_entries (family_id, entry_date, title, entry_type, added_by, created_by) values (fam_a, current_date, 'as Pat', 'note', 'nanny', u_pat);
+    exception when insufficient_privilege then denied := true; end;
+    if not denied then raise exception 'FAIL staff added a calendar item in someone else''s name'; end if;
+    if review_shift_change(chg_lee, 'approved') then raise exception 'FAIL staff approved their own shift change'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    delete from planner_entries where id = note_lee; get diagnostics n = row_count;
+    if n <> 0 then raise exception 'FAIL staff removed another staff member''s calendar item'; end if;
+    if review_shift_change(chg_lee, 'approved') then raise exception 'FAIL staff approved another staff member''s shift change'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    delete from planner_entries where id = note_lee; get diagnostics n = row_count;
+    if n <> 1 then raise exception 'FAIL staff could not remove their own calendar item'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if review_shift_change(chg_lee, 'declined') then raise exception 'FAIL owner B decided household A''s shift change'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, approval) values (fam_a, current_date, 'Owner change', 'shift_change', 'family', 'pending') returning id into chg_oa;
+    if review_shift_change(chg_oa, 'approved') then raise exception 'FAIL a parent approved their own shift change'; end if;
+    if review_shift_change(chg_lee, 'maybe') then raise exception 'FAIL a shift change took a made-up decision'; end if;
+    if not review_shift_change(chg_lee, 'approved') then raise exception 'FAIL a parent could not approve a staff shift change'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if not review_shift_change(chg_oa, 'declined') then raise exception 'FAIL staff could not decide a parent''s shift change'; end if;
+    if review_shift_change(chg_oa, 'approved') then raise exception 'FAIL a shift change was decided twice'; end if;
+    reset role;
+    select count(*) into n from planner_entries where id in (chg_lee, chg_oa) and ((id = chg_lee and approval = 'approved') or (id = chg_oa and approval = 'declined'));
+    if n <> 2 then raise exception 'FAIL shift change decisions were not saved'; end if;
+  end;
   insert into push_subscriptions (family_id, slug, role, endpoint, user_id) values (fam_a, 's', 'family', 'https://push.test.invalid/a', uo_a);
 
   perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
