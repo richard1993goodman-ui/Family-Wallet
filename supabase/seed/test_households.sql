@@ -100,6 +100,15 @@ begin
     (harper, today + 3, '15:00', 'Sophie to finish at 15:00 (dentist)', null, 'shift_change', 'nanny', 'pending'),
     (patel,  today + 1, '16:30', 'Swimming lesson', 'Arjun', 'note', 'family', 'approved');
 
+  -- Regular hours: Sophie full days at the Harpers, Ana a split shift, Sophie after school at the Patels.
+  insert into public.nanny_work_hours (family_id, nanny_id, working_days) values
+    (harper, sophie_h, (select jsonb_agg(jsonb_build_object('day', d, 'enabled', true, 'startTime', '08:00', 'endTime', '18:00'))
+      from unnest(array['Monday','Tuesday','Wednesday','Thursday','Friday']) d)),
+    (harper, ana_h, (select jsonb_agg(jsonb_build_object('day', d, 'enabled', true, 'startTime', '07:00', 'endTime', '09:00', 'startTime2', '15:00', 'endTime2', '19:00'))
+      from unnest(array['Monday','Tuesday','Wednesday','Thursday','Friday']) d)),
+    (patel, sophie_p, (select jsonb_agg(jsonb_build_object('day', d, 'enabled', true, 'startTime', '15:00', 'endTime', '18:30'))
+      from unnest(array['Monday','Tuesday','Wednesday']) d));
+
   -- Messages.
   insert into public.household_threads (id, family_id, title, created_by, last_sender, family_unread) values
     (thr_h, harper, 'This week', 'family', 'nanny', true),
