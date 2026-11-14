@@ -729,5 +729,102 @@ begin
     if n <> 1 then raise exception 'FAIL the expense review did not save'; end if;
   end;
 
+  -- Family and home: playbook sections for staff, house codes, travel checklist and notes.
+  declare door uuid; trip uuid := gen_random_uuid(); pb uuid; denied boolean; v text; begin
+    select id into door from house_manual_entries where family_id = fam_a;
+    insert into travel_trips (id, family_id, destination, start_date, end_date) values (trip, fam_a, 'Test villa', current_date, current_date + 7);
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin insert into kids_playbook_entries (family_id, category, title, added_by) values (fam_a, 'comfort', 'x', 'nanny');
+      exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff added to a parents-only playbook section'; end if;
+    insert into kids_playbook_entries (family_id, category, title, added_by) values (fam_a, 'activities', 'Den building', 'nanny') returning id into pb;
+    denied := false; begin update kids_playbook_entries set category = 'handle' where id = pb; exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff moved an idea into a parents-only section'; end if;
+    perform reveal_house_code(door);
+    denied := false; begin perform set_house_code(door, '9999'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff set a house code'; end if;
+    update travel_trips set destination = 'Changed' where id = trip;
+    perform travel_checklist(trip, 'add', 'Armbands');
+    perform add_travel_note(trip, 'pool', 'In the pool 10 to 11');
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform reveal_house_code(door); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B saw family A''s house code'; end if;
+    denied := false; begin perform travel_checklist(trip, 'add', 'x'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B changed family A''s checklist'; end if;
+    denied := false; begin perform add_travel_note(trip, 'general', 'x'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B added a note to family A''s trip'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform set_house_code(door, ' 1234 ');
+    v := reveal_house_code(door);
+    if v is distinct from '1234' then raise exception 'FAIL a parent could not set and show a code'; end if;
+    reset role;
+
+    select count(*) into n from travel_trips where id = trip and destination = 'Test villa'
+      and jsonb_array_length(checklist) = 1 and handover_notes->0->>'authorName' = 'Lee' and handover_notes->0->>'authorRole' = 'nanny';
+    if n <> 1 then raise exception 'FAIL staff changed a trip, or the checklist or note did not save'; end if;
+    select count(*) into n from house_manual_entries where id = door and has_secret;
+    if n <> 1 then raise exception 'FAIL the code was not stored'; end if;
+  end;
+
+  -- Groceries: one shared list; buying with your own money adds a private expense in the same step.
+  declare milk uuid; bread uuid; eggs uuid; exp uuid; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into grocery_items (family_id, name, added_by) values (fam_a, 'Eggs', 'family') returning id into eggs;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into grocery_items (family_id, name, added_by) values (fam_a, 'Milk', 'nanny') returning id into milk;
+    insert into grocery_items (family_id, name, added_by) values (fam_a, 'Bread', 'nanny') returning id into bread;
+    denied := false; begin insert into grocery_items (family_id, name, added_by) values (fam_a, 'x', 'family'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff added a grocery item as a parent'; end if;
+    delete from grocery_items where id = eggs;
+    denied := false; begin perform buy_groceries(array[milk, bread], 0); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a grocery expense of 0 was accepted'; end if;
+    exp := buy_groceries(array[milk, bread], 4.2);
+    if exp is null then raise exception 'FAIL buying with an amount made no expense'; end if;
+    delete from grocery_items where id = milk;
+    denied := false; begin perform buy_groceries(array[milk], null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an item was bought twice'; end if;
+    reset role;
+    select count(*) into n from grocery_items where id in (eggs, milk);
+    if n <> 2 then raise exception 'FAIL staff removed a parent''s item or a bought item'; end if;
+    select count(*) into n from expense_claims where id = exp and nanny_id = nan_a2 and amount = 4.20 and category = 'food'
+      and status = 'pending' and submitted_by = 'nanny' and item = 'Groceries: Milk, Bread';
+    if n <> 1 then raise exception 'FAIL the grocery expense was not saved correctly'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from grocery_items where id = milk;
+    if n <> 1 then raise exception 'FAIL other staff in the household could not see the list'; end if;
+    select count(*) into n from expense_claims where id = exp;
+    if n <> 0 then raise exception 'FAIL other staff saw a colleague''s grocery expense'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from grocery_items where family_id = fam_a;
+    if n <> 0 then raise exception 'FAIL family B saw family A''s groceries'; end if;
+    denied := false; begin perform buy_groceries(array[eggs], null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B ticked off family A''s groceries'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform buy_groceries(array[eggs], 3); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a parent made a grocery expense in a nanny''s name'; end if;
+    if buy_groceries(array[eggs], null) is not null then raise exception 'FAIL ticking off without an amount made an expense'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
