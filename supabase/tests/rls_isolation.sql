@@ -688,5 +688,46 @@ begin
     reset role;
   end;
 
+  -- Day to day pages: staff reports wait for sign-off, only a parent signs off or reviews expenses, nothing crosses homes.
+  declare inc uuid := gen_random_uuid(); exp uuid := gen_random_uuid(); denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin
+      insert into incident_reports (family_id, child_name, what_happened, reported_by, acknowledged_at) values (fam_a, 'Kid', 'Fell', 'nanny', now());
+    exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff signed off their own incident report'; end if;
+    insert into incident_reports (id, family_id, child_name, what_happened, reported_by) values (inc, fam_a, 'Kid', 'Fell', 'nanny');
+    denied := false; begin perform acknowledge_incident(inc); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff signed off an incident report'; end if;
+    delete from incident_reports where id = inc;
+    insert into expense_claims (id, family_id, nanny_id, item, amount, submitted_by, status) values (exp, fam_a, nan_a2, 'Bus', 3, 'nanny', 'pending');
+    denied := false; begin perform review_expense(exp, 'reimbursed'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff reviewed their own expense'; end if;
+    reset role;
+    select count(*) into n from incident_reports where id = inc;
+    if n <> 1 then raise exception 'FAIL an incident report was removed'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform acknowledge_incident(inc); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B signed off family A''s report'; end if;
+    denied := false; begin perform review_expense(exp, 'declined'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B reviewed family A''s expense'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if not acknowledge_incident(inc) then raise exception 'FAIL a parent could not sign off a report'; end if;
+    if acknowledge_incident(inc) then raise exception 'FAIL a report was signed off twice'; end if;
+    perform review_expense(exp, 'reimbursed');
+    denied := false; begin perform review_expense(exp, 'pending'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an expense was set to something other than reimbursed or declined'; end if;
+    reset role;
+    select count(*) into n from incident_reports where id = inc and acknowledged_by_name = 'Owner A';
+    if n <> 1 then raise exception 'FAIL the sign-off did not record the parent''s name'; end if;
+    select count(*) into n from expense_claims where id = exp and status = 'reimbursed' and reviewed_at is not null;
+    if n <> 1 then raise exception 'FAIL the expense review did not save'; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
