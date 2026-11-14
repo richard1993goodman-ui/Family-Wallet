@@ -10,7 +10,7 @@ create table public.support_access_grants (
   family_id uuid not null references public.families(id) on delete cascade,
   granted_by uuid not null default auth.uid(),
   reason text not null,
-  expires_at timestamptz not null,
+  expires_at timestamptz not null default now() + interval '7 days', -- agreed 14 Nov: 7 days, at most
   revoked_at timestamptz,
   created_at timestamptz not null default now(),
   check (expires_at > created_at)
@@ -25,7 +25,8 @@ grant insert (family_id, reason, expires_at) on public.support_access_grants to 
 grant update (revoked_at) on public.support_access_grants to authenticated;
 create policy "Parents read" on public.support_access_grants for select to authenticated using (public.is_household_owner(family_id));
 create policy "Parents grant" on public.support_access_grants for insert to authenticated
-  with check (public.is_household_owner(family_id) and granted_by = auth.uid() and expires_at > now());
+  with check (public.is_household_owner(family_id) and granted_by = auth.uid()
+    and expires_at > now() and expires_at <= now() + interval '7 days');
 create policy "Parents withdraw" on public.support_access_grants for update to authenticated
   using (public.is_household_owner(family_id)) with check (public.is_household_owner(family_id));
 

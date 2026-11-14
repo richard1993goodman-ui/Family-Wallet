@@ -231,7 +231,11 @@ begin
   -- Phase 1: support access only by a family's grant, every grant logged; the audit log cannot be changed.
   perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
   set local role authenticated;
-  insert into support_access_grants (family_id, reason, expires_at) values (fam_a, 'help with timesheets', now() + interval '1 day');
+  insert into support_access_grants (family_id, reason) values (fam_a, 'help with timesheets'); -- default: 7 days
+  begin
+    insert into support_access_grants (family_id, reason, expires_at) values (fam_a, 'x', now() + interval '8 days');
+    raise exception 'FAIL a support grant could last longer than 7 days';
+  exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
   update support_access_grants set revoked_at = now() where family_id = fam_a;
   get diagnostics n = row_count; if n <> 1 then raise exception 'FAIL owner A could not withdraw support access'; end if;
   reset role;
