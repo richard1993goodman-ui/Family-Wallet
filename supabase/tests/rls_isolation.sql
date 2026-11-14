@@ -241,6 +241,24 @@ begin
     select count(*) into n from planner_entries where id in (chg_lee, chg_oa) and ((id = chg_lee and approval = 'approved') or (id = chg_oa and approval = 'declined'));
     if n <> 2 then raise exception 'FAIL shift change decisions were not saved'; end if;
   end;
+  -- Recurring commitments: one row per week linked by series_id; the responsible nanny must be in the same household.
+  declare ser uuid := gen_random_uuid(); denied boolean := false; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into planner_entries (family_id, entry_date, title, entry_type, added_by, series_id, nanny_id)
+      select fam_a, current_date + 7 * w, 'Lee violin', 'activity', 'nanny', ser, nan_a2 from generate_series(0, 2) w;
+    begin
+      insert into planner_entries (family_id, entry_date, title, entry_type, added_by, nanny_id) values (fam_a, current_date, 'B nanny', 'activity', 'nanny', nan_b1);
+    exception when foreign_key_violation then denied := true; end;
+    if not denied then raise exception 'FAIL a calendar item named a nanny from another household'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    delete from planner_entries where series_id = ser; get diagnostics n = row_count;
+    if n <> 0 then raise exception 'FAIL staff removed another staff member''s weekly commitment'; end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    delete from planner_entries where series_id = ser and entry_date > current_date; get diagnostics n = row_count;
+    if n <> 2 then raise exception 'FAIL staff could not stop their own weekly commitment: %', n; end if;
+    reset role;
+  end;
   insert into push_subscriptions (family_id, slug, role, endpoint, user_id) values (fam_a, 's', 'family', 'https://push.test.invalid/a', uo_a);
 
   perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
