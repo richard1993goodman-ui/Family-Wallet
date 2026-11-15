@@ -998,5 +998,47 @@ begin
     if n <> 1 then raise exception 'FAIL removing a household document removed the wrong records'; end if;
   end;
 
+  -- Bank details: only the nanny writes, and only her own row.
+  declare denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform save_bank_details(fam_a, 'Parent', null, null, '12345678', null, null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a parent saved bank details'; end if;
+    denied := false; begin perform remove_bank_details(fam_a); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a parent removed bank details'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform save_bank_details(fam_a, 'Outsider', null, null, '12345678', null, null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B saved bank details in family A'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform save_bank_details(fam_a, 'Lee', null, null, null, null, null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL bank details with no account number or IBAN were accepted'; end if;
+    denied := false; begin perform save_bank_details(fam_a, 'Lee', null, null, repeat('1', 35), null, null, null); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a too-long account number was accepted'; end if;
+    perform save_bank_details(fam_a, ' Lee New ', 'Test Bank', '11-22-33', '87654321', '', null, 'NANNY LEE');
+    select count(*) into n from nanny_bank_details;
+    if n <> 1 then raise exception 'FAIL Lee sees bank details other than her own: %', n; end if;
+    reset role;
+    select count(*) into n from nanny_bank_details where family_id = fam_a and nanny_id = nan_a2 and account_name = 'Lee New'
+      and account_number = '87654321' and iban is null and swift is null;
+    if n <> 1 then raise exception 'FAIL Lee''s bank details were not saved correctly'; end if;
+    select count(*) into n from nanny_bank_details where family_id = fam_a and nanny_id = nan_a1 and account_name = 't';
+    if n <> 1 then raise exception 'FAIL saving changed a colleague''s bank details'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform remove_bank_details(fam_a);
+    reset role;
+    select count(*) into n from nanny_bank_details where nanny_id in (nan_a1, nan_a2, nan_b1);
+    if n <> 2 then raise exception 'FAIL removing bank details removed the wrong rows'; end if;
+    select count(*) into n from nanny_bank_details where nanny_id = nan_a1;
+    if n <> 0 then raise exception 'FAIL Pat could not remove their own bank details'; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
