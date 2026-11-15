@@ -1107,5 +1107,47 @@ begin
     reset role;
   end;
 
+  -- Phase 2 parent shortcut: a verified login whose email is a wallet's contact email may claim its empty owner place, once.
+  declare
+    u_new uuid := gen_random_uuid(); u_unv uuid := gen_random_uuid();
+    fam_c uuid := gen_random_uuid(); fam_d uuid := gen_random_uuid(); fam_e uuid := gen_random_uuid();
+  begin
+    insert into auth.users (id, email, aud, role, email_confirmed_at) values
+      (u_new, 'new@test.invalid', 'authenticated', 'authenticated', now()), (u_unv, 'unv@test.invalid', 'authenticated', 'authenticated', null);
+    insert into families (id, slug, family_name, access_code_hash, contact_email) values
+      (fam_c, 'test-c-' || substr(fam_c::text, 1, 6), 'Family C', 'x', ' New@Test.invalid'),
+      (fam_d, 'test-d-' || substr(fam_d::text, 1, 6), 'Family D', 'x', 'new@test.invalid'),
+      (fam_e, 'test-e-' || substr(fam_e::text, 1, 6), 'Family E', 'x', 'unv@test.invalid');
+    insert into household_members (family_id, person_id, role, status) values (fam_d, p_ob, 'owner', 'active');
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_new, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from my_wallet_offers(); if n <> 1 then raise exception 'FAIL wallet offers for a matching email: % (want 1)', n; end if;
+    begin perform claim_my_wallet(fam_d); raise exception 'FAIL claimed a wallet that already has an owner login';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    perform claim_my_wallet(fam_c);
+    select count(*) into n from household_basics; if n <> 1 then raise exception 'FAIL after claiming, sees % homes (want 1)', n; end if;
+    select count(*) into n from my_wallet_offers(); if n <> 0 then raise exception 'FAIL a claimed wallet is still offered'; end if;
+    begin perform claim_my_wallet(fam_c); raise exception 'FAIL the same wallet was claimed twice';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_unv, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from my_wallet_offers(); if n <> 0 then raise exception 'FAIL an unverified email was offered a wallet'; end if;
+    begin perform claim_my_wallet(fam_e); raise exception 'FAIL an unverified email claimed a wallet';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform claim_my_wallet(fam_e); raise exception 'FAIL an outsider claimed a wallet with someone else''s email';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+
+    select count(*) into n from audit_log where family_id = fam_c and action = 'account_linked_by_email';
+    if n <> 1 then raise exception 'FAIL wallet claim not in the audit log: %', n; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
