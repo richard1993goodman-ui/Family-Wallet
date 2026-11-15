@@ -1230,6 +1230,34 @@ begin
     if n <> 0 then raise exception 'FAIL the outsider joined without a valid code'; end if;
     select count(*) into n from audit_log where family_id = fam_id and action = 'co_parent_joined';
     if n <> 1 then raise exception 'FAIL the co-parent join is not in the audit log: %', n; end if;
+
+    -- Agreement writer: only the owner saves or issues; a stranger is refused; an issued version can't be overwritten; the
+    -- version saved is the one signing will check (the wording equals the stored agreement).
+    declare ag_nanny uuid := gen_random_uuid(); ag_data jsonb := '{"employerName":"Dana Family","nannyName":"Test Nanny","startDate":"2026-09-01","hourlyRate":"15.00","documentStyle":"full"}';
+      vtext text;
+    begin
+      insert into family_nannies (id, family_id, name, role, status) values (ag_nanny, fam_id, 'Test Nanny', 'nanny', 'active');
+      perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+      set local role authenticated;
+      begin perform save_agreement_draft(fam_id, ag_nanny, ag_data); raise exception 'FAIL a stranger saved an agreement draft';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      begin perform issue_agreement(fam_id, ag_nanny); raise exception 'FAIL a stranger issued an agreement';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      reset role;
+      perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
+      set local role authenticated;
+      perform save_agreement_draft(fam_id, ag_nanny, ag_data);
+      n := issue_agreement(fam_id, ag_nanny);
+      if n <> 1 then raise exception 'FAIL the first issue is not version 1: %', n; end if;
+      begin perform save_agreement_draft(fam_id, ag_nanny, ag_data || '{"hourlyRate":"99"}');
+        select snapshot_text into vtext from agreement_versions where family_id = fam_id and version = 1;
+        if vtext::jsonb <> ag_data then raise exception 'FAIL the issued wording differs from what was saved'; end if;
+      end;
+      reset role;
+      select count(*) into n from agreement_versions v join nanny_agreements a on a.id = v.agreement_id
+        where v.family_id = fam_id and v.snapshot_text::jsonb = a.agreement_data;
+      if n <> 1 then raise exception 'FAIL the signed wording does not match the issued version: %', n; end if;
+    end;
   end;
 
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
