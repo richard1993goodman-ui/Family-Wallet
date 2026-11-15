@@ -1040,5 +1040,72 @@ begin
     if n <> 0 then raise exception 'FAIL Pat could not remove their own bank details'; end if;
   end;
 
+  -- Agreement: issued and unchanged only, parent as parent, only the agreement's own nanny, once per role per version.
+  declare denied boolean; ag uuid := gen_random_uuid(); v1 uuid := gen_random_uuid(); v2 uuid := gen_random_uuid(); begin
+    insert into nanny_agreements (id, family_id, nanny_id, status, version, agreement_data, issued_at)
+      values (ag, fam_a, nan_a2, 'issued', 1, '{"nannyName":"Lee","hourlyRate":"15"}', now());
+    insert into agreement_versions (id, agreement_id, family_id, nanny_id, version, snapshot_text, content_hash)
+      values (v1, ag, fam_a, nan_a2, 1, '{"hourlyRate":"15","nannyName":"Lee"}', 'hash1');
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Outsider'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B signed family A''s agreement'; end if;
+    if coalesce(agreement_on(fam_a), false) then raise exception 'FAIL agreement_on answered for another household'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Pat Nanny'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a nanny signed another nanny''s agreement'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Le'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a 2-letter signature was accepted'; end if;
+    perform sign_agreement(fam_a, ' Lee Nanny ');
+    denied := false; begin perform sign_agreement(fam_a, 'Lee Nanny'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL the nanny signed the same version twice'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform sign_agreement(fam_a, 'Owner A');
+    reset role;
+    select count(*) into n from document_signatures where agreement_version_id = v1 and content_hash = 'hash1' and doc_version = '1'
+      and ((signer_role = 'nanny' and signer_name = 'Lee Nanny') or (signer_role = 'parent' and signer_name = 'Owner A')) and nanny_id = nan_a2;
+    if n <> 2 then raise exception 'FAIL agreement signatures were not recorded correctly: %', n; end if;
+
+    -- Version 2 edited after issue, then a draft, then switched off: all refused.
+    update nanny_agreements set version = 2, agreement_data = '{"nannyName":"Lee","hourlyRate":"16"}' where id = ag;
+    insert into agreement_versions (id, agreement_id, family_id, nanny_id, version, snapshot_text, content_hash)
+      values (v2, ag, fam_a, nan_a2, 2, '{"nannyName":"Lee","hourlyRate":"17"}', 'hash2');
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Owner A'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an agreement edited since issue was signed'; end if;
+    reset role;
+    update agreement_versions set snapshot_text = '{"nannyName":"Lee","hourlyRate":"16"}' where id = v2;
+    update nanny_agreements set status = 'draft' where id = ag;
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Owner A'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL a draft agreement was signed'; end if;
+    reset role;
+    update nanny_agreements set status = 'issued' where id = ag;
+    update families set agreement_policy = 'off' where id = fam_a;
+    set local role authenticated;
+    denied := false; begin perform sign_agreement(fam_a, 'Owner A'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL an agreement was signed while agreements were switched off'; end if;
+    reset role;
+    update families set agreement_policy = 'family' where id = fam_a;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from document_signatures where family_id = fam_a;
+    if n <> 0 then raise exception 'FAIL a nanny read another nanny''s agreement signatures: %', n; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
