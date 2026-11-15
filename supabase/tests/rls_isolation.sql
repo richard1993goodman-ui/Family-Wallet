@@ -1152,10 +1152,12 @@ begin
   -- Phase 7 onboarding start: a signed-in person names themselves and starts one family; a second start resumes it; others can't see it.
   declare
     u_dana uuid := gen_random_uuid(); u_eve uuid := gen_random_uuid(); fam_id uuid; fam_again uuid;
+    cp_code text; eve_person uuid := gen_random_uuid();
   begin
     insert into auth.users (id, email, aud, role, email_confirmed_at) values
       (u_dana, 'dana.new@test.invalid', 'authenticated', 'authenticated', now()),
       (u_eve, 'eve.new@test.invalid', 'authenticated', 'authenticated', now());
+    insert into people (id, user_id, display_name) values (eve_person, u_eve, 'Eve New');
 
     perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
     set local role authenticated;
@@ -1196,6 +1198,38 @@ begin
     reset role;
     select count(*) into n from family_nannies where family_id = fam_id and name = 'Intruder';
     if n <> 0 then raise exception 'FAIL a stranger''s staff member was saved'; end if;
+
+    -- Onboarding step 8: a co-parent joins with a one-time code. Only the owner makes codes; a stranger can't; a wrong,
+    -- used or expired code is refused; a code can't be used twice; and the join is logged.
+    update families set status = 'active' where id = fam_id;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_eve, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform create_co_parent_code(fam_id); raise exception 'FAIL a stranger made a co-parent code';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin perform redeem_co_parent_code('ABCD-1234'); raise exception 'FAIL a wrong code was accepted';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    cp_code := create_co_parent_code(fam_id);
+    reset role;
+    insert into co_parent_codes (family_id, code_hash, expires_at)
+      values (fam_id, encode(sha256(convert_to('OLDX-0000', 'UTF8')), 'hex'), now() - interval '1 hour');
+    perform set_config('request.jwt.claims', json_build_object('sub', u_eve, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform redeem_co_parent_code('OLDX-0000'); raise exception 'FAIL an expired code was accepted';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    perform redeem_co_parent_code(cp_code);
+    begin perform redeem_co_parent_code(cp_code); raise exception 'FAIL a used code was accepted twice';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+    select count(*) into n from household_members where family_id = fam_id and person_id = eve_person and role = 'co_parent';
+    if n <> 1 then raise exception 'FAIL Eve did not join with a valid code: %', n; end if;
+    select count(*) into n from household_members where family_id = fam_id and role = 'co_parent' and person_id <> eve_person;
+    if n <> 0 then raise exception 'FAIL an unexpected co-parent is in the family'; end if;
+    if n <> 0 then raise exception 'FAIL the outsider joined without a valid code'; end if;
+    select count(*) into n from audit_log where family_id = fam_id and action = 'co_parent_joined';
+    if n <> 1 then raise exception 'FAIL the co-parent join is not in the audit log: %', n; end if;
   end;
 
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
