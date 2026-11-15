@@ -1258,6 +1258,33 @@ begin
         where v.family_id = fam_id and v.snapshot_text::jsonb = a.agreement_data;
       if n <> 1 then raise exception 'FAIL the signed wording does not match the issued version: %', n; end if;
     end;
+
+    -- Reviews: only a parent writes; a stranger is refused; a nanny from another family is refused; a completed review is locked.
+    declare rv_nanny uuid := gen_random_uuid(); rv_id uuid; rv_other uuid := gen_random_uuid();
+    begin
+      insert into family_nannies (id, family_id, name, role, status) values (rv_nanny, fam_id, 'Review Nanny', 'nanny', 'active');
+      insert into family_nannies (id, family_id, name, role, status) values (rv_other, fam_b, 'Other Family Nanny', 'nanny', 'active');
+      perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+      set local role authenticated;
+      begin perform save_review_checkin(fam_id, rv_nanny, 'first_month', '{"going_well":"x"}', false); raise exception 'FAIL a stranger wrote a review';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      reset role;
+      perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
+      set local role authenticated;
+      begin perform save_review_checkin(fam_id, rv_other, 'first_month', '{"going_well":"x"}', false); raise exception 'FAIL a nanny from another family was accepted';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      begin perform save_review_checkin(fam_id, rv_nanny, 'weekly', '{}', false); raise exception 'FAIL an unknown review kind was accepted';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      begin perform save_review_checkin(fam_id, rv_nanny, 'first_month', '{"secret":"x"}', false); raise exception 'FAIL an unknown question was accepted';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      rv_id := save_review_checkin(fam_id, rv_nanny, 'first_month', '{"going_well":"Good"}', false);
+      perform save_review_checkin(fam_id, rv_nanny, 'first_month', '{"going_well":"Good","tricky":"Mornings"}', true, rv_id);
+      begin perform save_review_checkin(fam_id, rv_nanny, 'first_month', '{"going_well":"changed"}', false, rv_id); raise exception 'FAIL a completed review was changed';
+      exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+      reset role;
+      select count(*) into n from review_checkins where id = rv_id and status = 'completed';
+      if n <> 1 then raise exception 'FAIL the completed review is not recorded as completed: %', n; end if;
+    end;
   end;
 
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
