@@ -1179,6 +1179,23 @@ begin
 
     select count(*) into n from families where family_name like 'Dana Family%' and status = 'onboarding';
     if n <> 1 then raise exception 'FAIL expected one onboarding family for Dana, found %', n; end if;
+
+    -- Onboarding step 9: only the family's owner can add staff; a stranger can't; a bad name or role is refused.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform add_family_staff(fam_id, 'Staff One', 'nanny');
+    begin perform add_family_staff(fam_id, 'X', 'nanny'); raise exception 'FAIL accepted a 1-letter staff name';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin perform add_family_staff(fam_id, 'Staff Two', 'wizard'); raise exception 'FAIL accepted an unknown staff role';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_eve, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform add_family_staff(fam_id, 'Intruder', 'nanny'); raise exception 'FAIL a stranger added staff to another family';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+    select count(*) into n from family_nannies where family_id = fam_id and name = 'Intruder';
+    if n <> 0 then raise exception 'FAIL a stranger''s staff member was saved'; end if;
   end;
 
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
