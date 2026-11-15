@@ -826,5 +826,60 @@ begin
     reset role;
   end;
 
+  -- Calendar extras: leave requests and live-in weeks through the app's functions.
+  declare asked uuid; booked uuid; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    asked := add_leave(fam_a, nan_a2, 'holiday', '2027-01-04', '2027-01-05', 2, 'Family visit');
+    denied := false; begin perform add_leave(fam_a, nan_a1, 'holiday', '2027-01-04', '2027-01-05', 2); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff asked for leave for a colleague'; end if;
+    denied := false; begin perform add_leave(fam_a, nan_a2, 'holiday', '2027-01-05', '2027-01-04', 2); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL leave ending before it starts was accepted'; end if;
+    denied := false; begin perform review_leave(asked, 'approved'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff approved their own leave'; end if;
+    perform log_live_in_week(fam_a, '2027-01-06', 31, 1, 'Extra evening');
+    reset role;
+    select count(*) into n from leave_requests where id = asked and status = 'pending' and requested_by = 'nanny' and days = 2;
+    if n <> 1 then raise exception 'FAIL a staff leave request was not saved as waiting'; end if;
+    select count(*) into n from live_in_weeks where family_id = fam_a and week_start = '2027-01-04' and hours_worked = 31 and days_off = 1;
+    if n <> 1 then raise exception 'FAIL a staff live-in week was not saved on its Monday'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from leave_requests where id = asked;
+    if n <> 0 then raise exception 'FAIL other staff saw a colleague''s leave'; end if;
+    denied := false; begin perform remove_leave(asked); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL other staff removed a colleague''s leave'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform review_leave(asked, 'declined'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B answered family A''s leave'; end if;
+    denied := false; begin perform add_leave(fam_a, nan_a2, 'holiday', '2027-02-01', '2027-02-01', 1); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B booked leave in family A'; end if;
+    denied := false; begin perform log_live_in_week(fam_a, '2027-01-11', 10, 2); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B logged a live-in week in family A'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform review_leave(asked, 'approved');
+    denied := false; begin perform review_leave(asked, 'declined'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL leave was answered twice'; end if;
+    booked := add_leave(fam_a, nan_a1, 'sick', '2027-03-01', '2027-03-01', 1);
+    reset role;
+    select count(*) into n from leave_requests where id = booked and status = 'approved' and requested_by = 'family';
+    if n <> 1 then raise exception 'FAIL a parent''s booking was not approved at once'; end if;
+    select count(*) into n from planner_entries where family_id = fam_a and entry_type = 'leave' and entry_date in ('2027-01-04', '2027-03-01');
+    if n <> 2 then raise exception 'FAIL approved leave did not go on the calendar'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform remove_leave(asked); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff removed leave after it was approved'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
