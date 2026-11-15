@@ -881,5 +881,122 @@ begin
     reset role;
   end;
 
+  -- Wallet: petty cash entries and "Paid from petty cash" in Groceries.
+  declare topup uuid; spent uuid; juice uuid; fruit uuid; petty uuid; denied boolean; begin
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    insert into petty_cash_entries (family_id, kind, entry_date, amount, description, added_by, added_by_name)
+      values (fam_a, 'topup', current_date, 50, 'Cash for the week', 'family', 'Parent') returning id into topup;
+    insert into grocery_items (family_id, name, added_by) values (fam_a, 'Fruit', 'family') returning id into fruit;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin insert into petty_cash_entries (family_id, kind, entry_date, amount, description, added_by, added_by_name)
+      values (fam_a, 'topup', current_date, 10, 'x', 'nanny', 'x'); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff added money to petty cash'; end if;
+    insert into petty_cash_entries (family_id, kind, entry_date, amount, description, added_by, added_by_name)
+      values (fam_a, 'spend', current_date, 3, 'Bus fare', 'nanny', 'Lee') returning id into spent;
+    denied := false; begin perform remove_petty_cash(topup); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff removed a parent''s petty cash entry'; end if;
+    insert into grocery_items (family_id, name, added_by) values (fam_a, 'Juice', 'nanny') returning id into juice;
+    denied := false; begin perform buy_groceries(array[juice], null, true); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL petty cash groceries without an amount were accepted'; end if;
+    petty := buy_groceries(array[juice], 2.5, true);
+    reset role;
+    select count(*) into n from petty_cash_entries where id = spent and created_by = u_lee;
+    if n <> 1 then raise exception 'FAIL a petty cash entry did not record who added it'; end if;
+    select count(*) into n from petty_cash_entries where id = petty and kind = 'spend' and added_by = 'nanny' and amount = 2.50
+      and description = 'Groceries: Juice';
+    if n <> 1 then raise exception 'FAIL petty cash groceries were not logged as spending'; end if;
+    select count(*) into n from grocery_items where id = juice and petty_cash_id = petty and expense_id is null and bought_at is not null;
+    if n <> 1 then raise exception 'FAIL the grocery item did not remember its petty cash entry'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from petty_cash_entries where id in (topup, spent, petty);
+    if n <> 3 then raise exception 'FAIL other staff in the household could not see petty cash'; end if;
+    denied := false; begin perform remove_petty_cash(spent); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL other staff removed a colleague''s petty cash entry'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from petty_cash_entries where family_id = fam_a;
+    if n <> 0 then raise exception 'FAIL family B saw family A''s petty cash'; end if;
+    denied := false; begin perform remove_petty_cash(topup); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B removed family A''s petty cash'; end if;
+    denied := false; begin perform buy_groceries(array[fruit], 1, true); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B paid family A''s groceries from petty cash'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform remove_petty_cash(spent);
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    petty := buy_groceries(array[fruit], 4, true);
+    perform remove_petty_cash(petty);
+    perform remove_petty_cash(topup);
+    reset role;
+    select count(*) into n from petty_cash_entries where id in (topup, spent, petty);
+    if n <> 0 then raise exception 'FAIL petty cash entries were not removed'; end if;
+    select count(*) into n from grocery_items where id = fruit and petty_cash_id is null and bought_at is not null;
+    if n <> 1 then raise exception 'FAIL removing petty cash broke the bought grocery item'; end if;
+  end;
+
+  -- Wallet: household documents (no staff member), shared with staff only when a parent says so.
+  declare f text := 'vault/' || fam_a || '/house.pdf'; g text := 'vault/' || fam_a || '/staff-try.pdf'; hid uuid; sid uuid; p text; denied boolean; begin
+    insert into storage.objects (bucket_id, name, owner_id, metadata) values ('family-docs', f, uo_a::text, '{"size": 2048, "mimetype": "application/pdf"}'),
+      ('family-docs', g, u_lee::text, '{"size": 2048, "mimetype": "application/pdf"}');
+    select id into sid from wallet_documents where family_id = fam_a and nanny_id is not null limit 1;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    hid := add_staff_document(fam_a, null, 'insurance', 'Home insurance', f, 'house.pdf', null, '2027-06-01', false);
+    reset role;
+    select count(*) into n from wallet_documents where id = hid and nanny_id is null and not shared_with_staff and uploaded_by = 'family';
+    if n <> 1 then raise exception 'FAIL a household document was not saved correctly'; end if;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform add_staff_document(fam_a, null, 'other', 'x', g, 'x.pdf', null, null, true); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff added a household document'; end if;
+    select count(*) into n from wallet_documents where id = hid;
+    if n <> 0 then raise exception 'FAIL staff saw a household document that was not shared'; end if;
+    denied := false; begin perform share_document(hid, true); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff shared a household document'; end if;
+    denied := false; begin perform remove_document(hid); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL staff removed a household document'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    denied := false; begin perform share_document(hid, true); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B shared family A''s document'; end if;
+    denied := false; begin perform remove_document(hid); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL family B removed family A''s document'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform share_document(hid, true);
+    denied := false; begin perform remove_document(sid); exception when others then denied := true; end;
+    if not denied then raise exception 'FAIL remove_document removed a staff member''s document'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from wallet_documents where id = hid;
+    if n <> 1 then raise exception 'FAIL staff could not see a shared household document'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    p := remove_document(hid);
+    reset role;
+    if p is distinct from f then raise exception 'FAIL remove_document did not return the file to delete'; end if;
+    select count(*) into n from wallet_documents where id in (hid, sid);
+    if n <> 1 then raise exception 'FAIL removing a household document removed the wrong records'; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
