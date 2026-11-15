@@ -1149,5 +1149,37 @@ begin
     if n <> 1 then raise exception 'FAIL wallet claim not in the audit log: %', n; end if;
   end;
 
+  -- Phase 7 onboarding start: a signed-in person names themselves and starts one family; a second start resumes it; others can't see it.
+  declare
+    u_dana uuid := gen_random_uuid(); u_eve uuid := gen_random_uuid(); fam_id uuid; fam_again uuid;
+  begin
+    insert into auth.users (id, email, aud, role, email_confirmed_at) values
+      (u_dana, 'dana.new@test.invalid', 'authenticated', 'authenticated', now()),
+      (u_eve, 'eve.new@test.invalid', 'authenticated', 'authenticated', now());
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_dana, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform start_family_onboarding('Dana Family', 'GB', null, 'Europe/London', 'GBP'); raise exception 'FAIL started a family before naming themselves';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin perform set_my_display_name('D'); raise exception 'FAIL accepted a 1-letter name';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    perform set_my_display_name('Dana Newparent');
+    fam_id := start_family_onboarding('Dana Family', 'GB', null, 'Europe/London', 'GBP');
+    fam_again := start_family_onboarding('Dana Family Renamed', 'GB', null, 'Europe/London', 'GBP');
+    if fam_again <> fam_id then raise exception 'FAIL a second start made another family'; end if;
+    begin perform start_family_onboarding('Bad', 'GB', null, 'Europe/London', 'gbp'); raise exception 'FAIL accepted a lower-case currency';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    select count(*) into n from household_basics where id = fam_id; if n <> 1 then raise exception 'FAIL the owner cannot see her unfinished family'; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_eve, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from household_basics where id = fam_id; if n <> 0 then raise exception 'FAIL another person can see an unfinished family'; end if;
+    reset role;
+
+    select count(*) into n from families where family_name like 'Dana Family%' and status = 'onboarding';
+    if n <> 1 then raise exception 'FAIL expected one onboarding family for Dana, found %', n; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
