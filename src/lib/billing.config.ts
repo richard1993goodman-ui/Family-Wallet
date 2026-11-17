@@ -2,11 +2,7 @@
 // The plans are created in the payment provider by Lovable's payments tooling, and found
 // again by their lookup key (fw_<plan>_<interval>).
 
-export type PlanId =
-  | "family"
-  | "agency_partner"
-  | "agency_growth"
-  | "agency_scale";
+export type PlanId = "family" | "agency_partner" | "agency_growth" | "agency_scale";
 export type Interval = "month" | "year";
 
 export const PLANS: Record<
@@ -29,21 +25,21 @@ export const PLANS: Record<
     name: "Family Wallet: Agency Partner",
     description:
       "Give your first families a wallet: 10 household seats, sent to parents and nannies by email.",
-    pence: { month: 7900, year: 7900 },
+    pence: { month: 5900, year: 5900 },
     allowance: 10,
   },
   agency_growth: {
     name: "Family Wallet: Agency Growth",
     description:
       "Make it part of your membership: 50 household seats, sent to parents and nannies by email.",
-    pence: { month: 19900, year: 19900 },
+    pence: { month: 17900, year: 17900 },
     allowance: 50,
   },
   agency_scale: {
     name: "Family Wallet: Agency Scale",
     description:
       "A growing client base: 100 household seats, sent to parents and nannies by email.",
-    pence: { month: 34900, year: 34900 },
+    pence: { month: 29900, year: 29900 },
     allowance: 100,
   },
 };
@@ -69,7 +65,7 @@ const LOOKUP_KEYS = new Map<string, PlanId>(
 
 /** The plan a Stripe price belongs to, read back from its lookup key (fw_<plan>_<interval>). */
 export function planFromLookupKey(key: unknown): PlanId | null {
-  return typeof key === "string" ? LOOKUP_KEYS.get(key) ?? null : null;
+  return typeof key === "string" ? (LOOKUP_KEYS.get(key) ?? null) : null;
 }
 
 export const isPlan = (value: unknown): value is PlanId =>

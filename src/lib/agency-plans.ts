@@ -14,9 +14,9 @@ export type AgencyPlan = {
 };
 
 export const AGENCY_PLANS: Record<AgencyPlanId, AgencyPlan> = {
-  partner: { name: "Partner", allowance: 10, pence: 7900, extraPence: 300 },
-  growth: { name: "Growth", allowance: 50, pence: 19900, extraPence: 200 },
-  scale: { name: "Scale", allowance: 100, pence: 34900, extraPence: 150 },
+  partner: { name: "Partner", allowance: 10, pence: 5900, extraPence: 300 },
+  growth: { name: "Growth", allowance: 50, pence: 17900, extraPence: 200 },
+  scale: { name: "Scale", allowance: 100, pence: 29900, extraPence: 150 },
   enterprise: { name: "Enterprise", allowance: null, pence: null, extraPence: null },
 };
 
@@ -86,7 +86,8 @@ export function allowanceUsage(
     };
   }
   const over = Math.max(0, used - allowance);
-  const level: AllowanceLevel = over > 0 ? "over" : allowance > 0 && used / allowance >= NEAR_LIMIT ? "near" : "ok";
+  const level: AllowanceLevel =
+    over > 0 ? "over" : allowance > 0 && used / allowance >= NEAR_LIMIT ? "near" : "ok";
   return {
     plan,
     planName: def.name,

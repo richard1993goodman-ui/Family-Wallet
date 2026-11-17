@@ -7,15 +7,38 @@ vi.mock("@/integrations/supabase/client.server", () => ({
   supabaseAdmin: {
     from: (table: string) => {
       const q: Record<string, unknown> = {
-        select: () => q, eq: () => q, in: () => q, not: () => q, order: () => q, limit: () => q,
-        update: (v: unknown) => { state.updates.push({ table, v }); return q; },
-        maybeSingle: async () => ({ data: table === "partner_agencies" ? { id: "a1", plan: state.plan, status: "active" } : null }),
+        select: () => q,
+        eq: () => q,
+        in: () => q,
+        not: () => q,
+        order: () => q,
+        limit: () => q,
+        update: (v: unknown) => {
+          state.updates.push({ table, v });
+          return q;
+        },
+        maybeSingle: async () => ({
+          data:
+            table === "partner_agencies" ? { id: "a1", plan: state.plan, status: "active" } : null,
+        }),
         then: (resolve: (v: unknown) => void) =>
           resolve({
             data:
               table === "partner_agencies"
-                ? [{ id: "a1", name: "Agency", brand_name: null, plan: "partner", household_allowance: null }]
-                : [{ agency_id: "a1", status: "accepted" }, { agency_id: "a1", status: "accepted" }, { agency_id: "a1", status: "pending" }],
+                ? [
+                    {
+                      id: "a1",
+                      name: "Agency",
+                      brand_name: null,
+                      plan: "partner",
+                      household_allowance: null,
+                    },
+                  ]
+                : [
+                    { agency_id: "a1", status: "accepted" },
+                    { agency_id: "a1", status: "accepted" },
+                    { agency_id: "a1", status: "pending" },
+                  ],
           }),
       };
       return q;
@@ -24,7 +47,10 @@ vi.mock("@/integrations/supabase/client.server", () => ({
 }));
 
 describe("tiers", () => {
-  beforeEach(() => { state.plan = "partner"; state.updates = []; });
+  beforeEach(() => {
+    state.plan = "partner";
+    state.updates = [];
+  });
 
   it("moves one tier at a time and stops before enterprise", () => {
     expect(nextAgencyPlan("partner")).toBe("growth");
@@ -34,12 +60,27 @@ describe("tiers", () => {
   });
 
   it("prices match the live pricing page", () => {
-    expect([AGENCY_PLANS.partner.pence, AGENCY_PLANS.growth.pence, AGENCY_PLANS.scale.pence]).toEqual([7900, 19900, 34900]);
+    expect([
+      AGENCY_PLANS.partner.pence,
+      AGENCY_PLANS.growth.pence,
+      AGENCY_PLANS.scale.pence,
+    ]).toEqual([5900, 17900, 29900]);
   });
 
   it("the owner board returns names, tier and seat counts only", async () => {
     const [row] = await getTierBoard();
-    expect(Object.keys(row!).sort()).toEqual(["allowance", "id", "invited", "name", "next", "occupied", "pence", "plan", "remaining", "tier"]);
+    expect(Object.keys(row!).sort()).toEqual([
+      "allowance",
+      "id",
+      "invited",
+      "name",
+      "next",
+      "occupied",
+      "pence",
+      "plan",
+      "remaining",
+      "tier",
+    ]);
     expect(row).toMatchObject({ occupied: 2, invited: 1, remaining: 7, allowance: 10 });
   });
 
