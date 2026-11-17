@@ -469,6 +469,7 @@ export type Database = {
           family_id: string
           id: string
           kind: string
+          show_on_timeline: boolean
           started_at: string
         }
         Insert: {
@@ -482,6 +483,7 @@ export type Database = {
           family_id: string
           id?: string
           kind: string
+          show_on_timeline?: boolean
           started_at?: string
         }
         Update: {
@@ -495,6 +497,7 @@ export type Database = {
           family_id?: string
           id?: string
           kind?: string
+          show_on_timeline?: boolean
           started_at?: string
         }
         Relationships: [
@@ -618,6 +621,7 @@ export type Database = {
           expires_at: string
           family_id: string
           id: string
+          nanny_id: string | null
           used_at: string | null
         }
         Insert: {
@@ -627,6 +631,7 @@ export type Database = {
           expires_at: string
           family_id: string
           id?: string
+          nanny_id?: string | null
           used_at?: string | null
         }
         Update: {
@@ -636,6 +641,7 @@ export type Database = {
           expires_at?: string
           family_id?: string
           id?: string
+          nanny_id?: string | null
           used_at?: string | null
         }
         Relationships: [
@@ -651,6 +657,27 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "co_parent_codes_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "co_parent_codes_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "co_parent_codes_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -744,6 +771,7 @@ export type Database = {
           log_date: string
           mood: string | null
           notes: string | null
+          show_on_timeline: boolean
           tomorrow: string | null
         }
         Insert: {
@@ -758,6 +786,7 @@ export type Database = {
           log_date: string
           mood?: string | null
           notes?: string | null
+          show_on_timeline?: boolean
           tomorrow?: string | null
         }
         Update: {
@@ -772,6 +801,7 @@ export type Database = {
           log_date?: string
           mood?: string | null
           notes?: string | null
+          show_on_timeline?: boolean
           tomorrow?: string | null
         }
         Relationships: [
@@ -784,6 +814,58 @@ export type Database = {
           },
           {
             foreignKeyName: "daily_logs_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      day_recaps: {
+        Row: {
+          body: string
+          child_id: string
+          created_at: string
+          day: string
+          family_id: string
+          id: string
+          model: string
+        }
+        Insert: {
+          body: string
+          child_id: string
+          created_at?: string
+          day: string
+          family_id: string
+          id?: string
+          model: string
+        }
+        Update: {
+          body?: string
+          child_id?: string
+          created_at?: string
+          day?: string
+          family_id?: string
+          id?: string
+          model?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "day_recaps_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "family_children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "day_recaps_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "day_recaps_family_id_fkey"
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "household_basics"
@@ -903,10 +985,113 @@ export type Database = {
           },
         ]
       }
+      entitlement_events: {
+        Row: {
+          at: string
+          detail: Json
+          entitlement_id: string
+          event_type: string
+          id: string
+          provider_event_id: string | null
+        }
+        Insert: {
+          at?: string
+          detail?: Json
+          entitlement_id: string
+          event_type: string
+          id?: string
+          provider_event_id?: string | null
+        }
+        Update: {
+          at?: string
+          detail?: Json
+          entitlement_id?: string
+          event_type?: string
+          id?: string
+          provider_event_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entitlement_events_entitlement_id_fkey"
+            columns: ["entitlement_id"]
+            isOneToOne: false
+            referencedRelation: "entitlements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      entitlements: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          environment: string
+          external_ref: string | null
+          family_id: string | null
+          id: string
+          person_id: string
+          product: string | null
+          source: string
+          state: string
+          updated_at: string
+          will_renew: boolean | null
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          environment?: string
+          external_ref?: string | null
+          family_id?: string | null
+          id?: string
+          person_id: string
+          product?: string | null
+          source: string
+          state: string
+          updated_at?: string
+          will_renew?: boolean | null
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          environment?: string
+          external_ref?: string | null
+          family_id?: string | null
+          id?: string
+          person_id?: string
+          product?: string | null
+          source?: string
+          state?: string
+          updated_at?: string
+          will_renew?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entitlements_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entitlements_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entitlements_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expense_claims: {
         Row: {
           amount: number
           category: string
+          child_ids: string[]
           created_at: string
           currency: string
           expense_date: string
@@ -915,6 +1100,7 @@ export type Database = {
           item: string
           nanny_id: string | null
           notes: string | null
+          receipt_path: string | null
           reviewed_at: string | null
           status: string
           submitted_by: string
@@ -924,6 +1110,7 @@ export type Database = {
         Insert: {
           amount?: number
           category?: string
+          child_ids?: string[]
           created_at?: string
           currency?: string
           expense_date?: string
@@ -932,6 +1119,7 @@ export type Database = {
           item: string
           nanny_id?: string | null
           notes?: string | null
+          receipt_path?: string | null
           reviewed_at?: string | null
           status?: string
           submitted_by?: string
@@ -941,6 +1129,7 @@ export type Database = {
         Update: {
           amount?: number
           category?: string
+          child_ids?: string[]
           created_at?: string
           currency?: string
           expense_date?: string
@@ -949,6 +1138,7 @@ export type Database = {
           item?: string
           nanny_id?: string | null
           notes?: string | null
+          receipt_path?: string | null
           reviewed_at?: string | null
           status?: string
           submitted_by?: string
@@ -1000,6 +1190,7 @@ export type Database = {
           agency_released_at: string | null
           agreement_choice: string | null
           agreement_policy: string
+          ai_recap: boolean
           contact_email: string | null
           contact_phone: string | null
           country: string
@@ -1051,6 +1242,7 @@ export type Database = {
           agency_released_at?: string | null
           agreement_choice?: string | null
           agreement_policy?: string
+          ai_recap?: boolean
           contact_email?: string | null
           contact_phone?: string | null
           country?: string
@@ -1102,6 +1294,7 @@ export type Database = {
           agency_released_at?: string | null
           agreement_choice?: string | null
           agreement_policy?: string
+          ai_recap?: boolean
           contact_email?: string | null
           contact_phone?: string | null
           country?: string
@@ -3239,6 +3432,7 @@ export type Database = {
           outcome: string | null
           outcome_at: string | null
           outcome_by: string | null
+          photo_path: string | null
           series_id: string | null
           status: string
           time_label: string | null
@@ -3262,6 +3456,7 @@ export type Database = {
           outcome?: string | null
           outcome_at?: string | null
           outcome_by?: string | null
+          photo_path?: string | null
           series_id?: string | null
           status?: string
           time_label?: string | null
@@ -3285,6 +3480,7 @@ export type Database = {
           outcome?: string | null
           outcome_at?: string | null
           outcome_by?: string | null
+          photo_path?: string | null
           series_id?: string | null
           status?: string
           time_label?: string | null
@@ -4472,6 +4668,45 @@ export type Database = {
           },
         ]
       }
+      weekly_report_ready: {
+        Row: {
+          family_id: string
+          ready_at: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          week_start: string
+        }
+        Insert: {
+          family_id: string
+          ready_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          week_start: string
+        }
+        Update: {
+          family_id?: string
+          ready_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_report_ready_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "weekly_report_ready_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       welcome_checkins: {
         Row: {
           confirmed_at: string | null
@@ -4839,6 +5074,8 @@ export type Database = {
         Returns: undefined
       }
       agreement_on: { Args: { _family: string }; Returns: boolean }
+      ai_recap_on: { Args: { _family: string }; Returns: boolean }
+      announce_weekly_reports: { Args: never; Returns: number }
       app_activity: {
         Args: {
           _actor: string
@@ -4860,6 +5097,10 @@ export type Database = {
       }
       claim_my_wallet: { Args: { _family: string }; Returns: undefined }
       create_co_parent_code: { Args: { _family: string }; Returns: string }
+      create_join_code: {
+        Args: { _family: string; _nanny?: string }
+        Returns: string
+      }
       edit_planner_entry: {
         Args: {
           _after: boolean
@@ -4921,6 +5162,18 @@ export type Database = {
         Returns: undefined
       }
       mark_thread_read: { Args: { _id: string }; Returns: undefined }
+      mark_weekly_report_reviewed: {
+        Args: { _family: string; _week: string }
+        Returns: boolean
+      }
+      my_grace_status: {
+        Args: { _family: string }
+        Returns: {
+          days_left: number
+          entitlement: string
+          transition_ends_at: string
+        }[]
+      }
       my_staff_nanny: { Args: { _family: string }; Returns: string }
       my_wallet_offers: {
         Args: never
@@ -4940,6 +5193,10 @@ export type Database = {
       record_outcome: {
         Args: { _end?: string; _id: string; _outcome: string; _start?: string }
         Returns: boolean
+      }
+      redeem_agency_code: {
+        Args: { _code: string; _family_name: string }
+        Returns: string
       }
       redeem_co_parent_code: { Args: { _code: string }; Returns: string }
       remove_bank_details: { Args: { _family: string }; Returns: undefined }
@@ -4995,6 +5252,10 @@ export type Database = {
         }
         Returns: string
       }
+      set_ai_recap: {
+        Args: { _family: string; _on: boolean }
+        Returns: undefined
+      }
       set_house_code: {
         Args: { _id: string; _value: string }
         Returns: undefined
@@ -5014,6 +5275,10 @@ export type Database = {
       }
       sign_agreement: {
         Args: { _family: string; _name: string }
+        Returns: undefined
+      }
+      sign_uploaded_agreement: {
+        Args: { _document: string; _name: string }
         Returns: undefined
       }
       start_family_onboarding: {
