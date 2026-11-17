@@ -272,7 +272,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "My agency already gave me a wallet. Do I pay?",
-      a: "Not while your agency funds it. Your wallet is private to your family: your agency cannot see what you add. If your agency stops funding it, you keep your records and have a week to move to your own plan.",
+      a: "Not while your agency funds it. Your wallet is private to your family: your agency cannot see what you add. If your agency stops funding it, you keep your records and have 30 days to move to your own plan.",
     },
     {
       q: "Is this payroll?",
@@ -298,7 +298,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "What happens when a family leaves my agency?",
-      a: "Release the seat. It is free again immediately, and the family keeps its wallet and records. It is offered its own Family plan and keeps full access for a week while it decides.",
+      a: "Release the seat. It is free again immediately, and the family keeps its wallet and records. It is offered its own Family plan and keeps full access for 30 days while it decides.",
     },
     {
       q: "What happens when we reach our seat limit?",

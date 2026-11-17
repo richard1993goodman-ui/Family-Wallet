@@ -6,11 +6,11 @@ const future = "2026-06-12T00:00:00Z";
 const past = "2026-06-01T00:00:00Z";
 
 describe("grace period", () => {
-  it("defaults to seven days and can be configured", () => {
-    expect(graceDays(undefined)).toBe(7);
+  it("defaults to thirty days and can be configured", () => {
+    expect(graceDays(undefined)).toBe(30);
     expect(graceDays("14")).toBe(14);
-    expect(graceDays("nonsense")).toBe(7);
-    expect(graceDays("-3")).toBe(7);
+    expect(graceDays("nonsense")).toBe(30);
+    expect(graceDays("-3")).toBe(30);
   });
   it("ends that many days from now", () => {
     expect(transitionEnd(new Date(now), 7).toISOString()).toBe("2026-06-17T12:00:00.000Z");
