@@ -19,8 +19,8 @@ export function DashboardHeader({
   actions?: ReactNode;
 }) {
   return (
-    <header className="flex flex-wrap items-end justify-between gap-4">
-      <div className="min-w-0">
+    <header className="flex items-start justify-between gap-3">
+      <div className="min-w-0 flex-1">
         <h1 className="heading-serif text-[1.625rem] leading-[1.1] text-foreground sm:text-[2rem]">
           {title}
         </h1>
@@ -29,7 +29,7 @@ export function DashboardHeader({
           {subtitle && <span> · {subtitle}</span>}
         </p>
       </div>
-      {actions && <div className="flex flex-none flex-wrap gap-2">{actions}</div>}
+      {actions && <div className="flex flex-none flex-wrap justify-end gap-2 pt-1">{actions}</div>}
     </header>
   );
 }
@@ -44,7 +44,9 @@ export function DemoBanner({ slug }: { slug: string }) {
         <p className="text-foreground/80">
           <span className="font-medium text-foreground">{t("dash.youReViewingADemo")}</span>
           {t("dash.demoNote")}{" "}
-          <Link to="/" className="font-medium text-foreground underline underline-offset-4">{t("dash.exitTheDemo")}</Link>
+          <Link to="/" className="font-medium text-foreground underline underline-offset-4">
+            {t("dash.exitTheDemo")}
+          </Link>
         </p>
       </div>
     </div>
@@ -66,35 +68,6 @@ export function EmergencyPill({ slug }: { slug: string }) {
   );
 }
 
-/** Four things a parent reaches for most, straight under the status card. */
-export function HomeQuickActions({ slug }: { slug: string }) {
-  const t = useT();
-  const items = [
-    { to: "/log/$slug" as const, icon: NotebookPen, label: t("nav.log"), tint: "sage" },
-    { to: "/moments/$slug" as const, icon: Camera, label: t("dash.quickPhotos"), tint: "sky" },
-    { to: "/messages/$slug" as const, icon: MessageCircle, label: t("nav.messages"), tint: "sky" },
-    { to: "/timesheets/$slug" as const, icon: Clock3, label: t("dash.quickHours"), tint: "sky" },
-  ];
-  return (
-    <nav aria-label={t("dash.quickActions")} className="grid grid-cols-4 gap-2">
-      {items.map((item) => (
-        <Link
-          key={item.to}
-          to={item.to}
-          params={{ slug }}
-          data-tint={item.tint}
-          className="flex flex-col items-center gap-2 rounded-2xl px-1 py-3 text-center text-[0.75rem] font-semibold text-foreground transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100"
-        >
-          <span className="ios-icon h-11 w-11 rounded-[0.875rem]">
-            <item.icon className="h-5 w-5" />
-          </span>
-          <span className="truncate">{item.label}</span>
-        </Link>
-      ))}
-    </nav>
-  );
-}
-
 export function EmergencyContacts({ wallet }: { wallet: DashboardWallet }) {
   const t = useT();
   const nannyContacts = wallet.nannies.filter((n) => n.emergency);
@@ -109,7 +82,11 @@ export function EmergencyContacts({ wallet }: { wallet: DashboardWallet }) {
         {nannyContacts.map((nanny) => (
           <ContactRow
             key={nanny.id}
-            label={nanny.isYou ? t("dash.yourEmergencyContact") : t("dash.staffEmergencyContact", { name: nanny.name })}
+            label={
+              nanny.isYou
+                ? t("dash.yourEmergencyContact")
+                : t("dash.staffEmergencyContact", { name: nanny.name })
+            }
             contact={nanny.emergency!}
           />
         ))}
@@ -123,7 +100,9 @@ export function NannyProfiles({ wallet }: { wallet: DashboardWallet }) {
   if (wallet.nannies.length === 0) return null;
   return (
     <section>
-      <SectionTitle>{wallet.nannies.length > 1 ? t("dash.yourNannies") : t("dash.yourNanny")}</SectionTitle>
+      <SectionTitle>
+        {wallet.nannies.length > 1 ? t("dash.yourNannies") : t("dash.yourNanny")}
+      </SectionTitle>
       <div className="surface-card space-y-4 p-5">
         {wallet.nannies.map((nanny) => (
           <div key={nanny.id} className="flex items-start gap-4">
@@ -176,14 +155,18 @@ export function DashboardFooter({
         type="button"
         className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
         onClick={onLock}
-      >{t("dash.lockThisWalletOnThis")}</button>
+      >
+        {t("dash.lockThisWalletOnThis")}
+      </button>
       {billingSlug && (
         <form method="post" action="/api/stripe/portal">
           <input type="hidden" name="slug" value={billingSlug} />
           <button
             type="submit"
             className="text-[0.8125rem] underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
-          >{t("dash.manageSubscription")}</button>
+          >
+            {t("dash.manageSubscription")}
+          </button>
         </form>
       )}
     </div>

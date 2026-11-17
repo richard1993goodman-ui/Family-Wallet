@@ -2,7 +2,6 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { LogoMark } from "@/components/brand";
 import { AFTER_SCHOOL_DAY, DEMO_AVATARS, type Post } from "@/lib/demo-photos";
 import {
-  Plus as PlusIcon,
   UserRound as UserIcon,
   LogOut as LogOutIcon,
   ArrowLeft,
@@ -34,9 +33,10 @@ import {
   Menu,
   MessageCircle,
   NotebookPen,
-  PanelLeft,
   Pill,
   Plane,
+  Plus,
+  ScanFace,
   SendHorizontal,
   ShieldCheck,
   Signal,
@@ -45,6 +45,7 @@ import {
   StickyNote,
   UserPlus,
   Users,
+  Utensils,
   Wifi,
   type LucideIcon,
 } from "lucide-react";
@@ -56,7 +57,17 @@ import { cn } from "@/lib/utils";
  */
 
 export type Tab = "home" | "calendar" | "messages" | "family" | "more";
-export type Page = "log" | "agreement" | "thread" | "house" | "passport" | "medicine" | "cash" | "leave" | "moments" | "today";
+export type Page =
+  | "log"
+  | "agreement"
+  | "thread"
+  | "house"
+  | "passport"
+  | "medicine"
+  | "cash"
+  | "leave"
+  | "moments"
+  | "today";
 type Msg = { from: "you" | "jess"; text: string; time: string };
 
 const TABS: { id: Tab; label: string; icon: LucideIcon }[] = [
@@ -152,7 +163,31 @@ function scene(from: Date) {
   return d;
 }
 
+/** Everything a visitor adds or changes while using the phone. Nothing leaves the page. */
+type Store = {
+  logged: { at: string; title: string; sub?: string }[];
+  events: { day: number; time: string; title: string }[];
+  spent: { what: string; amount: number }[];
+  leave: "pending" | "approved" | "declined";
+  vitaminAt: string | null;
+  locked: boolean;
+  checks: Record<string, boolean>;
+  /** The weekday picked on the calendar (Monday is 0); null means today. */
+  calDay: number | null;
+};
+const EMPTY_STORE: Store = {
+  logged: [],
+  events: [],
+  spent: [],
+  leave: "pending",
+  vitaminAt: null,
+  locked: false,
+  checks: {},
+  calDay: null,
+};
+
 export function useWalletApp() {
+  const [store, setStore] = useState(EMPTY_STORE);
   const [nav, setNav] = useState<{ tab: Tab; stack: Page[] }>({ tab: "home", stack: [] });
   const [leaving, setLeaving] = useState(false);
   const [sheet, setSheet] = useState({ label: "", open: false });
@@ -198,6 +233,8 @@ export function useWalletApp() {
     nav,
     leaving,
     sheet,
+    store,
+    set: (fn: (s: Store) => Store) => setStore(fn),
     signing,
     signedAt,
     chat,
@@ -480,7 +517,11 @@ function MonthCard({ app }: ScreenProps) {
   return (
     <>
       <div className={card}>
-        <div className="mb-2 inline-flex rounded-full bg-navy/[0.06] p-0.5" role="tablist" aria-label="Calendar view">
+        <div
+          className="mb-2 inline-flex rounded-full bg-navy/[0.06] p-0.5"
+          role="tablist"
+          aria-label="Calendar view"
+        >
           {(["day", "week", "month"] as const).map((v) => (
             <button
               key={v}
@@ -499,7 +540,11 @@ function MonthCard({ app }: ScreenProps) {
           ))}
         </div>
         <p className="font-display text-[16px] text-navy">
-          {view === "month" ? monthYear(today) : view === "week" ? `Week of ${shortDate(weekOf(day)[0]!)}` : longDate(day)}
+          {view === "month"
+            ? monthYear(today)
+            : view === "week"
+              ? `Week of ${shortDate(weekOf(day)[0]!)}`
+              : longDate(day)}
         </p>
         <dl className="mt-2 grid grid-cols-[1.4fr_1fr_1fr] gap-2">
           {stats.map(([label, value, sub]) => (
@@ -513,53 +558,61 @@ function MonthCard({ app }: ScreenProps) {
           ))}
         </dl>
         {view !== "day" && (
-        <div className="mt-3 grid grid-cols-7 gap-y-0.5 border-t border-border pt-2.5">
-          {["M", "T", "W", "T", "F", "S", "S"].map((letter, i) => (
-            <span key={i} className="pb-1 text-center text-[9px] text-muted-foreground" aria-hidden>
-              {letter}
-            </span>
-          ))}
-          {(view === "week" ? week : days).map((d) => {
-            const past = d.getDate() < today.getDate();
-            const on = weekday(d) < 5;
-            return (
-              <button
-                key={d.getDate()}
-                type="button"
-                aria-pressed={d === day}
-                aria-label={longDate(d)}
-                onClick={() => setPicked(d.getDate())}
-                style={d.getDate() === 1 || (view === "week" && d === week[0]) ? { gridColumnStart: weekday(d) + 1 } : undefined}
-                className={cn(
-                  "flex flex-col items-center gap-0.5 rounded-[10px] py-1",
-                  d === day && "bg-paper",
-                  press,
-                )}
+          <div className="mt-3 grid grid-cols-7 gap-y-0.5 border-t border-border pt-2.5">
+            {["M", "T", "W", "T", "F", "S", "S"].map((letter, i) => (
+              <span
+                key={i}
+                className="pb-1 text-center text-[9px] text-muted-foreground"
+                aria-hidden
               >
-                <span
+                {letter}
+              </span>
+            ))}
+            {(view === "week" ? week : days).map((d) => {
+              const past = d.getDate() < today.getDate();
+              const on = weekday(d) < 5;
+              return (
+                <button
+                  key={d.getDate()}
+                  type="button"
+                  aria-pressed={d === day}
+                  aria-label={longDate(d)}
+                  onClick={() => setPicked(d.getDate())}
+                  style={
+                    d.getDate() === 1 || (view === "week" && d === week[0])
+                      ? { gridColumnStart: weekday(d) + 1 }
+                      : undefined
+                  }
                   className={cn(
-                    "grid size-[20px] place-items-center rounded-full text-[10.5px] tabular-nums",
-                    d.getDate() === today.getDate() ? "bg-energy-ink text-white" : "text-navy",
+                    "flex flex-col items-center gap-0.5 rounded-[10px] py-1",
+                    d === day && "bg-paper",
+                    press,
                   )}
                 >
-                  {d.getDate()}
-                </span>
-                <span
-                  className={cn(
-                    "h-2.5 w-1 rounded-full",
-                    !on ? "bg-transparent" : past ? "bg-energy-ink" : "bg-energy-ink/25",
-                  )}
-                />
-                <span className="flex h-1 gap-px">
-                  {on && past && <span className="size-1 rounded-full bg-[#2c5a80]" />}
-                  {PARENT_NOTES[weekday(d)] && (
-                    <span className="size-1 rounded-full bg-[#8e4a1f]" />
-                  )}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                  <span
+                    className={cn(
+                      "grid size-[20px] place-items-center rounded-full text-[10.5px] tabular-nums",
+                      d.getDate() === today.getDate() ? "bg-energy-ink text-white" : "text-navy",
+                    )}
+                  >
+                    {d.getDate()}
+                  </span>
+                  <span
+                    className={cn(
+                      "h-2.5 w-1 rounded-full",
+                      !on ? "bg-transparent" : past ? "bg-energy-ink" : "bg-energy-ink/25",
+                    )}
+                  />
+                  <span className="flex h-1 gap-px">
+                    {on && past && <span className="size-1 rounded-full bg-[#2c5a80]" />}
+                    {PARENT_NOTES[weekday(d)] && (
+                      <span className="size-1 rounded-full bg-[#8e4a1f]" />
+                    )}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         )}
       </div>
 
@@ -595,14 +648,14 @@ function MonthCard({ app }: ScreenProps) {
 }
 
 const PHONE_ALERTS = [
-  { id: 1, text: "Jess added 3 photos from the park", sub: "Photos · 12 min ago" },
-  { id: 2, text: "Jess asked to swap Thursday's shift", sub: "Week plan · 3 hr ago" },
-  { id: 3, text: "New holiday request for half term", sub: "Leave · 1 d ago" },
-];
+  { id: 1, text: "Jess added 3 photos from the park", sub: "Photos · 12 min ago", to: "moments" },
+  { id: 2, text: "Leo's swimming kit: new message", sub: "Messages · 3 hr ago", to: "thread" },
+  { id: 3, text: "Jess asked for 2 days off in December", sub: "Leave · 1 d ago", to: "leave" },
+] as const;
 
-function PhoneBell() {
+function PhoneBell({ app }: ScreenProps) {
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState(PHONE_ALERTS);
+  const [items, setItems] = useState<(typeof PHONE_ALERTS)[number][]>([...PHONE_ALERTS]);
   return (
     <div className="relative">
       <button
@@ -620,16 +673,31 @@ function PhoneBell() {
       </button>
       {open && (
         <div className="absolute right-0 top-10 z-20 w-56 overflow-hidden rounded-xl border border-border bg-card shadow-lg">
-          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">Notifications</p>
+          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">
+            Notifications
+          </p>
           {items.length === 0 ? (
-            <p className="px-3 py-4 text-center text-[11px] text-muted-foreground">You're all caught up.</p>
+            <p className="px-3 py-4 text-center text-[11px] text-muted-foreground">
+              You're all caught up.
+            </p>
           ) : (
             items.map((n) => (
-              <div key={n.id} className="flex items-start gap-2 border-b border-border px-3 py-2 last:border-0">
-                <div className="min-w-0 flex-1">
-                  <p className="text-[11px] leading-snug text-foreground">{n.text}</p>
-                  <p className="text-[9px] text-muted-foreground">{n.sub}</p>
-                </div>
+              <div
+                key={n.id}
+                className="flex items-start gap-2 border-b border-border px-3 py-2 last:border-0"
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setItems((l) => l.filter((x) => x.id !== n.id));
+                    app.push(n.to);
+                  }}
+                  className="min-w-0 flex-1 text-left"
+                >
+                  <span className="block text-[11px] leading-snug text-foreground">{n.text}</span>
+                  <span className="block text-[9px] text-muted-foreground">{n.sub}</span>
+                </button>
                 <button
                   type="button"
                   aria-label="Mark as read"
@@ -673,7 +741,9 @@ function PhoneMenu({
       </button>
       {open && (
         <div className="absolute right-0 top-10 z-20 w-52 overflow-hidden rounded-xl border border-border bg-card shadow-lg">
-          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">{title}</p>
+          <p className="border-b border-border px-3 py-2 text-[11px] font-semibold text-foreground">
+            {title}
+          </p>
           {items.map((item) => (
             <button
               key={item}
@@ -697,80 +767,230 @@ function PhoneMenu({
   );
 }
 
-// Live shift card: agreed weekday hours 15:00 to 19:30, with a progress bar (weekends have none)
-function ShiftBanner({ today }: { today: Date }) {
-  const day = today.getDay();
-  if (day === 0 || day === 6) return null;
-  const mins = today.getHours() * 60 + today.getMinutes();
-  const start = 15 * 60;
-  const end = 19 * 60 + 30;
-  const pct = Math.min(100, Math.max(0, ((mins - start) / (end - start)) * 100));
-  const left = Math.max(0, end - Math.max(mins, start));
-  const live = mins >= start && mins < end;
+const SHIFT_START = 15 * 60;
+const SHIFT_END = 19 * 60 + 30;
+const dur = (m: number) => `${Math.floor(m / 60)}h ${two(m % 60)}m`;
+
+/** Header: a greeting and the date (the bar above already names the family), with SOS one tap away. */
+function PhoneHeader({ app }: ScreenProps) {
+  const h = app.today.getHours();
   return (
-    <div className="rounded-[18px] bg-card p-3.5 shadow-sm">
-      <div className="flex items-center justify-between text-[10.5px]">
-        <span className="font-semibold uppercase tracking-wider text-navy-mid">Shift 15:00 – 19:30</span>
-        <span className="text-muted-foreground">
-          {live ? `${Math.floor(left / 60)}h ${left % 60}m left` : mins < start ? "Starts 15:00" : "Finished"}
-        </span>
+    <div>
+      <div className="flex items-center gap-2">
+        <p className="min-w-0 flex-1 text-[10.5px] text-muted-foreground">{longDate(app.today)}</p>
+        <button
+          type="button"
+          onClick={() => app.openSheet("Emergency contacts")}
+          className={cn(
+            "inline-flex h-8 items-center gap-1 rounded-full bg-[#fdecea] px-2.5 text-[10.5px] font-semibold text-[#b3261e]",
+            press,
+          )}
+        >
+          <Siren className="size-3.5" aria-hidden />
+          SOS
+        </button>
+        <PhoneBell app={app} />
+        <PhoneMenu
+          label="Account and log out"
+          icon={<UserIcon className="h-4 w-4" aria-hidden />}
+          title="The Harrington Family"
+          items={["Emergency contacts", "Health & medicine", "Lock & log out"]}
+          onPick={(i) =>
+            i === "Lock & log out"
+              ? app.set((st) => ({ ...st, locked: true }))
+              : i === "Health & medicine"
+                ? app.push("medicine")
+                : app.openSheet(i)
+          }
+        />
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-navy-mid" style={{ width: `${pct}%` }} />
-      </div>
-      <p className="mt-2 text-[12.5px] font-medium text-navy">
-        {live ? "Jess is on duty" : mins < start ? "Jess starts this afternoon" : "Jess has finished for today"}
-      </p>
+      <h3 data-title tabIndex={-1} className={cn(titleCls, "mt-1 text-[22px]")}>
+        {h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"}
+      </h3>
     </div>
   );
 }
 
+/** The week as a strip: today is the dark pill; a dot marks Jess's working days. */
+function WeekCard({ app }: ScreenProps) {
+  const today = app.today;
+  return (
+    <button
+      type="button"
+      onClick={() => app.tab("calendar")}
+      className={cn(card, "block w-full text-left", press)}
+    >
+      <span className="flex items-center justify-between">
+        <span className="flex items-center gap-1.5 text-[12.5px] font-semibold text-navy">
+          <CalendarDays className="size-3.5" aria-hidden />
+          This week
+        </span>
+        <span className="text-[10px] text-muted-foreground">{monthYear(today)}</span>
+      </span>
+      <span className="mt-2.5 grid grid-cols-7 gap-1">
+        {weekOf(today).map((d, i) => {
+          const isToday = i === weekday(today);
+          return (
+            <span
+              key={i}
+              className={cn(
+                "flex flex-col items-center gap-0.5 rounded-[12px] py-1.5",
+                isToday ? "bg-navy text-white" : "text-navy",
+              )}
+            >
+              <span
+                className={cn(
+                  "text-[8.5px] font-medium",
+                  isToday ? "text-white/75" : "text-muted-foreground",
+                )}
+              >
+                {DAYS[d.getDay()]!.slice(0, 1)}
+              </span>
+              <span className="text-[12px] font-semibold tabular-nums">{d.getDate()}</span>
+              <span
+                className={cn(
+                  "size-1 rounded-full",
+                  i < 5 ? (isToday ? "bg-[#f3c969]" : "bg-[#2f6b4a]") : "bg-transparent",
+                )}
+              />
+            </span>
+          );
+        })}
+      </span>
+    </button>
+  );
+}
+
+/** Now: who is on duty, and how far through the shift they are. Weekends have no shift. */
+function ShiftCard({ today }: { today: Date }) {
+  const day = today.getDay();
+  if (day === 0 || day === 6) return null;
+  const mins = today.getHours() * 60 + today.getMinutes();
+  const total = SHIFT_END - SHIFT_START;
+  const elapsed = Math.min(total, Math.max(0, mins - SHIFT_START));
+  const pct = Math.round((elapsed / total) * 100);
+  const live = mins >= SHIFT_START && mins < SHIFT_END;
+  return (
+    <div className={card}>
+      <div className="flex items-center gap-2.5">
+        <span className="relative shrink-0">
+          <img src={DEMO_AVATARS["jess"]} alt="" className="size-10 rounded-full object-cover" />
+          {live && (
+            <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-card bg-[#2f9e5b]" />
+          )}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-1.5">
+            <span className="text-[13px] font-semibold text-navy">Jess</span>
+            <span className="rounded-full bg-[#e4efe7] px-1.5 py-px text-[9px] font-semibold text-[#2f6b4a]">
+              Nanny
+            </span>
+          </span>
+          <span className="block text-[10.5px] text-muted-foreground">
+            Shift 15:00 – 19:30 ·{" "}
+            {live
+              ? `${dur(total - elapsed)} left`
+              : mins < SHIFT_START
+                ? "starts this afternoon"
+                : "finished"}
+          </span>
+        </span>
+      </div>
+      <div className="mt-3 flex items-center justify-between rounded-[12px] bg-paper px-2.5 py-2 text-[10.5px]">
+        <span className="text-muted-foreground">
+          Elapsed <span className="font-semibold tabular-nums text-navy">{dur(elapsed)}</span>
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#e4efe7] px-2 py-0.5 font-semibold tabular-nums text-[#2f6b4a]">
+          <span className="size-1.5 rounded-full bg-[#2f9e5b]" aria-hidden />
+          {dur(total - elapsed)} remaining
+        </span>
+      </div>
+      <div
+        className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-muted"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+        aria-label={`Shift ${pct}% done`}
+      >
+        <div className="h-full rounded-full bg-[#2f9e5b]" style={{ width: `${pct}%` }} />
+      </div>
+      <div className="mt-1.5 flex justify-between text-[9px] tabular-nums text-muted-foreground">
+        <span>15:00 start</span>
+        <span className="font-semibold text-navy">{pct}% done</span>
+        <span>19:30 finish</span>
+      </div>
+    </div>
+  );
+}
+
+const QUICK_LOG: {
+  label: string;
+  icon: LucideIcon;
+  tint: keyof typeof TINTS;
+  go: (app: WalletApp) => void;
+}[] = [
+  { label: "Note", icon: StickyNote, tint: "butter", go: (a) => a.openSheet("Add a note") },
+  { label: "Med", icon: Pill, tint: "rose", go: (a) => a.push("medicine") },
+  { label: "Meal", icon: Utensils, tint: "sage", go: (a) => a.openSheet("Log a meal") },
+  { label: "Activity", icon: Sparkles, tint: "sky", go: (a) => a.openSheet("Log an activity") },
+  { label: "Photo", icon: Camera, tint: "apricot", go: (a) => a.push("moments") },
+];
+
+/** One tap to log the usual things, so a busy afternoon still gets written down. */
+function QuickLog({ app }: ScreenProps) {
+  return (
+    <div className={card}>
+      <p className="flex items-center justify-between text-[9.5px] font-semibold uppercase tracking-wider text-navy-mid">
+        Quick routine log
+        <span className="font-normal normal-case tracking-normal text-muted-foreground">
+          One tap
+        </span>
+      </p>
+      <div className="mt-2.5 grid grid-cols-5 gap-1.5">
+        {QUICK_LOG.map(({ label, icon: Icon, tint, go }) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => go(app)}
+            className={cn(
+              "flex flex-col items-center gap-1 rounded-[12px] py-2.5 text-[9.5px] font-semibold",
+              TINTS[tint],
+              press,
+            )}
+          >
+            <Icon className="size-4" aria-hidden />
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Home, ordered by urgency: who and what (header), what is happening now (shift),
+ * what to do in one tap (quick log), how the day is going (timeline), what needs you,
+ * then the week and the latest photo for reference.
+ */
 function HomeScreen({ app }: ScreenProps) {
+  const mins = app.today.getHours() * 60 + app.today.getMinutes();
+  const live = app.today.getDay() % 6 !== 0 && mins >= SHIFT_START && mins < SHIFT_END;
   return (
     <>
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 data-title tabIndex={-1} className={cn(titleCls, "text-[25px]")}>
-            Welcome
-          </h3>
-          <p className="mt-1 text-[11px] text-muted-foreground">{longDate(app.today)}</p>
-        </div>
-        <div className="flex gap-1.5">
-          <PhoneMenu
-            label="Quick add"
-            icon={<PlusIcon className="h-4 w-4" aria-hidden />}
-            title="Quick add"
-            items={["Calendar event or playdate", "Note or message", "Medicine dose", "Expense"]}
-            onPick={(i) => app.openSheet(i)}
-          />
-          <PhoneBell />
-          <PhoneMenu
-            label="Account and log out"
-            icon={<UserIcon className="h-4 w-4" aria-hidden />}
-            title="The Harrington Family"
-            items={["Emergency contacts", "Health & medicine", "Lock & log out"]}
-            onPick={(i) => app.openSheet(i)}
-          />
-        </div>
+      <PhoneHeader app={app} />
+      <ShiftCard today={app.today} />
+      <div className="mt-1 flex items-center gap-2">
+        <p className="text-[14px] font-semibold text-navy">Today with Jess</p>
+        {live && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#e4efe7] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-[#2f6b4a]">
+            <span className="size-1.5 rounded-full bg-[#2f9e5b]" aria-hidden />
+            Live · {hhmm(app.today)}
+          </span>
+        )}
       </div>
-      <ShiftBanner today={app.today} />
+      <QuickLog app={app} />
       <TodayCard app={app} />
-      <LatestPhoto app={app} />
-      <MonthCard app={app} />
-      <div className="flex gap-2">
-        <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>
-          <FileChartColumn aria-hidden />
-          Weekly report
-        </button>
-        <button
-          type="button"
-          onClick={() => app.push("thread")}
-          className={cn(btnPrimary, "flex-1")}
-        >
-          <MessageCircle aria-hidden />
-          Message Jess
-        </button>
-      </div>
 
       <Label>{app.signedAt ? "Your agreement" : "Needs your attention"}</Label>
       <List>
@@ -792,6 +1012,23 @@ function HomeScreen({ app }: ScreenProps) {
           />
         )}
       </List>
+
+      <WeekCard app={app} />
+      <LatestPhoto app={app} />
+      <div className="flex gap-2">
+        <button type="button" onClick={() => app.openSheet("Weekly report")} className={btnOutline}>
+          <FileChartColumn aria-hidden />
+          Weekly report
+        </button>
+        <button
+          type="button"
+          onClick={() => app.push("thread")}
+          className={cn(btnPrimary, "flex-1")}
+        >
+          <MessageCircle aria-hidden />
+          Message Jess
+        </button>
+      </div>
     </>
   );
 }
@@ -811,13 +1048,17 @@ function plansFor(day: number) {
 function CalendarScreen({ app }: ScreenProps) {
   const days = weekOf(app.today);
   const today = weekday(app.today);
-  const [day, setDay] = useState(today);
-  const plans = plansFor(day);
+  const day = app.store.calDay ?? today;
+  const setDay = (i: number) => app.set((st) => ({ ...st, calDay: i }));
+  const plans = [
+    ...plansFor(day),
+    ...app.store.events
+      .filter((e) => e.day === day)
+      .map((e) => ({ time: e.time, title: e.title, sub: "Added by you" })),
+  ].sort((a, b) => a.time.localeCompare(b.time));
   return (
     <>
-      <Title sub="Agreed hours sync from your nanny agreement. Tap a day to see what's on.">
-        Calendar
-      </Title>
+      <Title sub="Tap a day to see what's on.">Calendar</Title>
       <div className={card}>
         <p className="font-display text-[16px] text-navy">{monthYear(days[day]!)}</p>
         <WeekStrip today={app.today} selected={day} onSelect={setDay} />
@@ -825,8 +1066,8 @@ function CalendarScreen({ app }: ScreenProps) {
       <Label>{day === today ? "Today" : longDate(days[day]!)}</Label>
       {plans.length ? (
         <List>
-          {plans.map((p) => (
-            <div key={p.title} className="flex gap-3 px-3.5 py-2.5">
+          {plans.map((p, i) => (
+            <div key={i} className="flex gap-3 px-3.5 py-2.5">
               <span className="w-9 shrink-0 pt-px text-[10.5px] tabular-nums text-muted-foreground">
                 {p.time}
               </span>
@@ -842,6 +1083,19 @@ function CalendarScreen({ app }: ScreenProps) {
           No nanny hours. Nothing planned yet.
         </p>
       )}
+      {/* Hours, updates and notes moved here from Home, which now leads with the live shift. */}
+      <Label>Hours and updates</Label>
+      <MonthCard app={app} />
+      <BottomBar>
+        <button
+          type="button"
+          onClick={() => app.openSheet("Add an event")}
+          className={cn(btnPrimary, "h-10 w-full")}
+        >
+          <Plus aria-hidden />
+          Add to {day === today ? "today" : DAYS[days[day]!.getDay()]}
+        </button>
+      </BottomBar>
     </>
   );
 }
@@ -920,7 +1174,12 @@ function FamilyScreen({ app }: ScreenProps) {
       <Label>Your children</Label>
       {CHILDREN.map((c) => (
         <div key={c.name} className={cn(card, "flex gap-3")}>
-          <img src={c.photo} alt={c.name} className="size-9 shrink-0 rounded-full bg-[#fde8d7] object-cover" loading="lazy" />
+          <img
+            src={c.photo}
+            alt={c.name}
+            className="size-9 shrink-0 rounded-full bg-[#fde8d7] object-cover"
+            loading="lazy"
+          />
           <div className="min-w-0">
             <p className="text-[13px] font-medium text-navy">{c.name}</p>
             <p className="text-[10.5px] text-muted-foreground">{c.school}</p>
@@ -969,21 +1228,13 @@ function FamilyScreen({ app }: ScreenProps) {
 // Every page of the real wallet. The ones without a target open the full demo.
 const MORE: { label: string; items: [string, LucideIcon, (Tab | Page)?][] }[] = [
   {
-    label: "Overview",
-    items: [
-      ["Home", Home, "home"],
-      ["Calendar", CalendarDays, "calendar"],
-      ["Messages", MessageCircle, "messages"],
-      ["Today", Clock3, "today"],
-      ["Weekly report", FileChartColumn],
-    ],
-  },
-  {
     label: "Day to day",
     items: [
+      ["Today", Clock3, "today"],
       ["Daily log", NotebookPen, "log"],
       ["Medication log", Pill, "medicine"],
-      ["Handover & expenses", ClipboardCheck],
+      ["Handover & expenses", ClipboardCheck, "cash"],
+      ["Weekly report", FileChartColumn],
       ["Photo moments", Camera, "moments"],
       ["Active Kids Passport", Dumbbell, "passport"],
     ],
@@ -1021,7 +1272,7 @@ const isTab = (id: Tab | Page): id is Tab => TABS.some((t) => t.id === id);
 function MoreScreen({ app }: ScreenProps) {
   return (
     <>
-      <Title sub="Every page, by section.">Your wallet</Title>
+      <Title sub="Everything else, by section.">Your wallet</Title>
       {MORE.map((s) => (
         <div key={s.label} className="space-y-2">
           <Label>{s.label}</Label>
@@ -1064,7 +1315,12 @@ function HeaderAvatars({ today }: { today: Date }) {
           title={p.online ? `${p.name} is online` : p.name}
           className="relative grid size-6 place-items-center rounded-full bg-accent text-[10px] font-semibold text-navy ring-2 ring-background"
         >
-          <img src={p.photo} alt={p.name} className="size-full rounded-full object-cover" loading="lazy" />
+          <img
+            src={p.photo}
+            alt={p.name}
+            className="size-full rounded-full object-cover"
+            loading="lazy"
+          />
           {p.online && (
             <span
               role="img"
@@ -1379,7 +1635,11 @@ function HouseScreen({ app }: ScreenProps) {
     const t = setInterval(
       () =>
         setLeft((cur) =>
-          Object.fromEntries(Object.entries(cur).filter(([, n]) => n > 1).map(([k, n]) => [k, n - 1])),
+          Object.fromEntries(
+            Object.entries(cur)
+              .filter(([, n]) => n > 1)
+              .map(([k, n]) => [k, n - 1]),
+          ),
         ),
       1000,
     );
@@ -1579,7 +1839,14 @@ function PhotoPost({ post }: { post: Post }) {
   const [liked, setLiked] = useState(Boolean(post.loved));
   return (
     <div className={cn(card, "overflow-hidden p-0")}>
-      {post.photo && <img src={post.photo} alt={post.caption} loading="lazy" className="aspect-[4/3] w-full object-cover" />}
+      {post.photo && (
+        <img
+          src={post.photo}
+          alt={post.caption}
+          loading="lazy"
+          className="aspect-[4/3] w-full object-cover"
+        />
+      )}
       <div className="p-3">
         <div className="flex items-center gap-2">
           <img src={DEMO_AVATARS["jess"]!} alt="" className="size-5 rounded-full object-cover" />
@@ -1613,57 +1880,129 @@ function PhotoPost({ post }: { post: Post }) {
 }
 
 /** Today at 17:45, as Jess and the parents see it: what has happened, and what is next. */
-const TODAY_ITEMS: { at: string | null; title: string; sub?: string; state: "done" | "next" | "later"; attention?: boolean; photo?: string }[] = [
-  { at: null, title: "Homework today", sub: "Reading for 20 minutes and spelling list 12. Leo: reading book, pages 14 and 15", state: "done" },
-  { at: "15:15", title: "Collected Oscar and Leo from school", state: "done", photo: "/images/demo/school-run.jpg" },
+const TODAY_ITEMS: {
+  at: string | null;
+  title: string;
+  sub?: string;
+  state: "done" | "next" | "later";
+  attention?: boolean;
+  photo?: string;
+}[] = [
+  {
+    at: null,
+    title: "Homework today",
+    sub: "Reading for 20 minutes and spelling list 12. Leo: reading book, pages 14 and 15",
+    state: "done",
+  },
+  {
+    at: "15:15",
+    title: "Collected Oscar and Leo from school",
+    state: "done",
+    photo: "/images/demo/school-run.jpg",
+  },
   { at: "15:40", title: "Snack: apple, cheese and crackers", state: "done" },
-  { at: "16:05", title: "Oscar's homework done", sub: "Reading and spellings, 10 out of 10", state: "done" },
-  { at: "16:10", title: "Calpol given to Oscar", sub: "5ml for a sore throat · next safe from 20:10", state: "done", attention: true },
-  { at: "16:30", title: "Tennis at the park", sub: "Oscar · ten serves in a row", state: "done", photo: "/images/demo/tennis.jpg" },
-  { at: "17:40", title: "Dinner is on", sub: "Leo is on sauce duty", state: "done", photo: "/images/demo/chef.jpg" },
+  {
+    at: "16:05",
+    title: "Oscar's homework done",
+    sub: "Reading and spellings, 10 out of 10",
+    state: "done",
+  },
+  {
+    at: "16:10",
+    title: "Calpol given to Oscar",
+    sub: "5ml for a sore throat · next safe from 20:10",
+    state: "done",
+    attention: true,
+  },
+  {
+    at: "16:30",
+    title: "Tennis at the park",
+    sub: "Oscar · ten serves in a row",
+    state: "done",
+    photo: "/images/demo/tennis.jpg",
+  },
+  {
+    at: "17:40",
+    title: "Dinner is on",
+    sub: "Leo is on sauce duty",
+    state: "done",
+    photo: "/images/demo/chef.jpg",
+  },
   { at: "18:45", title: "Leo's bath", state: "next" },
   { at: "19:00", title: "Oscar's bath and reading", state: "later" },
   { at: "19:30", title: "Shift ends", sub: "Jess sends the end-of-day summary", state: "later" },
 ];
+
+/** The day's items with anything logged from this phone slotted in before what is still to come. */
+function todayItems(app: WalletApp): typeof TODAY_ITEMS {
+  const next = TODAY_ITEMS.findIndex((i) => i.state !== "done");
+  return [
+    ...TODAY_ITEMS.slice(0, next),
+    ...app.store.logged.map((l) => ({ ...l, state: "done" as const })),
+    ...TODAY_ITEMS.slice(next),
+  ];
+}
 
 function TodayDot({ item }: { item: (typeof TODAY_ITEMS)[number] }) {
   return (
     <span
       className={cn(
         "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
-        item.attention ? "bg-[#fbf0cf] text-[#76591a]" : item.state === "next" ? "bg-navy text-white" : item.state === "later" ? "bg-muted text-muted-foreground" : "bg-[#e4efe7] text-[#2f6b4a]",
+        item.attention
+          ? "bg-[#fbf0cf] text-[#76591a]"
+          : item.state === "next"
+            ? "bg-navy text-white"
+            : item.state === "later"
+              ? "bg-muted text-muted-foreground"
+              : "bg-[#e4efe7] text-[#2f6b4a]",
       )}
     >
-      {item.state === "done" ? <Check className="size-3" aria-hidden /> : <Clock3 className="size-3" aria-hidden />}
+      {item.state === "done" ? (
+        <Check className="size-3" aria-hidden />
+      ) : (
+        <Clock3 className="size-3" aria-hidden />
+      )}
     </span>
   );
 }
 
 /** Home: the afternoon at a glance, so the first screen shows the day is already in motion. */
 function TodayCard({ app }: ScreenProps) {
-  const done = TODAY_ITEMS.filter((i) => i.state === "done" && i.at);
-  const rows = [...done.slice(-2), ...TODAY_ITEMS.filter((i) => i.state !== "done").slice(0, 2)];
+  const items = todayItems(app);
+  const done = items.filter((i) => i.state === "done" && i.at);
+  const rows = [...done.slice(-2), ...items.filter((i) => i.state !== "done").slice(0, 2)];
   return (
     <div className={card}>
       <div className="flex items-center justify-between">
-        <p className="text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">Today with Jess</p>
-        <button type="button" onClick={() => app.push("today")} className={cn("text-[10.5px] font-medium text-navy underline underline-offset-2", press)}>
+        <p className="text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">Latest</p>
+        <button
+          type="button"
+          onClick={() => app.push("today")}
+          className={cn("text-[10.5px] font-medium text-navy underline underline-offset-2", press)}
+        >
           Whole day
         </button>
       </div>
       <div className="mt-2.5 rounded-[12px] bg-[#fbf0cf] px-2.5 py-2 text-[11px] leading-[1.45] text-[#5c4614]">
-        <span className="font-semibold">Homework today:</span> reading for 20 minutes and spelling list 12
+        <span className="font-semibold">Homework today:</span> reading for 20 minutes and spelling
+        list 12
       </div>
       <ul className="mt-2.5 space-y-2">
-        {rows.map((i) => (
-          <li key={i.title} className="flex gap-2.5">
+        {rows.map((i, n) => (
+          <li key={n} className="flex gap-2.5">
             <TodayDot item={i} />
             <div className="min-w-0">
               <p className="text-[11.5px] font-medium text-navy">
                 <span className="tabular-nums text-muted-foreground">{i.at}</span> {i.title}
-                {i.state === "next" && <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">Next</span>}
+                {i.state === "next" && (
+                  <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">
+                    Next
+                  </span>
+                )}
               </p>
-              {i.sub && <p className="text-[10.5px] leading-[1.4] text-muted-foreground">{i.sub}</p>}
+              {i.sub && (
+                <p className="text-[10.5px] leading-[1.4] text-muted-foreground">{i.sub}</p>
+              )}
             </div>
           </li>
         ))}
@@ -1679,17 +2018,40 @@ function TodayScreen({ app }: ScreenProps) {
       <BackLink app={app} />
       <Title sub="Everything from Jess's shift in one place, newest at the bottom.">Today</Title>
       <ol className="space-y-3">
-        {TODAY_ITEMS.map((i) => (
-          <li key={i.title} className="flex gap-2.5">
+        {todayItems(app).map((i, n) => (
+          <li key={n} className="flex gap-2.5">
             <TodayDot item={i} />
             <div className="min-w-0 flex-1">
-              <p className={cn("text-[12px] font-medium", i.state === "later" ? "text-muted-foreground" : "text-navy")}>
-                <span className="tabular-nums text-muted-foreground">{i.at ?? "Today"}</span> {i.title}
-                {i.attention && <span className="ml-1.5 rounded-full bg-[#fbf0cf] px-1.5 py-px text-[9px] font-medium text-[#76591a]">Check</span>}
-                {i.state === "next" && <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">Next</span>}
+              <p
+                className={cn(
+                  "text-[12px] font-medium",
+                  i.state === "later" ? "text-muted-foreground" : "text-navy",
+                )}
+              >
+                <span className="tabular-nums text-muted-foreground">{i.at ?? "Today"}</span>{" "}
+                {i.title}
+                {i.attention && (
+                  <span className="ml-1.5 rounded-full bg-[#fbf0cf] px-1.5 py-px text-[9px] font-medium text-[#76591a]">
+                    Check
+                  </span>
+                )}
+                {i.state === "next" && (
+                  <span className="ml-1.5 rounded-full bg-navy px-1.5 py-px text-[9px] font-medium text-white">
+                    Next
+                  </span>
+                )}
               </p>
-              {i.sub && <p className="text-[10.5px] leading-[1.45] text-muted-foreground">{i.sub}</p>}
-              {i.photo && <img src={i.photo} alt="" loading="lazy" className="mt-1.5 aspect-[16/9] w-full rounded-[12px] object-cover" />}
+              {i.sub && (
+                <p className="text-[10.5px] leading-[1.45] text-muted-foreground">{i.sub}</p>
+              )}
+              {i.photo && (
+                <img
+                  src={i.photo}
+                  alt=""
+                  loading="lazy"
+                  className="mt-1.5 aspect-[16/9] w-full rounded-[12px] object-cover"
+                />
+              )}
             </div>
           </li>
         ))}
@@ -1708,10 +2070,19 @@ function LatestPhoto({ app }: ScreenProps) {
       onClick={() => app.push("moments")}
       className={cn(card, "flex w-full items-center gap-3 overflow-hidden p-2.5 text-left", press)}
     >
-      <img src={latest.photo} alt="" loading="lazy" className="size-14 shrink-0 rounded-[12px] object-cover" />
+      <img
+        src={latest.photo}
+        alt=""
+        loading="lazy"
+        className="size-14 shrink-0 rounded-[12px] object-cover"
+      />
       <span className="min-w-0 flex-1">
-        <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">New from Jess · {latest.time}</span>
-        <span className="mt-0.5 line-clamp-2 block text-[11.5px] leading-snug text-foreground">{latest.caption}</span>
+        <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">
+          New from Jess · {latest.time}
+        </span>
+        <span className="mt-0.5 line-clamp-2 block text-[11.5px] leading-snug text-foreground">
+          {latest.caption}
+        </span>
       </span>
       <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" aria-hidden />
     </button>
@@ -1735,10 +2106,11 @@ function MomentsScreen({ app }: ScreenProps) {
 /** Safe-dose lockout: the next dose is blocked until the gap since the last one has passed. */
 function MedicineScreen({ app }: ScreenProps) {
   const mins = app.today.getHours() * 60 + app.today.getMinutes();
-  const given = 13 * 60 + 20; // Calpol, given by Jess
+  const given = 16 * 60 + 10; // Calpol, given by Jess: the same dose as on today's timeline
   const safeAt = given + 4 * 60;
   const locked = mins >= given && mins < safeAt;
   const left = safeAt - mins;
+  const vitamin = app.store.vitaminAt;
   return (
     <>
       <BackLink app={app} />
@@ -1746,13 +2118,13 @@ function MedicineScreen({ app }: ScreenProps) {
       <div className={card}>
         <p className="text-[12.5px] font-medium text-navy">Oscar · Calpol</p>
         <p className="mt-1 text-[11px] leading-[1.45] text-muted-foreground">
-          Last dose 13:20 · 5ml · given by Jess
+          Last dose 16:10 · 5ml · given by Jess
         </p>
         {locked ? (
           <div className="mt-2.5 flex items-start gap-2 rounded-[12px] bg-warning-soft p-2.5 text-warning">
             <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
             <div>
-              <p className="text-[11.5px] font-semibold">Safe-dose lockout until 17:20</p>
+              <p className="text-[11.5px] font-semibold">Safe-dose lockout until 20:10</p>
               <p className="mt-0.5 text-[10.5px]">
                 {Math.floor(left / 60)}h {left % 60}m left before another dose is safe.
               </p>
@@ -1763,19 +2135,40 @@ function MedicineScreen({ app }: ScreenProps) {
             A further dose is due now if needed
           </p>
         )}
+        <button
+          type="button"
+          disabled
+          className={cn(btnOutline, "mt-2.5 w-full disabled:opacity-50")}
+        >
+          <Lock aria-hidden />
+          {locked ? "Locked until 20:10" : "Ask Jess before giving more"}
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => app.openSheet("Log a dose")}
-        className={cn(
-          "inline-flex h-10 items-center justify-center gap-1.5 rounded-full text-[12px] font-medium",
-          locked ? "border border-border text-navy" : "bg-navy text-white",
-          press,
-        )}
-      >
-        {locked ? <Lock className="size-3.5" aria-hidden /> : <Pill className="size-3.5" aria-hidden />}
-        {locked ? "Locked until 17:20" : "Log dose"}
-      </button>
+      <div className={card}>
+        <p className="text-[12.5px] font-medium text-navy">Leo · Vitamin D drops</p>
+        <p className="mt-1 text-[11px] leading-[1.45] text-muted-foreground">
+          {vitamin ? `Given today at ${vitamin} · by you` : "Once a day · not given yet today"}
+        </p>
+        <button
+          type="button"
+          disabled={vitamin !== null}
+          onClick={() => {
+            const at = hhmm(app.today);
+            app.set((st) => ({
+              ...st,
+              vitaminAt: at,
+              logged: [
+                ...st.logged,
+                { at, title: "Vitamin D drops given to Leo", sub: "Logged by you" },
+              ],
+            }));
+          }}
+          className={cn(btnPrimary, "mt-2.5 h-10 w-full")}
+        >
+          {vitamin ? <Check aria-hidden /> : <Pill aria-hidden />}
+          {vitamin ? "Given today" : "Log today's dose"}
+        </button>
+      </div>
       <p className="text-[10.5px] leading-[1.45] text-muted-foreground">
         Always follow the instructions on the packaging and the parents' written permission.
       </p>
@@ -1785,10 +2178,16 @@ function MedicineScreen({ app }: ScreenProps) {
 
 /** The household float: one shared running balance. */
 function CashScreen({ app }: ScreenProps) {
+  const added = app.store.spent.reduce((n, e) => n + e.amount, 0);
   const entries: [string, string, string][] = [
+    ...app.store.spent.map((e): [string, string, string] => [
+      e.what,
+      "You · just now",
+      `−£${e.amount.toFixed(2)}`,
+    ]),
     ["Snacks after swimming", "Jess", "−£6.20"],
     ["Bus fare to the museum", "Jess", "−£4.80"],
-    ["Weekly float", "Sarah", "+£50.00"],
+    ["Weekly float", "Emma", "+£50.00"],
   ];
   return (
     <>
@@ -1796,15 +2195,18 @@ function CashScreen({ app }: ScreenProps) {
       <Title sub="No more scraps of receipts or guessing what's left.">Petty cash float</Title>
       <div className="rounded-[22px] bg-navy p-4 text-white shadow-md">
         <p className="text-[11px] text-white/70">Household float balance</p>
-        <p className="mt-0.5 font-display text-[34px] leading-none">£42.50</p>
+        <p className="mt-0.5 font-display text-[34px] leading-none tabular-nums">
+          £{(42.5 - added).toFixed(2)}
+        </p>
         <p className="mt-2.5 text-[11px] text-white/70">
-          Spent this month <span className="font-semibold text-white">£11.00</span>
+          Spent this month{" "}
+          <span className="font-semibold tabular-nums text-white">£{(11 + added).toFixed(2)}</span>
         </p>
       </div>
       <Label>History</Label>
       <List>
-        {entries.map(([what, who, amount]) => (
-          <div key={what} className="flex items-center gap-2 px-3.5 py-2.5">
+        {entries.map(([what, who, amount], i) => (
+          <div key={i} className="flex items-center gap-2 px-3.5 py-2.5">
             <span className="min-w-0 flex-1">
               <span className="block text-[12px] font-medium text-navy">{what}</span>
               <span className="block text-[10.5px] text-muted-foreground">{who}</span>
@@ -1820,6 +2222,16 @@ function CashScreen({ app }: ScreenProps) {
           </div>
         ))}
       </List>
+      <BottomBar>
+        <button
+          type="button"
+          onClick={() => app.openSheet("Add an expense")}
+          className={cn(btnPrimary, "h-10 w-full")}
+        >
+          <Plus aria-hidden />
+          Add an expense
+        </button>
+      </BottomBar>
     </>
   );
 }
@@ -1827,7 +2239,9 @@ function CashScreen({ app }: ScreenProps) {
 /** Holiday entitlement as a ring that fills as days are taken. */
 function LeaveScreen({ app }: ScreenProps) {
   const total = 28;
-  const taken = 9;
+  const status = app.store.leave;
+  const taken = 9 + (status === "approved" ? 2 : 0);
+  const decide = (leave: Store["leave"]) => app.set((st) => ({ ...st, leave }));
   return (
     <>
       <BackLink app={app} />
@@ -1835,7 +2249,14 @@ function LeaveScreen({ app }: ScreenProps) {
       <div className={cn(card, "flex items-center gap-4")}>
         <div className="relative size-[76px] shrink-0">
           <svg viewBox="0 0 36 36" className="size-[76px] -rotate-90" aria-hidden>
-            <circle cx="18" cy="18" r="15.9" fill="none" strokeWidth="3" className="stroke-border" />
+            <circle
+              cx="18"
+              cy="18"
+              r="15.9"
+              fill="none"
+              strokeWidth="3"
+              className="stroke-border"
+            />
             <circle
               cx="18"
               cy="18"
@@ -1850,7 +2271,9 @@ function LeaveScreen({ app }: ScreenProps) {
           </svg>
           <div className="absolute inset-0 grid place-items-center text-center">
             <div>
-              <p className="font-display text-[20px] leading-none text-navy">{total - taken}</p>
+              <p className="font-display text-[20px] leading-none tabular-nums text-navy">
+                {total - taken}
+              </p>
               <p className="mt-0.5 text-[9px] text-muted-foreground">days left</p>
             </div>
           </div>
@@ -1860,14 +2283,56 @@ function LeaveScreen({ app }: ScreenProps) {
             <span className="font-semibold text-navy">{taken}</span> taken
           </p>
           <p>
-            <span className="font-semibold text-navy">0</span> awaiting approval
+            <span className="font-semibold text-navy">{status === "pending" ? 2 : 0}</span> awaiting
+            approval
           </p>
           <p>{total} days a year (5.6 weeks × 5 days)</p>
         </div>
       </div>
+      {status === "pending" ? (
+        <div className={card}>
+          <p className="text-[10.5px] font-semibold uppercase tracking-wider text-navy-mid">
+            Jess asked for time off
+          </p>
+          <p className="mt-1.5 text-[12.5px] font-medium text-navy">Fri 18 and Mon 21 Dec</p>
+          <p className="mt-0.5 text-[10.5px] text-muted-foreground">
+            2 days · "Family wedding in Leeds"
+          </p>
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              onClick={() => decide("declined")}
+              className={cn(btnOutline, "h-10")}
+            >
+              Decline
+            </button>
+            <button
+              type="button"
+              onClick={() => decide("approved")}
+              className={cn(btnPrimary, "h-10 flex-1")}
+            >
+              <Check aria-hidden />
+              Approve 2 days
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p
+          className={cn(
+            "wp-unblur flex items-center gap-2 rounded-[16px] p-3 text-[11.5px]",
+            status === "approved" ? "bg-[#e4efe7] text-[#2f6b4a]" : "bg-paper text-navy",
+          )}
+        >
+          <Check className="size-4 shrink-0" aria-hidden />
+          {status === "approved"
+            ? "Approved. Jess has been told, and the days are on the calendar."
+            : "Declined. Jess has been told."}
+        </p>
+      )}
       <Label>Booked</Label>
       <List>
         {[
+          ...(status === "approved" ? [["Family wedding", "Fri 18 and Mon 21 Dec · 2 days"]] : []),
           ["Half term", "Mon 27 to Fri 30 Oct · 4 days"],
           ["Summer holiday", "Mon 4 to Fri 8 Aug · 5 days"],
         ].map(([t, d]) => (
@@ -1878,6 +2343,419 @@ function LeaveScreen({ app }: ScreenProps) {
         ))}
       </List>
     </>
+  );
+}
+
+/* ---------- Sheets ---------- */
+
+/** A bar that stays above the tab bar, so the main action is always under the thumb. */
+function BottomBar({ children }: { children: ReactNode }) {
+  return (
+    <div className="sticky bottom-0 -mx-4 -mb-6 mt-auto border-t border-border bg-background/90 px-3 pb-3 pt-2.5 backdrop-blur">
+      {children}
+    </div>
+  );
+}
+
+type Form = {
+  intro: string;
+  presets: string[];
+  placeholder: string;
+  amount?: boolean;
+  save: (app: WalletApp, text: string, amount: number) => void;
+};
+
+const logAs = (kind: string) => (app: WalletApp, text: string) => {
+  const at = hhmm(app.today);
+  app.set((st) => ({
+    ...st,
+    logged: [...st.logged, { at, title: text, sub: `${kind} · added by you` }],
+  }));
+};
+
+const FORMS: Record<string, Form> = {
+  "Add a note": {
+    intro: "Jess sees it straight away, and it stays on today's timeline.",
+    presets: ["PE kit is in the hall", "Grandma collects on Friday", "Check Leo's reading book"],
+    placeholder: "Write a note",
+    save: logAs("Note"),
+  },
+  "Log a meal": {
+    intro: "What they ate, on today's timeline.",
+    presets: ["Snack: fruit and crackers", "Dinner: pasta and vegetables", "Drink: milk"],
+    placeholder: "What did they eat?",
+    save: logAs("Meal"),
+  },
+  "Log an activity": {
+    intro: "What you did together, on today's timeline.",
+    presets: ["Park and scooters", "Homework and reading", "Baking together"],
+    placeholder: "What did you do?",
+    save: logAs("Activity"),
+  },
+  "Add an event": {
+    intro: "It shows on the calendar for you and Jess. Start with a time, like 16:00.",
+    presets: ["16:00 Playdate at the park", "17:00 Dentist check-up", "16:30 Football club"],
+    placeholder: "16:00 Playdate",
+    save: (app, text) => {
+      const m = text.match(/^(\d{1,2}:\d{2})\s+(.+)$/);
+      app.set((st) => ({
+        ...st,
+        events: [
+          ...st.events,
+          {
+            day: st.calDay ?? weekday(app.today),
+            time: m ? m[1]!.padStart(5, "0") : "Any",
+            title: m ? m[2]! : text,
+          },
+        ],
+      }));
+    },
+  },
+  "Add an expense": {
+    intro: "It comes off the household float straight away.",
+    presets: ["Snacks", "Bus fare", "Craft supplies"],
+    placeholder: "What was it for?",
+    amount: true,
+    save: (app, text, amount) =>
+      app.set((st) => ({ ...st, spent: [{ what: text, amount }, ...st.spent] })),
+  },
+};
+
+type Info = {
+  intro: string;
+  /** "tick": a checklist. "approve": each row has an Approve button. */
+  mode?: "tick" | "approve";
+  rows: (app: WalletApp) => [string, string?][];
+};
+
+const EMERGENCY: Info = {
+  intro: "In an emergency call 999 first. Then call a parent.",
+  rows: () => [
+    ["Emma Harrington · Mum", "07700 900123"],
+    ["Tom Harrington · Dad", "07700 900456"],
+    ["GP · Portobello Road Surgery", "020 7946 0018"],
+    ["Leo · mild nut allergy", "Piriton is in the kitchen drawer"],
+    ["Oscar", "No allergies"],
+    ["Home address", "12 Example Gardens, London W10"],
+  ],
+};
+
+const INFO: Record<string, Info> = {
+  "Emergency card": EMERGENCY,
+  "Emergency contacts": EMERGENCY,
+  "Weekly report": {
+    intro: "This week so far, from Jess's shifts and updates.",
+    rows: (app) => {
+      const days = Math.min(weekday(app.today), 5);
+      const spent = app.store.spent.reduce((n, e) => n + e.amount, 0);
+      return [
+        ["Hours worked", `${days * SHIFT_HOURS} of ${5 * SHIFT_HOURS} agreed, before today`],
+        ["Daily updates", `${days} from Jess`],
+        ["Medicine", "1 dose · Calpol for Oscar, today at 16:10"],
+        [
+          "Petty cash",
+          `£${(11 + spent).toFixed(2)} spent · £${(42.5 - spent).toFixed(2)} left in the float`,
+        ],
+        ["Active Kids Passport", "3 activities · 105 active minutes · 2 badges"],
+      ];
+    },
+  },
+  "Kids' playbook": {
+    intro: "The small things that make a day go well.",
+    rows: () => [
+      ["Oscar after school", "Ten quiet minutes with a book before homework"],
+      ["Leo at bedtime", "Blue rabbit, then two stories"],
+      ["Rainy-day ideas", "Den building, a Lego build-off, baking flapjacks"],
+      ["Big moments", "Leo put his face in the water at swimming"],
+    ],
+  },
+  "Nanny quick guide": {
+    intro: "One page for Jess, made from what you've filled in.",
+    rows: () => [
+      ["Hours", "Monday to Friday, 15:00 to 19:30"],
+      ["School pick-up", "15:15 · St Mary's Primary · Oscar and Leo"],
+      ["Allergies", "Leo: mild nut allergy. Nut-free house"],
+      ["Snacks", "Fruit, crackers and cheese. Biscuits only after dinner"],
+      ["Screen time", "30 minutes after homework. Fridays are film night"],
+      ["Spare key", "Margaret at No. 14"],
+    ],
+  },
+  "First 48 hours": {
+    intro: "Tick these off together in Jess's first two days.",
+    mode: "tick",
+    rows: () => [
+      ["House tour and key safe"],
+      ["Read the emergency card"],
+      ["Meet the school office at pick-up"],
+      ["Confirm allergies and medicine"],
+      ["Agree how you'll message each other"],
+    ],
+  },
+  "Travel pack": {
+    intro: "For trips with the children.",
+    mode: "tick",
+    rows: () => [
+      ["Passports"],
+      ["Consent letter to travel with the children"],
+      ["Travel insurance details"],
+      ["Medicine and Calpol"],
+      ["Emergency contacts while away"],
+    ],
+  },
+  "Your nannies": {
+    intro: "Everyone who looks after Oscar and Leo.",
+    rows: (app) => [
+      ["Jess Carter · Nanny", "Monday to Friday, 15:00 to 19:30"],
+      ["Started", "1 June 2026"],
+      [
+        "Agreement",
+        app.signedAt ? "Signed by you and Jess" : "Signed by Jess · waiting for your signature",
+      ],
+    ],
+  },
+  Timesheets: {
+    intro: "Check the hours, then approve. Approved hours go to payroll.",
+    mode: "approve",
+    rows: (app) =>
+      workedDays(app.today, 3).map((d): [string, string] => [
+        shortDate(d),
+        `15:00 to 19:30 · ${SHIFT_HOURS} hours`,
+      ]),
+  },
+  "Payroll setup": {
+    intro: "Taken from your signed agreement.",
+    rows: () => [
+      ["Pay rate", "£18 an hour gross"],
+      ["Paid", "Monthly"],
+      ["Agreed hours", "22.5 a week · £405.00 gross a week"],
+    ],
+  },
+  "Employment costs": {
+    intro: "What you've agreed to pay, before employer costs.",
+    rows: () => [
+      ["Gross pay", "£405.00 a week (22.5 hours at £18)"],
+      ["Holiday", "28 days a year"],
+      ["Employer costs", "National Insurance and pension are worked out by your payroll provider"],
+    ],
+  },
+  "Nanny training": {
+    intro: "Jess's training, with the certificates she has shared.",
+    rows: () => [
+      ["Paediatric first aid", "Certificate shared"],
+      ["Safeguarding", "Certificate shared"],
+      ["Food hygiene", "Certificate shared"],
+    ],
+  },
+  "Safety records": {
+    intro: "Checks your agency has verified.",
+    rows: () => [
+      ["DBS certificate", "Verified"],
+      ["ID and right to work", "Verified"],
+      ["References", "2 received"],
+    ],
+  },
+};
+
+const field =
+  "h-10 w-full select-text rounded-[11px] border border-border bg-background px-3 text-[12px] text-navy outline-none placeholder:text-muted-foreground focus-visible:border-navy";
+
+/** What the sheet holds: a form that saves, a page of content, or (for anything else) a short note. */
+function SheetBody({
+  app,
+  titleId,
+  action,
+}: ScreenProps & { titleId: string; action: React.RefObject<HTMLButtonElement | null> }) {
+  const label = app.sheet.label;
+  const form = FORMS[label];
+  const info = INFO[label];
+  const [text, setText] = useState("");
+  const [amount, setAmount] = useState("");
+  const pounds = Number(amount);
+  const ready = text.trim() !== "" && (!form?.amount || pounds > 0);
+  const title = (
+    <p id={titleId} className="font-display text-[20px] leading-tight text-navy">
+      {label}
+    </p>
+  );
+  const intro = (copy: string) => (
+    <p className="mt-1.5 text-[11.5px] leading-[1.5] text-muted-foreground">{copy}</p>
+  );
+
+  if (form) {
+    return (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!ready) return;
+          form.save(app, text.trim(), pounds);
+          app.closeSheet();
+        }}
+      >
+        {title}
+        {intro(form.intro)}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {form.presets.map((preset) => (
+            <button
+              key={preset}
+              type="button"
+              aria-pressed={text === preset}
+              onClick={() => setText(preset)}
+              className={cn(
+                "h-8 rounded-full px-3 text-[10.5px]",
+                text === preset ? "bg-navy text-primary-foreground" : "bg-paper text-navy",
+                press,
+              )}
+            >
+              {preset}
+            </button>
+          ))}
+        </div>
+        <input
+          aria-label={form.placeholder}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={form.placeholder}
+          maxLength={80}
+          className={cn(field, "mt-2.5")}
+        />
+        {form.amount && (
+          <input
+            aria-label="Amount in pounds"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value.replace(/[^\d.]/g, ""))}
+            placeholder="Amount, e.g. 4.50"
+            inputMode="decimal"
+            className={cn(field, "mt-2 tabular-nums")}
+          />
+        )}
+        <button
+          ref={action}
+          type="submit"
+          disabled={!ready}
+          className={cn(btnPrimary, "mt-3 h-10 w-full")}
+        >
+          Save
+        </button>
+        <button type="button" onClick={app.closeSheet} className={cn(btn, "mt-1 w-full text-navy")}>
+          Cancel
+        </button>
+      </form>
+    );
+  }
+
+  if (info) {
+    const rows = info.rows(app);
+    const id = (row: string) => `${label}/${row}`;
+    const toggle = (row: string) =>
+      app.set((st) => ({ ...st, checks: { ...st.checks, [id(row)]: !st.checks[id(row)] } }));
+    return (
+      <>
+        {title}
+        {intro(info.intro)}
+        <div className="mt-3 divide-y divide-border overflow-hidden rounded-[14px] border border-border">
+          {rows.map(([row, sub]) => {
+            const on = Boolean(app.store.checks[id(row)]);
+            const text = (
+              <span className="min-w-0 flex-1">
+                <span className="block text-[12px] font-medium text-navy">{row}</span>
+                {sub && (
+                  <span className="mt-0.5 block text-[10.5px] leading-[1.4] text-muted-foreground">
+                    {sub}
+                  </span>
+                )}
+              </span>
+            );
+            return info.mode === "tick" ? (
+              <button
+                key={row}
+                type="button"
+                role="checkbox"
+                aria-checked={on}
+                onClick={() => toggle(row)}
+                className={cn(
+                  "flex min-h-10 w-full items-center gap-2.5 px-3 py-2 text-left",
+                  rowPress,
+                )}
+              >
+                <span
+                  className={cn(
+                    "grid size-[18px] shrink-0 place-items-center rounded-full",
+                    on ? "bg-[#2f6b4a] text-white" : "border-[1.5px] border-navy/30",
+                  )}
+                >
+                  {on && <Check className="size-3" strokeWidth={3} aria-hidden />}
+                </span>
+                {text}
+              </button>
+            ) : (
+              <div key={row} className="flex min-h-10 items-center gap-2.5 px-3 py-2">
+                {text}
+                {info.mode === "approve" && (
+                  <button
+                    type="button"
+                    disabled={on}
+                    onClick={() => toggle(row)}
+                    className={cn(
+                      "inline-flex h-8 shrink-0 items-center gap-1 rounded-full px-3 text-[10.5px] font-medium",
+                      on ? "bg-[#e4efe7] text-[#2f6b4a]" : "bg-navy text-primary-foreground",
+                      press,
+                    )}
+                  >
+                    {on && <Check className="size-3" aria-hidden />}
+                    {on ? "Approved" : "Approve"}
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <button
+          ref={action}
+          type="button"
+          onClick={app.closeSheet}
+          className={cn(btnPrimary, "mt-3 h-10 w-full")}
+        >
+          Done
+        </button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {title}
+      {intro("You'll find this in the Family Wallet app, coming to iOS and Android.")}
+      <button
+        ref={action}
+        type="button"
+        onClick={app.closeSheet}
+        className={cn(btnPrimary, "mt-4 h-10 w-full")}
+      >
+        Got it
+      </button>
+    </>
+  );
+}
+
+/** Lock & log out: the wallet stays shut until its owner opens it again. */
+function LockScreen({ app }: ScreenProps) {
+  return (
+    <div className="absolute inset-0 z-40 flex flex-col items-center bg-background px-6 pb-12 pt-24 text-center">
+      <LogoMark className="h-12 w-12" />
+      <p className="mt-4 font-display text-[22px] leading-tight text-navy">Wallet locked</p>
+      <p className="mt-1.5 text-[11.5px] leading-[1.5] text-muted-foreground">
+        The Harrington Family. Codes, documents and messages stay hidden until you unlock.
+      </p>
+      <button
+        type="button"
+        autoFocus
+        onClick={() => app.set((st) => ({ ...st, locked: false }))}
+        className={cn(btnPrimary, "mt-auto h-11 w-full")}
+      >
+        <ScanFace aria-hidden />
+        Unlock with Face ID
+      </button>
+    </div>
   );
 }
 
@@ -1910,6 +2788,8 @@ export function WalletPhone({ app }: { app: WalletApp }) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetAction = useRef<HTMLButtonElement>(null);
   const sheetTitle = useId();
+  // Where a left-edge swipe started, for swipe-to-go-back
+  const swipe = useRef<number | null>(null);
   const { nav, leaving, sheet } = app;
 
   // The phone waits with its back to the visitor, then spins round as it scrolls into view
@@ -2056,16 +2936,8 @@ export function WalletPhone({ app }: { app: WalletApp }) {
               </span>
             </div>
 
-            <div inert={sheet.open} className="flex min-h-0 flex-1 flex-col">
-              <div className="flex h-10 shrink-0 items-center gap-1.5 border-b border-border px-2.5">
-                <button
-                  type="button"
-                  aria-label="Menu"
-                  onClick={() => app.tab("more")}
-                  className={cn("grid size-8 place-items-center rounded-lg text-navy", press)}
-                >
-                  <PanelLeft className="size-4" aria-hidden />
-                </button>
+            <div inert={sheet.open || app.store.locked} className="flex min-h-0 flex-1 flex-col">
+              <div className="flex h-10 shrink-0 items-center gap-1.5 border-b border-border px-3.5">
                 <LogoMark className="h-5 w-5" />
                 <p className="min-w-0 flex-1 truncate text-[12.5px] font-medium text-navy">
                   The Harrington Family
@@ -2096,6 +2968,14 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                       onAnimationEnd={(e) =>
                         e.target === e.currentTarget && state === "leaving" && app.popped()
                       }
+                      onPointerDown={(e) => {
+                        const fromEdge = e.clientX - e.currentTarget.getBoundingClientRect().left;
+                        swipe.current = i > 0 && fromEdge < 28 ? e.clientX : null;
+                      }}
+                      onPointerUp={(e) => {
+                        if (swipe.current !== null && e.clientX - swipe.current > 56) app.back();
+                        swipe.current = null;
+                      }}
                       className="wp-layer absolute inset-0 overflow-y-auto overflow-x-hidden bg-background"
                     >
                       <div className="flex min-h-full flex-col gap-3 px-4 pb-6 pt-4">
@@ -2147,33 +3027,19 @@ export function WalletPhone({ app }: { app: WalletApp }) {
                 aria-modal="true"
                 aria-labelledby={sheetTitle}
                 onKeyDown={(e) => e.key === "Escape" && app.closeSheet()}
-                className="wp-sheet absolute inset-x-0 bottom-0 rounded-t-[26px] bg-card px-5 pb-9 pt-2.5 shadow-[0_-16px_40px_-16px_rgb(0_0_0/0.35)]"
+                className="wp-sheet absolute inset-x-0 bottom-0 max-h-[82%] overflow-y-auto rounded-t-[26px] bg-card px-5 pb-9 pt-2.5 shadow-[0_-16px_40px_-16px_rgb(0_0_0/0.35)]"
               >
                 <span aria-hidden className="mx-auto mb-4 block h-1 w-9 rounded-full bg-navy/15" />
-                <p id={sheetTitle} className="font-display text-[20px] leading-tight text-navy">
-                  {sheet.label}
-                </p>
-                <p className="mt-1.5 text-[11.5px] leading-[1.5] text-muted-foreground">
-                  You'll find this in the Family Wallet app, coming to iOS and Android.
-                  This phone shows a few of the screens.
-                </p>
-                <button
-                  ref={sheetAction}
-                  type="button"
-                  onClick={app.closeSheet}
-                  className={cn(btnPrimary, "mt-4 w-full")}
-                >
-                  Got it
-                </button>
-                <button
-                  type="button"
-                  onClick={app.closeSheet}
-                  className={cn(btn, "mt-1 w-full text-navy")}
-                >
-                  Keep exploring
-                </button>
+                <SheetBody
+                  key={`${sheet.label}/${sheet.open}`}
+                  app={app}
+                  titleId={sheetTitle}
+                  action={sheetAction}
+                />
               </div>
             </div>
+
+            {app.store.locked && <LockScreen app={app} />}
 
             {/* Home indicator */}
             <span

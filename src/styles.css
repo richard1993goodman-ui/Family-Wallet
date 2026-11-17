@@ -97,34 +97,35 @@
  */
 :root {
   --radius: 1rem;
-  --background: #f4f8fc;
-  --foreground: #122033;
+  --background: #fbf9f4;
+  --foreground: #14201a;
   --card: #ffffff;
-  --card-foreground: #122033;
+  --card-foreground: #14201a;
   --popover: #ffffff;
-  --popover-foreground: #122033;
+  --popover-foreground: #1b1c19;
   --primary: #1a382b;
   --primary-foreground: #ffffff;
-  --secondary: #e9f0f8;
-  --secondary-foreground: #122033;
-  --muted: #e9eef5;
-  --muted-foreground: #5b6b80;
-  --accent: #dcebfa;
-  --accent-foreground: #122033;
-  --destructive: #c4342d;
+  --secondary: #f3efe6;
+  --secondary-foreground: #1b1c19;
+  --muted: #f0eee9;
+  --muted-foreground: #5a6760;
+  --accent: #eae8e3;
+  --accent-foreground: #1b1c19;
+  --destructive: #ba1a1a;
   --destructive-foreground: #ffffff;
-  --border: rgb(18 32 51 / 0.08);
-  --input: #cfdae8;
+  --border: #e7e2d6;
+  --input: #d9d3c5;
   --ring: #264e3d;
-  --sand: #f4f8fc;
-  --raised: #eef3f9;
-  --rule: rgb(18 32 51 / 0.07);
+  --sand: #fbf9f4;
+  --raised: #f5f3ee;
+  --rule: #eeeadf;
   --brand: #1a382b;
   --brand-foreground: #ffffff;
-  --brand-soft: #ddf1e6;
-  --navy: #163a5f;
-  --sky: #dcebfa;
-  --mint: #ddf1e6;
+  --brand-soft: #e4ece5;
+  /* v2 accent tokens, mapped back onto the original forest-green palette. */
+  --navy: #1a382b;
+  --sky: #e6efe9;
+  --mint: #e4ece5;
   /* Glass: white over the page washes. The blur is added by the glass utilities. */
   --glass: rgb(255 255 255 / 0.72);
   --glass-edge: rgb(255 255 255 / 0.9);
@@ -134,17 +135,17 @@
   /* The closing band: deep garden green in both themes. */
   --ink-band: #132a20;
   /* Cards rest on a hairline border and a whisper of shadow; only floating things get depth. */
-  --shadow-soft: 0 10px 30px -14px rgb(22 58 95 / 0.18);
+  --shadow-soft: 0 1px 2px rgb(20 40 30 / 0.04);
   --gold: #b08d57;
   --gold-soft: #d9bd8a;
-  --shadow-float: 0 18px 40px -18px rgb(22 58 95 / 0.28);
+  --shadow-float: 0 14px 34px -12px rgb(26 56 43 / 0.2), 0 2px 6px rgb(26 56 43 / 0.06);
   /* Section tints: a pale ground with the dark of the same hue as ink. */
-  --tint-sage: #ddf1e6;
-  --tint-sage-ink: #1a382b;
-  --tint-apricot: #fff1db;
-  --tint-apricot-ink: #b4731c;
-  --tint-sky: #dcebfa;
-  --tint-sky-ink: #163a5f;
+  --tint-sage: #e6efe9;
+  --tint-sage-ink: #24503c;
+  --tint-apricot: #fbf0de;
+  --tint-apricot-ink: #8f5a17;
+  --tint-sky: #e6eef4;
+  --tint-sky-ink: #2c5272;
   --tint-lilac: #ece8f3;
   --tint-lilac-ink: #54447a;
   --tint-butter: #f6edcf;
@@ -156,26 +157,26 @@
   --chart-3: #6a9ac4;
   --chart-4: #c9bba6;
   --chart-5: #8a77b5;
-  --sidebar: #eef3f9;
-  --sidebar-foreground: #41506a;
+  --sidebar: #f3efe6;
+  --sidebar-foreground: #424844;
   --sidebar-primary: #1a382b;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #dcebfa;
-  --sidebar-accent-foreground: #122033;
-  --sidebar-border: rgb(18 32 51 / 0.08);
+  --sidebar-accent: #e4e2dd;
+  --sidebar-accent-foreground: #1b1c19;
+  --sidebar-border: #e6dfc5;
   --sidebar-ring: #264e3d;
 }
 
 /* Screen only: printing always uses the light colours, whatever the device setting. */
 @media screen {
   .dark {
-    --background: #0f1620;
-    --foreground: #e9eef5;
-    --card: #172130;
-    --glass: rgb(23 33 48 / 0.72);
+    --background: #171412;
+    --foreground: #f4ede4;
+    --card: #211d1a;
+    --glass: rgb(33 29 26 / 0.72);
     --glass-edge: rgb(255 255 255 / 0.08);
-    --navy: #9cc6ea;
-    --sky: #1c2b3c;
+    --navy: #9fd3b4;
+    --sky: #1f3128;
     --mint: #1f3128;
     --card-foreground: #f4ede4;
     --popover: #27221f;

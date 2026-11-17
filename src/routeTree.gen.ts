@@ -20,7 +20,9 @@ import { Route as HouseholdStaffAppRouteImport } from './routes/household-staff-
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as NannyManagementAppRouteImport } from './routes/nanny-management-app'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SubscribedRouteImport } from './routes/subscribed'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ActivitiesSlugRouteImport } from './routes/activities.$slug'
 import { Route as AgreementSlugRouteImport } from './routes/agreement.$slug'
 import { Route as BankdetailsSlugRouteImport } from './routes/bankdetails.$slug'
@@ -145,9 +147,19 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SubscribedRoute = SubscribedRouteImport.update({
   id: '/subscribed',
   path: '/subscribed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivitiesSlugRoute = ActivitiesSlugRouteImport.update({
@@ -512,7 +524,9 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/subscribed': typeof SubscribedRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -594,7 +608,9 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/subscribed': typeof SubscribedRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -678,7 +694,9 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/nanny-management-app': typeof NannyManagementAppRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/subscribed': typeof SubscribedRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/activities/$slug': typeof ActivitiesSlugRoute
   '/agreement/$slug': typeof AgreementSlugRoute
   '/bankdetails/$slug': typeof BankdetailsSlugRoute
@@ -762,7 +780,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/nanny-management-app'
     | '/pricing'
+    | '/privacy'
     | '/subscribed'
+    | '/terms-of-service'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -844,7 +864,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/nanny-management-app'
     | '/pricing'
+    | '/privacy'
     | '/subscribed'
+    | '/terms-of-service'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -927,7 +949,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/nanny-management-app'
     | '/pricing'
+    | '/privacy'
     | '/subscribed'
+    | '/terms-of-service'
     | '/activities/$slug'
     | '/agreement/$slug'
     | '/bankdetails/$slug'
@@ -1011,7 +1035,9 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   NannyManagementAppRoute: typeof NannyManagementAppRoute
   PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
   SubscribedRoute: typeof SubscribedRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   ActivitiesSlugRoute: typeof ActivitiesSlugRoute
   AgreementSlugRoute: typeof AgreementSlugRoute
   BankdetailsSlugRoute: typeof BankdetailsSlugRoute
@@ -1156,11 +1182,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/subscribed': {
       id: '/subscribed'
       path: '/subscribed'
       fullPath: '/subscribed'
       preLoaderRoute: typeof SubscribedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activities/$slug': {
@@ -1682,7 +1722,9 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   NannyManagementAppRoute: NannyManagementAppRoute,
   PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
   SubscribedRoute: SubscribedRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   ActivitiesSlugRoute: ActivitiesSlugRoute,
   AgreementSlugRoute: AgreementSlugRoute,
   BankdetailsSlugRoute: BankdetailsSlugRoute,

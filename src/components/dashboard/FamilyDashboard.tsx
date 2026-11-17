@@ -2,13 +2,16 @@ import { formatDate, formatMoney } from "@/lib/format";
 import { AgreementChoice } from "@/components/AgreementChoice";
 import { Link } from "@tanstack/react-router";
 import { AlertsPrompt } from "@/components/dashboard/AlertsPrompt";
-import { TodayTimeline } from "@/components/TodayTimeline";
+import { LatestPhotoCard, TodayTimeline } from "@/components/TodayTimeline";
+import type { MonthSchedule } from "@/lib/month-overview";
 import { SupportBox } from "@/components/SupportBox";
 import { NextStep } from "@/components/dashboard/NextStep";
 import { hasHours } from "@/lib/work-hours";
 import {
   BadgeCheck,
   BookOpen,
+  CalendarDays,
+  FileChartColumn,
   Briefcase,
   Calculator,
   Camera,
@@ -45,10 +48,8 @@ import { MonthOverview } from "@/components/dashboard/MonthOverview";
 import {
   Column,
   DashboardFooter,
-  DashboardHeader,
   DemoBanner,
   EmergencyPill,
-  HomeQuickActions,
   EmergencyContacts,
   NannyProfiles,
 } from "@/components/dashboard/sections";
@@ -74,37 +75,65 @@ const CHECK_LABELS: Record<string, MessageKey> = {
 
 export function FamilyDashboard(props: DashboardProps) {
   const t = useT();
-  const { slug, wallet, hub, onLock } = props;
+  const { slug, wallet, hub, onLock, nannyCount } = props;
+  const today = hub?.today.date ?? londonToday();
 
   return (
     <PageContainer width="wide">
       <DemoBanner slug={slug} />
-      <DashboardHeader
-        eyebrow={longDate(hub?.today.date)}
-        title={greeting()}
-        subtitle={`${wallet.familyName}${wallet.agencyName ? ` · ${t("shell.withAgency", { agency: wallet.agencyName })}` : ""}`}
-        actions={<EmergencyPill slug={slug} />}
-      />
+      {/* The top bar already names the household, so Home opens with the date and a greeting. */}
+      <header>
+        <div className="flex items-center justify-between gap-3">
+          <p className="min-w-0 text-[0.875rem] text-muted-foreground">
+            {longDate(hub?.today.date)}
+            {wallet.agencyName && (
+              <span> · {t("shell.withAgency", { agency: wallet.agencyName })}</span>
+            )}
+          </p>
+          <EmergencyPill slug={slug} />
+        </div>
+        <h1 className="heading-serif mt-2 text-[1.75rem] leading-[1.1] text-foreground sm:text-[2rem]">
+          {greeting()}
+        </h1>
+      </header>
       <WalletTravelBanner slug={slug} />
 
-      <div className="mt-8 space-y-6">
-        <TodayTimeline slug={slug} />
-        <div className="rise" style={{ "--rise-i": 1 } as CSSProperties}>
-          <HomeQuickActions slug={slug} />
-        </div>
+      {/* Same order as the app's Home design: what is happening now, one-tap logging, the latest,
+          what needs you, then the week, the newest photo and the two most-used actions. */}
+      <div className="mt-6 space-y-5">
         <AgreementChoice slug={slug} firstSignIn />
-        <MonthOverview
-          slug={slug}
-          schedules={hub?.schedules ?? []}
-          today={hub?.today.date ?? londonToday()}
-          role="family"
-        />
-        <NextStep {...props} />
+        <TodayTimeline slug={slug} home />
         <NeedsAttention {...props} />
+        <NextStep {...props} />
+        <WeekStrip slug={slug} today={today} schedules={hub?.schedules ?? []} />
+        <LatestPhotoCard slug={slug} />
+        <div className="flex gap-2">
+          <Button asChild variant="outline" size="lg" className="h-12 rounded-[0.875rem]">
+            <Link to="/report/$slug" params={{ slug }}>
+              <FileChartColumn className="h-4 w-4" aria-hidden />
+              {t("nav.report")}
+            </Link>
+          </Button>
+          <Button asChild size="lg" className="h-12 flex-1 rounded-[0.875rem]">
+            <Link to="/messages/$slug" params={{ slug }}>
+              <MessageCircle className="h-4 w-4" aria-hidden />
+              {nannyCount === 1 && wallet.nannies[0]
+                ? t("dash.messageNamed", { name: wallet.nannies[0].name.split(" ")[0]! })
+                : t("nav.messages")}
+            </Link>
+          </Button>
+        </div>
+        <section>
+          <SectionTitle>{t("dash.hoursAndUpdates")}</SectionTitle>
+          <MonthOverview slug={slug} schedules={hub?.schedules ?? []} today={today} role="family" />
+        </section>
       </div>
 
       {/* Everything else lives in the menu; home keeps only what has no page of its own. */}
-      <div className="rise mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]" style={{ "--rise-i": 3 } as CSSProperties}>
+      <div
+        className="rise mt-9 grid gap-x-10 gap-y-9 lg:grid-cols-[minmax(0,1fr)_21rem]"
+        style={{ "--rise-i": 3 } as CSSProperties}
+      >
         <Column>
           <AlertsPrompt slug={slug} />
           <SetupProgress {...props} />
@@ -125,6 +154,76 @@ export function FamilyDashboard(props: DashboardProps) {
         billingSlug={hub?.hasSubscription ? slug : undefined}
       />
     </PageContainer>
+  );
+}
+
+/** This week at a glance: today is the dark pill, and a dot marks the days someone is working. */
+function WeekStrip({
+  slug,
+  today,
+  schedules,
+}: {
+  slug: string;
+  /** Today in London, "YYYY-MM-DD". */
+  today: string;
+  schedules: MonthSchedule[];
+}) {
+  const t = useT();
+  const monday = new Date(`${today}T12:00:00Z`);
+  monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday);
+    d.setUTCDate(monday.getUTCDate() + i);
+    return d;
+  });
+  const fmt = (d: Date, options: Intl.DateTimeFormatOptions) =>
+    d.toLocaleDateString("en-GB", { ...options, timeZone: "UTC" });
+  return (
+    <Link
+      to="/planner/$slug"
+      params={{ slug }}
+      className="surface-card block p-4 transition-transform duration-150 ease-out active:scale-[0.98] motion-reduce:active:scale-100"
+    >
+      <span className="flex items-center justify-between gap-3">
+        <span className="flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground">
+          <CalendarDays className="h-4 w-4" aria-hidden />
+          {t("dash.thisWeek")}
+        </span>
+        <span className="text-[0.8125rem] text-muted-foreground">
+          {fmt(days[0]!, { month: "long", year: "numeric" })}
+        </span>
+      </span>
+      <span className="mt-3 grid grid-cols-7 gap-1">
+        {days.map((d) => {
+          const isToday = d.toISOString().slice(0, 10) === today;
+          const weekdayName = fmt(d, { weekday: "long" });
+          const working = schedules.some((s) =>
+            s.workingDays.some((w) => w.day === weekdayName && w.enabled),
+          );
+          return (
+            <span
+              key={weekdayName}
+              aria-label={`${fmt(d, { weekday: "long", day: "numeric", month: "long" })}${isToday ? ", today" : ""}${working ? ", working day" : ""}`}
+              className={`flex flex-col items-center gap-1 rounded-2xl py-2 ${isToday ? "bg-brand text-brand-foreground" : "text-foreground"}`}
+            >
+              <span
+                className={`text-[0.6875rem] font-medium ${isToday ? "opacity-75" : "text-muted-foreground"}`}
+                aria-hidden
+              >
+                {weekdayName.charAt(0)}
+              </span>
+              <span className="num text-[0.9375rem] font-semibold" aria-hidden>
+                {d.getUTCDate()}
+              </span>
+              <span
+                className={`size-1.5 rounded-full ${working ? (isToday ? "bg-gold-soft" : "bg-positive") : "bg-transparent"}`}
+                aria-hidden
+              />
+            </span>
+          );
+        })}
+      </span>
+    </Link>
   );
 }
 
@@ -171,7 +270,11 @@ function NeedsAttention({
         icon={FileText}
         tone="attention"
         cta={agreement.hasContent ? t("dash.continue") : t("dash.start")}
-        title={agreement.hasContent ? t("dash.finishYourNannyAgreement") : t("dash.buildYourNannyAgreement")}
+        title={
+          agreement.hasContent
+            ? t("dash.finishYourNannyAgreement")
+            : t("dash.buildYourNannyAgreement")
+        }
         detail={agreementSubtitle}
       />,
     );
@@ -247,7 +350,9 @@ function NeedsAttention({
         icon={ShieldCheck}
         tone="attention"
         cta={t("dash.check")}
-        title={expired ? t("dash.safetyDocumentsHaveExpired") : t("dash.safetyDocumentsExpiringSoon")}
+        title={
+          expired ? t("dash.safetyDocumentsHaveExpired") : t("dash.safetyDocumentsExpiringSoon")
+        }
         detail={
           expired
             ? t(soon ? "dash.expiredAndSoon" : "dash.expiredOnly", { expired, soon })
@@ -411,15 +516,21 @@ function Documents({
         <DocTile
           icon={IdCard}
           title={t("dash.yourNannySCv")}
-          subtitle={hasDoc("cv") ? t("dash.experienceTrainingAndReferences") : t("dash.notAddedYet")}
+          subtitle={
+            hasDoc("cv") ? t("dash.experienceTrainingAndReferences") : t("dash.notAddedYet")
+          }
           disabled={!hasDoc("cv")}
           onClick={() => openDoc("cv")}
         />
         {wallet.checks.map((check) => {
-          const meta = { title: CHECK_LABELS[check.docType] ? t(CHECK_LABELS[check.docType]!) : check.docType };
+          const meta = {
+            title: CHECK_LABELS[check.docType] ? t(CHECK_LABELS[check.docType]!) : check.docType,
+          };
           const detail = [
             check.issuedOn
-              ? t("dash.issued", { date: formatDate(check.issuedOn, { month: "long", year: "numeric" }) })
+              ? t("dash.issued", {
+                  date: formatDate(check.issuedOn, { month: "long", year: "numeric" }),
+                })
               : null,
             check.referenceLabel,
           ]
@@ -434,7 +545,8 @@ function Documents({
                 <span>
                   <span className="block font-medium text-foreground">{meta.title}</span>
                   <span className="mt-0.5 block text-sm text-muted-foreground">
-                    {t("dash.verified")}{detail ? ` · ${detail}` : ""}
+                    {t("dash.verified")}
+                    {detail ? ` · ${detail}` : ""}
                   </span>
                 </span>
               </div>
@@ -460,9 +572,13 @@ function Documents({
             <ScrollText className="h-4 w-4" />
           </span>
           <span>
-            <span className="flex items-center gap-1.5 font-medium text-foreground">{t("dash.acasDisciplinaryGuidance")}<ExternalLink className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              {t("dash.acasDisciplinaryGuidance")}
+              <ExternalLink className="h-3.5 w-3.5" />
             </span>
-            <span className="mt-1 block text-sm text-muted-foreground">{t("dash.officialStepByStepGuidance")}</span>
+            <span className="mt-1 block text-sm text-muted-foreground">
+              {t("dash.officialStepByStepGuidance")}
+            </span>
           </span>
         </a>
       </div>
@@ -489,13 +605,17 @@ function NannytaxCode({ code }: { code: string | null }) {
               void navigator.clipboard.writeText(code);
               toast.success(t("dash.codeCopied"));
             }}
-          >{t("dash.copyCode")}</Button>
+          >
+            {t("dash.copyCode")}
+          </Button>
           <a
             href="https://www.nannytax.co.uk"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
-          >{t("dash.visitNannytax")}<ExternalLink className="h-4 w-4" />
+          >
+            {t("dash.visitNannytax")}
+            <ExternalLink className="h-4 w-4" />
           </a>
         </div>
       </div>
