@@ -61,6 +61,19 @@ describe("continue payment for an existing wallet", () => {
     );
   });
 
+  it("leaves the access code alone when the payment was made inside the wallet", async () => {
+    const result = await provisionFromSession("cs_test_fixture", "sandbox", false);
+    expect(result.status).toBe("ready");
+    expect(mocks.update).not.toHaveBeenCalledWith(
+      "families",
+      expect.objectContaining({ access_code: expect.anything() }),
+    );
+    expect(mocks.update).not.toHaveBeenCalledWith(
+      "families",
+      expect.objectContaining({ access_code_hash: expect.anything() }),
+    );
+  });
+
   it("keeps the stored code when one is still on file", async () => {
     mocks.storedFamily = { slug: "test-household", access_code: "KEPT-CODE-456", family_name: "Test household" };
     const result = await provisionFromSession("cs_test_fixture", "sandbox");

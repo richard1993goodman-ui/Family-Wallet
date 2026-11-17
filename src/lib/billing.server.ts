@@ -84,7 +84,7 @@ async function existingRow(sessionId: string) {
   return { ...row, plan: row.plan as PlanId };
 }
 
-async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned> {
+async function familyWallet(familyId: string, plan: PlanId, issueCode = true): Promise<Provisioned> {
   const { data: family } = await supabaseAdmin
     .from("families")
     .select("slug, access_code, family_name")
@@ -93,8 +93,10 @@ async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned
   if (!family) throw new Error("We could not find the wallet for that payment.");
   // The stored code is wiped once the family opens its wallet, so a household paying to
   // continue (or upgrade) has none to show. Issue a fresh one-time code for the success page.
+  // Not when the payment was made inside the wallet (issueCode false): that parent is signed in and is never
+  // shown a code, so replacing it would lock the household out at its next sign-in.
   let code = family.access_code;
-  if (!code) {
+  if (!code && issueCode) {
     code = generateAccessCode();
     const { error } = await supabaseAdmin
       .from("families")
@@ -106,7 +108,7 @@ async function familyWallet(familyId: string, plan: PlanId): Promise<Provisioned
     status: "ready",
     kind: "family",
     slug: family.slug,
-    code,
+    code: code ?? "",
     familyName: family.family_name,
     plan,
   };
@@ -136,11 +138,13 @@ async function agencyAccount(agencyId: string, plan: PlanId): Promise<Provisione
 export async function provisionFromSession(
   sessionId: string,
   environment: StripeEnv,
+  /** false when the caller never shows the access code (a payment confirmed inside the wallet). */
+  issueCode = true,
 ): Promise<Provisioned> {
   if (!/^cs_[A-Za-z0-9_]+$/.test(sessionId)) throw new Error("That payment link is not valid.");
 
   const already = await existingRow(sessionId);
-  if (already?.family_id) return familyWallet(already.family_id, already.plan);
+  if (already?.family_id) return familyWallet(already.family_id, already.plan, issueCode);
   if (already?.agency_id) return agencyAccount(already.agency_id, already.plan);
 
   const { createStripeClient } = await import("./stripe.server");
@@ -165,7 +169,7 @@ export async function provisionFromSession(
   // Bought from inside an existing wallet: attach the plan to that household, no new wallet.
   const existingFamilyId = session.metadata["family_id"];
   if (existingFamilyId && !isAgencyPlan(plan)) {
-    return attachToFamily({ sessionId, environment, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer });
+    return attachToFamily({ sessionId, environment, familyId: existingFamilyId, plan, interval, sub, email, customerId: session.customer, issueCode });
   }
 
   return isAgencyPlan(plan)
@@ -192,6 +196,7 @@ async function attachToFamily({
   sub,
   email,
   customerId,
+  issueCode,
 }: {
   sessionId: string;
   environment: StripeEnv;
@@ -201,6 +206,7 @@ async function attachToFamily({
   sub: StripeSubscription | null;
   email: string | null;
   customerId: string;
+  issueCode: boolean;
 }): Promise<Provisioned> {
   const { error } = await supabaseAdmin.from("family_subscriptions").insert({
     family_id: familyId,
@@ -225,7 +231,7 @@ async function attachToFamily({
     .from("families")
     .update({ status: "active", ...(leavingAgency ? { entitlement: "direct_active", transition_ends_at: null } : {}) })
     .eq("id", familyId);
-  return familyWallet(familyId, plan);
+  return familyWallet(familyId, plan, issueCode);
 }
 
 /** What the parent-only Plan & billing page shows. */

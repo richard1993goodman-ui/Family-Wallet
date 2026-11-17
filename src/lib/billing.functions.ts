@@ -217,6 +217,7 @@ export const confirmWalletPaymentFn = createServerFn({ method: "POST" })
     const family = await requireFamily(data.slug);
     if (!family) return { ok: false as const };
     const { provisionFromSession } = await import("./billing.server");
-    const result = await provisionFromSession(data.sessionId, data.environment);
+    // The parent is already signed in and this page shows no code, so the access code must stay as it is.
+    const result = await provisionFromSession(data.sessionId, data.environment, false);
     return { ok: result.status === "ready" };
   });
