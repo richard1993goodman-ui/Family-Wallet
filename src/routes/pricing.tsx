@@ -17,7 +17,7 @@ import { LogoMark } from "@/components/brand";
 import { EnterpriseEnquiry } from "@/components/EnterpriseEnquiry";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import type { Interval, PlanId } from "@/lib/billing.config";
-import { intervalsFor } from "@/lib/billing.config";
+import { intervalsFor, isAgencyPlan, PLANS } from "@/lib/billing.config";
 import { paymentsConfigured } from "@/lib/stripe";
 
 type Audience = "families" | "agencies";
@@ -119,8 +119,8 @@ const families: Tier[] = [
 ];
 
 // Agencies buy household seats and send them to families by email. They never see a family's wallet.
-// Prices are the 17 Nov 2026 list. The buttons are "Talk to us" (no web checkout) until the payment products are
-// changed to these prices with the owner's approval; add `plan` back to a tier to switch its checkout on again.
+// Prices are the 17 Nov 2026 list and match the Stripe prices found by lookup key (fw_agency_<tier>_month).
+// A tier with a `plan` opens the web checkout; without one its button emails us instead.
 const agencies: Tier[] = [
   {
     name: "Partner",
@@ -132,7 +132,8 @@ const agencies: Tier[] = [
       { text: "Release and reuse seats any time" },
       { text: SUPPORT },
     ],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Partner") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
+    plan: "agency_partner",
   },
   {
     name: "Growth",
@@ -140,7 +141,8 @@ const agencies: Tier[] = [
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [{ text: "50 household seats" }],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Growth") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
+    plan: "agency_growth",
     popular: true,
   },
   {
@@ -149,7 +151,8 @@ const agencies: Tier[] = [
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [{ text: "100 household seats" }],
-    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Scale") },
+    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
+    plan: "agency_scale",
   },
   {
     name: "Enterprise",
@@ -561,11 +564,13 @@ function PricingPageInner() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="heading-serif text-[1.5rem] leading-tight text-foreground">
-                  {checkout.plan === "family" ? "Family" : "Household"} plan
+                  {PLANS[checkout.plan].name.replace("Family Wallet: ", "")} plan
                 </h2>
                 <p className="mt-1 text-[0.9375rem] text-muted-foreground">
-                  Billed {checkout.interval === "year" ? "yearly" : "monthly"}. Your wallet is
-                  created the moment the payment goes through.
+                  Billed {checkout.interval === "year" ? "yearly" : "monthly"}.{" "}
+                  {isAgencyPlan(checkout.plan)
+                    ? "Your agency account is created the moment the payment goes through."
+                    : "Your wallet is created the moment the payment goes through."}
                 </p>
               </div>
               <Button variant="ghost" size="sm" onClick={() => setCheckout(null)}>
