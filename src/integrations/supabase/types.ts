@@ -160,6 +160,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "agency_invites_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       agency_terms: {
@@ -324,6 +331,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "agreement_versions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "agreement_versions_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
@@ -331,10 +345,78 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "agreement_versions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agreement_versions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "agreement_versions_template_version_id_fkey"
             columns: ["template_version_id"]
             isOneToOne: false
             referencedRelation: "agreement_template_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      app_push_tokens: {
+        Row: {
+          created_at: string
+          family_id: string
+          id: string
+          muted: string[]
+          quiet_end: number | null
+          quiet_start: number | null
+          role: string
+          token: string
+          tz: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          family_id: string
+          id?: string
+          muted?: string[]
+          quiet_end?: number | null
+          quiet_start?: number | null
+          role: string
+          token: string
+          tz?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          family_id?: string
+          id?: string
+          muted?: string[]
+          quiet_end?: number | null
+          quiet_start?: number | null
+          role?: string
+          token?: string
+          tz?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "app_push_tokens_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "app_push_tokens_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -381,6 +463,7 @@ export type Database = {
           amount_ml: number | null
           child_id: string | null
           created_at: string
+          created_by: string | null
           detail: string | null
           ended_at: string | null
           family_id: string
@@ -393,6 +476,7 @@ export type Database = {
           amount_ml?: number | null
           child_id?: string | null
           created_at?: string
+          created_by?: string | null
           detail?: string | null
           ended_at?: string | null
           family_id: string
@@ -405,6 +489,7 @@ export type Database = {
           amount_ml?: number | null
           child_id?: string | null
           created_at?: string
+          created_by?: string | null
           detail?: string | null
           ended_at?: string | null
           family_id?: string
@@ -425,6 +510,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "care_events_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -469,6 +561,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "challenge_completions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       challenge_recipients: {
@@ -500,6 +599,58 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "challenge_recipients_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      co_parent_codes: {
+        Row: {
+          code_hash: string
+          created_at: string
+          created_by: string | null
+          expires_at: string
+          family_id: string
+          id: string
+          used_at: string | null
+        }
+        Insert: {
+          code_hash: string
+          created_at?: string
+          created_by?: string | null
+          expires_at: string
+          family_id: string
+          id?: string
+          used_at?: string | null
+        }
+        Update: {
+          code_hash?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string
+          family_id?: string
+          id?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "co_parent_codes_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "co_parent_codes_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -565,6 +716,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "cover_requests_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "cover_requests_thread_id_fkey"
             columns: ["thread_id"]
             isOneToOne: false
@@ -577,10 +735,12 @@ export type Database = {
         Row: {
           activities: string | null
           created_at: string
+          created_by: string | null
           family_id: string
           food: string | null
           homework: string | null
           id: string
+          is_highlight: boolean
           log_date: string
           mood: string | null
           notes: string | null
@@ -589,10 +749,12 @@ export type Database = {
         Insert: {
           activities?: string | null
           created_at?: string
+          created_by?: string | null
           family_id: string
           food?: string | null
           homework?: string | null
           id?: string
+          is_highlight?: boolean
           log_date: string
           mood?: string | null
           notes?: string | null
@@ -601,10 +763,12 @@ export type Database = {
         Update: {
           activities?: string | null
           created_at?: string
+          created_by?: string | null
           family_id?: string
           food?: string | null
           homework?: string | null
           id?: string
+          is_highlight?: boolean
           log_date?: string
           mood?: string | null
           notes?: string | null
@@ -616,6 +780,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "daily_logs_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -703,10 +874,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "document_signatures_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "document_signatures_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_signatures_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_signatures_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -772,10 +964,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "expense_claims_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "expense_claims_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expense_claims_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expense_claims_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -816,9 +1029,11 @@ export type Database = {
           nanny_photo_path: string | null
           nannytax_code: string | null
           notes: string | null
+          onboarding_step: number | null
           parent_last_seen_at: string | null
           parent_photo_path: string | null
           partner_agency_id: string | null
+          quick_actions: string[] | null
           region: string | null
           slug: string
           start_date: string | null
@@ -865,9 +1080,11 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          onboarding_step?: number | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           partner_agency_id?: string | null
+          quick_actions?: string[] | null
           region?: string | null
           slug: string
           start_date?: string | null
@@ -914,9 +1131,11 @@ export type Database = {
           nanny_photo_path?: string | null
           nannytax_code?: string | null
           notes?: string | null
+          onboarding_step?: number | null
           parent_last_seen_at?: string | null
           parent_photo_path?: string | null
           partner_agency_id?: string | null
+          quick_actions?: string[] | null
           region?: string | null
           slug?: string
           start_date?: string | null
@@ -1010,6 +1229,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "family_children_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       family_contacts: {
@@ -1046,6 +1272,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_contacts_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -1092,6 +1325,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "family_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       family_moments: {
@@ -1101,8 +1341,10 @@ export type Database = {
           caption: string | null
           child_id: string | null
           created_at: string
+          created_by: string | null
           family_id: string
           id: string
+          is_highlight: boolean
           kind: string
           milestone_label: string | null
           moment_date: string
@@ -1115,8 +1357,10 @@ export type Database = {
           caption?: string | null
           child_id?: string | null
           created_at?: string
+          created_by?: string | null
           family_id: string
           id?: string
+          is_highlight?: boolean
           kind?: string
           milestone_label?: string | null
           moment_date: string
@@ -1129,8 +1373,10 @@ export type Database = {
           caption?: string | null
           child_id?: string | null
           created_at?: string
+          created_by?: string | null
           family_id?: string
           id?: string
+          is_highlight?: boolean
           kind?: string
           milestone_label?: string | null
           moment_date?: string
@@ -1153,10 +1399,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "family_moments_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "family_moments_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_moments_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_moments_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -1239,6 +1506,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       family_profile: {
@@ -1289,6 +1563,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "family_profile_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       family_services: {
@@ -1331,6 +1612,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: true
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_services_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -1402,11 +1690,96 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "family_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      grocery_items: {
+        Row: {
+          added_by: string
+          added_by_name: string | null
+          bought_at: string | null
+          bought_by: string | null
+          bought_by_name: string | null
+          created_at: string
+          created_by: string | null
+          expense_id: string | null
+          family_id: string
+          id: string
+          name: string
+          note: string
+          petty_cash_id: string | null
+        }
+        Insert: {
+          added_by: string
+          added_by_name?: string | null
+          bought_at?: string | null
+          bought_by?: string | null
+          bought_by_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          expense_id?: string | null
+          family_id: string
+          id?: string
+          name: string
+          note?: string
+          petty_cash_id?: string | null
+        }
+        Update: {
+          added_by?: string
+          added_by_name?: string | null
+          bought_at?: string | null
+          bought_by?: string | null
+          bought_by_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          expense_id?: string | null
+          family_id?: string
+          id?: string
+          name?: string
+          note?: string
+          petty_cash_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grocery_items_expense_id_fkey"
+            columns: ["expense_id"]
+            isOneToOne: false
+            referencedRelation: "expense_claims"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grocery_items_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grocery_items_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grocery_items_petty_cash_id_fkey"
+            columns: ["petty_cash_id"]
+            isOneToOne: false
+            referencedRelation: "petty_cash_entries"
+            referencedColumns: ["id"]
+          },
         ]
       }
       handover_checklists: {
         Row: {
           created_at: string
+          created_by: string | null
           dinner_status: string | null
           energy: string | null
           family_id: string
@@ -1427,6 +1800,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          created_by?: string | null
           dinner_status?: string | null
           energy?: string | null
           family_id: string
@@ -1447,6 +1821,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          created_by?: string | null
           dinner_status?: string | null
           energy?: string | null
           family_id?: string
@@ -1474,10 +1849,101 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "handover_checklists_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "handover_checklists_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_checklists_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_checklists_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      handover_summaries: {
+        Row: {
+          body: Json
+          created_at: string
+          family_id: string
+          id: string
+          nanny_id: string | null
+          shift_id: string
+        }
+        Insert: {
+          body: Json
+          created_at?: string
+          family_id: string
+          id?: string
+          nanny_id?: string | null
+          shift_id: string
+        }
+        Update: {
+          body?: Json
+          created_at?: string
+          family_id?: string
+          id?: string
+          nanny_id?: string | null
+          shift_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "handover_summaries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_summaries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_summaries_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_summaries_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_summaries_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "handover_summaries_shift_id_fkey"
+            columns: ["shift_id"]
+            isOneToOne: true
+            referencedRelation: "shift_sessions"
             referencedColumns: ["id"]
           },
         ]
@@ -1519,6 +1985,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "house_manual_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -1569,10 +2042,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "household_members_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "household_members_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: true
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
           {
@@ -1671,6 +2165,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "household_permissions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       household_threads: {
@@ -1718,6 +2219,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "household_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       incident_reports: {
@@ -1727,6 +2235,7 @@ export type Database = {
           action_taken: string
           child_name: string
           created_at: string
+          created_by: string | null
           family_id: string
           id: string
           kind: string
@@ -1743,6 +2252,7 @@ export type Database = {
           action_taken?: string
           child_name: string
           created_at?: string
+          created_by?: string | null
           family_id: string
           id?: string
           kind?: string
@@ -1759,6 +2269,7 @@ export type Database = {
           action_taken?: string
           child_name?: string
           created_at?: string
+          created_by?: string | null
           family_id?: string
           id?: string
           kind?: string
@@ -1777,6 +2288,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "incident_reports_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       kids_playbook_entries: {
@@ -1784,6 +2302,7 @@ export type Database = {
           added_by: string
           category: string
           child_name: string
+          created_by: string | null
           family_id: string
           id: string
           notes: string
@@ -1794,6 +2313,7 @@ export type Database = {
           added_by?: string
           category: string
           child_name?: string
+          created_by?: string | null
           family_id: string
           id?: string
           notes?: string
@@ -1804,6 +2324,7 @@ export type Database = {
           added_by?: string
           category?: string
           child_name?: string
+          created_by?: string | null
           family_id?: string
           id?: string
           notes?: string
@@ -1816,6 +2337,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kids_playbook_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -1875,10 +2403,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "leave_requests_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "leave_requests_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leave_requests_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leave_requests_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -1925,6 +2474,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "live_in_settings_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       live_in_weeks: {
@@ -1966,12 +2522,20 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "live_in_weeks_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       medication_doses: {
         Row: {
           child_name: string
           created_at: string
+          created_by: string | null
           dose: string | null
           family_id: string
           given_at: string
@@ -1986,6 +2550,7 @@ export type Database = {
         Insert: {
           child_name: string
           created_at?: string
+          created_by?: string | null
           dose?: string | null
           family_id: string
           given_at?: string
@@ -2000,6 +2565,7 @@ export type Database = {
         Update: {
           child_name?: string
           created_at?: string
+          created_by?: string | null
           dose?: string | null
           family_id?: string
           given_at?: string
@@ -2017,6 +2583,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "medication_doses_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -2046,6 +2619,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "moment_reactions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
           {
@@ -2142,10 +2722,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "nanny_agreements_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "nanny_agreements_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_agreements_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_agreements_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2199,10 +2800,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "nanny_bank_details_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "nanny_bank_details_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_bank_details_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_bank_details_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2256,10 +2878,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "nanny_safety_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2298,10 +2941,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "nanny_work_hours_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "nanny_work_hours_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: true
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_work_hours_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_work_hours_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: true
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2471,6 +3135,8 @@ export type Database = {
           created_at: string
           display_name: string
           id: string
+          last_seen_at: string | null
+          photo_path: string | null
           preferred_language: string
           time_zone: string
           user_id: string
@@ -2479,6 +3145,8 @@ export type Database = {
           created_at?: string
           display_name: string
           id?: string
+          last_seen_at?: string | null
+          photo_path?: string | null
           preferred_language?: string
           time_zone?: string
           user_id: string
@@ -2487,6 +3155,8 @@ export type Database = {
           created_at?: string
           display_name?: string
           id?: string
+          last_seen_at?: string | null
+          photo_path?: string | null
           preferred_language?: string
           time_zone?: string
           user_id?: string
@@ -2499,6 +3169,7 @@ export type Database = {
           added_by_name: string | null
           amount: number
           created_at: string
+          created_by: string | null
           currency: string
           description: string
           entry_date: string
@@ -2511,6 +3182,7 @@ export type Database = {
           added_by_name?: string | null
           amount: number
           created_at?: string
+          created_by?: string | null
           currency?: string
           description: string
           entry_date: string
@@ -2523,6 +3195,7 @@ export type Database = {
           added_by_name?: string | null
           amount?: number
           created_at?: string
+          created_by?: string | null
           currency?: string
           description?: string
           entry_date?: string
@@ -2538,50 +3211,81 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "petty_cash_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       planner_entries: {
         Row: {
+          actual_end: string | null
+          actual_start: string | null
           added_by: string
           approval: string
           child_name: string | null
           created_at: string
+          created_by: string | null
           end_time_label: string | null
           entry_date: string
           entry_type: string
           family_id: string
           id: string
+          nanny_id: string | null
           notes: string | null
+          outcome: string | null
+          outcome_at: string | null
+          outcome_by: string | null
+          series_id: string | null
           status: string
           time_label: string | null
           title: string
         }
         Insert: {
+          actual_end?: string | null
+          actual_start?: string | null
           added_by?: string
           approval?: string
           child_name?: string | null
           created_at?: string
+          created_by?: string | null
           end_time_label?: string | null
           entry_date: string
           entry_type?: string
           family_id: string
           id?: string
+          nanny_id?: string | null
           notes?: string | null
+          outcome?: string | null
+          outcome_at?: string | null
+          outcome_by?: string | null
+          series_id?: string | null
           status?: string
           time_label?: string | null
           title: string
         }
         Update: {
+          actual_end?: string | null
+          actual_start?: string | null
           added_by?: string
           approval?: string
           child_name?: string | null
           created_at?: string
+          created_by?: string | null
           end_time_label?: string | null
           entry_date?: string
           entry_type?: string
           family_id?: string
           id?: string
+          nanny_id?: string | null
           notes?: string | null
+          outcome?: string | null
+          outcome_at?: string | null
+          outcome_by?: string | null
+          series_id?: string | null
           status?: string
           time_label?: string | null
           title?: string
@@ -2593,6 +3297,34 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "families"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "planner_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "planner_entries_nanny_same_household"
+            columns: ["nanny_id", "family_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id", "family_id"]
+          },
+          {
+            foreignKeyName: "planner_entries_nanny_same_household"
+            columns: ["nanny_id", "family_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id", "family_id"]
+          },
+          {
+            foreignKeyName: "planner_entries_nanny_same_household"
+            columns: ["nanny_id", "family_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id", "family_id"]
           },
         ]
       }
@@ -2624,6 +3356,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playbook_reads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
           {
@@ -2663,6 +3402,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "playbook_recipients_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "playbook_recipients_playbook_id_fkey"
             columns: ["playbook_id"]
             isOneToOne: false
@@ -2684,6 +3430,7 @@ export type Database = {
           role: string
           slug: string
           tz: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -2697,6 +3444,7 @@ export type Database = {
           role: string
           slug: string
           tz?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -2710,6 +3458,7 @@ export type Database = {
           role?: string
           slug?: string
           tz?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -2717,6 +3466,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "push_subscriptions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -2773,10 +3529,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "review_checkins_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "review_checkins_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
           {
@@ -2825,6 +3602,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "saved_resources_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -2931,10 +3715,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "shift_sessions_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "shift_sessions_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shift_sessions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shift_sessions_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2981,6 +3786,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "signing_codes_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       sports_passport_entries: {
@@ -2990,6 +3802,7 @@ export type Database = {
           child_name: string
           confidence_level: number
           created_at: string
+          created_by: string | null
           effort_level: number
           entry_date: string
           family_id: string
@@ -3006,6 +3819,7 @@ export type Database = {
           child_name: string
           confidence_level?: number
           created_at?: string
+          created_by?: string | null
           effort_level?: number
           entry_date?: string
           family_id: string
@@ -3022,6 +3836,7 @@ export type Database = {
           child_name?: string
           confidence_level?: number
           created_at?: string
+          created_by?: string | null
           effort_level?: number
           entry_date?: string
           family_id?: string
@@ -3038,6 +3853,58 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sports_passport_entries_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_access_grants: {
+        Row: {
+          created_at: string
+          expires_at: string
+          family_id: string
+          granted_by: string
+          id: string
+          reason: string
+          revoked_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          family_id: string
+          granted_by?: string
+          id?: string
+          reason: string
+          revoked_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          family_id?: string
+          granted_by?: string
+          id?: string
+          reason?: string
+          revoked_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_access_grants_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_access_grants_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -3077,6 +3944,7 @@ export type Database = {
       support_threads: {
         Row: {
           created_at: string
+          created_by: string | null
           family_id: string
           family_unread: boolean
           id: string
@@ -3088,6 +3956,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          created_by?: string | null
           family_id: string
           family_unread?: boolean
           id?: string
@@ -3099,6 +3968,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          created_by?: string | null
           family_id?: string
           family_unread?: boolean
           id?: string
@@ -3116,6 +3986,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "support_threads_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       timesheet_shifts: {
@@ -3128,6 +4005,7 @@ export type Database = {
           hourly_rate: number
           id: string
           is_overnight: boolean
+          nanny_id: string | null
           notes: string | null
           reviewed_at: string | null
           shift_date: string
@@ -3146,6 +4024,7 @@ export type Database = {
           hourly_rate?: number
           id?: string
           is_overnight?: boolean
+          nanny_id?: string | null
           notes?: string | null
           reviewed_at?: string | null
           shift_date: string
@@ -3164,6 +4043,7 @@ export type Database = {
           hourly_rate?: number
           id?: string
           is_overnight?: boolean
+          nanny_id?: string | null
           notes?: string | null
           reviewed_at?: string | null
           shift_date?: string
@@ -3179,6 +4059,34 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "timesheet_shifts_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "timesheet_shifts_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "timesheet_shifts_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "timesheet_shifts_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -3223,6 +4131,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_attempts_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -3285,6 +4200,13 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "travel_trips_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
             referencedColumns: ["id"]
           },
         ]
@@ -3367,6 +4289,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "wallet_activity_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       wallet_documents: {
@@ -3430,8 +4359,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "wallet_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "wallet_documents_nanny_id_fkey"
             columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_uploaded_by_nanny_id_fkey"
+            columns: ["uploaded_by_nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
             referencedColumns: ["id"]
@@ -3440,7 +4397,14 @@ export type Database = {
             foreignKeyName: "wallet_documents_uploaded_by_nanny_id_fkey"
             columns: ["uploaded_by_nanny_id"]
             isOneToOne: false
-            referencedRelation: "family_nannies"
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_documents_uploaded_by_nanny_id_fkey"
+            columns: ["uploaded_by_nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -3499,6 +4463,13 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "wallet_seen_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
       welcome_checkins: {
@@ -3541,10 +4512,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "welcome_checkins_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "welcome_checkins_nanny_id_fkey"
             columns: ["nanny_id"]
             isOneToOne: false
             referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "welcome_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "welcome_checkins_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -3579,13 +4571,309 @@ export type Database = {
             referencedRelation: "families"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "welcome_progress_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: true
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      household_basics: {
+        Row: {
+          country: string | null
+          currency: string | null
+          family_name: string | null
+          id: string | null
+          quick_actions: string[] | null
+          region: string | null
+          status: string | null
+          time_zone: string | null
+        }
+        Insert: {
+          country?: string | null
+          currency?: string | null
+          family_name?: string | null
+          id?: string | null
+          quick_actions?: string[] | null
+          region?: string | null
+          status?: string | null
+          time_zone?: string | null
+        }
+        Update: {
+          country?: string | null
+          currency?: string | null
+          family_name?: string | null
+          id?: string | null
+          quick_actions?: string[] | null
+          region?: string | null
+          status?: string | null
+          time_zone?: string | null
+        }
+        Relationships: []
+      }
+      household_staff: {
+        Row: {
+          family_id: string | null
+          id: string | null
+          last_seen_at: string | null
+          name: string | null
+          photo_path: string | null
+          role: string | null
+          sort_order: number | null
+          status: string | null
+        }
+        Insert: {
+          family_id?: string | null
+          id?: string | null
+          last_seen_at?: string | null
+          name?: string | null
+          photo_path?: string | null
+          role?: string | null
+          sort_order?: number | null
+          status?: string | null
+        }
+        Update: {
+          family_id?: string | null
+          id?: string | null
+          last_seen_at?: string | null
+          name?: string | null
+          photo_path?: string | null
+          role?: string | null
+          sort_order?: number | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_checks: {
+        Row: {
+          document_type: string | null
+          expires_on: string | null
+          family_id: string | null
+          nanny_id: string | null
+        }
+        Insert: {
+          document_type?: string | null
+          expires_on?: string | null
+          family_id?: string | null
+          nanny_id?: string | null
+        }
+        Update: {
+          document_type?: string | null
+          expires_on?: string | null
+          family_id?: string | null
+          nanny_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nanny_safety_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "family_nannies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "household_staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nanny_safety_documents_nanny_id_fkey"
+            columns: ["nanny_id"]
+            isOneToOne: false
+            referencedRelation: "staff_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_profiles: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          emergency_name: string | null
+          emergency_phone: string | null
+          emergency_relationship: string | null
+          family_id: string | null
+          id: string | null
+          insurance_cover_from: string | null
+          insurance_cover_until: string | null
+          insurance_policy_number: string | null
+          insurance_provider: string | null
+          invited_at: string | null
+          last_seen_at: string | null
+          name: string | null
+          photo_path: string | null
+          role: string | null
+          sort_order: number | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          family_id?: string | null
+          id?: string | null
+          insurance_cover_from?: string | null
+          insurance_cover_until?: string | null
+          insurance_policy_number?: string | null
+          insurance_provider?: string | null
+          invited_at?: string | null
+          last_seen_at?: string | null
+          name?: string | null
+          photo_path?: string | null
+          role?: string | null
+          sort_order?: number | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          family_id?: string | null
+          id?: string | null
+          insurance_cover_from?: string | null
+          insurance_cover_until?: string | null
+          insurance_policy_number?: string | null
+          insurance_provider?: string | null
+          invited_at?: string | null
+          last_seen_at?: string | null
+          name?: string | null
+          photo_path?: string | null
+          role?: string | null
+          sort_order?: number | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_nannies_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "household_basics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
+      acknowledge_incident: { Args: { _id: string }; Returns: boolean }
+      add_family_staff: {
+        Args: { _family: string; _name: string; _role: string }
+        Returns: string
+      }
+      add_leave: {
+        Args: {
+          _days: number
+          _end: string
+          _family: string
+          _nanny: string
+          _notes?: string
+          _start: string
+          _type: string
+        }
+        Returns: string
+      }
+      add_staff_document: {
+        Args: {
+          _category: string
+          _expires: string
+          _family: string
+          _file_name: string
+          _issued: string
+          _nanny: string
+          _path: string
+          _shared?: boolean
+          _title: string
+        }
+        Returns: string
+      }
+      add_travel_note: {
+        Args: { _category: string; _text: string; _trip: string }
+        Returns: undefined
+      }
+      agreement_on: { Args: { _family: string }; Returns: boolean }
+      app_activity: {
+        Args: {
+          _actor: string
+          _body: string
+          _family: string
+          _feature: string
+          _kind: string
+          _push: boolean
+        }
+        Returns: undefined
+      }
+      build_handover_summary: {
+        Args: { _family: string; _from: string; _to: string }
+        Returns: Json
+      }
+      buy_groceries: {
+        Args: { _amount?: number; _from_float?: boolean; _ids: string[] }
+        Returns: string
+      }
+      claim_my_wallet: { Args: { _family: string }; Returns: undefined }
+      create_co_parent_code: { Args: { _family: string }; Returns: string }
+      edit_planner_entry: {
+        Args: {
+          _after: boolean
+          _child: string
+          _end: string
+          _id: string
+          _nanny: string
+          _notes: string
+          _time: string
+          _title: string
+        }
+        Returns: number
+      }
+      end_nap: { Args: { _id: string }; Returns: boolean }
       get_partner_brand: {
         Args: { _handle: string }
         Returns: {
@@ -3602,11 +4890,144 @@ export type Database = {
         }
         Returns: boolean
       }
+      household_photos: {
+        Args: { _family: string }
+        Returns: {
+          id: string
+          kind: string
+          me: boolean
+          name: string
+          online: boolean
+          photo_path: string
+          role: string
+        }[]
+      }
+      household_side: { Args: { _family: string }; Returns: string }
+      i_am_here: { Args: { _family: string }; Returns: undefined }
       is_household_member: { Args: { _family: string }; Returns: boolean }
       is_household_owner: { Args: { _family: string }; Returns: boolean }
+      issue_agreement: {
+        Args: { _family: string; _nanny: string }
+        Returns: number
+      }
+      log_live_in_week: {
+        Args: {
+          _days_off: number
+          _family: string
+          _hours: number
+          _note?: string
+          _week: string
+        }
+        Returns: undefined
+      }
+      mark_thread_read: { Args: { _id: string }; Returns: undefined }
       my_staff_nanny: { Args: { _family: string }; Returns: string }
+      my_wallet_offers: {
+        Args: never
+        Returns: {
+          family_id: string
+          family_name: string
+        }[]
+      }
       purge_family: {
         Args: { _family: string; _reason: string }
+        Returns: undefined
+      }
+      push_to_app: {
+        Args: { _actor: string; _body: string; _family: string; _kind: string }
+        Returns: undefined
+      }
+      record_outcome: {
+        Args: { _end?: string; _id: string; _outcome: string; _start?: string }
+        Returns: boolean
+      }
+      redeem_co_parent_code: { Args: { _code: string }; Returns: string }
+      remove_bank_details: { Args: { _family: string }; Returns: undefined }
+      remove_document: { Args: { _id: string }; Returns: string }
+      remove_leave: { Args: { _id: string }; Returns: undefined }
+      remove_petty_cash: { Args: { _id: string }; Returns: undefined }
+      reveal_house_code: { Args: { _id: string }; Returns: string }
+      review_expense: {
+        Args: { _id: string; _status: string }
+        Returns: undefined
+      }
+      review_leave: {
+        Args: { _id: string; _status: string }
+        Returns: undefined
+      }
+      review_shift: {
+        Args: { _id: string; _status: string }
+        Returns: undefined
+      }
+      review_shift_change: {
+        Args: { _decision: string; _id: string }
+        Returns: boolean
+      }
+      save_agreement_draft: {
+        Args: { _data: Json; _family: string; _nanny: string }
+        Returns: string
+      }
+      save_bank_details: {
+        Args: {
+          _account_name: string
+          _account_number: string
+          _bank_name: string
+          _family: string
+          _iban: string
+          _payment_reference: string
+          _sort_code: string
+          _swift: string
+        }
+        Returns: undefined
+      }
+      save_push_token: {
+        Args: { _family: string; _token: string; _tz: string }
+        Returns: undefined
+      }
+      save_review_checkin: {
+        Args: {
+          _answers: Json
+          _complete: boolean
+          _family: string
+          _id?: string
+          _kind: string
+          _nanny: string
+        }
+        Returns: string
+      }
+      set_house_code: {
+        Args: { _id: string; _value: string }
+        Returns: undefined
+      }
+      set_my_display_name: { Args: { _name: string }; Returns: undefined }
+      set_profile_photo: {
+        Args: { _family: string; _id: string; _kind: string; _path: string }
+        Returns: boolean
+      }
+      set_quick_actions: {
+        Args: { _actions: string[]; _family: string }
+        Returns: boolean
+      }
+      share_document: {
+        Args: { _id: string; _shared: boolean }
+        Returns: undefined
+      }
+      sign_agreement: {
+        Args: { _family: string; _name: string }
+        Returns: undefined
+      }
+      start_family_onboarding: {
+        Args: {
+          _country: string
+          _currency: string
+          _family_name: string
+          _region: string
+          _time_zone: string
+        }
+        Returns: string
+      }
+      travel_checklist: {
+        Args: { _action: string; _trip: string; _value: string }
         Returns: undefined
       }
     }
