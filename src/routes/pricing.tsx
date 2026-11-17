@@ -28,14 +28,14 @@ export const Route = createFileRoute("/pricing")({
     pageHead({
       title: "Pricing: Family Wallet Plans for Families & Agencies",
       description:
-        "Family Wallet is £19.99 a month or £199 a year for unlimited staff. Plans for nanny agencies too. Nannies and au pairs never pay.",
+        "Family Wallet is £9.99 a month or £99.99 a year for unlimited staff, bought in the app. Plans for nanny agencies too. Nannies and au pairs never pay.",
       path: "/pricing",
       jsonLd: [
         softwareLd([
           {
             name: "Family",
-            price: "19.99",
-            description: "Unlimited staff, billed monthly or £199 a year, excluding VAT.",
+            price: "9.99",
+            description: "Unlimited staff, billed monthly or £99.99 a year, in the app.",
           },
         ]),
         faqLd(faqs.families),
@@ -71,11 +71,10 @@ type Tier = {
 const SUPPORT = "Dedicated customer support by email";
 
 /**
- * Independent families subscribe inside the app with their Apple ID, not on this website. Switch this on
- * (VITE_FAMILY_APP_ONLY=true) only once in-app purchase works and the app is live in the store, because it turns
- * off the website's family checkout. Agency plans always pay here.
+ * Independent families subscribe inside the app with their Apple ID, not on this website (17 Nov 2026), so the
+ * family plan shows the app download and no web checkout. VITE_FAMILY_APP_ONLY=false brings the web checkout back.
  */
-const FAMILY_APP_ONLY = import.meta.env["VITE_FAMILY_APP_ONLY"] === "true";
+const FAMILY_APP_ONLY = import.meta.env["VITE_FAMILY_APP_ONLY"] !== "false";
 
 function GetTheApp() {
   return (
@@ -102,8 +101,8 @@ function GetTheApp() {
 const families: Tier[] = [
   {
     name: "Family",
-    monthly: 19.99,
-    annual: 199,
+    monthly: 9.99,
+    annual: 99.99,
     who: "A nanny, an au pair, a housekeeper, a driver: your whole household team.",
     features: [
       { text: "Unlimited staff, each with their own sign-in" },
@@ -119,10 +118,12 @@ const families: Tier[] = [
 ];
 
 // Agencies buy household seats and send them to families by email. They never see a family's wallet.
+// Prices are the 17 Nov 2026 list. The buttons are "Talk to us" (no web checkout) until the payment products are
+// changed to these prices with the owner's approval; add `plan` back to a tier to switch its checkout on again.
 const agencies: Tier[] = [
   {
     name: "Partner",
-    monthly: 79,
+    monthly: 39,
     who: "Give your first families a wallet.",
     features: [
       { text: "10 household seats" },
@@ -130,27 +131,24 @@ const agencies: Tier[] = [
       { text: "Release and reuse seats any time" },
       { text: SUPPORT },
     ],
-    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Partner") },
-    plan: "agency_partner",
+    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Partner") },
   },
   {
     name: "Growth",
-    monthly: 199,
+    monthly: 119,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [{ text: "50 household seats" }],
-    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Growth") },
-    plan: "agency_growth",
+    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Growth") },
     popular: true,
   },
   {
     name: "Scale",
-    monthly: 349,
+    monthly: 199,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [{ text: "100 household seats" }],
-    cta: { label: "Subscribe", href: mail("Family Wallet for agencies: Scale") },
-    plan: "agency_scale",
+    cta: { label: "Talk to us", href: mail("Family Wallet for agencies: Scale") },
   },
   {
     name: "Enterprise",
@@ -164,34 +162,31 @@ const agencies: Tier[] = [
 
 /* Everything inside the wallet. It is the same on every family plan; only the number of staff changes. */
 const EVERYTHING = [
-  "Shared week calendar (day, week and month)",
-  "Daily log, photo moments and weekly Friday report",
-  "Topic messages with unread alerts",
-  "Notification bell and phone alerts",
-  "Today: naps, feeds, meals and potty",
+  "Shared calendar: the week or the month, working hours and what is planned",
+  "Daily timeline: naps, meals, bottles, nappies, notes and activities",
+  "Family Assistant: ask about the day or log it, by text or voice",
+  "Messages and photos for the household",
+  "Notifications on your phone, with quiet hours",
   "Medication log and incident reports",
-  "Handover notes and expenses",
-  "Permissions and consents",
+  "Handover checklist and weekly report",
+  "Groceries and shopping list",
+  "Expenses and receipts, and petty cash",
+  "Timesheets, working hours, holiday and leave",
+  "Children and routines, and the kids' playbook",
+  "Permissions",
   "Emergency card",
-  "Children & routines and Kids' playbook",
-  "Travel pack and First 48 hours checklist",
-  "Timesheets (nanny and babysitting), holiday & leave",
-  "Petty cash float",
-  "Secure bank details",
-  "Working hours rota",
-  "Nanny training and certificates",
-  "Safety records (DBS, first aid, insurance)",
-  "Private document vault for DBS, ID, passports and right to work",
-  "Payroll setup via our partner Nannytax",
-  "Agreement builder, signed by both sides (incl. two-week rota)",
-  "House manual & codes, hidden until revealed",
-  "Au pair & live-in: pocket money, hours cap, days off, room & house rules",
-  "Employment cost calculator",
+  "House manual and codes",
+  "Travel pack",
+  "Agreement, signed in the app",
+  "Documents with expiry dates",
+  "Bank details for pay and reimbursements",
+  "Live-in arrangements and reviews",
+  "Download your data",
   SUPPORT,
 ];
 type Group = { title: string; items: string[] };
 const tierIncludes: Record<string, Group[]> = {
-  Family: [{ title: "Everything, for up to 2 staff", items: EVERYTHING }],
+  Family: [{ title: "Everything, for unlimited staff", items: EVERYTHING }],
   Household: [
     {
       title: "Everything, for up to 6 staff",
@@ -240,7 +235,7 @@ function TierDetails({ groups }: { groups: Group[] }) {
 const payOptions = [
   {
     title: "You include it in the membership",
-    body: "You pay for household seats. At Growth with 40 families that is about £5 a family a month, a small part of a £50 membership.",
+    body: "You pay for household seats. At Growth with 40 families that is about £3 a family a month, a small part of a £50 membership.",
   },
   {
     title: "You resell it",
@@ -272,7 +267,7 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
     },
     {
       q: "Can I switch between monthly and yearly, or cancel?",
-      a: "Yes. Cancel any time from your wallet. Your plan stays active until the end of the period you have paid for. To switch between monthly and yearly, get in touch and we will switch you.",
+      a: "Yes. Your subscription is with the App Store, so you switch or cancel in your App Store settings. Your plan stays active until the end of the period you have paid for.",
     },
     {
       q: "My agency already gave me a wallet. Do I pay?",
@@ -486,10 +481,10 @@ function PricingPageInner() {
                   {price === null
                     ? "Priced to your household"
                     : audience === "agencies"
-                      ? "Excluding VAT. Billed monthly."
+                      ? "Billed monthly."
                       : showAnnual
-                        ? `Or ${money(t.monthly!)} a month. Excluding VAT.`
-                        : "Excluding VAT."}
+                        ? `Or ${money(t.monthly!)} a month.`
+                        : `Or ${money(t.annual!)} a year.`}
                 </p>
                 {FAMILY_APP_ONLY && plan === "family" ? (
                   <GetTheApp />
@@ -627,8 +622,7 @@ function PricingPageInner() {
         </section>
 
         <p className="mt-16 max-w-[44rem] text-xs leading-relaxed text-muted-foreground">
-          Prices exclude VAT, which is added at checkout. Plans marked Soon are on the way and are
-          not in the app yet.
+          Family plans are bought inside the app and billed by the App Store. Agency plans are billed monthly.
         </p>
       </main>
     </div>

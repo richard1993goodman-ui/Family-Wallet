@@ -40,7 +40,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/nanny-management-app",
     title: "Nanny Management App for Parents | Family Wallet",
     description:
-      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. £19.99 a month.",
+      "Run your nanny arrangement properly: shared week, signed agreement, daily log, timesheets and emergency card in one private app. £9.99 a month.",
     h1: "The nanny management app for parents",
     intro:
       "If your nanny arrangement lives across WhatsApp, a spreadsheet and a contract buried in your email, Family Wallet puts it in one private place that both of you can open from your phones.",
@@ -98,7 +98,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "How much does it cost?",
-        a: "The Family plan is £19.99 a month, or £199 a year, for unlimited staff, such as a nanny, an au pair and a housekeeper. Prices exclude VAT.",
+        a: "The Family plan is £9.99 a month, or £99.99 a year, for unlimited staff, such as a nanny, an au pair and a housekeeper. You subscribe inside the app.",
       },
       {
         q: "Is my family's information private?",
@@ -190,7 +190,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     ],
     cta: {
       heading: "Set up your household team",
-      body: "Unlimited staff for £19.99 a month or £199 a year, excluding VAT.",
+      body: "Unlimited staff for £9.99 a month or £99.99 a year.",
       label: "See pricing",
       to: "/pricing",
     },
@@ -205,7 +205,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/for-agencies",
     title: "Family App for Nanny Agencies | Family Wallet",
     description:
-      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £79 a month, nannies free.",
+      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £39 a month, nannies free.",
     h1: "Give every family you place a private wallet",
     intro:
       "Your families remember how the first month went. Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",
@@ -235,12 +235,12 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Plans that grow with you",
         table: {
-          caption: "Agency plans, billed monthly, excluding VAT",
+          caption: "Agency plans, billed monthly",
           head: ["Plan", "Price", "Household seats included"],
           rows: [
-            ["Partner", "£79 a month", "10"],
-            ["Growth", "£199 a month", "50"],
-            ["Scale", "£349 a month", "100"],
+            ["Partner", "£39 a month", "10"],
+            ["Growth", "£119 a month", "50"],
+            ["Scale", "£199 a month", "100"],
             ["Enterprise", "Talk to us", "100 and over"],
           ],
         },
@@ -311,7 +311,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
             ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
             ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
             ["Agencies", "A funded seat for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
-            ["Price shown", "£19.99 a month (excluding VAT)", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
+            ["Price shown", "£9.99 a month", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
             ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
           ],
         },
@@ -450,7 +450,7 @@ export const GUIDES: Record<string, PageContent> = {
     ],
     cta: {
       heading: "Build your agreement in Family Wallet",
-      body: "Choose your clauses, then both sign in the app. £19.99 a month for unlimited staff.",
+      body: "Choose your clauses, then both sign in the app. £9.99 a month for unlimited staff.",
       label: "See pricing",
       to: "/pricing",
     },

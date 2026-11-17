@@ -33,7 +33,7 @@ function PrivacyPage() {
         <h2 className={h2}>1. Who we are</h2>
         <p className={p}>
           Family Wallet is provided by Richard Goodman, a sole trader trading as Family Wallet, 41
-          Merry Hill Mount, Bushey, WD23 1JD. You can contact us at{" "}
+          Merry Hill Mount, Bushey, WD23 1DJ. You can contact us at{" "}
           <a className={link} href={`mailto:${CONTACT_EMAIL}`}>
             {CONTACT_EMAIL}
           </a>
@@ -298,7 +298,7 @@ function PrivacyPage() {
             {CONTACT_EMAIL}
           </a>
           <br />
-          41 Merry Hill Mount, Bushey, WD23 1JD
+          41 Merry Hill Mount, Bushey, WD23 1DJ
         </p>
       </main>
     </MarketingLayout>

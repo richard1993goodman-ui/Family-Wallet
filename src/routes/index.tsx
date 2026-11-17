@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
         organizationLd(),
         websiteLd(),
         softwareLd([
-          { name: "Family", price: "19.99", description: "Unlimited staff, billed monthly or £199 a year, excluding VAT." },
+          { name: "Family", price: "9.99", description: "Unlimited staff, billed monthly or £99.99 a year, in the app." },
         ]),
       ],
     }),
