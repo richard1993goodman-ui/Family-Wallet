@@ -1,4 +1,5 @@
-// Agency plans, matching the pricing page. An "active household" is a wallet someone has
+// Agency plans, matching the pricing page. There is no charge per extra household: an agency that needs more
+// seats than its tier holds moves up a tier (decided 17 Nov 2026). An "active household" is a wallet someone has
 // opened in the last 30 days, so quiet clients do not count towards the allowance.
 
 export type AgencyPlanId = "partner" | "growth" | "scale" | "enterprise";
@@ -9,15 +10,13 @@ export type AgencyPlan = {
   allowance: number | null;
   /** Monthly price in pence, excluding VAT. null = custom. */
   pence: number | null;
-  /** Price in pence for each household over the allowance. */
-  extraPence: number | null;
 };
 
 export const AGENCY_PLANS: Record<AgencyPlanId, AgencyPlan> = {
-  partner: { name: "Partner", allowance: 10, pence: 5900, extraPence: 300 },
-  growth: { name: "Growth", allowance: 50, pence: 17900, extraPence: 200 },
-  scale: { name: "Scale", allowance: 100, pence: 29900, extraPence: 150 },
-  enterprise: { name: "Enterprise", allowance: null, pence: null, extraPence: null },
+  partner: { name: "Partner", allowance: 10, pence: 5900 },
+  growth: { name: "Growth", allowance: 50, pence: 17900 },
+  scale: { name: "Scale", allowance: 100, pence: 29900 },
+  enterprise: { name: "Enterprise", allowance: null, pence: null },
 };
 
 /** The self-serve tiers in order. Enterprise is priced by agreement, so nothing moves an agency onto it automatically. */
@@ -56,8 +55,6 @@ export type AllowanceUsage = {
   /** 0 to 100, for a progress bar. */
   percent: number;
   level: AllowanceLevel;
-  /** Estimated extra monthly charge in pence for households over the allowance. */
-  extraPence: number;
   basePence: number | null;
 };
 
@@ -81,7 +78,6 @@ export function allowanceUsage(
       over: 0,
       percent: 0,
       level: "unlimited",
-      extraPence: 0,
       basePence: def.pence,
     };
   }
@@ -97,7 +93,6 @@ export function allowanceUsage(
     over,
     percent: allowance === 0 ? 100 : Math.min(100, Math.round((used / allowance) * 100)),
     level,
-    extraPence: over * (def.extraPence ?? 0),
     basePence: def.pence,
   };
 }

@@ -20,25 +20,25 @@ describe("isActiveHousehold", () => {
 describe("allowanceUsage", () => {
   it("is ok well under the allowance", () => {
     const u = allowanceUsage("partner", null, 4);
-    expect(u).toMatchObject({ allowance: 10, remaining: 6, over: 0, percent: 40, level: "ok", extraPence: 0 });
+    expect(u).toMatchObject({ allowance: 10, remaining: 6, over: 0, percent: 40, level: "ok" });
   });
   it("warns from 80% of the allowance", () => {
     expect(allowanceUsage("partner", null, 8).level).toBe("near");
     expect(allowanceUsage("partner", null, 10).level).toBe("near");
   });
-  it("charges for households over the allowance", () => {
+  it("flags households over the allowance", () => {
     const u = allowanceUsage("partner", null, 13);
-    expect(u).toMatchObject({ over: 3, remaining: 0, percent: 100, level: "over", extraPence: 900 });
+    expect(u).toMatchObject({ over: 3, remaining: 0, percent: 100, level: "over" });
   });
-  it("uses each plan's own rates", () => {
-    expect(allowanceUsage("growth", null, 52).extraPence).toBe(400);
-    expect(allowanceUsage("scale", null, 102).extraPence).toBe(300);
+  it("uses each plan's own allowance", () => {
+    expect(allowanceUsage("growth", null, 52).over).toBe(2);
+    expect(allowanceUsage("scale", null, 102).over).toBe(2);
   });
   it("lets an agreed allowance override the plan default", () => {
     expect(allowanceUsage("partner", 25, 20)).toMatchObject({ allowance: 25, level: "near" });
   });
   it("has no cap on Enterprise", () => {
-    expect(allowanceUsage("enterprise", null, 400)).toMatchObject({ allowance: null, level: "unlimited", extraPence: 0 });
+    expect(allowanceUsage("enterprise", null, 400)).toMatchObject({ allowance: null, level: "unlimited" });
   });
   it("treats a zero allowance as full", () => {
     expect(allowanceUsage("partner", 0, 0)).toMatchObject({ percent: 100, level: "ok" });
