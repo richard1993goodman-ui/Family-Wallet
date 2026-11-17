@@ -17,6 +17,8 @@ interface SignupEmailProps {
   siteUrl: string
   recipient: string
   confirmationUrl: string
+  /** The six-digit code, so someone signing up in the phone app can type it there. */
+  token?: string
 }
 
 export const SignupEmail = ({
@@ -24,6 +26,7 @@ export const SignupEmail = ({
   siteUrl,
   recipient,
   confirmationUrl,
+  token,
 }: SignupEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head>
@@ -47,6 +50,12 @@ export const SignupEmail = ({
           </Link>
           ) by clicking the button below:
         </Text>
+        {token ? (
+          <>
+            <Text style={text}>Signing in on the {siteName} app? Enter this six-digit code there instead:</Text>
+            <Text style={code}>{token}</Text>
+          </>
+        ) : null}
         <Button className="dm-btn" style={button} href={confirmationUrl}>
           Verify Email
         </Button>
@@ -83,6 +92,13 @@ const button = {
   borderRadius: '8px',
   padding: '12px 20px',
   textDecoration: 'none',
+}
+const code = {
+  fontSize: '32px',
+  fontWeight: 'bold' as const,
+  letterSpacing: '8px',
+  color: '#1f3d2b',
+  margin: '0 0 25px',
 }
 const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
 // Rendered as a text child, which React may HTML-escape: keep this CSS free of >, &, and quotes.
