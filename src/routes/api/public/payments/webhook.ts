@@ -38,12 +38,12 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
               session.metadata?.["app"] === "family_wallet" &&
               session.payment_status !== "unpaid"
             ) {
-              await provisionFromSession(session.id, environment);
+              await provisionFromSession(session.id, environment, false);
             }
           } else if (event.type === "checkout.session.async_payment_succeeded") {
             const session = event.data.object as { id: string; metadata?: Record<string, string> };
             if (session.metadata?.["app"] === "family_wallet") {
-              await provisionFromSession(session.id, environment);
+              await provisionFromSession(session.id, environment, false);
             }
           } else if (
             event.type === "customer.subscription.updated" ||
