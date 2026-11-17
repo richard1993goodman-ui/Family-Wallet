@@ -14,6 +14,7 @@ import { onMailtoClick } from "@/lib/mailto";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { breadcrumbLd, faqLd, pageHead, softwareLd } from "@/lib/seo";
 import { LogoMark } from "@/components/brand";
+import { EnterpriseEnquiry } from "@/components/EnterpriseEnquiry";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import type { Interval, PlanId } from "@/lib/billing.config";
 import { intervalsFor } from "@/lib/billing.config";
@@ -156,7 +157,7 @@ const agencies: Tier[] = [
     who: "More than 100 households.",
     lead: "Everything in Scale, plus",
     features: [{ text: "More than 100 household seats, priced to your volume" }],
-    cta: { label: "Get a quote", href: mail("Family Wallet for agencies: Enterprise") },
+    cta: { label: "Talk to us about Enterprise", href: "#enterprise" },
   },
 ];
 
@@ -300,8 +301,12 @@ const faqs: Record<Audience, { q: string; a: string }[]> = {
       a: "Release the seat. It is free again immediately, and the family keeps its wallet and records. It is offered its own Family plan and keeps full access for a week while it decides.",
     },
     {
-      q: "Need more seats?",
-      a: "Ask us and we'll move you to the next plan. Your families and invitations stay exactly as they are.",
+      q: "What happens when we reach our seat limit?",
+      a: "Every seat in your plan can be sent to one household, so you cannot send more invitations than you have seats. Families who already have a wallet keep it. Nothing is charged or changed automatically: ask us and we'll move you to the next plan, and your families and invitations stay exactly as they are.",
+    },
+    {
+      q: "How does Enterprise pricing work?",
+      a: "For more than 100 households, or several branches, we agree a seat allowance and a monthly price with you. Send the enquiry form on this page and we'll reply by email.",
     },
     {
       q: "Is there a setup fee or contract?",
@@ -605,6 +610,26 @@ function PricingPageInner() {
           </section>
         )}
 
+        {audience === "agencies" && (
+          <section
+            id="enterprise"
+            className="mt-20 grid scroll-mt-20 gap-10 lg:grid-cols-12 lg:gap-8"
+          >
+            <div className="lg:col-span-5">
+              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+                More than 100 households?
+              </h2>
+              <p className="mt-5 max-w-[30rem] text-lg leading-relaxed text-foreground">
+                Tell us roughly how many families you look after and we'll come back with a seat
+                allowance and a monthly price.
+              </p>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <EnterpriseEnquiry />
+            </div>
+          </section>
+        )}
+
         <section className="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-8">
           <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-4">
             Questions
@@ -622,7 +647,8 @@ function PricingPageInner() {
         </section>
 
         <p className="mt-16 max-w-[44rem] text-xs leading-relaxed text-muted-foreground">
-          Family plans are bought inside the app and billed by the App Store. Agency plans are billed monthly.
+          Family plans are bought inside the app and billed by the App Store. Agency plans are
+          billed monthly.
         </p>
       </main>
     </div>

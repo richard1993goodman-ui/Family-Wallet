@@ -1,1181 +1,513 @@
-import { onMailtoClick } from "@/lib/mailto";
-import { CONTACT_EMAIL } from "@/lib/site";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
-  ArrowUp,
-  ClipboardCheck,
-  Clock3,
-  Eye,
-  EyeOff,
-  FileBarChart,
-  Mail,
-  Menu,
+  CalendarDays,
+  Check,
+  ClipboardList,
+  FileText,
+  KeyRound,
   MessageCircle,
-  Pause,
   Pill,
-  Play,
+  Receipt,
+  ShieldCheck,
+  Sparkles,
+  Timer,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
-import { WalletHero } from "@/components/WalletShowcase";
+import { MarketingLayout, frame } from "@/components/MarketingLayout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { LogoMark } from "@/components/brand";
-import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { useReveal } from "@/hooks/use-reveal";
+import { faqLd, organizationLd, pageHead, softwareLd, websiteLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import { organizationLd, pageHead, softwareLd, websiteLd } from "@/lib/seo";
+
+// The home page (rebuilt 17 Nov 2026 for the phone app). Every screen shown is a capture of the current app with the
+// made-up Harper household from the test copy, and every feature named here is one the app has today. Families
+// download the app and subscribe inside it; agencies go to their plans. The earlier interactive web demo is retired.
+
+const faqs = [
+  {
+    q: "How do I subscribe?",
+    a: "Download the app, set up your household and choose monthly or yearly inside the app. The App Store handles the payment, and you can cancel in your App Store settings.",
+  },
+  {
+    q: "Does my nanny or au pair pay?",
+    a: "No. You invite them with a one-time code and they join your household free. One plan covers everyone, with no limit on staff.",
+  },
+  {
+    q: "Is there an Android app?",
+    a: "The iPhone app comes first. The Android app is on its way.",
+  },
+  {
+    q: "Can my agency see what is in my wallet?",
+    a: "No. An agency can fund a household's place, but it never sees your children's details, messages, photos, documents or anything else in your wallet.",
+  },
+  {
+    q: "What does the Family Assistant do?",
+    a: "You can ask it about the day or the week, or tell it what to log, by typing or speaking. It always shows you what it is about to save and asks first. It uses AI and can make mistakes, so check anything important.",
+  },
+  {
+    q: "Is this payroll?",
+    a: "No. Family Wallet keeps the hours, timesheets, expenses and paperwork in one place. It does not run payroll or give tax advice.",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Family Wallet: Nanny & Household Staff Management App",
+      title: "Family Wallet: the Private App for Families with a Nanny",
       description:
-        "A private app for families who employ a nanny, au pair or household staff. Shared week, signed agreement, daily log, timesheets and house codes in one place.",
+        "One private app for a family and their nanny, au pair or household staff: the day's routines, the shared calendar, timesheets, expenses and documents. £9.99 a month.",
       path: "/",
       jsonLd: [
         organizationLd(),
         websiteLd(),
         softwareLd([
-          { name: "Family", price: "9.99", description: "Unlimited staff, billed monthly or £99.99 a year, in the app." },
+          {
+            name: "Family",
+            price: "9.99",
+            description: "Unlimited staff, billed monthly or £99.99 a year, in the app.",
+          },
         ]),
+        faqLd(faqs),
       ],
     }),
   component: Index,
 });
 
-const benefitGroups = [
-  {
-    title: "Today & planning",
-    tint: "sage",
-    summary: "Every handover, shift and family update in one calm daily view.",
-    photo: { src: "/images/kids/tennis.jpg", alt: "A child in a white t-shirt seen from behind on a clay tennis court, resting a racket by their side" },
-    items: [
-      "Today timeline — start and end the shift, with every meal, nap, dose and photo in one live view",
-      "End-of-day summary — written for you from the day's timeline",
-      "Daily feed — photos, milestones and homework notes you can love",
-      "Weekly planner — what's on each day, Monday to Sunday",
-      "Daily log — how each day went",
-      "End-of-day handover — homework, dinner, mood and tomorrow's kit",
-      "Expenses tracker — petty cash and reimbursement notes",
-      "Friday Weekly Report — a polished recap of the week, ready to print",
-      "Timesheets pre-filled from the schedule, with shift changes approved in one tap",
-      "Overtime calculator and holiday ring — hours and leave worked out for you",
-      "Travel & Villa Nanny Pack — travel mode with checklist and holiday handover notes",
-    ],
-  },
-  {
-    title: "Family & safety",
-    tint: "rose",
-    summary: "The people, details and safeguards your nanny needs at a glance.",
-    photo: { src: "/images/kids/artwork.jpg", alt: "A wall of children's rainbow, sun and sunset paintings pinned up side by side" },
-    items: [
-      "Emergency card — key contacts and instructions at a glance",
-      "House Manual & Codes — WiFi, alarm and lockbox codes, utilities, house rules, bin days and appliances",
-      "Kids' Playbook — quirks and comforts, how we handle big moments, friends and rainy-day ideas",
-      "Your nanny's CV, profile and references",
-      "Checks & credentials — DBS, ID and right to work",
-      "Know my family — children's profiles and the nanny quick guide",
-      "Medication log — timestamped doses with a safe-dose lockout so nobody double-doses",
-      "Private document vault — passports, DBS, right to work and contracts, never shared with your agency",
-      "Photo moments & milestones — a private photo diary and milestone journal",
-      "First 48 hours — routines, pickups and expectations agreed together",
-      "Insurance & safeguarding record — check, training and cover status",
-    ],
-  },
-  {
-    title: "Agreement & employment",
-    tint: "sky",
-    summary: "Your working arrangement, pay tools and key documents together.",
-    photo: { src: "/images/kids/rainbow-craft.jpg", alt: "A child's hand pressing torn coloured paper onto a rainbow outline" },
-    items: [
-      "Your nanny agreement — a template, a self-employed version, or none, with key dates and school holidays in your calendar",
-      "Managed Nannytax setup — a guided introduction and visible next steps",
-      "All-in employment cost calculator — pay, NI, pension and payroll estimates",
-      "Your Nannytax referral code",
-      "Agency terms and conditions",
-      "Reviews & check-ins — 6-month and yearly conversation guides",
-    ],
-  },
-  {
-    title: "Support & extras",
-    tint: "butter",
-    summary: "Trusted ideas and thoughtful extras that make family life easier.",
-    photo: { src: "/images/kids/chef.jpg", alt: "A toddler in a chef's hat and apron stirring an empty pan in a bright kitchen" },
-    items: [
-      "Messages — topic conversations between family and nanny",
-      "Phone alerts — parents are notified when notes, photos, key information, schedule changes or holiday requests are added, with quiet hours",
-      "Private nanny curation — personally selected profiles, never a public catalogue",
-      "Family perks & London Partner Concierge — private offers and trusted recommendations",
-      "Agency Materials — audiobooks, digital books, activity and family guides",
-      "Active Kids Sports Passport — skills, challenges and confidence wins",
-      "Nanny training hub — safeguarding, routines and emergencies",
-      "Nanny training certificate — kept in the wallet once passed",
-      "Nanny Fuel — cooking and meal ideas",
-      "Nanny activity guide",
-    ],
-  },
-];
-
-const weekClaims = [
-  {
-    title: "Everyone sees the same week",
-    detail: "Shifts sync from the agreement or your own pattern; school runs, clubs and school holidays sit beside them.",
-  },
-  {
-    title: "No double-dosing",
-    detail: "Every dose of medicine is timed and signed, so nobody has to text to check.",
-  },
-  {
-    title: "A day you can follow live",
-    detail: "Your nanny starts the shift, logs meals, naps and photos, and ends it with a summary. You see it all as it happens.",
-  },
-  {
-    title: "A Friday report, ready to print",
-    detail: "Hours, activities, handovers and expenses, summed up for you.",
-  },
-  {
-    title: "You're told the moment anything changes",
-    detail: "When your nanny, au pair or household staff add notes, photos or key information, or ask to change the schedule or book holiday, you get an alert. Nothing private shows on the lock screen.",
-  },
-  {
-    title: "Alerts you control",
-    detail: "Choose what buzzes and set quiet hours on each phone, so a wallet never becomes noise.",
-  },
-  {
-    title: "Private by design",
-    detail: "Agencies fund seats but never see a family's wallet, documents or photos.",
-  },
-  {
-    title: "Petty cash that adds up",
-    detail: "Top-ups and receipts logged, so everyone knows what is left in the float.",
-  },
-];
-
-const navLinks = [
-  { href: "#week", label: "How it works" },
-  { href: "#included", label: "What's inside" },
-] as const;
-
-function splitItem(item: string) {
-  const [name, ...rest] = item.split(" — ");
-  const detail = rest.join(" — ");
-  return { name, detail: detail ? detail[0]!.toUpperCase() + detail.slice(1) : undefined };
-}
-
-/** One frame for every section: 32px margins, 1280px measure. */
-const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";
-
-function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-300",
-        scrolled ? "material border-border/70" : "border-transparent bg-background",
-      )}
-    >
-      <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-        <Link to="/" aria-label="Family Wallet, home" className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="heading-serif text-[1.375rem] leading-none text-foreground">
-            Family Wallet
-          </span>
-        </Link>
-        <nav className="hidden items-center gap-7 text-[0.9375rem] md:flex">
-          {navLinks.map((n) => (
-            <a
-              key={n.href}
-              href={n.href}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {n.label}
-            </a>
-          ))}
-          <Link
-            to="/pricing"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Pricing
-          </Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          <Button className="hidden sm:inline-flex" asChild>
-            <Link to="/login">Open my wallet</Link>
-          </Button>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-80">
-              <SheetHeader>
-                <SheetTitle className="heading-serif text-xl font-normal">
-                  Family Wallet
-                </SheetTitle>
-              </SheetHeader>
-              <div className="mt-6 flex flex-col gap-1">
-                {navLinks.map((n) => (
-                  <Button
-                    key={n.href}
-                    variant="ghost"
-                    className="h-11 justify-start text-[0.9375rem]"
-                    asChild
-                  >
-                    <a href={n.href}>{n.label}</a>
-                  </Button>
-                ))}
-                <Button variant="ghost" className="h-11 justify-start text-[0.9375rem]" asChild>
-                  <Link to="/pricing">Pricing</Link>
-                </Button>
-                <Separator className="my-3" />
-                <Button className="h-11" asChild>
-                  <Link to="/login">Open my wallet</Link>
-                </Button>
-                <Button variant="outline" className="mt-2 h-11" asChild>
-                  <Link to="/admin">Agency sign in</Link>
-                </Button>
-                <Button variant="outline" className="mt-2 h-11" asChild>
-                  <a href={`mailto:${CONTACT_EMAIL}`} onClick={onMailtoClick}>
-                    <Mail className="mr-2 h-4 w-4" />
-                    Contact support
-                  </a>
-                </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-function Index() {
-  useReveal();
-
-  return (
-    <div className="min-h-screen overflow-x-clip bg-background">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2.5 focus:text-sm focus:text-background"
-      >
-        Skip to content
-      </a>
-      <SiteHeader />
-
-      <main id="main" tabIndex={-1} className="outline-none">
-        {/* The front door is the wallet itself: a phone you can spin and tap, driven by the page */}
-        <WalletHero />
-
-        <figure className={cn(frame, "pb-8 pt-2 lg:pb-12 lg:pt-4")} data-reveal>
-          <img
-            src="/images/kids/camera.jpg"
-            alt="A toddler in a striped top sitting in a red booster seat, holding a purple toy camera up to one eye"
-            width={1600}
-            height={1106}
-            className="aspect-[4/3] w-full rounded-lg object-cover object-[58%_45%] sm:aspect-[3/1] sm:object-[50%_48%]"
-            loading="lazy"
-          />
-        </figure>
-
-        {/* The week, as the household sees it: live pieces of the wallet, set as a bento */}
-        <section id="week" className="scroll-mt-16 bg-card py-24 lg:py-32">
-          <div className={frame}>
-            <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
-                A week at the Harringtons'
-              </h2>
-              <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
-                Parents and nanny open the same wallet. The shift, the school run, meals, medicine,
-                photos and homework are on one live timeline, and the timesheet fills itself in.
-              </p>
-            </div>
-
-            <div className="mt-14 grid gap-4 lg:grid-cols-12">
-              <div className="lg:col-span-7" data-reveal>
-                <WeekPreview />
-              </div>
-
-              <div data-tint="rose" className="tint-card rounded-lg p-6 sm:p-8 lg:col-span-5" data-reveal>
-                <h3 className="text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-                  Codes stay behind the door
-                </h3>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                  Hidden in the House Manual until someone in your household taps to reveal them.
-                  Never sent in a message or saved on a phone.
-                </p>
-                <HouseCodes className="mt-6" />
-              </div>
-
-              <figure
-                className="relative aspect-[2/1] overflow-hidden rounded-lg bg-muted lg:col-span-5 lg:aspect-auto lg:min-h-64"
-                data-reveal
-              >
-                <img
-                  src="/images/london/colouring.jpg"
-                  alt="Two children colouring in Easter pictures with felt-tip pens at a table in the sun"
-                  width={1600}
-                  height={960}
-                  className="absolute inset-0 h-full w-full object-cover object-[45%_50%]"
-                  loading="lazy"
-                />
-              </figure>
-
-              <dl
-                data-tint="butter"
-                className="tint-card grid gap-x-10 gap-y-8 rounded-lg p-6 sm:grid-cols-2 sm:p-8 lg:col-span-7"
-                data-reveal
-              >
-                {weekClaims.map((claim) => (
-                  <div key={claim.title}>
-                    <dt className="text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground">
-                      {claim.title}
-                    </dt>
-                    <dd className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                      {claim.detail}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        </section>
-
-        <figure className={cn(frame, "pt-4 lg:pt-8")}>
-          <img
-            src="/images/kids/school-run.jpg"
-            alt="A line of children in sun hats and bright backpacks walking away from the camera on the school run"
-            width={1600}
-            height={1252}
-            className="aspect-[4/3] w-full rounded-lg object-cover object-[68%_45%] sm:aspect-[3/1] sm:object-[50%_40%]"
-            loading="lazy"
-          />
-          <figcaption className="mt-3 text-[0.8125rem] text-muted-foreground">
-            The school run, on foot. Every handover goes in the wallet.
-          </figcaption>
-        </figure>
-
-        {/* One day, scrubbed through as the wallet records it */}
-        <DayScrubber />
-
-        {/* Everything in the wallet, set as an index */}
-        <section id="included" className="scroll-mt-16 py-24 lg:py-36">
-          <div className={frame}>
-            <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
-                Everything in the wallet
-              </h2>
-              <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
-                {benefitGroups.reduce((n, g) => n + g.items.length, 0)} tools in four drawers, ready
-                in minutes and shared only with the people in your household.
-              </p>
-            </div>
-
-            <DrawerSwitcher />
-          </div>
-        </section>
-
-        {/* The way in */}
-        <section id="help" className="scroll-mt-16 bg-ink-band py-24 text-white lg:py-32">
-          <div className={cn(frame, "grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-8")}>
-            <div className="lg:col-span-5" data-reveal>
-              <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] sm:text-5xl">
-                Opening your wallet
-              </h2>
-              <ol className="mt-10 space-y-7">
-                {[
-                  [
-                    "Subscribing directly?",
-                    "Pick a plan on our pricing page. Your private wallet link and access code are created straight away and emailed to you.",
-                  ],
-                  [
-                    "Joined through an agency?",
-                    "Open the private link and six-character code sent by your agency team.",
-                  ],
-                  [
-                    "Enter once and save",
-                    "Choose Remember this device to stay signed in for 12 months.",
-                  ],
-                ].map(([title, detail]) => (
-                  <li key={title} className="border-l border-white/25 pl-5">
-                    <p className="text-[1.0625rem] font-medium">{title}</p>
-                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-white/70">{detail}</p>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Button size="lg" className="bg-white text-ink-band hover:bg-white/90" asChild>
-                  <Link to="/login">
-                    Open my wallet <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <p className="text-[0.9375rem] text-white/70">
-                  New here?{" "}
-                  <Link to="/pricing" className="text-white underline underline-offset-4">
-                    See plans
-                  </Link>
-                  . Through an agency?{" "}
-                  <Link to="/admin" className="text-white underline underline-offset-4">
-                    Agency sign in
-                  </Link>
-                </p>
-              </div>
-            </div>
-            <figure className="lg:col-span-6 lg:col-start-7" data-reveal>
-              <img
-                src="/images/kids/paint-sticks.jpg"
-                alt="A toddler in profile drawing coloured circles on paper with chunky paint sticks"
-                width={1400}
-                height={1050}
-                className="aspect-[4/3] w-full rounded-2xl object-cover"
-                loading="lazy"
-              />
-            </figure>
-          </div>
-        </section>
-      </main>
-
-      <BackToTop />
-
-      <footer id="site-footer" className="pb-10 pt-20">
-        <div className={frame}>
-          <p className="heading-serif whitespace-nowrap text-[11.4vw] leading-[0.9] tracking-[-0.025em] text-foreground min-[84rem]:text-[10.25rem]">
-            Family Wallet
-          </p>
-          <div className="mt-12 flex flex-col justify-between gap-6 text-[0.9375rem] text-muted-foreground md:flex-row">
-            <nav className="flex flex-wrap gap-x-7 gap-y-2">
-              <Link to="/pricing" className="transition-colors hover:text-foreground">
-                Pricing
-              </Link>
-              <Link to="/nanny-management-app" className="transition-colors hover:text-foreground">
-                Nanny app
-              </Link>
-              <Link to="/household-staff-app" className="transition-colors hover:text-foreground">
-                Household staff
-              </Link>
-              <Link to="/for-agencies" className="transition-colors hover:text-foreground">
-                For agencies
-              </Link>
-              <Link to="/guides" className="transition-colors hover:text-foreground">
-                Guides
-              </Link>
-              <Link to="/admin" className="transition-colors hover:text-foreground">
-                Agency sign in
-              </Link>
-            </nav>
-            <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span>© 2026 Family Wallet. Built in London.</span>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                onClick={onMailtoClick}
-                className="text-[0.8125rem] underline underline-offset-4 transition-colors hover:text-foreground"
-              >
-                Contact support
-              </a>
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-/* ---------------- The live week: a real piece of the wallet ---------------- */
-
-type PreviewDay = {
-  short: string;
-  date: number;
-  shift: [number, number] | null;
-  items: Array<{ time: string; title: string; who?: string }>;
-};
-
-const PREVIEW_WEEK: PreviewDay[] = [
-  {
-    short: "Mon",
-    date: 9,
-    shift: [15, 19.5],
-    items: [
-      { time: "15:00", title: "Jess starts her shift", who: "Oscar and Leo" },
-      { time: "15:15", title: "Collected from school", who: "Oscar and Leo" },
-      { time: "17:30", title: "Dinner: pasta bake, Leo on sauce duty" },
-    ],
-  },
-  {
-    short: "Tue",
-    date: 10,
-    shift: [15, 19.5],
-    items: [
-      { time: "16:00", title: "Swimming, Kensington Leisure Centre", who: "Leo" },
-      { time: "17:30", title: "Spelling test practice, ten out of ten", who: "Leo" },
-      { time: "19:30", title: "Shift ended, summary sent to Sophie and Tom" },
-    ],
-  },
-  {
-    short: "Wed",
-    date: 11,
-    shift: [15, 19.5],
-    items: [
-      { time: "15:15", title: "Collected from school, photo shared", who: "Oscar and Leo" },
-      { time: "16:10", title: "Calpol 5ml signed by Jess. Next dose not before 20:10", who: "Oscar" },
-      { time: "16:30", title: "Tennis at the park: ten serves in a row", who: "Oscar" },
-      { time: "17:40", title: "Dinner is on. Leo is on sauce duty" },
-      { time: "17:45", title: "Homework: reading for 20 minutes and spelling list 12", who: "Leo" },
-    ],
-  },
-  {
-    short: "Thu",
-    date: 12,
-    shift: [15, 19.5],
-    items: [
-      { time: "15:15", title: "Shift change requested: start at 14:30 for the dentist", who: "Jess" },
-      { time: "15:30", title: "Sophie approved the change" },
-      { time: "16:00", title: "Dentist, then a playdate with the Ashworths", who: "Oscar" },
-    ],
-  },
-  {
-    short: "Fri",
-    date: 13,
-    shift: [15, 18],
-    items: [
-      { time: "15:30", title: "Timesheet pre-filled from the schedule, ready to confirm" },
-      { time: "17:30", title: "Friday report sent to Sophie and Tom" },
-      { time: "18:00", title: "Handover at the door" },
-    ],
-  },
-  { short: "Sat", date: 14, shift: null, items: [] },
-  { short: "Sun", date: 15, shift: null, items: [] },
-];
-
-const TRACK_START = 13;
-const TRACK_HOURS = 8;
-const clock = (h: number) =>
-  `${Math.floor(h)}:${String(Math.round((h % 1) * 60)).padStart(2, "0")}`;
-
-function WeekPreview() {
-  const [selected, setSelected] = useState(2);
-  const day = PREVIEW_WEEK[selected]!;
-  const hours = PREVIEW_WEEK.reduce((n, d) => n + (d.shift ? d.shift[1] - d.shift[0] : 0), 0);
-
-  return (
-    <div data-ui className="overflow-hidden rounded-lg border border-border bg-card">
-      <div className="flex items-center justify-between gap-4 border-b border-rule px-5 py-4 sm:px-6">
-        <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft font-serif text-[0.9375rem] text-brand">
-            J
-          </span>
-          <div>
-            <p className="text-sm font-medium text-foreground">Jess Okafor</p>
-            <p className="num text-[0.8125rem] text-muted-foreground">
-              {hours} hours agreed this week
-            </p>
-          </div>
-        </div>
-        <p className="text-sm text-muted-foreground">9–15 November</p>
-      </div>
-
-      <div
-        className="grid grid-cols-7 gap-1 px-3 pt-4 sm:gap-1.5 sm:px-5"
-        role="group"
-        aria-label="Choose a day"
-      >
-        {PREVIEW_WEEK.map((d, i) => {
-          const isSelected = i === selected;
-          const span = d.shift
-            ? {
-                top: ((d.shift[0] - TRACK_START) / TRACK_HOURS) * 100,
-                height: ((d.shift[1] - d.shift[0]) / TRACK_HOURS) * 100,
-              }
-            : null;
-          return (
-            <button
-              key={d.short}
-              type="button"
-              onClick={() => setSelected(i)}
-              aria-pressed={isSelected}
-              aria-label={`${d.short} ${d.date} November${d.shift ? `, Jess ${clock(d.shift[0])} to ${clock(d.shift[1])}` : ", no shift"}`}
-              className={cn(
-                "flex min-h-[9.5rem] cursor-pointer flex-col items-center rounded-md px-1 pb-3 pt-3 transition-colors",
-                isSelected ? "bg-accent" : "hover:bg-raised",
-              )}
-            >
-              <span className="text-xs text-muted-foreground">{d.short}</span>
-              <span
-                className={cn(
-                  "num mt-1 flex h-8 w-8 items-center justify-center rounded-full text-base",
-                  i === 2 ? "bg-brand font-medium text-brand-foreground" : "text-foreground",
-                )}
-              >
-                {d.date}
-              </span>
-              <span className="relative mt-3 h-16 w-2 overflow-hidden rounded-full bg-muted">
-                {span && (
-                  <span
-                    className="absolute inset-x-0 rounded-full bg-brand transition-[top,height] duration-300"
-                    style={{ top: `${span.top}%`, height: `${span.height}%` }}
-                  />
-                )}
-              </span>
-              <span
-                className={cn(
-                  "num mt-2.5 text-[11px] leading-tight",
-                  d.shift ? "text-foreground" : "text-muted-foreground/70",
-                )}
-              >
-                {d.shift ? `${clock(d.shift[0])}–${clock(d.shift[1])}` : "Off"}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-3 border-t border-rule px-5 py-5 sm:px-6" aria-live="polite">
-        <p className="text-sm font-medium text-foreground">
-          {day.short === "Wed" ? "Today" : `${day.short} ${day.date} November`}
-          {day.shift && (
-            <span className="num font-normal text-muted-foreground">
-              {" "}
-              · Jess {clock(day.shift[0])}–{clock(day.shift[1])}
-            </span>
-          )}
-        </p>
-        <ul className="mt-3 min-h-[6.75rem] space-y-2.5">
-          {day.items.length === 0 && (
-            <li className="text-sm text-muted-foreground">
-              A family weekend. Nothing planned in the wallet.
-            </li>
-          )}
-          {day.items.map((item) => (
-            <li key={item.time + item.title} className="flex gap-4 text-sm">
-              <span className="num w-12 flex-none text-muted-foreground">{item.time}</span>
-              <span className="min-w-0 text-foreground">
-                {item.title}
-                {item.who && <span className="text-muted-foreground"> · {item.who}</span>}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- Tap to reveal: the House Manual's codes ---------------- */
-
-const SAMPLE_CODES = [
-  { label: "Front door lockbox", value: "4719" },
-  { label: "Alarm", value: "2086 then Set" },
-  { label: "WiFi · Harrington-Home", value: "plane-tree-31" },
-];
-
-function HouseCodes({ className }: { className?: string }) {
-  const [shown, setShown] = useState<string | null>(null);
-  useEffect(() => {
-    if (!shown) return;
-    const timer = window.setTimeout(() => setShown(null), 6000);
-    return () => window.clearTimeout(timer);
-  }, [shown]);
-
-  return (
-    <div data-ui className={cn("rounded-lg border border-border bg-background", className)}>
-      {SAMPLE_CODES.map((code, i) => {
-        const visible = shown === code.label;
-        return (
-          <div
-            key={code.label}
-            className={cn(
-              "flex items-center justify-between gap-4 px-4 py-3",
-              i > 0 && "border-t border-rule",
-            )}
-          >
-            <div className="min-w-0">
-              <p className="text-[0.8125rem] text-muted-foreground">{code.label}</p>
-              <p className="num mt-0.5 truncate font-mono text-[0.9375rem] text-foreground">
-                {visible ? code.value : "• • • •"}
-              </p>
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setShown(visible ? null : code.label)}
-              aria-label={`${visible ? "Hide" : "Reveal"} ${code.label}`}
-            >
-              {visible ? <EyeOff /> : <Eye />}
-              {visible ? "Hide" : "Reveal"}
-            </Button>
-          </div>
-        );
-      })}
-      <p className="border-t border-rule px-4 py-2.5 text-xs text-muted-foreground">
-        Sample codes from the demo household. Each one hides again after six seconds.
-      </p>
-    </div>
-  );
-}
-
-/* ---------------- One Wednesday: a scroll story with a pinned wallet card ---------------- */
-
-function StoryCard({
-  icon: Icon,
-  label,
-  meta,
-  children,
+function Phone({
+  src,
+  alt,
+  className,
+  eager,
 }: {
-  icon: typeof Clock3;
-  label: string;
-  meta?: string;
-  children: ReactNode;
+  src: string;
+  alt: string;
+  className?: string;
+  eager?: boolean;
 }) {
   return (
     <div
-      data-ui
-      className="w-full max-w-[26rem] overflow-hidden rounded-xl border border-border bg-card"
+      className={cn(
+        "mx-auto w-full max-w-[19rem] rounded-[2.75rem] bg-foreground p-2 shadow-[0_30px_60px_-20px_rgba(20,32,26,0.45)]",
+        className,
+      )}
     >
-      <div className="flex items-center gap-2.5 border-b border-rule px-5 py-3.5">
-        <Icon className="h-4 w-4 text-muted-foreground" />
-        <p className="text-sm font-medium text-foreground">{label}</p>
-        {meta && <p className="num ml-auto text-[0.8125rem] text-muted-foreground">{meta}</p>}
-      </div>
-      <div className="px-5 py-4">{children}</div>
+      <img
+        src={src}
+        alt={alt}
+        width={660}
+        height={1434}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className="block h-auto w-full rounded-[2.25rem]"
+      />
     </div>
   );
 }
 
-function LedgerRows({ rows }: { rows: Array<[string, string]> }) {
-  return (
-    <dl className="divide-y divide-rule text-sm">
-      {rows.map(([label, value]) => (
-        <div
-          key={label}
-          className="flex items-baseline justify-between gap-4 py-2.5 first:pt-0 last:pb-0"
-        >
-          <dt className="text-muted-foreground">{label}</dt>
-          <dd className="num text-right font-medium text-foreground">{value}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-const WEDNESDAY = PREVIEW_WEEK[2]!;
-const WEEK_HOURS = PREVIEW_WEEK.reduce((n, d) => n + (d.shift ? d.shift[1] - d.shift[0] : 0), 0);
-
-const STORY: Array<{ time: string; title: string; detail: string; card: ReactNode }> = [
+const steps = [
   {
-    time: "12:00",
-    title: "Jess starts at noon",
-    detail:
-      "Her shift and the afternoon are waiting on the home screen: pick-up at 15:15, football at 16:30, dinner at six.",
-    card: (
-      <StoryCard icon={Clock3} label="Your shift today" meta="Wed 4 Nov">
-        <p className="num heading-display text-[1.75rem] text-foreground">
-          {clock(WEDNESDAY.shift![0])}–{clock(WEDNESDAY.shift![1])}
-        </p>
-        <ul className="mt-4 space-y-2.5 border-t border-rule pt-4">
-          {WEDNESDAY.items.map((item) => (
-            <li key={item.time} className="flex gap-4 text-sm">
-              <span className="num w-12 flex-none text-muted-foreground">{item.time}</span>
-              <span className="text-foreground">
-                {item.title}
-                {item.who && <span className="text-muted-foreground"> · {item.who}</span>}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </StoryCard>
-    ),
+    title: "Download and set up your household",
+    body: "Add your children, emergency contacts and the hours your nanny works. It takes a few minutes.",
   },
   {
-    time: "14:58",
-    title: "A message, not a phone call",
-    detail:
-      "Sophie leaves a note about the reading folder. Jess answers from the school gate, and both parents can read the thread.",
-    card: (
-      <StoryCard icon={MessageCircle} label="School run" meta="2 messages">
-        <div className="space-y-3 text-sm">
-          <div className="max-w-[85%] rounded-xl rounded-tl-sm bg-accent px-3.5 py-2.5">
-            <p className="text-foreground">
-              Reading folder is on the hall table, and Arthur's shin pads are by the door.
-            </p>
-            <p className="num mt-1 text-xs text-muted-foreground">Sophie · 14:52</p>
-          </div>
-          <div className="ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-primary px-3.5 py-2.5 text-primary-foreground">
-            <p>Got both. Leaving for school now.</p>
-            <p className="num mt-1 text-xs text-primary-foreground/60">Jess · 14:58</p>
-          </div>
-        </div>
-      </StoryCard>
-    ),
+    title: "Invite your nanny with a code",
+    body: "Send a one-time code. They sign in on their own phone and join your household free.",
   },
   {
-    time: "17:30",
-    title: "Calpol, timed and signed",
-    detail:
-      "Olivia has a temperature. The dose goes into the medication log with the time and Jess's name, so nobody gives a second one by mistake.",
-    card: (
-      <StoryCard icon={Pill} label="Medication log" meta="Olivia">
-        <p className="heading-display text-xl text-foreground">Calpol 5ml</p>
-        <div className="mt-4">
-          <LedgerRows
-            rows={[
-              ["Given", "17:30 by Jess"],
-              ["Next dose from", "21:30"],
-              ["Reason", "Temperature"],
-            ]}
-          />
-        </div>
-      </StoryCard>
-    ),
-  },
-  {
-    time: "19:00",
-    title: "Handover at the door",
-    detail:
-      "Homework, dinner, mood and tomorrow's kit, written up before Jess leaves. Tom reads it on the way home.",
-    card: (
-      <StoryCard icon={ClipboardCheck} label="End-of-day handover" meta="19:00">
-        <LedgerRows
-          rows={[
-            ["Homework", "Reading done, spellings Thursday"],
-            ["Dinner", "Chicken traybake, ate well"],
-            ["Mood", "Happy, tired after football"],
-            ["Tomorrow", "Swimming kit for Olivia"],
-          ]}
-        />
-      </StoryCard>
-    ),
-  },
-  {
-    time: "Friday",
-    title: "The week, summed up",
-    detail: "Hours, handovers and expenses add up on their own into a report Sophie can print.",
-    card: (
-      <StoryCard icon={FileBarChart} label="Weekly report" meta="2–8 November">
-        <LedgerRows
-          rows={[
-            ["Hours worked", `${WEEK_HOURS} hours`],
-            ["Handovers", "5 of 5"],
-            ["Medicine doses", "1, signed"],
-            ["Expenses to repay", "£38.40"],
-          ]}
-        />
-      </StoryCard>
-    ),
+    title: "Run the day together",
+    body: "Everyone sees the same day and the same week, so nothing has to be chased by text.",
   },
 ];
 
-/** Which step of Wednesday the visitor's own clock falls in, so each visit opens somewhere real. */
-function stepForClock(date: Date) {
-  const h = date.getHours() + date.getMinutes() / 60;
-  return h < 14 + 58 / 60 ? 0 : h < 17.5 ? 1 : h < 19 ? 2 : 3;
-}
+const features: { title: string; body: string; points: string[]; src: string; alt: string }[] = [
+  {
+    title: "Today, at a glance",
+    body: "Home shows who is working, how the day is going and anything that needs your attention.",
+    points: [
+      "One-tap log for notes, medicine, meals, naps and activities",
+      "Today's timeline for the whole household",
+      "Shift progress and requests to change hours",
+    ],
+    src: "/images/app/home.jpg",
+    alt: "Family Wallet home screen showing this week, the nanny on duty and the quick routine log",
+  },
+  {
+    title: "One calendar for the week",
+    body: "Working hours, clubs, school holidays and plans sit on one calendar that both sides can see.",
+    points: [
+      "Week and month views",
+      "Weekly clubs and activities added once",
+      "Shift changes approved by the other side",
+    ],
+    src: "/images/app/calendar.jpg",
+    alt: "Family Wallet calendar in month view with working days marked",
+  },
+  {
+    title: "A Family Assistant that asks first",
+    body: "Ask about the day, check the schedule or say what to log. It shows you what it will save and waits for your yes.",
+    points: [
+      "Type or speak",
+      "Today's review and a weekly summary",
+      "Uses AI and can make mistakes, so it never saves without you",
+    ],
+    src: "/images/app/assistant.jpg",
+    alt: "Family Assistant screen with shortcuts for today's review, the schedule and a weekly summary",
+  },
+  {
+    title: "Everyone who matters, in one place",
+    body: "The people in your household, your children's allergies and medication, and the emergency card, where a carer can find them fast.",
+    points: [
+      "Children's routines, allergies and medication",
+      "Emergency card with contacts and doctor",
+      "Staff documents with expiry dates",
+    ],
+    src: "/images/app/family.jpg",
+    alt: "Family screen listing the parents, the nanny and the children with an allergy note",
+  },
+];
 
-function DayScrubber() {
-  const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [localTime, setLocalTime] = useState<string | null>(null);
-  const step = STORY[active]!;
-  const last = STORY.length - 1;
+const also: { icon: ReactNode; title: string; body: string }[] = [
+  {
+    icon: <MessageCircle aria-hidden />,
+    title: "Messages and photos",
+    body: "Conversations by topic and a shared photo feed, kept out of group chats.",
+  },
+  {
+    icon: <Timer aria-hidden />,
+    title: "Timesheets and hours",
+    body: "Shifts submitted and approved, with holiday and leave.",
+  },
+  {
+    icon: <Receipt aria-hidden />,
+    title: "Expenses and petty cash",
+    body: "Receipts logged and repaid, and a float that adds up.",
+  },
+  {
+    icon: <Pill aria-hidden />,
+    title: "Medication and incidents",
+    body: "What was given, when and by whom, and a record of any bumps.",
+  },
+  {
+    icon: <KeyRound aria-hidden />,
+    title: "House manual and codes",
+    body: "Wi-Fi, alarm and key codes, hidden until someone taps to show them.",
+  },
+  {
+    icon: <FileText aria-hidden />,
+    title: "Agreement and documents",
+    body: "The agreement signed in the app, and paperwork with expiry dates.",
+  },
+  {
+    icon: <ClipboardList aria-hidden />,
+    title: "Handover and weekly report",
+    body: "End-of-day notes for the next person and the week on one page.",
+  },
+  {
+    icon: <CalendarDays aria-hidden />,
+    title: "Groceries, travel and more",
+    body: "A shared shopping list, a travel pack and the kids' playbook.",
+  },
+];
 
-  useEffect(() => {
-    const now = new Date();
-    setActive(stepForClock(now));
-    setLocalTime(now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
-  }, []);
+const privacy = [
+  {
+    title: "Your household only",
+    body: "Each household's information is kept to the people in it. Access is enforced by rules in the database, not just by the app.",
+  },
+  {
+    title: "Agencies never see inside",
+    body: "An agency that funds your place sees its own seats and invitations. It cannot open your wallet.",
+  },
+  {
+    title: "No ads, no tracking",
+    body: "We do not sell your information, and the app has no third-party analytics or advertising.",
+  },
+  {
+    title: "Yours to take away",
+    body: "Download a copy of everything in your wallet from the app whenever you like.",
+  },
+];
 
-  useEffect(() => {
-    if (!playing) return;
-    if (active === last) {
-      setPlaying(false);
-      return;
-    }
-    const timer = window.setTimeout(() => setActive(active + 1), 3200);
-    return () => window.clearTimeout(timer);
-  }, [playing, active, last]);
-
-  function go(i: number) {
-    setPlaying(false);
-    setActive(i);
-  }
-
-  function togglePlay() {
-    if (!playing && active === last) setActive(0);
-    setPlaying(!playing);
-  }
-
+function Index() {
   return (
-    <section id="day" className="scroll-mt-16 py-24 lg:py-32">
-      <div className={frame}>
-        <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
-          <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-6">
-            One Wednesday, start to finish
-          </h2>
-          <p className="max-w-[32rem] text-lg leading-relaxed text-foreground lg:col-span-5 lg:col-start-8 lg:self-end">
-            Jess works noon to seven. Move through her afternoon and see each moment land in the
-            wallet, the way Sophie and Tom see it.
-          </p>
-        </div>
-
-        <div className="mt-14 overflow-hidden rounded-3xl bg-secondary" data-reveal>
-          <div className="grid lg:grid-cols-12">
-            <div className="p-7 sm:p-10 lg:col-span-5 lg:p-12">
-              <p
-                aria-hidden
-                className="num heading-display text-[4.5rem] leading-none tracking-[-0.03em] text-brand sm:text-[6rem]"
-              >
-                {step.time}
-              </p>
-              <div
-                key={active}
-                aria-live="polite"
-                className="mt-8 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 ease-out motion-reduce:animate-none"
-              >
-                <h3 className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-foreground">
-                  <span className="sr-only">{step.time}: </span>
-                  {step.title}
-                </h3>
-                <p className="mt-3 max-w-[28rem] text-lg leading-relaxed text-foreground">
-                  {step.detail}
-                </p>
-              </div>
-            </div>
-
-            {/* Every card shares one grid cell, so the stage is as tall as the tallest card. */}
-            <div className="grid place-items-center px-5 pb-10 sm:px-10 lg:col-span-7 lg:py-12">
-              {STORY.map((s, i) => (
-                <div
-                  key={s.title}
-                  aria-hidden={active !== i}
-                  className={cn(
-                    "flex w-full justify-center [grid-area:1/1] transition-[opacity,transform,filter,visibility] ease-out motion-reduce:transition-none",
-                    // Arrive slowly, leave quickly, so the two cards barely overlap.
-                    active === i
-                      ? "translate-y-0 opacity-100 blur-0 duration-500"
-                      : "pointer-events-none invisible translate-y-4 opacity-0 blur-[6px] duration-200",
-                  )}
-                >
-                  {s.card}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4 border-t border-rule px-5 py-5 sm:gap-6 sm:px-10 lg:px-12">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              onClick={togglePlay}
-              aria-label={playing ? "Pause the day" : "Play the day"}
-              className="size-11 flex-none rounded-full bg-card"
-            >
-              {playing ? <Pause /> : <Play />}
-            </Button>
-            <div className="min-w-0 flex-1">
-              <input
-                type="range"
-                min={0}
-                max={last}
-                step={1}
-                value={active}
-                onChange={(e) => go(Number(e.target.value))}
-                onPointerDown={() => setPlaying(false)}
-                aria-label="Time of day"
-                aria-valuetext={`${step.time}, ${step.title}`}
-                className="h-11 w-full cursor-pointer accent-brand"
-              />
-              <div aria-hidden className="flex justify-between">
-                {STORY.map((s, i) => (
-                  <button
-                    key={s.title}
-                    type="button"
-                    tabIndex={-1}
-                    onClick={() => go(i)}
-                    className={cn(
-                      "num -mx-1 cursor-pointer px-1 text-[0.8125rem] transition-colors",
-                      active === i
-                        ? "font-medium text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {s.time}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        {localTime && (
-          <p className="mt-4 text-sm text-muted-foreground">
-            It is <span className="num">{localTime}</span> where you are, so the day opened at the
-            nearest moment.
-          </p>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- The four drawers, one at a time ---------------- */
-
-function DrawerSwitcher() {
-  const [index, setIndex] = useState(0);
-  const tabs = useRef<Array<HTMLButtonElement | null>>([]);
-  const group = benefitGroups[index]!;
-
-  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    const n = benefitGroups.length;
-    const next = {
-      ArrowRight: (index + 1) % n,
-      ArrowLeft: (index - 1 + n) % n,
-      Home: 0,
-      End: n - 1,
-    }[e.key];
-    if (next === undefined) return;
-    e.preventDefault();
-    setIndex(next);
-    tabs.current[next]?.focus();
-  }
-
-  return (
-    <div className="mt-14" data-reveal>
-      <div
-        role="tablist"
-        aria-label="Drawers in the wallet"
-        onKeyDown={onKeyDown}
-        className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
-      >
-        {benefitGroups.map((g, i) => {
-          const selected = i === index;
-          return (
-            <button
-              key={g.title}
-              ref={(el) => {
-                tabs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              id={`drawer-tab-${i}`}
-              aria-selected={selected}
-              aria-controls="drawer-panel"
-              tabIndex={selected ? 0 : -1}
-              onClick={() => setIndex(i)}
-              className={cn(
-                "flex h-12 w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-full border px-3 text-[0.8125rem] font-medium transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.97] sm:h-11 sm:w-auto sm:flex-none sm:justify-start sm:gap-2.5 sm:px-5 sm:text-[0.9375rem]",
-                selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-input bg-card text-foreground hover:border-foreground/40",
-              )}
-            >
-              <span data-tint={g.tint} className="tint-dot" aria-hidden />
-              {g.title}
-              <span
-                className={cn(
-                  "num text-[0.8125rem] font-normal",
-                  selected ? "text-background/60" : "text-muted-foreground",
-                )}
-              >
-                {g.items.length}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div
-        role="tabpanel"
-        id="drawer-panel"
-        aria-labelledby={`drawer-tab-${index}`}
-        data-tint={group.tint}
-        className="tint-wash mt-6 overflow-hidden rounded-2xl bg-card"
-      >
-        <div
-          key={index}
-          className="grid animate-in fade-in-0 duration-150 ease-out motion-reduce:animate-none lg:grid-cols-12"
+    <MarketingLayout>
+      <main>
+        {/* Hero */}
+        <section
+          className={cn(
+            frame,
+            "grid items-center gap-12 pb-16 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-20",
+          )}
         >
-          <div className="border-b border-rule p-7 sm:p-10 lg:col-span-4 lg:border-b-0 lg:border-r">
-            <span className="tint-eyebrow mb-4"><span className="tint-dot" aria-hidden />{group.items.length} tools</span>
-            <h3 className="heading-serif text-[2rem] leading-[1.1] text-foreground sm:text-[2.5rem]">
-              {group.title}
-            </h3>
-            <p className="mt-4 text-lg leading-relaxed text-foreground">{group.summary}</p>
-            <p className="num mt-8 text-[0.9375rem] text-muted-foreground">
-              {group.items.length} tools in this drawer
+          <div className="lg:col-span-7">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand">
+              For families with a nanny, au pair or household staff
             </p>
-            {"photo" in group && (
-              <img
-                src={group.photo.src}
-                alt={group.photo.alt}
-                width={1200}
-                height={900}
-                loading="lazy"
-                className="mt-8 aspect-[4/3] w-full rounded-xl object-cover"
-              />
-            )}
+            <h1 className="heading-serif mt-4 text-balance text-[2.75rem] leading-[1.02] text-foreground sm:text-6xl lg:text-[4.25rem]">
+              Your household, in one private app
+            </h1>
+            <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              Family Wallet keeps the day, the week and the paperwork in one place for you and the
+              people who care for your children, instead of across messages, notes and folders.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Button size="lg" className="h-14 rounded-full px-7 text-base" asChild>
+                <a href="/download">
+                  Download Family Wallet <ArrowRight aria-hidden />
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 rounded-full px-7 text-base"
+                asChild
+              >
+                <a href="/pricing?for=agencies">Explore agency plans</a>
+              </Button>
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground">
+              £9.99 a month or £99.99 a year for your whole household. Nannies and staff join free.
+            </p>
           </div>
-          <ul className="grid gap-px bg-rule sm:grid-cols-2 lg:col-span-8 [&>li:last-child:nth-child(odd)]:sm:col-span-2">
-            {group.items.map((raw) => {
-              const { name, detail } = splitItem(raw);
-              return (
-                <li key={raw} className="bg-card px-7 py-5 sm:px-8 sm:py-6">
-                  <p className="text-[1.0625rem] font-medium text-foreground">{name}</p>
-                  {detail && (
-                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                      {detail}
-                    </p>
-                  )}
+          <div className="lg:col-span-5">
+            <Phone
+              eager
+              src="/images/app/home.jpg"
+              alt="The Family Wallet app on the home screen, with a made-up family as the example"
+            />
+            <p className="mt-4 text-center text-xs text-muted-foreground">
+              The Harpers are a made-up family. The screens are from the current app.
+            </p>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section id="how" className="scroll-mt-16 bg-card py-20 lg:py-28">
+          <div className={frame}>
+            <h2 className="heading-serif max-w-2xl text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+              Set up in minutes, shared from day one
+            </h2>
+            <ol className="mt-12 grid gap-8 md:grid-cols-3">
+              {steps.map((s, i) => (
+                <li key={s.title} className="border-t border-border pt-6">
+                  <span className="heading-serif text-3xl text-brand">{i + 1}</span>
+                  <h3 className="mt-3 text-xl font-semibold text-foreground">{s.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted-foreground">{s.body}</p>
                 </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
+              ))}
+            </ol>
+          </div>
+        </section>
 
-/* ---------------- A phone-only jump back to the top ---------------- */
+        {/* Features, each beside a real screen */}
+        <section id="features" className="scroll-mt-16 py-20 lg:py-28">
+          <div className={cn(frame, "space-y-20 lg:space-y-28")}>
+            {features.map((f, i) => (
+              <div key={f.title} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+                <div className={cn(i % 2 === 1 && "lg:order-2")}>
+                  <h2 className="heading-serif text-balance text-[2rem] leading-[1.1] text-foreground sm:text-[2.75rem]">
+                    {f.title}
+                  </h2>
+                  <p className="mt-4 max-w-[32rem] text-lg leading-relaxed text-muted-foreground">
+                    {f.body}
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {f.points.map((p) => (
+                      <li key={p} className="flex gap-3 text-[1.0625rem] text-foreground">
+                        <Check className="mt-1 size-4 shrink-0 text-brand" aria-hidden /> {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Phone src={f.src} alt={f.alt} className={cn(i % 2 === 1 && "lg:order-1")} />
+              </div>
+            ))}
+          </div>
+        </section>
 
-function BackToTop() {
-  const [visible, setVisible] = useState(false);
+        {/* Everything else in the app */}
+        <section className="bg-card py-20 lg:py-28">
+          <div className={frame}>
+            <h2 className="heading-serif max-w-2xl text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+              Also in the app
+            </h2>
+            <ul className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {also.map((a) => (
+                <li key={a.title}>
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-brand-soft text-brand [&_svg]:size-5">
+                    {a.icon}
+                  </span>
+                  <h3 className="mt-4 text-[1.0625rem] font-semibold text-foreground">{a.title}</h3>
+                  <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                    {a.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-  useEffect(() => {
-    // Appears once the reader is past the opening screen, where the way back is no longer obvious.
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+        {/* Two routes: families and agencies */}
+        <section id="families" className="scroll-mt-16 py-20 lg:py-28">
+          <div className={cn(frame, "grid gap-6 lg:grid-cols-2")}>
+            <article className="flex flex-col rounded-3xl bg-brand p-8 text-brand-foreground sm:p-10">
+              <p className="text-sm font-semibold uppercase tracking-wide opacity-80">
+                For families
+              </p>
+              <h2 className="heading-serif mt-3 text-[2rem] leading-[1.1] sm:text-[2.5rem]">
+                One plan for your whole household
+              </h2>
+              <p className="mt-6 flex items-baseline gap-2">
+                <span className="heading-serif text-5xl">£9.99</span>
+                <span className="opacity-80">a month</span>
+              </p>
+              <p className="mt-1 opacity-80">or £99.99 a year, which saves about 17%</p>
+              <ul className="mt-6 space-y-2.5">
+                {[
+                  "Every feature in the app",
+                  "Unlimited co-parents and staff",
+                  "Nannies, au pairs and staff join free",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3">
+                    <Check className="mt-1 size-4 shrink-0" aria-hidden /> {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto pt-8">
+                <a
+                  href="/download"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-medium text-brand transition-opacity hover:opacity-90"
+                >
+                  Download Family Wallet <ArrowRight className="size-4" aria-hidden />
+                </a>
+                <p className="mt-3 text-sm opacity-80">You subscribe inside the app.</p>
+              </div>
+            </article>
+            <article
+              id="agencies"
+              className="flex scroll-mt-16 flex-col rounded-3xl bg-card p-8 ring-1 ring-border sm:p-10"
+            >
+              <p className="text-sm font-semibold uppercase tracking-wide text-brand">
+                For agencies
+              </p>
+              <h2 className="heading-serif mt-3 text-[2rem] leading-[1.1] text-foreground sm:text-[2.5rem]">
+                Give every client family a wallet
+              </h2>
+              <p className="mt-6 flex items-baseline gap-2">
+                <span className="text-muted-foreground">from</span>
+                <span className="heading-serif text-5xl text-foreground">£39</span>
+                <span className="text-muted-foreground">a month</span>
+              </p>
+              <p className="mt-1 text-muted-foreground">
+                Partner, Growth and Scale plans by household seats; Enterprise by quote
+              </p>
+              <ul className="mt-6 space-y-2.5 text-foreground">
+                {[
+                  "A seat is one household, however many carers it has",
+                  "Single-use invitation codes for your families",
+                  "You never see inside a family's wallet",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3">
+                    <Check className="mt-1 size-4 shrink-0 text-brand" aria-hidden /> {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-wrap gap-3 pt-8">
+                <Button size="lg" className="h-12 rounded-full px-6" asChild>
+                  <a href="/pricing?for=agencies">Explore agency plans</a>
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 rounded-full px-6" asChild>
+                  <a href="/pricing?for=agencies#enterprise">Talk to us about Enterprise</a>
+                </Button>
+              </div>
+            </article>
+          </div>
+        </section>
 
-  function toTop() {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
-    // Keyboard and screen-reader users should carry on from the top of the page, not from a button that just vanished.
-    document.getElementById("main")?.focus({ preventScroll: true });
-  }
+        {/* Privacy */}
+        <section id="privacy" className="scroll-mt-16 bg-ink-band py-20 text-white lg:py-28">
+          <div className={frame}>
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="size-6" aria-hidden />
+              <p className="text-sm font-semibold uppercase tracking-wide opacity-80">
+                Private by design
+              </p>
+            </div>
+            <h2 className="heading-serif mt-4 max-w-2xl text-balance text-[2.25rem] leading-[1.08] sm:text-5xl">
+              Your family's information stays with your family
+            </h2>
+            <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {privacy.map((p) => (
+                <li key={p.title} className="border-t border-white/25 pt-5">
+                  <h3 className="text-[1.0625rem] font-semibold">{p.title}</h3>
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed opacity-80">{p.body}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-10 text-sm opacity-80">
+              The detail is in our{" "}
+              <a href="/privacy" className="underline underline-offset-4">
+                privacy policy
+              </a>
+              .
+            </p>
+          </div>
+        </section>
 
-  return (
-    <button
-      type="button"
-      onClick={toTop}
-      aria-label="Back to top"
-      aria-hidden={!visible}
-      inert={!visible}
-      className={cn(
-        "material fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-transparent text-foreground shadow-[var(--shadow-float)] transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none md:hidden",
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
-      )}
-    >
-      <ArrowUp className="h-5 w-5" />
-    </button>
+        {/* Questions */}
+        <section id="faq" className="scroll-mt-16 py-20 lg:py-28">
+          <div className={cn(frame, "grid gap-10 lg:grid-cols-12 lg:gap-8")}>
+            <h2 className="heading-serif text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl lg:col-span-4">
+              Questions
+            </h2>
+            <Accordion type="single" collapsible className="lg:col-span-7 lg:col-start-6">
+              {faqs.map((f) => (
+                <AccordionItem key={f.q} value={f.q}>
+                  <AccordionTrigger className="text-left text-[1.0625rem]">{f.q}</AccordionTrigger>
+                  <AccordionContent className="text-[0.9375rem] leading-relaxed text-muted-foreground">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Last call */}
+        <section className="pb-24">
+          <div className={frame}>
+            <div className="rounded-3xl bg-card px-8 py-14 text-center ring-1 ring-border sm:py-20">
+              <Sparkles className="mx-auto size-6 text-brand" aria-hidden />
+              <h2 className="heading-serif mx-auto mt-4 max-w-2xl text-balance text-[2.25rem] leading-[1.08] text-foreground sm:text-5xl">
+                Bring your household together
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
+                Download the app, set up your household and invite the people who help you run it.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Button size="lg" className="h-14 rounded-full px-7 text-base" asChild>
+                  <a href="/download">Download Family Wallet</a>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-14 rounded-full px-7 text-base"
+                  asChild
+                >
+                  <a href="/pricing">See pricing</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </MarketingLayout>
   );
 }

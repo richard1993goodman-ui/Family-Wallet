@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://familywallet.io/</loc><lastmod>2026-11-08</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://familywallet.io/pricing</loc><lastmod>2026-11-08</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://familywallet.io/</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://familywallet.io/pricing</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://familywallet.io/nanny-management-app</loc><lastmod>2026-11-08</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://familywallet.io/household-staff-app</loc><lastmod>2026-11-08</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://familywallet.io/compare</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -9,4 +9,7 @@
   <url><loc>https://familywallet.io/guides</loc><lastmod>2026-11-08</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://familywallet.io/guides/nanny-contract-uk</loc><lastmod>2026-11-08</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://familywallet.io/guides/how-much-does-a-nanny-cost-uk</loc><lastmod>2026-11-08</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://familywallet.io/download</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://familywallet.io/privacy</loc><lastmod>2026-11-17</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://familywallet.io/terms-of-service</loc><lastmod>2026-11-17</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

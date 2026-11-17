@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "@/components/brand";
+import { CONTACT_EMAIL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const frame = "mx-auto w-full max-w-[84rem] px-4 sm:px-8";
@@ -21,7 +22,10 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
     <div className="min-h-svh overflow-x-clip bg-background">
       <header className="border-b border-border/70">
         <div className={cn(frame, "flex h-16 items-center justify-between gap-6")}>
-          <Link to="/" className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 heading-serif text-[1.375rem] leading-none text-foreground"
+          >
             <LogoMark />
             Family Wallet
           </Link>
@@ -38,7 +42,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <Button asChild>
-            <Link to="/login">Open my wallet</Link>
+            <a href="/download">Download the app</a>
           </Button>
         </div>
       </header>
@@ -57,6 +61,7 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
               { label: "Nanny management app", to: "/nanny-management-app" },
               { label: "Household staff app", to: "/household-staff-app" },
               { label: "Pricing", to: "/pricing" },
+              { label: "Download the app", to: "/download" },
             ]}
           />
           <FooterList
@@ -77,7 +82,25 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
           />
         </div>
         <div className={cn(frame, "mt-10 text-xs text-muted-foreground")}>
-          © 2026 Family Wallet. Built in London. Guides are general information, not legal or tax advice.
+          <p className="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="/privacy" className="hover:text-foreground">
+              Privacy policy
+            </a>
+            <a href="/terms-of-service" className="hover:text-foreground">
+              Terms of service
+            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-foreground">
+              {CONTACT_EMAIL}
+            </a>
+            {/* The earlier web wallets still open here; new households use the app. */}
+            <a href="/login" className="hover:text-foreground">
+              Web wallet sign in
+            </a>
+          </p>
+          <p className="mt-4">
+            © 2026 Family Wallet. Built in London. Guides are general information, not legal or tax
+            advice.
+          </p>
         </div>
       </footer>
     </div>
@@ -91,7 +114,10 @@ function FooterList({ title, links }: { title: string; links: { label: string; t
       <ul className="mt-3 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.to}>
-            <a href={l.to} className="text-muted-foreground transition-colors hover:text-foreground">
+            <a
+              href={l.to}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
               {l.label}
             </a>
           </li>

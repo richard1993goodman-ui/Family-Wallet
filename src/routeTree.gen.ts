@@ -15,6 +15,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DemoRouteImport } from './routes/demo'
+import { Route as DownloadRouteImport } from './routes/download'
 import { Route as ForAgenciesRouteImport } from './routes/for-agencies'
 import { Route as HouseholdStaffAppRouteImport } from './routes/household-staff-app'
 import { Route as LoginRouteImport } from './routes/login'
@@ -120,6 +121,11 @@ const CompareRoute = CompareRouteImport.update({
 const DemoRoute = DemoRouteImport.update({
   id: '/demo',
   path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadRoute = DownloadRouteImport.update({
+  id: '/download',
+  path: '/download',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForAgenciesRoute = ForAgenciesRouteImport.update({
@@ -519,6 +525,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
+  '/download': typeof DownloadRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
@@ -603,6 +610,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
+  '/download': typeof DownloadRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
@@ -689,6 +697,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/demo': typeof DemoRoute
+  '/download': typeof DownloadRoute
   '/for-agencies': typeof ForAgenciesRoute
   '/household-staff-app': typeof HouseholdStaffAppRoute
   '/login': typeof LoginRoute
@@ -775,6 +784,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/compare'
     | '/demo'
+    | '/download'
     | '/for-agencies'
     | '/household-staff-app'
     | '/login'
@@ -859,6 +869,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/compare'
     | '/demo'
+    | '/download'
     | '/for-agencies'
     | '/household-staff-app'
     | '/login'
@@ -944,6 +955,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/compare'
     | '/demo'
+    | '/download'
     | '/for-agencies'
     | '/household-staff-app'
     | '/login'
@@ -1030,6 +1042,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
   DemoRoute: typeof DemoRoute
+  DownloadRoute: typeof DownloadRoute
   ForAgenciesRoute: typeof ForAgenciesRoute
   HouseholdStaffAppRoute: typeof HouseholdStaffAppRoute
   LoginRoute: typeof LoginRoute
@@ -1145,6 +1158,13 @@ declare module '@tanstack/react-router' {
       path: '/demo'
       fullPath: '/demo'
       preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/download': {
+      id: '/download'
+      path: '/download'
+      fullPath: '/download'
+      preLoaderRoute: typeof DownloadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/for-agencies': {
@@ -1717,6 +1737,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
   DemoRoute: DemoRoute,
+  DownloadRoute: DownloadRoute,
   ForAgenciesRoute: ForAgenciesRoute,
   HouseholdStaffAppRoute: HouseholdStaffAppRoute,
   LoginRoute: LoginRoute,

@@ -65,7 +65,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "How it works",
         bullets: [
-          "Subscribe on the pricing page. Your private wallet is created straight away, with a link and an access code.",
+          "Download the app, set up your household and subscribe inside the app. Your private wallet is ready straight away.",
           "Add your nanny. They get their own sign-in code and never pay anything.",
           "Run the week: plan it together, log each day, approve hours, and keep every record in one place.",
         ],
@@ -73,13 +73,13 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Private by design",
         paragraphs: [
-          "Your wallet sits behind a private link and access code. There are no adverts and nothing is shown to other families. Sensitive details, such as alarm and key-safe codes, stay hidden until someone chooses to reveal them, and they never appear in a message.",
+          "Your wallet is private to the people in your household, each with their own sign-in. There are no adverts and nothing is shown to other families. Sensitive details, such as alarm and key-safe codes, stay hidden until someone chooses to reveal them, and they never appear in a message.",
         ],
       },
       {
         heading: "Works alongside your payroll",
         paragraphs: [
-          "Family Wallet is not a payroll service. It keeps the agreement, the hours and the records tidy, and includes an employment cost calculator, so you know what a nanny really costs before you hire. Use it with whichever payroll provider you already trust.",
+          "Family Wallet is not a payroll service. It keeps the agreement, the hours and the records tidy. Use it with whichever payroll provider you already trust.",
         ],
       },
     ],
@@ -94,7 +94,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Do I need to download anything?",
-        a: "No. It works in your phone or computer's web browser, and you can add it to your home screen so it opens like an app.",
+        a: "Yes. Family Wallet is a phone app. The iPhone app comes first and the Android app is on its way.",
       },
       {
         q: "How much does it cost?",
@@ -102,12 +102,12 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Is my family's information private?",
-        a: "Yes. Each wallet is private to your household and your staff, behind a link and access code. Alarm and key-safe codes stay hidden until revealed.",
+        a: "Yes. Each wallet is private to your household and your staff, each with their own sign-in. Alarm and key-safe codes stay hidden until revealed.",
       },
     ],
     cta: {
-      heading: "See it with a sample family",
-      body: "Open the demo wallet to tap through the week, the daily log and the agreement, then pick a plan when you are ready.",
+      heading: "Ready when you are",
+      body: "One plan covers your whole household. Download the app and subscribe inside it when you are ready.",
       label: "See pricing",
       to: "/pricing",
     },
@@ -133,7 +133,9 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     sections: [
       {
         heading: "Roles you can add",
-        paragraphs: ["Pick a role from a simple dropdown when you add someone. Each person is set up separately."],
+        paragraphs: [
+          "Pick a role from a simple dropdown when you add someone. Each person is set up separately.",
+        ],
         bullets: [
           "Nanny",
           "Au pair",
@@ -170,7 +172,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "Everything stays private to your home",
         paragraphs: [
-          "Everyone you add sees only your household's wallet. Your link and access code stay with you, and you can remove a person at any time without losing the signed records.",
+          "Everyone you add sees only your household's wallet. Each person has their own sign-in, and you can remove a person at any time without losing the signed records.",
         ],
       },
     ],
@@ -185,7 +187,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
       {
         q: "Does it handle payroll for each person?",
-        a: "No. It keeps agreements, hours and records. For payroll, contact support and we'll connect you with our partners at Nannytax with a unique referral code.",
+        a: "No. It keeps agreements, hours and records. Use it with whichever payroll provider you already trust.",
       },
     ],
     cta: {
@@ -303,16 +305,59 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       {
         heading: "At a glance",
         table: {
-          caption: "What each app is built for, from each company's own website (checked 9 November 2026)",
+          caption:
+            "What each app is built for, from each company's own website (checked 9 November 2026)",
           head: ["", "Family Wallet", "Daily Nanny", "Pebbi", "Brightwheel"],
           rows: [
-            ["Built for", "A family and its nanny or household staff, plus agencies", "Parents and nannies sharing a child's day", "Parents and carers tracking a baby", "Nurseries and childcare centres"],
-            ["Day-to-day tracking", "Naps, bottles, meals, nappies, daily log, photos, messages", "Feed, photos, messages, nap, bottle and potty charts, AI summaries", "Feeds, sleep, nappies, pumping, medicines, growth, insights", "Attendance, activities, messages"],
-            ["Employment side (agreement, timesheets, expenses, leave)", "Yes", "Shift and hours tracking", "No", "Staff scheduling and payroll for centres"],
-            ["Safety records (incidents, permissions, medication log)", "Yes", "Not listed", "Medicines log", "Health checks and ratios for centres"],
-            ["Agencies", "A funded seat for every client family", "Not listed", "Not listed", "Not aimed at nanny agencies"],
-            ["Price shown", "£9.99 a month", "Premium $4.99 a month", "Free for two caregivers; Premium £2.49 a month", "Quote after a demo"],
-            ["Where it runs", "Web, no download", "iPhone and Android apps", "iPhone and Android apps", "Web and apps"],
+            [
+              "Built for",
+              "A family and its nanny or household staff, plus agencies",
+              "Parents and nannies sharing a child's day",
+              "Parents and carers tracking a baby",
+              "Nurseries and childcare centres",
+            ],
+            [
+              "Day-to-day tracking",
+              "Naps, bottles, meals, nappies, daily log, photos, messages",
+              "Feed, photos, messages, nap, bottle and potty charts, AI summaries",
+              "Feeds, sleep, nappies, pumping, medicines, growth, insights",
+              "Attendance, activities, messages",
+            ],
+            [
+              "Employment side (agreement, timesheets, expenses, leave)",
+              "Yes",
+              "Shift and hours tracking",
+              "No",
+              "Staff scheduling and payroll for centres",
+            ],
+            [
+              "Safety records (incidents, permissions, medication log)",
+              "Yes",
+              "Not listed",
+              "Medicines log",
+              "Health checks and ratios for centres",
+            ],
+            [
+              "Agencies",
+              "A funded seat for every client family",
+              "Not listed",
+              "Not listed",
+              "Not aimed at nanny agencies",
+            ],
+            [
+              "Price shown",
+              "£9.99 a month",
+              "Premium $4.99 a month",
+              "Free for two caregivers; Premium £2.49 a month",
+              "Quote after a demo",
+            ],
+            [
+              "Where it runs",
+              "iPhone app; Android on its way",
+              "iPhone and Android apps",
+              "iPhone and Android apps",
+              "Web and apps",
+            ],
           ],
         },
       },
@@ -348,15 +393,24 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
       },
     ],
     faqs: [
-      { q: "Can I use Family Wallet and a baby tracker together?", a: "Yes. They do different jobs. Many families log feeds in a baby tracker and keep the nanny agreement, hours and expenses in Family Wallet." },
-      { q: "Is Family Wallet a baby tracker?", a: "It has a quick daily log for naps, bottles, meals and nappies, photos and an end-of-day handover. It is not a full baby tracker: there is no breastfeeding, pumping or growth charting." },
-      { q: "Is Family Wallet only for the UK?", a: "It is built for UK families: prices are in pounds and the guides cover UK employment rules." },
+      {
+        q: "Can I use Family Wallet and a baby tracker together?",
+        a: "Yes. They do different jobs. Many families log feeds in a baby tracker and keep the nanny agreement, hours and expenses in Family Wallet.",
+      },
+      {
+        q: "Is Family Wallet a baby tracker?",
+        a: "It has a quick daily log for naps, bottles, meals and nappies, photos and an end-of-day handover. It is not a full baby tracker: there is no breastfeeding, pumping or growth charting.",
+      },
+      {
+        q: "Is Family Wallet only for the UK?",
+        a: "It is built for UK families: prices are in pounds and the guides cover UK employment rules.",
+      },
     ],
     cta: {
       heading: "See it for yourself",
-      body: "Open the demo wallet to try the shared week, the daily log and the agreement before you pay anything.",
-      label: "Open the demo wallet",
-      to: "/demo",
+      body: "Download the app, set up your household and subscribe inside it. One plan covers everyone.",
+      label: "Download the app",
+      to: "/download",
     },
     related: [
       { label: "Nanny management app", to: "/nanny-management-app" },
@@ -460,7 +514,10 @@ export const GUIDES: Record<string, PageContent> = {
       { label: "Household staff app", to: "/household-staff-app" },
     ],
     sources: [
-      { label: "GOV.UK: Employing someone to work in your home", href: "https://www.gov.uk/employing-someone-to-work-in-your-home" },
+      {
+        label: "GOV.UK: Employing someone to work in your home",
+        href: "https://www.gov.uk/employing-someone-to-work-in-your-home",
+      },
       { label: "ACAS: guidance for employers", href: "https://www.acas.org.uk" },
     ],
   },
@@ -510,7 +567,7 @@ export const GUIDES: Record<string, PageContent> = {
       {
         heading: "Work out the true cost",
         paragraphs: [
-          "Start with the gross hourly rate and the weekly hours, then add employer National Insurance, pension, holiday and payroll fees. Family Wallet includes an employment cost calculator that does this for you, and you can try it in the demo wallet.",
+          "Start with the gross hourly rate and the weekly hours, then add employer National Insurance, pension, holiday and payroll fees. Our website has a free employment cost calculator that does this for you.",
         ],
       },
     ],
@@ -529,9 +586,9 @@ export const GUIDES: Record<string, PageContent> = {
       },
     ],
     cta: {
-      heading: "Try the cost calculator in the demo wallet",
+      heading: "Try the free cost calculator",
       body: "See pay, employer National Insurance and pension worked out for a sample family, then plan your own.",
-      label: "Open the demo cost calculator",
+      label: "Open the cost calculator",
       to: "/costs/demo",
     },
     related: [
@@ -540,8 +597,14 @@ export const GUIDES: Record<string, PageContent> = {
       { label: "Pricing", to: "/pricing" },
     ],
     sources: [
-      { label: "Nannytax: how much does a part-time nanny cost in 2026", href: "https://www.nannytax.co.uk/news/how-much-does-a-part-time-nanny-cost-2026" },
-      { label: "Bubble: nanny agencies in the UK, how they work and what they cost", href: "https://joinbubble.com/nanny-agencies-uk-how-they-work-cost-choose" },
+      {
+        label: "Nannytax: how much does a part-time nanny cost in 2026",
+        href: "https://www.nannytax.co.uk/news/how-much-does-a-part-time-nanny-cost-2026",
+      },
+      {
+        label: "Bubble: nanny agencies in the UK, how they work and what they cost",
+        href: "https://joinbubble.com/nanny-agencies-uk-how-they-work-cost-choose",
+      },
     ],
   },
 };
