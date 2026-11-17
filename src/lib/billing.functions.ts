@@ -100,7 +100,9 @@ export const claimSubscription = createServerFn({ method: "POST" })
     if (result.status === "pending") return { status: "pending" as const, emailing };
     if (result.kind === "agency") {
       const { agencyOwnerSetupLink } = await import("./billing.server");
-      const setupLink = await agencyOwnerSetupLink(data.sessionId).catch(() => null);
+      // When email works the link was already sent in the welcome email; making another here
+      // would cancel that one, so the page points to the inbox instead.
+      const setupLink = emailing ? null : await agencyOwnerSetupLink(data.sessionId).catch(() => null);
       return {
         status: "ready" as const,
         kind: "agency" as const,

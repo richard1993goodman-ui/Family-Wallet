@@ -388,7 +388,10 @@ async function provisionAgency({
 
   const details = { agencyName, plan, allowance, contactEmail: email ?? CONTACT_EMAIL };
   if (email) {
-    const message = buildAgencyWelcomeEmail(details);
+    // The login link goes in the welcome email so the agency can set up later, even after
+    // closing the confirmation page.
+    const setupLink = await agencyOwnerSetupLink(sessionId).catch(() => null);
+    const message = buildAgencyWelcomeEmail({ ...details, setupLink });
     await sendEmail({ to: email, ...message });
   }
   // The owner has to create the agency's staff login, so they hear about it the same moment.

@@ -81,6 +81,14 @@ function Subscribed() {
                 </a>
               </Button>
             </>
+          ) : result.emailing ? (
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+              We have emailed your login setup link. Open it to choose a password and link an
+              authenticator app. Already set up?{" "}
+              <Link to="/auth" className="font-medium text-primary underline">
+                Sign in to your agency
+              </Link>
+            </p>
           ) : (
             <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
               Your login is already set up.{" "}

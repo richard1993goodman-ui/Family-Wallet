@@ -11,6 +11,8 @@ export type AgencyEmailInput = {
   plan: string;
   allowance: number;
   contactEmail: string;
+  /** One-time link to create the agency login; null when it could not be made. */
+  setupLink?: string | null;
 };
 
 export function buildAgencyWelcomeEmail({
@@ -18,14 +20,19 @@ export function buildAgencyWelcomeEmail({
   plan,
   allowance,
   contactEmail,
+  setupLink,
 }: AgencyEmailInput) {
+  const step1 = setupLink
+    ? `Set up your agency login (choose a password and link an authenticator app): ${setupLink}`
+    : `We email you a setup link for your agency login. It goes to ${contactEmail}.`;
   const subject = "Your Family Wallet agency account is set up";
   const text = `Hi ${agencyName},
 
 Your ${plan} subscription is paid and your agency account is created with room for ${allowance} household seats.
 
 What happens next:
-1. We email you a setup link for your agency login. It goes to ${contactEmail}.
+1. ${step1}
+This link works once. If it has expired, use "Forgot password" at the sign-in page with this email.
 2. You sign in and see your numbered household seats.
 3. You invite your families by email. Each one creates its own private wallet, which you never see.
 
@@ -39,7 +46,11 @@ ${CONTACT_EMAIL}`;
 <p>Your <strong>${escapeHtml(plan)}</strong> subscription is paid and your agency account is created with room for <strong>${allowance} household seats</strong>.</p>
 <p><strong>What happens next</strong></p>
 <ol>
-  <li>We email you a setup link for your agency login. It goes to ${escapeHtml(contactEmail)}.</li>
+  <li>${
+    setupLink
+      ? `<a href="${escapeHtml(setupLink)}" style="color:#1f4a3a;font-weight:600">Set up your agency login</a>: choose a password and link an authenticator app. The link works once; if it has expired, use "Forgot password" on the sign-in page with this email.`
+      : `We email you a setup link for your agency login. It goes to ${escapeHtml(contactEmail)}.`
+  }</li>
   <li>You sign in and see your numbered household seats.</li>
   <li>You invite your families by email. Each one creates its own private wallet, which you never see.</li>
 </ol>
