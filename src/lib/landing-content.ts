@@ -240,9 +240,9 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
           caption: "Agency plans, billed monthly",
           head: ["Plan", "Price", "Household seats included"],
           rows: [
-            ["Partner", "£39 a month", "10"],
-            ["Growth", "£119 a month", "50"],
-            ["Scale", "£199 a month", "100"],
+            ["Partner", "£59 a month", "10"],
+            ["Growth", "£179 a month", "50"],
+            ["Scale", "£299 a month", "100"],
             ["Enterprise", "Talk to us", "100 and over"],
           ],
         },

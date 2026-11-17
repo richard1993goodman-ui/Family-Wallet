@@ -136,7 +136,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Growth",
-    monthly: 119,
+    monthly: 179,
     who: "Make it part of your membership.",
     lead: "Everything in Partner, plus",
     features: [{ text: "50 household seats" }],
@@ -145,7 +145,7 @@ const agencies: Tier[] = [
   },
   {
     name: "Scale",
-    monthly: 199,
+    monthly: 299,
     who: "A growing client base across a team.",
     lead: "Everything in Growth, plus",
     features: [{ text: "100 household seats" }],
@@ -236,7 +236,7 @@ function TierDetails({ groups }: { groups: Group[] }) {
 const payOptions = [
   {
     title: "You include it in the membership",
-    body: "You pay for household seats. At Growth with 40 families that is about £3 a family a month, a small part of a £50 membership.",
+    body: "You pay for household seats. At Growth with 40 families that is about £4.50 a family a month, a small part of a £50 membership.",
   },
   {
     title: "You resell it",

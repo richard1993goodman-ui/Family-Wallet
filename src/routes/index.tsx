@@ -402,7 +402,7 @@ function Index() {
               </h2>
               <p className="mt-6 flex items-baseline gap-2">
                 <span className="text-muted-foreground">from</span>
-                <span className="heading-serif text-5xl text-foreground">£39</span>
+                <span className="heading-serif text-5xl text-foreground">£59</span>
                 <span className="text-muted-foreground">a month</span>
               </p>
               <p className="mt-1 text-muted-foreground">
