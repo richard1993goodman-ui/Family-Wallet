@@ -131,9 +131,8 @@ function DownloadPage() {
           )}
 
           <p className="mx-auto mt-12 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Given a code by your agency? Download the app, create your account, then enter the code
-            when you set up your household. Invited by a family? Download the app and enter the
-            invite code they sent you.
+            Given a code by your agency or by a family? Download the app, create your account, then
+            tap “I have a code from a family or agency” and type the code you were sent.
           </p>
         </div>
       </main>
