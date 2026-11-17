@@ -207,7 +207,7 @@ export const LANDING: Record<"nanny" | "staff" | "agencies" | "compare", PageCon
     path: "/for-agencies",
     title: "Family App for Nanny Agencies | Family Wallet",
     description:
-      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £39 a month, nannies free.",
+      "Give every client family a private wallet. Buy household seats and send them to parents and nannies by email; families own their information. Plans from £59 a month, nannies free.",
     h1: "Give every family you place a private wallet",
     intro:
       "Your families remember how the first month went. Family Wallet gives them a private place for the agreement, the week and the daily log. You buy household seats and send each one to a parent and nanny by email. Families own their wallets, so you never see their information.",

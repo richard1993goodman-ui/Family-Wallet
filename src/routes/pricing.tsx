@@ -124,7 +124,7 @@ const families: Tier[] = [
 const agencies: Tier[] = [
   {
     name: "Partner",
-    monthly: 39,
+    monthly: 59,
     who: "Give your first families a wallet.",
     features: [
       { text: "10 household seats" },
