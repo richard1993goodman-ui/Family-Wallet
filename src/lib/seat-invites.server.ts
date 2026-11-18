@@ -167,18 +167,23 @@ async function emailContinuation(slug: string, to: string, familyName: string, a
   const { siteUrl, CONTACT_EMAIL } = await import("./site");
   const url = siteUrl(`/continue/${slug}`);
   const until = endsAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const support = process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL;
+  // Three choices, stated plainly (decided 17 Nov 2026). Choosing delete is confirmed on the page, not by this email.
   const text = `Hello ${familyName},
 
-Your agency-funded Family Wallet access, provided by ${agencyName}, is coming to an end.
+Your Family Wallet was funded by ${agencyName}, and that funding is ending. You keep full access until ${until}. Before then, choose one of these:
 
-The good news is that you can continue using Family Wallet independently by taking out your own subscription. Keep your household information, nanny details, agreements, documents and everything you've already set up in one secure place. Nothing is lost and you don't need to set anything up again.
+1. Keep it: subscribe to the Family plan, £9.99 a month or £99.99 a year. Everything you have added stays as it is.
+   ${url}
 
-You keep full access until ${until}. To continue, choose your plan here:
-${url}
+2. Delete it: remove all your data. This can be done on the same page. Nothing is deleted until you confirm it there, and your data is then deleted 30 days later, unless you download it first.
+   ${url}
 
-Questions? ${process.env["EMAIL_REPLY_TO"] || CONTACT_EMAIL}`;
-  const html = `<p>Hello ${familyName},</p><p>Your agency-funded Family Wallet access, provided by ${agencyName}, is coming to an end.</p><p>The good news is that you can continue using Family Wallet independently by taking out your own subscription. Keep your household information, nanny details, agreements, documents and everything you've already set up in one secure place. Nothing is lost and you don't need to set anything up again.</p><p>You keep full access until <strong>${until}</strong>.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Continue with Family Wallet</a></p>`;
-  return sendEmail({ to, subject: "Keep your Family Wallet: choose how to continue", html, text });
+If you do nothing, your wallet is locked on ${until}. It is then deleted 30 days after that, and you will get reminders on the way.
+
+Questions? ${support}`;
+  const html = `<p>Hello ${familyName},</p><p>Your Family Wallet was funded by <strong>${agencyName}</strong>, and that funding is ending. You keep full access until <strong>${until}</strong>. Before then, choose one of these:</p><p><strong>1. Keep it:</strong> subscribe to the Family plan, £9.99 a month or £99.99 a year. Everything you have added stays as it is.</p><p><a href="${url}" style="display:inline-block;background:#1a382b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none">Keep my Family Wallet</a></p><p><strong>2. Delete it:</strong> remove all your data. This is done on the same page. Nothing is deleted until you confirm it there, and your data is then deleted 30 days later, unless you download it first.</p><p><a href="${url}" style="display:inline-block;color:#1a382b;padding:10px 0">Go to my choices</a></p><p>If you do nothing, your wallet is locked on <strong>${until}</strong>. It is then deleted 30 days after that, and you will get reminders on the way.</p><p>Questions? <a href="mailto:${support}">${support}</a></p>`;
+  return sendEmail({ to, subject: "Your Family Wallet: keep it or delete your data", html, text });
 }
 
 /**

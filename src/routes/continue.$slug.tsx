@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { getContinuationFn } from "@/lib/billing.functions";
 import { PLANS, type Interval, type PlanId } from "@/lib/billing.config";
 import { unlockWallet } from "@/lib/wallet.functions";
+import { requestDeletionFn } from "@/lib/lifecycle.functions";
 
 export const Route = createFileRoute("/continue/$slug")({
   head: () => ({ meta: [{ title: "Continue with Family Wallet" }, { name: "robots", content: "noindex" }] }),
@@ -30,6 +31,25 @@ function ContinuePage() {
   const [busy, setBusy] = useState(false);
   const [interval, setInterval] = useState<Interval>("month");
   const [plan, setPlan] = useState<PlanId | null>(null);
+  const deleteFn = useServerFn(requestDeletionFn);
+  const [typedName, setTypedName] = useState("");
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteOn, setDeleteOn] = useState<string | null>(null);
+
+  // Delete all data (decided 17 Nov 2026): the family types its name to confirm. The wallet is then locked and its
+  // data is deleted 30 days later, unless it is downloaded first.
+  const requestDelete = async () => {
+    setBusy(true);
+    try {
+      const result = await deleteFn({ data: { slug, confirmName: typedName } });
+      setDeleteOn(result?.deleteAfter ?? null);
+      await client.invalidateQueries({ queryKey: ["continuation", slug] });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't start that. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const open = async () => {
     setBusy(true);
@@ -91,6 +111,25 @@ function ContinuePage() {
               <StripeEmbeddedCheckout key={`${plan}-${interval}`} plan={plan} interval={interval} continueSlug={slug} />
             </div>
           )}
+          <div className="mt-8 rounded-2xl bg-card p-6 shadow-sm">
+            <p className="font-medium text-foreground">Or delete all your data</p>
+            {deleteOn ? (
+              <p className="mt-2 text-sm text-muted-foreground">
+                Your wallet is locked and will be deleted on {formatDate(deleteOn, { day: "numeric", month: "long", year: "numeric" })}. You can download your data until then.
+              </p>
+            ) : !deleteOpen ? (
+              <>
+                <p className="mt-2 text-sm text-muted-foreground">Your wallet is locked straight away. You have 30 days to download a copy of your data, then it is permanently deleted.</p>
+                <Button variant="outline" className="mt-3 w-full" onClick={() => setDeleteOpen(true)}>Delete all my data</Button>
+              </>
+            ) : (
+              <>
+                <p className="mt-2 text-sm text-muted-foreground">Type your family name exactly as it appears, to confirm.</p>
+                <Input className="mt-3 h-12" value={typedName} placeholder="Family name" onChange={(e) => setTypedName(e.target.value)} />
+                <Button className="mt-3 w-full" variant="destructive" disabled={busy || typedName.trim().length === 0} onClick={requestDelete}>Confirm: delete all my data</Button>
+              </>
+            )}
+          </div>
           <p className="mt-6 text-xs text-muted-foreground">You won't be charged unless you complete payment here.</p>
         </>
       )}

@@ -6,7 +6,7 @@
 
 export const EXPORT_WINDOW_DAYS = 30;
 /** Days after locking on which a reminder email goes out. The last one is the final warning. */
-export const REMINDER_DAYS = [0, 14, 25, 29] as const;
+export const REMINDER_DAYS = [0, 7, 14, 25, 29] as const;
 export type ReminderDay = (typeof REMINDER_DAYS)[number];
 export const FINAL_REMINDER: ReminderDay = 29;
 

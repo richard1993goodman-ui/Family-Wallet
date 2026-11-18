@@ -19,7 +19,7 @@ export const PLANS: Record<
     name: "Family Wallet: Family",
     description:
       "A private wallet for your household with unlimited staff, every feature in the app and dedicated customer support by email.",
-    pence: { month: 1999, year: 19900 },
+    pence: { month: 1999, year: 9999 },
   },
   agency_partner: {
     name: "Family Wallet: Agency Partner",

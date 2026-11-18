@@ -30,16 +30,17 @@ describe("the 30-day window", () => {
 });
 
 describe("reminders", () => {
-  it("sends the lock notice straight away, then on days 14, 25 and the day before deletion", () => {
-    expect(REMINDER_DAYS).toEqual([0, 14, 25, 29]);
+  it("sends the lock notice straight away, then on days 7, 14, 25 and the day before deletion", () => {
+    expect(REMINDER_DAYS).toEqual([0, 7, 14, 25, 29]);
     expect(dueReminder(locked, locked, [])).toBe(0);
-    expect(dueReminder(addDays(locked, 13), locked, [0])).toBeNull();
-    expect(dueReminder(addDays(locked, 14), locked, [0])).toBe(14);
+    expect(dueReminder(addDays(locked, 13), locked, [0, 7])).toBeNull();
+    expect(dueReminder(addDays(locked, 7), locked, [0])).toBe(7);
+    expect(dueReminder(addDays(locked, 14), locked, [0, 7])).toBe(14);
     expect(dueReminder(addDays(locked, 25), locked, [0, 14])).toBe(25);
     expect(dueReminder(addDays(locked, 29), locked, [0, 14, 25])).toBe(FINAL_REMINDER);
   });
   it("sends one reminder at a time and never repeats one", () => {
-    expect(dueReminder(addDays(locked, 14), locked, [0, 14])).toBeNull();
+    expect(dueReminder(addDays(locked, 14), locked, [0, 7, 14])).toBeNull();
   });
   it("after a missed run, sends only the most recent reminder due, not a burst", () => {
     expect(dueReminder(addDays(locked, 26), locked, [])).toBe(25);
