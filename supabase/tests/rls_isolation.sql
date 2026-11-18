@@ -1287,5 +1287,122 @@ begin
     end;
   end;
 
+  -- Account deletion (18 Nov): only the owner closes a household, and only with its name; a login can be deleted by
+  -- its own person, never while they own an open household; the household's own records stay behind.
+  declare
+    u_own uuid := gen_random_uuid(); u_co uuid := gen_random_uuid(); u_st uuid := gen_random_uuid(); u_new uuid := gen_random_uuid();
+    p_own uuid := gen_random_uuid(); p_co uuid := gen_random_uuid(); p_st uuid := gen_random_uuid(); p_new uuid := gen_random_uuid();
+    fam_d uuid := gen_random_uuid(); fam_new uuid := gen_random_uuid(); nan_d uuid := gen_random_uuid();
+    gone timestamptz;
+  begin
+    insert into auth.users (id, email, aud, role) values
+      (u_own, 'del-own@test.invalid', 'authenticated', 'authenticated'), (u_co, 'del-co@test.invalid', 'authenticated', 'authenticated'),
+      (u_st, 'del-st@test.invalid', 'authenticated', 'authenticated'), (u_new, 'del-new@test.invalid', 'authenticated', 'authenticated');
+    insert into people (id, user_id, display_name) values (p_own, u_own, 'Del Owner'), (p_co, u_co, 'Del Co'), (p_st, u_st, 'Del Staff'), (p_new, u_new, 'Del New');
+    insert into families (id, slug, family_name, access_code_hash) values (fam_d, 'test-d-' || substr(fam_d::text, 1, 6), 'The Delete Family', 'x');
+    insert into families (id, slug, family_name, access_code_hash, status) values (fam_new, 'test-n-' || substr(fam_new::text, 1, 6), 'Setting Up', 'x', 'onboarding');
+    insert into family_nannies (id, family_id, name) values (nan_d, fam_d, 'Del Staff');
+    insert into household_members (family_id, person_id, role, nanny_id, status) values
+      (fam_d, p_own, 'owner', null, 'active'), (fam_d, p_co, 'co_parent', null, 'active'), (fam_d, p_st, 'staff', nan_d, 'active'),
+      (fam_new, p_new, 'owner', null, 'active');
+
+    -- A co-parent, a staff member and an outsider cannot close the household, even with the right name.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_co, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform request_household_deletion(fam_d, 'The Delete Family'); raise exception 'FAIL a co-parent closed the household';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_st, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform request_household_deletion(fam_d, 'The Delete Family'); raise exception 'FAIL a staff member closed the household';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    if household_closing(fam_d) is not null then raise exception 'FAIL an open household was reported as closing'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform request_household_deletion(fam_d, 'The Delete Family'); raise exception 'FAIL an outsider closed the household';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    reset role;
+
+    -- The owner: the wrong name and an empty name are refused, and so is deleting the login while the household is open.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_own, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform request_household_deletion(fam_d, 'The Other Family'); raise exception 'FAIL the wrong family name closed the household';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin perform request_household_deletion(fam_d, '   '); raise exception 'FAIL an empty name closed the household';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin perform delete_my_account(); raise exception 'FAIL an owner deleted their login with the household still open';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    -- The right name, whatever its capitals and spacing: the household locks and gets its date, about 30 days away.
+    gone := request_household_deletion(fam_d, '  the delete   FAMILY ');
+    reset role;
+    select count(*) into n from families where id = fam_d and status = 'cancelled' and locked_at is not null
+      and delete_after between now() + interval '29 days' and now() + interval '31 days';
+    if n <> 1 or gone is null then raise exception 'FAIL the closed household has no lock or delete date'; end if;
+    select count(*) into n from audit_log where family_id = fam_d and action = 'deletion_requested';
+    if n <> 1 then raise exception 'FAIL closing the household was not logged once: %', n; end if;
+    select count(*) into n from people where id in (p_own, p_co, p_st);
+    if n <> 3 then raise exception 'FAIL closing the household removed a login: %', n; end if;
+
+    -- Its people can see the date; an outsider cannot.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_st, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if household_closing(fam_d) is null then raise exception 'FAIL staff cannot see that their household is closing'; end if;
+    reset role;
+    perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    if household_closing(fam_d) is not null then raise exception 'FAIL an outsider can see a household is closing'; end if;
+    reset role;
+
+    -- A staff member deletes her login: she is gone, her staff profile and the household stay.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_st, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform delete_my_account();
+    reset role;
+    select (select count(*) from auth.users where id = u_st) + (select count(*) from people where id = p_st)
+         + (select count(*) from household_members where family_id = fam_d and nanny_id = nan_d) into n;
+    if n <> 0 then raise exception 'FAIL a deleted staff login left something behind: %', n; end if;
+    select (select count(*) from family_nannies where id = nan_d) + (select count(*) from families where id = fam_d) into n;
+    if n <> 2 then raise exception 'FAIL deleting a staff login removed the household''s own records: %', n; end if;
+
+    -- A co-parent deletes theirs: the owner and the household are untouched.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_co, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform delete_my_account();
+    reset role;
+    select (select count(*) from auth.users where id = u_co) + (select count(*) from people where id = p_co) into n;
+    if n <> 0 then raise exception 'FAIL a deleted co-parent login left something behind: %', n; end if;
+    select count(*) into n from household_members where family_id = fam_d and person_id = p_own and role = 'owner' and status = 'active';
+    if n <> 1 then raise exception 'FAIL deleting a co-parent login disturbed the owner: %', n; end if;
+
+    -- The owner may delete their login now the household is closing. The household waits for its date.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_own, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    perform delete_my_account();
+    reset role;
+    select (select count(*) from auth.users where id = u_own) + (select count(*) from people where id = p_own) into n;
+    if n <> 0 then raise exception 'FAIL a deleted owner login left something behind: %', n; end if;
+    select count(*) into n from families where id = fam_d and status = 'cancelled';
+    if n <> 1 then raise exception 'FAIL deleting the owner''s login deleted or reopened the closing household: %', n; end if;
+    select count(*) into n from audit_log where action = 'account_deleted' and actor_id in (p_own::text, p_co::text, p_st::text);
+    if n <> 3 then raise exception 'FAIL the three deleted logins were not each logged once: %', n; end if;
+
+    -- A household still being set up cannot be "closed"; it goes with its owner's login, and that is recorded.
+    perform set_config('request.jwt.claims', json_build_object('sub', u_new, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    begin perform request_household_deletion(fam_new, 'Setting Up'); raise exception 'FAIL a household still being set up was closed';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    perform delete_my_account();
+    reset role;
+    select (select count(*) from auth.users where id = u_new) + (select count(*) from people where id = p_new)
+         + (select count(*) from families where id = fam_new) into n;
+    if n <> 0 then raise exception 'FAIL deleting a login during set-up left something behind: %', n; end if;
+    select count(*) into n from deleted_households where family_id = fam_new;
+    if n <> 1 then raise exception 'FAIL the set-up household''s deletion was not recorded: %', n; end if;
+    -- The other households in this test were never touched.
+    select count(*) into n from families where id in (fam_a, fam_b) and status = 'active';
+    if n <> 2 then raise exception 'FAIL account deletion disturbed another household: %', n; end if;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
