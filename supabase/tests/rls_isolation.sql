@@ -1404,5 +1404,60 @@ begin
     if n <> 2 then raise exception 'FAIL account deletion disturbed another household: %', n; end if;
   end;
 
+  -- Mileage (18 Nov): a staff member sees their own journeys (in each household they work for), a parent sees the
+  -- household's, anyone else none. Staff log only for themselves, and only as pending. Only a parent approves or declines
+  -- (review_mileage), and a journey is never changed directly.
+  declare
+    mil_a1 uuid := gen_random_uuid(); mil_a2 uuid := gen_random_uuid(); mil_b1 uuid := gen_random_uuid();
+    ok_rows int;
+  begin
+    insert into mileage_claims (id, family_id, nanny_id, trip_date, miles, purpose, status, submitted_by) values
+      (mil_a1, fam_a, nan_a1, '2026-11-02', 12.5, 'Club run', 'approved', 'nanny'),
+      (mil_a2, fam_a, nan_a2, '2026-11-03', 7, 'School run', 'pending', 'nanny'),
+      (mil_b1, fam_b, nan_b1, '2026-11-04', 3, 'Shop', 'approved', 'nanny');
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from mileage_claims; if n <> 2 then raise exception 'FAIL owner A journeys: % (want 2)', n; end if;
+    select count(*) into n from mileage_claims where family_id = fam_b; if n <> 0 then raise exception 'FAIL owner A sees family B journeys'; end if;
+    perform review_mileage(mil_a2, 'approved');
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_pat, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from mileage_claims; if n <> 2 then raise exception 'FAIL Pat journeys: % (want her own two)', n; end if;
+    select count(*) into n from mileage_claims where nanny_id = nan_a2; if n <> 0 then raise exception 'FAIL Pat sees Lee''s journey'; end if;
+    begin
+      insert into mileage_claims (family_id, nanny_id, miles, purpose, submitted_by) values (fam_a, nan_a2, 4, 'x', 'nanny');
+      raise exception 'FAIL Pat logged a journey for Lee';
+    exception when others then
+      if sqlerrm like 'FAIL%' then raise; end if;
+    end;
+    begin
+      perform review_mileage(mil_a2, 'declined');
+      raise exception 'FAIL Pat reviewed a journey';
+    exception when others then
+      if sqlerrm like 'FAIL%' then raise; end if;
+    end;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_lee, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from mileage_claims; if n <> 1 then raise exception 'FAIL Lee journeys: % (want her own one)', n; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', u_out, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    select count(*) into n from mileage_claims; if n <> 0 then raise exception 'FAIL outsider sees journeys: %', n; end if;
+    reset role;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', uo_a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+    update mileage_claims set miles = 99 where id = mil_a1;
+    get diagnostics ok_rows = row_count;
+    if ok_rows <> 0 then raise exception 'FAIL a parent changed a journey directly'; end if;
+    reset role;
+  end;
+
   raise exception 'ISOLATION_TEST_PASSED: owners, multi-household staff, other staff, outsiders, ended members, anonymous and writes all behaved';
 end $$;
