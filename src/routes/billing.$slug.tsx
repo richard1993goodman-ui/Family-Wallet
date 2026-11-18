@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Card, HubPage, PageLoading } from "@/components/hub-ui";
 import { StripeEmbeddedCheckout } from "@/components/StripeEmbeddedCheckout";
 import { Button } from "@/components/ui/button";
-import type { Interval, PlanId } from "@/lib/billing.config";
+import { PLANS, type Interval, type PlanId } from "@/lib/billing.config";
 import { confirmWalletPaymentFn, getBillingFn } from "@/lib/billing.functions";
 import { getStripeEnvironment, paymentsConfigured } from "@/lib/stripe";
 
@@ -36,7 +36,10 @@ export const Route = createFileRoute("/billing/$slug")({
 
 const PLAN_NAMES: Record<string, string> = { family: "Family" };
 const PRICES: Record<"family", Record<Interval, string>> = {
-  family: { month: "£19.99 a month", year: "£199 a year" },
+  family: {
+    month: `£${(PLANS.family.pence.month / 100).toFixed(2)} a month`,
+    year: `£${(PLANS.family.pence.year / 100).toFixed(2)} a year`,
+  },
 };
 
 function BillingPage() {
